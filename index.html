@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Algor Brasil - Association for Algorithmization and Logic Governance Organization. Inteligência Artificial com Governança e Ética.">
+    <meta name="keywords"
+        content="Governança de IA, Inteligência Artificial, Ética em IA, LGPD, PL 2338, Auditoria de Algoritmos">
+    <title>Algor Brasil - Governança de IA com Ética</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#1A120B',
+                            panel: '#2C221E',
+                            copper: '#B87333',
+                            gold: '#E5C185',
+                            text: '#F3E5DC',
+                            black: '#000000',
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['"Orbitron"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A120B;
+            color: #F3E5DC;
+        }
+
+        .glass-header {
+            background: rgba(26, 18, 11, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(184, 115, 51, 0.2);
+        }
+
+        .hero-overlay {
+            background: rgba(26, 18, 11, 0.7);
+        }
+
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -12px rgba(184, 115, 51, 0.3);
+        }
+
+        .btn-copper {
+            transition: all 0.3s ease;
+        }
+
+        .btn-copper:hover {
+            background: #A0632B;
+            box-shadow: 0 10px 30px rgba(184, 115, 51, 0.4);
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass-header">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="images/algor_association_logo_light.png" alt="Algor Brasil Logo" class="h-44 w-auto">
+                </div>
+
+                <div class="hidden lg:flex items-center space-x-10">
+                    <a href="#inicio"
+                        class="text-brand-text hover:text-brand-copper transition-colors font-medium">Início</a>
+                    <a href="#atuacao"
+                        class="text-brand-text hover:text-brand-copper transition-colors font-medium">Atuação</a>
+                    <a href="#quem-somos"
+                        class="text-brand-text hover:text-brand-copper transition-colors font-medium">Quem Somos</a>
+                    <a href="#conteudo"
+                        class="text-brand-text hover:text-brand-copper transition-colors font-medium">Conteúdo</a>
+                </div>
+
+                <div class="hidden lg:block">
+                    <a href="associe-se.html"
+                        class="border-2 border-brand-copper text-brand-copper hover:bg-brand-copper hover:text-white px-8 py-3 rounded-full font-bold transition-all hover:scale-105 inline-block">
+                        ÁREA DO MEMBRO
+                    </a>
+                </div>
+
+                <button id="mobile-menu-btn" class="lg:hidden focus:outline-none text-brand-copper">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="mobile-menu" class="hidden lg:hidden mt-6 pb-4 space-y-4 border-t border-brand-copper/20 pt-6">
+                <a href="#inicio"
+                    class="block text-brand-text hover:text-brand-copper transition-all pl-4 py-2">Início</a>
+                <a href="#atuacao"
+                    class="block text-brand-text hover:text-brand-copper transition-all pl-4 py-2">Atuação</a>
+                <a href="#quem-somos"
+                    class="block text-brand-text hover:text-brand-copper transition-all pl-4 py-2">Quem Somos</a>
+                <a href="#conteudo"
+                    class="block text-brand-text hover:text-brand-copper transition-all pl-4 py-2">Conteúdo</a>
+                <a href="associe-se.html"
+                    class="block border-2 border-brand-copper text-brand-copper px-6 py-3 rounded-full font-bold text-center mt-4">
+                    ÁREA DO MEMBRO
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="images/hero-bg.jpg" alt="Background" class="w-full h-full object-cover"
+                onerror="this.src='https://placehold.co/1920x1080/2C221E/B87333?text=AI+Governance+Background';">
+            <div class="hero-overlay absolute inset-0"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10 pt-24">
+            <div class="max-w-5xl mx-auto text-center fade-in-up">
+
+                <h1 class="font-orbitron font-black mb-8 leading-tight tracking-tight">
+                    <span class="block text-4xl md:text-6xl lg:text-7xl text-brand-gold">INTELIGÊNCIA ARTIFICIAL</span>
+                    <span class="block text-2xl md:text-4xl lg:text-5xl text-brand-text mt-2">COM</span>
+                    <span class="block text-4xl md:text-6xl lg:text-7xl text-brand-text mt-2">GOVERNANÇA E ÉTICA</span>
+                </h1>
+
+                <p class="text-lg md:text-xl lg:text-2xl mb-12 text-brand-text leading-relaxed max-w-3xl mx-auto">
+                    Uma associação dedicada à ética, segurança e regulação da Inteligência Artificial no Brasil
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                    <a href="associe-se.html"
+                        class="bg-brand-copper hover:bg-opacity-90 px-12 py-5 rounded-full font-bold text-brand-text shadow-2xl hover:shadow-brand-copper/50 hover:scale-105 transition-all text-lg btn-copper">
+                        Associe-se Agora
+                    </a>
+                    <a href="#conteudo"
+                        class="border-2 border-brand-copper text-brand-copper hover:bg-brand-copper hover:text-white px-12 py-5 rounded-full font-bold transition-all text-lg">
+                        Explore Nosso Conteúdo
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-brand-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Como Atuamos Section -->
+    <section id="atuacao" class="py-24 bg-brand-panel relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-10 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-copper rounded-full blur-3xl"></div>
+            <div class="absolute top-1/2 right-0 w-64 h-64 bg-brand-gold rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-orbitron font-black text-brand-gold mb-6">
+                    COMO ATUAMOS
+                </h2>
+                <p class="text-xl text-brand-text/80 max-w-3xl mx-auto leading-relaxed">
+                    Soluções completas para garantir a conformidade e a ética em seus projetos de IA
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-brand-bg rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-bg to-transparent z-10"></div>
+                        <img src="images/consultoria_governance.png" alt="Consultoria"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 relative z-20 -mt-12">
+                        <div
+                            class="w-16 h-16 bg-brand-copper rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto">
+                            <svg class="w-8 h-8 text-brand-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4 text-center">Consultoria
+                            Estratégica</h3>
+                        <p class="text-brand-text/70 text-center leading-relaxed mb-6">
+                            Frameworks de governança personalizados para sua empresa, alinhados com as melhores práticas
+                            globais e a LGPD.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-brand-bg rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-bg to-transparent z-10"></div>
+                        <img src="images/auditoria_algorithms.png" alt="Auditoria"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 relative z-20 -mt-12">
+                        <div
+                            class="w-16 h-16 bg-brand-copper rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto">
+                            <svg class="w-8 h-8 text-brand-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4 text-center">Auditoria de
+                            Algoritmos</h3>
+                        <p class="text-brand-text/70 text-center leading-relaxed mb-6">
+                            Análise técnica rigorosa para identificar vieses, falhas de segurança e garantir a
+                            explicabilidade dos seus modelos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-brand-bg rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 group">
+                    <div class="h-64 overflow-hidden relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-bg to-transparent z-10"></div>
+                        <img src="images/grupos_estudo.png" alt="Grupos de Estudo"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 relative z-20 -mt-12">
+                        <div
+                            class="w-16 h-16 bg-brand-copper rounded-2xl flex items-center justify-center mb-6 shadow-lg mx-auto">
+                            <svg class="w-8 h-8 text-brand-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4 text-center">Grupos de Estudo
+                        </h3>
+                        <p class="text-brand-text/70 text-center leading-relaxed mb-6">
+                            Capacitação contínua e networking com especialistas para liderar a transformação ética da IA
+                            no Brasil.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossos Membros Section -->
+    <section id="quem-somos" class="py-24 bg-brand-bg relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-orbitron font-black text-brand-gold mb-6">
+                    NOSSOS MEMBROS
+                </h2>
+                <p class="text-xl text-brand-text/80 max-w-3xl mx-auto leading-relaxed">
+                    Conheça os especialistas que estão construindo o futuro da governança de IA
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+                <!-- Membro 1 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_01_paulo_carvalho.webp" alt="Paulo Carvalho"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Paulo Carvalho</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Fundador</p>
+                    </div>
+                </div>
+
+                <!-- Membro 2 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_02_orlando_pavani.webp" alt="Orlando Pavani"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Orlando Pavani</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Coordenador Nacional</p>
+                    </div>
+                </div>
+
+                <!-- Membro 3 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_03_jesus_silva.webp" alt="Jesus Silva"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Jesus Silva</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Gestor Regional - Brasília</p>
+                    </div>
+                </div>
+
+                <!-- Membro 4 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_04_gervasio_albuquerque.png" alt="Gervasio Albuquerque"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Gervasio Albuquerque</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 5 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_05_carlos_coan.webp" alt="Carlos Coan"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Carlos Coan</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 6 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_06_evaldo_reinas.webp" alt="Evaldo Reinas"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Evaldo Reinas</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 7 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_07_fabio_ban.webp" alt="Fabio Ban"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Fabio Ban</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 8 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_08_jose_ricardo.webp" alt="José Ricardo"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">José Ricardo</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 9 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_09_jarison_melo.webp" alt="Jarison Melo"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Jarison Melo</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 10 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_10_marci_dantas.webp" alt="Marci Dantas"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Marci Dantas</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+                <!-- Membro 11 -->
+                <div
+                    class="bg-brand-panel rounded-2xl overflow-hidden border border-brand-copper/20 hover:border-brand-gold transition-all hover:-translate-y-2 duration-300 group">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="images/membro_11_edisio_nascimento.webp" alt="Edisio Nascimento"
+                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                    </div>
+                    <div class="p-6 text-center">
+                        <h3 class="text-xl font-orbitron font-bold text-brand-gold mb-1">Edisio Nascimento</h3>
+                        <p class="text-brand-text/60 text-sm uppercase tracking-wider">Membro Associado</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Nosso Conhecimento Section -->
+    <section id="conteudo" class="py-24 bg-brand-panel">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20">
+                    <h2 class="text-4xl md:text-6xl font-orbitron font-black text-brand-gold mb-6">
+                        NOSSO CONHECIMENTO
+                    </h2>
+                    <p class="text-xl text-brand-text/80 max-w-3xl mx-auto leading-relaxed">
+                        Artigos, análises e insights sobre regulamentação, compliance e tendências em
+                        Inteligência
+                        Artificial
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+
+                    <article
+                        class="bg-brand-panel rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 text-center">
+                        <div
+                            class="h-48 bg-gradient-to-br from-brand-copper to-brand-gold flex items-center justify-center">
+                            <span class="text-white font-orbitron font-bold text-3xl">PL 2338</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center gap-3 mb-4 justify-center">
+                                <span
+                                    class="px-4 py-1 bg-brand-copper text-white text-xs font-bold rounded-full">Regulamentação</span>
+                                <span class="text-sm text-brand-text/50">Nov 2024</span>
+                            </div>
+                            <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4">PL 2338: IMPACTOS
+                                NA IA
+                            </h3>
+                            <p class="text-brand-text/70 mb-6 leading-relaxed">
+                                Análise completa do Projeto de Lei 2338 e seus impactos na regulamentação de IA
+                                no
+                                Brasil.
+                            </p>
+                            <a href="artigo-modelo.html"
+                                class="inline-flex items-center text-brand-copper font-bold hover:text-brand-gold transition-all">
+                                Leia mais
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article
+                        class="bg-brand-panel rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 text-center">
+                        <div
+                            class="h-48 bg-gradient-to-br from-brand-gold to-brand-copper flex items-center justify-center">
+                            <span class="text-white font-orbitron font-bold text-3xl">ÉTICA</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center gap-3 mb-4 justify-center">
+                                <span
+                                    class="px-4 py-1 bg-purple-600 text-white text-xs font-bold rounded-full">Ética</span>
+                                <span class="text-sm text-brand-text/50">Nov 2024</span>
+                            </div>
+                            <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4">DESAFIOS ÉTICOS NA
+                                IA
+                                GENERATIVA</h3>
+                            <p class="text-brand-text/70 mb-6 leading-relaxed">
+                                Os desafios únicos que a IA generativa apresenta para reguladores e
+                                desenvolvedores.
+                            </p>
+                            <a href="artigo-modelo.html"
+                                class="inline-flex items-center text-brand-copper font-bold hover:text-brand-gold transition-all">
+                                Leia mais
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article
+                        class="bg-brand-panel rounded-3xl overflow-hidden hover-lift border border-brand-copper/20 text-center">
+                        <div
+                            class="h-48 bg-gradient-to-br from-brand-panel to-brand-copper flex items-center justify-center">
+                            <span class="text-white font-orbitron font-bold text-3xl">LGPD</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex items-center gap-3 mb-4 justify-center">
+                                <span
+                                    class="px-4 py-1 bg-green-600 text-white text-xs font-bold rounded-full">Compliance</span>
+                                <span class="text-sm text-brand-text/50">Nov 2024</span>
+                            </div>
+                            <h3 class="text-2xl font-orbitron font-bold text-brand-gold mb-4">LGPD E IA:
+                                CONFORMIDADE
+                            </h3>
+                            <p class="text-brand-text/70 mb-6 leading-relaxed">
+                                Como garantir conformidade com a LGPD em sistemas de Inteligência Artificial.
+                            </p>
+                            <a href="artigo-modelo.html"
+                                class="inline-flex items-center text-brand-copper font-bold hover:text-brand-gold transition-all">
+                                Leia mais
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parceiros Section -->
+    <section id="parceiros" class="py-24 bg-brand-panel">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-orbitron font-black text-brand-gold mb-6">
+                        PARCEIROS E APOIO
+                    </h2>
+                    <p class="text-xl text-brand-text/80 max-w-3xl mx-auto leading-relaxed">
+                        Organizações que confiam em nossa expertise para governança responsável de IA
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 1</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 2</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 3</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 4</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 5</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="bg-brand-bg rounded-2xl p-8 flex items-center justify-center hover:bg-brand-copper/10 transition-all border border-brand-copper/20">
+                        <div class="w-32 h-24 bg-brand-copper/20 rounded-lg flex items-center justify-center">
+                            <span class="text-brand-copper font-bold text-sm">Parceiro 6</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-brand-text py-16">
+        <div class="container mx-auto px-6">
+
+            <div class="max-w-4xl mx-auto text-center mb-16 pb-16 border-b border-brand-copper/20">
+                <h3 class="text-3xl md:text-4xl font-orbitron font-bold text-brand-gold mb-4">
+                    ASSINE O ESTRATEGISTA DE IA
+                </h3>
+                <p class="text-brand-text/70 mb-8 text-lg">
+                    Receba insights exclusivos sobre governança de IA diretamente no seu e-mail
+                </p>
+                <form action="enviar-email.php" method="POST" class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                    <input type="hidden" name="tipo_formulario" value="newsletter">
+                    <input type="email" name="email" placeholder="Seu melhor e-mail" required
+                        class="flex-1 px-6 py-4 bg-brand-panel border-2 border-brand-copper/30 rounded-full text-brand-text placeholder-brand-text/50 focus:outline-none focus:border-brand-copper transition-all">
+                    <button type="submit"
+                        class="bg-brand-copper hover:bg-opacity-90 px-10 py-4 rounded-full font-bold text-brand-text shadow-xl hover:shadow-2xl hover:scale-105 transition-all btn-copper">
+                        Inscrever-se
+                    </button>
+                </form>
+            </div>
+
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <img src="images/algor_association_logo_light.png" alt="Algor Brasil Logo" class="h-20 w-auto">
+                    </div>
+                    <p class="text-brand-text/60 max-w-md leading-relaxed mb-2">
+                        <strong class="text-brand-gold">Algor Brasil - Governança de IA</strong>
+                    </p>
+                    <p class="text-brand-text/60 max-w-md leading-relaxed">
+                        Association for Algorithmization and Logic Governance Organization. Dedicada à governança ética,
+                        transparente e responsável de Inteligência Artificial no Brasil.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-6 text-lg text-brand-gold">Links Úteis</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio"
+                                class="text-brand-text/60 hover:text-brand-copper transition-colors">Home</a></li>
+                        <li><a href="#atuacao"
+                                class="text-brand-text/60 hover:text-brand-copper transition-colors">Atuação</a></li>
+                        <li><a href="#quem-somos"
+                                class="text-brand-text/60 hover:text-brand-copper transition-colors">Quem Somos</a></li>
+                        <li><a href="#conteudo"
+                                class="text-brand-text/60 hover:text-brand-copper transition-colors">Conteúdo</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-6 text-lg text-brand-gold">Conecte-se</h4>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-brand-panel rounded-full flex items-center justify-center hover:bg-brand-copper transition-all">
+                            <svg class="w-5 h-5 text-brand-copper hover:text-white" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-brand-panel rounded-full flex items-center justify-center hover:bg-brand-copper transition-all">
+                            <svg class="w-5 h-5 text-brand-copper hover:text-white" fill="currentColor"
+                                viewBox="0 0 24 24">
+                                <path
+                                    d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-brand-copper/20 pt-8 text-center">
+                <p class="text-brand-text/50">&copy; 2024 Algor Brasil - Association for Algorithmization and Logic
+                    Governance Organization. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

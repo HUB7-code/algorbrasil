@@ -1,0 +1,33 @@
+# Arquivos temporários
+*.backup
+*.backup2
+temp_restore/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Arquivos ZIP (já temos os arquivos extraídos)
+*.zip
+
+# Firebase (se não estiver usando)
+.firebase/
+.firebaserc
+firebase.json
+
+# Node modules (se houver)
+node_modules/
+
+# Arquivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos PHP (não funcionam no GitHub Pages)
+*.php
