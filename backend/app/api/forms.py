@@ -1,0 +1,59 @@
+from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
+from sqlalchemy.orm import Session
+from backend.app.db.session import get_db
+from backend.app.models.contact import ContactLog
+from backend.app.schemas_forms import NewsletterCreate, AssociationCreate
+
+router = APIRouter()
+
+# Simulação de envio de email
+def send_email_notification(to_email: str, subject: str):
+    # Futuro: Integrar com SendGrid/AWS SES
+    print(f"📧 [EMAIL MOCK] Enviando para {to_email}: {subject}")
+
+@router.post("/forms/newsletter")
+async def subscribe_newsletter(
+    data: NewsletterCreate, 
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    """
+    Cadastra email na Newsletter.
+    """
+    # 1. Salvar no Banco
+    contact = ContactLog(
+        email=data.email,
+        source="newsletter"
+    )
+    db.add(contact)
+    db.commit()
+    
+    # 2. Enviar Email (Background Task para não travar a req)
+    background_tasks.add_task(send_email_notification, data.email, "Bem-vindo à Algor Brasil!")
+    
+    return {"message": "Inscrição realizada com sucesso!"}
+
+@router.post("/forms/association")
+async def request_association(
+    data: AssociationCreate,
+    background_tasks: BackgroundTasks,
+    db: Session = Depends(get_db)
+):
+    """
+    Recebe pedido de associação.
+    """
+    contact = ContactLog(
+        name=data.nome,
+        email=data.email,
+        company=data.empresa,
+        role=data.cargo,
+        interest=data.interesse,
+        message=data.mensagem,
+        source="associacao"
+    )
+    db.add(contact)
+    db.commit()
+    
+    background_tasks.add_task(send_email_notification, "contato@algor.com", f"Nova Associação: {data.nome}")
+    
+    return {"message": "Solicitação enviada com sucesso! Entraremos em contato."}

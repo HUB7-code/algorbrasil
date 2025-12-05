@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Algor Brasil</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            bg: '#1A120B',
+                            panel: '#2C221E',
+                            copper: '#B87333',
+                            gold: '#E5C185',
+                            text: '#F3E5DC',
+                            black: '#000000',
+                        }
+                    },
+                    fontFamily: {
+                        orbitron: ['"Orbitron"', 'sans-serif'],
+                        sans: ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1A120B;
+            color: #F3E5DC;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center relative overflow-hidden">
+
+    <!-- Background Elements -->
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-copper rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-gold rounded-full blur-3xl"></div>
+    </div>
+
+    <div
+        class="w-full max-w-md p-8 bg-brand-panel/50 backdrop-blur-lg rounded-3xl border border-brand-copper/20 shadow-2xl relative z-10">
+        <div class="text-center mb-8">
+            <img src="images/algor_association_logo_light.png" alt="Algor Brasil" class="h-24 mx-auto mb-4">
+            <h1 class="text-2xl font-orbitron font-bold text-brand-gold">ÁREA DO MEMBRO</h1>
+            <p class="text-brand-text/60 text-sm mt-2">Acesse conteúdos exclusivos e ferramentas de governança</p>
+        </div>
+
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-brand-text/80 mb-2">E-mail</label>
+                <input type="email" id="email" required
+                    class="w-full px-4 py-3 bg-brand-bg border border-brand-copper/30 rounded-xl text-brand-text focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-brand-text/80 mb-2">Senha</label>
+                <input type="password" id="password" required
+                    class="w-full px-4 py-3 bg-brand-bg border border-brand-copper/30 rounded-xl text-brand-text focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all">
+            </div>
+
+            <div class="flex items-center justify-between text-sm">
+                <label class="flex items-center text-brand-text/60 hover:text-brand-text cursor-pointer">
+                    <input type="checkbox"
+                        class="mr-2 rounded bg-brand-bg border-brand-copper/30 text-brand-copper focus:ring-brand-copper">
+                    Lembrar-me
+                </label>
+                <a href="#" class="text-brand-copper hover:text-brand-gold transition-colors">Esqueceu a senha?</a>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-brand-copper hover:bg-opacity-90 text-brand-text font-bold py-3.5 rounded-xl shadow-lg hover:shadow-brand-copper/20 hover:scale-[1.02] transition-all">
+                ENTRAR
+            </button>
+        </form>
+
+        <div class="mt-8 text-center">
+            <p class="text-brand-text/60 text-sm">
+                Ainda não é membro?
+                <a href="associe-se.html"
+                    class="text-brand-gold hover:text-brand-copper font-bold transition-colors">Associe-se</a>
+            </p>
+        </div>
+
+        <div id="error-message"
+            class="hidden mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-200 text-sm text-center">
+        </div>
+    </div>
+
+    <script type="module">
+        import { AuthClient } from './js/auth-client.js';
+
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        // Se já estiver logado, vai pro dashboard direto
+        if (AuthClient.checkAuth(false)) {
+            window.location.href = 'dashboard.html';
+        }
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = loginForm.querySelector('button');
+            const originalText = btn.textContent;
+
+            try {
+                btn.disabled = true;
+                btn.textContent = 'Autenticando...';
+                errorMessage.classList.add('hidden');
+
+                // Autenticação via Python Backend
+                await AuthClient.login(email, password);
+
+                // Sucesso
+                window.location.href = 'dashboard.html';
+
+            } catch (error) {
+                console.error(error);
+                errorMessage.textContent = 'E-mail ou senha incorretos.';
+                errorMessage.classList.remove('hidden');
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        });
+    </script>
+</body>
+
+</html>

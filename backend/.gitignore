@@ -1,0 +1,20 @@
+# Gitignore para Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ambientes virtuais
+venv/
+env/
+.env
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Banco de dados local (SQLite se usarmos para teste rápido)
+*.sqlite3

@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+    --brand-bg: #0A0A0A;
+    --brand-panel: #141414;
+    --brand-copper: #B87333;
+    --brand-gold: #E5C185;
+    --brand-text: #F3E5DC;
+    --brand-accent-glow: rgba(184, 115, 51, 0.4);
+}
+
+body {
+    background-color: var(--brand-bg);
+    color: var(--brand-text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* --- Tipografia --- */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+/* --- Efeitos Especiais (FX) --- */
+
+/* 1. Glow Button */
+.btn-glow {
+    position: relative;
+    background: linear-gradient(45deg, var(--brand-copper), #A0632B);
+    z-index: 1;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 60%);
+    transform: scale(0);
+    transition: transform 0.4s ease-out;
+    z-index: -1;
+}
+
+.btn-glow:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 0 20px var(--brand-accent-glow), 0 0 40px rgba(184, 115, 51, 0.2);
+}
+
+.btn-glow:hover::before {
+    transform: scale(1);
+}
+
+/* 2. Glassmorphism Panel (Fixed) */
+.glass-panel {
+    background: rgba(10, 10, 10, 0.95);
+    /* Muito mais opaco para garantir leitura */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(184, 115, 51, 0.2);
+    /* Borda Copper sutil */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* 3. Hero Ambient Glow */
+.hero-glow-bg {
+    position: absolute;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, var(--brand-accent-glow) 0%, transparent 70%);
+    /* filter: blur(80px); Removido de filter pois causava lentidão/borrão em alguns browsers */
+    opacity: 0.3;
+    z-index: 0;
+    animation: pulseGlow 8s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.5;
+        transform: scale(1.1);
+    }
+}
+
+/* 4. Scroll Reveal Animation */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 5. Bento Grid Card Hover */
+.bento-card {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.bento-card:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--brand-copper);
+    transform: translateY(-5px);
+}
