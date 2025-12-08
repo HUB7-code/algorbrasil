@@ -11,11 +11,11 @@ let particles = [];
 
 // Configuration
 const config = {
-    particleCount: 60, // Quantidade de pontos
-    connectionDistance: 150, // Distância para conectar
-    mouseDistance: 200, // Raio de interação do mouse
-    baseSpeed: 0.3, // Velocidade de movimento
-    colors: ['rgba(184, 115, 51, 0.7)', 'rgba(229, 193, 133, 0.7)'] // Copper & Gold
+    particleCount: 140, // Dobrado para mais densidade
+    connectionDistance: 160, // Alcance maior das conexões
+    mouseDistance: 250,
+    baseSpeed: 0.6, // Mais rápido (atividade cerebral intensa)
+    colors: ['rgba(184, 115, 51, 1)', 'rgba(229, 193, 133, 1)', 'rgba(255, 255, 255, 0.8)'] // Mais opacidade e pontos brancos (sparks)
 };
 
 // Mouse State
@@ -38,19 +38,30 @@ class Particle {
         this.y = Math.random() * height;
         this.vx = (Math.random() - 0.5) * config.baseSpeed;
         this.vy = (Math.random() - 0.5) * config.baseSpeed;
-        this.size = Math.random() * 2 + 1;
+        this.size = Math.random() * 2.5 + 1.5; // Pontos maiores
         this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
+
+        // Pulso
+        this.pulseSpeed = 0.05;
+        this.pulseDir = 1;
+        this.baseSize = this.size;
     }
 
     update() {
         this.x += this.vx;
         this.y += this.vy;
 
-        // Bounce off edges
+        // Bounce
         if (this.x < 0 || this.x > width) this.vx *= -1;
         if (this.y < 0 || this.y > height) this.vy *= -1;
 
-        // Mouse interaction (Repell slightly)
+        // Pulse Effect (Sinapse disparando)
+        this.size += this.pulseSpeed * this.pulseDir;
+        if (this.size > this.baseSize + 1 || this.size < this.baseSize - 0.5) {
+            this.pulseDir *= -1;
+        }
+
+        // Mouse interaction
         if (mouse.x != null) {
             let dx = mouse.x - this.x;
             let dy = mouse.y - this.y;
@@ -60,11 +71,13 @@ class Particle {
                 const forceDirectionX = dx / distance;
                 const forceDirectionY = dy / distance;
                 const force = (config.mouseDistance - distance) / config.mouseDistance;
-                const directionX = forceDirectionX * force * 0.5; // Smooth repel
-                const directionY = forceDirectionY * force * 0.5;
 
-                this.vx -= directionX;
-                this.vy -= directionY;
+                // Atração sutil em vez de repulsão (foco de atenção)
+                const directionX = forceDirectionX * force * 0.8;
+                const directionY = forceDirectionY * force * 0.8;
+
+                this.x += directionX; // Move em direção ao mouse
+                this.y += directionY;
             }
         }
     }
@@ -72,16 +85,19 @@ class Particle {
     draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
         ctx.fillStyle = this.color;
         ctx.fill();
+        ctx.shadowBlur = 0; // Reset
     }
 }
 
 function init() {
     resize();
     particles = [];
-    // Adjust particle count based on screen size
-    const count = window.innerWidth < 768 ? 30 : config.particleCount;
+    // Adjust count - Mais denso em desktop
+    const count = window.innerWidth < 768 ? 60 : config.particleCount;
     for (let i = 0; i < count; i++) {
         particles.push(new Particle());
     }
@@ -89,7 +105,6 @@ function init() {
 }
 
 function resize() {
-    // Canvas deve ocupar o container pai (Hero Section)
     const parent = canvas.parentElement;
     width = parent.offsetWidth;
     height = parent.offsetHeight;
@@ -112,10 +127,9 @@ function animate() {
 
             if (distance < config.connectionDistance) {
                 ctx.beginPath();
-                // Opacidade baseada na distância (mais perto = mais visível)
                 const opacity = 1 - (distance / config.connectionDistance);
-                ctx.strokeStyle = `rgba(184, 115, 51, ${opacity * 0.4})`; // Copper lines
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = `rgba(229, 193, 133, ${opacity * 0.6})`; // Gold lines mais fortes
+                ctx.lineWidth = 1.2; // Linhas mais grossas
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
                 ctx.stroke();
