@@ -8,8 +8,15 @@ temp_restore/
 Thumbs.db
 desktop.ini
 
-# Logs
+# Logs e Resultados de Teste
 *.log
+test_results.txt
+
+# Banco de Dados e Cache
+*.db
+*.sqlite3
+__pycache__/
+*.pyc
 
 # Arquivos ZIP (já temos os arquivos extraídos)
 *.zip
@@ -31,3 +38,7 @@ node_modules/
 
 # Arquivos PHP (não funcionam no GitHub Pages)
 *.php
+
+# Ambientes Virtuais
+venv/
+env/

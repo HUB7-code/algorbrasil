@@ -3,9 +3,15 @@
  * Substitui o antigo SDK do Firebase.
  */
 
-const API_BASE_URL = "http://127.0.0.1:8002/api/v1"; // Ajuste a porta se necessário
+const API_BASE_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+    ? "http://127.0.0.1:8001/api/v1"
+    : "/api/v1";
 
 export const AuthClient = {
+    getApiUrl() {
+        return API_BASE_URL;
+    },
+
     /**
      * Realiza o login no backend e salva o token JWT.
      * @param {string} email 
@@ -31,6 +37,8 @@ export const AuthClient = {
             // Salvar token e dados do usuário no LocalStorage
             localStorage.setItem("algor_token", data.access_token);
             localStorage.setItem("algor_user_email", email);
+            localStorage.setItem("algor_user_role", data.role || "subscriber");
+            localStorage.setItem("algor_username", data.username || email.split("@")[0]);
 
             return true;
         } catch (error) {
@@ -53,16 +61,19 @@ export const AuthClient = {
             }
             return false;
         }
-
-        // TODO: Futuramente podemos validar a expiração do token aqui (decode JWT)
         return true;
     },
 
-    /**
-     * Retorna o email do usuário logado.
-     */
     getUserEmail() {
         return localStorage.getItem("algor_user_email");
+    },
+
+    getUserRole() {
+        return localStorage.getItem("algor_user_role");
+    },
+
+    getUserName() {
+        return localStorage.getItem("algor_username");
     },
 
     /**
@@ -71,6 +82,8 @@ export const AuthClient = {
     logout() {
         localStorage.removeItem("algor_token");
         localStorage.removeItem("algor_user_email");
+        localStorage.removeItem("algor_user_role");
+        localStorage.removeItem("algor_username");
         window.location.href = "index.html";
     }
 };
