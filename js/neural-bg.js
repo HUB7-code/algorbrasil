@@ -9,12 +9,12 @@ const ctx = canvas.getContext('2d');
 let width, height;
 let particles = [];
 
-// Configuration (Hyperactive Mode)
+// Configuration (LUDICROUS MODE)
 const config = {
     particleCount: 140, // Dobrado para mais densidade
     connectionDistance: 160, // Alcance maior das conexões
     mouseDistance: 250,
-    baseSpeed: 1.5, // FAST! (Atividade cerebral intensa)
+    baseSpeed: 4.5, // 3x Mais rápido que a versão "elétrica" (Hyperactive)
     colors: ['rgba(184, 115, 51, 1)', 'rgba(229, 193, 133, 1)', 'rgba(255, 255, 255, 0.8)'] // Mais opacidade e pontos brancos (sparks)
 };
 
@@ -42,7 +42,7 @@ class Particle {
         this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
 
         // Pulso
-        this.pulseSpeed = 0.1; // Pulso Rápido
+        this.pulseSpeed = 0.2; // Pulso muito rápido
         this.pulseDir = 1;
         this.baseSize = this.size;
     }
