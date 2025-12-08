@@ -39,7 +39,19 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
 
-# Rede compartilhada (opcional, pois docker-compose cria default)
+  # Gestão de Banco de Dados (Adminer)
+  # Acessível via /db-admin (configurado no Nginx)
+  adminer:
+    image: adminer
+    container_name: algor_adminer
+    restart: always
+    environment:
+      - ADMINER_DEFAULT_SERVER=sqlite
+    volumes:
+      - ./backend/sql_app.db:/app/sql_app.db # Acessa o mesmo arquivo DB
+    # Nota: Adminer roda na porta 8080 por padrão do container
+
+    # Rede compartilhada (opcional, pois docker-compose cria default)
 networks:
   default:
     name: algor_network
