@@ -91,12 +91,24 @@
     <!-- Hero Section 2025 (Immersive & Clean) -->
     <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
 
-        <!-- PINTURA DE FUNDO: Opção 1 - Arquitetura da Inteligência -->
-        <div class="absolute inset-0 z-0 select-none pointer-events-none">
-            <img src="images/hero-opt1.png" alt="Abstract AI Governance Architecture"
-                class="w-full h-full object-cover opacity-60">
-            <!-- Gradiente para escurecer Apenas onde precisa (em cima e embaixo) -->
-            <div class="absolute inset-0 bg-gradient-to-b from-brand-bg/90 via-brand-bg/40 to-brand-bg"></div>
+        <!-- PINTURA DE FUNDO: Neural Network (Canvas) -->
+        <div class="absolute inset-0 z-0 bg-[#0A0A0A]">
+            <!-- Canvas da Rede Neural -->
+            <canvas id="neural-canvas" class="absolute inset-0 w-full h-full opacity-60"></canvas>
+
+            <!-- Vignette & Gradient Overlays para manter a leitura do texto -->
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/90 via-transparent to-[#0A0A0A] pointer-events-none">
+            </div>
+            <div class="absolute inset-0 bg-radial-gradient from-transparent to-[#0A0A0A]/80 pointer-events-none"></div>
+
+            <!-- Glows Sutis -->
+            <div
+                class="absolute top-0 right-0 w-1/2 h-1/2 bg-brand-copper/5 blur-[120px] rounded-full pointer-events-none">
+            </div>
+            <div
+                class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-brand-gold/5 blur-[100px] rounded-full pointer-events-none">
+            </div>
         </div>
 
         <!-- (Efeitos de Glow e Grid removidos para limpeza visual) -->
@@ -793,7 +805,8 @@
                                 <!-- Image Container -->
                                 <div
                                     class="relative w-40 h-56 mb-8 transform group-hover:-translate-y-2 transition-transform duration-500 ease-out shadow-2xl rounded-lg overflow-hidden border border-white/10">
-                                     <img src="images/dossie_cover.png" alt="Capa Dossiê PL 2338" class="w-full h-full object-cover">
+                                    <img src="images/dossie_cover.png" alt="Capa Dossiê PL 2338"
+                                        class="w-full h-full object-cover">
                                 </div>
 
                                 <div class="relative z-10">
@@ -836,7 +849,8 @@
                                 <!-- Image Container -->
                                 <div
                                     class="relative w-40 h-56 mb-8 transform group-hover:-translate-y-2 transition-transform duration-500 ease-out shadow-2xl rounded-lg overflow-hidden border border-white/10">
-                                     <img src="images/playbook_cover.png" alt="Capa Playbook IA" class="w-full h-full object-cover">
+                                    <img src="images/playbook_cover.png" alt="Capa Playbook IA"
+                                        class="w-full h-full object-cover">
                                 </div>
 
                                 <div class="relative z-10">
@@ -863,7 +877,7 @@
                             </div>
                         </article>
 
-                         <!-- Recurso 3: Newsletter (Comunidade) -->
+                        <!-- Recurso 3: Newsletter (Comunidade) -->
                         <article
                             class="group relative bg-[#0A0A0A] rounded-[2rem] p-[1px] overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)]">
                             <div
@@ -878,7 +892,8 @@
 
                                 <div
                                     class="relative w-24 h-24 mb-6 rounded-full bg-white/5 border border-white/10 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-500">
-                                    <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-10 h-10 text-blue-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                                         </path>
@@ -1103,6 +1118,7 @@
             window.addEventListener("load", reveal);
             reveal();
         </script>
+        <script src="js/neural-bg.js"></script><!-- Neural Network Animation -->
         <script type="module" src="js/api-client.js"></script>
 </body>
 
