@@ -9,12 +9,12 @@ const ctx = canvas.getContext('2d');
 let width, height;
 let particles = [];
 
-// Configuration
+// Configuration (Hyperactive Mode)
 const config = {
     particleCount: 140, // Dobrado para mais densidade
     connectionDistance: 160, // Alcance maior das conexões
     mouseDistance: 250,
-    baseSpeed: 0.6, // Mais rápido (atividade cerebral intensa)
+    baseSpeed: 1.5, // FAST! (Atividade cerebral intensa)
     colors: ['rgba(184, 115, 51, 1)', 'rgba(229, 193, 133, 1)', 'rgba(255, 255, 255, 0.8)'] // Mais opacidade e pontos brancos (sparks)
 };
 
@@ -42,7 +42,7 @@ class Particle {
         this.color = config.colors[Math.floor(Math.random() * config.colors.length)];
 
         // Pulso
-        this.pulseSpeed = 0.05;
+        this.pulseSpeed = 0.1; // Pulso Rápido
         this.pulseDir = 1;
         this.baseSize = this.size;
     }
@@ -72,7 +72,7 @@ class Particle {
                 const forceDirectionY = dy / distance;
                 const force = (config.mouseDistance - distance) / config.mouseDistance;
 
-                // Atração sutil em vez de repulsão (foco de atenção)
+                // Atração sutil (foco de atenção)
                 const directionX = forceDirectionX * force * 0.8;
                 const directionY = forceDirectionY * force * 0.8;
 
@@ -129,7 +129,7 @@ function animate() {
                 ctx.beginPath();
                 const opacity = 1 - (distance / config.connectionDistance);
                 ctx.strokeStyle = `rgba(229, 193, 133, ${opacity * 0.6})`; // Gold lines mais fortes
-                ctx.lineWidth = 1.2; // Linhas mais grossas
+                ctx.lineWidth = 1.2;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
                 ctx.stroke();
@@ -141,7 +141,6 @@ function animate() {
 
 window.addEventListener('resize', () => {
     resize();
-    // Re-init particles on drastic resize to prevent clustering
     if (Math.abs(canvas.width - width) > 100) init();
 });
 
