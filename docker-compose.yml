@@ -7,10 +7,10 @@ services:
     container_name: algor_backend
     restart: always
     volumes:
-      # Persistir Banco de Dados SQLite
-      - ./backend/sql_app.db:/app/backend/sql_app.db
+      # Persistir Banco de Dados SQLite (Caminho correto na raiz)
+      - ./backend/sql_app.db:/app/sql_app.db
     environment:
-      - DATABASE_URL=sqlite:///./backend/sql_app.db
+      - DATABASE_URL=sqlite:///./sql_app.db
     # Não expomos a porta 8000 para fora, apenas para a rede interna do Docker (o Nginx acessa)
 
     # Serviço Web (Nginx)
