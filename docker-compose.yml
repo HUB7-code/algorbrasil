@@ -25,8 +25,18 @@ services:
       - .:/usr/share/nginx/html
       # Montar a configuração do Nginx
       - ./nginx.conf:/etc/nginx/nginx.conf
+      # Volumes para Certbot (SSL)
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     depends_on:
       - backend
+
+  # Serviço Certbot (Gera os certificados SSL)
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
 
 # Rede compartilhada (opcional, pois docker-compose cria default)
 networks:
