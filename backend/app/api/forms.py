@@ -57,3 +57,25 @@ async def request_association(
     background_tasks.add_task(send_email_notification, "contato@algor.com", f"Nova Associação: {data.nome}")
     
     return {"message": "Solicitação enviada com sucesso! Entraremos em contato."}
+
+# ==========================================
+# GESTÃO DE LEADS (ÁREA ADMINISTRATIVA)
+# ==========================================
+from backend.app.api.auth import get_current_user
+from backend.app.models.user import User
+
+@router.get("/forms/leads")
+async def list_leads(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    [ADMIN] Lista todos os leads capturados (Newsletter e Associação).
+    """
+    # Verificação de Permissão (Apenas Admin)
+    # Nota: Em produção, usar sistema de roles robusto, aqui simplificado.
+    if current_user.role != "admin" and current_user.is_superuser is False:
+        raise HTTPException(status_code=403, detail="Acesso negado. Apenas administradores.")
+    
+    contacts = db.query(ContactLog).order_by(ContactLog.created_at.desc()).all()
+    return contacts

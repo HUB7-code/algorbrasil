@@ -68,3 +68,34 @@ async def login_for_access_token(user_data: UserLogin, db: Session = Depends(get
         "role": user.role, 
         "username": user.full_name or user.email.split('@')[0]
     }
+
+# ==========================================
+# DEPENDÊNCIAS DE PROTEÇÃO DE ROTA (Auth)
+# ==========================================
+from jose import JWTError, jwt
+from backend.app.core.security import SECRET_KEY, ALGORITHM
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
+
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+    """
+    Decodifica o Token JWT e recupera o usuário atual.
+    Usado como dependência em rotas protegidas.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Não foi possível validar as credenciais",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise credentials_exception
+    except JWTError:
+        raise credentials_exception
+    
+    user = db.query(User).filter(User.email == email).first()
+    if user is None:
+        raise credentials_exception
+    return user
