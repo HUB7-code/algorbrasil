@@ -18,7 +18,9 @@ Refinar o site institucional da Algor Brasil para refletir uma estética "Premiu
 ## 3. Estrutura do Site e Páginas
 ### Index (`index.html`)
 - **Hero:** Fundo animado "Neural Network" substituindo imagem estática. Título "Governança de I.A.".
-- **Funcionalidade:** Formulário de Newsletter conectado à API `/forms/newsletter`.
+- **Funcionalidade:**
+  - Formulário de Newsletter conectado à API `/forms/newsletter`.
+  - Contador de Membros Real conectado à API `/api/v1/stats/public`.
 - **Scripts:** `js/neural-bg.js` (Animação) e `js/api-client.js`.
 
 ### Associe-se (`associe-se.html`)
@@ -54,6 +56,8 @@ Refinar o site institucional da Algor Brasil para refletir uma estética "Premiu
 - [x] **Visual Hero:** Implementada animação de Rede Neural em Canvas (Velocidade 3x).
 - [x] **Dashboard:** Protótipo inicial criado.
 - [x] **Hotfix Index:** Correção de HTML quebrado no Hero e Menu Mobile restaurado.
+- [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
+- [x] **UX Hero:** Restaurados botões "Fale Conosco" e "Membros" com feedback visual de dados.
 
 ## 6. Próximos Passos (Roadmap de Evolução)
 - [ ] **Dashboard V2:** Implementar links reais de download para os PDFs.
