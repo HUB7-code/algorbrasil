@@ -22,17 +22,6 @@ export default function Home() {
                     </span>
                     <span className="text-brand-green tracking-widest hidden md:inline">SYSTEM ONLINE</span>
                 </div>
-
-                {/* Logo in Header (Right/Center) */}
-                <div className="pointer-events-auto">
-                    <Image
-                        src="/logo-algor.jpg"
-                        alt="ALGOR BRASIL"
-                        width={150}
-                        height={150}
-                        className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-brand-green/20 shadow-[0_0_15px_rgba(0,255,148,0.2)]"
-                    />
-                </div>
             </div>
 
             {/* Hero Section */}
@@ -44,9 +33,9 @@ export default function Home() {
                         <Image
                             src="/logo-algor.jpg"
                             alt="Seminário Algor Brasil"
-                            width={200}
-                            height={200}
-                            className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-brand-green/30 shadow-[0_0_30px_rgba(0,255,148,0.3)] animate-pulse-slow"
+                            width={300}
+                            height={300}
+                            className="relative w-48 h-48 md:w-72 md:h-72 rounded-full border-2 border-brand-green/30 shadow-[0_0_30px_rgba(0,255,148,0.3)] animate-pulse-slow object-cover"
                         />
                     </div>
 
