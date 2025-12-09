@@ -1,75 +1,56 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 08/12/2025
-> **Status Geral:** **SITE VIVO & INTERATIVO** 🧠 | Infraestrutura 100% | Animações High-End Ativas.
-> **Foco Atual:** Transformar a Área do Membro em uma experiência de alto valor.
+> **Última Atualização:** 09/12/2025
+> **Status Geral:** **PIVOT ESTRATÉGICO PARA SAAS (Inteligência Viva)** 🧠 | Backend SMTP Ativo | Frontend Next.js em Construção.
+> **Foco Atual:** Criar a nova plataforma baseada em "Modelagem de Site para Consultoria de IA" usando Stack Moderna (Next.js 14).
 
-## 1. Objetivo Principal
-Refinar o site institucional da Algor Brasil para refletir uma estética "Premium Organic Tech", com foco agora em tornar a **Área do Membro** funcional para entrega de valor (downloads/conteúdo), enquanto mantemos a conversão de leads ativa na home.
+## 1. Pivot Estratégico (A Nova Direção)
+Abandonamos o site institucional estático para construir uma **Plataforma de Autoridade** baseada no conceito de "Inteligência Viva".
+- **Objetivo:** O site deixa de ser vitrine e vira ferramenta de pré-vendas/consultoria.
+- **Arquitetura:** SaaS-first. O "Associe-se" vira cadastro direto no sistema; a Home vira grade de decisão para 4 Personas (Estrategista, Guardião, Construtor, Protetor).
 
-## 2. Decisões de Design (Estética)
-- **Conceito:** "Premium Organic Tech". Fusão de tecnologia (IA/Dados) com elementos orgânicos.
-- **Background Hero:** **Neural Network Simulation** (Canvas).
-  - Partículas conectadas simulando sinapses.
-  - Velocidade: **Ludicrous (4.5)** - Efeito de tempestade elétrica de dados.
-  - Cores: Ouro e Cobre da marca.
-- **Paleta de Cores:** Fundo Dark (#0A0A0A), Textos Claros, Acentos em **Cobre (Copper)**, **Ouro (Gold)**.
-- **Tipografia:** 'Orbitron' (Títulos) + 'Inter' (Corpo).
+## 2. Decisões de Design (Identidade "Inteligência Viva")
+- **Conceito:** Bio-Digital Convergence.
+- **Paleta:**
+  - **Fundo:** Deep Navy (`#0A1A2F`) - Substitui o preto absoluto.
+  - **Ação:** Bio-Luminescent Green (`#00FF94`).
+  - **Tech:** Electric Blue (`#00A3FF`).
+- **UI:** **Glassmorphism** (Painéis translúcidos) para representar "Caixa Branca" (Transparência).
+- **Tipografia:** 'Orbitron' (Display), 'Inter' (Corpo), 'IBM Plex Mono' (Dados).
 
-## 3. Estrutura do Site e Páginas
-### Index (`index.html`)
-- **Hero:** Fundo animado "Neural Network" substituindo imagem estática. Título "Governança de I.A.".
-- **Funcionalidade:**
-  - Formulário de Newsletter conectado à API `/forms/newsletter`.
-  - Contador de Membros Real conectado à API `/api/v1/stats/public`.
-- **Scripts:** `js/neural-bg.js` (Animação) e `js/api-client.js`.
+## 3. Estrutura Técnica Nova (Stack V2)
+- **Frontend:** **Next.js 14 (App Router)** + TypeScript + Tailwind CSS.
+  - Substitui todo o HTML/JS estático antigo.
+  - Rodando em container Docker dedicado (`frontend:3000`).
+- **Backend:** FastAPI (Python) + SQLite (Mantido e Expandido).
+  - Integrado com **SMTP (Brevo)** para envio real de e-mails.
+  - Auth JWT mantido.
+- **Infraestrutura:** Docker Compose gerenciando `backend` (API), `frontend` (Next.js) e `web` (Nginx Proxy).
 
-### Associe-se (`associe-se.html`)
-- **Funil:** Cards de benefícios e formulário de adesão detalhado.
+## 4. Histórico de Conquistas (Checklist Recente)
+- [x] **SMTP:** Implementado serviço de e-mail (Brevo) no Backend.
+  - Alertas de Admin e Boas-vindas funcionando.
+  - Correção de autenticação SMTP (Login correto vs Email do perfil).
+- [x] **Limpeza Radical:** Removido todo o site estático legado (`index.html`, `js/`, `css/` antigos).
+- [x] **Setup Frontend:** Inicializado projeto Next.js 14 com TypeScript.
+  - Restaurados arquivos de configuração (`package.json`, `tsconfig.json`, `next.config.mjs`).
+- [x] **Design System:** Configurado Tailwind com as cores da nova marca e fontes do Google.
+- [x] **Infraestrutura SaaS:**
+  - Adicionado serviço `frontend` no `docker-compose.yml`.
+  - Configurado Nginx para proxy reverso da porta 80 -> 3000 (Next.js).
+- [x] **Home V2 (Visual):** Implementado `HeroScene.tsx` (3D Particles) e nova grade de decisão das 4 Personas.
 
-### Login (`login.html`)
-- **Design:** Glassmorphism agressivo.
-- **Funcionalidade:** Autenticação via JWT (`/api/v1/login`).
+## 5. Próximos Passos (Roadmap de Execução)
+- [ ] **Instalação:** Rodar `npm install` no container/frontend para baixar dependências.
+- [x] **Cadastro Real (SaaS):** Criada página de Registro (`/register`) integrada a API `/api/v1/signup`.
+  - Formulário completo com validação e Design System.
+  - Campos: Nome, Email, Telefone, Senha.
+- [ ] **Console do Membro:** Recriar o Dashboard antigo dentro do Next.js (protegido por rota privada).
+- [ ] **Console do Membro:** Recriar o Dashboard antigo dentro do Next.js (protegido por rota privada).
+- [ ] **Integração:** Conectar formulários do Next.js com o Backend Python existente.
 
-### Admin (`admin-leads.html`) **[NOVO]**
-- **Função:** Painel restrito para Administradores visualizarem leads capturados.
-- **Segurança:** Protegido por Token Admin.
-- **Dados:** Exibe tabela com Nome, Email, Empresa e Origem do lead.
-
-### Dashboard (`dashboard.html`)
-- **Conceito:** "Console do Membro".
-- **Status Atual:** Protótipo funcional.
-- **Planejamento:**
-  - Seção "Biblioteca de Recursos" para baixar Dossiê PL 2338 e Playbook.
-  - Bloqueio visual para usuários 'Free' (Upsell para 'Member').
-  - Feed de Inteligência (Simulado).
-
-## 4. Infraestrutura Técnica (Produção)
-- **VPS:** Hostinger (IP: 72.60.243.67).
-- **Domínio:** `algorbrasil.com.br` (HTTPS/SSL Ativo).
-- **Stack:** Docker + Nginx + FastAPI (Python) + SQLite.
-- **Autenticação:** OAuth2 com Password Flow (JWT).
-
-## 5. Histórico de Conquistas (Checklist Recente)
-- [x] **Infraestrutura:** Deploy VPS, SSL, Banco de Dados persistente.
-- [x] **Backend:** API de Auth e Formulários (Newsletter/Leads) implementada.
-- [x] **Gestão de Leads:** Página `admin-leads.html` criada e funcional.
-- [x] **Visual Hero:** Implementada animação de Rede Neural em Canvas (Velocidade 3x).
-- [x] **Dashboard:** Protótipo inicial criado.
-- [x] **Hotfix Index:** Correção de HTML quebrado no Hero e Menu Mobile restaurado.
-- [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
-- [x] **UX Hero:** Corrigido display de membros de "0" para buscar dados reais via `api-client.js`.
-- [x] **UX Hero:** Restaurados botões "Fale Conosco" e "Membros" com feedback visual de dados.
-- [x] **Limpeza:** Remoção de arquivos legados (Node.js antigo) e documentação obsoleta.
-- [x] **Social:** Link do LinkedIn atualizado no rodapé.
-
-## 6. Próximos Passos (Roadmap de Evolução)
-- [x] **Dashboard V2:** Implementado sistema de Downloads Seguros com verificação JWT e entrega de arquivos protegidos.
-- [ ] **Integração de E-mail:** Configurar SMTP para disparar e-mails reais de boas-vindas.
-- [ ] **Backup Automático:** Script para segurança do banco de dados.
-
-## 7. Arquivos Chave & Scripts
-- `PROJECT_STATUS_MEMORIA.md` (Este arquivo).
-- `js/neural-bg.js` (Lógica da animação do Hero).
-- `backend/app/api/auth.py` (Lógica de Login).
-- `admin-leads.html` (Gestão Interna).
-
+## 6. Arquivos Chave Atuais
+- `frontend/app/page.tsx` (Nova Home).
+- `frontend/tailwind.config.ts` (Design System).
+- `backend/app/services/email_service.py` (Motor de E-mail).
+- `ARCHITECTURE_SITEMAP.md` (Mapa da nova estrutura).
+- `Modelagem de Site para Consultoria de IA.md` (Documento Estratégico).
