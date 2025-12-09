@@ -16,9 +16,20 @@ services:
       - SMTP_USER=9daf55001@smtp-brevo.com
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM_EMAIL=contato@algorbrasil.com.br
-    # Não expomos a porta 8000 para fora, apenas para a rede interna do Docker (o Nginx acessa)
 
-    # Serviço Web (Nginx)
+  # Serviço Frontend (Next.js)
+  frontend:
+    image: node:20-alpine
+    container_name: algor_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "3000:3000"
+    # Mantém o container rodando para podermos rodar comandos (npx)
+    command: tail -f /dev/null
+
+  # Serviço Web (Nginx)
   web:
     image: nginx:alpine
     container_name: algor_web
