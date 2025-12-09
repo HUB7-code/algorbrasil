@@ -28,29 +28,26 @@ Abandonamos o site institucional estático para construir uma **Plataforma de Au
 
 ## 4. Histórico de Conquistas (Checklist Recente)
 - [x] **SMTP:** Implementado serviço de e-mail (Brevo) no Backend.
-  - Alertas de Admin e Boas-vindas funcionando.
-  - Correção de autenticação SMTP (Login correto vs Email do perfil).
-- [x] **Limpeza Radical:** Removido todo o site estático legado (`index.html`, `js/`, `css/` antigos).
-- [x] **Setup Frontend:** Inicializado projeto Next.js 14 com TypeScript.
-  - Restaurados arquivos de configuração (`package.json`, `tsconfig.json`, `next.config.mjs`).
-- [x] **Design System:** Configurado Tailwind com as cores da nova marca e fontes do Google.
-- [x] **Infraestrutura SaaS:**
-  - Adicionado serviço `frontend` no `docker-compose.yml`.
-  - Configurado Nginx para proxy reverso da porta 80 -> 3000 (Next.js).
-- [x] **Home V2 (Visual):** Implementado `HeroScene.tsx` (3D Particles) e nova grade de decisão das 4 Personas.
+- [x] **Setup Frontend:** Inicializado projeto Next.js 14 com TypeScript e Docker.
+- [x] **Design System:** Configurado Tailwind, Fontes e Cores "Inteligência Viva".
+- [x] **Home Completada (Fase 1):**
+  - **Hero:** Título de impacto, Animação 3D e **Logo Centralizada**.
+  - **Grade de Personas:** Auto-segmentação (Board, Risco, Tech, Legal).
+  - **Sala de Máquinas:** Seção de Metodologia animada (Processo de Fluxo de Dados).
+  - **Compliance:** Rodapé com **Logo Oficial**, badges de transparência e links de governança.
+- [x] **Infraestrutura:** Script `deploy.sh` criado para automação de updates na VPS.
 
-## 5. Próximos Passos (Roadmap de Execução)
-- [ ] **Instalação:** Rodar `npm install` no container/frontend para baixar dependências.
-- [x] **Cadastro Real (SaaS):** Criada página de Registro (`/register`) integrada a API `/api/v1/signup`.
-  - Formulário completo com validação e Design System.
-  - Campos: Nome, Email, Telefone, Senha.
-- [ ] **Console do Membro:** Recriar o Dashboard antigo dentro do Next.js (protegido por rota privada).
-- [ ] **Console do Membro:** Recriar o Dashboard antigo dentro do Next.js (protegido por rota privada).
-- [ ] **Integração:** Conectar formulários do Next.js com o Backend Python existente.
+## 5. Próximos Passos (Roadmap de Execução: Fase 2 - O Motor SaaS)
+- [ ] **Cadastro (Register):** Finalizar testes da página `/register` e sua integração com a API (`/signup`).
+- [ ] **Console do Membro (Dashboard):**
+  - Implementar layout com Sidebar (Menu Lateral).
+  - Criar "Cockpit de Governança" (Widgets de Status).
+  - Visualizar Nível de Maturidade.
+- [ ] **Login:** Criar página de login para acesso de membros existentes.
 
 ## 6. Arquivos Chave Atuais
-- `frontend/app/page.tsx` (Nova Home).
-- `frontend/tailwind.config.ts` (Design System).
-- `backend/app/services/email_service.py` (Motor de E-mail).
-- `ARCHITECTURE_SITEMAP.md` (Mapa da nova estrutura).
-- `Modelagem de Site para Consultoria de IA.md` (Documento Estratégico).
+- `frontend/app/page.tsx` (Home Finalizada).
+- `frontend/components/MethodologySection.tsx` (Sala de Máquinas).
+- `frontend/components/Footer.tsx` (Rodapé Compliance).
+- `deploy.sh` (Automação de Deploy).
+- `backend/app/api/auth.py` (API de Cadastro/Login).
