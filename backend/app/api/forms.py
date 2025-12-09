@@ -93,9 +93,9 @@ async def get_public_stats(db: Session = Depends(get_db)):
     
     # Número base para marketing (early stage) + crescimento real
     # Começamos com "100+" visualmente, então base_offset garante que nunca mostre "0"
-    base_offset = 127 
+    base_offset = 0
     
     return {
-        "members_count": base_offset + real_count,
+        "members_count": real_count,
         "leads_count": leads_count
     }
