@@ -23,25 +23,25 @@ export default function Home() {
             </div>
 
             {/* Hero Content */}
-            <div className="relative z-10 flex flex-col items-center justify-center text-center mt-[-5vh]">
-                <div className="mb-6 relative max-w-4xl">
-                    <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white mb-6 relative z-10 leading-[1.1]">
+            <div className="relative z-10 flex flex-col items-center justify-center text-center mt-[-2vh] px-4">
+                <div className="mb-8 relative max-w-5xl">
+                    <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 relative z-10 leading-[1.2]">
                         Transformando Riscos de IA em <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-blue text-glow">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-blue">
                             Vantagens Competitivas Sustentáveis.
                         </span>
                     </h1>
                 </div>
 
-                <p className="text-brand-blue/80 font-mono text-sm md:text-lg max-w-2xl leading-relaxed tracking-wide mb-10 glass-panel p-6 rounded-xl border-l-4 border-brand-green">
-                    <span className="font-bold text-white block mb-2">A Era da Inteligência Viva Chegou.</span>
-                    Governança de IA Segura, Compliant e Auditável.
+                <p className="text-brand-blue/70 font-sans text-base md:text-lg max-w-3xl leading-relaxed mb-12">
+                    <span className="text-white font-semibold">A Era da Inteligência Viva Chegou.</span> Governance de IA, Compliance e Auditoria Contínua.
                 </p>
 
-                <div className="mb-16">
+                <div className="mb-20">
                     <Link href="/register">
-                        <button className="bg-brand-green text-brand-navy font-bold font-mono px-8 py-4 rounded-lg hover:bg-white hover:text-brand-navy transition-all duration-300 shadow-[0_0_20px_rgba(0,255,148,0.4)] hover:shadow-[0_0_40px_rgba(0,255,148,0.6)] text-sm md:text-base uppercase tracking-widest transform hover:-translate-y-1">
+                        <button className="group bg-brand-green text-brand-navy font-bold font-sans px-8 py-3 rounded-full hover:bg-white transition-all duration-300 shadow-[0_0_15px_rgba(0,255,148,0.3)] hover:shadow-[0_0_25px_rgba(0,255,148,0.5)] text-sm uppercase tracking-wide flex items-center gap-2 mx-auto">
                             Iniciar Avaliação de Maturidade
+                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </button>
                     </Link>
                 </div>
