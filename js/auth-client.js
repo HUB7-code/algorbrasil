@@ -64,6 +64,10 @@ export const AuthClient = {
         return true;
     },
 
+    getToken() {
+        return localStorage.getItem("algor_token");
+    },
+
     getUserEmail() {
         return localStorage.getItem("algor_user_email");
     },
