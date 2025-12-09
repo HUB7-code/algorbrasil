@@ -4,7 +4,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 26, 47; /* #0A1A2F */
+  --background-start-rgb: 10, 26, 47;
+  /* #0A1A2F */
   --background-end-rgb: 0, 0, 0;
 }
 
@@ -30,6 +31,21 @@ body {
 }
 
 .h-screen-safe {
-  height: 100vh; /* Fallback */
+  height: 100vh;
+  /* Fallback */
   height: 100dvh;
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.animate-slide-right {
+  animation: slide-right 3s linear infinite;
 }
