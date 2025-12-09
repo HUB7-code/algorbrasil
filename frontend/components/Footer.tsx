@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ShieldCheck, Lock, Activity } from "lucide-react";
 
 export default function Footer() {
@@ -8,8 +9,15 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                     {/* Brand Column */}
                     <div className="col-span-1 md:col-span-1">
-                        <Link href="/" className="font-display font-bold text-xl text-white mb-6 block tracking-wider">
-                            ALGOR <span className="text-brand-green">BRASIL</span>
+                        <Link href="/" className="block mb-6 relative group inline-block">
+                            <div className="absolute -inset-2 bg-brand-green/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                            <Image
+                                src="/logo-algor.jpg"
+                                alt="ALGOR BRASIL"
+                                width={120}
+                                height={120}
+                                className="relative w-28 h-auto rounded-full border border-brand-green/10 shadow-lg"
+                            />
                         </Link>
                         <p className="font-mono text-xs text-brand-blue/50 leading-relaxed mb-6">
                             Consultoria de Elite em Governança de Inteligência Artificial.
