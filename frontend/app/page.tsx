@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import HeroScene from "@/components/HeroScene";
 import MethodologySection from "@/components/MethodologySection";
+import MembershipBenefits from "@/components/MembershipBenefits";
 import { ArrowRight, Castle, Shield, Cpu, Scale } from "lucide-react";
 
 export default function Home() {
@@ -124,6 +125,9 @@ export default function Home() {
                     ))}
                 </div>
             </div>
+
+            {/* Membership Benefits - Institutional Layer */}
+            <MembershipBenefits />
 
             {/* Methodology Section - A Sala de Máquinas */}
             <MethodologySection />

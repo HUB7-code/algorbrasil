@@ -38,12 +38,14 @@ Abandonamos o site institucional estático para construir uma **Plataforma de Au
 - [x] **Infraestrutura:** Script `deploy.sh` criado para automação de updates na VPS.
 
 ## 5. Próximos Passos (Roadmap de Execução: Fase 2 - O Motor SaaS)
-- [ ] **Cadastro (Register):** Finalizar testes da página `/register` e sua integração com a API (`/signup`).
-- [ ] **Console do Membro (Dashboard):**
-  - Implementar layout com Sidebar (Menu Lateral).
-  - Criar "Cockpit de Governança" (Widgets de Status).
-  - Visualizar Nível de Maturidade.
-- [ ] **Login:** Criar página de login para acesso de membros existentes.
+- [x] **Cadastro (Register):** Finalizar testes da página `/register` e sua integração com a API (`/signup`).
+- [x] **Login:** Autenticação JWT funcionando (`/login`) com redirecionamento.
+- [x] **Console do Membro (Dashboard):**
+  - Layout com Sidebar (Menu Lateral) e Auth Check.
+  - "Cockpit de Governança" (Widgets de Status) implementado.
+- [ ] **Avaliações (Assessment Engine):**
+  - Criar página `/dashboard/assessments`.
+  - Implementar fluxo de questionário (Diagnostic Wizard).
 
 ## 6. Arquivos Chave Atuais
 - `frontend/app/page.tsx` (Home Finalizada).
