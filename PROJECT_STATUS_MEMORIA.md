@@ -57,14 +57,13 @@ Refinar o site institucional da Algor Brasil para refletir uma estética "Premiu
 - [x] **Dashboard:** Protótipo inicial criado.
 - [x] **Hotfix Index:** Correção de HTML quebrado no Hero e Menu Mobile restaurado.
 - [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
-- [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
 - [x] **UX Hero:** Corrigido display de membros de "0" para buscar dados reais via `api-client.js`.
 - [x] **UX Hero:** Restaurados botões "Fale Conosco" e "Membros" com feedback visual de dados.
 - [x] **Limpeza:** Remoção de arquivos legados (Node.js antigo) e documentação obsoleta.
 - [x] **Social:** Link do LinkedIn atualizado no rodapé.
 
 ## 6. Próximos Passos (Roadmap de Evolução)
-- [ ] **Dashboard V2:** Implementar links reais de download para os PDFs.
+- [x] **Dashboard V2:** Implementado sistema de Downloads Seguros com verificação JWT e entrega de arquivos protegidos.
 - [ ] **Integração de E-mail:** Configurar SMTP para disparar e-mails reais de boas-vindas.
 - [ ] **Backup Automático:** Script para segurança do banco de dados.
 

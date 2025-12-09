@@ -12,6 +12,14 @@ class Settings(BaseSettings):
     # Por padrão usa SQLite para dev, mas preparado para PostgreSQL
     SQLALCHEMY_DATABASE_URI: str = "sqlite:///./sql_app.db"
 
+    # SMTP / Email
+    SMTP_SERVER: str = "smtp-relay.brevo.com"
+    SMTP_PORT: int = 587
+    SMTP_USER: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM_EMAIL: str = "contato@algorbrasil.com.br"
+    SMTP_FROM_NAME: str = "Algor Brasil"
+
     class Config:
         case_sensitive = True
 

@@ -6,10 +6,9 @@ from backend.app.schemas_forms import NewsletterCreate, AssociationCreate
 
 router = APIRouter()
 
-# Simulação de envio de email
-def send_email_notification(to_email: str, subject: str):
-    # Futuro: Integrar com SendGrid/AWS SES
-    print(f"📧 [EMAIL MOCK] Enviando para {to_email}: {subject}")
+from backend.app.services.email_service import send_welcome_email, send_admin_alert
+
+router = APIRouter()
 
 @router.post("/forms/newsletter")
 async def subscribe_newsletter(
@@ -28,8 +27,11 @@ async def subscribe_newsletter(
     db.add(contact)
     db.commit()
     
-    # 2. Enviar Email (Background Task para não travar a req)
-    background_tasks.add_task(send_email_notification, data.email, "Bem-vindo à Algor Brasil!")
+    # 2. Enviar Emails (Background)
+    # Para o usuário
+    background_tasks.add_task(send_welcome_email, "Assinante", data.email, False)
+    # Para o admin
+    background_tasks.add_task(send_admin_alert, "Nova Inscrição Newsletter", {"Email": data.email})
     
     return {"message": "Inscrição realizada com sucesso!"}
 
@@ -54,7 +56,24 @@ async def request_association(
     db.add(contact)
     db.commit()
     
-    background_tasks.add_task(send_email_notification, "contato@algor.com", f"Nova Associação: {data.nome}")
+    # Alertar Admin com dados ricos
+    lead_data = {
+        "Nome": data.nome,
+        "Email": data.email,
+        "Empresa": data.empresa,
+        "Cargo": data.cargo,
+        "Interesse": data.interesse,
+        "Mensagem": data.mensagem
+    }
+    background_tasks.add_task(send_admin_alert, f"Pedido de Associação: {data.nome}", lead_data)
+    
+    # Email de confirmação para o User
+    background_tasks.add_task(
+        send_welcome_email, 
+        data.nome, 
+        data.email, 
+        True # Trata como membro potencial
+    )
     
     return {"message": "Solicitação enviada com sucesso! Entraremos em contato."}
 

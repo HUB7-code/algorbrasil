@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from fastapi.security import OAuth2PasswordBearer
 from backend.app.schemas import UserLogin, Token, UserCreate
 from backend.app.core.security import verify_password, create_access_token, get_password_hash
+from backend.app.services.email_service import send_welcome_email
 
 router = APIRouter()
 
@@ -10,7 +11,7 @@ from backend.app.db.session import get_db
 from backend.app.models.user import User
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
-async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
+async def create_user(user_in: UserCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
     """
     Cadastra um novo usuário Nível 1 (Lead/Subscriber).
     Libera acesso imediato ao Dashboard básico.
@@ -37,6 +38,9 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
     
+    # Enviar email de boas-vindas
+    background_tasks.add_task(send_welcome_email, new_user.full_name or "Membro", new_user.email, False)
+
     return {"message": "Usuário criado com sucesso", "email": new_user.email}
 
 @router.post("/login", response_model=Token)
