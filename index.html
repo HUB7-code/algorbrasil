@@ -152,19 +152,55 @@
                 </a>
             </div>
 
-            <!-- Stats / Social Proof (Mini Bento) -->
-            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto reveal"
-                style="animation-delay: 0.8s;">
-                <div class="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                    <div class="text-3xl font-orbitron font-bold text-brand-gold">100+</div>
-                    <div class="text-xs text-brand-text/50 uppercase tracking-widest mt-1">Membros</div>
+            <!-- Stats / Social Proof (Membros Ativos) -->
+            <div class="mt-20 flex justify-center reveal" style="animation-delay: 0.8s;">
+                <div
+                    class="p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col items-center min-w-[200px] hover:border-brand-gold/30 transition-all">
+                    <div id="member-count" class="text-4xl md:text-5xl font-orbitron font-bold text-brand-gold mb-2">127
+                    </div>
+                    <div class="text-xs text-brand-text/50 uppercase tracking-[0.2em]">Membros Ativos</div>
                 </div>
-                <div class="p-4 rounded-xl bg-white/5 border border-white/5 backdrop-blur-sm">
-                    <div class="text-3xl font-orbitron font-bold text-white">PL 2338</div>
-                    <div class="text-xs text-brand-text/50 uppercase tracking-widest mt-1">Ready</div>
-                </div>
-                <!-- Mais stats aqui se necessário -->
             </div>
+
+            <!-- Script para Contagem Real -->
+            <script>
+                document.addEventListener('DOMContentLoaded', async () => {
+                    const countElement = document.getElementById('member-count');
+                    try {
+                        // Tentar buscar do backend real (quando estiver online)
+                        // A URL base é inferida relativa ou usando a constante do api-client se disponível
+                        // Aqui faremos um fetch direto simples
+                        const response = await fetch('/api/v1/stats/public');
+                        if (response.ok) {
+                            const data = await response.json();
+                            const target = data.members_count;
+
+                            // Animate Count
+                            let start = 100;
+                            const duration = 2000;
+                            const startTime = performance.now();
+
+                            function update(currentTime) {
+                                const elapsed = currentTime - startTime;
+                                const progress = Math.min(elapsed / duration, 1);
+
+                                // Easing
+                                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+
+                                const current = Math.floor(start + (target - start) * easeOutQuart);
+                                countElement.innerText = current;
+
+                                if (progress < 1) {
+                                    requestAnimationFrame(update);
+                                }
+                            }
+                            requestAnimationFrame(update);
+                        }
+                    } catch (e) {
+                        console.log('Usando contagem estática base (Offline/Erro)');
+                    }
+                });
+            </script>
 
         </div>
     </section>

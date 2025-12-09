@@ -79,3 +79,23 @@ async def list_leads(
     
     contacts = db.query(ContactLog).order_by(ContactLog.created_at.desc()).all()
     return contacts
+
+@router.get("/stats/public")
+async def get_public_stats(db: Session = Depends(get_db)):
+    """
+    Retorna estatísticas públicas para o site (Contador de Membros).
+    """
+    # Contar usuários reais
+    real_count = db.query(User).count()
+    
+    # Contar leads (newsletter + associação) - Opcional, mas mostra tração
+    leads_count = db.query(ContactLog).count()
+    
+    # Número base para marketing (early stage) + crescimento real
+    # Começamos com "100+" visualmente, então base_offset garante que nunca mostre "0"
+    base_offset = 127 
+    
+    return {
+        "members_count": base_offset + real_count,
+        "leads_count": leads_count
+    }
