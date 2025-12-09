@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import HeroScene from "@/components/HeroScene";
 import MethodologySection from "@/components/MethodologySection";
 import { ArrowRight, Castle, Shield, Cpu, Scale } from "lucide-react";
@@ -11,23 +12,44 @@ export default function Home() {
                 <HeroScene />
             </div>
 
-            {/* Status Bar */}
-            <div className="z-10 w-full max-w-7xl items-center justify-between font-mono text-xs lg:flex absolute top-8 left-0 right-0 px-8 mx-auto pointer-events-none">
+            {/* Status Bar / Header */}
+            <div className="z-10 w-full max-w-7xl items-center justify-between font-mono text-xs flex absolute top-6 left-0 right-0 px-6 md:px-8 mx-auto pointer-events-none">
+                {/* System Status (Left) */}
                 <div className="flex items-center gap-2 glass-panel px-4 py-2 rounded-full pointer-events-auto">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green"></span>
                     </span>
-                    <span className="text-brand-green tracking-widest">SYSTEM ONLINE</span>
+                    <span className="text-brand-green tracking-widest hidden md:inline">SYSTEM ONLINE</span>
                 </div>
-                <div className="hidden lg:block text-brand-blue/60 tracking-widest">
-                    ALGOR BRASIL v2.0
+
+                {/* Logo in Header (Right/Center) */}
+                <div className="pointer-events-auto">
+                    <Image
+                        src="/logo-algor.jpg"
+                        alt="ALGOR BRASIL"
+                        width={150}
+                        height={150}
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-brand-green/20 shadow-[0_0_15px_rgba(0,255,148,0.2)]"
+                    />
                 </div>
             </div>
 
             {/* Hero Section */}
             <div className="relative z-10 w-full flex flex-col items-center justify-center text-center pt-32 pb-24 px-4 min-h-screen">
-                <div className="mb-8 relative max-w-5xl">
+                <div className="mb-8 relative max-w-5xl flex flex-col items-center">
+                    {/* Main Hero Logo */}
+                    <div className="mb-8 relative group">
+                        <div className="absolute -inset-4 bg-brand-green/20 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition duration-1000"></div>
+                        <Image
+                            src="/logo-algor.jpg"
+                            alt="Seminário Algor Brasil"
+                            width={200}
+                            height={200}
+                            className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-brand-green/30 shadow-[0_0_30px_rgba(0,255,148,0.3)] animate-pulse-slow"
+                        />
+                    </div>
+
                     <h1 className="font-sans text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6 relative z-10 leading-[1.2]">
                         Transformando Riscos de IA em <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-brand-blue">
