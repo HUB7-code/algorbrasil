@@ -5,6 +5,9 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 from secure import Secure
 
+from backend.app.db.session import engine, Base
+from backend.app.models import user, assessment # Import models to register them
+
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
 
@@ -18,6 +21,11 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# Create Database Tables on Startup
+@app.on_event("startup")
+def on_startup():
+    Base.metadata.create_all(bind=engine)
 
 # Configuração de CORS (Restrição de Acesso)
 # Em produção, substitua "*" pelos domínios reais (ex: https://algorbrasil.com.br)

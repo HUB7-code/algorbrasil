@@ -1,4 +1,5 @@
 from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy.orm import relationship
 from backend.app.db.session import Base
 
 class User(Base):
@@ -12,3 +13,6 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
     role = Column(String, default="user") # 'admin', 'auditor', 'user'
+
+    # Relacionamento com Avaliações
+    assessments = relationship("backend.app.models.assessment.Assessment", back_populates="owner")

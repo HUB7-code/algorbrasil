@@ -3,6 +3,8 @@ import Image from "next/image";
 import HeroScene from "@/components/HeroScene";
 import MethodologySection from "@/components/MethodologySection";
 import MembershipBenefits from "@/components/MembershipBenefits";
+import GovernanceInsights from "@/components/GovernanceInsights";
+import JoinCTA from "@/components/JoinCTA";
 import { ArrowRight, Castle, Shield, Cpu, Scale } from "lucide-react";
 
 export default function Home() {
