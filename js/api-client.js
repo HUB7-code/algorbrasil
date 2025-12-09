@@ -6,6 +6,8 @@ const API_BASE_URL = (window.location.hostname === 'localhost' || window.locatio
     ? "http://127.0.0.1:8001/api/v1"
     : "/api/v1";
 
+import { AuthClient } from './auth-client.js';
+
 class AlgorAPI {
     constructor() {
         this.endpoints = {
@@ -351,5 +353,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 30);
             }
         });
+    }
+
+    // Verificar Autenticação para Header (Login -> Console)
+    const loginLink = document.getElementById('nav-login-link');
+    const token = AuthClient.getToken();
+
+    if (token && loginLink) {
+        loginLink.textContent = "MEU CONSOLE";
+        loginLink.href = "dashboard.html";
+        loginLink.classList.remove("text-brand-copper");
+        loginLink.classList.add("text-brand-gold"); // Destaque Dourado
     }
 });
