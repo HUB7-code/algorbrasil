@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 26, 47; /* #0A1A2F */
+  --background-end-rgb: 0, 0, 0;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism Utility */
+.glass-panel {
+  @apply bg-brand-navy/60 backdrop-blur-md border border-white/10 shadow-xl;
+}
+
+.glass-card {
+  @apply bg-white/5 backdrop-blur-sm border border-white/5 hover:border-brand-green/30 transition-all duration-300;
+}
+
+/* Typography Utilities */
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 255, 148, 0.5);
+}
+
+.h-screen-safe {
+  height: 100vh; /* Fallback */
+  height: 100dvh;
+}
