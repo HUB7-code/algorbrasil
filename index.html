@@ -86,6 +86,23 @@
                 </button>
             </nav>
         </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu"
+            class="hidden md:hidden glass-panel mx-4 mt-2 rounded-xl p-4 border border-white/5 relative z-50">
+            <div class="flex flex-col space-y-4">
+                <a href="#atuacao"
+                    class="text-sm font-medium text-white hover:text-brand-gold transition-colors">Atuação</a>
+                <a href="#conteudo"
+                    class="text-sm font-medium text-white hover:text-brand-gold transition-colors">Conteúdo</a>
+                <a href="login.html"
+                    class="text-sm font-bold text-brand-copper hover:text-brand-gold transition-colors">LOGIN</a>
+                <a href="associe-se.html"
+                    class="btn-glow px-6 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-widest text-center shadow-lg">
+                    Associe-se
+                </a>
+            </div>
+        </div>
     </header>
 
     <!-- Hero Section 2025 (Immersive & Clean) -->
@@ -147,46 +164,10 @@
                     COMEÇAR DIAGNÓSTICO
                 </a>
                 <a href="#atuacao"
-                    class="px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm font-bold tracking-wider w-full sm:w-auto min-w-[200px]">
-                    <script>
-                        document.addEventListener('DOMContentLoaded', async () => {
-                            const countElement = document.getElementById('member-count');
-                            try {
-                                // Tentar buscar do backend real (quando estiver online)
-                                // A URL base é inferida relativa ou usando a constante do api-client se disponível
-                                // Aqui faremos um fetch direto simples
-                                const response = await fetch('/api/v1/stats/public');
-                                if (response.ok) {
-                                    const data = await response.json();
-                                    const target = data.members_count;
-
-                                    // Animate Count
-                                    let start = 0;
-                                    const duration = 2000;
-                                    const startTime = performance.now();
-
-                                    function update(currentTime) {
-                                        const elapsed = currentTime - startTime;
-                                        const progress = Math.min(elapsed / duration, 1);
-
-                                        // Easing
-                                        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-
-                                        const current = Math.floor(start + (target - start) * easeOutQuart);
-                                        countElement.innerText = current;
-
-                                        if (progress < 1) {
-                                            requestAnimationFrame(update);
-                                        }
-                                    }
-                                    requestAnimationFrame(update);
-                                }
-                            } catch (e) {
-                                console.log('Usando contagem estática base (Offline/Erro)');
-                            }
-                        });
-                    </script>
-
+                    class="px-8 py-4 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm font-bold tracking-wider w-full sm:w-auto min-w-[200px] flex items-center justify-center gap-2 group">
+                    <span class="text-brand-gold group-hover:text-white transition-colors" id="member-count">1200</span>
+                    <span class="text-brand-text/60 group-hover:text-brand-text transition-colors">MEMBROS</span>
+                </a>
             </div>
     </section>
 
@@ -1101,6 +1082,41 @@
 
         <!-- JavaScript -->
         <script>
+            // Member Count Animation
+            document.addEventListener('DOMContentLoaded', async () => {
+                const countElement = document.getElementById('member-count');
+                if (!countElement) return;
+
+                try {
+                    const response = await fetch('/api/v1/stats/public');
+                    if (response.ok) {
+                        const data = await response.json();
+                        const target = data.members_count || 1200; // Fallback if 0 or null
+
+                        let start = 0;
+                        const duration = 2000;
+                        const startTime = performance.now();
+
+                        function update(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                            const current = Math.floor(start + (target - start) * easeOutQuart);
+
+                            countElement.innerText = current;
+
+                            if (progress < 1) {
+                                requestAnimationFrame(update);
+                            }
+                        }
+                        requestAnimationFrame(update);
+                    }
+                } catch (e) {
+                    console.log('Usando contagem estática base (Offline/Erro)');
+                }
+            });
+
+
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 

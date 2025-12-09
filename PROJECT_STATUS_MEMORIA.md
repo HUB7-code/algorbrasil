@@ -53,6 +53,7 @@ Refinar o site institucional da Algor Brasil para refletir uma estética "Premiu
 - [x] **Gestão de Leads:** Página `admin-leads.html` criada e funcional.
 - [x] **Visual Hero:** Implementada animação de Rede Neural em Canvas (Velocidade 3x).
 - [x] **Dashboard:** Protótipo inicial criado.
+- [x] **Hotfix Index:** Correção de HTML quebrado no Hero e Menu Mobile restaurado.
 
 ## 6. Próximos Passos (Roadmap de Evolução)
 - [ ] **Dashboard V2:** Implementar links reais de download para os PDFs.
