@@ -139,7 +139,7 @@
                         <h3 class="text-xl font-orbitron font-bold text-white mb-2">Dossiê PL 2338</h3>
                         <p class="text-sm text-brand-text/50 mb-4 h-10 line-clamp-2">Análise comentada ponto-a-ponto do
                             Marco Legal da IA no Brasil.</p>
-                        <button
+                        <button id="btn-dossie"
                             class="text-sm font-bold text-white group-hover:text-brand-copper transition-colors flex items-center">
                             Baixar Agora <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -166,7 +166,7 @@
                         <h3 class="text-xl font-orbitron font-bold text-white mb-2">Governança Ágil</h3>
                         <p class="text-sm text-brand-text/50 mb-4 h-10 line-clamp-2">Guia prático para implementar
                             comitês de ética em 30 dias.</p>
-                        <button
+                        <button id="btn-playbook"
                             class="text-sm font-bold text-white group-hover:text-brand-gold transition-colors flex items-center">
                             Baixar Agora <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -193,7 +193,7 @@
                         <h3 class="text-xl font-orbitron font-bold text-white mb-2">Mapa de Riscos (ISO)</h3>
                         <p class="text-sm text-brand-text/50 mb-4 h-10 line-clamp-2">Planilha automatizada para
                             classificação de riscos de sistemas de IA.</p>
-                        <button
+                        <button id="btn-riscos"
                             class="text-sm font-bold text-white group-hover:text-blue-400 transition-colors flex items-center">
                             Acessar Ferramenta <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor"
                                 viewBox="0 0 24 24">
@@ -244,6 +244,7 @@
 
     <script type="module">
         import { AuthClient } from './js/auth-client.js';
+        import { DownloadManager } from './js/downloads.js';
 
         // 1. Security Check
         AuthClient.checkAuth(true);
@@ -297,6 +298,21 @@
             badge.className = "text-[10px] bg-brand-copper text-white px-2 py-0.5 rounded ml-2 uppercase font-bold tracking-wider";
             badge.textContent = "MEMBER";
             profileArea.appendChild(badge);
+        }
+
+        // 4. Download Handlers
+        const btnDossie = document.getElementById('btn-dossie');
+        const btnPlaybook = document.getElementById('btn-playbook');
+        const btnRiscos = document.getElementById('btn-riscos');
+
+        if (btnDossie) {
+            btnDossie.addEventListener('click', () => DownloadManager.downloadFile('dossie_pl2338.pdf', 'Algor_Dossie_PL2338.pdf'));
+        }
+        if (btnPlaybook) {
+            btnPlaybook.addEventListener('click', () => DownloadManager.downloadFile('playbook_governanca.pdf', 'Algor_Playbook_Governanca.pdf'));
+        }
+        if (btnRiscos) {
+            btnRiscos.addEventListener('click', () => DownloadManager.downloadFile('mapa_riscos_iso.xlsx', 'Algor_Mapa_Riscos_ISO42001.xlsx'));
         }
 
         // Logout Logic
