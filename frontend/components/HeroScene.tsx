@@ -66,23 +66,29 @@ function Particles(props: any) {
     );
 }
 
+import ErrorBoundary from "./ErrorBoundary";
+
 export default function HeroScene() {
     return (
         <div className="absolute inset-0 -z-10 h-full w-full">
-            <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-                {/* Ambient Light */}
-                <ambientLight intensity={0.5} />
+            <ErrorBoundary fallback={
+                <div className="absolute inset-0 bg-gradient-to-b from-brand-navy via-brand-navy/90 to-black pointer-events-none" />
+            }>
+                <Canvas camera={{ position: [0, 0, 5], fov: 60 }} gl={{ preserveDrawingBuffer: true, alpha: true }}>
+                    {/* Ambient Light */}
+                    <ambientLight intensity={0.5} />
 
-                {/* Particles */}
-                <Float speed={2} rotationIntensity={1} floatIntensity={1}>
-                    <Particles />
-                </Float>
+                    {/* Particles */}
+                    <Float speed={2} rotationIntensity={1} floatIntensity={1}>
+                        <Particles />
+                    </Float>
 
-                {/* Fog to blend with background */}
-                {/* Note: Background color should match HTML bg usually, but we are transparent. 
+                    {/* Fog to blend with background */}
+                    {/* Note: Background color should match HTML bg usually, but we are transparent. 
              If we want fog, we need to attach it to the scene and color it. 
              Let's skip fog for transparency so it sits on top of CSS layout. */}
-            </Canvas>
+                </Canvas>
+            </ErrorBoundary>
         </div>
     );
 }
