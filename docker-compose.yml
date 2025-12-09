@@ -26,8 +26,8 @@ services:
       - ./frontend:/app
     ports:
       - "3000:3000"
-    # Mantém o container rodando para podermos rodar comandos (npx)
-    command: tail -f /dev/null
+    # Instala dependências e roda o servidor de desenvolvimento
+    command: sh -c "npm install && npm run dev"
 
   # Serviço Web (Nginx)
   web:
