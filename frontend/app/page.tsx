@@ -1,6 +1,6 @@
 import Link from "next/link";
 import HeroScene from "@/components/HeroScene";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Castle, Shield, Cpu, Scale } from "lucide-react";
 
 export default function Home() {
     return (
@@ -46,26 +46,64 @@ export default function Home() {
                     </Link>
                 </div>
 
-                {/* Personas Grid - Decision Matrix */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl">
-                    {["Estrategista", "Guardião", "Construtor", "Protetor"].map((persona, index) => (
+                {/* Personas Grid - Decision Matrix (Auto-Segmentation) */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl px-4">
+                    {[
+                        {
+                            id: "board",
+                            icon: <Castle className="w-8 h-8 text-brand-green mb-4" />,
+                            title: "Visão Estratégica & ROI",
+                            desc: "Transforme risco regulatório em vantagem competitiva.",
+                            target: "Para o Board"
+                        },
+                        {
+                            id: "risk",
+                            icon: <Shield className="w-8 h-8 text-brand-green mb-4" />,
+                            title: "Controle & Mitigação",
+                            desc: "Frameworks alinhados à ISO 42001 e LGPD.",
+                            target: "Para Risco & Compliance"
+                        },
+                        {
+                            id: "tech",
+                            icon: <Cpu className="w-8 h-8 text-brand-green mb-4" />,
+                            title: "Arquitetura & MLOps",
+                            desc: "Integração de governança sem frear a inovação.",
+                            target: "Para Tecnologia"
+                        },
+                        {
+                            id: "legal",
+                            icon: <Scale className="w-8 h-8 text-brand-green mb-4" />,
+                            title: "Segurança Jurídica",
+                            desc: "Adequação ao PL 2338 e AI Act Europeu.",
+                            target: "Para Jurídico"
+                        }
+                    ].map((persona, index) => (
                         <Link
-                            href={`/register?persona=${persona.toLowerCase()}`}
-                            key={persona}
-                            className="group relative overflow-hidden rounded-xl border border-white/5 bg-brand-navy/40 backdrop-blur-md hover:bg-white/5 hover:border-brand-green/50 transition-all duration-500 cursor-pointer flex flex-col items-start p-6 min-h-[160px] hover:shadow-[0_0_30px_-5px_rgba(0,255,148,0.2)]"
+                            href={`/register?persona=${persona.id}`}
+                            key={persona.id}
+                            className="group relative overflow-hidden rounded-2xl border border-brand-blue/10 bg-brand-navy/60 backdrop-blur-xl hover:bg-brand-navy/80 hover:border-brand-green/60 transition-all duration-300 cursor-pointer flex flex-col items-start p-6 h-full hover:-translate-y-1 hover:shadow-[0_4px_30px_rgba(0,255,148,0.1)]"
                         >
-                            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-green/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
+                            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-green/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700" />
 
-                            <span className="font-mono text-[10px] text-brand-blue/50 mb-auto">0{index + 1}</span>
+                            <div className="relative z-10">
+                                <span className="inline-block px-3 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-[10px] font-mono font-bold tracking-wider mb-4 border border-brand-blue/20">
+                                    {persona.target.toUpperCase()}
+                                </span>
 
-                            <div className="mt-4">
-                                <h3 className="text-xl font-display font-bold text-white mb-1 group-hover:text-brand-green transition-colors flex items-center gap-2">
-                                    {persona}
-                                    <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 text-brand-green" />
+                                {persona.icon}
+
+                                <h3 className="text-lg font-sans font-bold text-white mb-3 group-hover:text-brand-green transition-colors leading-tight">
+                                    {persona.title}
                                 </h3>
-                                <p className="text-xs text-brand-blue/60 font-mono">
-                                    Acessar perfil {">"}
+
+                                <p className="text-sm text-brand-blue/60 font-sans leading-relaxed mb-6">
+                                    {persona.desc}
                                 </p>
+
+                                <div className="mt-auto flex items-center gap-2 text-xs font-mono text-brand-greenOpacity group-hover:text-brand-green transition-colors">
+                                    <span>Acessar Trilha</span>
+                                    <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+                                </div>
                             </div>
                         </Link>
                     ))}
