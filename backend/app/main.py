@@ -51,6 +51,8 @@ async def set_secure_headers(request: Request, call_next):
 from backend.app.api import auth, forms
 app.include_router(auth.router, prefix="/api/v1", tags=["Autenticação"])
 app.include_router(forms.router, prefix="/api/v1", tags=["Formulários"])
+from backend.app.api import stats
+app.include_router(stats.router, prefix="/api/v1", tags=["Estatísticas"])
 
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP
