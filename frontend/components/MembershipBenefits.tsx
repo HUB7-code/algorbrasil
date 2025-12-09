@@ -6,7 +6,7 @@ export default function MembershipBenefits() {
             {/* Section Header */}
             <div className="max-w-7xl mx-auto mb-16 text-center">
                 <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
-                    A Vantagem <span className="text-brand-green">ALGOR</span>
+                    A Vantagem <span className="text-brand-green">ALGOR BRASIL</span>
                 </h2>
                 <p className="font-mono text-sm text-brand-blue/60 max-w-2xl mx-auto">
                     Muito mais que um software. Uma aliança estratégica para líderes que definem o futuro da Inteligência Artificial no Brasil.
@@ -23,7 +23,7 @@ export default function MembershipBenefits() {
                         Selo de Governança
                     </h3>
                     <p className="font-sans text-brand-blue/70 leading-relaxed text-sm">
-                        Diferencie-se no mercado. Membros recebem o selo ALGOR, sinalizando ao mercado conformidade com padrões éticos e técnicos rigorosos.
+                        Diferencie-se no mercado. Membros recebem o selo ALGOR BRASIL, sinalizando conformidade com padrões éticos e técnicos rigorosos.
                     </p>
                 </div>
 
