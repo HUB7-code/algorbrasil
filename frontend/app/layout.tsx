@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Orbitron, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
 
 // Fontes Otimizadas
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -25,6 +26,7 @@ export default function RootLayout({
         <html lang="pt-BR">
             <body className={`${inter.variable} ${orbitron.variable} ${ibmPlexMono.variable} font-sans bg-brand-navy text-white selection:bg-brand-green selection:text-brand-navy`}>
                 {children}
+                <Footer />
             </body>
         </html>
     );
