@@ -58,6 +58,7 @@ Refinar o site institucional da Algor Brasil para refletir uma estética "Premiu
 - [x] **Hotfix Index:** Correção de HTML quebrado no Hero e Menu Mobile restaurado.
 - [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
 - [x] **Dados Reais:** Implementado endpoint `/api/v1/stats/public` para contagem real de membros no Hero.
+- [x] **UX Hero:** Corrigido display de membros de "0" para buscar dados reais via `api-client.js`.
 - [x] **UX Hero:** Restaurados botões "Fale Conosco" e "Membros" com feedback visual de dados.
 - [x] **Limpeza:** Remoção de arquivos legados (Node.js antigo) e documentação obsoleta.
 - [x] **Social:** Link do LinkedIn atualizado no rodapé.

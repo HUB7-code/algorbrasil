@@ -1088,41 +1088,6 @@
 
         <!-- JavaScript -->
         <script>
-            // Member Count Animation
-            document.addEventListener('DOMContentLoaded', async () => {
-                const countElement = document.getElementById('member-count');
-                if (!countElement) return;
-
-                try {
-                    const response = await fetch('/api/v1/stats/public');
-                    if (response.ok) {
-                        const data = await response.json();
-                        const target = data.members_count || 1200; // Fallback if 0 or null
-
-                        let start = 0;
-                        const duration = 2000;
-                        const startTime = performance.now();
-
-                        function update(currentTime) {
-                            const elapsed = currentTime - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-                            const current = Math.floor(start + (target - start) * easeOutQuart);
-
-                            countElement.innerText = current;
-
-                            if (progress < 1) {
-                                requestAnimationFrame(update);
-                            }
-                        }
-                        requestAnimationFrame(update);
-                    }
-                } catch (e) {
-                    console.log('Usando contagem estática base (Offline/Erro)');
-                }
-            });
-
-
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 

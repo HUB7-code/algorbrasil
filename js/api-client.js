@@ -10,8 +10,21 @@ class AlgorAPI {
     constructor() {
         this.endpoints = {
             newsletter: `${API_BASE_URL}/forms/newsletter`,
-            association: `${API_BASE_URL}/forms/association`
+            association: `${API_BASE_URL}/forms/association`,
+            stats: `${API_BASE_URL}/stats/public`
         };
+    }
+
+    // Obter estatísticas públicas (Contador de Membros)
+    async getPublicStats() {
+        try {
+            const response = await fetch(this.endpoints.stats);
+            if (!response.ok) return null;
+            return await response.json();
+        } catch (e) {
+            console.warn("Stats API Error: ", e);
+            return null;
+        }
     }
 
     // Inscrição na newsletter
@@ -318,4 +331,25 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000); // Tempo para o scroll acontecer
         });
     });
+
+    // Carregar Contagem de Membros (Hero Section)
+    const memberCountElement = document.getElementById('member-count');
+    if (memberCountElement) {
+        api.getPublicStats().then(data => {
+            if (data && data.members_count !== undefined) {
+                // Animação simples de contagem
+                const target = data.members_count;
+                let current = 0;
+                const increment = Math.max(1, Math.ceil(target / 40));
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    memberCountElement.textContent = current;
+                }, 30);
+            }
+        });
+    }
 });
