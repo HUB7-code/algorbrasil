@@ -40,31 +40,52 @@
 </head>
 
 <body class="bg-brand-bg text-brand-text antialiased selection:bg-brand-copper selection:text-white">
-    <a href="#atuacao" class="text-sm font-medium hover:text-brand-gold transition-colors relative group">
-        Atuação
-        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
-    </a>
-    <a href="#conteudo" class="text-sm font-medium hover:text-brand-gold transition-colors relative group">
-        Conteúdo
-        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
-    </a>
-    <a href="login.html" class="text-sm font-bold text-brand-copper hover:text-brand-gold transition-colors">
-        LOGIN
-    </a>
-    <a href="associe-se.html"
-        class="btn-glow px-6 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-widest shadow-lg">
-        Associe-se
-    </a>
-    </div>
+    <!-- Navbar Flutuante (Glassmorphism) -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="navbar">
+        <div class="glass-panel mx-4 mt-4 rounded-2xl border-white/5">
+            <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
 
-    <!-- Menu Mobile (Hamburguer) -->
-    <button class="md:hidden text-white focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </svg>
-    </button>
-    </nav>
-    </div>
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-4 group">
+                    <img src="images/algor_association_logo_light.png" alt="Algor Logo"
+                        class="h-20 w-auto transition-transform group-hover:scale-105">
+                    <span class="font-orbitron font-bold text-2xl tracking-wider text-white hidden sm:block">ALGOR
+                        BRASIL</span>
+                </a>
+
+                <!-- Menu Desktop -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#atuacao"
+                        class="text-sm font-medium hover:text-brand-gold transition-colors relative group">
+                        Atuação
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#conteudo"
+                        class="text-sm font-medium hover:text-brand-gold transition-colors relative group">
+                        Conteúdo
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="login.html"
+                        class="text-sm font-bold text-brand-copper hover:text-brand-gold transition-colors">
+                        LOGIN
+                    </a>
+                    <a href="associe-se.html"
+                        class="btn-glow px-6 py-2.5 rounded-full text-white font-bold text-xs uppercase tracking-widest shadow-lg">
+                        Associe-se
+                    </a>
+                </div>
+
+                <!-- Menu Mobile (Hamburguer) -->
+                <button class="md:hidden text-white focus:outline-none" id="mobile-menu-btn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </nav>
+        </div>
     </header>
 
     <!-- Hero Section 2025 (Immersive & Clean) -->
