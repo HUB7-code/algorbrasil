@@ -1,3 +1,4 @@
+import Link from "next/link";
 import HeroScene from "@/components/HeroScene";
 import { ArrowRight } from "lucide-react";
 
@@ -41,7 +42,8 @@ export default function Home() {
                 {/* Personas Grid - Decision Matrix */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-6xl">
                     {["Estrategista", "Guardião", "Construtor", "Protetor"].map((persona, index) => (
-                        <div
+                        <Link
+                            href={`/register?persona=${persona.toLowerCase()}`}
                             key={persona}
                             className="group relative overflow-hidden rounded-xl border border-white/5 bg-brand-navy/40 backdrop-blur-md hover:bg-white/5 hover:border-brand-green/50 transition-all duration-500 cursor-pointer flex flex-col items-start p-6 min-h-[160px] hover:shadow-[0_0_30px_-5px_rgba(0,255,148,0.2)]"
                         >
@@ -58,11 +60,10 @@ export default function Home() {
                                     Acessar perfil {">"}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
         </main>
     );
 }
-
