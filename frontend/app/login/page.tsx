@@ -28,17 +28,16 @@ export default function LoginPage() {
         setErrorMessage("");
 
         try {
-            const params = new URLSearchParams();
-            params.append('username', formData.email); // FastAPI OAuth2 expects 'username'
-            params.append('password', formData.password);
-
-            // POST form-urlencoded for OAuth2
+            // Backend expects JSON (UserLogin schema), NOT OAuth2 Form Data
             const res = await fetch("/api/v1/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Content-Type": "application/json",
                 },
-                body: params,
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password
+                }),
             });
 
             const data = await res.json();
