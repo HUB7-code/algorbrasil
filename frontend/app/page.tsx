@@ -131,6 +131,12 @@ export default function Home() {
 
             {/* Methodology Section - A Sala de Máquinas */}
             <MethodologySection />
+
+            {/* Governance Insights - SEO & Authority Content */}
+            <GovernanceInsights />
+
+            {/* Final CTA - Conversion */}
+            <JoinCTA />
         </main>
     );
 }
