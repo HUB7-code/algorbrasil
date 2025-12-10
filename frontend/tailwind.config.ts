@@ -19,9 +19,9 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ["var(--font-inter)"], // Corpo
-                serif: ["var(--font-playfair)"], // Títulos Legais/Elegantes
-                display: ["var(--font-playfair)"], // Títulos de Impacto (Mudança Estratégica)
-                tech: ["var(--font-orbitron)"], // Detalhes Técnicos (Inteligência Viva)
+                serif: ["var(--font-playfair)"], // Opcional para detalhes editoriais
+                display: ["var(--font-orbitron)"], // Títulos Tech/Modernos (Revertido)
+                tech: ["var(--font-orbitron)"], // Detalhes Técnicos
                 mono: ["var(--font-ibm-plex-mono)"], // Dados
             },
             backgroundImage: {
