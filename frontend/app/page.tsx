@@ -19,8 +19,12 @@ export default function Home() {
             <div className="absolute top-0 left-0 w-full z-50 py-6 px-6">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
-                            <div className="w-4 h-4 bg-[#0B57D0] rounded-sm transform rotate-45"></div>
+                        <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center overflow-hidden border border-[#E0E3E7]">
+                            <img
+                                src="/logo-algor.jpg"
+                                alt="ALGOR Logo"
+                                className="w-full h-full object-cover"
+                            />
                         </div>
                         <span className="font-serif text-xl tracking-wide font-bold text-[#1F1F1F]">ALGOR <span className="text-[#0B57D0]">BRASIL</span></span>
                     </div>
