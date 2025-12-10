@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Inter, Orbitron, IBM_Plex_Mono, Playfair_Display } from "next/font/google";
+import { Manrope, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
 
-// Fontes Otimizadas
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
+// Fontes Elite Design
+const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
-const ibmPlexMono = IBM_Plex_Mono({
-    weight: ['400', '600'],
-    subsets: ["latin"],
-    variable: "--font-ibm-plex-mono"
-});
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono" });
 
 export const metadata: Metadata = {
-    title: "Algor Brasil | Inteligência Viva",
-    description: "Governança de IA, Compliance ISO 42001 e Estratégia Corporativa.",
+    title: "Algor Brasil | A Elite da Governança",
+    description: "Associação para Algoritmização e Governança Lógica. Conformidade ISO 42001 e Estratégia de IA.",
 };
 
 export default function RootLayout({
@@ -25,7 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR">
-            <body className={`${inter.variable} ${orbitron.variable} ${playfair.variable} ${ibmPlexMono.variable} font-sans bg-brand-navy text-white selection:bg-brand-green selection:text-brand-navy`}>
+            <body className={`${manrope.variable} ${playfair.variable} ${jetbrainsMono.variable} font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
                 {children}
                 <Footer />
             </body>

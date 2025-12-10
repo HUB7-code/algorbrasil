@@ -18,11 +18,11 @@ const config: Config = {
                 },
             },
             fontFamily: {
-                sans: ["var(--font-inter)"], // Corpo
-                serif: ["var(--font-playfair)"], // Opcional para detalhes editoriais
-                display: ["var(--font-orbitron)"], // Títulos Tech/Modernos (Revertido)
-                tech: ["var(--font-orbitron)"], // Detalhes Técnicos
-                mono: ["var(--font-ibm-plex-mono)"], // Dados
+                sans: ["var(--font-manrope)"], // Corpo (Clean Modern)
+                serif: ["var(--font-playfair)"], // Títulos (Elegância)
+                display: ["var(--font-playfair)"], // Headlines (Autoridade)
+                mono: ["var(--font-jetbrains-mono)"], // Dados (Dev/Tech)
+                tech: ["var(--font-jetbrains-mono)"], // Alias para tech details
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

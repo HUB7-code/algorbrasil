@@ -1,159 +1,116 @@
 import Link from "next/link";
-import Image from "next/image";
-import dynamic from "next/dynamic";
-import MethodologySection from "@/components/MethodologySection";
+import { ChevronRight, Globe, Shield, Cpu, Lock, Activity, Users } from "lucide-react";
 import MembershipBenefits from "@/components/MembershipBenefits";
+import MethodologySection from "@/components/MethodologySection";
 import GovernanceInsights from "@/components/GovernanceInsights";
 import JoinCTA from "@/components/JoinCTA";
-import { ArrowRight, Castle, Shield, Cpu, Scale } from "lucide-react";
-
-// Dynamic import for 3D Scene (Client Side only)
-const Scene3D = dynamic(() => import("@/components/Scene3D"), { ssr: false });
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-between bg-brand-navy selection:bg-brand-green selection:text-brand-navy overflow-hidden">
+        <main className="min-h-screen bg-[#0A1A2F] text-white overflow-x-hidden selection:bg-[#00FF94] selection:text-[#0A1A2F]">
 
-            {/* Global Noise Overlay */}
-            <div className="fixed inset-0 pointer-events-none z-50 bg-noise opacity-[0.03] mix-blend-overlay"></div>
+            {/* --- Ambient Background Glows --- */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse-slow"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
+                {/* Global Noise Overlay */}
+                <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay"></div>
+            </div>
 
-            {/* Hero Section - The Premium Impact */}
-            <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center px-4 pt-10 pb-20">
-                {/* 3D Neural Background */}
-                <Scene3D />
+            {/* --- Status Bar / Nav Placeholder (Since we don't have a dedicated Nav component yet) --- */}
+            <div className="absolute top-0 left-0 w-full z-50 py-8 px-6">
+                <div className="max-w-7xl mx-auto flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        {/* Logo Simplificada - Esfera */}
+                        <div className="w-8 h-8 rounded-full border border-[#00FF94] flex items-center justify-center relative shadow-[0_0_15px_rgba(0,255,148,0.3)] bg-[#0A1A2F]/50 backdrop-blur-sm">
+                            <div className="w-2 h-2 bg-[#00FF94] rounded-full absolute top-1 right-1"></div>
+                            <div className="w-4 h-4 border border-white/30 rounded-full"></div>
+                        </div>
+                        <span className="font-serif text-xl tracking-wide font-medium">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
+                    </div>
+                    <Link href="/login" className="px-5 py-2 text-xs font-mono uppercase tracking-widest border border-white/20 rounded hover:bg-white hover:text-[#0A1A2F] transition-all backdrop-blur-sm">
+                        Login Membros
+                    </Link>
+                </div>
+            </div>
 
-                {/* Status Bar - Elite Badge */}
-                <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md z-20 hover:bg-white/10 transition-colors cursor-help group">
-                    <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse shadows-[0_0_10px_#00FF94]" />
-                    <span className="text-[10px] font-mono text-brand-green tracking-widest uppercase group-hover:text-white transition-colors">Sistema: Inteligência Viva v2.4</span>
+
+            {/* --- Hero Section --- */}
+            <section className="relative pt-48 pb-32 px-6 z-10 flex flex-col items-center text-center">
+
+                {/* Abstract Mesh Representation (Central visual anchor) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] border border-white/5 rounded-full animate-float pointer-events-none z-0">
+                    <div className="absolute inset-0 border border-white/5 rounded-full scale-75"></div>
+                    <div className="absolute inset-0 border border-white/5 rounded-full scale-50"></div>
+                    <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#00A3FF] rounded-full blur-md"></div>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8 flex flex-col items-center justify-center h-full">
+                <div className="relative z-10">
+                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] font-mono tracking-[0.2em] mb-6 uppercase backdrop-blur-sm">
+                        Association for Algorithmization & Logic Governance
+                    </span>
 
-                    {/* Logo Shine Effect */}
-                    <div className="relative group cursor-pointer mb-6">
-                        <div className="absolute -inset-4 bg-brand-green/20 rounded-full blur-[60px] animate-pulse-slow group-hover:bg-brand-green/30 transition-all duration-700 opacity-60"></div>
-                        <div className="relative w-40 h-40 md:w-56 md:h-56 rounded-full border border-white/10 shadow-2xl overflow-hidden group-hover:scale-105 transition-transform duration-700 ease-out ring-1 ring-white/20 backdrop-blur-sm bg-white/5">
-                            <Image
-                                src="/logo-algor.jpg"
-                                alt="Logotipo ALGOR BRASIL"
-                                fill
-                                className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                                priority
-                            />
-                        </div>
-                    </div>
-
-                    {/* Headline Premium with Gradient */}
-                    <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
-                        Transformando Riscos de IA em <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-green to-brand-blue animate-gradient-x">
-                            Vantagem Competitiva
-                        </span>
+                    <h1 className="font-serif text-5xl md:text-7xl leading-tight mb-6 max-w-4xl mx-auto drop-shadow-2xl">
+                        Não é apenas software.<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">É a Elite da Governança.</span>
                     </h1>
 
-                    <p className="font-sans text-brand-blue/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light">
-                        A primeira plataforma de <strong className="text-white font-normal">Governança Generativa</strong> do Brasil. <br className="hidden md:block" />
-                        Conformidade ISO 42001, Proteção Jurídica e Estratégia de Negócios em um único ecossistema auditável.
+                    <p className="font-sans text-lg text-gray-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                        Junte-se à associação que define os padrões de ética e segurança de IA no Brasil.
+                        Tenha acesso exclusivo à nossa tecnologia proprietária de auditoria e certificação ISO 42001.
                     </p>
 
-                    {/* CTAs */}
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-5 pt-6 w-full sm:w-auto">
-                        <Link
-                            href="/register"
-                            className="w-full sm:w-auto px-8 py-4 bg-brand-green text-brand-navy font-bold font-mono rounded-lg hover:bg-white hover:text-brand-navy transition-all duration-300 shadow-[0_0_20px_rgba(0,255,148,0.3)] hover:shadow-[0_0_40px_rgba(0,255,148,0.5)] flex items-center justify-center gap-2 group text-sm md:text-base tracking-wide"
-                        >
-                            INICIAR DIAGNÓSTICO <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                        <Link href="/register" className="px-8 py-4 bg-[#00FF94] text-[#0A1A2F] font-bold text-sm uppercase tracking-wider rounded hover:bg-[#00cc76] transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] flex items-center gap-2 group">
+                            Aplicar para Filiação
+                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
-                        <Link
-                            href="/about"
-                            className="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white font-mono font-bold rounded-lg hover:bg-white/10 hover:border-white/30 transition-all text-sm md:text-base tracking-wide backdrop-blur-sm"
-                        >
-                            CONHECER METODOLOGIA
+                        <Link href="/about" className="px-8 py-4 glass-panel text-white font-medium text-sm uppercase tracking-wider rounded hover:bg-white/10 transition-all backdrop-blur-md">
+                            Ler Manifesto
                         </Link>
-                    </div>
-
-                    {/* Scroll Indicator - Relative Position to prevent collision */}
-                    <div className="flex flex-col items-center gap-2 opacity-60 animate-bounce cursor-pointer hover:opacity-100 transition-opacity pt-16">
-                        <span className="text-[10px] font-mono tracking-[0.2em] text-brand-green uppercase">Explore</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-brand-green to-transparent"></div>
                     </div>
                 </div>
             </section>
 
-            {/* Personas Grid - GLASSMORPHISM APPLIED */}
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 mt-8 mb-24">
-                {[
-                    {
-                        id: "board",
-                        icon: <Castle className="w-8 h-8 text-brand-green mb-4" />,
-                        title: "Visão Estratégica & ROI",
-                        desc: "Transforme risco regulatório em vantagem competitiva.",
-                        target: "Para o Board"
-                    },
-                    {
-                        id: "risk",
-                        icon: <Shield className="w-8 h-8 text-brand-amber mb-4" />,
-                        title: "Gestão de Riscos",
-                        desc: "Matriz de impacto, viés algorítmico e compliance.",
-                        target: "Para CISO/DPO"
-                    },
-                    {
-                        id: "tech",
-                        icon: <Cpu className="w-8 h-8 text-brand-blue mb-4" />,
-                        title: "Arquitetura Segura",
-                        desc: "Implementação técnica da ISO 42001 e LLMOps.",
-                        target: "Para CTO/Tech Lead"
-                    },
-                    {
-                        id: "legal",
-                        icon: <Scale className="w-8 h-8 text-purple-400 mb-4" />,
-                        title: "Jurídico & Ética",
-                        desc: "Adequação ao PL 2338/23 e EU AI Act.",
-                        target: "Para Jurídico"
-                    }
-                ].map((persona, index) => (
-                    <Link
-                        href={`/register?persona=${persona.id}`}
-                        key={persona.id}
-                        className="group relative glass-card rounded-2xl flex flex-col items-start p-8 h-full"
-                    >
-                        <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <ArrowRight className="text-brand-green -rotate-45" />
+
+            {/* --- Personas / Strategy Section (Replaced Grid) --- */}
+            <section className="py-24 border-t border-white/5 bg-[#0A1A2F]/50 relative z-10">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                        <div>
+                            <span className="text-[#00FF94] font-mono text-xs tracking-widest uppercase mb-2 block">/ Segmentação Estratégica</span>
+                            <h2 className="font-serif text-4xl md:text-5xl">Inteligência para quem decide.</h2>
                         </div>
-
-                        <div className="bg-white/5 p-3 rounded-lg mb-4 group-hover:bg-brand-green/10 transition-colors duration-300 ring-1 ring-white/5">
-                            {persona.icon}
-                        </div>
-
-                        <h3 className="font-display font-medium text-xl text-white mb-2 group-hover:text-brand-green transition-colors">
-                            {persona.title}
-                        </h3>
-
-                        <p className="font-sans text-brand-blue/60 text-sm mb-6 leading-relaxed flex-grow group-hover:text-brand-blue/80 transition-colors">
-                            {persona.desc}
+                        <p className="text-gray-400 max-w-md text-right md:text-left font-light">
+                            Nossa arquitetura de governança adapta-se instantaneamente ao papel do stakeholder, entregando clareza onde há complexidade.
                         </p>
+                    </div>
 
-                        <div className="mt-auto w-full pt-4 border-t border-white/5 group-hover:border-white/10">
-                            <span className="font-mono text-xs text-brand-green uppercase tracking-wider opacity-80 group-hover:opacity-100">
-                                {persona.target}
-                            </span>
-                        </div>
-                    </Link>
-                ))}
-            </div>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        {[
+                            { id: "board", title: "Para o Board", icon: Globe, desc: "Mitigação de risco estratégico e proteção de reputação.", color: "text-purple-400" },
+                            { id: "risk", title: "Para Compliance", icon: Shield, desc: "Alinhamento ISO 42001 e trilhas de auditoria.", color: "text-[#00FF94]" },
+                            { id: "tech", title: "Para Tech Leaders", icon: Cpu, desc: "Guardrails de LLMs sem travar o deploy.", color: "text-[#00A3FF]" },
+                            { id: "legal", title: "Para Jurídico", icon: Lock, desc: "Conformidade com PL 2338 e EU AI Act.", color: "text-amber-400" }
+                        ].map((item, idx) => (
+                            <Link href={`/register?persona=${item.id}`} key={idx} className="glass-panel p-6 rounded-lg hover:-translate-y-1 transition-transform cursor-pointer group block">
+                                <div className={`mb-4 ${item.color}`}>
+                                    <item.icon className="w-6 h-6" />
+                                </div>
+                                <h4 className="font-serif text-xl mb-2 group-hover:text-white transition-colors text-gray-100">{item.title}</h4>
+                                <p className="text-sm text-gray-500 group-hover:text-gray-400 leading-relaxed font-light">{item.desc}</p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
-            {/* Membership Benefits - Institutional Layer */}
+            {/* Reusing Modular Components (They need to be refactored to match style, but placed here for structure) */}
             <MembershipBenefits />
-
-            {/* Methodology Section - A Sala de Máquinas */}
             <MethodologySection />
-
-            {/* Governance Insights - SEO & Authority Content */}
             <GovernanceInsights />
-
-            {/* Final CTA - Conversion */}
             <JoinCTA />
+
         </main>
     );
 }
