@@ -93,10 +93,10 @@ export default function Home() {
 
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        <div className="relative w-10 h-10 rounded-full border border-[#00FF94]/50 shadow-[0_0_15px_rgba(0,255,148,0.3)] overflow-hidden">
+                        <div className="relative w-20 h-20 rounded-full border border-[#00FF94]/50 shadow-[0_0_15px_rgba(0,255,148,0.3)] overflow-hidden">
                             <img src="/logo-algor.webp" alt="Algor Brasil Logo" className="w-full h-full object-cover" />
                         </div>
-                        <span className="font-serif text-xl tracking-wide font-normal">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
+                        <span className="font-serif text-2xl tracking-wide font-normal">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
                     </div>
 
                     <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
