@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2 } from 'lucide-react';
 import Footer from '@/components/Footer';
+import PersonaGrid from '@/components/PersonaGrid';
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -149,7 +150,12 @@ export default function Home() {
                         Ler Manifesto
                     </button>
                 </div>
-            </section >
+            </section>
+
+            {/* Persona Grid - Strategic Segmentation */}
+            <div id="personas">
+                <PersonaGrid />
+            </div>
 
             {/* Benefits Section */}
             < section id="benefits" className="relative z-10 max-w-7xl mx-auto px-6 pb-32" >
