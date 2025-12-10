@@ -1,84 +1,94 @@
-"use client";
-
 import { Radar, FileCode, Terminal, RefreshCw } from "lucide-react";
+import MaturityRadar from "./MaturityRadar";
 
 export default function MethodologySection() {
-    const steps = [
-        {
-            id: 1,
-            icon: <Radar className="w-8 h-8 md:w-10 md:h-10 text-brand-green" />,
-            title: "DISCOVERY",
-            desc: "Diagnóstico de Maturidade"
-        },
-        {
-            id: 2,
-            icon: <FileCode className="w-8 h-8 md:w-10 md:h-10 text-brand-green" />,
-            title: "DESIGN",
-            desc: "Frameworks & Políticas"
-        },
-        {
-            id: 3,
-            icon: <Terminal className="w-8 h-8 md:w-10 md:h-10 text-brand-green" />,
-            title: "IMPLEMENTATION",
-            desc: "Treinamento & Deploy"
-        },
-        {
-            id: 4,
-            icon: <RefreshCw className="w-8 h-8 md:w-10 md:h-10 text-brand-green" />,
-            title: "OPERATION",
-            desc: "Auditoria Contínua"
-        }
-    ];
-
     return (
-        <section className="relative w-full py-24 bg-brand-navy border-t border-brand-green/10 overflow-hidden">
-            <div className="max-w-6xl mx-auto px-4 relative z-10">
-                <div className="text-center mb-16">
-                    <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-                        A SALA DE MÁQUINAS
-                    </h2>
-                    <p className="font-mono text-brand-blue/60 text-sm tracking-wider uppercase">
-                        Metodologia Algor v2.0 // Processo Validado
-                    </p>
-                </div>
+        <section id="metodologia" className="w-full py-24 relative overflow-hidden bg-brand-navy">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5" />
 
-                <div className="relative">
-                    {/* Connecting Line (Background) */}
-                    <div className="hidden md:block absolute top-[45px] left-0 w-full h-[2px] bg-brand-blue/10"></div>
+            <div className="max-w-7xl mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-                    {/* Pulsing Line (Animated) */}
-                    <div className="hidden md:block absolute top-[45px] left-0 w-full h-[2px] overflow-hidden">
-                        <div className="w-1/3 h-full bg-gradient-to-r from-transparent via-brand-green to-transparent animate-slide-right filter drop-shadow-[0_0_8px_rgba(0,255,148,0.8)]"></div>
+                {/* Left Column: The Narrative & Steps */}
+                <div>
+                    <div className="mb-12">
+                        <span className="font-mono text-brand-green text-sm tracking-widest uppercase mb-4 block">
+                            // A Sala de Máquinas
+                        </span>
+                        <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                            Do Caos à <span className="text-brand-blue">Otimização Auditável</span>
+                        </h2>
+                        <p className="font-sans text-brand-blue/60 text-lg leading-relaxed">
+                            Transformamos conformidade burocrática em um sistema operacional vivo. Nossa metodologia de 4 etapas garante alinhamento técnico e jurídico sem travar a inovação.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-                        {steps.map((step, index) => (
-                            <div key={step.id} className="relative flex flex-col items-center text-center group">
-                                {/* Hexagon / Circle Wrapper */}
-                                <div className="relative mb-6">
-                                    <div className="w-24 h-24 rounded-full bg-brand-navy border border-brand-blue/20 flex items-center justify-center relative z-10 group-hover:border-brand-green/50 transition-colors duration-500 glass-panel shadow-[0_0_30px_-10px_rgba(0,0,0,0.5)]">
-                                        {step.icon}
-                                    </div>
+                    <div className="space-y-10 relative">
+                        {/* Connecting Line */}
+                        <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gradient-to-b from-brand-green/30 to-transparent hidden lg:block" />
 
-                                    {/* Pulse Effect behind Icon */}
-                                    <div className="absolute inset-0 rounded-full bg-brand-green/10 animate-ping opacity-0 group-hover:opacity-20 transition-opacity duration-700"></div>
-                                </div>
-
-                                <h3 className="font-mono text-lg font-bold text-white mb-2 tracking-wide group-hover:text-brand-green transition-colors">
-                                    0{step.id} // {step.title}
-                                </h3>
-
-                                <p className="font-mono text-xs text-brand-blue/60 max-w-[150px]">
-                                    {step.desc}
+                        {/* Step 1 */}
+                        <div className="relative flex items-start gap-6 group cursor-default">
+                            <div className="relative z-10 w-12 h-12 rounded-xl bg-[#0A1A2F] border border-brand-green/30 flex items-center justify-center shadow-[0_0_15px_rgba(0,255,148,0.1)] group-hover:scale-110 transition-transform duration-300">
+                                <Radar className="w-6 h-6 text-brand-green" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-brand-green transition-colors">1. Discovery & Diagnóstico</h3>
+                                <p className="font-mono text-xs md:text-sm text-brand-blue/60 leading-relaxed">
+                                    Varredura de "Shadow AI", inventário de algoritmos e cálculo do nível de maturidade inicial.
                                 </p>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* Step 2 */}
+                        <div className="relative flex items-start gap-6 group cursor-default">
+                            <div className="relative z-10 w-12 h-12 rounded-xl bg-[#0A1A2F] border border-white/10 flex items-center justify-center group-hover:border-brand-blue/50 transition-colors duration-300">
+                                <FileCode className="w-6 h-6 text-brand-blue" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-brand-blue transition-colors">2. Design do Framework</h3>
+                                <p className="font-mono text-xs md:text-sm text-brand-blue/60 leading-relaxed">
+                                    Criação da Carta de Governança, políticas de uso aceitável e alinhamento com ISO 42001.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Step 3 */}
+                        <div className="relative flex items-start gap-6 group cursor-default">
+                            <div className="relative z-10 w-12 h-12 rounded-xl bg-[#0A1A2F] border border-white/10 flex items-center justify-center group-hover:border-purple-400/50 transition-colors duration-300">
+                                <Terminal className="w-6 h-6 text-purple-400" />
+                            </div>
+                            <div className="flex-1">
+                                <h3 className="font-display text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors">3. Implementação Técnica</h3>
+                                <p className="font-mono text-xs md:text-sm text-brand-blue/60 leading-relaxed">
+                                    Integração de guardrails em LLMs, treinamento de equipes e deploy de sensores.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Background Details */}
-            <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-brand-green/20 to-transparent"></div>
+                {/* Right Column: The Visual Tech (Radar Component) */}
+                <div className="relative mt-8 lg:mt-0">
+                    <div className="absolute -inset-20 bg-brand-green/5 blur-[80px] rounded-full animate-pulse-slow pointer-events-none" />
+
+                    <MaturityRadar />
+
+                    {/* Insight Box */}
+                    <div className="mt-6 p-6 bg-white/5 border border-white/10 rounded-xl backdrop-blur-md hover:bg-white/10 transition-colors border-l-4 border-l-brand-gold">
+                        <div className="flex items-center justify-between mb-2">
+                            <h4 className="font-display text-sm font-bold text-white uppercase tracking-wider">
+                                Insight de Mercado
+                            </h4>
+                            <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" />
+                        </div>
+                        <p className="font-mono text-xs text-brand-blue/80 leading-relaxed">
+                            <strong className="text-white">83% das empresas</strong> ainda operam no Nível 1 (Ad Hoc). Nossa metodologia eleva sua operação ao <strong className="text-brand-green">Nível 3 (Estruturado)</strong> em 90 dias, habilitando escalabilidade segura de IA Generativa.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
         </section>
     );
 }
