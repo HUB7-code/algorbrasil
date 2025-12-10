@@ -16,3 +16,7 @@ class User(Base):
 
     # Relacionamento com Avaliações
     assessments = relationship("backend.app.models.assessment.Assessment", back_populates="owner")
+
+    # Relacionamentos de Perfil (Dual Funnel)
+    professional_profile = relationship("backend.app.models.profiles.ProfessionalProfile", back_populates="user", uselist=False)
+    corporate_profile = relationship("backend.app.models.profiles.CorporateProfile", back_populates="user", uselist=False)
