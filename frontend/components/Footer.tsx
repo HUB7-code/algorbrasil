@@ -19,7 +19,7 @@ export default function Footer() {
                                 className="relative w-32 h-32 object-cover rounded-full border border-brand-green/30 shadow-[0_0_20px_rgba(0,255,148,0.2)]"
                             />
                         </Link>
-                        <p className="font-mono text-xs text-brand-blue/50 leading-relaxed mb-6">
+                        <p className="font-mono text-xs text-gray-400 leading-relaxed mb-6">
                             Consultoria de Elite em Governança de Inteligência Artificial.
                             <br /><br />
                             Transformando riscos tecnológicos em ativos estratégicos auditáveis.
@@ -37,7 +37,7 @@ export default function Footer() {
                     {/* Links: Platform */}
                     <div>
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Plataforma</h4>
-                        <ul className="space-y-3 font-mono text-xs text-brand-blue/60">
+                        <ul className="space-y-3 font-mono text-xs text-gray-400">
                             <li><Link href="/login" className="hover:text-brand-green transition-colors">Console do Membro</Link></li>
                             <li><Link href="/register?persona=tech" className="hover:text-brand-green transition-colors">API & Integrações</Link></li>
                             <li><Link href="#" className="hover:text-brand-green transition-colors">Status do Sistema</Link></li>
@@ -47,7 +47,7 @@ export default function Footer() {
                     {/* Links: Solutions */}
                     <div>
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Soluções</h4>
-                        <ul className="space-y-3 font-mono text-xs text-brand-blue/60">
+                        <ul className="space-y-3 font-mono text-xs text-gray-400">
                             <li><Link href="/register" className="hover:text-brand-green transition-colors">Diagnóstico ISO 42001</Link></li>
                             <li><Link href="#" className="hover:text-brand-green transition-colors">Adequação PL 2338</Link></li>
                             <li><Link href="#" className="hover:text-brand-green transition-colors">Auditoria de Algoritmos</Link></li>
@@ -57,7 +57,7 @@ export default function Footer() {
                     {/* Links: Compliance (Meta-Governance) */}
                     <div>
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Governança</h4>
-                        <ul className="space-y-3 font-mono text-xs text-brand-blue/60">
+                        <ul className="space-y-3 font-mono text-xs text-gray-400">
                             <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><ShieldCheck className="w-3 h-3" /> Portal do Titular de Dados</Link></li>
                             <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><Lock className="w-3 h-3" /> Preferências de Privacidade</Link></li>
                             <li><Link href="#" className="hover:text-brand-green transition-colors">Declaração de Transparência</Link></li>
@@ -67,7 +67,7 @@ export default function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-brand-blue/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="font-mono text-[10px] text-brand-blue/30">
+                    <p className="font-mono text-[10px] text-gray-500">
                         © 2024 Algor Brasil. Todos os direitos reservados.
                     </p>
 

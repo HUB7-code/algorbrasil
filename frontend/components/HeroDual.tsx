@@ -29,7 +29,7 @@ export default function HeroDual() {
                         Tecnologia e Governança
                     </span>
                 </h1>
-                <p className="font-light text-gray-400 max-w-2xl mx-auto text-sm md:text-lg">
+                <p className="font-light text-gray-300 max-w-2xl mx-auto text-sm md:text-lg">
                     O centro de excelência em auditoria algorítmica e conformidade ISO 42001 do Brasil.
                 </p>
             </div>
@@ -55,7 +55,7 @@ export default function HeroDual() {
                         <h2 className="font-serif text-3xl text-white mb-2">Para Empresas</h2>
                         <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Proteção & Compliance</h3>
 
-                        <p className="text-gray-400 mb-8 leading-relaxed text-sm md:text-base">
+                        <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
                             Mitigue riscos regulatórios (PL 2338) e audite seus modelos de IA com nossa metodologia proprietária. Diagnostique sua maturidade agora.
                         </p>
 
@@ -65,7 +65,7 @@ export default function HeroDual() {
                                 <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Monitoramento de Risco Contínuo</li>
                             </ul>
 
-                            <button className="w-full py-4 bg-[#00A3FF] hover:bg-[#0082CC] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2">
+                            <button className="w-full py-4 bg-[#00A3FF] hover:bg-[#33B5FF] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2">
                                 Diagnóstico Gratuito
                                 <ArrowRight className="w-4 h-4" />
                             </button>
@@ -91,7 +91,7 @@ export default function HeroDual() {
                         <h2 className="font-serif text-3xl text-white mb-2">Para Profissionais</h2>
                         <h3 className="font-mono text-xs text-[#00FF94] tracking-widest uppercase mb-6">Carreira & Associação</h3>
 
-                        <p className="text-gray-400 mb-8 leading-relaxed text-sm md:text-base">
+                        <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
                             Junte-se à elite da governança. Acesse metodologias exclusivas, ferramentas de auditoria e conecte-se com o board nacional.
                         </p>
 
