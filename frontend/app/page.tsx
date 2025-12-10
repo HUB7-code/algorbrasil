@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import MethodologySection from "@/components/MethodologySection";
 import MembershipBenefits from "@/components/MembershipBenefits";
@@ -16,34 +17,34 @@ export default function Home() {
             {/* Global Noise Overlay */}
             <div className="fixed inset-0 pointer-events-none z-50 bg-noise opacity-[0.03] mix-blend-overlay"></div>
 
-            {/* Hero Section - The Holographic Impact */}
-            <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center px-4 pt-10 pb-20 overflow-hidden">
+            {/* Hero Section - The Premium Impact */}
+            <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center px-4 pt-10 pb-20">
+                {/* 3D Neural Background */}
+                <Scene3D />
 
-                {/* 1. The Holographic Sphere (Scene3D) */}
-                {/* Focused centrally to act as the 'Sphere of Connections' behind text */}
-                <div className="absolute inset-0 z-0 flex items-center justify-center">
-                    <div className="w-[120vw] h-[120vw] md:w-[60vw] md:h-[60vw] opacity-40 mix-blend-screen bg-radial-gradient-hologram animate-spin-slow-linear rounded-full blur-3xl" />
-                    <Scene3D />
-                </div>
-
-                {/* Status Bar */}
+                {/* Status Bar - Elite Badge */}
                 <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md z-20 hover:bg-white/10 transition-colors cursor-help group">
                     <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse shadows-[0_0_10px_#00FF94]" />
-                    <span className="text-[10px] font-mono text-brand-green tracking-widest uppercase group-hover:text-white transition-colors">Sistema: Inteligência Viva v2.5</span>
+                    <span className="text-[10px] font-mono text-brand-green tracking-widest uppercase group-hover:text-white transition-colors">Sistema: Inteligência Viva v2.4</span>
                 </div>
 
-                <div className="relative z-10 max-w-6xl mx-auto text-center space-y-6 flex flex-col items-center justify-center h-full">
+                <div className="relative z-10 max-w-6xl mx-auto text-center space-y-8 flex flex-col items-center justify-center h-full">
 
-                    {/* 2. Logotipo Tipográfico "ALGOR" */}
-                    <div className="mb-2 relative">
-                        <h2 className="font-serif text-6xl md:text-8xl font-bold text-white tracking-[0.1em] drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">
-                            ALGOR
-                        </h2>
-                        {/* Decorative Underline */}
-                        <div className="h-[2px] w-24 bg-brand-green mx-auto mt-4 rounded-full shadow-[0_0_15px_#00FF94]"></div>
+                    {/* Logo Shine Effect */}
+                    <div className="relative group cursor-pointer mb-6">
+                        <div className="absolute -inset-4 bg-brand-green/20 rounded-full blur-[60px] animate-pulse-slow group-hover:bg-brand-green/30 transition-all duration-700 opacity-60"></div>
+                        <div className="relative w-40 h-40 md:w-56 md:h-56 rounded-full border border-white/10 shadow-2xl overflow-hidden group-hover:scale-105 transition-transform duration-700 ease-out ring-1 ring-white/20 backdrop-blur-sm bg-white/5">
+                            <Image
+                                src="/logo-algor.jpg"
+                                alt="Logotipo ALGOR BRASIL"
+                                fill
+                                className="object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                                priority
+                            />
+                        </div>
                     </div>
 
-                    {/* 3. Headline Overlapping the Sphere */}
+                    {/* Headline Premium with Gradient */}
                     <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
                         Transformando Riscos de IA em <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-green to-brand-blue animate-gradient-x">
@@ -51,7 +52,7 @@ export default function Home() {
                         </span>
                     </h1>
 
-                    <p className="font-sans text-brand-blue/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light backdrop-blur-sm p-4 rounded-xl border border-white/0 hover:border-white/5 transition-colors">
+                    <p className="font-sans text-brand-blue/80 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light">
                         A primeira plataforma de <strong className="text-white font-normal">Governança Generativa</strong> do Brasil. <br className="hidden md:block" />
                         Conformidade ISO 42001, Proteção Jurídica e Estratégia de Negócios em um único ecossistema auditável.
                     </p>
@@ -72,7 +73,7 @@ export default function Home() {
                         </Link>
                     </div>
 
-                    {/* Scroll Indicator */}
+                    {/* Scroll Indicator - Relative Position to prevent collision */}
                     <div className="flex flex-col items-center gap-2 opacity-60 animate-bounce cursor-pointer hover:opacity-100 transition-opacity pt-16">
                         <span className="text-[10px] font-mono tracking-[0.2em] text-brand-green uppercase">Explore</span>
                         <div className="w-[1px] h-12 bg-gradient-to-b from-brand-green to-transparent"></div>
@@ -80,7 +81,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Personas Grid - Glassmorphism */}
+            {/* Personas Grid - GLASSMORPHISM APPLIED */}
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 mt-8 mb-24">
                 {[
                     {
@@ -142,12 +143,16 @@ export default function Home() {
                 ))}
             </div>
 
+            {/* Membership Benefits - Institutional Layer */}
             <MembershipBenefits />
 
+            {/* Methodology Section - A Sala de Máquinas */}
             <MethodologySection />
 
+            {/* Governance Insights - SEO & Authority Content */}
             <GovernanceInsights />
 
+            {/* Final CTA - Conversion */}
             <JoinCTA />
         </main>
     );
