@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2 } from 'lucide-react';
+import Footer from '@/components/Footer';
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -414,6 +415,7 @@ export default function Home() {
                     </button>
                 )
             }
+            <Footer />
         </div >
     );
 }

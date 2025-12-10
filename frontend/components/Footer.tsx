@@ -12,11 +12,11 @@ export default function Footer() {
                         <Link href="/" className="block mb-6 relative group inline-block">
                             <div className="absolute -inset-2 bg-brand-green/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition duration-500"></div>
                             <Image
-                                src="/logo-algor.jpg"
+                                src="/logo-algor.webp"
                                 alt="ALGOR BRASIL"
-                                width={120}
-                                height={120}
-                                className="relative w-28 h-auto rounded-full border border-brand-green/10 shadow-lg"
+                                width={160}
+                                height={160}
+                                className="relative w-32 h-32 object-cover rounded-full border border-brand-green/30 shadow-[0_0_20px_rgba(0,255,148,0.2)]"
                             />
                         </Link>
                         <p className="font-mono text-xs text-brand-blue/50 leading-relaxed mb-6">
