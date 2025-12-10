@@ -80,7 +80,7 @@ export default function PersonaGrid() {
                     {personas.map((persona) => (
                         <div
                             key={persona.id}
-                            className={`group relative p-6 rounded-2xl border border-brand-blue/10 bg-[#0A1A2F]/80 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${persona.borderColor}`}
+                            className={`glass-panel group relative p-6 rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl ${persona.borderColor}`}
                         >
                             {/* Gradient Background on Hover */}
                             <div className={`absolute inset-0 rounded-2xl bg-gradient-to-b ${persona.BgGradient} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
