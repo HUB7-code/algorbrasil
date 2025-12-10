@@ -15,7 +15,7 @@ export default function Home() {
         <main className="flex min-h-screen flex-col items-center justify-between bg-brand-navy selection:bg-brand-green selection:text-brand-navy overflow-hidden">
 
             {/* Hero Section - The Premium Impact */}
-            <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center px-4 pt-10">
+            <section className="relative w-full min-h-[95vh] flex flex-col items-center justify-center px-4 pt-10 pb-20">
                 {/* 3D Neural Background */}
                 <Scene3D />
 
@@ -41,8 +41,8 @@ export default function Home() {
                         </div>
                     </div>
 
-                    {/* Headline Premium with Gradient */}
-                    <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
+                    {/* Headline Premium with Gradient - Adjusted Size for Balance */}
+                    <h1 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
                         Transformando Riscos de IA em <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-green to-brand-blue animate-gradient-x">
                             Vantagem Competitiva
@@ -69,17 +69,17 @@ export default function Home() {
                             CONHECER METODOLOGIA
                         </Link>
                     </div>
-                </div>
 
-                {/* Scroll Indicator */}
-                <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 animate-bounce cursor-pointer hover:opacity-100 transition-opacity">
-                    <span className="text-[10px] font-mono tracking-[0.2em] text-brand-green uppercase">Explore</span>
-                    <div className="w-[1px] h-12 bg-gradient-to-b from-brand-green to-transparent"></div>
+                    {/* Scroll Indicator - Relative Position to prevent collision */}
+                    <div className="flex flex-col items-center gap-2 opacity-60 animate-bounce cursor-pointer hover:opacity-100 transition-opacity pt-16">
+                        <span className="text-[10px] font-mono tracking-[0.2em] text-brand-green uppercase">Explore</span>
+                        <div className="w-[1px] h-12 bg-gradient-to-b from-brand-green to-transparent"></div>
+                    </div>
                 </div>
             </section>
 
             {/* Personas Grid - Decision Matrix (Auto-Segmentation) */}
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 mt-12 mb-24">
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 mt-8 mb-24">
                 {[
                     {
                         id: "board",
