@@ -5,6 +5,7 @@ import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle
 import Footer from '@/components/Footer';
 import PersonaGrid from '@/components/PersonaGrid';
 import MethodologySection from '@/components/MethodologySection';
+import Image from 'next/image';
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -42,8 +43,8 @@ export default function Home() {
 
             {/* Background Glows */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse-slow" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse-slow" style={{ animationDelay: '2s' }} />
+                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse-slow will-change-transform" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse-slow will-change-transform" style={{ animationDelay: '2s' }} />
             </div>
 
             {/* Navigation */}
@@ -54,7 +55,14 @@ export default function Home() {
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <div className="flex items-center gap-3">
                         <div className="relative w-40 h-40 rounded-full border border-[#00FF94]/50 shadow-[0_0_25px_rgba(0,255,148,0.4)] overflow-hidden">
-                            <img src="/logo-algor.webp" alt="Algor Brasil Logo" className="w-full h-full object-cover" />
+                            <Image
+                                src="/logo-algor.webp"
+                                alt="Algor Brasil Logo"
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority
+                            />
                         </div>
                         <span className="font-serif text-4xl tracking-wide font-normal">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
                     </div>
