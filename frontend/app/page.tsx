@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import PersonaGrid from '@/components/PersonaGrid';
 import MethodologySection from '@/components/MethodologySection';
 import Image from 'next/image';
+import HeroDual from '@/components/HeroDual';
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -100,44 +101,8 @@ export default function Home() {
                 )}
             </nav >
 
-            {/* Hero Section */}
-            < section className="relative pt-32 md:pt-48 pb-20 md:pb-32 px-6 z-10 flex flex-col items-center text-center" >
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[800px] h-[300px] md:h-[800px] border border-white/5 rounded-full animate-float pointer-events-none">
-                    <div className="absolute inset-0 border border-white/5 rounded-full scale-75" />
-                    <div className="absolute inset-0 border border-white/5 rounded-full scale-50" />
-                    <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#00A3FF] rounded-full blur-md" />
-                </div>
-
-                <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] font-mono tracking-[0.2em] mb-6 uppercase">
-                    Association for Algorithmization & Logic Governance
-                </span>
-
-                <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight mb-6 max-w-4xl mx-auto">
-                    Não é apenas software.<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">É a Elite da Governança.</span>
-                </h1>
-
-                <p className="font-sans text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                    Junte-se à associação que define os padrões de ética e segurança de IA no Brasil.
-                    Tenha acesso exclusivo à nossa tecnologia proprietária de auditoria e certificação ISO 42001.
-                </p>
-
-                <div className="flex flex-col sm:flex-row gap-4 items-center">
-                    <button
-                        onClick={handleApply}
-                        className="px-8 py-4 bg-[#00FF94] text-[#0A1A2F] font-bold text-sm uppercase tracking-wider rounded hover:bg-[#00cc76] transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] hover:shadow-[0_0_30px_rgba(0,255,148,0.5)] flex items-center gap-2 group hover:scale-105 active:scale-95"
-                    >
-                        Aplicar para Filiação
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <button
-                        onClick={() => setShowManifesto(true)}
-                        className="px-8 py-4 glass-panel text-white font-medium text-sm uppercase tracking-wider rounded hover:bg-white/10 transition-all hover:scale-105 active:scale-95"
-                    >
-                        Ler Manifesto
-                    </button>
-                </div>
-            </section>
+            {/* Hero Section - Dual Funnel Strategy */}
+            <HeroDual />
 
             {/* Persona Grid - Strategic Segmentation */}
             <div id="personas">
