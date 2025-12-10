@@ -21,14 +21,22 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
 }
 
-/* Painel de Vidro Base - Sem espacos no rgba para evitar erro no Tailwind */
+/* Painel de Vidro Base */
+/* Usando CSS nativo para boxShadow para evitar erro de parsing do Tailwind @apply com valores arbitrários */
 .glass-panel {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-[inset_0_0_30px_rgba(255, 255, 255, 0.02)] rounded-3xl relative overflow-hidden;
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl relative overflow-hidden;
+  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.02);
 }
 
-/* Card Interativo - Sem espacos no rgba */
+/* Card Interativo */
 .glass-card {
-  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_0_0_rgba(255, 255, 255, 0.1)] transition-all duration-500 hover:bg-white/[0.08] hover:shadow-[inset_0_1px_0_0_rgba(255, 255, 255, 0.2), 0_10px_40px_-10px_rgba(0, 0, 0, 0.5)] hover:border-white/20 relative overflow-hidden;
+  @apply bg-white/[0.03] backdrop-blur-xl border border-white/10 transition-all duration-500 relative overflow-hidden;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card:hover {
+  @apply bg-white/[0.08] border-white/20;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.2), 0 10px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
 /* Efeito de Brilho Interno (Inner Glow) */
