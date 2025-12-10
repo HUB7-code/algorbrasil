@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2 } from 'lucide-react';
+import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2, Menu } from 'lucide-react';
 import Footer from '@/components/Footer';
 import PersonaGrid from '@/components/PersonaGrid';
 import MethodologySection from '@/components/MethodologySection';
@@ -12,6 +12,7 @@ export default function Home() {
     const [showManifesto, setShowManifesto] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [statsVisible, setStatsVisible] = useState(false);
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -58,20 +59,41 @@ export default function Home() {
                         <span className="font-serif text-4xl tracking-wide font-normal">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
                     </div>
 
+                    {/* Desktop Menu */}
                     <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
                         <button onClick={() => scrollToSection('benefits')} className="hover:text-white transition-colors">A Associação</button>
                         <button onClick={() => scrollToSection('personas')} className="hover:text-white transition-colors">Intelligence Hub</button>
                         <button onClick={() => scrollToSection('methodology')} className="hover:text-white transition-colors">Metodologia</button>
                     </div>
 
-                    <button className="px-5 py-2 text-xs font-mono uppercase tracking-widest border border-white/20 rounded hover:bg-white hover:text-[#0A1A2F] transition-all hover:scale-105 active:scale-95">
+                    <button className="hidden md:block px-5 py-2 text-xs font-mono uppercase tracking-widest border border-white/20 rounded hover:bg-white hover:text-[#0A1A2F] transition-all hover:scale-105 active:scale-95">
                         Login Membros
                     </button>
+
+                    {/* Mobile Menu Toggle */}
+                    <button
+                        className="md:hidden text-white"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    >
+                        {mobileMenuOpen ? <X /> : <Menu />}
+                    </button>
                 </div>
+
+                {/* Mobile Menu Overlay */}
+                {mobileMenuOpen && (
+                    <div className="absolute top-full left-0 w-full bg-[#0A1A2F]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-6 md:hidden animate-in slide-in-from-top-5">
+                        <button onClick={() => { scrollToSection('benefits'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">A Associação</button>
+                        <button onClick={() => { scrollToSection('personas'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Intelligence Hub</button>
+                        <button onClick={() => { scrollToSection('methodology'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Metodologia</button>
+                        <button className="w-full py-3 mt-2 bg-white/5 border border-white/10 rounded text-center font-mono uppercase tracking-widest text-xs hover:bg-white hover:text-[#0A1A2F] transition-all">
+                            Login Membros
+                        </button>
+                    </div>
+                )}
             </nav >
 
             {/* Hero Section */}
-            < section className="relative pt-48 pb-32 px-6 z-10 flex flex-col items-center text-center" >
+            < section className="relative pt-32 md:pt-48 pb-20 md:pb-32 px-6 z-10 flex flex-col items-center text-center" >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[800px] h-[300px] md:h-[800px] border border-white/5 rounded-full animate-float pointer-events-none">
                     <div className="absolute inset-0 border border-white/5 rounded-full scale-75" />
                     <div className="absolute inset-0 border border-white/5 rounded-full scale-50" />
