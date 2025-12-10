@@ -1,48 +1,50 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 09/12/2025 - 22:40
-> **Status Geral:** **HOME PAGE "GOOGLE CLEAN" ONLINE** ⚪
-> **Versão:** 3.0 (Material Design Pivot)
+> **Última Atualização:** 10/12/2025 - 02:00
+> **Status Geral:** **HOME PAGE "ELITE DARK" RESTAURADA** ⚫
+> **Versão:** 4.0 (Elite Visuals Restoration)
 
-## 1. Pivot Visual: "Algor Clean"
-A identidade visual migrou de **Dark Cyberpunk** para **Light Material 3 (Enterprise)**. O objetivo é transmitir confiança institucional, clareza e autoridade técnica, similar a benchmarks como Google Cloud e Stripe.
+## 1. Pivot Visual: "Elite Dark Glass"
+O projeto reverteu para a identidade **Dark Cyberpunk/Elite**. O foco é exclusividade, mistério e alta sofisticação tecnológica.
+- **Conceito:** "Governança Generativa" e "Elite da Governança".
+- **Estilo:** Glassmorphism Real, Neon Glows, Animações Fluídas.
 
 ## 2. Design System Cheat Sheet (Referência Técnica)
-Use estas classes e tokens para manter a consistência nas próximas páginas (ex: Dashboard):
+ATENÇÃO: Ignore referências anteriores ao tema "Clean/Light".
 
 ### Cores Principais
-- **Background:** `bg-[#F3F6FC]` (Ice Blue - Padrão Global)
-- **Texto Principal:** `text-[#1F1F1F]` (Dark Charcoal - Menos duro que preto)
-- **Texto Secundário:** `text-[#444746]` (Grey Medium)
-- **Brand Primary:** `text-[#0B57D0]` / `bg-[#0B57D0]` (Google Blue)
-- **Accent Green:** `text-[#146C2E]` / `bg-[#C4EED0]` (Success/Growth)
+- **Background:** `bg-[#0A1A2F]` (Deep Navy) e `bg-[#050d18]` (Footer).
+- **Texto Principal:** `text-white`.
+- **Texto Secundário:** `text-gray-400` / `text-gray-500`.
+- **Accent Green:** `#00FF94` (Bio Green - Símbolo de Verificação/Sucesso).
+- **Accent Blue:** `#00A3FF` (Electric Blue - Tech/Processing).
+- **Glass Panel:** `bg-white/3` com `backdrop-blur-md` e bordas sutis.
 
 ### Formas & Componentes
-- **Botões:** `rounded-full` (Sempre Pílula).
-- **Cards (Surface):**
-  - Classe: `.surface-card` (Definida em `globals.css`)
-  - Specs: `bg-white`, `rounded-[24px]`, `border-[#E0E3E7]`, `shadow-sm`.
-- **Inputs:** `bg-white`, `border-[#E0E3E7]`, `rounded-lg` (não pílula).
+- **Botões:** Mistura de Retangulares com bordas levemente arredondadas (`rounded`) e Pílulas para tags.
+- **Input/Forms:** Glassmorphism.
+- **Cards:** Glass Panel com efeitos de hover (Gret glow border).
 
 ### Tipografia
-- **Títulos (Serifa):** `font-serif` (Playfair Display) - Uso: H1, H2, Cards Title.
-- **Corpo (Sans):** `font-sans` (Manrope) - Uso: Parágrafos, UI, Menus.
-- **Dados (Mono):** `font-mono` (JetBrains Mono) - Uso: Status, Scores, Technical Terms.
+- **Títulos (Serifa):** `font-serif` (Playfair Display) - Autoridade.
+- **Corpo (Sans):** `font-sans` (Manrope) - Legibilidade.
+- **Dados/Tech (Mono):** `font-mono` (JetBrains Mono) - Labels técnicos e dados.
+- **Destaques:** Uso de `tracking-widest` e Uppercase em subtítulos.
 
 ## 3. Estado Atual dos Arquivos
 - **Frontend:**
-  - `frontend/app/page.tsx`: **Migrado** (Light Mode).
-  - `frontend/app/globals.css`: **Refatorado** (Material Styles).
-  - `frontend/app/layout.tsx`: **Configurado** (Fontes Manrope/Playfair).
-  - `frontend/components/`: `MembershipBenefits`, `Methodology`, `Insights` atualizados.
+  - `frontend/app/page.tsx`: **Atualizado** (Elite Dark Mode Component).
+  - `frontend/app/globals.css`: **Atualizado** (Dark Theme + Keyframes).
+  - `frontend/app/layout.tsx`: **Configurado** (Fontes + Dark Body).
+  - `frontend/components/`: *Status Incerto* (Componentes antigos "Clean" ainda existem mas não estão em uso na Home atual).
 - **Backend:** Estável (FastAPI + SQLite).
-- **Imagens:** Logo corrigida no Header circular.
 
-## 4. Roadmap Imediato (Fase 3)
-1.  **Dashboard UI Overhaul:** O Painel de Membros ainda está "Dark". Precisa ser migrado para o tema "Clean" usando o *Cheat Sheet* acima.
-2.  **Assessment Engine:** Implementar a lógica de diagnóstico ISO 42001.
-3.  **Trust Signals:** Adicionar barra de logos de parceiros/standards na Home.
+## 4. Roadmap Imediato (Fase 4)
+1.  **Dashboard UI Synchronization:** O Painel de Membros precisa seguir o mesmo Design System "Elite Dark" da Home.
+2.  **Assessment Engine:** Integração com o novo frontend.
+3.  **Refatoração:** Quebrar o `page.tsx` monolítico em componentes menores (`Hero`, `Benefits`, `Methodology`) dentro de `frontend/components/elite/`.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
 - **v2.0:** Dark Mode Premium (Next.js + 3D).
-- **v3.0:** Light Mode Material (Enterprise Focus) - **ATUAL**.
+- **v3.0:** Light Mode Material (Enterprise Focus).
+- **v4.0:** Elite Dark Mode (Glassmorphism & High-End Animations) - **ATUAL**.
