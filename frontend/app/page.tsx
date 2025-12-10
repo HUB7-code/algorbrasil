@@ -4,17 +4,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import PersonaGrid from '@/components/PersonaGrid';
+import MethodologySection from '@/components/MethodologySection';
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
     const [showManifesto, setShowManifesto] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [activeModels, setActiveModels] = useState(0);
-    const [riskScore, setRiskScore] = useState(0);
     const [statsVisible, setStatsVisible] = useState(false);
-
-    const statsRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -28,47 +25,7 @@ export default function Home() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !statsVisible) {
-                    setStatsVisible(true);
-                }
-            },
-            { threshold: 0.3 }
-        );
-
-        if (statsRef.current) {
-            observer.observe(statsRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, [statsVisible]);
-
-    useEffect(() => {
-        if (statsVisible) {
-            const modelsTimer = setInterval(() => {
-                setActiveModels(prev => {
-                    if (prev < 24) return prev + 1;
-                    clearInterval(modelsTimer);
-                    return prev;
-                });
-            }, 50);
-
-            const riskTimer = setInterval(() => {
-                setRiskScore(prev => {
-                    if (prev < 92) return prev + 2;
-                    clearInterval(riskTimer);
-                    return prev;
-                });
-            }, 30);
-
-            return () => {
-                clearInterval(modelsTimer);
-                clearInterval(riskTimer);
-            };
-        }
-    }, [statsVisible]);
+    // Effects for methodology visualization removed as they are now in the component
 
     const handleApply = () => {
         setShowToast(true);
@@ -199,148 +156,11 @@ export default function Home() {
                 </div>
             </section >
 
-            {/* Personas Section */}
-            < section id="personas" className="py-24 border-t border-white/5 bg-[#0A1A2F]/50 relative" >
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                        <div>
-                            <span className="text-[#00FF94] font-mono text-xs tracking-widest uppercase mb-2 block">/ Segmentação Estratégica</span>
-                            <h2 className="font-serif text-4xl md:text-5xl">Inteligência para quem decide.</h2>
-                        </div>
-                        <p className="text-gray-400 max-w-md font-light">
-                            Nossa arquitetura de governança adapta-se instantaneamente ao papel do stakeholder, entregando clareza onde há complexidade.
-                        </p>
-                    </div>
+            {/* Methodology Section - System OS */}
+            <MethodologySection />
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {[
-                            { title: "Para o Board", icon: Globe, desc: "Mitigação de risco estratégico e proteção de reputação.", color: "text-purple-400" },
-                            { title: "Para Compliance", icon: Shield, desc: "Alinhamento ISO 42001 e trilhas de auditoria.", color: "text-[#00FF94]" },
-                            { title: "Para Tech Leaders", icon: Cpu, desc: "Guardrails de LLMs sem travar o deploy.", color: "text-[#00A3FF]" },
-                            { title: "Para Jurídico", icon: Lock, desc: "Conformidade com PL 2338 e EU AI Act.", color: "text-amber-400" }
-                        ].map((item, idx) => (
-                            <div key={idx} className="glass-panel p-6 rounded-lg hover:-translate-y-2 hover:scale-105 transition-all duration-300 cursor-pointer group">
-                                <div className={`mb-4 ${item.color}`}>
-                                    <item.icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-                                </div>
-                                <h4 className="font-serif text-xl mb-2 group-hover:text-white transition-colors">{item.title}</h4>
-                                <p className="text-sm text-gray-500 group-hover:text-gray-400 leading-relaxed">{item.desc}</p>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section >
 
-            {/* Methodology Section */}
-            < section id="methodology" className="py-24 relative overflow-hidden" >
-                <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row gap-16 items-center">
 
-                    <div className="md:w-1/2">
-                        <span className="text-[#00A3FF] font-mono text-xs tracking-widest uppercase mb-2 block">/ Metodologia Proprietária</span>
-                        <h2 className="font-serif text-4xl mb-6">Do Caos à Otimização Auditável.</h2>
-                        <p className="text-gray-400 mb-8 font-light leading-relaxed text-lg">
-                            Não aplicamos checklists genéricos. Implementamos um sistema vivo de governança que evolui junto com seus modelos de IA.
-                        </p>
-
-                        <div className="space-y-6">
-                            {[
-                                "Discovery & Diagnóstico de Shadow AI",
-                                "Design de Frameworks Éticos",
-                                "Implementação de Sensores de Risco",
-                                "Operação e Monitoramento Contínuo"
-                            ].map((step, i) => (
-                                <div key={i} className="flex items-center gap-4 group cursor-pointer">
-                                    <div className="w-8 h-8 rounded bg-white/5 border border-white/10 flex items-center justify-center text-xs font-mono text-[#00A3FF] group-hover:bg-[#00A3FF] group-hover:text-white group-hover:scale-110 transition-all">
-                                        0{i + 1}
-                                    </div>
-                                    <span className="text-gray-300 group-hover:text-white group-hover:translate-x-2 transition-all">{step}</span>
-                                    <ChevronRight className="w-4 h-4 text-gray-600 group-hover:text-[#00A3FF] opacity-0 group-hover:opacity-100 transition-all" />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div className="md:w-1/2 relative" ref={statsRef}>
-                        <div className="glass-panel p-8 rounded-2xl relative z-20 max-w-md mx-auto hover:scale-[1.02] transition-transform">
-                            <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-                                <span className="font-mono text-xs text-gray-500">STATUS DO SISTEMA</span>
-                                <span className="flex items-center gap-2 text-[#00FF94] text-xs font-bold uppercase">
-                                    <span className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
-                                    Protegido
-                                </span>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                                    <div className="h-full bg-[#00FF94] transition-all duration-1000" style={{ width: `${(riskScore / 92) * 100}%` }} />
-                                </div>
-                                <div className="flex justify-between text-xs font-mono text-gray-400">
-                                    <span>RISK SCORE</span>
-                                    <span className="text-white font-bold">{riskScore}/100</span>
-                                </div>
-                                <div className="grid grid-cols-2 gap-3 mt-4">
-                                    <div className="bg-[#0A1A2F] p-3 rounded border border-white/5 text-center hover:border-[#00FF94]/30 transition-colors">
-                                        <div className="text-2xl font-serif text-white">{activeModels}</div>
-                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Modelos Ativos</div>
-                                    </div>
-                                    <div className="bg-[#0A1A2F] p-3 rounded border border-white/5 text-center hover:border-[#00FF94]/30 transition-colors">
-                                        <div className="text-2xl font-serif text-white">0</div>
-                                        <div className="text-[10px] text-gray-500 uppercase tracking-wide">Incidentes Críticos</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="absolute top-4 -right-4 w-full h-full border border-white/5 rounded-2xl z-10" />
-                        <div className="absolute -bottom-8 -left-8 w-64 h-64 bg-[#00A3FF] opacity-10 blur-[80px] rounded-full z-0" />
-                    </div>
-
-                </div>
-            </section >
-
-            {/* Footer */}
-            < footer className="bg-[#050d18] border-t border-white/5 py-16 text-sm" >
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="grid md:grid-cols-4 gap-12 mb-12">
-                        <div className="col-span-1 md:col-span-2">
-                            <span className="font-serif text-2xl text-white block mb-6">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
-                            <p className="text-gray-500 max-w-sm mb-6 leading-relaxed">
-                                A primeira plataforma de Governança Generativa do Brasil. Transformamos complexidade regulatória em vantagem competitiva para organizações orientadas ao futuro.
-                            </p>
-                            <div className="flex gap-4">
-                                <div className="w-8 h-8 rounded bg-white/5 hover:bg-white/10 hover:scale-110 cursor-pointer transition-all" />
-                                <div className="w-8 h-8 rounded bg-white/5 hover:bg-white/10 hover:scale-110 cursor-pointer transition-all" />
-                                <div className="w-8 h-8 rounded bg-white/5 hover:bg-white/10 hover:scale-110 cursor-pointer transition-all" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <h5 className="font-serif text-white mb-4">Associação</h5>
-                            <ul className="space-y-2 text-gray-500">
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Manifesto</a></li>
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Membros Certificados</a></li>
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Conselho Consultivo</a></li>
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Aplicar para Vaga</a></li>
-                            </ul>
-                        </div>
-
-                        <div>
-                            <h5 className="font-serif text-white mb-4">Legal & Privacy</h5>
-                            <ul className="space-y-2 text-gray-500">
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Declaração de Transparência IA</a></li>
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Centro de Preferências</a></li>
-                                <li><a href="#" className="hover:text-[#00FF94] hover:translate-x-1 inline-block transition-all">Portal do Titular</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 font-mono">
-                        <p>© 2024 Algor Brasil. All rights reserved.</p>
-                        <div className="flex items-center gap-2 mt-4 md:mt-0">
-                            <span className="w-2 h-2 rounded-full bg-green-500" />
-                            <span>SYSTEM STATUS: OPERATIONAL</span>
-                        </div>
-                    </div>
-                </div>
-            </footer >
 
             {/* Manifesto Modal */}
             {
