@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
 from fastapi.security import OAuth2PasswordBearer
 from backend.app.schemas import UserLogin, Token, UserCreate
 from backend.app.core.security import verify_password, create_access_token, get_password_hash
+from backend.app.core.security_encryption import encrypt_field
 from backend.app.services.email_service import send_welcome_email
 
 router = APIRouter()
@@ -29,7 +30,7 @@ async def create_user(user_in: UserCreate, background_tasks: BackgroundTasks, db
         email=user_in.email,
         hashed_password=get_password_hash(user_in.password),
         full_name=user_in.full_name,
-        phone=user_in.phone,
+        phone=encrypt_field(user_in.phone),
         role="subscriber", # Define como Nível 1 padrão
         is_active=True
     )
@@ -37,6 +38,17 @@ async def create_user(user_in: UserCreate, background_tasks: BackgroundTasks, db
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    
+    # [LGPD] Auditoria: Registrar criação de usuário
+    from backend.app.services.audit_service import log_audit
+    log_audit(
+        db=db,
+        action="USER_SIGNUP",
+        resource_type="user",
+        resource_id=new_user.id,
+        user_id=new_user.id, # O próprio usuário é o ator neste caso
+        details={"email": new_user.email, "role": new_user.role}
+    )
     
     # Enviar email de boas-vindas
     background_tasks.add_task(send_welcome_email, new_user.full_name or "Membro", new_user.email, False)
