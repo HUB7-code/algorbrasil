@@ -1,44 +1,48 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 09/12/2025 - 22:35
-> **Status Geral:** **HOME PAGE "GOOGLE CLEAN" ATIVA** ⚪ | Backend Pronto | Pivot de Design Completo.
-> **Foco Atual:** Desenvolvimento do **Assessment Engine** (SaaS) e refinamento do Dashboard.
+> **Última Atualização:** 09/12/2025 - 22:40
+> **Status Geral:** **HOME PAGE "GOOGLE CLEAN" ONLINE** ⚪
+> **Versão:** 3.0 (Material Design Pivot)
 
-## 1. Pivot Visual (Da Escuridão para a Luz)
-Realizamos uma mudança radical de identidade visual (Pivot de Design) para alinhar com a estética "Tech Enterprise" (Google, Stripe, Linear).
-- **De:** Dark Mode Cyberpunk (Neon, preto, glassmorphism pesado).
-- **Para:** **Light Mode Material 3** (Branco, Ice Blue, Pill Shapes, Manrope Font).
-- **Motivo:** Transmitir maior confiança institucional, clareza e acessibilidade para o público C-Level/Corporativo.
+## 1. Pivot Visual: "Algor Clean"
+A identidade visual migrou de **Dark Cyberpunk** para **Light Material 3 (Enterprise)**. O objetivo é transmitir confiança institucional, clareza e autoridade técnica, similar a benchmarks como Google Cloud e Stripe.
 
-## 2. Novo Design System (Algor Clean)
-- **Paleta:**
-  - **Fundo:** Ice Blue (`#F3F6FC`).
-  - **Primária:** Google Blue (`#0B57D0`).
-  - **Texto:** Dark Charcoal (`#1F1F1F`).
-  - **Superfícies:** Branco (`#FFFFFF`) com sombras suaves (`shadow-sm` / `elevation-1`).
-- **Tipografia:**
-  - **`Manrope`** (Sans): Geométrica, moderna e legível.
-  - **`Playfair Display`** (Serif): Mantida para títulos de "Autoridade".
-  - **`JetBrains Mono`** (Mono): Detalhes técnicos.
-- **Formas:** `rounded-full` (Pílulas) e `rounded-[24px]` (Cards).
+## 2. Design System Cheat Sheet (Referência Técnica)
+Use estas classes e tokens para manter a consistência nas próximas páginas (ex: Dashboard):
 
-## 3. Estrutura Técnica (Stack V2)
-- **Frontend:** Next.js 14 + Tailwind CSS.
-  - Global CSS refatorado para classes `.surface-card`, `.btn-primary`.
-- **Backend:** FastAPI + SQLite (Estável).
-- **Infraestrutura:** Docker Compose.
+### Cores Principais
+- **Background:** `bg-[#F3F6FC]` (Ice Blue - Padrão Global)
+- **Texto Principal:** `text-[#1F1F1F]` (Dark Charcoal - Menos duro que preto)
+- **Texto Secundário:** `text-[#444746]` (Grey Medium)
+- **Brand Primary:** `text-[#0B57D0]` / `bg-[#0B57D0]` (Google Blue)
+- **Accent Green:** `text-[#146C2E]` / `bg-[#C4EED0]` (Success/Growth)
 
-## 4. Histórico de Conquistas (Recente)
-- [x] **Home Page "Clean":** Reconstrução total do layout (`page.tsx`) para o novo tema claro.
-- [x] **Componentes Adaptados:** `MembershipBenefits`, `Methodology` e `Insights` portados para o estilo Material.
-- [x] **Logo Restaurada:** Imagem oficial `logo-algor.jpg` reintegrada no header circular.
-- [x] **Deploy:** Pipeline de deploy automatizado (`./deploy.sh`) funcionando.
+### Formas & Componentes
+- **Botões:** `rounded-full` (Sempre Pílula).
+- **Cards (Surface):**
+  - Classe: `.surface-card` (Definida em `globals.css`)
+  - Specs: `bg-white`, `rounded-[24px]`, `border-[#E0E3E7]`, `shadow-sm`.
+- **Inputs:** `bg-white`, `border-[#E0E3E7]`, `rounded-lg` (não pílula).
 
-## 5. Próximos Passos (Roadmap Fase 3)
-- [ ] **Assessment Engine:** Criar o fluxo de diagnóstico (Wizard) no Dashboard.
-- [ ] **Dashboard UI:** Adaptar o Dashboard (que ainda deve estar Dark) para o novo tema Light/Clean.
-- [ ] **Trust Bar:** Inserir logos de parceiros/standards na Home.
+### Tipografia
+- **Títulos (Serifa):** `font-serif` (Playfair Display) - Uso: H1, H2, Cards Title.
+- **Corpo (Sans):** `font-sans` (Manrope) - Uso: Parágrafos, UI, Menus.
+- **Dados (Mono):** `font-mono` (JetBrains Mono) - Uso: Status, Scores, Technical Terms.
 
-## 6. Arquivos Chave Atuais
-- `frontend/app/page.tsx` (Home Light).
-- `frontend/app/globals.css` (Design System Clean).
-- `frontend/tailwind.config.ts` (Config de Fontes/Cores).
+## 3. Estado Atual dos Arquivos
+- **Frontend:**
+  - `frontend/app/page.tsx`: **Migrado** (Light Mode).
+  - `frontend/app/globals.css`: **Refatorado** (Material Styles).
+  - `frontend/app/layout.tsx`: **Configurado** (Fontes Manrope/Playfair).
+  - `frontend/components/`: `MembershipBenefits`, `Methodology`, `Insights` atualizados.
+- **Backend:** Estável (FastAPI + SQLite).
+- **Imagens:** Logo corrigida no Header circular.
+
+## 4. Roadmap Imediato (Fase 3)
+1.  **Dashboard UI Overhaul:** O Painel de Membros ainda está "Dark". Precisa ser migrado para o tema "Clean" usando o *Cheat Sheet* acima.
+2.  **Assessment Engine:** Implementar a lógica de diagnóstico ISO 42001.
+3.  **Trust Signals:** Adicionar barra de logos de parceiros/standards na Home.
+
+## 5. Histórico de Versões
+- **v1.0:** MVP Estático (FormSubmit).
+- **v2.0:** Dark Mode Premium (Next.js + 3D).
+- **v3.0:** Light Mode Material (Enterprise Focus) - **ATUAL**.
