@@ -1,74 +1,85 @@
-import { FileText, Scale, ShieldAlert, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { ArrowUpRight, Scale, BookOpen, Lock } from "lucide-react";
 
 export default function GovernanceInsights() {
     return (
-        <section className="relative z-10 w-full py-24 px-4 bg-brand-navy">
-            <div className="max-w-7xl mx-auto mb-12 text-center">
-                <h2 className="font-display text-2xl md:text-3xl font-bold text-white mb-4 tracking-tight">
-                    Inteligência & <span className="text-brand-blue">Regulação</span>
-                </h2>
-                <p className="font-mono text-sm text-brand-blue/60 max-w-2xl mx-auto">
-                    Mantenha-se à frente das mudanças regulatórias. Conteúdo exclusivo curado por nossos especialistas.
-                </p>
-            </div>
+        <section className="w-full py-24 relative">
+            <div className="max-w-7xl mx-auto px-4 relative z-10">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                    <div>
+                        <span className="font-mono text-brand-green text-sm tracking-widest uppercase mb-4 block">
+                            // Inteligência
+                        </span>
+                        <h2 className="font-display text-3xl md:text-5xl font-bold text-white max-w-2xl">
+                            Insights de Governança
+                        </h2>
+                    </div>
+                    <Link href="/blog" className="text-brand-green font-mono text-sm hover:underline flex items-center gap-2">
+                        VER TODOS OS ARTIGOS <ArrowUpRight className="w-4 h-4" />
+                    </Link>
+                </div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-                {/* Isca 1: PL 2338 */}
-                <InsightCard
-                    category="Legislação"
-                    title="PL 2338/23: O Marco Legal da IA no Brasil"
-                    desc="Entenda os impactos da classificação de risco e a responsabilidade civil para empresas que desenvolvem ou utilizam IA."
-                    icon={<Scale className="w-5 h-5 text-brand-green" />}
-                    delay="delay-0"
-                />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                {/* Isca 2: ISO 42001 */}
-                <InsightCard
-                    category="Normas Técnicas"
-                    title="ISO 42001: Implementando o SGIA"
-                    desc="Os pilares do Sistema de Gestão de Inteligência Artificial e como preparar sua organização para a certificação internacional."
-                    icon={<ShieldAlert className="w-5 h-5 text-brand-amber" />}
-                    delay="delay-100"
-                />
+                    {/* Insight 1 */}
+                    <article className="glass-card rounded-2xl p-6 group cursor-pointer h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className="p-3 rounded-lg bg-brand-navy border border-white/10 text-brand-green">
+                                <Scale className="w-6 h-6" />
+                            </div>
+                            <span className="font-mono text-xs text-brand-blue/60">PL 2338/23</span>
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-brand-green transition-colors">
+                            O Impacto do Marco Legal da IA nas Empresas Brasileiras
+                        </h3>
+                        <p className="font-sans text-sm text-brand-blue/60 mb-6 flex-grow">
+                            Análise detalhada sobre a classificação de riscos e as novas exigências de transparência algorítmica.
+                        </p>
+                        <div className="mt-auto pt-4 border-t border-white/5 flex items-center text-xs font-mono text-brand-blue/80 gap-2">
+                            <span>LEITURA: 5 MIN</span>
+                        </div>
+                    </article>
 
-                {/* Isca 3: Governança Corporativa */}
-                <InsightCard
-                    category="Estratégia"
-                    title="Auditabilidade Algorítmica na Prática"
-                    desc="Como documentar decisões de IA para evitar viés (bias) e garantir transparência perante stakeholders e reguladores."
-                    icon={<FileText className="w-5 h-5 text-brand-blue" />}
-                    delay="delay-200"
-                />
-            </div>
+                    {/* Insight 2 */}
+                    <article className="glass-card rounded-2xl p-6 group cursor-pointer h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className="p-3 rounded-lg bg-brand-navy border border-white/10 text-brand-blue">
+                                <BookOpen className="w-6 h-6" />
+                            </div>
+                            <span className="font-mono text-xs text-brand-blue/60">ISO 42001</span>
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-brand-blue transition-colors">
+                            Guia de Implementação: Do Zero à Certificação
+                        </h3>
+                        <p className="font-sans text-sm text-brand-blue/60 mb-6 flex-grow">
+                            Passo a passo para estruturar seu Sistema de Gestão de IA (SGIA) seguindo o novo padrão global.
+                        </p>
+                        <div className="mt-auto pt-4 border-t border-white/5 flex items-center text-xs font-mono text-brand-blue/80 gap-2">
+                            <span>LEITURA: 12 MIN</span>
+                        </div>
+                    </article>
 
-            <div className="mt-12 text-center">
-                <Link href="#" className="inline-flex items-center gap-2 text-sm font-mono text-brand-green hover:underline hover:text-brand-green/80 transition-colors">
-                    Ver Biblioteca de Conhecimento <ArrowRight className="w-4 h-4" />
-                </Link>
+                    {/* Insight 3 */}
+                    <article className="glass-card rounded-2xl p-6 group cursor-pointer h-full flex flex-col">
+                        <div className="flex justify-between items-start mb-6">
+                            <div className="p-3 rounded-lg bg-brand-navy border border-white/10 text-purple-400">
+                                <Lock className="w-6 h-6" />
+                            </div>
+                            <span className="font-mono text-xs text-brand-blue/60">AUDITORIA</span>
+                        </div>
+                        <h3 className="font-display text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
+                            Auditoria de Viés em Modelos de Crédito
+                        </h3>
+                        <p className="font-sans text-sm text-brand-blue/60 mb-6 flex-grow">
+                            Estudo de caso sobre como identificar e mitigar discriminação algorítmica em fintechs.
+                        </p>
+                        <div className="mt-auto pt-4 border-t border-white/5 flex items-center text-xs font-mono text-brand-blue/80 gap-2">
+                            <span>LEITURA: 8 MIN</span>
+                        </div>
+                    </article>
+
+                </div>
             </div>
         </section>
-    );
-}
-
-function InsightCard({ category, title, desc, icon, delay }: any) {
-    return (
-        <div className={`glass-panel p-6 rounded-xl border border-white/5 hover:border-brand-blue/30 transition-all duration-300 group cursor-pointer hover:-translate-y-1 ${delay}`}>
-            <div className="flex items-center justify-between mb-4">
-                <span className="text-[10px] font-mono uppercase tracking-wider bg-white/5 text-white/60 px-2 py-1 rounded border border-white/5">
-                    {category}
-                </span>
-                {icon}
-            </div>
-            <h3 className="font-display font-bold text-lg text-white mb-3 group-hover:text-brand-blue transition-colors">
-                {title}
-            </h3>
-            <p className="text-sm text-brand-blue/60 leading-relaxed mb-4">
-                {desc}
-            </p>
-            <div className="flex items-center gap-2 text-xs font-bold text-white/40 group-hover:text-white transition-colors">
-                Ler Artigo Completo <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-            </div>
-        </div>
     );
 }
