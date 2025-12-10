@@ -42,7 +42,7 @@ export default function Home() {
                     </div>
 
                     {/* Headline Premium with Gradient */}
-                    <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
+                    <h1 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] drop-shadow-2xl">
                         Transformando Riscos de IA em <br className="hidden md:block" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-brand-green to-brand-blue animate-gradient-x">
                             Vantagem Competitiva
@@ -79,7 +79,7 @@ export default function Home() {
             </section>
 
             {/* Personas Grid - Decision Matrix (Auto-Segmentation) */}
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 -mt-20 mb-24">
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-7xl px-4 mt-12 mb-24">
                 {[
                     {
                         id: "board",
