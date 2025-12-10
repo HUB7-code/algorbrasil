@@ -21,14 +21,43 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
         if (!consent) return alert("O consentimento LGPD é obrigatório.");
 
         setLoading(true);
-        // TODO: Connect to backend API /profiles/corporate
-        console.log("Submitting Corporate Data:", formData);
+        const token = localStorage.getItem("algor_token");
 
-        // Simulating API call
-        setTimeout(() => {
+        if (!token) {
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "/login";
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/v1/profiles/corporate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.detail || "Erro ao criar perfil corporativo.");
+            }
+
+            // Update user role in storage if needed (optional)
+            const user = JSON.parse(localStorage.getItem("algor_user") || "{}");
+            user.role = "corporate_lead";
+            localStorage.setItem("algor_user", JSON.stringify(user));
+
+            onSuccess(); // Trigger parent success flow
+
+        } catch (error: any) {
+            console.error(error);
+            alert(error.message);
+        } finally {
             setLoading(false);
-            onSuccess();
-        }, 1500);
+        }
     };
 
     return (

@@ -2,12 +2,14 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Building2, UserCircle2, ArrowRight, CheckCircle2 } from 'lucide-react';
 import CorporateOnboardingForm from '@/components/onboarding/CorporateOnboardingForm';
 import ProfessionalOnboardingForm from '@/components/onboarding/ProfessionalOnboardingForm';
 
 export default function OnboardingPage() {
+    const router = useRouter();
     const [selectedRole, setSelectedRole] = useState<'corporate' | 'professional' | null>(null);
     const [completed, setCompleted] = useState(false);
 
@@ -24,7 +26,7 @@ export default function OnboardingPage() {
                         Seu perfil foi configurado com sucesso e seus dados estão protegidos em nossa Fortaleza Digital.
                     </p>
                     <button
-                        onClick={() => window.location.href = '/dashboard'} // TODO: Implement dashboard router
+                        onClick={() => router.push('/dashboard')}
                         className="px-8 py-3 bg-[#00FF94] text-[#0A1A2F] font-bold rounded-full hover:bg-[#00CC76] transition-colors"
                     >
                         Acessar Dashboard

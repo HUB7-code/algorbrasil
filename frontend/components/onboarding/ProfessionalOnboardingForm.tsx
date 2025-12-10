@@ -22,12 +22,43 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
         if (!consent) return alert("O consentimento LGPD é obrigatório.");
 
         setLoading(true);
-        console.log("Submitting Professional Data:", formData);
+        const token = localStorage.getItem("algor_token");
 
-        setTimeout(() => {
-            setLoading(false);
+        if (!token) {
+            alert("Sessão expirada. Faça login novamente.");
+            window.location.href = "/login";
+            return;
+        }
+
+        try {
+            const res = await fetch("/api/v1/profiles/professional", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.detail || "Erro ao criar perfil profissional.");
+            }
+
+            // Update user role in storage if needed
+            const user = JSON.parse(localStorage.getItem("algor_user") || "{}");
+            user.role = "professional_candidate";
+            localStorage.setItem("algor_user", JSON.stringify(user));
+
             onSuccess();
-        }, 1500);
+
+        } catch (error: any) {
+            console.error(error);
+            alert(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

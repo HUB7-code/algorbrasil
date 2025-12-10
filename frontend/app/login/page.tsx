@@ -54,7 +54,12 @@ export default function LoginPage() {
             }));
 
             // Redirect to Dashboard
-            router.push("/dashboard");
+            // Redirect based on Onboarding Status
+            if (data.role === "subscriber") {
+                router.push("/onboarding");
+            } else {
+                router.push("/dashboard");
+            }
 
         } catch (error: any) {
             setErrorMessage(error.message);

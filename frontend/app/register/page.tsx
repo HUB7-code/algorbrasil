@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import ConsentCheckbox from "@/components/ui/ConsentCheckbox";
+import LegalTooltip from "@/components/ui/LegalTooltip";
 import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
 import HeroScene from "@/components/HeroScene";
 
@@ -13,6 +15,7 @@ export default function RegisterPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
     const [errorMessage, setErrorMessage] = useState("");
+    const [consent, setConsent] = useState(false);
 
     const [formData, setFormData] = useState({
         full_name: "",
@@ -63,7 +66,7 @@ export default function RegisterPage() {
             setStatus("success");
             // Redirect after 2 seconds
             setTimeout(() => {
-                router.push("/#login"); // Assuming login is modal or page, let's go to Home for now or specific login page
+                router.push("/login");
             }, 2000);
 
         } catch (error: any) {
@@ -115,87 +118,108 @@ export default function RegisterPage() {
                             </p>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <Input
-                                name="full_name"
-                                label="Nome Completo"
-                                placeholder="Ex: Dr. Algor"
-                                value={formData.full_name}
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-4">
                                 <Input
-                                    name="email"
-                                    label="E-mail Corporativo"
-                                    type="email"
-                                    placeholder="voce@empresa.com"
-                                    value={formData.email}
+                                    name="full_name"
+                                    label="Nome Completo"
+                                    placeholder="Ex: Dr. Algor"
+                                    value={formData.full_name}
                                     onChange={handleChange}
                                     required
                                 />
-                                <Input
-                                    name="phone"
-                                    label="Telefone / WhatsApp"
-                                    type="tel"
-                                    placeholder="(11) 99999-9999"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                />
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="relative">
+                                        <Input
+                                            name="email"
+                                            label="E-mail Corporativo"
+                                            type="email"
+                                            placeholder="voce@empresa.com"
+                                            value={formData.email}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                        <div className="absolute top-0 right-0">
+                                            <LegalTooltip content="Utilizado para login único e comunicações oficiais." side="left" />
+                                        </div>
+                                    </div>
+                                    <div className="relative">
+                                        <Input
+                                            name="phone"
+                                            label="Telefone / WhatsApp"
+                                            type="tel"
+                                            placeholder="(11) 99999-9999"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                        />
+                                        <div className="absolute top-0 right-0">
+                                             <LegalTooltip content="Criptografado. Para recuperação de conta (MFA)." side="left" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                    <Input
+                                        name="password"
+                                        label="Senha"
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                        minLength={6}
+                                    />
+                                    <Input
+                                        name="confirm_password"
+                                        label="Confirmar Senha"
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={formData.confirm_password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
                             </div>
-
-                            <div className="grid grid-cols-2 gap-4">
-                                <Input
-                                    name="password"
-                                    label="Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    required
-                                    minLength={6}
-                                />
-                                <Input
-                                    name="confirm_password"
-                                    label="Confirmar Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    value={formData.confirm_password}
-                                    onChange={handleChange}
+                            
+                            <div className="pt-2">
+                                <ConsentCheckbox 
+                                    id="signup-consent"
+                                    label="Concordo com a Política de Privacidade e aceito o processamento dos meus dados para fins de cadastro."
+                                    checked={consent}
+                                    onChange={setConsent}
                                     required
                                 />
                             </div>
 
                             {status === "error" && (
-                                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
-                                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                                    {errorMessage}
-                                </div>
-                            )}
-
-                            <Button
-                                type="submit"
-                                className="w-full relative overflow-hidden group"
-                                disabled={isLoading}
-                            >
-                                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
-                                {isLoading ? "Criptografando dados..." : "GERAR CREDENCIAL"}
-                            </Button>
-
-                            <p className="text-center text-xs text-brand-blue/50">
-                                Já possui acesso? <Link href="/login" className="text-brand-green hover:underline">Faça login</Link>
-                            </p>
-                        </form>
+                        <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+                            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                            {errorMessage}
+                        </div>
                     )}
-                </div>
 
-                {/* Footer Badges */}
-                <div className="flex justify-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">ISO 42001</span>
-                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">SSL SECURE</span>
-                </div>
+                    <Button
+                        type="submit"
+                        className="w-full relative overflow-hidden group"
+                        disabled={isLoading}
+                    >
+                        <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+                        {isLoading ? "Criptografando..." : "GERAR CREDENCIAL"}
+                    </Button>
+
+                    <p className="text-center text-xs text-brand-blue/50">
+                        Já possui acesso? <Link href="/login" className="text-brand-green hover:underline">Faça login</Link>
+                    </p>
+                </form>
+                    )}
             </div>
-        </main>
+
+            {/* Footer Badges */}
+            <div className="flex justify-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">ISO 42001</span>
+                <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">SSL SECURE</span>
+            </div>
+        </div>
+        </main >
     );
 }
