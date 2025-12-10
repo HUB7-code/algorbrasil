@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight, Globe, Shield, Cpu, Lock, Activity, Users } from "lucide-react";
+import { ChevronRight, Globe, Shield, Cpu, Lock } from "lucide-react";
 import MembershipBenefits from "@/components/MembershipBenefits";
 import MethodologySection from "@/components/MethodologySection";
 import GovernanceInsights from "@/components/GovernanceInsights";
@@ -7,106 +7,85 @@ import JoinCTA from "@/components/JoinCTA";
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-[#0A1A2F] text-white overflow-x-hidden selection:bg-[#00FF94] selection:text-[#0A1A2F]">
+        <main className="min-h-screen bg-[#F3F6FC] text-[#1F1F1F] overflow-x-hidden">
 
-            {/* --- Ambient Background Glows --- */}
+            {/* --- Ambient Background Shapes (Soft & Organic) --- */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse-slow"></div>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
-                {/* Global Noise Overlay */}
-                <div className="absolute inset-0 bg-noise opacity-[0.03] mix-blend-overlay"></div>
+                <div className="absolute top-[-10%] right-[-5%] w-[60vw] h-[60vw] bg-[#D3E3FD] rounded-full mix-blend-multiply filter blur-[80px] opacity-40 animate-float-light"></div>
+                <div className="absolute bottom-[-10%] left-[-5%] w-[50vw] h-[50vw] bg-[#C4EED0] rounded-full mix-blend-multiply filter blur-[100px] opacity-40 animate-float-light" style={{ animationDelay: '3s' }}></div>
             </div>
 
-            {/* --- Status Bar / Nav Placeholder (Since we don't have a dedicated Nav component yet) --- */}
-            <div className="absolute top-0 left-0 w-full z-50 py-8 px-6">
+            {/* --- Clean Navigation --- */}
+            <div className="absolute top-0 left-0 w-full z-50 py-6 px-6">
                 <div className="max-w-7xl mx-auto flex justify-between items-center">
                     <div className="flex items-center gap-3">
-                        {/* Logo Simplificada - Esfera */}
-                        <div className="w-8 h-8 rounded-full border border-[#00FF94] flex items-center justify-center relative shadow-[0_0_15px_rgba(0,255,148,0.3)] bg-[#0A1A2F]/50 backdrop-blur-sm">
-                            <div className="w-2 h-2 bg-[#00FF94] rounded-full absolute top-1 right-1"></div>
-                            <div className="w-4 h-4 border border-white/30 rounded-full"></div>
+                        <div className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center">
+                            <div className="w-4 h-4 bg-[#0B57D0] rounded-sm transform rotate-45"></div>
                         </div>
-                        <span className="font-serif text-xl tracking-wide font-medium">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
+                        <span className="font-serif text-xl tracking-wide font-bold text-[#1F1F1F]">ALGOR <span className="text-[#0B57D0]">BRASIL</span></span>
                     </div>
-                    <Link href="/login" className="px-5 py-2 text-xs font-mono uppercase tracking-widest border border-white/20 rounded hover:bg-white hover:text-[#0A1A2F] transition-all backdrop-blur-sm">
-                        Login Membros
+                    <Link href="/login" className="text-sm font-medium text-[#444746] hover:text-[#0B57D0] hover:bg-white px-4 py-2 rounded-full transition-all">
+                        Portal do Membro
                     </Link>
                 </div>
             </div>
 
 
-            {/* --- Hero Section --- */}
-            <section className="relative pt-48 pb-32 px-6 z-10 flex flex-col items-center text-center">
+            {/* --- Hero Section Clean --- */}
+            <section className="relative pt-40 pb-24 px-6 z-10 flex flex-col items-center text-center">
 
-                {/* Abstract Mesh Representation (Central visual anchor) */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] border border-white/5 rounded-full animate-float pointer-events-none z-0">
-                    <div className="absolute inset-0 border border-white/5 rounded-full scale-75"></div>
-                    <div className="absolute inset-0 border border-white/5 rounded-full scale-50"></div>
-                    <div className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#00A3FF] rounded-full blur-md"></div>
-                </div>
+                <span className="inline-block py-2 px-4 rounded-full bg-[#E8F0FE] text-[#0B57D0] text-xs font-bold tracking-widest mb-8 uppercase shadow-sm">
+                    Reinventando a Governança de IA
+                </span>
 
-                <div className="relative z-10">
-                    <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] font-mono tracking-[0.2em] mb-6 uppercase backdrop-blur-sm">
-                        Association for Algorithmization & Logic Governance
-                    </span>
+                <h1 className="font-serif text-5xl md:text-7xl leading-[1.1] mb-8 max-w-4xl mx-auto text-[#1F1F1F]">
+                    IA Segura não é burocracia.<br />
+                    <span className="text-[#0B57D0]">É Vantagem Competitiva.</span>
+                </h1>
 
-                    <h1 className="font-serif text-5xl md:text-7xl leading-tight mb-6 max-w-4xl mx-auto drop-shadow-2xl">
-                        Não é apenas software.<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">É a Elite da Governança.</span>
-                    </h1>
+                <p className="font-sans text-xl text-[#444746] max-w-2xl mx-auto mb-12 font-normal leading-relaxed">
+                    A primeira plataforma brasileira que transforma conformidade ISO 42001 em estratégia de negócios auditável e escalável.
+                </p>
 
-                    <p className="font-sans text-lg text-gray-400 max-w-2xl mx-auto mb-10 font-light leading-relaxed">
-                        Junte-se à associação que define os padrões de ética e segurança de IA no Brasil.
-                        Tenha acesso exclusivo à nossa tecnologia proprietária de auditoria e certificação ISO 42001.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-                        <Link href="/register" className="px-8 py-4 bg-[#00FF94] text-[#0A1A2F] font-bold text-sm uppercase tracking-wider rounded hover:bg-[#00cc76] transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] flex items-center gap-2 group">
-                            Aplicar para Filiação
-                            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link href="/about" className="px-8 py-4 glass-panel text-white font-medium text-sm uppercase tracking-wider rounded hover:bg-white/10 transition-all backdrop-blur-md">
-                            Ler Manifesto
-                        </Link>
-                    </div>
+                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                    <Link href="/register" className="btn-primary">
+                        Iniciar Diagnóstico Gratuito
+                        <ChevronRight className="w-4 h-4" />
+                    </Link>
+                    <Link href="/about" className="btn-outline">
+                        Ler Manifesto
+                    </Link>
                 </div>
             </section>
 
 
-            {/* --- Personas / Strategy Section (Replaced Grid) --- */}
-            <section className="py-24 border-t border-white/5 bg-[#0A1A2F]/50 relative z-10">
+            {/* --- Segmentação (White Cards Grid) --- */}
+            <section className="py-20 relative z-10">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                        <div>
-                            <span className="text-[#00FF94] font-mono text-xs tracking-widest uppercase mb-2 block">/ Segmentação Estratégica</span>
-                            <h2 className="font-serif text-4xl md:text-5xl">Inteligência para quem decide.</h2>
-                        </div>
-                        <p className="text-gray-400 max-w-md text-right md:text-left font-light">
-                            Nossa arquitetura de governança adapta-se instantaneamente ao papel do stakeholder, entregando clareza onde há complexidade.
-                        </p>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { id: "board", title: "Para o Board", icon: Globe, desc: "Mitigação de risco estratégico e proteção de reputação.", color: "text-purple-400" },
-                            { id: "risk", title: "Para Compliance", icon: Shield, desc: "Alinhamento ISO 42001 e trilhas de auditoria.", color: "text-[#00FF94]" },
-                            { id: "tech", title: "Para Tech Leaders", icon: Cpu, desc: "Guardrails de LLMs sem travar o deploy.", color: "text-[#00A3FF]" },
-                            { id: "legal", title: "Para Jurídico", icon: Lock, desc: "Conformidade com PL 2338 e EU AI Act.", color: "text-amber-400" }
+                            { title: "Para o Board", icon: Globe, desc: "Proteção de reputação e mitigação de risco estratégico.", color: "text-[#0B57D0]", bg: "bg-[#D3E3FD]" },
+                            { title: "Para Compliance", icon: Shield, desc: "Trilhas de auditoria automática e gap analysis ISO 42001.", color: "text-[#146C2E]", bg: "bg-[#C4EED0]" },
+                            { title: "Para Tech Leaders", icon: Cpu, desc: "Guardrails de segurança que não travam o deploy.", color: "text-[#A8C7FA]", bg: "bg-[#0A1A2F]" },
+                            { title: "Para Jurídico", icon: Lock, desc: "Adequação jurídica ao PL 2338 e EU AI Act.", color: "text-[#EF9A9A]", bg: "bg-[#8C1D18]" }
                         ].map((item, idx) => (
-                            <Link href={`/register?persona=${item.id}`} key={idx} className="glass-panel p-6 rounded-lg hover:-translate-y-1 transition-transform cursor-pointer group block">
-                                <div className={`mb-4 ${item.color}`}>
-                                    <item.icon className="w-6 h-6" />
+                            <Link href="/register" key={idx} className="surface-card p-8 group cursor-pointer h-full flex flex-col items-start hover:-translate-y-1">
+                                <div className={`mb-6 w-12 h-12 rounded-2xl ${item.bg} flex items-center justify-center`}>
+                                    <item.icon className={`w-6 h-6 ${item.color}`} />
                                 </div>
-                                <h4 className="font-serif text-xl mb-2 group-hover:text-white transition-colors text-gray-100">{item.title}</h4>
-                                <p className="text-sm text-gray-500 group-hover:text-gray-400 leading-relaxed font-light">{item.desc}</p>
+                                <h4 className="font-serif text-xl mb-3 font-bold text-[#1F1F1F]">{item.title}</h4>
+                                <p className="text-sm text-[#444746] leading-relaxed mb-4">{item.desc}</p>
+                                <span className="mt-auto text-xs font-bold text-[#0B57D0] uppercase tracking-wider group-hover:underline">Saiba mais</span>
                             </Link>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Reusing Modular Components (They need to be refactored to match style, but placed here for structure) */}
+            {/* Components need to be updated to match light theme... will leave them integrated but they might look odd until updated. */}
+            {/* Note: I will update MembershipBenefits next to ensure consistency */}
             <MembershipBenefits />
+            {/* Methodology & Insights & CTA will be updated subsequently */}
             <MethodologySection />
             <GovernanceInsights />
             <JoinCTA />

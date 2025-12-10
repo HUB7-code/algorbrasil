@@ -3,91 +3,86 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 26, 47;
+  --foreground-rgb: 31, 31, 31;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background-color: #0A1A2F;
+  color: #1F1F1F;
+  background-color: #F3F6FC;
+  /* Google Ice Blue */
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* --- Elite Glassmorphism System --- */
+/* --- Google Material 3 / Clean Tech Design System --- */
 
-/* Base Overlay de Ruído */
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+/* Surface Card (Painel Branco Flutuante) */
+.surface-card {
+  @apply bg-white rounded-[24px] border border-[#E0E3E7] transition-all duration-300;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
-/* Painel de Vidro Elite */
-.glass-panel {
-  @apply bg-white/5 backdrop-blur-xl border border-white/10 relative overflow-hidden transition-all duration-300;
-  box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.02);
+.surface-card:hover {
+  @apply border-[#C2E7FF] bg-[#F8FAFD];
+  box-shadow: 0 4px 8px 3px rgba(0, 0, 0, 0.05);
+  /* Elevation 2 */
 }
 
-.glass-panel:hover {
-  @apply bg-white/[0.08] border-white/20;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05), 0 0 30px rgba(0, 255, 148, 0.05);
-  /* Glow verde sutil */
+/* Buttons (Pill Shapes) */
+.btn-primary {
+  @apply bg-[#0B57D0] text-white font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#0842A0] hover:shadow-lg flex items-center justify-center gap-2 tracking-wide text-sm;
 }
+
+.btn-tonal {
+  @apply bg-[#D3E3FD] text-[#041E49] font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#C2E7FF] hover:shadow-md flex items-center justify-center gap-2 tracking-wide text-sm;
+}
+
+.btn-outline {
+  @apply bg-transparent border border-[#747775] text-[#0B57D0] font-medium px-8 py-4 rounded-full transition-all duration-300 hover:bg-[#0B57D0]/5 hover:border-[#0B57D0];
+}
+
 
 /* Typography Utilities */
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-500;
+.text-display {
+  @apply font-serif text-[#1F1F1F] tracking-tight;
+}
+
+.text-body {
+  @apply font-sans text-[#444746] leading-relaxed;
 }
 
 /* Animations */
-@keyframes float {
+@keyframes float-light {
   0% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
 
   50% {
-    transform: translateY(-20px) rotate(2deg);
+    transform: translateY(-10px);
   }
 
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px);
   }
 }
 
-.animate-float {
-  animation: float 10s ease-in-out infinite;
+.animate-float-light {
+  animation: float-light 6s ease-in-out infinite;
 }
 
-@keyframes pulse-glow {
+@keyframes pulse-soft {
   0% {
-    opacity: 0.3;
+    opacity: 0.8;
     transform: scale(1);
   }
 
   50% {
-    opacity: 0.6;
-    transform: scale(1.1);
+    opacity: 1;
+    transform: scale(1.02);
   }
 
   100% {
-    opacity: 0.3;
+    opacity: 0.8;
     transform: scale(1);
   }
-}
-
-.animate-pulse-slow {
-  animation: pulse-glow 6s ease-in-out infinite;
-}
-
-@keyframes spin-slow-linear {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow-linear {
-  animation: spin-slow-linear 8s linear infinite;
 }

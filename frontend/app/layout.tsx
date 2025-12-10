@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="pt-BR">
-            <body className={`${manrope.variable} ${playfair.variable} ${jetbrainsMono.variable} font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
+            <body className={`${manrope.variable} ${playfair.variable} ${jetbrainsMono.variable} font-sans bg-[#F3F6FC] text-[#1F1F1F] selection:bg-[#C2E7FF] selection:text-[#001D35]`}>
                 {children}
                 <Footer />
             </body>
