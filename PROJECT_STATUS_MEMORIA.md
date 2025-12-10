@@ -35,17 +35,21 @@ Abandonamos o site institucional estático para construir uma **Plataforma de Au
   - **Grade de Personas:** Auto-segmentação (Board, Risco, Tech, Legal).
   - **Sala de Máquinas:** Seção de Metodologia animada (Processo de Fluxo de Dados).
   - **Compliance:** Rodapé com **Logo Oficial**, badges de transparência e links de governança.
-- [x] **Infraestrutura:** Script `deploy.sh` criado para automação de updates na VPS.
+- [x] **Home Page V2 ("A Vitrine de Elite"):**
+  - **Identidade:** Branding "ALGOR BRASIL" consolidado.
+  - **Novas Seções:** `MembershipBenefits` (Autoridade/Network), `GovernanceInsights` (Conteúdo SEO), `JoinCTA` (Conversão).
+  - **Design:** Efeitos Glassmorphism e gradientes "Inteligência Viva" aplicados.
+- [x] **Infraestrutura SaaS:**
+  - **Backend:** Schema de Banco de Dados expandido (`Assessments`) com auto-migration no startup.
+  - **Auth:** Fluxo completo (Register -> Login -> Dashboard) funcional.
 
-## 5. Próximos Passos (Roadmap de Execução: Fase 2 - O Motor SaaS)
-- [x] **Cadastro (Register):** Finalizar testes da página `/register` e sua integração com a API (`/signup`).
-- [x] **Login:** Autenticação JWT funcionando (`/login`) com redirecionamento.
-- [x] **Console do Membro (Dashboard):**
-  - Layout com Sidebar (Menu Lateral) e Auth Check.
-  - "Cockpit de Governança" (Widgets de Status) implementado.
-- [ ] **Avaliações (Assessment Engine):**
-  - Criar página `/dashboard/assessments`.
-  - Implementar fluxo de questionário (Diagnostic Wizard).
+## 5. Próximos Passos (Roadmap de Execução: Fase 3 - O Diagnóstico)
+- [ ] **Trust Bar:** Adicionar régua de conformidade (ISO, NIST, EU AI Act) na Home para "Transferência de Autoridade".
+- [ ] **Motor de Avaliação (Assessment Engine):**
+  - Desenvolver página `/dashboard/assessments/new`.
+  - Criar "Wizard" passo-a-passo para auto-diagnóstico.
+  - Lógica de cálculo de Maturidade (0-100).
+- [ ] **Onboarding:** Completar perfil do membro (CNPJ, etc).
 
 ## 6. Arquivos Chave Atuais
 - `frontend/app/page.tsx` (Home Finalizada).
