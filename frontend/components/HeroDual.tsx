@@ -8,7 +8,7 @@ export default function HeroDual() {
     const [hoveredSide, setHoveredSide] = useState<'corporate' | 'professional' | null>(null);
 
     return (
-        <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-96 px-4 md:px-0 overflow-hidden">
+        <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-32 px-4 md:px-0 overflow-hidden">
 
             {/* Background Effects - Dynamic based on hover */}
             <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredSide === 'corporate' ? 'opacity-20' : 'opacity-5'}`}>

@@ -42,10 +42,12 @@ export default function DashboardPage() {
                         Monitoramento em tempo real da conformidade ISO 42001 e integridade dos sistemas de IA.
                     </p>
                 </div>
-                <Button className="group bg-brand-green text-black hover:bg-brand-green/90 shadow-[0_0_20px_rgba(0,255,148,0.2)] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all">
-                    <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform" />
-                    Nova Auditoria
-                </Button>
+                <Link href="/dashboard/assessments/new">
+                    <Button className="group bg-brand-green text-black hover:bg-brand-green/90 shadow-[0_0_20px_rgba(0,255,148,0.2)] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all">
+                        <Plus className="w-4 h-4 mr-2 group-hover:rotate-90 transition-transform" />
+                        Nova Auditoria
+                    </Button>
+                </Link>
             </div>
 
             {/* KPI Grid */}

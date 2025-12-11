@@ -65,6 +65,8 @@ from backend.app.api import downloads
 app.include_router(downloads.router, prefix="/api/v1", tags=["Downloads"])
 from backend.app.api import profiles
 app.include_router(profiles.router, prefix="/api/v1", tags=["Perfis (Onboarding)"])
+from backend.app.api.endpoints import assessments
+app.include_router(assessments.router, prefix="/api/v1/assessments", tags=["Diagnósticos IA"])
 
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP
