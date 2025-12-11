@@ -36,6 +36,20 @@ html {
   box-shadow: 0 0 30px rgba(0, 255, 148, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
+.corporate-panel {
+  @apply transition-all duration-300;
+  background: #ffffff;
+  border: 1px solid rgba(74, 85, 104, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+}
+
+.corporate-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(44, 90, 160, 0.12);
+  border-color: rgba(93, 173, 226, 0.5);
+}
+
 /* Animations */
 @keyframes float {
 
@@ -151,6 +165,12 @@ html {
   animation: fadeIn 0.3s ease-out;
 }
 
-.slide-up {
-  animation: slideUp 0.4s ease-out;
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(0, 255, 148, 0.5);
+}
+
+.mask-image-gradient {
+  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
 }

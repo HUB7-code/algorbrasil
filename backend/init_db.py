@@ -3,6 +3,8 @@ from backend.app.db.session import SessionLocal, engine, Base
 from backend.app.models.user import User
 from backend.app.models.contact import ContactLog
 from backend.app.core.security import get_password_hash
+from backend.app.models.risk import RiskRegister # Importar para create_all detectar
+from backend.app.models.audit import AuditLog
 
 def init_db():
     # 1. Cria todas as tabelas definidas nos Models
@@ -12,11 +14,11 @@ def init_db():
     
     try:
         # 2. Verifica se já existe um Admin
-        admin_email = "admin@algor.com"
+        admin_email = "admin@algorbrasil.com.br"
         existing_admin = db.query(User).filter(User.email == admin_email).first()
         
         if not existing_admin:
-            print(f"⚙️ Criando usuário Admin inicial ({admin_email})...")
+            print(f"Criando usuário Admin inicial ({admin_email})...")
             admin_user = User(
                 email=admin_email,
                 hashed_password=get_password_hash("admin123"),
@@ -26,14 +28,14 @@ def init_db():
             )
             db.add(admin_user)
             db.commit()
-            print("✅ Admin criado com sucesso! (Senha: admin123)")
+            print("Admin criado com sucesso! (Senha: admin123)")
         else:
-            print("ℹ️ Usuário Admin já existe.")
+            print("Usuário Admin já existe.")
             
     finally:
         db.close()
 
 if __name__ == "__main__":
-    print("🚀 Inicializando Banco de Dados...")
+    print("Inicializando Banco de Dados...")
     init_db()
-    print("🏁 Inicialização concluída.")
+    print("Inicialização concluída.")

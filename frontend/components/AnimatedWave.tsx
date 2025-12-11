@@ -119,8 +119,8 @@ function NeuronTraffic({ count = 600 }) { // HIGH DENSITY DEFAULT
     }, [paths, packetCount]);
 
     // Refs
-    const geometryRef = useRef(null);
-    const groupRef = useRef(null);
+    const geometryRef = useRef<THREE.BufferGeometry>(null);
+    const groupRef = useRef<THREE.Group>(null);
 
     // Animation Loop
     useFrame((state) => {
@@ -218,7 +218,7 @@ function NeuronTraffic({ count = 600 }) { // HIGH DENSITY DEFAULT
 
 export default function AnimatedWave() {
     return (
-        <div className="relative w-full h-[500px] flex items-center justify-center z-0 pointer-events-none">
+        <div className="w-full h-full absolute inset-0 z-0 pointer-events-none">
             <Canvas
                 camera={{ position: [0, 0, 40], fov: 45 }}
                 gl={{ alpha: true, antialias: true }}

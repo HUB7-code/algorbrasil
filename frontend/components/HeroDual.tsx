@@ -2,21 +2,29 @@
 
 import React, { useState } from 'react';
 import { ArrowRight, ShieldCheck, Users, Activity, Lock } from 'lucide-react';
-import AnimatedWave from './AnimatedWave';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 export default function HeroDual() {
+    const router = useRouter();
     const [hoveredSide, setHoveredSide] = useState<'corporate' | 'professional' | null>(null);
+
+    const handleDiagnosticClick = () => {
+        const token = localStorage.getItem("algor_token");
+        if (token) {
+            router.push("/dashboard/assessments/new");
+        } else {
+            router.push("/login?redirect=/dashboard/assessments/new");
+        }
+    };
 
     return (
         <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-32 px-4 md:px-0 overflow-hidden">
 
             {/* Background Effects - Dynamic based on hover */}
-            <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredSide === 'corporate' ? 'opacity-20' : 'opacity-5'}`}>
-                <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-[#00A3FF] rounded-full blur-[120px] mix-blend-screen animate-blob" />
-            </div>
-            <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredSide === 'professional' ? 'opacity-20' : 'opacity-5'}`}>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#00FF94] rounded-full blur-[120px] mix-blend-screen animate-blob" />
-            </div>
+            {/* Background Effects - Dynamic based on hover */}
+            {/* Removed conflicting blobs to prioritize Brain 3D Effect */}
 
             {/* Main Headline */}
             <div className="relative z-10 text-center mb-0 animate-in slide-in-from-top-10 fade-in duration-700">
@@ -34,10 +42,8 @@ export default function HeroDual() {
                 </p>
             </div>
 
-            {/* Neural Cortex Animation - Spacer & Visual */}
-            <div className="w-full relative z-0 scale-125 md:scale-100 opacity-90">
-                <AnimatedWave />
-            </div>
+            {/* Neural Cortex Animation - Spacer & Visual (Handled by Layout) */}
+            <div className="w-full relative z-0 h-[200px] md:h-[300px]" />
 
             {/* Dual Funnel Cards */}
             <div className="relative z-10 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-6 px-4 md:px-8 -mt-24">
@@ -70,7 +76,10 @@ export default function HeroDual() {
                                 <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Monitoramento de Risco Contínuo</li>
                             </ul>
 
-                            <button className="w-full py-4 bg-[#00A3FF] hover:bg-[#33B5FF] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2">
+                            <button
+                                onClick={handleDiagnosticClick}
+                                className="w-full py-4 bg-[#00A3FF] hover:bg-[#33B5FF] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2"
+                            >
                                 Diagnóstico Gratuito
                                 <ArrowRight className="w-4 h-4" />
                             </button>
@@ -106,10 +115,12 @@ export default function HeroDual() {
                                 <li className="flex items-center gap-2"><Users className="w-4 h-4 text-[#00FF94]" /> Networking com C-Levels</li>
                             </ul>
 
-                            <button className="w-full py-4 bg-transparent border border-[#00FF94] text-[#00FF94] hover:bg-[#00FF94] hover:text-[#0A1A2F] font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00FF94]/5 group-hover:shadow-[#00FF94]/30 flex items-center justify-center gap-2">
-                                Aplicar para Associação
-                                <ArrowRight className="w-4 h-4" />
-                            </button>
+                            <Link href="/register" className="w-full">
+                                <button className="w-full py-4 bg-transparent border border-[#00FF94] text-[#00FF94] hover:bg-[#00FF94] hover:text-[#0A1A2F] font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00FF94]/5 group-hover:shadow-[#00FF94]/30 flex items-center justify-center gap-2">
+                                    Aplicar para Associação
+                                    <ArrowRight className="w-4 h-4" />
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

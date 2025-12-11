@@ -20,3 +20,6 @@ class User(Base):
     # Relacionamentos de Perfil (Dual Funnel)
     professional_profile = relationship("backend.app.models.profiles.ProfessionalProfile", back_populates="user", uselist=False)
     corporate_profile = relationship("backend.app.models.profiles.CorporateProfile", back_populates="user", uselist=False)
+
+    # Relacionamento com Riscos (ISO 42001)
+    risks = relationship("backend.app.models.risk.RiskRegister", back_populates="user")

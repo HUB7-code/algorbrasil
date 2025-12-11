@@ -16,6 +16,13 @@ const config: Config = {
                     blue: "#00A3FF", // Electric Blue (Tech)
                     glass: "rgba(10, 26, 47, 0.7)", // Vidro Base
                 },
+                corporate: {
+                    blue: "#2C5AA0", // Primária (Corporativo)
+                    cyan: "#5DADE2", // Secundária (Destaque sutil)
+                    bg: "#F8F9FB",   // Neutra (Fundo)
+                    text: "#4A5568", // Neutra (Texto)
+                    accent: "#6FDC9F", // Accent (Sucesso/Menta)
+                },
             },
             fontFamily: {
                 sans: ["var(--font-manrope)"], // Corpo (Clean Modern)

@@ -166,7 +166,7 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                 ) : (
                     <UserCheck className="w-5 h-5 mr-2" />
                 )}
-                {loading ? 'Processando Cadastro...' : 'Ativar Perfil de Auditor'}
+                {loading ? 'Processando Cadastro...' : 'Enviar Solicitação de Associação'}
             </button>
         </form>
     );

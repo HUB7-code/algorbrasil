@@ -26,7 +26,7 @@ export default function JoinCTA() {
                         SOLICITAR FILIAÇÃO <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                     <Link
-                        href="/about"
+                        href="/#benefits"
                         className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/20 text-white font-mono font-bold rounded-lg hover:bg-white/10 transition-colors"
                     >
                         SOBRE A ASSOCIAÇÃO

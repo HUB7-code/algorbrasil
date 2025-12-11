@@ -13,22 +13,50 @@ router = APIRouter()
 # --- Lógica de Negócio Simples (Mock do "AI Engine") ---
 def calculate_score(answers: dict) -> int:
     """
-    Calcula um score de 0 a 100 baseado em respostas simples.
-    Espera formato: {"q1": "yes", "q2": "no", ...}
+    Calcula um score de 0 a 100 baseado em respostas do Wizard ISO 42001.
+    Mapeia valores qualitativos (yes, partial, automated) para quantitativos.
     """
-    score = 0
-    total_questions = len(answers)
-    if total_questions == 0:
+    if not answers:
         return 0
     
+    total_score = 0
+    max_possible = len(answers) * 10 # Cada pergunta vale máx 10
+    
+    # Mapa de Pontuação (Business Logic do Wizard)
+    scoring_map = {
+        # High Maturity / Best Practice (10 pts)
+        "yes": 10, "true": 10, "high": 10, "automated": 10,
+        "internal": 10, # Escopo interno é menos arriscado -> maior maturidade relativa inicial
+        "none": 10, # Se for 'nenhum dado pessoal', é ótimo (baixo risco)
+        "documented": 10, "total": 10, "provider": 10, # Desenvolvedor costuma ter mais controle técnico
+        
+        # Medium Maturity / Partial (5 pts)
+        "partial": 5, "manual": 5, "medium": 5,
+        "deployer": 5, # Usuário tem menos controle
+        "customer": 5, # Interação com cliente exige cuidado moderado
+        "personal": 5, # Dedo pessoal comum
+        "reputation": 5, "draft": 5, "integrator": 8, # Integrador é meio termo
+        
+        # Low Maturity / High Risk (0 pts - Requires Action)
+        "no": 0, "false": 0, "low": 0,
+        "decision": 0, # Decisão automatizada crítica = risco alto se não tiver controle (penaliza score inicial)
+        "sensitive": 0, # Dado sensível = risco alto
+        "rights": 0, # Impacto em direitos = risco alto
+    }
+    
     for key, value in answers.items():
-        # Lógica básica: "yes" ou "sim" ou true vale ponto
-        if str(value).lower() in ["yes", "sim", "true", "high"]:
-            score += 1
+        # Normaliza chave
+        val_str = str(value).lower()
+        points = scoring_map.get(val_str, 0)
+        total_score += points
             
+    # Evita divisão por zero
+    if max_possible == 0:
+        return 0
+
     # Normaliza para 0-100
-    final_score = int((score / total_questions) * 100)
-    return final_score
+    final_score = int((total_score / max_possible) * 100)
+    return min(100, max(0, final_score)) # Clamp 0-100
 
 def generate_report(score: int) -> str:
     if score < 30:
