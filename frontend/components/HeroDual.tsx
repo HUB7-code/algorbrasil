@@ -1,26 +1,26 @@
-
 'use client';
 
 import React, { useState } from 'react';
 import { ArrowRight, ShieldCheck, Users, Activity, Lock } from 'lucide-react';
+import AnimatedWave from './AnimatedWave';
 
 export default function HeroDual() {
     const [hoveredSide, setHoveredSide] = useState<'corporate' | 'professional' | null>(null);
 
     return (
-        <section className="relative min-h-[90vh] flex flex-col pt-32 pb-20 px-4 md:px-0 overflow-hidden">
+        <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-96 px-4 md:px-0 overflow-hidden">
 
             {/* Background Effects - Dynamic based on hover */}
             <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredSide === 'corporate' ? 'opacity-20' : 'opacity-5'}`}>
-                <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-[#00A3FF] rounded-full blur-[120px] mix-blend-screen" />
+                <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-[#00A3FF] rounded-full blur-[120px] mix-blend-screen animate-blob" />
             </div>
             <div className={`absolute inset-0 transition-opacity duration-1000 ${hoveredSide === 'professional' ? 'opacity-20' : 'opacity-5'}`}>
-                <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#00FF94] rounded-full blur-[120px] mix-blend-screen" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#00FF94] rounded-full blur-[120px] mix-blend-screen animate-blob" />
             </div>
 
             {/* Main Headline */}
-            <div className="relative z-10 text-center mb-12 animate-in slide-in-from-top-10 fade-in duration-700">
-                <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] md:text-xs font-mono tracking-[0.2em] mb-6 uppercase backdrop-blur-md">
+            <div className="relative z-10 text-center mb-0 animate-in slide-in-from-top-10 fade-in duration-700">
+                <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] md:text-xs font-mono tracking-[0.2em] mb-10 uppercase backdrop-blur-md">
                     Ecossistema de Inteligência Viva
                 </span>
                 <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6">
@@ -34,8 +34,13 @@ export default function HeroDual() {
                 </p>
             </div>
 
+            {/* Neural Cortex Animation - Spacer & Visual */}
+            <div className="w-full relative z-0 scale-125 md:scale-100 opacity-90">
+                <AnimatedWave />
+            </div>
+
             {/* Dual Funnel Cards */}
-            <div className="relative z-10 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-6 px-4 md:px-8">
+            <div className="relative z-10 max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-6 px-4 md:px-8 -mt-24">
 
                 {/* Corporate Side */}
                 <div
@@ -110,6 +115,7 @@ export default function HeroDual() {
                 </div>
 
             </div>
+
         </section>
     );
 }

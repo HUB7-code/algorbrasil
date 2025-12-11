@@ -42,10 +42,10 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-[#0A1A2F] text-white overflow-x-hidden font-sans selection:bg-[#00FF94] selection:text-[#0A1A2F]">
 
-            {/* Background Glows */}
+            {/* Background Glows (Updated to Blob Motion for comfort) */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-pulse-slow will-change-transform" />
-                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-pulse-slow will-change-transform" style={{ animationDelay: '2s' }} />
+                <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#00A3FF] rounded-full mix-blend-screen filter blur-[120px] opacity-10 animate-blob will-change-transform" />
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-[#00FF94] rounded-full mix-blend-screen filter blur-[100px] opacity-10 animate-blob will-change-transform" style={{ animationDelay: '2s' }} />
             </div>
 
             {/* Navigation */}

@@ -118,6 +118,7 @@ export default function RegisterPage() {
                             </p>
                         </div>
                     ) : (
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-4">
                                 <Input
                                     name="full_name"
@@ -153,7 +154,7 @@ export default function RegisterPage() {
                                             onChange={handleChange}
                                         />
                                         <div className="absolute top-0 right-0">
-                                             <LegalTooltip content="Criptografado. Para recuperação de conta (MFA)." side="left" />
+                                            <LegalTooltip content="Criptografado. Para recuperação de conta (MFA)." side="left" />
                                         </div>
                                     </div>
                                 </div>
@@ -180,9 +181,9 @@ export default function RegisterPage() {
                                     />
                                 </div>
                             </div>
-                            
+
                             <div className="pt-2">
-                                <ConsentCheckbox 
+                                <ConsentCheckbox
                                     id="signup-consent"
                                     label="Concordo com a Política de Privacidade e aceito o processamento dos meus dados para fins de cadastro."
                                     checked={consent}
@@ -192,34 +193,34 @@ export default function RegisterPage() {
                             </div>
 
                             {status === "error" && (
-                        <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
-                            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                            {errorMessage}
-                        </div>
+                                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
+                                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                    {errorMessage}
+                                </div>
+                            )}
+
+                            <Button
+                                type="submit"
+                                className="w-full relative overflow-hidden group"
+                                disabled={isLoading}
+                            >
+                                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+                                {isLoading ? "Criptografando..." : "GERAR CREDENCIAL"}
+                            </Button>
+
+                            <p className="text-center text-xs text-brand-blue/50">
+                                Já possui acesso? <Link href="/login" className="text-brand-green hover:underline">Faça login</Link>
+                            </p>
+                        </form>
                     )}
+                </div>
 
-                    <Button
-                        type="submit"
-                        className="w-full relative overflow-hidden group"
-                        disabled={isLoading}
-                    >
-                        <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
-                        {isLoading ? "Criptografando..." : "GERAR CREDENCIAL"}
-                    </Button>
-
-                    <p className="text-center text-xs text-brand-blue/50">
-                        Já possui acesso? <Link href="/login" className="text-brand-green hover:underline">Faça login</Link>
-                    </p>
-                </form>
-                    )}
+                {/* Footer Badges */}
+                <div className="flex justify-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
+                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">ISO 42001</span>
+                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">SSL SECURE</span>
+                </div>
             </div>
-
-            {/* Footer Badges */}
-            <div className="flex justify-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">ISO 42001</span>
-                <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">SSL SECURE</span>
-            </div>
-        </div>
         </main >
     );
 }

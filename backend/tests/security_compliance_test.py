@@ -66,6 +66,13 @@ def test_user_creation_security():
     # [LGPD] Verificação de Auditoria
     from backend.app.models.audit import AuditLog
     audit_entry = db.query(AuditLog).filter(AuditLog.resource_id == str(user_db.id)).first()
+    print(f"\n[DEBUG] User ID Created: {user_db.id}")
+    print(f"[DEBUG] Audit Query Result: {audit_entry}")
+    
+    # Debug: List ALL audit logs
+    all_logs = db.query(AuditLog).all()
+    print(f"[DEBUG] All Audit Logs in DB: {[ (l.action, l.resource_id) for l in all_logs]}")
+
     assert audit_entry is not None, "CRÍTICO: Ação de criação de usuário NÃO foi auditada!"
     assert audit_entry.action == "USER_SIGNUP", "Ação de auditoria incorreta"
     
