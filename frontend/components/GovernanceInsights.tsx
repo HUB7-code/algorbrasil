@@ -8,7 +8,7 @@ export default function GovernanceInsights() {
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div>
                         <span className="font-mono text-brand-green text-sm tracking-widest uppercase mb-4 block">
-                            // Inteligência
+                            {"// Inteligência"}
                         </span>
                         <h2 className="font-display text-3xl md:text-5xl font-bold text-white max-w-2xl">
                             Insights de Governança

@@ -19,8 +19,9 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ["var(--font-manrope)"], // Corpo (Clean Modern)
-                serif: ["var(--font-playfair)"], // Títulos (Elegância)
-                display: ["var(--font-playfair)"], // Headlines (Autoridade)
+                serif: ["var(--font-playfair)"], // Títulos (Elegância Institucional)
+                display: ["var(--font-orbitron)"], // Headlines (Tech/Sci-Fi)
+                orbitron: ["var(--font-orbitron)"], // Explicito
                 mono: ["var(--font-jetbrains-mono)"], // Dados (Dev/Tech)
                 tech: ["var(--font-jetbrains-mono)"], // Alias para tech details
             },
