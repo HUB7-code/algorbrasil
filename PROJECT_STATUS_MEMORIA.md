@@ -38,6 +38,7 @@ Seguindo os novos manuais operacionais:
 5.  ✅ **Deploy & Tests:** Testes automatizados de backend e deploy seguro no GitHub.
 6.  ✅ **Gestão de Riscos Completa:** Edição e Exclusão implementadas com validação.
 7.  ✅ **Relatórios PDF:** Geração de report oficial com header, score e detalhamento.
+8.  ✅ **Galeria de Associados:** Grid interativo em Glassmorphism com filtros e modal de detalhes.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
@@ -47,4 +48,5 @@ Seguindo os novos manuais operacionais:
 - **v5.5:** Elite UI & Compliance Core.
 - **v5.6:** Risk Management Module.
 - **v5.7:** Unified Elite Design.
-- **v6.0:** **ISO 42001 Compliance Suite (ATUAL)**.
+- **v6.0:** ISO 42001 Compliance Suite.
+- **v6.1:** **Public Experience & Talent Hub (ATUAL)**.

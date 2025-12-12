@@ -74,6 +74,7 @@ export default function Home() {
                         <button onClick={() => scrollToSection('benefits')} className="hover:text-white transition-colors">A Associação</button>
                         <button onClick={() => scrollToSection('personas')} className="hover:text-white transition-colors">Intelligence Hub</button>
                         <button onClick={() => scrollToSection('methodology')} className="hover:text-white transition-colors">Metodologia</button>
+                        <Link href="/associates" className="hover:text-white transition-colors">Associados</Link>
                     </div>
 
                     <Link href="/login">
@@ -97,6 +98,7 @@ export default function Home() {
                         <button onClick={() => { scrollToSection('benefits'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">A Associação</button>
                         <button onClick={() => { scrollToSection('personas'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Intelligence Hub</button>
                         <button onClick={() => { scrollToSection('methodology'); setMobileMenuOpen(false); }} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Metodologia</button>
+                        <Link href="/associates" className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Associados</Link>
                         <Link href="/login" className="w-full">
                             <button className="w-full py-3 mt-2 bg-white/5 border border-white/10 rounded text-center font-mono uppercase tracking-widest text-xs hover:bg-white hover:text-[#0A1A2F] transition-all">
                                 Login Membros
