@@ -1,73 +1,105 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, ShieldCheck, FileText } from "lucide-react";
 
 export default function MembershipPolicyPage() {
     return (
-        <main className="min-h-screen w-full bg-[#0A1A2F] text-white p-6 pb-20 font-sans">
-            <div className="max-w-4xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <main className="min-h-screen w-full bg-[#131314] text-[#E3E3E3] font-sans">
+            <div className="max-w-[800px] mx-auto p-6 md:p-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
-                {/* Header */}
-                <div className="space-y-4">
-                    <Link href="/register" className="inline-flex items-center gap-2 text-brand-blue/60 hover:text-brand-green transition-colors font-mono text-xs">
-                        <ArrowLeft className="w-4 h-4" /> VOLTAR PARA CADASTRO
+                {/* Header Actions */}
+                <div className="mb-12">
+                    <Link href="/register" className="inline-flex items-center gap-2 text-[#A8C7FA] hover:underline text-sm font-medium mb-8">
+                        <span className="material-symbols-rounded">arrow_back</span>
+                        Voltar para cadastro
                     </Link>
-                    <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-white">
-                        Política de <span className="text-brand-green">Membros</span>
-                    </h1>
-                    <p className="text-lg text-gray-400 max-w-2xl leading-relaxed">
-                        Diretrizes para governança, conduta ética e responsabilidades dos associados do Ecossistema Algor Brasil.
+                    <h1 className="text-4xl md:text-5xl font-normal leading-tight mb-4 text-[#E3E3E3]">Política de Membros</h1>
+                    <p className="text-[#C4C7C5] text-lg leading-relaxed">
+                        Diretrizes para governança e conduta ética dos associados.
                     </p>
                 </div>
 
-                {/* Content Card */}
-                <div className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 bg-[#0A1A2F]/80 backdrop-blur-xl relative overflow-hidden">
+                {/* Content Container (Docs Style) */}
+                <div className="space-y-12">
 
-                    {/* Decorative Background */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-green/5 rounded-full blur-[100px] pointer-events-none" />
+                    <LegalSection
+                        number="01"
+                        title="Premissas Fundamentais"
+                        text={
+                            <>
+                                A associação ao Algor Brasil é restrita a profissionais e organizações comprometidos com a <strong>Ética na Inteligência Artificial</strong> e a conformidade com a norma <strong>ISO/IEC 42001</strong>. Todos os membros devem agir como guardiões da integridade tecnológica.
+                            </>
+                        }
+                    />
 
-                    <div className="prose prose-invert max-w-none prose-headings:font-serif prose-headings:text-white prose-a:text-brand-green prose-strong:text-brand-green">
-
-                        <h3>1. Premissas Fundamentais</h3>
-                        <p>
-                            A associação ao Algor Brasil é restrita a profissionais e organizações comprometidos com a <strong>Ética na Inteligência Artificial</strong> e a conformidade com a norma <strong>ISO/IEC 42001</strong>. Todos os membros devem agir como guardiões da integridade tecnológica.
-                        </p>
-
-                        <h3>2. Categorias de Associação</h3>
-                        <ul>
-                            <li><strong>Membros Individuais (Auditores/Consultores):</strong> Profissionais qualificados ou em formação para realizar diagnósticos de conformidade.</li>
-                            <li><strong>Membros Corporativos:</strong> Organizações que buscam auditar seus próprios modelos ou de terceiros sob a tutela do framework Algor.</li>
+                    <LegalSection
+                        number="02"
+                        title="Categorias de Associação"
+                        text="O ecossistema divide-se em duas categorias principais de atuação:"
+                    >
+                        <ul className="list-disc pl-5 space-y-4 mt-4 text-[#C4C7C5]">
+                            <li>
+                                <strong className="text-[#E3E3E3] block mb-1">Membros Individuais (Auditores/Consultores)</strong>
+                                Profissionais qualificados ou em formação para realizar diagnósticos de conformidade e avaliações de risco algorítmico.
+                            </li>
+                            <li>
+                                <strong className="text-[#E3E3E3] block mb-1">Membros Corporativos</strong>
+                                Organizações que buscam auditar seus próprios modelos, treinar suas equipes ou certificar fornecedores sob a tutela do framework Algor.
+                            </li>
                         </ul>
+                    </LegalSection>
 
-                        <h3>3. Código de Conduta</h3>
-                        <p>
-                            É mandatório o sigilo absoluto sobre dados sensíveis auditados. O uso da plataforma para espionagem industrial, engenharia reversa não autorizada ou qualquer prática "Black Hat" resultará em expulsão imediata e sanções legais.
-                        </p>
+                    <LegalSection
+                        number="03"
+                        title="Código de Conduta"
+                        text="É mandatório o sigilo absoluto sobre dados sensíveis auditados. O uso da plataforma para espionagem industrial, engenharia reversa não autorizada ou qualquer prática 'Black Hat' resultará em expulsão imediata, revogação de credenciais e sanções legais cabíveis."
+                    />
 
-                        <h3>4. Participação e Certificação</h3>
-                        <p>
-                            A manutenção do status de membro requer atualização constante. Os membros devem completar os ciclos de reciclagem anual sobre novas regulações (ex: PL 2338, EU AI Act) disponibilizados na plataforma.
-                        </p>
+                    <LegalSection
+                        number="04"
+                        title="Certificação Contínua"
+                        text="A manutenção do status de membro requer atualização constante. Os membros devem completar os ciclos de reciclagem anual sobre novas regulações (ex: PL 2338, EU AI Act) que serão disponibilizados através da Academia Algor."
+                    />
 
-                        <div className="my-8 p-6 rounded-xl bg-white/5 border-l-4 border-brand-green">
-                            <h4 className="flex items-center gap-2 mt-0 mb-2">
-                                <ShieldCheck className="w-5 h-5 text-brand-green" />
-                                Compromisso de Conformidade
-                            </h4>
-                            <p className="m-0 text-sm text-gray-300">
-                                Ao submeter sua solicitação, você declara sob as penas da lei que as informações fornecidas são verdadeiras e que não possui conflitos de interesse que impeçam sua atuação imparcial no ecossistema de governança.
-                            </p>
+                    {/* Highlight Box */}
+                    <div className="rounded-[16px] bg-[#0F5223]/20 border border-[#0F5223] p-8">
+                        <div className="flex items-start gap-4">
+                            <span className="material-symbols-rounded text-[#6DD58C] text-2xl mt-1">verified</span>
+                            <div>
+                                <h4 className="text-lg font-medium text-[#C4EED0] mb-2">Compromisso de Integridade</h4>
+                                <p className="text-sm text-[#6DD58C]/80 leading-relaxed">
+                                    Ao submeter sua solicitação de membresia, você declara sob as penas da lei que as informações fornecidas são verdadeiras
+                                    e que não possui conflitos de interesse que impeçam sua atuação imparcial e ética no ecossistema de governança de IA.
+                                </p>
+                            </div>
                         </div>
-
                     </div>
+
                 </div>
 
-                <div className="text-center text-xs text-brand-blue/40 font-mono">
-                    Última atualização: 11 de Dezembro de 2025 • Depto. Jurídico Algor Brasil
+                {/* Footer */}
+                <div className="mt-20 pt-8 border-t border-[#444746] text-center text-sm text-[#8E918F]">
+                    Departamento de Compliance Algor Brasil • São Paulo, SP
                 </div>
 
             </div>
         </main>
     );
+}
+
+function LegalSection({ number, title, text, children }: any) {
+    return (
+        <section>
+            <div className="flex items-baseline gap-4 mb-4">
+                <span className="text-sm font-mono text-[#A8C7FA] opacity-50">{number}</span>
+                <h3 className="text-2xl font-normal text-[#E3E3E3]">{title}</h3>
+            </div>
+            <div className="pl-0 md:pl-10">
+                <p className="text-[#C4C7C5] leading-8 text-[16px]">
+                    {text}
+                </p>
+                {children}
+            </div>
+        </section>
+    )
 }

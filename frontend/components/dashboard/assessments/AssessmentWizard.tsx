@@ -161,53 +161,49 @@ export default function AssessmentWizard() {
     const canAdvance = currentStep.questions.every(q => answers[q.id]);
 
     return (
-        <div className="max-w-4xl mx-auto w-full py-10">
-            {/* Progress Bar */}
-            <div className="mb-10 relative">
-                <div className="flex justify-between text-xs font-semibold font-manrope text-gray-400 mb-3 uppercase tracking-wider pl-1">
-                    <span>Etapa {currentStepIndex + 1} / {STEPS.length}</span>
-                    <span className={isLastStep ? "text-[#00FF94] font-bold shadow-glow" : ""}>{Math.round(progress)}% Concluído</span>
+        <div className="max-w-4xl mx-auto w-full pb-10">
+            {/* M3 Linear Progress Indicator */}
+            <div className="mb-8 max-w-xl mx-auto">
+                <div className="flex justify-between text-xs font-medium text-[#C4C7C5] mb-2 px-1">
+                    <span>Etapa {currentStepIndex + 1} de {STEPS.length}</span>
+                    <span>{Math.round(progress)}%</span>
                 </div>
-                <div className="h-2 bg-[#050B14] rounded-full overflow-hidden border border-white/5">
+                <div className="h-1 bg-[#444746] rounded-full overflow-hidden w-full">
                     <div
-                        className="h-full bg-gradient-to-r from-[#00A3FF] via-[#00FF94] to-[#00A3FF] transition-all duration-700 ease-out relative shadow-[0_0_15px_rgba(0,163,255,0.5)]"
+                        className="h-full bg-[#A8C7FA] transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
             </div>
 
-            {/* Main Content Area - Fluid transitions */}
+            {/* Main Content Card - Google Surface */}
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentStep.id}
-                    initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                    initial={{ opacity: 0, y: 20, scale: 0.98 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} // Custom "Google-like" easing
-                    className="bg-[#0A1A2F]/80 backdrop-blur-xl border border-white/10 p-8 md:p-12 rounded-[2.5rem] shadow-2xl relative overflow-hidden"
+                    exit={{ opacity: 0, y: -20, scale: 0.98 }}
+                    transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }} // Emphasized Decelerate
+                    className="bg-[#1E1F20] border border-[#444746] p-8 md:p-10 rounded-[28px] shadow-sm relative overflow-hidden"
                 >
-                    {/* Glossy Reflection (Subtle) */}
-                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-50" />
-
-                    {/* Step Header */}
-                    <div className="flex items-start gap-6 mb-12">
-                        <div className="w-16 h-16 rounded-2xl bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF] border border-[#00A3FF]/20 shadow-[0_0_30px_rgba(0,163,255,0.15)]">
-                            <span className="material-symbols-rounded text-4xl" style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}>
+                    {/* Header with Icon */}
+                    <div className="flex items-start gap-6 mb-10">
+                        <div className="w-12 h-12 rounded-full bg-[#3E4042] flex items-center justify-center text-[#A8C7FA]">
+                            <span className="material-symbols-rounded text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
                                 {currentStep.icon}
                             </span>
                         </div>
-                        <div className="flex-1">
-                            <h2 className="text-3xl font-display font-bold text-white mb-2">{currentStep.title}</h2>
-                            <p className="text-lg text-slate-300 font-light leading-relaxed">{currentStep.description}</p>
+                        <div className="flex-1 pt-1">
+                            <h2 className="text-2xl font-normal text-[#E3E3E3] mb-1">{currentStep.title}</h2>
+                            <p className="text-sm text-[#C4C7C5] leading-relaxed">{currentStep.description}</p>
                         </div>
                     </div>
 
-                    {/* Questions */}
-                    <div className="space-y-10">
+                    {/* Questions Group */}
+                    <div className="space-y-12">
                         {currentStep.questions.map((q) => (
                             <div key={q.id}>
-                                <h3 className="text-white font-medium mb-4 text-lg flex items-center gap-2">
-                                    <span className="material-symbols-rounded text-[#00FF94] text-sm">arrow_forward_ios</span>
+                                <h3 className="text-[#E3E3E3] font-medium mb-4 text-base flex items-center gap-2">
                                     {q.text}
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -218,20 +214,22 @@ export default function AssessmentWizard() {
                                                 key={opt.value}
                                                 onClick={() => handleOptionSelect(q.id, opt.value)}
                                                 className={`
-                                                    relative px-6 py-5 rounded-3xl text-left transition-all duration-300 border
-                                                    flex items-center gap-3 group
+                                                    relative px-5 py-6 rounded-[16px] text-left transition-all duration-200 border
+                                                    flex flex-col gap-3 group
                                                     ${isSelected
-                                                        ? 'bg-[#00FF94]/10 text-white border-[#00FF94] shadow-[0_0_20px_rgba(0,255,148,0.2)] scale-[1.02]'
-                                                        : 'bg-[#112240] text-slate-400 border-white/5 hover:bg-[#1a355e] hover:border-[#00A3FF]/50 hover:text-white'
+                                                        ? 'bg-[#004A77] border-[#A8C7FA] text-[#D3E3FD]' // Selected State (Primary Container)
+                                                        : 'bg-[#1E1F20] border-[#8E918F] text-[#C4C7C5] hover:bg-[#444746]/30' // Inactive
                                                     }
                                                 `}
                                             >
-                                                {isSelected ? (
-                                                    <span className="material-symbols-rounded text-xl animate-in zoom-in spin-in-90 duration-300 text-[#00FF94]">check_circle</span>
-                                                ) : (
-                                                    <span className="material-symbols-rounded text-xl text-white/20 group-hover:text-[#00A3FF] transition-colors">radio_button_unchecked</span>
-                                                )}
-                                                <span className="text-sm font-semibold leading-tight">{opt.label}</span>
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className={`material-symbols-rounded text-2xl ${isSelected ? 'text-[#A8C7FA]' : 'text-[#8E918F]'}`}>
+                                                        {isSelected ? 'check_circle' : 'radio_button_unchecked'}
+                                                    </span>
+                                                </div>
+                                                <span className={`text-sm font-medium leading-tight ${isSelected ? 'text-[#D3E3FD]' : 'text-[#E3E3E3]'}`}>
+                                                    {opt.label}
+                                                </span>
                                             </button>
                                         );
                                     })}
@@ -243,13 +241,13 @@ export default function AssessmentWizard() {
                 </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Fab-like Buttons */}
-            <div className="flex justify-between items-center mt-8 px-4">
+            {/* Navigation Buttons */}
+            <div className="flex justify-between items-center mt-8 px-2 max-w-2xl mx-auto">
                 <Button
                     variant="ghost"
                     onClick={handleBack}
                     disabled={currentStepIndex === 0}
-                    className="text-slate-500 hover:text-white hover:bg-white/5 rounded-full px-6"
+                    className="text-[#A8C7FA] hover:bg-[#004A77]/30 rounded-full px-6 text-sm font-medium h-10"
                 >
                     Voltar
                 </Button>
@@ -258,16 +256,16 @@ export default function AssessmentWizard() {
                     onClick={handleNext}
                     disabled={!canAdvance}
                     className={`
-                        rounded-full px-8 py-6 text-base font-bold tracking-wide transition-all shadow-lg
+                        rounded-full px-8 h-12 text-sm font-medium tracking-wide transition-all shadow-sm
                         flex items-center gap-2
                         ${!canAdvance
-                            ? 'bg-slate-800 text-slate-500 cursor-not-allowed border border-white/5'
-                            : 'bg-[#00FF94] text-[#0A1A2F] hover:bg-[#00DD83] hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,148,0.4)]'
+                            ? 'bg-[#1E1F20] text-[#8E918F] cursor-not-allowed border border-[#444746]' // Disabled
+                            : 'bg-[#A8C7FA] text-[#062E6F] hover:bg-[#D3E3FD] shadow-md' // Enabled Primary
                         }
                     `}
                 >
-                    {isLastStep ? "Finalizar Diagnóstico" : "Continuar"}
-                    <span className="material-symbols-rounded">arrow_forward</span>
+                    {isLastStep ? "Concluir" : "Próximo"}
+                    {!isLastStep && <span className="material-symbols-rounded text-lg">arrow_forward</span>}
                 </Button>
             </div>
         </div>

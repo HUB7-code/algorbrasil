@@ -2,11 +2,15 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { ShieldAlert, CheckCircle2, AlertTriangle, Plus, Search, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 import RiskFormModal from '@/components/dashboard/risks/RiskFormModal';
 
-// Types (Espelhando o Backend)
+// Mocked Data for Preview if API fails or empty
+const MOCK_RISKS = [
+    { id: 1, category: "Segurança de Dados", description: "Vazamento de PII em output de LLM", affected_system: "Chatbot RH", probability: 4, impact: 5, risk_level: 20, strategy: "Mitigar", status: "Aberto", mitigation_plan: "Implementar regex filter" },
+    { id: 2, category: "Viés Algorítmico", description: "Disparidade de gênero em triagem", affected_system: "Recrutamento AI", probability: 3, impact: 4, risk_level: 12, strategy: "Monitorar", status: "Em Análise", mitigation_plan: "Revisar dataset" },
+];
+
 interface Risk {
     id: number;
     category: string;
@@ -21,189 +25,220 @@ interface Risk {
 }
 
 export default function RiskDashboardPage() {
-    const [risks, setRisks] = useState<Risk[]>([]);
+    const [risks, setRisks] = useState<Risk[]>(MOCK_RISKS);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingRisk, setEditingRisk] = useState<Risk | null>(null);
+
+    const fetchRisks = async () => {
+        try {
+            const token = localStorage.getItem('algor_token');
+            if (token) {
+                const res = await fetch('/api/v1/risks/', { headers: { 'Authorization': `Bearer ${token}` } });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (Array.isArray(data) && data.length > 0) setRisks(data);
+                }
+            }
+        } catch (e) { console.error(e) } finally { setLoading(false) }
+    }
 
     useEffect(() => {
         fetchRisks();
     }, []);
 
-    const fetchRisks = async () => {
+    const openEditModal = (risk: Risk) => {
+        setEditingRisk(risk);
+        setIsModalOpen(true);
+    };
+
+    const handleCreate = () => {
+        setEditingRisk(null);
+        setIsModalOpen(true);
+    };
+
+    const handleSuccess = () => {
+        fetchRisks(); // Reload data from API to be sure
+        setIsModalOpen(false);
+    };
+
+    const handleDelete = async (riskId: number) => {
+        if (!confirm("Tem certeza que deseja excluir este risco? Esta ação não pode ser desfeita.")) return;
+
         try {
             const token = localStorage.getItem('algor_token');
-            if (!token) return;
-
-            const res = await fetch('http://localhost:8000/api/v1/risks/', {
+            const res = await fetch(`/api/v1/risks/${riskId}`, {
+                method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
+
             if (res.ok) {
-                const data = await res.json();
-                setRisks(data);
+                // Optimistic UI update or fetch again
+                setRisks(risks.filter(r => r.id !== riskId));
+            } else {
+                alert("Erro ao excluir risco.");
             }
-        } catch (error) {
-            console.error("Erro ao buscar riscos:", error);
-        } finally {
-            setLoading(false);
+        } catch (e) {
+            console.error(e);
+            alert("Erro de conexão.");
         }
     };
 
     // KPIs
     const totalRisks = risks.length;
-    const criticalRisks = risks.filter(r => r.risk_level >= 15).length; // Regra: P*I >= 15 é Crítico/Alto
+    const criticalRisks = risks.filter(r => r.risk_level >= 15).length;
     const mitigatedRisks = risks.filter(r => r.status === 'Mitigado').length;
 
-    // Helper de Cor de Nível
-    const getRiskColor = (level: number) => {
-        if (level >= 15) return "text-red-400 border-red-400/30 bg-red-400/10"; // Alto/Extremo
-        if (level >= 8) return "text-amber-400 border-amber-400/30 bg-amber-400/10"; // Médio
-        return "text-[#00FF94] border-[#00FF94]/30 bg-[#00FF94]/10"; // Baixo
-    };
-
     return (
-        <div className="p-8 md:p-12 space-y-10 min-h-screen relative">
+        <div className="space-y-6 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
             <RiskFormModal
                 isOpen={isModalOpen}
+                initialData={editingRisk}
                 onClose={() => setIsModalOpen(false)}
-                onSuccess={fetchRisks}
+                onSuccess={handleSuccess}
             />
 
-            {/* Header com Ação */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            {/* Top Header */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-3xl font-serif text-white mb-2">Gestão de Riscos ISO 42001</h1>
-                    <p className="text-gray-400 font-light">Identifique, avalie e mitigue riscos algorítmicos em conformidade regulatória.</p>
+                    <h1 className="text-[24px] md:text-[32px] font-normal text-[#E3E3E3]">Gestão de Riscos</h1>
+                    <p className="text-sm text-[#C4C7C5]">Matriz de riscos e incidentes de IA</p>
                 </div>
                 <button
-                    className="flex items-center gap-2 px-6 py-3 bg-[#00A3FF] hover:bg-[#0082CC] text-white rounded-xl font-bold uppercase tracking-wider text-xs shadow-lg shadow-[#00A3FF]/20 transition-all hover:-translate-y-1 hover:scale-105 active:scale-95"
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={handleCreate}
+                    className="h-10 px-6 rounded-full bg-[#A8C7FA] text-[#062E6F] text-sm font-medium hover:bg-[#D3E3FD] shadow-sm flex items-center gap-2 transition-colors"
                 >
-                    <Plus className="w-4 h-4" />
-                    Novo Risco
+                    <span className="material-symbols-rounded text-lg">add_circle</span>
+                    Registrar Risco
                 </button>
             </div>
 
-            {/* Bento Grid KPIs */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Total */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                    className="p-6 rounded-3xl bg-[#0A1A2F]/60 border border-white/5 backdrop-blur-xl relative overflow-hidden group"
-                >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <ShieldAlert className="w-16 h-16 text-[#00A3FF]" />
-                    </div>
-                    <div className="relative z-10">
-                        <h3 className="text-gray-400 text-sm font-mono uppercase tracking-widest mb-1">Riscos Mapeados</h3>
-                        <p className="text-4xl font-serif text-white">{totalRisks}</p>
-                    </div>
-                </motion.div>
-
-                {/* Críticos */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-                    className="p-6 rounded-3xl bg-[#0A1A2F]/60 border border-white/5 backdrop-blur-xl relative overflow-hidden group"
-                >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <AlertTriangle className="w-16 h-16 text-red-500" />
-                    </div>
-                    <div className="relative z-10">
-                        <h3 className="text-gray-400 text-sm font-mono uppercase tracking-widest mb-1 flex items-center gap-2">
-                            Atenção Crítica
-                            {criticalRisks > 0 && <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />}
-                        </h3>
-                        <p className={`text-4xl font-serif ${criticalRisks > 0 ? "text-red-400" : "text-gray-200"}`}>{criticalRisks}</p>
-                    </div>
-                </motion.div>
-
-                {/* Mitigados */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
-                    className="p-6 rounded-3xl bg-[#0A1A2F]/60 border border-white/5 backdrop-blur-xl relative overflow-hidden group"
-                >
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <CheckCircle2 className="w-16 h-16 text-[#00FF94]" />
-                    </div>
-                    <div className="relative z-10">
-                        <h3 className="text-gray-400 text-sm font-mono uppercase tracking-widest mb-1">Mitigados</h3>
-                        <p className="text-4xl font-serif text-[#00FF94]">{mitigatedRisks}</p>
-                    </div>
-                </motion.div>
+            {/* Stats Cards (M3 Elevated) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <M3StatCard
+                    label="Total de Riscos"
+                    value={totalRisks}
+                    icon="shield"
+                    trend="Estável"
+                />
+                <M3StatCard
+                    label="Críticos"
+                    value={criticalRisks}
+                    icon="warning"
+                    colorClass="text-[#FFB4AB]"
+                    subtext="Ação Imediata"
+                />
+                <M3StatCard
+                    label="Mitigados"
+                    value={mitigatedRisks}
+                    icon="check_circle"
+                    colorClass="text-[#6DD58C]"
+                    subtext="Controles Efetivos"
+                />
             </div>
 
-            {/* Risk List / Table */}
-            <motion.div
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
-                className="bg-[#0A1A2F]/60 border border-white/5 rounded-3xl backdrop-blur-md overflow-hidden"
-            >
-                {/* Filters Mock */}
-                <div className="p-6 border-b border-white/5 flex gap-4">
-                    <div className="relative flex-1 max-w-sm">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+            {/* Risk List (M3 List) */}
+            <div className="rounded-[24px] bg-[#1E1F20] border border-[#444746] overflow-hidden">
+                {/* Toolbar */}
+                <div className="p-4 border-b border-[#444746] flex gap-3">
+                    <div className="flex-1 bg-[#28292A] h-10 rounded-full flex items-center px-4 border border-[#444746] focus-within:border-[#A8C7FA] transition-colors">
+                        <span className="material-symbols-rounded text-[#C4C7C5]">search</span>
                         <input
                             type="text"
-                            placeholder="Buscar riscos..."
-                            className="w-full bg-[#050B14] border border-white/10 rounded-lg py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-[#00A3FF]"
+                            placeholder="Buscar incidentes ou sistemas..."
+                            className="bg-transparent border-none outline-none text-[#E3E3E3] text-sm ml-2 w-full placeholder-[#8E918F]"
                         />
                     </div>
-                    <button className="flex items-center gap-2 px-4 py-2 border border-white/10 rounded-lg text-sm text-gray-300 hover:bg-white/5">
-                        <Filter className="w-4 h-4" /> Filtros
-                    </button>
                 </div>
 
-                {loading ? (
-                    <div className="p-12 text-center text-gray-500">Carregando matriz de riscos...</div>
-                ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse">
-                            <thead>
-                                <tr className="text-xs font-mono uppercase tracking-widest text-gray-400 border-b border-white/5">
-                                    <th className="p-6 font-medium">Categoria & Descrição</th>
-                                    <th className="p-6 font-medium">Prob.</th>
-                                    <th className="p-6 font-medium">Imp.</th>
-                                    <th className="p-6 font-medium">Nível (PxI)</th>
-                                    <th className="p-6 font-medium">Tratamento</th>
-                                    <th className="p-6 font-medium">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {risks.map((risk) => (
-                                    <tr key={risk.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
-                                        <td className="p-6">
-                                            <div className="flex flex-col">
-                                                <span className="text-xs text-[#00A3FF] mb-1">{risk.category}</span>
-                                                <span className="text-white font-medium">{risk.description}</span>
-                                                <span className="text-xs text-gray-500 mt-1">Afeta: {risk.affected_system}</span>
-                                            </div>
-                                        </td>
-                                        <td className="p-6 font-mono text-gray-300">{risk.probability}</td>
-                                        <td className="p-6 font-mono text-gray-300">{risk.impact}</td>
-                                        <td className="p-6">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getRiskColor(risk.risk_level)}`}>
-                                                {risk.risk_level}
-                                            </span>
-                                        </td>
-                                        <td className="p-6 text-sm text-gray-300">{risk.strategy}</td>
-                                        <td className="p-6">
-                                            <span className={`flex items-center gap-2 text-xs font-semibold ${risk.status === 'Mitigado' ? 'text-[#00FF94]' : 'text-gray-400'}`}>
-                                                <span className={`w-2 h-2 rounded-full ${risk.status === 'Mitigado' ? 'bg-[#00FF94]' : 'bg-gray-400'}`} />
-                                                {risk.status}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                ))}
-                                {risks.length === 0 && (
-                                    <tr>
-                                        <td colSpan={6} className="p-12 text-center text-gray-500">
-                                            Nenhum risco registrado. Inicie pelo botão "Novo Risco".
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-            </motion.div>
+                {/* List Content */}
+                <div>
+                    {risks.map((risk) => (
+                        <div key={risk.id} className="group p-4 border-b border-[#444746] hover:bg-[#444746]/30 transition-colors flex flex-col md:flex-row md:items-center gap-4">
+                            {/* Icon / Leading */}
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl shrink-0 ${risk.risk_level >= 15 ? 'bg-[#93000A] text-[#FFDAD6]' : 'bg-[#3E4042] text-[#C4C7C5]'}`}>
+                                <span className="material-symbols-rounded">
+                                    {risk.risk_level >= 15 ? 'priority_high' : 'policy'}
+                                </span>
+                            </div>
+
+                            {/* Main Content */}
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <h4 className="text-sm font-medium text-[#E3E3E3] truncate">{risk.description}</h4>
+                                    {risk.risk_level >= 15 && (
+                                        <span className="px-2 py-0.5 rounded-full bg-[#93000A] text-[#FFDAD6] text-[10px] font-bold uppercase">Crítico</span>
+                                    )}
+                                </div>
+                                <p className="text-xs text-[#C4C7C5] flex items-center gap-2">
+                                    <span>{risk.category}</span>
+                                    <span className="text-[#8E918F]">•</span>
+                                    <span>{risk.affected_system}</span>
+                                </p>
+                            </div>
+
+                            {/* Meta / Trailing */}
+                            <div className="flex items-center gap-6 text-sm text-[#C4C7C5] mt-2 md:mt-0">
+                                <div className="text-center min-w-[60px]">
+                                    <span className="block text-[10px] text-[#8E918F] uppercase">Nível</span>
+                                    <span className="font-bold">{risk.risk_level}</span>
+                                </div>
+                                <div className="min-w-[100px] text-center">
+                                    <span className={`px-3 py-1 rounded-full text-xs border ${risk.status === 'Mitigado' ? 'border-[#6DD58C]/30 text-[#6DD58C]' : 'border-[#C4C7C5]/30 text-[#C4C7C5]'}`}>
+                                        {risk.status}
+                                    </span>
+                                </div>
+
+                                {/* Actions */}
+                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button
+                                        onClick={() => openEditModal(risk)}
+                                        className="h-8 w-8 rounded-full hover:bg-[#A8C7FA]/10 hover:text-[#A8C7FA] flex items-center justify-center transition-colors text-[#C4C7C5]"
+                                        title="Editar"
+                                    >
+                                        <span className="material-symbols-rounded text-lg">edit</span>
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(risk.id)}
+                                        className="h-8 w-8 rounded-full hover:bg-[#FFB4AB]/10 hover:text-[#FFB4AB] flex items-center justify-center transition-colors text-[#C4C7C5]"
+                                        title="Excluir"
+                                    >
+                                        <span className="material-symbols-rounded text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                    {risks.length === 0 && (
+                        <div className="p-12 text-center text-[#8E918F]">
+                            Nenhum risco encontrado.
+                        </div>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }
+
+function M3StatCard({ label, value, icon, colorClass = "text-[#A8C7FA]", trend, subtext }: any) {
+    return (
+        <div className="rounded-[24px] bg-[#1E1F20] border border-[#444746] p-6 flex flex-col justify-between h-[140px] relative overflow-hidden group">
+            <div className="flex justify-between items-start z-10">
+                <div>
+                    <p className="text-sm text-[#C4C7C5] font-medium mb-1">{label}</p>
+                    <h3 className="text-4xl font-normal text-[#E3E3E3]">{value}</h3>
+                </div>
+                <div className={`w-10 h-10 rounded-full bg-[#1e1f20] border border-[#444746] flex items-center justify-center ${colorClass}`}>
+                    <span className="material-symbols-rounded">{icon}</span>
+                </div>
+            </div>
+            {(trend || subtext) && (
+                <div className="mt-auto z-10">
+                    {trend && <div className="text-xs text-[#6DD58C] flex items-center gap-1"><span className="material-symbols-rounded text-sm">trending_up</span> {trend}</div>}
+                    {subtext && <div className="text-xs text-[#FABD00] flex items-center gap-1">{subtext}</div>}
+                </div>
+            )}
+        </div>
+    )
+}
+

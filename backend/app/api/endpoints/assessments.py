@@ -125,3 +125,29 @@ def read_assessment_detail(
     if not assessment:
         raise HTTPException(status_code=404, detail="Avaliação não encontrada")
     return assessment
+
+from fastapi.responses import StreamingResponse
+from backend.app.utils.pdf_generator import generate_assessment_report_pdf
+
+@router.get("/{assessment_id}/pdf")
+def download_assessment_report(
+    assessment_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Gera e retorna um relatório PDF da auditoria.
+    """
+    assessment = db.query(Assessment).filter(Assessment.id == assessment_id, Assessment.user_id == current_user.id).first()
+    if not assessment:
+        raise HTTPException(status_code=404, detail="Auditoria não encontrada")
+
+    pdf_buffer = generate_assessment_report_pdf(assessment, current_user.email)
+    
+    filename = f"Algor_Report_ISO42001_{assessment_id}.pdf"
+    
+    return StreamingResponse(
+        pdf_buffer, 
+        media_type="application/pdf", 
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )

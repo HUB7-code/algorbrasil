@@ -92,6 +92,19 @@ def update_risk(
     for field, value in update_data.items():
         setattr(risk, field, value)
         
+@router.delete("/{risk_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_risk(
+    risk_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Remove um risco do registro.
+    """
+    risk = db.query(RiskRegister).filter(RiskRegister.id == risk_id, RiskRegister.user_id == current_user.id).first()
+    if not risk:
+        raise HTTPException(status_code=404, detail="Risco não encontrado")
+        
+    db.delete(risk)
     db.commit()
-    db.refresh(risk)
-    return risk
+    return None

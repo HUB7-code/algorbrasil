@@ -8,17 +8,21 @@ function cn(...inputs: ClassValue[]) {
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    labelSuffix?: React.ReactNode;
     error?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ className, label, error, type = "text", ...props }, ref) => {
+    ({ className, label, labelSuffix, error, type = "text", ...props }, ref) => {
         return (
             <div className="w-full space-y-2">
                 {label && (
-                    <label className="block text-xs font-mono text-brand-blue uppercase tracking-wider">
-                        {label}
-                    </label>
+                    <div className="flex items-center">
+                        <label className="block text-xs font-mono text-brand-blue uppercase tracking-wider">
+                            {label}
+                        </label>
+                        {labelSuffix && <span className="ml-2">{labelSuffix}</span>}
+                    </div>
                 )}
                 <div className="relative group">
                     <input

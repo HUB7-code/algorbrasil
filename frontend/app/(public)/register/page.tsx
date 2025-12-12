@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import ConsentCheckbox from "@/components/ui/ConsentCheckbox";
-import LegalTooltip from "@/components/ui/LegalTooltip";
+// import LegalTooltip from "@/components/ui/LegalTooltip"; // Simplification for M3
 import { ArrowLeft, CheckCircle2, AlertCircle } from "lucide-react";
+import Image from "next/image";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -42,12 +43,9 @@ export default function RegisterPage() {
         }
 
         try {
-            // Using /api default proxy
             const res = await fetch("/api/v1/signup", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     email: formData.email,
                     password: formData.password,
@@ -57,16 +55,10 @@ export default function RegisterPage() {
             });
 
             const data = await res.json();
-
-            if (!res.ok) {
-                throw new Error(data.detail || "Erro ao criar conta.");
-            }
+            if (!res.ok) throw new Error(data.detail || "Erro ao criar conta.");
 
             setStatus("success");
-            // Redirect after 2 seconds
-            setTimeout(() => {
-                router.push("/login");
-            }, 2000);
+            setTimeout(() => { router.push("/login"); }, 2000);
 
         } catch (error: any) {
             setStatus("error");
@@ -77,147 +69,156 @@ export default function RegisterPage() {
     };
 
     return (
-        <main className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-transparent p-4">
-            {/* Background removed - Provided by PublicLayout */}
+        <main className="min-h-screen w-full flex flex-col md:flex-row bg-[#131314] text-[#E3E3E3] font-sans">
 
-            <div className="z-10 w-full max-w-md space-y-8">
-                {/* Header */}
-                <div className="text-center">
-                    <Link href="/" className="inline-flex items-center gap-2 text-brand-blue/60 hover:text-brand-green transition-colors font-mono text-xs mb-8">
-                        <ArrowLeft className="w-4 h-4" /> VOLTAR PARA HOME
-                    </Link>
-                    <h2 className="text-3xl font-display font-bold text-white tracking-tight">
-                        Acesso ao <span className="text-brand-green text-glow">CONSOLE</span>
-                    </h2>
-                    <p className="mt-2 text-sm text-brand-blue/80 font-mono">
-                        Crie sua identidade digital para iniciar a governança.
-                    </p>
+            {/* Left Column: Branding (Marketing Chin Pattern) */}
+            <div className="hidden md:flex w-1/2 bg-[#004A77] relative flex-col justify-between p-12 overflow-hidden">
+                <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10" />
+                <div className="relative z-10">
+                    <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-8 backdrop-blur-sm">
+                        <span className="material-symbols-rounded text-white text-2xl">verified_user</span>
+                    </div>
+                    <h1 className="text-5xl font-normal leading-tight mb-6">Comece sua jornada de governança.</h1>
+                    <p className="text-[#D3E3FD] text-lg max-w-md">Compliance automatizado com a ISO 42001 e monitoramento de riscos em tempo real para seus modelos de IA.</p>
                 </div>
+                <div className="relative z-10 text-sm text-[#A8C7FA]/60">
+                    © 2024 Algor Brasil. Secure Enclave.
+                </div>
+            </div>
 
-                {/* Form Card */}
-                <div className="glass-panel p-8 rounded-2xl border-t border-white/10 backdrop-blur-xl relative overflow-hidden">
-                    {/* Status Loading Line */}
-                    {isLoading && (
-                        <div className="absolute top-0 left-0 w-full h-1 bg-brand-navy/50 overflow-hidden">
-                            <div className="h-full bg-brand-green w-1/3 animate-[loading_1s_ease-in-out_infinite]" />
+            {/* Right Column: Content */}
+            <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-12 relative">
+                <div className="w-full max-w-[480px] space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-700">
+
+                    {/* Mobile Header */}
+                    <div className="md:hidden mb-8">
+                        <div className="w-10 h-10 bg-[#004A77] rounded-full flex items-center justify-center mb-4">
+                            <span className="material-symbols-rounded text-white">verified_user</span>
                         </div>
-                    )}
+                        <h1 className="text-3xl font-normal text-[#E3E3E3]">Criar Conta</h1>
+                    </div>
+
+                    <div className="hidden md:block">
+                        <h2 className="text-3xl font-normal text-[#E3E3E3] mb-2">Criar Conta</h2>
+                        <p className="text-[#C4C7C5]">Junte-se à plataforma de governança.</p>
+                    </div>
 
                     {status === "success" ? (
-                        <div className="text-center py-12 space-y-4 animate-in fade-in zoom-in duration-300">
-                            <div className="flex justify-center">
-                                <CheckCircle2 className="w-16 h-16 text-brand-green" />
+                        <div className="p-8 rounded-[24px] bg-[#1E1F20] border border-[#444746] text-center space-y-4">
+                            <div className="w-16 h-16 rounded-full bg-[#0F5223] text-[#C4EED0] flex items-center justify-center mx-auto">
+                                <span className="material-symbols-rounded text-3xl">check</span>
                             </div>
-                            <h3 className="text-xl font-bold text-white">Cadastro Realizado!</h3>
-                            <p className="text-brand-blue/80 text-sm">
-                                Sua credencial foi criada. Redirecionando...
-                            </p>
+                            <h3 className="text-xl font-medium">Sucesso!</h3>
+                            <p className="text-[#C4C7C5]">Sua conta foi criada. Redirecionando...</p>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="space-y-4">
-                                <Input
-                                    name="full_name"
-                                    label="Nome Completo"
-                                    placeholder="Ex: Dr. Algor"
-                                    value={formData.full_name}
-                                    onChange={handleChange}
-                                    required
-                                />
+                                <div className="space-y-1">
+                                    <label className="text-xs font-medium text-[#C4C7C5] ml-1">Nome Completo</label>
+                                    <input
+                                        name="full_name"
+                                        type="text"
+                                        className="w-full h-14 bg-[#1E1F20] border border-[#444746] rounded-[4px] px-4 text-[#E3E3E3] focus:border-[#A8C7FA] focus:outline-none transition-colors"
+                                        placeholder="Seu nome"
+                                        value={formData.full_name}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
 
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="relative">
-                                        <Input
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-medium text-[#C4C7C5] ml-1">E-mail</label>
+                                        <input
                                             name="email"
-                                            label="E-mail Corporativo"
                                             type="email"
-                                            placeholder="voce@empresa.com"
+                                            className="w-full h-14 bg-[#1E1F20] border border-[#444746] rounded-[4px] px-4 text-[#E3E3E3] focus:border-[#A8C7FA] focus:outline-none transition-colors"
+                                            placeholder="nome@empresa.com"
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
                                         />
-                                        <div className="absolute top-0 right-0">
-                                            <LegalTooltip content="Utilizado para login único e comunicações oficiais." side="left" />
-                                        </div>
                                     </div>
-                                    <div className="relative">
-                                        <Input
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-medium text-[#C4C7C5] ml-1">Telefone</label>
+                                        <input
                                             name="phone"
-                                            label="Telefone / WhatsApp"
                                             type="tel"
+                                            className="w-full h-14 bg-[#1E1F20] border border-[#444746] rounded-[4px] px-4 text-[#E3E3E3] focus:border-[#A8C7FA] focus:outline-none transition-colors"
                                             placeholder="(11) 99999-9999"
                                             value={formData.phone}
                                             onChange={handleChange}
                                         />
-                                        <div className="absolute top-0 right-0">
-                                            <LegalTooltip content="Criptografado. Para recuperação de conta (MFA)." side="left" />
-                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-medium text-[#C4C7C5] ml-1">Senha</label>
+                                        <input
+                                            name="password"
+                                            type="password"
+                                            className="w-full h-14 bg-[#1E1F20] border border-[#444746] rounded-[4px] px-4 text-[#E3E3E3] focus:border-[#A8C7FA] focus:outline-none transition-colors"
+                                            placeholder="••••••••"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-1">
+                                        <label className="text-xs font-medium text-[#C4C7C5] ml-1">Confirmar</label>
+                                        <input
+                                            name="confirm_password"
+                                            type="password"
+                                            className="w-full h-14 bg-[#1E1F20] border border-[#444746] rounded-[4px] px-4 text-[#E3E3E3] focus:border-[#A8C7FA] focus:outline-none transition-colors"
+                                            placeholder="••••••••"
+                                            value={formData.confirm_password}
+                                            onChange={handleChange}
+                                            required
+                                        />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
-                                <Input
-                                    name="password"
-                                    label="Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    required
-                                    minLength={6}
-                                />
-                                <Input
-                                    name="confirm_password"
-                                    label="Confirmar Senha"
-                                    type="password"
-                                    placeholder="••••••••"
-                                    value={formData.confirm_password}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-
-                            <div className="pt-2">
-                                <ConsentCheckbox
-                                    id="signup-consent"
-                                    label="Concordo com a Política de Privacidade e aceito o processamento dos meus dados para fins de cadastro."
+                            <div className="pt-2 flex items-start gap-3">
+                                <input
+                                    type="checkbox"
+                                    id="consent"
                                     checked={consent}
-                                    onChange={setConsent}
+                                    onChange={(e) => setConsent(e.target.checked)}
+                                    className="mt-1 w-5 h-5 rounded border-[#444746] bg-[#1E1F20] text-[#A8C7FA] focus:ring-offset-[#131314]"
                                     required
                                 />
+                                <label htmlFor="consent" className="text-sm text-[#C4C7C5] leading-snug">
+                                    Concordo com a <Link href="/policies/terms" className="text-[#A8C7FA] hover:underline">Política de Privacidade</Link> e aceito o processamento dos meus dados.
+                                </label>
                             </div>
 
                             {status === "error" && (
-                                <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-mono">
-                                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                                <div className="p-4 rounded-[12px] bg-[#93000A]/10 border border-[#93000A]/20 text-[#FFDAD6] text-sm flex items-center gap-2">
+                                    <span className="material-symbols-rounded">error</span>
                                     {errorMessage}
                                 </div>
                             )}
 
-                            <Button
-                                type="submit"
-                                className="w-full relative overflow-hidden group"
-                                disabled={isLoading}
-                            >
-                                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
-                                {isLoading ? "Criptografando..." : "GERAR CREDENCIAL"}
-                            </Button>
+                            <div className="pt-4 space-y-4">
+                                <button
+                                    type="submit"
+                                    disabled={isLoading}
+                                    className="w-full h-12 rounded-full bg-[#A8C7FA] text-[#062E6F] font-medium hover:bg-[#D3E3FD] shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                >
+                                    {isLoading ? "Criando conta..." : "Criar Conta"}
+                                </button>
 
-                            <p className="text-center text-xs text-brand-blue/50">
-                                Já possui acesso? <Link href="/login" className="text-brand-green hover:underline">Faça login</Link>
-                            </p>
+                                <p className="text-center text-sm text-[#C4C7C5]">
+                                    Já tem uma conta? <Link href="/login" className="text-[#A8C7FA] font-medium hover:underline">Fazer login</Link>
+                                </p>
+                            </div>
                         </form>
                     )}
                 </div>
-
-                {/* Footer Badges */}
-                <div className="flex justify-center gap-4 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">ISO 42001</span>
-                    <span className="px-2 py-1 rounded border border-white/10 text-[10px] bg-black/20 text-white">SSL SECURE</span>
-                </div>
             </div>
-        </main >
+        </main>
     );
 }

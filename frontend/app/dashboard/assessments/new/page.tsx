@@ -3,15 +3,15 @@ import AssessmentWizard from "@/components/dashboard/assessments/AssessmentWizar
 export default function NewAssessmentPage() {
     return (
         <div className="flex flex-col items-center justify-center min-h-[80vh] py-12">
-            <div className="text-center mb-16 space-y-4 animate-in fade-in slide-in-from-top-4 duration-700">
-                <span className="inline-block py-1 px-3 rounded-full bg-brand-green/10 border border-brand-green/20 text-brand-green text-[10px] font-mono tracking-widest uppercase">
-                    Diagnóstico ISO/IEC 42001 (Preview)
+            <div className="text-center mb-12 space-y-2 animate-in fade-in slide-in-from-top-4 duration-700">
+                <span className="inline-block py-1.5 px-4 rounded-full bg-[#1E1F20] border border-[#444746] text-[#C4C7C5] text-xs font-medium tracking-wide">
+                    Diagnóstico ISO/IEC 42001
                 </span>
-                <h1 className="text-4xl md:text-5xl font-orbitron font-bold text-white max-w-3xl mx-auto leading-tight">
-                    Avaliação de Maturidade de <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-white to-brand-green">Governança de IA</span>
+                <h1 className="text-3xl md:text-4xl font-normal text-[#E3E3E3] max-w-2xl mx-auto leading-tight">
+                    Avaliação de Maturidade IA
                 </h1>
-                <p className="text-brand-blue/60 max-w-2xl mx-auto text-lg font-light">
-                    Este assistente guiará você por 5 perguntas essenciais para mapear os riscos iniciais da sua operação de Inteligência Artificial.
+                <p className="text-[#C4C7C5] max-w-xl mx-auto text-base">
+                    Assistente de governança para mapeamento de riscos iniciais.
                 </p>
             </div>
 
