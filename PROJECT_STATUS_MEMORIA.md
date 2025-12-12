@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 11/12/2025 - 20:05
-> **Status Geral:** **DESIGN UNIFIED & RISK MODULE** 🎨🛡️
-> **Versão:** 5.7 (Unified Elite Design)
+> **Última Atualização:** 12/12/2025 - 12:45
+> **Status Geral:** **LMS LIVE & SEO MASTERED** 🎓🚀
+> **Versão:** 6.5 (Training Hall & Performance)
 
 ## 1. Pivot de Infra: "Operação Fortaleza Digital"
 O foco shiftou do visual para a **Segurança, Conformidade e UX de Elite**, com alinhamento estrito a manuais técnicos.
@@ -21,6 +21,13 @@ Evolução do visual **Elite Dark/Glassmorphism** com ícones **Hiper-realistas 
   - **Frontend:** Dashboard completo (`/dashboard/risks`) com Bento Grid (KPIs) e Tabela Glassmorphism.
   - **Backend:** API CRUD (`/api/v1/risks`) com Autenticação JWT e cálculo automático de severidade (Probabilidade x Impacto).
   - **Modal de Cadastro:** Formulário ágil e conectado ao banco de dados SQLite.
+- **Módulo de Formação (LMS) [NOVO]:**
+  - **Estrutura:** SQLite Relacional (Cursos -> Módulos -> Aulas) com registro de progresso JSON.
+  - **Frontend:** Classroom "Netflix-style" (`/dashboard/classroom`) com React Player.
+  - **Funcionalidades:** Streaming de vídeo, downloads e tracking de conclusão de aula.
+- **Deep SEO & Performance:**
+  - **Core Vitals:** Migração total para `next/image` e fontes Google otimizadas.
+  - **Indexação:** Sitemap XML e Robots.txt dinâmicos para controle de crawlers.
 - **Refatoração Visual (Design System 2026):**
   - **Login/Register/Onboarding:** Fluxo unificado com padrão Material 3 "Google Marketing".
   - **Policies:** Documentos legais limpos e legíveis.
@@ -39,6 +46,8 @@ Seguindo os novos manuais operacionais:
 6.  ✅ **Gestão de Riscos Completa:** Edição e Exclusão implementadas com validação.
 7.  ✅ **Relatórios PDF:** Geração de report oficial com header, score e detalhamento.
 8.  ✅ **Galeria de Associados:** Grid interativo em Glassmorphism com filtros e modal de detalhes.
+9.  ✅ **LMS Classroom:** Sala de aula completa (Vídeo/PDF) integrada.
+10. ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
@@ -49,4 +58,5 @@ Seguindo os novos manuais operacionais:
 - **v5.6:** Risk Management Module.
 - **v5.7:** Unified Elite Design.
 - **v6.0:** ISO 42001 Compliance Suite.
-- **v6.1:** **Public Experience & Talent Hub (ATUAL)**.
+- **v6.1:** Public Experience & Talent Hub.
+- **v6.5:** **Training Hall & Deep SEO (ATUAL)**.
