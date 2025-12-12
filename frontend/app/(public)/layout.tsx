@@ -1,4 +1,5 @@
 import AnimatedWave from "@/components/AnimatedWave";
+import Navbar from "@/components/Navbar";
 
 export default function PublicLayout({
     children,
@@ -18,6 +19,8 @@ export default function PublicLayout({
             <div className="fixed top-0 left-0 w-full h-[80vh] z-0 opacity-50 pointer-events-none mask-image-gradient">
                 <AnimatedWave />
             </div>
+
+            <Navbar />
 
             {/* --- PAGE CONTENT LAYER --- */}
             <div className="relative z-10">

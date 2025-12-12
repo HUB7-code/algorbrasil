@@ -7,102 +7,102 @@ import Image from 'next/image';
 const ASSOCIATES_DATA = [
     {
         id: 1,
-        nome: "Ana Silva",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ana",
-        cargo: "Especialista em Viés Algorítmico",
-        tags: ["Ética", "Técnico"],
-        bio_curta: "Pesquisadora sênior com 10 anos de experiência em detecção de viés em modelos de LLM. Autora de 3 livros sobre Ética em IA.",
-        link_linkedin: "https://linkedin.com/in/anasilva-fake"
+        nome: "Paulo Carvalho",
+        foto: "/images/membro_01_paulo_carvalho.webp",
+        cargo: "Presidente ALGOR BRASIL",
+        tags: ["Presidência", "Estratégia"],
+        bio_curta: "Liderança executiva na condução da estratégia nacional de Governança de IA.",
+        link_linkedin: "#"
     },
     {
         id: 2,
-        nome: "Dr. Roberto Santos",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Roberto",
-        cargo: "Advogado Digital",
-        tags: ["Jurídico", "Compliance"],
-        bio_curta: "Mestre em Direito Digital pela USP. Consultor jurídico para implementação da ISO 42001 e adequação à LGPD.",
-        link_linkedin: "https://linkedin.com/in/roberto-fake"
+        nome: "Orlando Pavani",
+        foto: "/images/membro_02_orlando_pavani.webp",
+        cargo: "Coordenador Nacional",
+        tags: ["Coordenação", "Gestão"],
+        bio_curta: "Coordenação de iniciativas nacionais e integração dos núcleos regionais.",
+        link_linkedin: "#"
     },
     {
         id: 3,
-        nome: "Carla Mendes",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Carla",
-        cargo: "Gestora de Projetos de IA",
-        tags: ["Gestão", "Estratégia"],
-        bio_curta: "Líder de transformação digital focada em governança corporativa. Certificada PMP e Scrum Master.",
-        link_linkedin: "https://linkedin.com/in/carla-fake"
+        nome: "Jesus Silva",
+        foto: "/images/membro_03_jesus_silva.webp",
+        cargo: "Gestor Regional - Brasília",
+        tags: ["Regional", "Brasília"],
+        bio_curta: "Gestão estratégica do núcleo ALGOR no Distrito Federal.",
+        link_linkedin: "#"
     },
     {
         id: 4,
-        nome: "Lucas Oliveira",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Lucas",
-        cargo: "Engenheiro de ML Ops",
-        tags: ["Técnico", "Gestão"],
-        bio_curta: "Especialista em pipelines de CI/CD para Machine Learning. Focado em reprodutibilidade e segurança de modelos.",
-        link_linkedin: "https://linkedin.com/in/lucas-fake"
+        nome: "Gervásio Albuquerque",
+        foto: "/images/membro_04_gervasio_albuquerque.png",
+        cargo: "Delegado Regional - DF",
+        tags: ["Regional", "Representação"],
+        bio_curta: "Representação institucional e articulação no Distrito Federal.",
+        link_linkedin: "#"
     },
     {
         id: 5,
-        nome: "Fernanda Costa",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Fernanda",
-        cargo: "Auditora Líder ISO",
-        tags: ["Compliance", "Auditoria"],
-        bio_curta: "Auditora líder credenciada para ISO 42001. Experiência em mais de 50 auditorias de sistemas de gestão.",
-        link_linkedin: "https://linkedin.com/in/fernanda-fake"
+        nome: "Carlos Coan",
+        foto: "/images/membro_05_carlos_coan.webp",
+        cargo: "Gestor Regional - São Paulo",
+        tags: ["Regional", "São Paulo"],
+        bio_curta: "Liderança das iniciativas de governança no estado de São Paulo.",
+        link_linkedin: "#"
     },
     {
         id: 6,
-        nome: "Ricardo Almeida",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ricardo",
-        cargo: "Consultor de Segurança IA",
-        tags: ["Técnico", "Segurança"],
-        bio_curta: "Especialista em Red Teaming para LLMs e segurança defensiva de modelos generativos.",
-        link_linkedin: "https://linkedin.com/in/ricardo-fake"
+        nome: "Evaldo Reinas",
+        foto: "/images/membro_06_evaldo_reinas.webp",
+        cargo: "Gestor Regional - Paraná",
+        tags: ["Regional", "Paraná"],
+        bio_curta: "Gestão e fomento da cultura de IA responsável no Paraná.",
+        link_linkedin: "#"
     },
     {
         id: 7,
-        nome: "Juliana Ferreira",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Juliana",
-        cargo: "Pesquisadora de Ética",
-        tags: ["Ética", "Pesquisa"],
-        bio_curta: "Doutora em Filosofia da Tecnologia, focada no impacto social de agentes autônomos.",
-        link_linkedin: "https://linkedin.com/in/juliana-fake"
+        nome: "Fabio Ban",
+        foto: "/images/membro_07_fabio_ban.webp",
+        cargo: "Delegado Regional - Paraná",
+        tags: ["Regional", "Representação"],
+        bio_curta: "Atuação como delegado regional para expansão da ALGOR no PR.",
+        link_linkedin: "#"
     },
     {
         id: 8,
-        nome: "Marcelo Souza",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcelo",
-        cargo: "DPO & Legal Tech",
-        tags: ["Jurídico", "Privacidade"],
-        bio_curta: "Data Protection Officer com foco em intersecção entre LGPD e AI Act Europeu.",
-        link_linkedin: "https://linkedin.com/in/marcelo-fake"
+        nome: "José Ricardo",
+        foto: "/images/membro_08_jose_ricardo.webp",
+        cargo: "Gestor Regional - Rio de Janeiro",
+        tags: ["Regional", "Rio de Janeiro"],
+        bio_curta: "Liderança executiva do núcleo regional do Rio de Janeiro.",
+        link_linkedin: "#"
     },
     {
         id: 9,
-        nome: "Patrícia Lima",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Patricia",
-        cargo: "Analista de Riscos de IA",
-        tags: ["Gestão", "Compliance"],
-        bio_curta: "Especialista em matrizes de risco e frameworks de governança corporativa para GenAI.",
-        link_linkedin: "https://linkedin.com/in/patricia-fake"
+        nome: "Jarison Melo",
+        foto: "/images/membro_09_jarison_melo.webp",
+        cargo: "Gestor Regional - Ceará",
+        tags: ["Regional", "Ceará"],
+        bio_curta: "Gestão das atividades e membros da ALGOR no estado do Ceará.",
+        link_linkedin: "#"
     },
     {
         id: 10,
-        nome: "Eduardo Rocha",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Eduardo",
-        cargo: "Arquiteto de Soluções",
-        tags: ["Técnico", "Estratégia"],
-        bio_curta: "Arquiteto de nuvem especializado em infraestrutura escalável para treinamento de modelos.",
-        link_linkedin: "https://linkedin.com/in/eduardo-fake"
+        nome: "Marci Dantas",
+        foto: "/images/membro_10_marci_dantas.webp",
+        cargo: "Delegada Regional - Fortaleza CE",
+        tags: ["Regional", "Ceará"],
+        bio_curta: "Representação e liderança delegada na capital cearense.",
+        link_linkedin: "#"
     },
     {
         id: 11,
-        nome: "Camila Torres",
-        foto: "https://api.dicebear.com/7.x/avataaars/svg?seed=Camila",
-        cargo: "Diretora de Inovação",
-        tags: ["Gestão", "Estratégia"],
-        bio_curta: "Executiva com foco em adoção estratégica de IA generativa em grandes corporações.",
-        link_linkedin: "https://linkedin.com/in/camila-fake"
+        nome: "Edísio Nascimento",
+        foto: "/images/membro_11_edisio_nascimento.webp",
+        cargo: "Gestor Regional - Paraíba",
+        tags: ["Regional", "Paraíba"],
+        bio_curta: "Fomento à governança de IA e gestão do núcleo Paraíba.",
+        link_linkedin: "#"
     }
 ];
 
@@ -118,7 +118,7 @@ export default function AssociatesGalleryPage() {
         : ASSOCIATES_DATA.filter(item => item.tags.includes(filter));
 
     return (
-        <div className="min-h-screen bg-[#050511] text-white pt-24 pb-20 relative overflow-hidden font-sans">
+        <div className="min-h-screen bg-[#050511] text-white pt-52 pb-20 relative overflow-hidden font-sans">
 
             {/* Background Ambience */}
             <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-[#00A3FF]/10 to-transparent pointer-events-none" />
@@ -175,14 +175,17 @@ export default function AssociatesGalleryPage() {
                                 <div className="h-full bg-[#12141C]/80 backdrop-blur-xl border border-white/5 rounded-xl p-6 flex flex-col items-center text-center transition-all duration-300 group-hover:border-[#00A3FF]/50 group-hover:shadow-[0_0_30px_rgba(0,163,255,0.15)] group-hover:-translate-y-1">
 
                                     {/* Avatar */}
-                                    <div className="w-24 h-24 mb-4 rounded-full p-1 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-lg relative">
-                                        <Image
-                                            src={associate.foto}
-                                            alt={associate.nome}
-                                            width={96}
-                                            height={96}
-                                            className="rounded-full bg-[#050511] object-cover border-2 border-[#050511]"
-                                        />
+                                    {/* Avatar */}
+                                    <div className="w-24 h-24 mb-4 rounded-full p-[3px] bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-lg relative">
+                                        <div className="w-full h-full rounded-full overflow-hidden bg-[#050511] relative">
+                                            <Image
+                                                src={associate.foto}
+                                                alt={associate.nome}
+                                                fill
+                                                sizes="96px"
+                                                className="object-cover"
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Info */}

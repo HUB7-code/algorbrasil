@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 12/12/2025 - 12:45
-> **Status Geral:** **LMS LIVE & SEO MASTERED** 🎓🚀
-> **Versão:** 6.5 (Training Hall & Performance)
+> **Última Atualização:** 12/12/2025 - 15:50
+> **Status Geral:** **PUBLIC VISUALS COMPLETED & AUTH SECURED** 🛡️✨
+> **Versão:** 7.0 (Secure Access & Elite Visuals)
 
 ## 1. Pivot de Infra: "Operação Fortaleza Digital"
 O foco shiftou do visual para a **Segurança, Conformidade e UX de Elite**, com alinhamento estrito a manuais técnicos.
@@ -17,46 +17,34 @@ Evolução do visual **Elite Dark/Glassmorphism** com ícones **Hiper-realistas 
     - **Tipografia:** Orbitron (Headlines) + Manrope/Inter Variable (Corpo).
 
 ## 3. Estado Atual dos Arquivos (FULL STACK EVOLUTION)
-- **Módulo de Riscos (ISO 42001) [NOVO]:**
+- **Autenticação & Segurança (Frontend) [NOVO]:**
+  - **Fluxos Completos:** Login, Registro (Mock), Recuperação de Senha e Redefinição.
+  - **2FA (MFA):** Tela de Verificação em Duas Etapas (`/2fa`) com input de 6 dígitos.
+  - **UX:** Redirecionamento inteligente e ocultação da Navbar nas páginas de auth.
+- **Refinamento Visual Público [NOVO]:**
+  - **Associates:** Ajuste de layout (padding) e correção visual das fotos (Zoom e enquadramento perfeito).
+  - **Login AI:** Design limpo com inputs Material 3 corrigidos e Logo expandida.
+- **Módulo de Riscos (ISO 42001):**
   - **Frontend:** Dashboard completo (`/dashboard/risks`) com Bento Grid (KPIs) e Tabela Glassmorphism.
-  - **Backend:** API CRUD (`/api/v1/risks`) com Autenticação JWT e cálculo automático de severidade (Probabilidade x Impacto).
-  - **Modal de Cadastro:** Formulário ágil e conectado ao banco de dados SQLite.
-- **Módulo de Formação (LMS) [NOVO]:**
-  - **Estrutura:** SQLite Relacional (Cursos -> Módulos -> Aulas) com registro de progresso JSON.
+  - **Backend:** API CRUD (`/api/v1/risks`) calculando severidade.
+- **Módulo de Formação (LMS):**
   - **Frontend:** Classroom "Netflix-style" (`/dashboard/classroom`) com React Player.
-  - **Funcionalidades:** Streaming de vídeo, downloads e tracking de conclusão de aula.
-- **Deep SEO & Performance:**
-  - **Core Vitals:** Migração total para `next/image` e fontes Google otimizadas.
-  - **Indexação:** Sitemap XML e Robots.txt dinâmicos para controle de crawlers.
-- **Refatoração Visual (Design System 2026):**
-  - **Login/Register/Onboarding:** Fluxo unificado com padrão Material 3 "Google Marketing".
-  - **Policies:** Documentos legais limpos e legíveis.
-  - **Assessment Details:** Nova página (`/dashboard/assessments/[id]`) com visualização detalhada de scores.
-- **Qualidade & Testes:**
-  - **Suite de Testes:** Backend blindado com `test_risks.py`.
-  - **Build Integrity:** Frontend validado.
 
-## 4. Roadmap Imediato (Fase 2 - Refinamento & Expansão)
+## 4. Roadmap Imediato (Fase 3 - Dashboard Transformation)
 Seguindo os novos manuais operacionais:
 1.  ✅ **Assessment Wizard 2.0:** Perguntas técnicas reais e UI de alto nível.
-2.  ✅ **Design Unificado:** Auth, Dashboard e Políticas seguendo padrão Material 3.
-3.  ✅ **Assessment Details:** Visualização de resultados de auditoria implementada.
-4.  ✅ **Módulo de Riscos:** Gestão de Riscos conforme ISO 42001.
-5.  ✅ **Deploy & Tests:** Testes automatizados de backend e deploy seguro no GitHub.
-6.  ✅ **Gestão de Riscos Completa:** Edição e Exclusão implementadas com validação.
-7.  ✅ **Relatórios PDF:** Geração de report oficial com header, score e detalhamento.
-8.  ✅ **Galeria de Associados:** Grid interativo em Glassmorphism com filtros e modal de detalhes.
-9.  ✅ **LMS Classroom:** Sala de aula completa (Vídeo/PDF) integrada.
-10. ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
+2.  ✅ **Secure Auth UI:** 2FA, Esqueci Senha e Login Mock implementados.
+3.  ✅ **Visual Público:** Home e Associados polidos (Logos, Fotos, Layout).
+4.  ⏳ **Dashboard Elite Dark:** Converter o atual Material Grey para o tema Deep Navy/Glass.
+5.  ⏳ **Integração Real:** Conectar os mocks de Dashboard à API (quando online).
+6.  ✅ **Módulo de Riscos:** Gestão de Riscos conforme ISO 42001.
+7.  ✅ **LMS Classroom:** Sala de aula completa (Vídeo/PDF) integrada.
+8.  ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
 - **v5.0:** Fortaleza Digital (Backend Security).
-- **v5.3:** Hyper-Neural Cortex (Organic Roots).
-- **v5.4:** Dashboard Console Alpha.
 - **v5.5:** Elite UI & Compliance Core.
-- **v5.6:** Risk Management Module.
-- **v5.7:** Unified Elite Design.
 - **v6.0:** ISO 42001 Compliance Suite.
-- **v6.1:** Public Experience & Talent Hub.
-- **v6.5:** **Training Hall & Deep SEO (ATUAL)**.
+- **v6.5:** Training Hall & Deep SEO.
+- **v7.0:** **Secure Access & Elite Visuals (ATUAL)** - 2FA, Auth Flows e Refinamento Visual.

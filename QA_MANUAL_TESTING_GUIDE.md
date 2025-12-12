@@ -1,89 +1,86 @@
-# Guia de Teste Manual (End-to-End) - ALGOR BRASIL v5.0
+# MANUAL DE TESTES INTEGRADO (E2E) - ALGOR BRASIL
+> **Objetivo:** Roteiro passo a passo para validação manual completa da plataforma, cobrindo fluxos públicos, autenticação e funcionalidades restritas (Dashboard, LMS, Riscos).
 
-Este documento guia o processo de validação manual das funcionalidades críticas do sistema, focado na experiência do usuário, segurança e integridade dos dados.
+## 🟢 ETAPA 1: FLUXO PÚBLICO (Visitante)
+O objetivo desta etapa é garantir que a "vitrine" do site esteja perfeita, responsiva e com todos os links funcionando.
 
----
+### 1.1. Home Page (Landing)
+- [ ] **Carregamento & Performance:**
+    - Acessar a Home (`/`). O site carrega instantaneamente (< 2s)?
+    - A Logo no topo esquerdo está grande, circular e visível?
+    - A animação de fundo (neurônios/ondas) está fluida e não trava o scroll?
+- [ ] **Navegação (Header):**
+    - Clicar em "A Associação" -> Rola suavemente para a seção de benefícios?
+    - Clicar em "Intelligence Hub" -> Rola suavemente para a grid de Personas?
+    - Clicar em "Metodologia" -> Rola suavemente para a seção do sistema operacional?
+    - Clicar em "Associados" -> Redireciona para a página `/associates`?
+    - Botão "Login Membros" -> Redireciona para `/login`?
+- [ ] **Interatividade da Home:**
+    - **Hero Section:** Passar o mouse sobre os cards "Para Empresas" e "Para Profissionais". O efeito de hover (brilho/foco) funciona?
+    - **Botões Hero:**
+        - "Diagnóstico Gratuito" (Empresas) -> Leva para Login ou Cadastro?
+        - "Aplicar para Associação" (Profissionais) -> Leva para `/register`?
+    - **Grid de Personas:** Clicar em um card (ex: "O Guardião"). Leva para o registro com o parâmetro correto?
+- [ ] **Rodapé (Footer):**
+    - Verificar se os links de Políticas (Privacidade, Transparência) clicam e abrem (mesmo que placeholders).
+    - Verificar se o Copyright mostra o ano atual.
 
-## 🚦 Pré-Requisitos
-1. **Backend Rodando**: Certifique-se de que o backend está ativo (`uvicorn backend.app.main:app --reload`).
-2. **Frontend Rodando**: Certifique-se de que o frontend está ativo (`npm run dev`).
-3. **Ambiente Limpo**: Recomenda-se usar uma aba anônima ou limpar o `localStorage` antes de começar.
-
----
-
-## 🕵️ Jornada 1: O Visitante (Frontend Institucional)
-**Objetivo**: Validar a primeira impressão, navegação e performance visual.
-
-### Passos:
-1.  [ ] **Acessar a Home** (`http://localhost:3000`).
-2.  [ ] **Hero Dual**:
-    *   Passe o mouse sobre o lado "Para Empresas". Verifique se o brilho azul e a expansão ocorrem.
-    *   Passe o mouse sobre o lado "Para Profissionais". Verifique se o brilho verde e a expansão ocorrem.
-3.  [ ] **Navegação**:
-    *   Role a página até o rodapé. Verifique se as animações de entrada (fade-in) estão suaves.
-    *   Clique nos links do Menu Superior. Eles devem ancorar ou levar às seções corretas.
-4.  [ ] **Responsividade**:
-    *   Aperte `F12` -> Ícone de Celular (Mobile View).
-    *   Verifique se o texto do Hero não está quebrado.
-    *   Verifique se os cards do "Hero Dual" estão empilhados (um em cima do outro) e legíveis.
-5.  [ ] **Rodapé**:
-    *   Verifique a legibilidade dos links de Governança (Portal do Titular, Política). O contraste deve estar bom.
-    *   Passe o mouse no selo "ISO 42001" (deve ficar colorido).
-
----
-
-## 🏢 Jornada 2: O Cliente Corporativo (Fluxo B2B)
-**Objetivo**: Validar o cadastro, consentimento LGPD e onboarding de uma empresa.
-
-### Passos:
-1.  [ ] **Início**: Na Home, clique em "Diagnóstico Gratuito" (Botão Azul do Hero).
-2.  [ ] **Cadastro (Signup)**:
-    *   Preencha o formulário com dados de teste (ex: `empresa@teste.com`).
-    *   **Teste de Erro**: Tente clicar em "Gerar Credencial" *SEM* marcar o checkbox de consentimento. (Não deve deixar).
-    *   Marque o consentimento e envie.
-    *   Deve aparecer uma mensagem de "Sucesso" e redirecionar para o Login.
-3.  [ ] **Login**:
-    *   Faça login com o e-mail/senha criados.
-    *   **Verificação**: O sistema deve detectar que você é novo e te mandar para a página de **Onboarding** (`/onboarding`).
-4.  [ ] **Onboarding**:
-    *   Selecione o card **"Para Empresas"** (Azul).
-    *   Preencha o formulário (Nome da Empresa, Setor, etc).
-    *   Passe o mouse nos ícones de `(i)` (Tooltips) para ver as explicações jurídicas.
-    *   **Teste de Erro**: Tente enviar sem marcar o consentimento B2B.
-    *   Envie o formulário.
-5.  [ ] **Sucesso**:
-    *   Deve aparecer a tela "Onboarding Concluído".
-    *   Clique em "Acessar Dashboard".
-6.  [ ] **Dashboard**:
-    *   Você deve ver o "Centro de Comando".
-    *   Verifique se aparecem os cards de estatísticas.
+### 1.2. Página de Associados (`/associates`)
+- [ ] **Renderização:** A página carrega o Grid de associados?
+- [ ] **Filtros:**
+    - Tentar filtrar por categoria (ex: "Conselheiro", "Auditor"). A lista atualiza?
+    - Tentar a busca por texto. Funciona?
+- [ ] **Modal de Detalhes:** Clicar em um card de associado. O modal abre com as informações detalhadas? O botão de fechar funciona?
 
 ---
 
-## 👨‍💻 Jornada 3: O Auditor (Fluxo Profissional & Segurança)
-**Objetivo**: Validar o fluxo de membros e a segurança da sessão.
+## 🟡 ETAPA 2: AUTENTICAÇÃO & ONBOARDING
+Validação crítica de segurança e fluxo de entrada de usuários.
 
-### Passos:
-1.  [ ] **Limpeza**: Faça Logout ou abra uma nova Aba Anônima.
-2.  [ ] **Cadastro**:
-    *   Na Home, clique em "Aplicar para Associação" (Botão Verde).
-    *   Crie um novo usuário (ex: `auditor@teste.com`).
-3.  [ ] **Login & Redirecionamento**:
-    *   Faça login. Deve cair no **Onboarding** novamente.
-4.  [ ] **Onboarding Profissional**:
-    *   Selecione **"Para Profissionais"** (Verde).
-    *   Preencha com dados de teste (LinkedIn, Expertise).
-    *   Envie.
-5.  [ ] **Verificação de Token (Segurança)**:
-    *   No Dashboard, aperte `F12` -> Aba `Application` -> `Local Storage`.
-    *   Verifique se existe uma chave `algor_token`.
-    *   Copie esse token.
-6.  [ ] **Teste de Persistência**:
-    *   Dê F5 na página. Você deve continuar logado no Dashboard (não pode voltar pro login).
+### 2.1. Registro (`/register`)
+- [ ] **Formulário:** Preencher com dados de teste.
+- [ ] **Seleção de Perfil:** Escolher entre "Corporativo" ou "Profissional". O formulário adapta os campos?
+- [ ] **Submissão:** Clicar em "Continuar". Ocorre sucesso? (Verificar se redireciona ou mostra mensagem).
+
+### 2.2. Login (`/login`)
+- [ ] **Login Inválido:** Tentar entrar com `email: teste@errado.com` / `senha: 123`. Deve exibir erro.
+- [ ] **Login Válido:** Entrar com credenciais válidas (ex: admin local se houver, ou criar um usuário no banco).
+- [ ] **Redirecionamento:** Após login, o usuário é levado automaticamente para o `/dashboard`?
 
 ---
 
-## 🐛 Como Reportar Erros
-Se encontrar algo estranho, me diga no chat usando o formato:
-> **Jornada X - Passo Y**: [Descrição do que aconteceu] vs [O que deveria acontecer]
-> *Exemplo: Jornada 2 - Passo 4: Ao clicar em enviar, a tela ficou branca e nada aconteceu.*
+## 🔵 ETAPA 3: DASHBOARD & FUNCIONALIDADES (Membro Logado)
+Aqui testamos o "valor entregue" da plataforma.
+
+### 3.1. Dashboard Home (`/dashboard`)
+- [ ] **Visão Geral:** Os Cards de KPI (Total Riscos, Auditorias, etc.) renderizam números?
+- [ ] **Sidebar:** O menu lateral está visível? Ele colapsa/expande se houver essa função?
+- [ ] **Logout:** O botão de sair funciona e limpa a sessão?
+
+### 3.2. Módulo de Riscos (`/dashboard/risks`)
+- [ ] **Listagem:** A tabela de riscos carrega dados?
+- [ ] **Novo Risco:**
+    - Clicar em "Novo Risco".
+    - Preencher Título, Probabilidade, Impacto.
+    - Salvar. O risco aparece na lista? O cálculo de Severidade (Probabilidade x Impacto) ocorreu?
+- [ ] **Edição/Exclusão:** Tentar editar um risco existente. Tentar excluir.
+
+### 3.3. LMS / Sala de Aula (`/dashboard/classroom`)
+- [ ] **Acesso:** Entrar em um curso.
+- [ ] **Player:** O vídeo do YouTube carrega e toca?
+- [ ] **Navegação de Aulas:** Clicar nas aulas da sidebar lateral troca o vídeo?
+- [ ] **Conclusão:** Clicar em "Marcar como Concluído". O status (check verde) atualiza na sidebar?
+
+### 3.4. Assessments (`/dashboard/assessments`)
+- [ ] **Novo Assessment:** Iniciar um novo diagnóstico.
+- [ ] **Wizard:** O formulário passo-a-passo avança?
+
+---
+
+## 🟣 ETAPA 4: RESPONSIVIDADE (Mobile)
+Repetir os fluxos críticos simulando um celular (DevTools `Ctrl+Shift+M`).
+
+- [ ] **Menu Hambúrguer:** Na Home, o menu móvel abre e fecha?
+- [ ] **Tabelas no Dashboard:** Elas possuem scroll horizontal ou quebram o layout?
+- [ ] **Vídeo Aula:** O player se ajusta à largura da tela?
+

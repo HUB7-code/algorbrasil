@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/(public)/login/page": [
+    "/(public)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/login/page.js"
+      "static/chunks/app/(public)/page.js"
     ],
     "/(public)/layout": [
       "static/chunks/webpack.js",
@@ -16,10 +16,40 @@
       "static/css/css-app_globals_css-node_modules_next_font_google_target_css-node_modules_next_font_google_ta-609c13.css",
       "static/chunks/app/layout.js"
     ],
-    "/(public)/page": [
+    "/(public)/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/page.js"
+      "static/chunks/app/(public)/login/page.js"
+    ],
+    "/dashboard/assessments/new/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/assessments/new/page.js"
+    ],
+    "/dashboard/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/layout.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
+    ],
+    "/(public)/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/register/page.js"
+    ],
+    "/(public)/associates/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/associates/page.js"
+    ],
+    "/(public)/associates/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/associates/layout.js"
     ]
   }
 }
