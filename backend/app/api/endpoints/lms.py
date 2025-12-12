@@ -1,0 +1,160 @@
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from typing import List, Dict, Any
+from pydantic import BaseModel
+from backend.app.db.session import get_db
+from backend.app.models.user import User
+from backend.app.api.auth import get_current_user
+from backend.app.models.lms import Course, CourseModule, CourseLesson, Enrollment
+
+router = APIRouter()
+
+# --- Schemas ---
+class LessonCreate(BaseModel):
+    id: str
+    title: str
+    type: str # video, document
+    video_id: str = None
+    document_url: str = None
+    duration_min: int = 0
+
+class ModuleCreate(BaseModel):
+    title: str
+    order: int
+    lessons: List[LessonCreate]
+
+class CourseCreate(BaseModel):
+    id: str
+    title: str
+    description: str
+    modules: List[ModuleCreate]
+
+class ProgressUpdate(BaseModel):
+    lesson_id: str
+    status: str # 'completed', 'in_progress'
+    seek_time: int = 0
+
+# --- Endpoints ---
+
+@router.get("/courses", response_model=List[Dict[str, Any]])
+def list_courses(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Lista todos os cursos disponíveis."""
+    courses = db.query(Course).all()
+    return [{"id": c.id, "title": c.title, "type": c.type, "thumbnail": c.thumbnail_url} for c in courses]
+
+@router.get("/courses/{course_id}")
+def get_course_details(course_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Retorna a estrutura completa do curso (Módulos e Aulas)."""
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+    
+    # Check enrollment
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id, 
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        # Auto-enroll for now on first access (Open Model)
+        enrollment = Enrollment(user_id=current_user.id, course_id=course_id, role="student")
+        db.add(enrollment)
+        db.commit()
+        db.refresh(enrollment)
+
+    # Serialize Structure
+    structure = {
+        "id": course.id,
+        "title": course.title,
+        "description": course.description,
+        "modules": []
+    }
+    
+    for mod in sorted(course.modules, key=lambda x: x.order):
+        mod_data = {
+            "id": mod.id,
+            "title": mod.title,
+            "lessons": []
+        }
+        for lesson in sorted(mod.lessons, key=lambda x: x.order):
+            # Check progress
+            progress = enrollment.progress_data.get(lesson.id, {})
+            mod_data["lessons"].append({
+                "id": lesson.id,
+                "title": lesson.title,
+                "type": lesson.type,
+                "content": lesson.video_id if lesson.type == 'video' else lesson.document_url,
+                "duration": lesson.duration_min,
+                "status": progress.get("status", "locked" if lesson.order > 0 else "unlocked"), # Simple logic
+                "completed": progress.get("status") == "completed"
+            })
+        structure["modules"].append(mod_data)
+        
+    return structure
+
+@router.post("/enrollments/{course_id}/progress")
+def update_progress(
+    course_id: str, 
+    update: ProgressUpdate,
+    db: Session = Depends(get_db), 
+    current_user: User = Depends(get_current_user)
+):
+    """Atualiza o progresso de uma aula específica."""
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id, 
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(status_code=404, detail="Matrícula não encontrada")
+        
+    # Update JSON safely
+    current_data = dict(enrollment.progress_data or {})
+    current_data[update.lesson_id] = {
+        "status": update.status,
+        "timestamp": update.seek_time,
+        "updated_at": "now"
+    }
+    
+    # Reassign to trigger update
+    enrollment.progress_data = current_data
+    db.commit()
+    
+    return {"status": "success", "progress": current_data}
+
+# Endpoint administrativo para semear curso (DEV ONLY)
+@router.post("/seed")
+def seed_course(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    if current_user.email != "admin@algor.com": # Simple Guard
+        raise HTTPException(status_code=403)
+        
+    # Check if exists
+    if db.query(Course).filter(Course.id == "iso42001-lead").first():
+        return {"msg": "Curso já existe"}
+        
+    course = Course(
+        id="iso42001-lead", 
+        title="Formação Lead Implementer ISO 42001",
+        description="Domine a implementação de Sistemas de Gestão de IA.",
+        type="certification"
+    )
+    db.add(course)
+    db.commit()
+    
+    # Module 1
+    mod1 = CourseModule(course_id=course.id, title="Introdução à Governança de IA", order=1)
+    db.add(mod1)
+    db.commit()
+    
+    l1 = CourseLesson(
+        id="mod1-l1", module_id=mod1.id, title="O que é a ISO 42001?", 
+        type="video", video_id="dQw4w9WgXcQ", duration_min=10, order=1
+    )
+    l2 = CourseLesson(
+        id="mod1-l2", module_id=mod1.id, title="Matriz de Riscos", 
+        type="document", document_url="/docs/risk-matrix.pdf", duration_min=5, order=2
+    )
+    db.add_all([l1, l2])
+    db.commit()
+    
+    return {"msg": "Curso Semeado com Sucesso"}

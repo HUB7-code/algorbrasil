@@ -102,6 +102,12 @@ export default function DashboardLayout({
                         label="Gestão de Riscos"
                         active={pathname.startsWith("/dashboard/risks")}
                     />
+                    <NavItem
+                        href="/dashboard/courses"
+                        icon="school"
+                        label="Formação IA"
+                        active={pathname.startsWith("/dashboard/courses")}
+                    />
 
                     {user.role === "admin" && (
                         <>

@@ -6,7 +6,7 @@ from slowapi.errors import RateLimitExceeded
 from secure import Secure
 
 from backend.app.db.session import engine, Base
-from backend.app.models import user, assessment, profiles, audit, risk # Import all models to register tables
+from backend.app.models import user, assessment, profiles, audit, risk, lms # Import all models to register tables
 
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
@@ -69,6 +69,8 @@ from backend.app.api.endpoints import assessments
 app.include_router(assessments.router, prefix="/api/v1/assessments", tags=["Diagnósticos IA"])
 from backend.app.api.endpoints import risks
 app.include_router(risks.router, prefix="/api/v1/risks", tags=["Gestão de Riscos ISO 42001"])
+from backend.app.api.endpoints import lms
+app.include_router(lms.router, prefix="/api/v1/lms", tags=["LMS Education"])
 
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP

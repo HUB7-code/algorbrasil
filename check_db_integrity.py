@@ -16,7 +16,8 @@ def check_database_integrity():
     print(f"Tabelas encontradas no SQLite: {existing_tables}")
     
     # 2. Verificar Tabelas Esperadas
-    expected_tables = ["users", "profiles", "assessments", "risk_register", "audit_logs"]
+    expected_tables = ["users", "profiles", "assessments", "risk_register", "audit_logs", 
+                       "lms_courses", "lms_modules", "lms_lessons", "lms_enrollments"]
     missing_tables = [t for t in expected_tables if t not in existing_tables]
     
     if missing_tables:
