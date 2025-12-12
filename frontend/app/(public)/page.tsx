@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Shield, Users, Cpu, ChevronRight, Lock, Activity, Globe, X, CheckCircle2, Menu } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Shield, Users, Cpu, ChevronRight, Activity, X, CheckCircle2, Menu } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
 import PersonaGrid from '@/components/PersonaGrid';
@@ -10,32 +10,39 @@ import Image from 'next/image';
 import HeroDual from '@/components/HeroDual';
 import AnimatedWave from '@/components/AnimatedWave';
 
+// Memoize heavy static components to prevent re-renders on scroll state changes
+const MemoizedWave = React.memo(AnimatedWave);
+const MemoizedHero = React.memo(HeroDual);
+const MemoizedPersonaGrid = React.memo(PersonaGrid);
+const MemoizedMethodology = React.memo(MethodologySection);
+const MemoizedFooter = React.memo(Footer);
+
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
     const [scrollProgress, setScrollProgress] = useState(0);
     const [showManifesto, setShowManifesto] = useState(false);
     const [showToast, setShowToast] = useState(false);
-    const [statsVisible, setStatsVisible] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     useEffect(() => {
+        let ticking = false;
+
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (window.scrollY / totalHeight) * 100;
-            setScrollProgress(progress);
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    setScrolled(window.scrollY > 50);
+                    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+                    setScrollProgress(progress);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    // Effects for methodology visualization removed as they are now in the component
-
-    const handleApply = () => {
-        setShowToast(true);
-        setTimeout(() => setShowToast(false), 3000);
-    };
 
     const scrollToSection = (id: string) => {
         document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -44,15 +51,15 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-transparent text-white overflow-x-hidden font-sans selection:bg-[#00FF94] selection:text-[#0A1A2F]">
 
-            {/* 3D Brain/Wave Animation Restored */}
+            {/* 3D Brain/Wave Animation Restored - Memoized */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <AnimatedWave />
+                <MemoizedWave />
             </div>
 
             {/* Navigation */}
-            <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-[#0A1A2F]/80 backdrop-blur-md border-b border-white/5 py-4' : 'py-8 bg-transparent'}`}>
-                <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#00A3FF] via-[#00FF94] to-[#00A3FF]"
-                    style={{ width: `${scrollProgress}%`, transition: 'width 0.1s' }} />
+            <nav className={`fixed w-full z-50 transition-all duration-300 will-change-transform ${scrolled ? 'bg-[#0A1A2F]/90 backdrop-blur-md border-b border-white/5 py-4 shadow-lg' : 'py-8 bg-transparent'}`}>
+                <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#00A3FF] via-[#00FF94] to-[#00A3FF] will-change-[width]"
+                    style={{ width: `${scrollProgress}%`, transition: 'width 0.1s linear' }} />
 
                 <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                     <div className="flex items-center gap-3">
@@ -85,8 +92,9 @@ export default function Home() {
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden text-white"
+                        className="md:hidden text-white p-2"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        aria-label="Menu"
                     >
                         {mobileMenuOpen ? <X /> : <Menu />}
                     </button>
@@ -108,12 +116,12 @@ export default function Home() {
                 )}
             </nav >
 
-            {/* Hero Section - Dual Funnel Strategy */}
-            <HeroDual />
+            {/* Hero Section - Memoized */}
+            <MemoizedHero />
 
-            {/* Persona Grid - Strategic Segmentation */}
+            {/* Persona Grid - Memoized */}
             <div id="personas">
-                <PersonaGrid />
+                <MemoizedPersonaGrid />
             </div>
 
             {/* Benefits Section */}
@@ -158,13 +166,10 @@ export default function Home() {
                 </div>
             </section >
 
-            {/* Methodology Section - System OS */}
-            <MethodologySection />
+            {/* Methodology Section - Memoized */}
+            <MemoizedMethodology />
 
-
-
-
-            {/* Manifesto Modal */}
+            {/* Manifesto Modal - Conditional */}
             {
                 showManifesto && (
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm fade-in" onClick={() => setShowManifesto(false)}>
@@ -220,7 +225,7 @@ export default function Home() {
                 )
             }
 
-            {/* Toast Notification */}
+            {/* Toast Notification - Conditional */}
             {
                 showToast && (
                     <div className="fixed bottom-8 right-8 z-[150] glass-panel px-6 py-4 rounded-lg shadow-[0_0_30px_rgba(0,255,148,0.3)] border border-[#00FF94]/30 slide-up max-w-md">
@@ -232,18 +237,19 @@ export default function Home() {
                 )
             }
 
-            {/* Scroll to Top */}
+            {/* Scroll to Top - Conditional */}
             {
                 scrolled && (
                     <button
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="fixed bottom-8 left-8 z-50 w-12 h-12 glass-panel rounded-full flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all group slide-up"
+                        aria-label="Scroll to top"
+                        className="fixed bottom-8 left-8 z-50 w-12 h-12 glass-panel rounded-full flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all group slide-up cursor-pointer"
                     >
                         <ChevronRight className="w-5 h-5 -rotate-90 text-[#00FF94] group-hover:text-white transition-colors" />
                     </button>
                 )
             }
-            <Footer />
+            <MemoizedFooter />
         </div >
     );
 }
