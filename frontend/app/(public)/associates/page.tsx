@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 const ASSOCIATES_DATA = [
     {
@@ -174,11 +175,13 @@ export default function AssociatesGalleryPage() {
                                 <div className="h-full bg-[#12141C]/80 backdrop-blur-xl border border-white/5 rounded-xl p-6 flex flex-col items-center text-center transition-all duration-300 group-hover:border-[#00A3FF]/50 group-hover:shadow-[0_0_30px_rgba(0,163,255,0.15)] group-hover:-translate-y-1">
 
                                     {/* Avatar */}
-                                    <div className="w-24 h-24 mb-4 rounded-full p-1 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-lg">
-                                        <img
+                                    <div className="w-24 h-24 mb-4 rounded-full p-1 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-lg relative">
+                                        <Image
                                             src={associate.foto}
                                             alt={associate.nome}
-                                            className="w-full h-full rounded-full bg-[#050511] object-cover border-2 border-[#050511]"
+                                            width={96}
+                                            height={96}
+                                            className="rounded-full bg-[#050511] object-cover border-2 border-[#050511]"
                                         />
                                     </div>
 
@@ -239,11 +242,13 @@ export default function AssociatesGalleryPage() {
                             </button>
 
                             <div className="flex flex-col items-center text-center relative z-10">
-                                <div className="w-32 h-32 mb-6 rounded-full p-1 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-xl">
-                                    <img
+                                <div className="w-32 h-32 mb-6 rounded-full p-1 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] shadow-xl relative">
+                                    <Image
                                         src={selectedAssociate.foto}
                                         alt={selectedAssociate.nome}
-                                        className="w-full h-full rounded-full bg-[#050511] object-cover border-4 border-[#050511]"
+                                        width={128}
+                                        height={128}
+                                        className="rounded-full bg-[#050511] object-cover border-4 border-[#050511]"
                                     />
                                 </div>
                                 <h2 className="text-3xl font-bold text-white mb-2">{selectedAssociate.nome}</h2>

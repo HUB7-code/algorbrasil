@@ -10,8 +10,53 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron" });
 
 export const metadata: Metadata = {
-    title: "Algor Brasil | A Elite da Governança",
-    description: "Associação para Algoritmização e Governança Lógica. Conformidade ISO 42001 e Estratégia de IA.",
+    title: {
+        template: '%s | Algor Brasil',
+        default: 'Algor Brasil | A Elite da Governança de IA',
+    },
+    description: "Associação referência em Governança de Inteligência Artificial e Conformidade ISO 42001. Aceleramos a maturidade de IA no Brasil com ética e precisão técnica.",
+    keywords: ["Governança de IA", "ISO 42001", "Compliance AI", "Auditoria de Algoritmos", "LGPD", "Inteligência Artificial Brasil"],
+    authors: [{ name: "Algor Brasil", url: "https://algorbrasil.example.com" }],
+    creator: "Algor Brasil Technical Team",
+    publisher: "Algor Brasil Association",
+    formatDetection: {
+        email: false,
+        address: false,
+        telephone: false,
+    },
+    openGraph: {
+        title: "Algor Brasil | Governança de IA de Elite",
+        description: "Liderando a conformidade ética e técnica da IA no Brasil. Junte-se à elite da governança.",
+        url: 'https://algorbrasil.example.com',
+        siteName: 'Algor Brasil',
+        locale: 'pt_BR',
+        type: 'website',
+        images: [
+            {
+                url: '/og-image.jpg', // Placeholder
+                width: 1200,
+                height: 630,
+                alt: 'Algor Brasil Hero Image',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Algor Brasil | Governança de IA',
+        description: 'Conformidade ISO 42001 e Estratégia de IA. Saiba mais.',
+        creator: '@algorbrasil',
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
 };
 
 export default function RootLayout({
