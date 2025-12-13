@@ -1,6 +1,3 @@
 {
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/settings/security/page": "app/dashboard/settings/security/page.js",
-  "/(public)/login/page": "app/(public)/login/page.js",
-  "/(public)/2fa/page": "app/(public)/2fa/page.js"
+  "/(public)/page": "app/(public)/page.js"
 }

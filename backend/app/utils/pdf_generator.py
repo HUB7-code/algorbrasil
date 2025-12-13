@@ -32,11 +32,13 @@ def generate_assessment_report_pdf(assessment, user_name: str) -> BytesIO:
     
     # Logo Handling
     import os
-    logo_path = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.jpg")
+    # Using the same logo as frontend
+    logo_path = os.path.join(os.path.dirname(__file__), "..", "assets", "logo-algor.webp") 
     
     if os.path.exists(logo_path):
-        # Draw Logo - Adjusted size
-        im = Image(logo_path, width=5*cm, height=1.5*cm, kind='proportional')
+        # Draw Logo - MUCH Larger
+        # Using preserveAspectRation logic implicitly by ReportLab if kind='proportional'
+        im = Image(logo_path, width=8*cm, height=8*cm, kind='proportional')
         im.hAlign = 'LEFT'
         elements.append(im)
         elements.append(Spacer(1, 1*cm))

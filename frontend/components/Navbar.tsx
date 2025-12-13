@@ -56,8 +56,8 @@ export default function Navbar() {
                 style={{ width: `${scrollProgress}%`, transition: 'width 0.1s linear' }} />
 
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative w-16 h-16 rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] overflow-hidden transition-transform group-hover:scale-105">
+                <Link href="/" className="flex items-center gap-6 group">
+                    <div className="relative w-48 h-48 rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] overflow-hidden transition-transform group-hover:scale-105">
                         <Image
                             src="/logo-algor.webp"
                             alt="Algor Brasil Logo"
