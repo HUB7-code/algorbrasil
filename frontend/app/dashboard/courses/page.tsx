@@ -111,9 +111,19 @@ export default function CoursesListPage() {
                             <p className="text-gray-500 font-light">Nenhum curso disponível no momento.</p>
                             <button
                                 onClick={async () => {
-                                    const token = localStorage.getItem('algor_token');
-                                    await fetch('/api/v1/lms/seed', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
-                                    window.location.reload();
+                                    try {
+                                        const token = localStorage.getItem('algor_token');
+                                        const res = await fetch('/api/v1/lms/seed', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+                                        if (res.ok) {
+                                            window.location.reload();
+                                        } else {
+                                            const err = await res.json();
+                                            alert(`Falha ao criar curso: ${res.status} - ${JSON.stringify(err)}`);
+                                        }
+                                    } catch (e) {
+                                        alert("Erro de conexão ao tentar criar curso.");
+                                        console.error(e);
+                                    }
                                 }}
                                 className="px-6 py-2 rounded-full bg-brand-blue/10 text-brand-blue hover:bg-brand-blue hover:text-white transition-all text-sm font-medium border border-brand-blue/20"
                             >
