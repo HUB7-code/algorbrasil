@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 from pydantic import BaseModel
@@ -6,6 +6,7 @@ from backend.app.db.session import get_db
 from backend.app.models.user import User
 from backend.app.api.auth import get_current_user
 from backend.app.models.lms import Course, CourseModule, CourseLesson, Enrollment
+from backend.app.services.audit_service import log_audit
 
 router = APIRouter()
 
@@ -43,7 +44,12 @@ def list_courses(db: Session = Depends(get_db), current_user: User = Depends(get
     return [{"id": c.id, "title": c.title, "type": c.type, "thumbnail": c.thumbnail_url} for c in courses]
 
 @router.get("/courses/{course_id}")
-def get_course_details(course_id: str, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+def get_course_details(
+    course_id: str, 
+    request: Request,
+    db: Session = Depends(get_db), 
+    current_user: User = Depends(get_current_user)
+):
     """Retorna a estrutura completa do curso (Módulos e Aulas)."""
     course = db.query(Course).filter(Course.id == course_id).first()
     if not course:
@@ -61,6 +67,17 @@ def get_course_details(course_id: str, db: Session = Depends(get_db), current_us
         db.add(enrollment)
         db.commit()
         db.refresh(enrollment)
+
+    # Log Access (Audit)
+    log_audit(
+        db=db,
+        action="READ",
+        resource_type="course",
+        resource_id=course_id,
+        user_id=current_user.id,
+        details={"module_count": len(course.modules)},
+        request=request
+    )
 
     # Serialize Structure
     structure = {
@@ -96,6 +113,7 @@ def get_course_details(course_id: str, db: Session = Depends(get_db), current_us
 def update_progress(
     course_id: str, 
     update: ProgressUpdate,
+    request: Request,
     db: Session = Depends(get_db), 
     current_user: User = Depends(get_current_user)
 ):
@@ -119,6 +137,17 @@ def update_progress(
     # Reassign to trigger update
     enrollment.progress_data = current_data
     db.commit()
+    
+    # Audit Progress
+    log_audit(
+        db=db,
+        action="UPDATE_PROGRESS",
+        resource_type="lesson",
+        resource_id=update.lesson_id,
+        user_id=current_user.id,
+        details={"status": update.status, "course_id": course_id},
+        request=request
+    )
     
     return {"status": "success", "progress": current_data}
 

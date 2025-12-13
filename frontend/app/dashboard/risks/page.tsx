@@ -1,17 +1,16 @@
-
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import RiskFormModal from '@/components/dashboard/risks/RiskFormModal';
+import HeatmapWidget from '@/components/dashboard/risks/HeatmapWidget';
 
-// Mocked Data
+// Mocked Data for Initial Load / Fallback
 const MOCK_RISKS = [
     { id: 1, category: "Segurança de Dados", description: "Vazamento de PII em output de LLM", affected_system: "Chatbot RH", probability: 4, impact: 5, risk_level: 20, strategy: "Mitigar", status: "Aberto", mitigation_plan: "Implementar regex filter" },
     { id: 2, category: "Viés Algorítmico", description: "Disparidade de gênero em triagem", affected_system: "Recrutamento AI", probability: 3, impact: 4, risk_level: 12, strategy: "Monitorar", status: "Em Análise", mitigation_plan: "Revisar dataset" },
 ];
 
-interface Risk {
+export interface Risk {
     id: number;
     category: string;
     description: string;
@@ -34,13 +33,15 @@ export default function RiskDashboardPage() {
         try {
             const token = localStorage.getItem('algor_token');
             if (token) {
+                // In a real scenario, this endpoint returns the risks.
+                // If backend is not available or returns error, we keep MOCK data for demo purposes.
                 const res = await fetch('/api/v1/risks/', { headers: { 'Authorization': `Bearer ${token}` } });
                 if (res.ok) {
                     const data = await res.json();
                     if (Array.isArray(data) && data.length > 0) setRisks(data);
                 }
             }
-        } catch (e) { console.error(e) } finally { setLoading(false) }
+        } catch (e) { console.error("Failed to fetch risks", e) } finally { setLoading(false) }
     }
 
     useEffect(() => {
@@ -65,6 +66,10 @@ export default function RiskDashboardPage() {
     const handleDelete = async (riskId: number) => {
         if (!confirm("Tem certeza que deseja excluir este risco? Esta ação não pode ser desfeita.")) return;
 
+        // Optimistic UI update
+        const prevRisks = [...risks];
+        setRisks(risks.filter(r => r.id !== riskId));
+
         try {
             const token = localStorage.getItem('algor_token');
             const res = await fetch(`/api/v1/risks/${riskId}`, {
@@ -72,13 +77,14 @@ export default function RiskDashboardPage() {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
 
-            if (res.ok) {
-                setRisks(risks.filter(r => r.id !== riskId));
-            } else {
+            if (!res.ok) {
+                // Revert if failed
+                setRisks(prevRisks);
                 alert("Erro ao excluir risco.");
             }
         } catch (e) {
             console.error(e);
+            setRisks(prevRisks);
             alert("Erro de conexão.");
         }
     };
@@ -87,9 +93,10 @@ export default function RiskDashboardPage() {
     const totalRisks = risks.length;
     const criticalRisks = risks.filter(r => r.risk_level >= 15).length;
     const mitigatedRisks = risks.filter(r => r.status === 'Mitigado').length;
+    const highRisks = risks.filter(r => r.risk_level >= 15);
 
     return (
-        <div className="space-y-8 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700">
+        <div className="space-y-8 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
             <RiskFormModal
                 isOpen={isModalOpen}
                 initialData={editingRisk}
@@ -137,91 +144,114 @@ export default function RiskDashboardPage() {
                 />
             </div>
 
-            {/* Risk List (Glass Panel) */}
-            <div className="glass-panel rounded-3xl overflow-hidden border border-white/5 relative">
-                {/* Toolbar */}
-                <div className="p-6 border-b border-white/5 flex gap-4 bg-white/5 backdrop-blur-md">
-                    <div className="flex-1 bg-black/20 h-12 rounded-xl flex items-center px-4 border border-white/5 focus-within:border-brand-blue/50 transition-colors group">
-                        <span className="material-symbols-rounded text-gray-500 group-focus-within:text-brand-blue transition-colors">search</span>
-                        <input
-                            type="text"
-                            placeholder="Buscar incidentes, sistemas ou severidade..."
-                            className="bg-transparent border-none outline-none text-gray-200 text-sm ml-3 w-full placeholder-gray-600 font-mono"
-                        />
+            {/* Main Grid: Heatmap & List */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+
+                {/* Left Column: Heatmap & Analysis */}
+                <div className="xl:col-span-1 space-y-6">
+                    <HeatmapWidget risks={risks} />
+
+                    {/* Insights Box */}
+                    <div className="glass-panel p-6 rounded-3xl border border-white/5">
+                        <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
+                            <span className="material-symbols-rounded text-brand-blue">lightbulb</span>
+                            Insights IA
+                        </h3>
+                        <p className="text-sm text-gray-400 leading-relaxed text-justify">
+                            {highRisks.length > 0
+                                ? `Detectamos ${highRisks.length} risco(s) de alta severidade. A análise preditiva sugere priorizar a mitigação de "${highRisks[0].description}" devido ao alto impacto em ${highRisks[0].affected_system}.`
+                                : "O panorama de riscos está estável. A distribuição na matriz térmica indica maturidade nos controles de governança atuais."
+                            }
+                        </p>
                     </div>
-                    {/* Filter Button */}
-                    <button className="h-12 w-12 rounded-xl bg-black/20 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
-                        <span className="material-symbols-rounded">filter_list</span>
-                    </button>
                 </div>
 
-                {/* List Content */}
-                <div className="divide-y divide-white/5">
-                    {risks.map((risk) => (
-                        <div key={risk.id} className="group p-6 hover:bg-white/5 transition-all duration-300 flex flex-col md:flex-row md:items-center gap-6 relative overflow-hidden">
-                            {/* Hover Glow */}
-                            <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-blue opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* Right Column: Risk List */}
+                <div className="xl:col-span-2 glass-panel rounded-3xl overflow-hidden border border-white/5 relative h-fit min-h-[500px]">
+                    {/* Toolbar */}
+                    <div className="p-6 border-b border-white/5 flex gap-4 bg-white/5 backdrop-blur-md sticky top-0 z-10">
+                        <div className="flex-1 bg-black/20 h-12 rounded-xl flex items-center px-4 border border-white/5 focus-within:border-brand-blue/50 transition-colors group">
+                            <span className="material-symbols-rounded text-gray-500 group-focus-within:text-brand-blue transition-colors">search</span>
+                            <input
+                                type="text"
+                                placeholder="Buscar incidentes, sistemas ou severidade..."
+                                className="bg-transparent border-none outline-none text-gray-200 text-sm ml-3 w-full placeholder-gray-600 font-mono"
+                            />
+                        </div>
+                        {/* Filter Button */}
+                        <button className="h-12 w-12 rounded-xl bg-black/20 border border-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                            <span className="material-symbols-rounded">filter_list</span>
+                        </button>
+                    </div>
 
-                            {/* Icon / Leading */}
-                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 shadow-lg ${risk.risk_level >= 15 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-gray-800/50 text-gray-400 border border-white/5'}`}>
-                                <span className="material-symbols-rounded">
-                                    {risk.risk_level >= 15 ? 'priority_high' : 'policy'}
-                                </span>
-                            </div>
+                    {/* List Content */}
+                    <div className="divide-y divide-white/5">
+                        {risks.map((risk) => (
+                            <div key={risk.id} className="group p-6 hover:bg-white/5 transition-all duration-300 flex flex-col md:flex-row md:items-center gap-6 relative overflow-hidden">
+                                {/* Hover Glow */}
+                                <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-blue opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                            {/* Main Content */}
-                            <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <h4 className="text-base font-medium text-gray-200 truncate group-hover:text-white transition-colors">{risk.description}</h4>
-                                    {risk.risk_level >= 15 && (
-                                        <span className="px-2 py-0.5 rounded-md bg-red-500/20 text-red-300 border border-red-500/20 text-[10px] font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(239,68,68,0.2)]">Crítico</span>
-                                    )}
-                                </div>
-                                <p className="text-xs text-gray-500 flex items-center gap-2 font-mono">
-                                    <span className="text-brand-blue">{risk.category}</span>
-                                    <span className="text-gray-700">|</span>
-                                    <span>{risk.affected_system}</span>
-                                </p>
-                            </div>
-
-                            {/* Meta / Trailing */}
-                            <div className="flex items-center gap-8 text-sm text-gray-400 mt-2 md:mt-0">
-                                <div className="text-center min-w-[80px]">
-                                    <span className="block text-[10px] text-gray-600 uppercase tracking-wider font-bold mb-1">Severidade</span>
-                                    <span className={`font-display text-lg ${risk.risk_level >= 15 ? 'text-red-400' : 'text-white'}`}>{risk.risk_level}</span>
-                                </div>
-                                <div className="min-w-[120px] text-center">
-                                    <span className={`px-4 py-1.5 rounded-lg text-xs font-bold border backdrop-blur-md uppercase tracking-wider ${risk.status === 'Mitigado' ? 'border-brand-green/30 text-brand-green bg-brand-green/10' : 'border-gray-600/30 text-gray-400 bg-gray-800/30'}`}>
-                                        {risk.status}
+                                {/* Icon / Leading */}
+                                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 shadow-lg ${risk.risk_level >= 15 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-gray-800/50 text-gray-400 border border-white/5'}`}>
+                                    <span className="material-symbols-rounded">
+                                        {risk.risk_level >= 15 ? 'priority_high' : 'policy'}
                                     </span>
                                 </div>
 
-                                {/* Actions */}
-                                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">
-                                    <button
-                                        onClick={() => openEditModal(risk)}
-                                        className="h-9 w-9 rounded-lg hover:bg-brand-blue/20 hover:text-brand-blue flex items-center justify-center transition-colors text-gray-500 border border-transparent hover:border-brand-blue/30"
-                                        title="Editar"
-                                    >
-                                        <span className="material-symbols-rounded text-lg">edit</span>
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(risk.id)}
-                                        className="h-9 w-9 rounded-lg hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center transition-colors text-gray-500 border border-transparent hover:border-red-500/30"
-                                        title="Excluir"
-                                    >
-                                        <span className="material-symbols-rounded text-lg">delete</span>
-                                    </button>
+                                {/* Main Content */}
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <h4 className="text-base font-medium text-gray-200 truncate group-hover:text-white transition-colors">{risk.description}</h4>
+                                        {risk.risk_level >= 15 && (
+                                            <span className="px-2 py-0.5 rounded-md bg-red-500/20 text-red-300 border border-red-500/20 text-[10px] font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(239,68,68,0.2)]">Crítico</span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-gray-500 flex items-center gap-2 font-mono">
+                                        <span className="text-brand-blue">{risk.category}</span>
+                                        <span className="text-gray-700">|</span>
+                                        <span>{risk.affected_system}</span>
+                                    </p>
+                                </div>
+
+                                {/* Meta / Trailing */}
+                                <div className="flex items-center gap-8 text-sm text-gray-400 mt-2 md:mt-0">
+                                    <div className="text-center min-w-[80px]">
+                                        <span className="block text-[10px] text-gray-600 uppercase tracking-wider font-bold mb-1">Severidade</span>
+                                        <span className={`font-display text-lg ${risk.risk_level >= 15 ? 'text-red-400' : 'text-white'}`}>{risk.risk_level}</span>
+                                    </div>
+                                    <div className="min-w-[120px] text-center">
+                                        <span className={`px-4 py-1.5 rounded-lg text-xs font-bold border backdrop-blur-md uppercase tracking-wider ${risk.status === 'Mitigado' ? 'border-brand-green/30 text-brand-green bg-brand-green/10' : 'border-gray-600/30 text-gray-400 bg-gray-800/30'}`}>
+                                            {risk.status}
+                                        </span>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity translate-x-4 group-hover:translate-x-0 duration-300">
+                                        <button
+                                            onClick={() => openEditModal(risk)}
+                                            className="h-9 w-9 rounded-lg hover:bg-brand-blue/20 hover:text-brand-blue flex items-center justify-center transition-colors text-gray-500 border border-transparent hover:border-brand-blue/30"
+                                            title="Editar"
+                                        >
+                                            <span className="material-symbols-rounded text-lg">edit</span>
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(risk.id)}
+                                            className="h-9 w-9 rounded-lg hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center transition-colors text-gray-500 border border-transparent hover:border-red-500/30"
+                                            title="Excluir"
+                                        >
+                                            <span className="material-symbols-rounded text-lg">delete</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                    {risks.length === 0 && (
-                        <div className="p-16 text-center text-gray-600 font-light flex flex-col items-center">
-                            <span className="material-symbols-rounded text-4xl mb-4 opacity-20">verified_user</span>
-                            Nenhum risco detectado no perímetro.
-                        </div>
-                    )}
+                        ))}
+                        {risks.length === 0 && (
+                            <div className="p-16 text-center text-gray-600 font-light flex flex-col items-center">
+                                <span className="material-symbols-rounded text-4xl mb-4 opacity-20">verified_user</span>
+                                Nenhum risco detectado no perímetro.
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
@@ -254,4 +284,3 @@ function EliteStatCard({ label, value, icon, colorClass = "text-brand-blue", tre
         </div>
     )
 }
-

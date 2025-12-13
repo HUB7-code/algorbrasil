@@ -57,17 +57,16 @@ export default function Navbar() {
 
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                 <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative w-40 h-40 rounded-full border border-[#00FF94]/50 shadow-[0_0_25px_rgba(0,255,148,0.4)] overflow-hidden transition-transform group-hover:scale-105">
+                    <div className="relative w-12 h-12 rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] overflow-hidden transition-transform group-hover:scale-105">
                         <Image
                             src="/logo-algor.webp"
                             alt="Algor Brasil Logo"
                             fill
                             className="object-cover"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             priority
                         />
                     </div>
-                    <span className="font-serif text-4xl tracking-wide font-normal">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
+                    <span className="font-display text-2xl tracking-wide font-bold text-white">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
                 </Link>
 
                 {/* Desktop Menu */}

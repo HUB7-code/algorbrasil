@@ -26,6 +26,17 @@ Evolução do visual **Elite Dark/Glassmorphism** com ícones **Hiper-realistas 
 - **Backend Stability:**
   - **Zero 500 Errors:** Correção de falhas de inicialização e mapeamento de modelos ORM (`User.enrollments`).
 
+### Últimas Atualizações (v7.7 - ISO 42001 & Risk Module)
+- **Gestão de Riscos (Full Stack):** Matriz de Calor interativa, cálculo automático de severidade (PxI) e integração completa backend/frontend.
+- **Secure PDF Viewer:** Visualização de documentos via Canvas (anti-cópia) com marca d'água dinâmica para proteção de IP.
+- **UI/UX Refinements:** Navbar "Elite", fontes Orbitron e correção de layouts no Dashboard.
+- **Backend Hardening:** Correção de bugs críticos na API de Riscos (commit de transações).
+
+### Próximos Passos (Imediato)
+1. **Validation:** Testes de carga no módulo de riscos.
+2. **Deploy:** Atualizar VPS (`git reset --hard` + `docker-compose up --build`).
+3. **Advanced Features:** Implementar trilha de auditoria (Audit Log) para visualização de documentos.
+
 ## 4. Roadmap Imediato (Fase 3 - Dashboard Transformation)
 Seguindo os novos manuais operacionais:
 1.  ✅ **Assessment Wizard 2.0:** Perguntas técnicas reais e UI de alto nível.

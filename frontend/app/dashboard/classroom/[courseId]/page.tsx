@@ -13,6 +13,7 @@ import {
     Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import SecurePDFViewer from '@/components/SecurePDFViewer';
 
 // --- TS Interfaces ---
 interface Lesson {
@@ -233,7 +234,7 @@ export default function ClassroomPage() {
 
                                 {/* THEATER PLAYER */}
                                 <div className="w-full relative group">
-                                    <div className="aspect-video w-full bg-black rounded-[24px] overflow-hidden border border-[#28292A] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-0">
+                                    <div className={`w-full bg-black rounded-[24px] overflow-hidden border border-[#28292A] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-0 transition-all duration-500 ease-in-out ${activeLesson.type === 'video' ? 'aspect-video' : 'h-[85vh]'}`}>
                                         {activeLesson.type === 'video' ? (
                                             <ReactPlayer
                                                 url={`https://www.youtube.com/watch?v=${activeLesson.content}`}
@@ -243,21 +244,17 @@ export default function ClassroomPage() {
                                                 onEnded={() => handleLessonComplete(activeLesson.id)}
                                                 config={{
                                                     youtube: {
-                                                        playerVars: { showinfo: 0, modestbranding: 1 }
+                                                        // playerVars removed as they are deprecated/untyped in newer versions
                                                     }
                                                 }}
                                             />
                                         ) : (
-                                            // Document Viewer
-                                            <div className="w-full h-full flex flex-col items-center justify-center bg-[#1E1F20]">
-                                                <div className="w-16 h-16 bg-[#303336] rounded-2xl flex items-center justify-center mb-4">
-                                                    <FileText className="w-8 h-8 text-[#A8C7FA]" />
-                                                </div>
-                                                <h3 className="text-2xl text-[#E3E3E3] font-normal mb-6">Material de Leitura Complementar</h3>
-                                                <button className="px-8 py-3 bg-[#A8C7FA] hover:bg-[#85B5F8] text-[#062E6F] rounded-full font-medium flex items-center gap-2 transition-all shadow-lg hover:shadow-[#A8C7FA]/20">
-                                                    <Download className="w-5 h-5" />
-                                                    Baixar Documento PDF
-                                                </button>
+                                            // Secure Document Viewer (Canvas Based)
+                                            <div className="w-full h-full bg-[#1E1F20]">
+                                                <SecurePDFViewer
+                                                    fileUrl={activeLesson.content.startsWith('http') ? activeLesson.content : 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'}
+                                                    userEmail="auditor@algor.com.br"
+                                                />
                                             </div>
                                         )}
                                     </div>
@@ -338,7 +335,7 @@ const MOCK_COURSE: CourseStructure = {
             lessons: [
                 { id: "l1", title: "O que é a ISO 42001?", type: 'video', content: "dQw4w9WgXcQ", duration: 10, status: 'unlocked', completed: true },
                 { id: "l2", title: "Estrutura HLS (High Level Structure)", type: 'video', content: "M7lc1UVf-VE", duration: 15, status: 'unlocked', completed: false },
-                { id: "l3", title: "Material de Apoio (PDF)", type: 'document', content: "doc1", duration: 5, status: 'unlocked', completed: false },
+                { id: "l3", title: "Material de Apoio (PDF)", type: 'document', content: "https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf", duration: 5, status: 'unlocked', completed: false },
             ]
         },
         {

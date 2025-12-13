@@ -92,6 +92,11 @@ def update_risk(
     for field, value in update_data.items():
         setattr(risk, field, value)
         
+    db.add(risk)
+    db.commit()
+    db.refresh(risk)
+    return risk
+        
 @router.delete("/{risk_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_risk(
     risk_id: int,
