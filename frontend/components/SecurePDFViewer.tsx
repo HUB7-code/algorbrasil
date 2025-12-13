@@ -5,7 +5,9 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { Loader2, AlertTriangle, ZoomIn, ZoomOut, RotateCw } from 'lucide-react';
 
 // Configure Worker (Essential for scaling)
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+// Configure Worker (Essential for scaling)
+// Using unpkg directly avoids webpack loader issues in Next.js App Router
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 interface SecurePDFViewerProps {
     fileUrl: string;
