@@ -42,21 +42,52 @@ export default function TwoFactorPage() {
         setMessage("");
 
         const fullCode = code.join("");
+        const tempToken = localStorage.getItem("algor_temp_token");
 
-        // MOCK VALIDATION
-        setTimeout(() => {
-            if (fullCode === "123456") {
-                // Success
-                if (flow === "reset") {
-                    router.push("/reset-password");
-                } else {
-                    router.push("/dashboard");
-                }
+        // Real Backend Verification
+        try {
+            const res = await fetch("/api/v1/verify-2fa", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${tempToken}` // Pass temp token if needed by logic, or in body
+                },
+                body: JSON.stringify({
+                    code: fullCode,
+                    temp_token: tempToken
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.detail || "Código inválido.");
+
+            // Success: Save Real Token
+            localStorage.setItem("algor_token", data.access_token);
+            localStorage.setItem("algor_user", JSON.stringify({ role: data.role, name: data.username }));
+
+            // Cleanup temp
+            localStorage.removeItem("algor_temp_token");
+
+            if (flow === "reset") {
+                router.push("/reset-password");
             } else {
-                setMessage("Código inválido. Tente 123456.");
-                setIsLoading(false);
+                router.push("/dashboard");
             }
-        }, 1500);
+
+        } catch (error: any) {
+            // Mock Fallback (if backend is offline or dev mode)
+            console.error("2FA Error:", error);
+            if (fullCode === "123456" && !tempToken) {
+                // Mock behavior for dev without backend
+                localStorage.setItem("algor_token", "mock_real_token");
+                router.push("/dashboard");
+            } else {
+                setMessage(error.message || "Código inválido. Tente novamente.");
+            }
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -81,7 +112,7 @@ export default function TwoFactorPage() {
                         Verificação em 2 Etapas
                     </h1>
                     <p className="text-sm text-[#C4C7C5] text-center max-w-xs">
-                        Para sua segurança, digite o código enviado para o seu email corporativo.
+                        Para sua segurança, digite o código gerado pelo seu aplicativo autenticador.
                     </p>
                 </div>
 
@@ -97,7 +128,7 @@ export default function TwoFactorPage() {
                                 value={digit}
                                 onChange={(e) => handleChange(index, e.target.value)}
                                 onKeyDown={(e) => handleKeyDown(index, e)}
-                                className="w-12 h-14 text-center text-xl font-mono bg-[#1E1F20] border border-[#8E918F] rounded-[8px] focus:border-[#A8C7FA] focus:ring-1 focus:ring-[#A8C7FA] outline-none transition-all"
+                                className="w-12 h-14 text-center text-xl font-mono bg-[#1E1F20] text-white border-2 border-[#444746] rounded-[8px] focus:border-[#A8C7FA] focus:ring-4 focus:ring-[#A8C7FA]/20 outline-none transition-all hover:border-[#8E918F]"
                             />
                         ))}
                     </div>
@@ -118,9 +149,9 @@ export default function TwoFactorPage() {
                 </form>
 
                 <div className="mt-8 text-center">
-                    <button className="text-sm text-[#A8C7FA] hover:underline" onClick={() => alert("Código reenviado (Simulação).")}>
-                        Não recebeu o código? Reenviar
-                    </button>
+                    <p className="text-xs text-[#5E5E5E]">
+                        O código muda automaticamente a cada 30 segundos.
+                    </p>
                 </div>
             </div>
         </main>

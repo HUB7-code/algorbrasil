@@ -87,3 +87,22 @@ def send_admin_alert(subject: str, data: dict):
     # Envia para o email do admin (configurado como SMTP_USER ou outro fixo)
     admin_email = settings.SMTP_USER 
     send_smtp_email(admin_email, f"[ALGOR ADMIN] {subject}", body)
+
+def send_2fa_email(email: str, code: str):
+    """
+    Envia código OTP para 2FA via SMTP.
+    """
+    subject = f"Código de Verificação: {code}"
+    body = f"""
+    <div style="font-family: 'Helvetica Neue', Arial, sans-serif; color: #333; padding: 30px; border: 1px solid #eee; max-width: 500px; border-radius: 8px;">
+        <h2 style="color: #0A1A2F; margin-top: 0;">Verificação de Segurança</h2>
+        <p>Use o código abaixo para completar seu login no sistema ALGOR:</p>
+        <div style="background: #F0F4F8; padding: 20px; text-align: center; border-radius: 4px; margin: 20px 0;">
+            <span style="color: #00A3FF; letter-spacing: 8px; font-size: 36px; font-weight: bold; font-family: monospace;">{code}</span>
+        </div>
+        <p style="font-size: 12px; color: #666;">Este código expira em 5 minutos.</p>
+        <hr style="border: none; border-top: 1px solid #eee; margin: 20px 0;">
+        <p style="font-size: 12px; color: #999;">Algor Brasil - Proteção de Dados e Governança de IA</p>
+    </div>
+    """
+    send_smtp_email(email, subject, body)

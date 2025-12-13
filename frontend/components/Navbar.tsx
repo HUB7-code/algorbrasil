@@ -14,9 +14,7 @@ export default function Navbar() {
     const router = useRouter();
 
     const isHome = pathname === '/';
-    const isAuthPage = pathname === '/login' || pathname === '/register';
-
-    if (isAuthPage) return null;
+    const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === '/2fa' || pathname === '/onboarding';
 
     useEffect(() => {
         let ticking = false;
@@ -37,6 +35,8 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    if (isAuthPage) return null;
 
     const handleNavigation = (sectionId: string) => {
         if (isHome) {

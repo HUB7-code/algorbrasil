@@ -13,6 +13,7 @@ class Token(BaseModel):
     token_type: str
     role: str # 'subscriber' | 'member' | 'admin'
     username: str # Para exibir na tela "Olá, Fulano"
+    requires_2fa: bool = False # Flag para indicar se precisa de 2FA
 
 # Schema para Dados do Token
 class TokenData(BaseModel):

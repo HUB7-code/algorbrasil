@@ -23,3 +23,10 @@ class User(Base):
 
     # Relacionamento com Riscos (ISO 42001)
     risks = relationship("backend.app.models.risk.RiskRegister", back_populates="user")
+    
+    # LMS / Academia
+    enrollments = relationship("backend.app.models.lms.Enrollment", back_populates="user")
+    
+    # Authenticator App 2FA
+    totp_secret = Column(String, nullable=True) # Segredo Base32
+    is_totp_enabled = Column(Boolean, default=False)

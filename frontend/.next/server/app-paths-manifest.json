@@ -1,8 +1,8 @@
 {
-  "/dashboard/assessments/new/page": "app/dashboard/assessments/new/page.js",
-  "/(public)/register/page": "app/(public)/register/page.js",
-  "/dashboard/page": "app/dashboard/page.js",
-  "/(public)/page": "app/(public)/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/(public)/login/page": "app/(public)/login/page.js",
-  "/(public)/associates/page": "app/(public)/associates/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/settings/security/page": "app/dashboard/settings/security/page.js",
+  "/(public)/page": "app/(public)/page.js",
+  "/(public)/2fa/page": "app/(public)/2fa/page.js"
 }

@@ -13,3 +13,6 @@ argon2-cffi>=23.1.0
 pytest
 SQLAlchemy>=2.0.0
 reportlab>=4.0.0
+pyotp>=2.9.0
+qrcode>=7.4.2
+pillow>=10.0.0
