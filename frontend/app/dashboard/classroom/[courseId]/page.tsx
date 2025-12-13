@@ -13,7 +13,12 @@ import {
     Download
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import SecurePDFViewer from '@/components/SecurePDFViewer';
+import dynamic from 'next/dynamic';
+
+const SecurePDFViewer = dynamic(() => import('@/components/SecurePDFViewer'), {
+    ssr: false,
+    loading: () => <div className="w-full h-full flex items-center justify-center text-gray-500">Carregando Leitor Seguro...</div>
+});
 
 // --- TS Interfaces ---
 interface Lesson {
