@@ -57,7 +57,7 @@ export default function Navbar() {
 
             <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                 <Link href="/" className="flex items-center gap-3 group">
-                    <div className="relative w-12 h-12 rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] overflow-hidden transition-transform group-hover:scale-105">
+                    <div className="relative w-16 h-16 rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] overflow-hidden transition-transform group-hover:scale-105">
                         <Image
                             src="/logo-algor.webp"
                             alt="Algor Brasil Logo"
