@@ -30,6 +30,17 @@ def generate_assessment_report_pdf(assessment, user_name: str) -> BytesIO:
     # 1. Header
     report_date = datetime.datetime.now().strftime("%d/%m/%Y")
     
+    # Logo Handling
+    import os
+    logo_path = os.path.join(os.path.dirname(__file__), "..", "assets", "logo.png")
+    
+    if os.path.exists(logo_path):
+        # Draw Logo (Width constrained to 5cm, preserve aspect ratio usually handled by Image logic)
+        im = Image(logo_path, width=4*cm, height=1.2*cm)
+        im.hAlign = 'LEFT'
+        elements.append(im)
+        elements.append(Spacer(1, 0.5*cm))
+    
     elements.append(Paragraph("Relatório de Conformidade ISO/IEC 42001", styles['TitleCustom']))
     elements.append(Paragraph(f"<b>Projeto/Auditoria:</b> {assessment.title}", styles['NormalCustom']))
     elements.append(Paragraph(f"<b>Responsável:</b> {user_name}", styles['NormalCustom']))
