@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 13/12/2025 - 12:00
-> **Status Geral:** **OPERATIONAL SECURITY CORE ESTABLISHED** 🛡️🔒
-> **Versão:** 7.5 (Secure Core & Backend Stabilization)
+> **Última Atualização:** 13/12/2025 - 12:25
+> **Status Geral:** **VPS PRODUCTION STABLE & LMS REBORN** 🚀🏰
+> **Versão:** 7.6 (VPS Production Stable & LMS Theater Mode)
 
 ## 1. Pivot de Infra: "Operação Fortaleza Digital"
 O foco shiftou do visual para a **Segurança, Conformidade e UX de Elite**, com alinhamento estrito a manuais técnicos.
@@ -17,16 +17,14 @@ Evolução do visual **Elite Dark/Glassmorphism** com ícones **Hiper-realistas 
     - **Tipografia:** Orbitron (Headlines) + Manrope/Inter Variable (Corpo).
 
 ## 3. Estado Atual dos Arquivos (FULL STACK EVOLUTION)
-- **Autenticação & Segurança (Full Stack) [CONCLUÍDO]:**
-  - **Fluxos Completos:** Login, Registro Real e Verificação de Sessão.
-  - **2FA (TOTP):** Integração total com Google Authenticator/Authy (Backend Python + Frontend Next.js).
-  - **Recuperação de Erros:** Sistema robusto de tratamento de tokens inválidos e expiração de sessão.
-- **Backend Refactoring [CONCLUÍDO]:**
-  - **Limpeza de Código:** Remoção de importações circulares e caracteres Unicode problemáticos em `auth.py`.
-  - **Correção de Modelos:** Adição de relacionamentos faltantes (`User.enrollments`) corrigindo erros de mapeamento do SQLAlchemy.
-- **Visual Público & Dashboard:**
-  - **Navbar Inteligente:** Lógica condicional corrigida para ocultar em páginas de Auth (`/login`, `/2fa`).
-  - **Estética Elite:** Inputs e Botões com feedback visual (Neon/Glass) e acessibilidade melhorada.
+- **Autenticação & Segurança (Full Stack) [PROD VERIFIED]:**
+  - **Fluxos Completos:** Login, Registro e 2FA TOTP operando 100% em Produção (VPS).
+  - **Database Migration:** Schema SQLite corrigido no VPS (`sql_app.db`) com suporte a campos de segurança.
+- **LMS / Academia (Frontend) [REFORMULADO]:**
+  - **Theater Mode:** Interface "Netflix-style" com player de vídeo expandido, foco total no conteúdo e controles flutuantes.
+  - **Google Material 3:** Listas de aulas e sidebar com estética limpa, tipografia produtiva e navegação fluida.
+- **Backend Stability:**
+  - **Zero 500 Errors:** Correção de falhas de inicialização e mapeamento de modelos ORM (`User.enrollments`).
 
 ## 4. Roadmap Imediato (Fase 3 - Dashboard Transformation)
 Seguindo os novos manuais operacionais:
@@ -34,16 +32,14 @@ Seguindo os novos manuais operacionais:
 2.  ✅ **Secure Auth UI:** 2FA via **Authenticator App (TOTP)** Completo e Integrado.
 3.  ✅ **Visual Público:** Home e Associados polidos (Logos, Fotos, Layout).
 4.  ✅ **Dashboard Elite Dark:** Conversão total para Deep Navy/Glass.
-5.  ✅ **Backend Stability:** Correção de erros 500/Internal Server, dependências e imports.
+5.  ✅ **VPS Production:** Deploy estável com migração de banco via script e dependências instaladas.
 6.  ✅ **Módulo de Riscos:** Gestão de Riscos conforme ISO 42001.
-7.  ✅ **LMS Classroom:** Sala de aula completa (Vídeo/PDF) integrada.
+7.  ✅ **LMS Classroom 2.0:** Interface renovada ("Theater Mode") para máxima imersão.
 8.  ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
-- **v5.0:** Fortaleza Digital (Backend Security).
-- **v5.5:** Elite UI & Compliance Core.
 - **v6.0:** ISO 42001 Compliance Suite.
-- **v6.5:** Training Hall & Deep SEO.
 - **v7.0:** Secure Access & Elite Visuals.
-- **v7.5:** **Secure Core & Backend Stabilization (ATUAL)** - 2FA TOTP Real, Auth Backend Refactor, Bug Fixes críticos.
+- **v7.5:** Secure Core & Backend Stabilization.
+- **v7.6:** **VPS Production Stable (ATUAL)** - Backend corrigido em prod, LMS Theater Mode, Banco de Dados Migrado.
