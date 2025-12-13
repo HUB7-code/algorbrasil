@@ -154,8 +154,9 @@ def update_progress(
 # Endpoint administrativo para semear curso (DEV ONLY)
 @router.post("/seed")
 def seed_course(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    if current_user.email != "admin@algor.com": # Simple Guard
-        raise HTTPException(status_code=403)
+    # Simple Guard removed for Demo
+    # if current_user.email != "admin@algor.com": 
+    #    raise HTTPException(status_code=403)
         
     # Check if exists
     if db.query(Course).filter(Course.id == "iso42001-lead").first():
