@@ -121,32 +121,40 @@ export default function ClassroomPage() {
     if (!course) return <div className="min-h-screen bg-[#050511] flex items-center justify-center text-white">Curso não encontrado.</div>;
 
     return (
-        <div className="flex h-screen bg-[#050511] text-white overflow-hidden">
+        <div className="flex h-screen bg-[#131314] text-[#E3E3E3] overflow-hidden font-sans selection:bg-[#A8C7FA] selection:text-[#001D35]">
 
-            {/* --- SIDEBAR (Modules) --- */}
+            {/* --- SIDEBAR (Modules - Google Material 3 Style) --- */}
             <AnimatePresence mode="wait">
                 {sidebarOpen && (
                     <motion.aside
                         initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: 320, opacity: 1 }}
+                        animate={{ width: 360, opacity: 1 }}
                         exit={{ width: 0, opacity: 0 }}
-                        className="bg-[#12141C] border-r border-white/5 flex-shrink-0 flex flex-col h-full z-20"
+                        className="bg-[#1E1F20] flex-shrink-0 flex flex-col h-full z-20 shadow-[4px_0_24px_rgba(0,0,0,0.2)]"
                     >
-                        <div className="p-6 border-b border-white/5">
-                            <button onClick={() => router.push('/dashboard')} className="flex items-center text-xs text-gray-400 hover:text-white mb-4 transition-colors">
-                                <ChevronLeft className="w-4 h-4 mr-1" /> Voltar ao Dashboard
+                        <div className="p-6">
+                            <button onClick={() => router.push('/dashboard')} className="flex items-center text-sm text-[#C4C7C5] hover:text-white mb-6 transition-colors group">
+                                <div className="p-2 rounded-full bg-[#303336] mr-3 group-hover:bg-[#444746] transition-colors">
+                                    <ChevronLeft className="w-4 h-4" />
+                                </div>
+                                Voltar ao Hub
                             </button>
-                            <h2 className="font-bold text-lg leading-tight text-white">{course.title}</h2>
-                            <p className="text-xs text-[#00FF94] mt-2 font-mono">PROGRESSO: 15%</p>
-                            <div className="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
-                                <div className="h-full bg-[#00FF94] w-[15%]" />
+
+                            <div className="mb-6">
+                                <h2 className="font-normal text-xl leading-tight text-[#E3E3E3] mb-2">{course.title}</h2>
+                                <div className="flex items-center gap-3">
+                                    <div className="flex-1 h-1 bg-[#444746] rounded-full overflow-hidden">
+                                        <div className="h-full bg-[#A8C7FA] w-[15%]" />
+                                    </div>
+                                    <span className="text-xs text-[#A8C7FA] font-medium">15%</span>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex-1 overflow-y-auto p-4 space-y-6">
+                        <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-6 scrollbar-thin scrollbar-thumb-[#444746] scrollbar-track-transparent">
                             {course.modules.map((module, i) => (
-                                <div key={module.id} className="space-y-2">
-                                    <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest px-2">
+                                <div key={module.id} className="space-y-3">
+                                    <h3 className="text-xs font-bold text-[#8E918F] uppercase tracking-wider px-3">
                                         Módulo {i + 1}: {module.title}
                                     </h3>
                                     <div className="space-y-1">
@@ -155,34 +163,42 @@ export default function ClassroomPage() {
                                                 key={lesson.id}
                                                 onClick={() => lesson.status !== 'locked' && setActiveLesson(lesson)}
                                                 disabled={lesson.status === 'locked'}
-                                                className={`w-full flex items-center gap-3 p-3 rounded-lg text-sm transition-all text-left
+                                                className={`w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left group border border-transparent
                                                     ${activeLesson?.id === lesson.id
-                                                        ? 'bg-[#00A3FF]/10 text-[#00A3FF] border border-[#00A3FF]/20'
-                                                        : 'hover:bg-white/5 text-gray-400'
+                                                        ? 'bg-[#004A77] border-[#A8C7FA]/30 text-[#D3E3FD]'
+                                                        : 'hover:bg-[#303336] text-[#C4C7C5]'
                                                     }
-                                                    ${lesson.status === 'locked' ? 'opacity-50 cursor-not-allowed' : ''}
+                                                    ${lesson.status === 'locked' ? 'opacity-40 cursor-not-allowed' : ''}
                                                 `}
                                             >
-                                                {/* Status Icon */}
-                                                <div className="flex-shrink-0">
+                                                {/* Status Icon Wrapper */}
+                                                <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors
+                                                    ${activeLesson?.id === lesson.id ? 'text-[#A8C7FA]' : 'text-[#8E918F] group-hover:text-[#E3E3E3]'}
+                                                `}>
                                                     {lesson.status === 'locked' ? (
                                                         <Lock className="w-4 h-4" />
                                                     ) : lesson.completed ? (
-                                                        <CheckCircle className="w-4 h-4 text-[#00FF94]" />
+                                                        <CheckCircle className="w-5 h-5 text-[#6DD58C]" />
                                                     ) : lesson.type === 'video' ? (
-                                                        <PlayCircle className="w-4 h-4" />
+                                                        <PlayCircle className="w-5 h-5" />
                                                     ) : (
-                                                        <FileText className="w-4 h-4" />
+                                                        <FileText className="w-5 h-5" />
                                                     )}
                                                 </div>
 
-                                                <div className="flex-1 line-clamp-2">
-                                                    {lesson.title}
+                                                <div className="flex-1">
+                                                    <p className={`text-sm font-medium leading-snug ${activeLesson?.id === lesson.id ? 'text-[#D3E3FD]' : 'text-[#E3E3E3]'}`}>
+                                                        {lesson.title}
+                                                    </p>
+                                                    <div className="flex items-center gap-2 mt-1">
+                                                        <span className="text-[11px] opacity-70 flex items-center gap-1">
+                                                            {lesson.duration} min
+                                                        </span>
+                                                        {lesson.status === 'in_progress' && (
+                                                            <span className="text-[10px] bg-[#A8C7FA] text-[#001D35] px-1.5 py-0.5 rounded-sm font-bold">EM ANDAMENTO</span>
+                                                        )}
+                                                    </div>
                                                 </div>
-
-                                                <span className="text-[10px] opacity-60 font-mono">
-                                                    {lesson.duration}min
-                                                </span>
                                             </button>
                                         ))}
                                     </div>
@@ -193,80 +209,116 @@ export default function ClassroomPage() {
                 )}
             </AnimatePresence>
 
-            {/* --- MAIN CONTENT (Player) --- */}
-            <main className="flex-1 flex flex-col relative h-full">
-                {/* Header (Within Main) */}
-                <header className="h-16 flex items-center justify-between px-6 border-b border-white/5 bg-[#050511]">
+            {/* --- MAIN CONTENT (Theater Mode) --- */}
+            <main className="flex-1 flex flex-col relative h-full bg-[#131314]">
+                {/* Minimal Header */}
+                <header className="h-16 flex items-center px-6 border-b border-[#28292A] bg-[#131314]/90 backdrop-blur-md sticky top-0 z-10">
                     <button
                         onClick={() => setSidebarOpen(!sidebarOpen)}
-                        className="p-2 hover:bg-white/5 rounded-md text-gray-400 hover:text-white"
+                        className="p-2 -ml-2 rounded-full text-[#C4C7C5] hover:bg-[#303336] hover:text-white transition-colors"
+                        title={sidebarOpen ? "Expandir Vídeo" : "Mostrar Aulas"}
                     >
-                        <Menu className="w-5 h-5" />
+                        {sidebarOpen ? <ChevronLeft className="w-6 h-6 rotate-180" /> : <Menu className="w-6 h-6" />}
                     </button>
-                    <div className="text-sm font-medium text-gray-300">
-                        {activeLesson?.title}
-                    </div>
-                    <div className="w-8" /> {/* Spacer */}
+                    <span className="ml-4 text-sm font-medium text-[#E3E3E3] opacity-60">
+                        / {course.title} / <span className="text-white opacity-100">{activeLesson?.title}</span>
+                    </span>
                 </header>
 
-                <div className="flex-1 overflow-y-auto p-6 md:p-10 flex flex-col items-center">
+                <div className="flex-1 overflow-y-auto">
+                    <div className="max-w-[1400px] mx-auto p-6 md:p-8 flex flex-col items-center">
 
-                    {activeLesson ? (
-                        <div className="w-full max-w-5xl space-y-6">
+                        {activeLesson ? (
+                            <div className="w-full space-y-8">
 
-                            {/* Player Wrapper */}
-                            <div className="aspect-video w-full bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative group">
-                                {activeLesson.type === 'video' ? (
-                                    <ReactPlayer
-                                        url={`https://www.youtube.com/watch?v=${activeLesson.content}`}
-                                        width="100%"
-                                        height="100%"
-                                        controls
-                                        onEnded={() => handleLessonComplete(activeLesson.id)}
-                                        config={{
-                                            youtube: {
-                                                playerVars: { showinfo: 0 }
-                                            }
-                                        }}
-                                    />
-                                ) : (
-                                    // Document Viewer Placeholder
-                                    <div className="w-full h-full flex flex-col items-center justify-center bg-[#12141C]">
-                                        <FileText className="w-20 h-20 text-gray-600 mb-4" />
-                                        <h3 className="text-xl text-gray-300 mb-6">Material de Leitura</h3>
-                                        <button className="px-6 py-3 bg-[#00A3FF] hover:bg-[#0082CC] text-white rounded-lg font-medium flex items-center gap-2">
-                                            <Download className="w-5 h-5" />
-                                            Baixar PDF ({activeLesson.duration} pág)
-                                        </button>
+                                {/* THEATER PLAYER */}
+                                <div className="w-full relative group">
+                                    <div className="aspect-video w-full bg-black rounded-[24px] overflow-hidden border border-[#28292A] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-0">
+                                        {activeLesson.type === 'video' ? (
+                                            <ReactPlayer
+                                                url={`https://www.youtube.com/watch?v=${activeLesson.content}`}
+                                                width="100%"
+                                                height="100%"
+                                                controls
+                                                onEnded={() => handleLessonComplete(activeLesson.id)}
+                                                config={{
+                                                    youtube: {
+                                                        playerVars: { showinfo: 0, modestbranding: 1 }
+                                                    }
+                                                }}
+                                            />
+                                        ) : (
+                                            // Document Viewer
+                                            <div className="w-full h-full flex flex-col items-center justify-center bg-[#1E1F20]">
+                                                <div className="w-16 h-16 bg-[#303336] rounded-2xl flex items-center justify-center mb-4">
+                                                    <FileText className="w-8 h-8 text-[#A8C7FA]" />
+                                                </div>
+                                                <h3 className="text-2xl text-[#E3E3E3] font-normal mb-6">Material de Leitura Complementar</h3>
+                                                <button className="px-8 py-3 bg-[#A8C7FA] hover:bg-[#85B5F8] text-[#062E6F] rounded-full font-medium flex items-center gap-2 transition-all shadow-lg hover:shadow-[#A8C7FA]/20">
+                                                    <Download className="w-5 h-5" />
+                                                    Baixar Documento PDF
+                                                </button>
+                                            </div>
+                                        )}
                                     </div>
-                                )}
-                            </div>
-
-                            {/* Lesson Info */}
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <h1 className="text-2xl font-bold text-white mb-2">{activeLesson.title}</h1>
-                                    <p className="text-gray-400">
-                                        Módulo atual • {activeLesson.type === 'video' ? 'Videoaula' : 'Documento'}
-                                    </p>
                                 </div>
-                                <button
-                                    onClick={() => handleLessonComplete(activeLesson.id)}
-                                    className={`px-6 py-2 rounded-full border transition-all text-sm font-medium
-                                        ${activeLesson.completed
-                                            ? 'bg-[#00FF94]/20 text-[#00FF94] border-[#00FF94]/30'
-                                            : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'
-                                        }`}
-                                >
-                                    {activeLesson.completed ? 'Concluído' : 'Marcar como Concluído'}
-                                </button>
+
+                                {/* Content Tabs & Actions */}
+                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                    {/* Left: Description */}
+                                    <div className="lg:col-span-2 space-y-6">
+                                        <div>
+                                            <h1 className="text-3xl md:text-4xl font-normal text-[#E3E3E3] mb-4">{activeLesson.title}</h1>
+                                            <div className="flex items-center gap-4 text-sm text-[#C4C7C5]">
+                                                <span className="flex items-center gap-1"><PlayCircle className="w-4 h-4" /> {activeLesson.type === 'video' ? 'Videoaula' : 'Leitura'}</span>
+                                                <span className="w-1 h-1 bg-[#444746] rounded-full" />
+                                                <span>Atualizado em Dez 2025</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="prose prose-invert prose-p:text-[#C4C7C5] prose-h3:text-[#E3E3E3] max-w-none">
+                                            <h3>Sobre esta aula</h3>
+                                            <p>
+                                                Nesta lição, exploraremos os fundamentos da cláusula 4 da ISO 42001, focando no entendimento do contexto da organização e como isso impacta a governança de IA. Prepare-se para analisar casos de uso reais.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Right: Actions Card */}
+                                    <div className="lg:col-span-1">
+                                        <div className="bg-[#1E1F20] rounded-[24px] p-6 border border-[#28292A]">
+                                            <h3 className="text-lg font-medium text-[#E3E3E3] mb-4">Ações da Aula</h3>
+
+                                            <button
+                                                onClick={() => handleLessonComplete(activeLesson.id)}
+                                                className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 font-medium transition-all mb-4
+                                                    ${activeLesson.completed
+                                                        ? 'bg-[#1E1F20] border-2 border-[#6DD58C] text-[#6DD58C] cursor-default'
+                                                        : 'bg-[#004A77] hover:bg-[#005C94] text-[#D3E3FD] shadow-lg'
+                                                    }`}
+                                            >
+                                                {activeLesson.completed ? (
+                                                    <> <CheckCircle className="w-5 h-5" /> Aula Concluída </>
+                                                ) : (
+                                                    "Marcar como Concluída"
+                                                )}
+                                            </button>
+
+                                            <div className="space-y-3">
+                                                <button className="w-full py-3 rounded-xl bg-[#303336] hover:bg-[#444746] text-[#E3E3E3] text-sm flex items-center justify-center gap-2 transition-colors">
+                                                    <Download className="w-4 h-4" /> Material de Apoio (0)
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+                        ) : (
+                            <div className="text-gray-500 mt-20">Selecione uma aula para começar.</div>
+                        )}
 
-                        </div>
-                    ) : (
-                        <div className="text-gray-500">Selecione uma aula para começar.</div>
-                    )}
-
+                    </div>
                 </div>
             </main>
 
