@@ -126,7 +126,7 @@ export default function AssessmentWizard() {
                 return;
             }
 
-            const response = await fetch('http://localhost:8000/api/v1/assessments/', { // URL BASE DEVE VIR DE ENV EM PROD
+            const response = await fetch('/api/v1/assessments/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -140,8 +140,8 @@ export default function AssessmentWizard() {
 
             if (response.ok) {
                 const data = await response.json();
-                // Sucesso: Redireciona com flag para mostrar confete/modal
-                router.push(`/dashboard?new_assessment_id=${data.id}&score=${data.score_total}`);
+                // Sucesso: Redireciona para a página de detalhes
+                router.push(`/dashboard/assessments/${data.id}`);
             } else {
                 if (response.status === 401) {
                     router.push('/login');
