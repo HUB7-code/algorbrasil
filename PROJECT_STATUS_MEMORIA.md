@@ -36,9 +36,9 @@ Evolução para **"Cyber-Security Premium"**: Estética de fortaleza digital, co
 2. ✅ **Site Align:** Homepage, Navbar e Footer refletindo a nova tese.
 3. ✅ **Product Pivot:** Wizard e Dashboard adaptados para falar a língua do Growth Seguro.
 
-### Próximo Ciclo (Fase 6 - Monetização & Escala)
-1. **Gateway de Pagamento:** Venda de "Relatórios de Viabilidade" avulsos (Stripe/Asaas).
-2. **Dashboard de Admin:** Área para Consultores gerarem links de convite para Clean Rooms.
+### Próximo Ciclo (Fase 6 - Monetização & Escala - EM PROGRESSO 🚧)
+1. ✅ **Gateway de Pagamento + Report Factory:** Venda e entrega automática de PDF (Stripe Integration).
+2. ✅ **Dashboard de Admin:** Command Center implementado (`/dashboard/admin`) para gestão de convites.
 3. **Multi-Tenant:** Separação lógica de dados de clientes Enterprise.
 
 ## 4. Roadmap Imediato

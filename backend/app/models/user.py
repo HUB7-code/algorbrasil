@@ -30,3 +30,7 @@ class User(Base):
     # Authenticator App 2FA
     totp_secret = Column(String, nullable=True) # Segredo Base32
     is_totp_enabled = Column(Boolean, default=False)
+
+    # Monetization / Payments
+    payments = relationship("backend.app.models.payment.Payment", back_populates="user")
+

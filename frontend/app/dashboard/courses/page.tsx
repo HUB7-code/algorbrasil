@@ -105,30 +105,10 @@ export default function CoursesListPage() {
                         </Link>
                     ))}
 
-                    {/* Seed Card */}
+                    {/* Empty State */}
                     {courses.length === 0 && (
                         <div className="col-span-full py-16 text-center border border-dashed border-white/10 rounded-3xl bg-white/5 flex flex-col items-center justify-center gap-4">
                             <p className="text-gray-500 font-light">Nenhum curso disponível no momento.</p>
-                            <button
-                                onClick={async () => {
-                                    try {
-                                        const token = localStorage.getItem('algor_token');
-                                        const res = await fetch('/api/v1/lms/seed', { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
-                                        if (res.ok) {
-                                            window.location.reload();
-                                        } else {
-                                            const err = await res.json();
-                                            alert(`Falha ao criar curso: ${res.status} - ${JSON.stringify(err)}`);
-                                        }
-                                    } catch (e) {
-                                        alert("Erro de conexão ao tentar criar curso.");
-                                        console.error(e);
-                                    }
-                                }}
-                                className="px-6 py-2 rounded-full bg-brand-blue/10 text-brand-blue hover:bg-brand-blue hover:text-white transition-all text-sm font-medium border border-brand-blue/20"
-                            >
-                                Gerar Dados de Demonstração (Seed)
-                            </button>
                         </div>
                     )}
                 </div>

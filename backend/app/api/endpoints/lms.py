@@ -154,11 +154,7 @@ def update_progress(
 # Endpoint administrativo para semear curso (DEV ONLY)
 @router.post("/seed")
 def seed_course(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
-    # Simple Guard removed for Demo
-    # if current_user.email != "admin@algor.com": 
-    #    raise HTTPException(status_code=403)
-        
-    # Check if exists
+    # ... (Seed Logic is kept for backup)
     if db.query(Course).filter(Course.id == "iso42001-lead").first():
         return {"msg": "Curso já existe"}
         
@@ -170,21 +166,70 @@ def seed_course(db: Session = Depends(get_db), current_user: User = Depends(get_
     )
     db.add(course)
     db.commit()
-    
-    # Module 1
-    mod1 = CourseModule(course_id=course.id, title="Introdução à Governança de IA", order=1)
-    db.add(mod1)
-    db.commit()
-    
-    l1 = CourseLesson(
-        id="mod1-l1", module_id=mod1.id, title="O que é a ISO 42001?", 
-        type="video", video_id="dQw4w9WgXcQ", duration_min=10, order=1
-    )
-    l2 = CourseLesson(
-        id="mod1-l2", module_id=mod1.id, title="Matriz de Riscos", 
-        type="document", document_url="/docs/risk-matrix.pdf", duration_min=5, order=2
-    )
-    db.add_all([l1, l2])
-    db.commit()
-    
     return {"msg": "Curso Semeado com Sucesso"}
+
+@router.delete("/courses/{course_id}")
+def delete_course(
+    course_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Remove um curso inteiro e seu conteúdo.
+    (Em produção, verifique se é Admin)
+    """
+    # Simple Admin Check
+    if current_user.role != "admin" and not current_user.is_superuser:
+         raise HTTPException(status_code=403, detail="Acesso restrito.")
+
+    course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Curso não encontrado")
+
+    db.delete(course)
+    db.commit()
+    return {"status": "success", "message": f"Curso {course_id} removido."}
+
+@router.post("/courses")
+def create_course(
+    course_data: CourseCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Cria um novo curso via painel administrativo."""
+    if current_user.role != "admin" and not current_user.is_superuser:
+         raise HTTPException(status_code=403, detail="Acesso restrito.")
+         
+    if db.query(Course).filter(Course.id == course_data.id).first():
+        raise HTTPException(status_code=400, detail="ID do curso já existe.")
+
+    new_course = Course(
+        id=course_data.id,
+        title=course_data.title,
+        description=course_data.description,
+        type="certification" # Default for now
+    )
+    db.add(new_course)
+    db.commit()
+    
+    # Add Modules
+    for m in course_data.modules:
+        new_mod = CourseModule(course_id=new_course.id, title=m.title, order=m.order)
+        db.add(new_mod)
+        db.commit()
+        db.refresh(new_mod)
+        
+        for l in m.lessons:
+            new_lesson = CourseLesson(
+                id=l.id,
+                module_id=new_mod.id,
+                title=l.title,
+                type=l.type,
+                video_id=l.video_id,
+                document_url=l.document_url,
+                duration_min=l.duration_min
+            )
+            db.add(new_lesson)
+    
+    db.commit()
+    return {"status": "success", "id": new_course.id}

@@ -20,6 +20,11 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: str = "edisio.nascimentojr@gmail.com" # Temp. autorizado
     SMTP_FROM_NAME: str = "Algor Brasil"
 
+    # Stripe
+    STRIPE_API_KEY: str = ""
+    STRIPE_WEBHOOK_SECRET: str = ""
+
+
     class Config:
         case_sensitive = True
 

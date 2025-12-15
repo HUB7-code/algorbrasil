@@ -6,7 +6,7 @@ from slowapi.errors import RateLimitExceeded
 from secure import Secure
 
 from backend.app.db.session import engine, Base
-from backend.app.models import user, assessment, profiles, audit, risk, lms # Import all models to register tables
+from backend.app.models import user, assessment, profiles, audit, risk, lms, payment # Import all models to register tables
 
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
@@ -26,6 +26,11 @@ app = FastAPI(
 @app.on_event("startup")
 def on_startup():
     Base.metadata.create_all(bind=engine)
+
+from fastapi.staticfiles import StaticFiles
+import os
+os.makedirs("backend/app/static/uploads", exist_ok=True)
+app.mount("/static", StaticFiles(directory="backend/app/static"), name="static")
 
 # Configuração de CORS (Restrição de Acesso)
 # Em produção, substitua "*" pelos domínios reais (ex: https://algorbrasil.com.br)
@@ -71,6 +76,10 @@ from backend.app.api.endpoints import risks
 app.include_router(risks.router, prefix="/api/v1/risks", tags=["Gestão de Riscos ISO 42001"])
 from backend.app.api.endpoints import lms
 app.include_router(lms.router, prefix="/api/v1/lms", tags=["LMS Education"])
+from backend.app.api.endpoints import payments
+app.include_router(payments.router, prefix="/api/v1/payments", tags=["Monetização"])
+from backend.app.api.endpoints import admin
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["Admin Command"])
 
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP

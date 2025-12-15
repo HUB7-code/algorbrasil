@@ -20,6 +20,76 @@ export default function DashboardPage() {
         complianceRate: "0%",
         vulnerabilities: "0"
     });
+    const [buying, setBuying] = useState(false);
+    const [hasPurchasedReport, setHasPurchasedReport] = useState(false);
+
+    const handleDownloadReport = async () => {
+        const token = localStorage.getItem("algor_token");
+        if (!token) return;
+
+        try {
+            const res = await fetch("/api/v1/payments/report/download", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            if (!res.ok) {
+                alert("Erro ao baixar. Tente novamente.");
+                return;
+            }
+
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Relatorio_Viabilidade_Algor.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+
+        } catch (err) {
+            console.error("Download Error", err);
+        }
+    };
+
+    const handlePurchase = async () => {
+        setBuying(true);
+        try {
+            const token = localStorage.getItem("algor_token");
+            if (!token) {
+                alert("Sessão expirada. Faça login novamente.");
+                return;
+            }
+
+            const res = await fetch("/api/v1/payments/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ product_type: "viability_report" })
+            });
+
+            if (res.status === 401) {
+                alert("Sessão expirada. Faça login novamente.");
+                window.location.href = "/login";
+                return;
+            }
+
+            const data = await res.json();
+            if (data.checkout_url) {
+                window.location.href = data.checkout_url;
+            } else {
+                console.error("Payment Error Data:", data);
+                alert("Erro ao iniciar pagamento. Tente novamente.");
+            }
+        } catch (err) {
+            console.error("Payment Network Error:", err);
+            alert("Erro de conexão com o servidor de pagamentos.");
+        } finally {
+            setBuying(false);
+        }
+    }
 
     useEffect(() => {
         const userData = localStorage.getItem("algor_user");
@@ -62,6 +132,16 @@ export default function DashboardPage() {
                     }));
                 }
 
+                // 3. Check Purchases
+                const resPurchases = await fetch('/api/v1/payments/my-purchases', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (resPurchases.ok) {
+                    const purchases = await resPurchases.json();
+                    const hasReport = purchases.some((p: any) => p.product_name === 'viability_report' && p.status === 'completed');
+                    setHasPurchasedReport(hasReport);
+                }
+
             } catch (error) {
                 console.error("Dashboard Sync Error:", error);
             } finally {
@@ -70,6 +150,21 @@ export default function DashboardPage() {
         };
 
         fetchData();
+    }, []);
+
+    // Handle Stripe Redirect
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('payment_success')) {
+                // Remove param from URL
+                window.history.replaceState({}, document.title, window.location.pathname);
+                // Show success message (Future: Toast)
+                alert("Pagamento confirmado! Seu relatório está sendo gerado.");
+                // Reload data to update permissions
+                window.location.reload();
+            }
+        }
     }, []);
 
     if (!user) return null;
@@ -172,6 +267,48 @@ export default function DashboardPage() {
 
                 {/* Side Panel: Infrastructure */}
                 <div className="space-y-6">
+
+                    {/* Premium Reports Card (Monetization Phase 6) */}
+                    <div className="glass-panel rounded-3xl p-6 border border-brand-amber/20 relative overflow-hidden group hover:border-brand-amber/40 transition-colors">
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-amber/5 to-transparent opacity-50" />
+
+                        <div className="relative z-10">
+                            <h3 className="text-white font-medium flex items-center gap-2 mb-2">
+                                <span className="material-symbols-rounded text-brand-amber">lock_open</span>
+                                Relatório de Viabilidade
+                            </h3>
+                            <p className="text-xs text-gray-400 mb-4 leading-relaxed">
+                                Análise profunda de risco jurídico e técnico para escalar campanhas (SLA 24h).
+                            </p>
+
+                            <div className="flex items-center justify-between mt-4">
+                                <div>
+                                    <p className="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Investimento</p>
+                                    <span className="text-lg font-bold text-white">R$ 1.500</span>
+                                </div>
+                                <button
+                                    onClick={hasPurchasedReport ? handleDownloadReport : handlePurchase}
+                                    disabled={buying}
+                                    className={`text-black text-xs font-bold px-4 py-2 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 ${hasPurchasedReport
+                                            ? 'bg-brand-green hover:bg-[#00E585] hover:shadow-[0_0_15px_rgba(0,255,148,0.4)]'
+                                            : 'bg-brand-amber hover:bg-[#FFC033] hover:shadow-[0_0_15px_rgba(255,176,0,0.4)]'
+                                        }`}
+                                >
+                                    {buying ? (
+                                        <span className="w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                                    ) : hasPurchasedReport ? (
+                                        <>
+                                            <span className="material-symbols-rounded text-sm">download</span>
+                                            BAIXAR PDF
+                                        </>
+                                    ) : (
+                                        "COMPRAR"
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Enterprise Plan Card */}
                     <div className="rounded-3xl bg-gradient-to-br from-brand-navy via-brand-navy to-[#0F2942] p-8 text-white relative overflow-hidden border border-white/10 shadow-2xl">
                         {/* Abstract Art */}
