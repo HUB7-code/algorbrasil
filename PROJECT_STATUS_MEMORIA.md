@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 13/12/2025 - 12:25
-> **Status Geral:** **VPS PRODUCTION STABLE & LMS REBORN** 🚀🏰
-> **Versão:** 7.6 (VPS Production Stable & LMS Theater Mode)
+> **Última Atualização:** 13/12/2025 - 18:55
+> **Status Geral:** **INTELLIGENCE ENGINE ACTIVE & BRAND UNIFIED** 🧠🎨
+> **Versão:** 8.0 (Assessment Intelligence & PDF Reporting)
 
 ## 1. Pivot de Infra: "Operação Fortaleza Digital"
 O foco shiftou do visual para a **Segurança, Conformidade e UX de Elite**, com alinhamento estrito a manuais técnicos.
@@ -17,45 +17,49 @@ Evolução do visual **Elite Dark/Glassmorphism** com ícones **Hiper-realistas 
     - **Tipografia:** Orbitron (Headlines) + Manrope/Inter Variable (Corpo).
 
 ## 3. Estado Atual dos Arquivos (FULL STACK EVOLUTION)
+- **Intelligence Engine (Assessment Wizard 2.0) [ATIVO]:**
+  - **Fluxo Real:** Frontend Wizard conectado à API de Avaliação (`/api/v1/assessments`), permitindo diagnósticos reais de ISO 42001.
+  - **Cálculo de Maturidade:** Algoritmo de scoring implementado no backend, classificando riscos como "Inicial", "Definido" ou "Otimizado".
+  - **Relatórios Automatizados:** Geração de PDF profissional com marca d'água, logo oficial e resumo executivo dinâmico.
 - **Autenticação & Segurança (Full Stack) [PROD VERIFIED]:**
   - **Fluxos Completos:** Login, Registro e 2FA TOTP operando 100% em Produção (VPS).
   - **Database Migration:** Schema SQLite corrigido no VPS (`sql_app.db`) com suporte a campos de segurança.
 - **LMS / Academia (Frontend) [REFORMULADO]:**
   - **Theater Mode:** Interface "Netflix-style" com player de vídeo expandido, foco total no conteúdo e controles flutuantes.
   - **Google Material 3:** Listas de aulas e sidebar com estética limpa, tipografia produtiva e navegação fluida.
-- **Backend Stability:**
-  - **Zero 500 Errors:** Correção de falhas de inicialização e mapeamento de modelos ORM (`User.enrollments`).
+  - **Fix Seed:** Geração de dados de demonstração desbloqueada para todos os usuários logados.
 
-### Últimas Atualizações (v7.7 - ISO 42001 & Risk Module)
-- **Gestão de Riscos (Full Stack):** Matriz de Calor interativa, cálculo automático de severidade (PxI) e integração completa backend/frontend.
-- **Secure PDF Viewer:** Visualização de documentos via Canvas (anti-cópia) com marca d'água dinâmica para proteção de IP.
-- **UI/UX Refinements:** Navbar "Elite", fontes Orbitron e correção de layouts no Dashboard.
-- **Backend Hardening:** Correção de bugs críticos na API de Riscos (commit de transações).
+### Últimas Atualizações (v8.0 - Intelligence & Reporting)
+- **Unificação de Branding:** Logo ALGOR ampliado no Navbar e sincronizado com o Relatório PDF para consistência visual.
+- **PDF Reporting Engine:** Implementação da biblioteca ReportLab no backend para geração de documentos on-the-fly.
+- **Fix Webpack PDF Worker:** Resolução definitiva de conflitos de build (Next.js + PDF.js) usando `ssr: false` e configuração de Webpack.
 
-### Próximos Passos (Imediato - CONCLUÍDO ✅)
-1. ✅ **Validation:** Testes de ponta a ponta (Riscos & Secure View) aprovados em produção.
-2. ✅ **Deploy:** VPS atualizada e operando estável na v7.7.
-3. ✅ **Audit:** Trilha de auditoria e "Fortaleza Digital" ativas.
+### Ciclo Atual (Fase 4 - Consultoria & Inteligência - CONCLUÍDO ✅)
+1. ✅ **Assessment Wizard 2.0:** Criar o fluxo real de diagnóstico de IA (Backend + Frontend).
+2. ✅ **Relatórios Automáticos:** Gerar PDF com o "Plano de Ação" baseado nos riscos identificados.
+3. ✅ **Validation:** Teste E2E do fluxo de auditoria em ambiente de produção (VPS).
 
-### Próximo Ciclo (Fase 4 - Consultoria & Inteligência)
-1. **Assessment Wizard 2.0:** Criar o fluxo real de diagnóstico de IA (Backend + Frontend).
-2. **Relatórios Automáticos:** Gerar PDF com o "Plano de Ação" baseado nos riscos identificados.
-3. **Monetização:** Estudar integração com Gateway de Pagamento (Stripe/Asaas).
+### Próximo Ciclo (Fase 5 - Monetização & Escala)
+1. **Gateway de Pagamento:** Integração com Stripe/Asaas para venda de cursos e auditorias.
+2. **Dashboard de Admin:** Área para gestão de usuários e visualização global de auditorias.
+3. **Multi-Tenant:** Preparação para múltiplos clientes corporativos isolados.
 
-## 4. Roadmap Imediato (Fase 3 - Dashboard Transformation)
+## 4. Roadmap Imediato (Fase 3/4 - Dashboard Transformation)
 Seguindo os novos manuais operacionais:
-1.  ✅ **Assessment Wizard 2.0:** Perguntas técnicas reais e UI de alto nível.
-2.  ✅ **Secure Auth UI:** 2FA via **Authenticator App (TOTP)** Completo e Integrado.
-3.  ✅ **Visual Público:** Home e Associados polidos (Logos, Fotos, Layout).
-4.  ✅ **Dashboard Elite Dark:** Conversão total para Deep Navy/Glass.
-5.  ✅ **VPS Production:** Deploy estável com migração de banco via script e dependências instaladas.
-6.  ✅ **Módulo de Riscos:** Gestão de Riscos conforme ISO 42001.
-7.  ✅ **LMS Classroom 2.0:** Interface renovada ("Theater Mode") para máxima imersão.
-8.  ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
+47. ✅ **Assessment Wizard 2.0:** Perguntas técnicas reais e UI de alto nível.
+48. ✅ **Secure Auth UI:** 2FA via **Authenticator App (TOTP)** Completo e Integrado.
+49. ✅ **Visual Público:** Home e Associados polidos (Logos, Fotos, Layout).
+50. ✅ **Dashboard Elite Dark:** Conversão total para Deep Navy/Glass.
+51. ✅ **VPS Production:** Deploy estável com migração de banco via script e dependências instaladas.
+52. ✅ **Módulo de Riscos:** Gestão de Riscos conforme ISO 42001.
+53. ✅ **LMS Classroom 2.0:** Interface renovada ("Theater Mode") para máxima imersão.
+54. ✅ **SEO Técnico:** Metadados OPG, Twitter Cards e Sitemap configurados.
+55. ✅ **Relatórios PDF:** Geração automática com Branding Unificado.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
 - **v6.0:** ISO 42001 Compliance Suite.
 - **v7.0:** Secure Access & Elite Visuals.
 - **v7.5:** Secure Core & Backend Stabilization.
-- **v7.6:** **VPS Production Stable (ATUAL)** - Backend corrigido em prod, LMS Theater Mode, Banco de Dados Migrado.
+- **v7.7:** VPS Production Stable & Risk Module (ISO 42001).
+- **v8.0:** **Intelligence Engine & Reporting (ATUAL)** - Diagnóstico real, PDFs e identidade visual unificada.
