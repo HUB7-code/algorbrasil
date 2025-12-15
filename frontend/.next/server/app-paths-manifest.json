@@ -1,3 +1,5 @@
 {
-  "/(public)/page": "app/(public)/page.js"
+  "/icon.png/route": "app/icon.png/route.js",
+  "/(public)/page": "app/(public)/page.js",
+  "/(public)/associates/page": "app/(public)/associates/page.js"
 }

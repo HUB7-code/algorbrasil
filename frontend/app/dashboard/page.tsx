@@ -98,31 +98,31 @@ export default function DashboardPage() {
             {/* KPI Cards (Bento Grid) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <EliteCard
-                    icon="memory"
-                    label="Maturidade IA"
+                    icon="rocket_launch"
+                    label="Growth Viability"
                     value={stats.maturityLevel}
-                    subtext="Metodologia Ágil"
+                    subtext="Nível de Prontidão"
                     colorClass="text-brand-blue"
                 />
                 <EliteCard
-                    icon="security"
-                    label="Vulnerabilidades"
-                    value={stats.vulnerabilities}
-                    subtext="Necessitam atenção"
-                    colorClass="text-red-400"
-                />
-                <EliteCard
-                    icon="verified"
-                    label="Conformidade"
-                    value={stats.complianceRate}
-                    subtext="ISO 42001 Standard"
+                    icon="shield_lock"
+                    label="Data Clean Room"
+                    value="Ativo"
+                    subtext="Criptografia Total"
                     colorClass="text-brand-green"
                 />
                 <EliteCard
-                    icon="event"
-                    label="Próxima Revisão"
-                    value="15 Dez"
-                    subtext="Em 4 dias"
+                    icon="warning"
+                    label="Risco de Dados"
+                    value={stats.vulnerabilities}
+                    subtext="Leads Tóxicos"
+                    colorClass="text-red-400"
+                />
+                <EliteCard
+                    icon="speed"
+                    label="Consent Velocity"
+                    value="< 24h"
+                    subtext="Opt-out SLA"
                     colorClass="text-purple-400"
                 />
             </div>
@@ -137,28 +137,28 @@ export default function DashboardPage() {
 
                     <div className="p-6 pb-4 flex items-center justify-between relative z-10">
                         <h2 className="text-lg font-medium text-white flex items-center gap-2">
-                            <span className="material-symbols-rounded text-brand-blue">history</span>
-                            Atividade Recente
+                            <span className="material-symbols-rounded text-brand-blue">monitoring</span>
+                            Auditorias de Growth
                         </h2>
                         <Button variant="ghost" className="text-brand-blue text-xs hover:text-white hover:bg-brand-blue/10 rounded-full px-4">Ver histórico</Button>
                     </div>
 
                     <div className="p-2 relative z-10">
                         {loading ? (
-                            <div className="p-12 text-center text-gray-500 animate-pulse font-mono text-sm">Synchronizing neural link...</div>
+                            <div className="p-12 text-center text-gray-500 animate-pulse font-mono text-sm">Authenticating handshake...</div>
                         ) : recentAssessments.length === 0 ? (
-                            <div className="p-12 text-center text-gray-500 font-light">Nenhuma auditoria realizada ainda.</div>
+                            <div className="p-12 text-center text-gray-500 font-light">Nenhum diagnóstico de campanha realizado.</div>
                         ) : (
                             recentAssessments.map((item, idx) => (
                                 <Link href={`/dashboard/assessments/${item.id}`} key={item.id}>
                                     <div className="group/item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 cursor-pointer border-b border-white/5 last:border-0 hover:pl-6">
                                         <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover/item:text-brand-blue group-hover/item:bg-brand-blue/10 transition-colors">
-                                            <span className="material-symbols-rounded">description</span>
+                                            <span className="material-symbols-rounded">check_circle</span>
                                         </div>
                                         <div className="flex-1">
                                             <h3 className="text-sm font-medium text-gray-200 group-hover/item:text-brand-blue transition-colors">{item.title}</h3>
                                             <p className="text-xs text-gray-500 mt-1 flex items-center gap-2 font-mono">
-                                                SCORE: {item.score_total}/100 • {new Date(item.created_at).toLocaleDateString('pt-BR')}
+                                                SCORE: {item.score_total}/60 • {new Date(item.created_at).toLocaleDateString('pt-BR')}
                                             </p>
                                         </div>
                                         <StatusBadge status={item.status} />
@@ -179,11 +179,11 @@ export default function DashboardPage() {
 
                         <div className="relative z-10">
                             <div className="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue flex items-center justify-center mb-6 border border-brand-blue/30 shadow-[0_0_15px_rgba(0,163,255,0.2)]">
-                                <span className="material-symbols-rounded">diamond</span>
+                                <span className="material-symbols-rounded">verified_user</span>
                             </div>
-                            <h3 className="text-xl font-display font-medium mb-2">Plano Enterprise</h3>
-                            <p className="text-sm text-gray-400 mb-8 font-light leading-relaxed">Sua licença ISO 42001 está ativa e operando em conformidade total até <span className="text-white font-medium">Janeiro 2026</span>.</p>
-                            <button className="text-xs font-bold uppercase tracking-widest text-brand-blue hover:text-white hover:underline transition-colors offset-2">Gerenciar Assinatura</button>
+                            <h3 className="text-xl font-display font-medium mb-2">Growth License</h3>
+                            <p className="text-sm text-gray-400 mb-8 font-light leading-relaxed">Sua auditoria ISO 42001 está válida para campanhas Enterprise até <span className="text-white font-medium">Jan 2026</span>.</p>
+                            <button className="text-xs font-bold uppercase tracking-widest text-brand-blue hover:text-white hover:underline transition-colors offset-2">Renovar Certificado</button>
                         </div>
                     </div>
 
@@ -191,12 +191,12 @@ export default function DashboardPage() {
                     <div className="glass-panel rounded-3xl p-6 border border-white/5">
                         <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 flex items-center gap-2">
                             <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
-                            Status do Sistema
+                            Infraestrutura Segura
                         </h3>
                         <div className="space-y-5">
-                            <StatusRow label="API Gateway" status="online" />
-                            <StatusRow label="Database Cluster" status="online" />
-                            <StatusRow label="LLM Engine" status="processing" />
+                            <StatusRow label="Data Clean Room" status="online" />
+                            <StatusRow label="Consent Engine" status="online" />
+                            <StatusRow label="Bias Monitor" status="scanning" />
                         </div>
                     </div>
                 </div>
