@@ -25,11 +25,11 @@ export default function Footer() {
                             Transformando riscos tecnológicos em ativos estratégicos auditáveis.
                         </p>
 
-                        {/* Trust Badge: AI Transparency */}
+                        {/* Trust Badge: Enterprise Security */}
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-brand-blue/20 bg-brand-navy/50">
                             <Activity className="w-3 h-3 text-brand-green" />
                             <span className="font-mono text-[10px] text-brand-green uppercase tracking-wide">
-                                AI & Human Oversight
+                                Verified ALGOR Infrastructure
                             </span>
                         </div>
                     </div>
@@ -39,8 +39,8 @@ export default function Footer() {
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Plataforma</h4>
                         <ul className="space-y-3 font-mono text-xs text-gray-400">
                             <li><Link href="/login" className="hover:text-brand-green transition-colors">Console do Membro</Link></li>
-                            <li><Link href="/register?persona=tech" className="hover:text-brand-green transition-colors">API & Integrações</Link></li>
-                            <li><Link href="#" className="hover:text-brand-green transition-colors">Status do Sistema</Link></li>
+                            <li><Link href="/register?persona=tech" className="hover:text-brand-green transition-colors">API & Webhooks</Link></li>
+                            <li><Link href="#" className="hover:text-brand-green transition-colors">Relatório de Transparência</Link></li>
                         </ul>
                     </div>
 
@@ -48,9 +48,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Soluções</h4>
                         <ul className="space-y-3 font-mono text-xs text-gray-400">
-                            <li><Link href="/register" className="hover:text-brand-green transition-colors">Diagnóstico ISO 42001</Link></li>
-                            <li><Link href="#" className="hover:text-brand-green transition-colors">Adequação PL 2338</Link></li>
-                            <li><Link href="#" className="hover:text-brand-green transition-colors">Auditoria de Algoritmos</Link></li>
+                            <li><Link href="/register" className="hover:text-brand-green transition-colors">Fortress Assessment</Link></li>
+                            <li><Link href="#" className="hover:text-brand-green transition-colors">Data Clean Rooms</Link></li>
+                            <li><Link href="#" className="hover:text-brand-green transition-colors">Auditoria de Viés</Link></li>
                         </ul>
                     </div>
 
@@ -58,9 +58,9 @@ export default function Footer() {
                     <div>
                         <h4 className="font-mono text-xs font-bold text-white uppercase tracking-widest mb-6">Governança</h4>
                         <ul className="space-y-3 font-mono text-xs text-gray-400">
-                            <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><ShieldCheck className="w-3 h-3" /> Portal do Titular de Dados</Link></li>
-                            <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><Lock className="w-3 h-3" /> Preferências de Privacidade</Link></li>
-                            <li><Link href="#" className="hover:text-brand-green transition-colors">Declaração de Transparência</Link></li>
+                            <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><ShieldCheck className="w-3 h-3" /> Portal do Titular (DSR)</Link></li>
+                            <li><Link href="#" className="flex items-center gap-2 hover:text-brand-green transition-colors"><Lock className="w-3 h-3" /> Política de IA & Dados</Link></li>
+                            <li><Link href="#" className="hover:text-brand-green transition-colors">Status: ISO 42001 Native</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@ export default function Footer() {
                 {/* Bottom Bar */}
                 <div className="pt-8 border-t border-brand-blue/5 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="font-mono text-[10px] text-gray-500">
-                        © 2024 Algor Brasil. Todos os direitos reservados.
+                        © 2025 Algor Brasil. Todos os direitos reservados.
                     </p>
 
                     {/* ISO Badges Placeholders */}

@@ -8,79 +8,79 @@ import { motion, AnimatePresence } from "framer-motion";
 // Schema de Perguntas (Mantido)
 const STEPS = [
     {
-        id: "context",
-        title: "Contexto & Papel",
-        description: "Definindo a posição da sua organização na cadeia de valor da IA.",
-        icon: "domain", // Google Material Icon Name
+        id: "data_provenance",
+        title: "Origem & Segurança de Dados",
+        description: "Avaliando a toxicidade e a conformidade da sua infraestrutura de dados atual.",
+        icon: "database", // Google Material Icon
         questions: [
             {
-                id: "role",
-                text: "Qual o papel principal da sua organização?",
+                id: "data_source",
+                text: "Qual a fonte primária de dados para treinamento/retargeting?",
                 options: [
-                    { value: "provider", label: "Desenvolvedor (Cria o modelo)", score: 10 },
-                    { value: "deployer", label: "Usuário (Utiliza IA de terceiros)", score: 5 },
-                    { value: "integrator", label: "Integrador (Conecta APIs)", score: 8 }
+                    { value: "first_party_clean", label: "First-Party (Coletado com Consentimento)", score: 10 },
+                    { value: "mixed_enriched", label: "Misto (Enriquecido via Bureau)", score: 5 },
+                    { value: "third_party_bought", label: "Listas Compradas / Cold Data", score: 0 }
                 ]
             },
             {
-                id: "scope",
-                text: "Qual o escopo de aplicação da IA?",
+                id: "clean_room",
+                text: "Utiliza Data Clean Rooms para cruzamento de audiências?",
                 options: [
-                    { value: "internal", label: "Apenas Processos Internos", score: 10 },
-                    { value: "customer", label: "Interação com Clientes", score: 5 },
-                    { value: "decision", label: "Decisão Automatizada Crítica", score: 0 }
+                    { value: "active", label: "Sim, ambiente criptografado ativo", score: 10 },
+                    { value: "planned", label: "Em planejamento/implementação", score: 5 },
+                    { value: "none", label: "Não, cruzamento direto (CSV/Excel)", score: 0 }
                 ]
             }
         ]
     },
     {
-        id: "risk_level",
-        title: "Classificação de Risco",
-        description: "Identificando o nível regulatório (EU AI Act).",
-        icon: "warning",
+        id: "consent_velocity",
+        title: "Velocidade de Consentimento",
+        description: "Capacidade de respeitar os direitos do titular em tempo real (LGPD Art. 18).",
+        icon: "speed",
         questions: [
             {
-                id: "data_category",
-                text: "O sistema processa dados sensíveis?",
+                id: "opt_out_mechanism",
+                text: "O que acontece quando um lead pede Opt-out?",
                 options: [
-                    { value: "none", label: "Não processa dados pessoais", score: 10 },
-                    { value: "personal", label: "Dados pessoais comuns", score: 5 },
-                    { value: "sensitive", label: "Dados sensíveis/biométricos", score: 0 }
+                    { value: "automated_realtime", label: "Remoção automática em < 24h", score: 10 },
+                    { value: "manual_process", label: "Processo manual (Planilha)", score: 3 },
+                    { value: "ignored", label: "Não há processo definido", score: 0 }
                 ]
             },
             {
-                id: "criticality",
-                text: "Risco de impacto em direitos fundamentais?",
+                id: "cookie_sync",
+                text: "Sua IA de retargeting respeita o Consent Mode?",
                 options: [
-                    { value: "no", label: "Impacto mínimo/reversível", score: 10 },
-                    { value: "reputation", label: "Apenas financeiro/reputação", score: 5 },
-                    { value: "rights", label: "Risco a direitos fundamentais", score: 0 }
+                    { value: "full_sync", label: "Sim, bloqueia cookies sem aceite", score: 10 },
+                    { value: "partial", label: "Apenas aviso de banner", score: 5 },
+                    { value: "none", label: "Ignora preferências", score: 0 }
                 ]
             }
         ]
     },
     {
-        id: "governance",
-        title: "Maturidade de Governança",
-        description: "Avaliação de controles administrativos e humanos.",
-        icon: "gavel",
+        id: "brand_safety",
+        title: "Segurança de Marca & IA",
+        description: "Mitigação de riscos de alucinação e danos à reputação.",
+        icon: "shield",
         questions: [
             {
-                id: "policy",
-                text: "Existe Política de Uso de IA documentada?",
+                id: "creative_review",
+                text: "Como os criativos gerados por IA são validados?",
                 options: [
-                    { value: "documented", label: "Sim, aprovada e comunicada", score: 10 },
-                    { value: "draft", label: "Em rascunho/informal", score: 5 },
-                    { value: "none", label: "Inexistente", score: 0 }
+                    { value: "human_audit", label: "Auditoria Humana (HITL)", score: 10 },
+                    { value: "automated_check", label: "Checagem automatizada básica", score: 5 },
+                    { value: "no_review", label: "Publicação direta sem revisão", score: 0 }
                 ]
             },
             {
-                id: "human_oversight",
-                text: "Nível de Supervisão Humana (HITL)?",
+                id: "hallucination_risk",
+                text: "Seu chatbot de vendas tem travas de segurança?",
                 options: [
-                    { value: "total", label: "Validação humana total", score: 10 },
-                    { value: "partial", label: "Amostragem/Pós-evento", score: 5 },
-                    { value: "none", label: "Autonomia total", score: 0 }
+                    { value: "rag_controlled", label: "RAG estrito (Base de conhecimento fechada)", score: 10 },
+                    { value: "prompt_eng", label: "Apenas Prompt Engineering", score: 5 },
+                    { value: "open_model", label: "Modelo Aberto (Cria livremente)", score: 0 }
                 ]
             }
         ]

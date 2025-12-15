@@ -5,8 +5,8 @@ import { Scan, DraftingCompass, Hammer, RefreshCw, CheckCircle2, ShieldCheck, Ac
 const phases = [
     {
         id: '01',
-        title: 'Assessment & Discovery',
-        description: 'Mapeamento de "Shadow AI" e diagnóstico inicial de maturidade.',
+        title: 'Discovery & Shadow AI',
+        description: 'Mapeamento de riscos ocultos e vazamento de dados em IA não sancionada.',
         icon: Scan,
         color: 'text-brand-copper',
         bg: 'bg-brand-copper/10',
@@ -14,8 +14,8 @@ const phases = [
     },
     {
         id: '02',
-        title: 'Design & Frameworks',
-        description: 'Criação de políticas personalizadas e Charters de Governança.',
+        title: 'Clean Room Design',
+        description: 'Arquitetura de ambiente seguro para cruzamento de dados sem PII.',
         icon: DraftingCompass,
         color: 'text-brand-blue',
         bg: 'bg-brand-blue/10',
@@ -23,8 +23,8 @@ const phases = [
     },
     {
         id: '03',
-        title: 'Implementation & Deploy',
-        description: 'Integração de guardrails técnicos no pipeline de CI/CD.',
+        title: 'Compliance-Led Growth',
+        description: 'Ativação de campanhas usando IA que respeita Opt-in/Opt-out em tempo real.',
         icon: Hammer,
         color: 'text-brand-green',
         bg: 'bg-brand-green/10',
@@ -32,8 +32,8 @@ const phases = [
     },
     {
         id: '04',
-        title: 'Operation & Monitoring',
-        description: 'Auditoria contínua e monitoramento de drift em tempo real.',
+        title: 'Continuous Audit',
+        description: 'Monitoramento 24/7 de alucinação e viés algorítmico.',
         icon: RefreshCw,
         color: 'text-purple-400',
         bg: 'bg-purple-400/10',
