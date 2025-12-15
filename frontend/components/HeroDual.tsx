@@ -29,16 +29,16 @@ export default function HeroDual() {
             {/* Main Headline */}
             <div className="relative z-10 text-center mb-0 animate-in slide-in-from-top-10 fade-in duration-700">
                 <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] md:text-xs font-mono tracking-[0.2em] mb-10 uppercase backdrop-blur-md">
-                    Ecossistema de Inteligência Viva
+                    Growth AI Compliant v2.0
                 </span>
                 <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6">
-                    A Convergência entre <br />
+                    Cresça Rápido. <br />
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-green-400">
-                        Tecnologia e Governança
+                        Durma Tranquilo.
                     </span>
                 </h1>
                 <p className="font-light text-gray-300 max-w-2xl mx-auto text-sm md:text-lg">
-                    O centro de excelência em auditoria algorítmica e conformidade ISO 42001 do Brasil.
+                    A única consultoria do Brasil com arquitetura ISO 42001 Nativa. Desbloqueie contratos Enterprise e blinde sua operação growth contra a LGPD.
                 </p>
             </div>
 
@@ -63,17 +63,17 @@ export default function HeroDual() {
                             <ShieldCheck className="w-6 h-6" />
                         </div>
 
-                        <h2 className="font-serif text-3xl text-white mb-2">Para Empresas</h2>
-                        <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Proteção & Compliance</h3>
+                        <h2 className="font-serif text-3xl text-white mb-2">Growth Intelligence</h2>
+                        <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Compliance-Led Growth</h3>
 
                         <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
-                            Mitigue riscos regulatórios (PL 2338) e audite seus modelos de IA com nossa metodologia proprietária. Diagnostique sua maturidade agora.
+                            Use Data Clean Rooms para cruzar dados sem ferir a LGPD. Sua infraestrutura de vendas auditável e pronta para escalar.
                         </p>
 
                         <div className="mt-auto pt-6 w-full border-t border-white/5">
                             <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Auditoria ISO 42001 Ready</li>
-                                <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Monitoramento de Risco Contínuo</li>
+                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Fortress Architecture (ISO 42001)</li>
+                                <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Risco Zero de Alucinação</li>
                             </ul>
 
                             <button

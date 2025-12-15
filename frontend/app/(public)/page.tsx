@@ -61,9 +61,9 @@ export default function Home() {
                         <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00FF94]/10 transition-all text-white group-hover:text-[#00FF94]">
                             <Shield className="w-6 h-6" />
                         </div>
-                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00FF94] transition-colors">Autoridade Auditada</h3>
+                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00FF94] transition-colors">ISO 42001 Native</h3>
                         <p className="text-gray-400 font-light leading-relaxed">
-                            Diferencie-se no mercado. Membros recebem o selo <span className="text-white font-medium">Verified ALGOR</span>, sinalizando conformidade com padrões éticos rigorosos.
+                            Sua operação growth nasce desenhada segundo a norma internacional. Entregamos relatórios mensais de <span className="text-white font-medium">Algorithmic Bias Audit</span> para blindar seu C-Level.
                         </p>
                     </div>
 
@@ -71,9 +71,9 @@ export default function Home() {
                         <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00FF94]/10 transition-all text-white group-hover:text-[#00FF94]">
                             <Users className="w-6 h-6" />
                         </div>
-                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00FF94] transition-colors">Network de Elite</h3>
+                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00FF94] transition-colors">Data Clean Rooms</h3>
                         <p className="text-gray-400 font-light leading-relaxed">
-                            Acesso exclusivo a grupos de trabalho com C-Levels e reguladores. Participe ativamente da definição dos rumos da IA no Brasil.
+                            Acesso a dados de mercado cruzados com seus dados First-Party em ambiente neutro criptografado. Nossa equipe processa inteligência <span className="text-white font-medium">sem nunca ver PII (Dados Pessoais)</span>.
                         </p>
                     </div>
 
@@ -84,13 +84,13 @@ export default function Home() {
                         <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 text-[#00A3FF] group-hover:bg-[#00A3FF]/10 transition-all relative z-10">
                             <Cpu className="w-6 h-6" />
                         </div>
-                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00A3FF] transition-colors relative z-10">Acesso ao ALGOR OS</h3>
+                        <h3 className="font-serif text-2xl mb-3 group-hover:text-[#00A3FF] transition-colors relative z-10">Consent-Aware AI</h3>
                         <p className="text-gray-400 font-light leading-relaxed relative z-10">
-                            Uso irrestrito da nossa plataforma SaaS para diagnósticos ISO 42001, auditoria algorítmica e gestão de risco contínua.
+                            Modelos que respeitam o Opt-in em tempo real. Se o usuário revoga consentimento, nossa IA <span className="text-white font-medium">automaticamente o remove</span> do retargeting, eliminando riscos jurídicos.
                         </p>
                         <div className="mt-6 flex items-center gap-2 text-[#00A3FF] text-xs font-mono uppercase tracking-widest relative z-10">
                             <span className="w-2 h-2 bg-[#00A3FF] rounded-full animate-pulse" />
-                            Sistema Operacional Incluso
+                            LGPD Automata Core
                         </div>
                     </div>
                 </div>

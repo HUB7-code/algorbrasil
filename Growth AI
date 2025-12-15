@@ -1,0 +1,75 @@
+# INTELLIGENCE REPORT: GROWTH AI COMPLIANT (2025-2026)
+
+> **Confidencialidade:** Interno (ALGOR Strategy)
+> **Objetivo:** Definir o framework teórico, técnico e de mercado para a nova oferta "Growth AI Compliant".
+
+---
+
+## 1. O Conceito "Growth AI Compliant"
+**Definição:** Uma metodologia de crescimento acelerado que utiliza Inteligência Artificial não apenas para performance, mas como um mecanismo de **confiança verificável**. Ao contrário do "Growth Hacking" tradicional (que muitas vezes quebra regras para crescer), o Growth AI Compliant usa a **governança (ISO 42001/LGPD)** como uma vantagem injusta para acessar dados de clientes Enterprise que agências comuns não conseguem tocar.
+
+### A Tese Central
+> *"Em um mundo de IA não regulada, a 'Conformidade' deixa de ser um custo e vira o maior ativo de marketing. Quem prova que é seguro, vende mais caro e mais rápido para grandes corporações."*
+
+---
+
+## 2. Dados de Mercado & Oportunidade (O "Porquê")
+*Pesquisa de cenário 2025:*
+
+*   **Bloqueio de Vendas:** 27% das organizações Enterprises barraram projetos de IA em 2024 puramente por dúvidas de compliance.
+*   **Risco Real:** A multa do EU AI Act chega a **€35 milhões** ou 7% do faturamento global. C-Levels estão aterrorizados.
+*   **Gap de Mercado:**
+    *   *Agências de MKT:* Focam em CPA/ROAS, mas ignoram a origem dos dados (risco jurídico).
+    *   *Escritórios de Advocacia:* Focam em risco, mas não entendem de tecnologia/growth.
+    *   *ALGOR:* Ocupa o "Middle Ground" — Crescimento com blindagem jurídica técnica.
+
+---
+
+## 3. Análise Competitiva
+*Quem está no jogo?*
+
+1.  **Agências "Growth AI" Genéricas:** Usam o termo apenas como buzzword para automação. Têm compliance superficial (apenas Termos de Uso).
+2.  **Líderes Globais (Single Grain / NoGood):** Já pivotaram.
+    *   *Single Grain:* Vende "AI Data Provenance" (rastreabilidade de dados) como feature de confiança.
+    *   *NoGood:* Vende "Compliance-First Content" para áreas reguladas (Fintech/Saúde).
+3.  **Diferencial ALGOR:** **ISO/IEC 42001 Readiness.**
+    Enquanto competidores falam de "boas práticas", a ALGOR entrega uma estrutura pré-auditada pela norma internacional de gestão de IA. Isso tangibiliza a segurança.
+
+---
+
+## 4. O Stack Técnico ("The Fortress Architecture")
+Para vender "Growth AI Compliant", a entrega técnica deve ser diferenciada. O stack sugerido:
+
+### A. Data Clean Rooms (DCRs)
+*   **O que é:** Ambientes onde dados da ALGOR e do Cliente se cruzam sem que ninguém veja o PII (Dado Pessoal Identificável) bruto do outro.
+*   **Venda:** "Vamos rodar modelos nos seus dados sem nunca 'ver' o nome dos seus clientes."
+*   **Ferramentas:** Snowflake Data Clean Rooms, AWS Clean Rooms.
+
+### B. Consent-Aware AI
+*   **O que é:** Modelos de IA que só processam leads que deram "Opt-in" explícito. Se o usuário revoga consentimento, a IA "desaprende" ou ignora aquele dado no retargeting.
+*   **Ferramentas:** CDPs com Consent Mode (Segment, Tealium) integrados a LLMs.
+
+### C. Model Monitoring (ISO Control A.9)
+*   **O que é:** Dashboards que provam que a IA não está alucinando ou sendo enviesada (ex: oferecendo crédito só para homens).
+*   **Entrega:** Relatório mensal de "Fairness & Bias Audit" junto com o relatório de ROAS.
+
+---
+
+## 5. Estratégia de Posicionamento (Site Content)
+
+### Headline Vencedora
+*"Cresça Rápido. Durma Tranquilo. A única consultoria de Growth do Brasil com arquitetura ISO 42001 Nativa."*
+
+### Argumentos de Venda (Pitch)
+1.  **Audit Readiness:** "Nosso setup de Growth já deixa sua empresa 90% pronta para uma auditoria da ISO 42001."
+2.  **Blindagem LGPD:** "Não usamos 'listas frias'. Criamos ecossistemas de dados First-Party proprietários para você."
+3.  **Enterprise Access:** "Desbloqueie contratos com grandes empresas provando que sua IA é segura."
+
+---
+
+## 6. Próximos Passos (Actionable)
+1.  **Refinar Conteúdo do Site:** Atualizar o `growth-ai-compliant-site-structure.md` com estes dados técnicos.
+2.  **Criar o "Privacy Kit":** Um pacote de documentos (termos, RIPD simplificado) que vai junto com o contrato de marketing.
+3.  **Demo do "Clean Room":** Criar uma explicação visual simples de como processamos dados sem ler PII.
+
+*Documento baseado em pesquisa deep dive realizada em 15/12/2025 no estado da arte de IA Governance.*
