@@ -21,6 +21,7 @@ class AssessmentResponse(BaseModel):
     score_total: int
     answers_payload: Dict[str, Any]
     report_summary: Optional[str]
+    organization_id: Optional[int] = None
     created_at: datetime
 
     class Config:

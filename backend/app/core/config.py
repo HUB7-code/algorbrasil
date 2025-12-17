@@ -24,6 +24,10 @@ class Settings(BaseSettings):
     STRIPE_API_KEY: str = ""
     STRIPE_WEBHOOK_SECRET: str = ""
 
+    # Frontend
+    FRONTEND_URL: str = "http://localhost:3000"
+
+
 
     class Config:
         case_sensitive = True

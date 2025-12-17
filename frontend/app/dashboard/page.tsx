@@ -176,18 +176,23 @@ export default function DashboardPage() {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-white/5">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-display font-medium text-white tracking-tight">
-                        Visão Geral
+                        Centro de Excelência (CoE)
                     </h1>
                     <p className="text-gray-400 mt-2 font-light">
                         Bem-vindo ao centro de comando, <span className="text-brand-blue font-medium">{user.name}</span>.
                     </p>
                 </div>
-                <Link href="/dashboard/assessments/new">
-                    <button className="h-11 px-6 rounded-xl bg-gradient-to-r from-brand-blue to-teal-500 text-white text-sm font-semibold hover:shadow-[0_0_20px_rgba(0,163,255,0.4)] transition-all duration-300 flex items-center gap-2 transform hover:scale-105">
-                        <span className="material-symbols-rounded text-xl">add_circle</span>
-                        Nova Auditoria
-                    </button>
-                </Link>
+
+                {/* Status da Jornada - Fase Atual */}
+                <div className="flex items-center gap-4 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
+                    <div className="flex flex-col items-end">
+                        <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Fase Atual</span>
+                        <span className="text-sm font-bold text-brand-copper">1. Fortalecimento</span>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-brand-copper/10 flex items-center justify-center text-brand-copper">
+                        <span className="material-symbols-rounded">foundation</span>
+                    </div>
+                </div>
             </div>
 
             {/* KPI Cards (Bento Grid) */}
@@ -290,8 +295,8 @@ export default function DashboardPage() {
                                     onClick={hasPurchasedReport ? handleDownloadReport : handlePurchase}
                                     disabled={buying}
                                     className={`text-black text-xs font-bold px-4 py-2 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 ${hasPurchasedReport
-                                            ? 'bg-brand-green hover:bg-[#00E585] hover:shadow-[0_0_15px_rgba(0,255,148,0.4)]'
-                                            : 'bg-brand-amber hover:bg-[#FFC033] hover:shadow-[0_0_15px_rgba(255,176,0,0.4)]'
+                                        ? 'bg-brand-green hover:bg-[#00E585] hover:shadow-[0_0_15px_rgba(0,255,148,0.4)]'
+                                        : 'bg-brand-amber hover:bg-[#FFC033] hover:shadow-[0_0_15px_rgba(255,176,0,0.4)]'
                                         }`}
                                 >
                                     {buying ? (

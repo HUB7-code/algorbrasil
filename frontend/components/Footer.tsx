@@ -66,9 +66,11 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-brand-blue/5 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="font-mono text-[10px] text-gray-500">
-                        © 2025 Algor Brasil. Todos os direitos reservados.
+                <div className="pt-8 border-t border-brand-blue/5 flex flex-col justify-between items-start gap-4">
+                    <p className="font-mono text-[10px] text-gray-500 max-w-4xl">
+                        © 2025 Algor Association. Representada juridicamente no Brasil pela <strong>XPER BRASIL GESTAO EM INOVAÇÃO TECNOLÓGICA LTDA (CNPJ: 33.173.492/0001-76)</strong>.
+                        <br />
+                        ALGOR é uma organização profissional associativa com registro no Reino Unido (London). Contato Global: <a href="mailto:global@algor.uk" className="text-brand-blue hover:underline">global@algor.uk</a>
                     </p>
 
                     {/* ISO Badges Placeholders */}

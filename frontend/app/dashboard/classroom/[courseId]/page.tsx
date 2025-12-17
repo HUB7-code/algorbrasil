@@ -1,354 +1,229 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import ReactPlayer from 'react-player';
-import {
-    PlayCircle,
-    FileText,
-    CheckCircle,
-    Lock,
-    ChevronLeft,
-    Menu,
-    Download
-} from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { useParams, useRouter } from 'next/navigation';
+import { ArrowLeft, PlayCircle, CheckCircle, FileText, Lock, ChevronDown, ChevronRight, Menu } from 'lucide-react';
+import SecurePDFViewer from '@/components/SecurePDFViewer';
 
-const SecurePDFViewer = dynamic(() => import('@/components/SecurePDFViewer'), {
-    ssr: false,
-    loading: () => <div className="w-full h-full flex items-center justify-center text-gray-500">Carregando Leitor Seguro...</div>
-});
+// Dynamically import ReactPlayer to avoid SSR issues
+const ReactPlayer = dynamic(() => import('react-player/lazy'), { ssr: false }) as any;
 
-// --- TS Interfaces ---
-interface Lesson {
+type Lesson = {
     id: string;
     title: string;
-    type: 'video' | 'document';
-    content: string; // url or ID
-    duration: number;
-    status: 'locked' | 'unlocked' | 'completed' | 'in_progress';
-    completed: boolean;
-}
+    duration: string;
+    type: 'video' | 'quiz' | 'document';
+    url?: string;
+    isLocked: boolean;
+    isCompleted: boolean;
+};
 
-interface Module {
-    id: number;
+type Module = {
+    id: string;
     title: string;
     lessons: Lesson[];
-}
-
-interface CourseStructure {
-    id: string;
-    title: string;
-    description: string;
-    modules: Module[];
-}
+};
 
 export default function ClassroomPage() {
     const params = useParams();
     const router = useRouter();
-    const courseId = params?.courseId as string;
+    const courseId = params.courseId as string;
 
-    const [course, setCourse] = useState<CourseStructure | null>(null);
-    const [loading, setLoading] = useState(true);
     const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [expandedModules, setExpandedModules] = useState<string[]>([]);
 
-    // Fetch Course Data
+    // Mock Course Data (Replace with API)
+    const [course, setCourse] = useState<{ title: string; modules: Module[] } | null>(null);
+
     useEffect(() => {
-        const fetchCourse = async () => {
+        const fetchCourseData = async () => {
             try {
                 const token = localStorage.getItem('algor_token');
-                // Em produção real, descomente:
+                if (!token) {
+                    router.push('/login');
+                    return;
+                }
+
                 const res = await fetch(`/api/v1/lms/courses/${courseId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
+
                 if (res.ok) {
                     const data = await res.json();
                     setCourse(data);
-                    // Set first unlocked lesson as active if none selected
-                    // Logic to find first unlocked
-                    if (data.modules?.length > 0) {
-                        const first = data.modules[0].lessons[0];
-                        setActiveLesson(first);
+
+                    // Auto-open first module if exists
+                    if (data.modules && data.modules.length > 0) {
+                        setExpandedModules([data.modules[0].id]);
+
+                        // Auto-select first lesson if exists
+                        if (data.modules[0].lessons && data.modules[0].lessons.length > 0) {
+                            // Logic to select last accessed lesson could go here (saved in progress)
+                            // For now, select first
+                            setActiveLesson(data.modules[0].lessons[0]);
+                        }
                     }
                 } else {
-                    // Fallback Mock for Demo if API fails (or dev mode without backend running)
-                    console.warn("API Error, using fallback data");
-                    setCourse(MOCK_COURSE);
-                    setActiveLesson(MOCK_COURSE.modules[0].lessons[0]);
+                    console.error("Failed to load course");
                 }
             } catch (error) {
-                console.error("Failed to load course", error);
-                setCourse(MOCK_COURSE);
-                setActiveLesson(MOCK_COURSE.modules[0].lessons[0]);
-            } finally {
-                setLoading(false);
+                console.error(error);
             }
         };
 
-        if (courseId) fetchCourse();
-    }, [courseId]);
+        fetchCourseData();
+    }, [courseId, router]);
 
-    const handleLessonComplete = async (lessonId: string) => {
-        // Optimistic Update
-        if (!course) return;
-
-        // Call API
-        try {
-            const token = localStorage.getItem('algor_token');
-            await fetch(`/api/v1/lms/enrollments/${courseId}/progress`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    lesson_id: lessonId,
-                    status: 'completed',
-                    seek_time: 0
-                })
-            });
-        } catch (e) {
-            console.error(e);
-        }
-
-        // Update Local State for UI
-        const newModules = course.modules.map(mod => ({
-            ...mod,
-            lessons: mod.lessons.map(l =>
-                l.id === lessonId ? { ...l, status: 'completed' as const, completed: true } : l
-            )
-        }));
-        setCourse({ ...course, modules: newModules });
+    const toggleModule = (moduleId: string) => {
+        setExpandedModules(prev =>
+            prev.includes(moduleId) ? prev.filter(id => id !== moduleId) : [...prev, moduleId]
+        );
     };
 
-    if (loading) return <div className="min-h-screen bg-[#050511] flex items-center justify-center text-white">Carregando Sala de Aula...</div>;
-    if (!course) return <div className="min-h-screen bg-[#050511] flex items-center justify-center text-white">Curso não encontrado.</div>;
+    const handleLessonSelect = (lesson: Lesson) => {
+        if (!lesson.isLocked) {
+            setActiveLesson(lesson);
+        }
+    };
+
+    if (!course || !activeLesson) return <div className="min-h-screen flex items-center justify-center text-brand-blue animate-pulse">Carregando Sala de Aula...</div>;
 
     return (
-        <div className="flex h-screen bg-[#131314] text-[#E3E3E3] overflow-hidden font-sans selection:bg-[#A8C7FA] selection:text-[#001D35]">
+        <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-[#050B14]">
 
-            {/* --- SIDEBAR (Modules - Google Material 3 Style) --- */}
-            <AnimatePresence mode="wait">
-                {sidebarOpen && (
-                    <motion.aside
-                        initial={{ width: 0, opacity: 0 }}
-                        animate={{ width: 360, opacity: 1 }}
-                        exit={{ width: 0, opacity: 0 }}
-                        className="bg-[#1E1F20] flex-shrink-0 flex flex-col h-full z-20 shadow-[4px_0_24px_rgba(0,0,0,0.2)]"
-                    >
-                        <div className="p-6">
-                            <button onClick={() => router.push('/dashboard')} className="flex items-center text-sm text-[#C4C7C5] hover:text-white mb-6 transition-colors group">
-                                <div className="p-2 rounded-full bg-[#303336] mr-3 group-hover:bg-[#444746] transition-colors">
-                                    <ChevronLeft className="w-4 h-4" />
-                                </div>
-                                Voltar ao Hub
-                            </button>
-
-                            <div className="mb-6">
-                                <h2 className="font-normal text-xl leading-tight text-[#E3E3E3] mb-2">{course.title}</h2>
-                                <div className="flex items-center gap-3">
-                                    <div className="flex-1 h-1 bg-[#444746] rounded-full overflow-hidden">
-                                        <div className="h-full bg-[#A8C7FA] w-[15%]" />
-                                    </div>
-                                    <span className="text-xs text-[#A8C7FA] font-medium">15%</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="flex-1 overflow-y-auto px-4 pb-6 space-y-6 scrollbar-thin scrollbar-thumb-[#444746] scrollbar-track-transparent">
-                            {course.modules.map((module, i) => (
-                                <div key={module.id} className="space-y-3">
-                                    <h3 className="text-xs font-bold text-[#8E918F] uppercase tracking-wider px-3">
-                                        Módulo {i + 1}: {module.title}
-                                    </h3>
-                                    <div className="space-y-1">
-                                        {module.lessons.map((lesson) => (
-                                            <button
-                                                key={lesson.id}
-                                                onClick={() => lesson.status !== 'locked' && setActiveLesson(lesson)}
-                                                disabled={lesson.status === 'locked'}
-                                                className={`w-full flex items-start gap-3 p-3 rounded-xl transition-all text-left group border border-transparent
-                                                    ${activeLesson?.id === lesson.id
-                                                        ? 'bg-[#004A77] border-[#A8C7FA]/30 text-[#D3E3FD]'
-                                                        : 'hover:bg-[#303336] text-[#C4C7C5]'
-                                                    }
-                                                    ${lesson.status === 'locked' ? 'opacity-40 cursor-not-allowed' : ''}
-                                                `}
-                                            >
-                                                {/* Status Icon Wrapper */}
-                                                <div className={`mt-0.5 w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors
-                                                    ${activeLesson?.id === lesson.id ? 'text-[#A8C7FA]' : 'text-[#8E918F] group-hover:text-[#E3E3E3]'}
-                                                `}>
-                                                    {lesson.status === 'locked' ? (
-                                                        <Lock className="w-4 h-4" />
-                                                    ) : lesson.completed ? (
-                                                        <CheckCircle className="w-5 h-5 text-[#6DD58C]" />
-                                                    ) : lesson.type === 'video' ? (
-                                                        <PlayCircle className="w-5 h-5" />
-                                                    ) : (
-                                                        <FileText className="w-5 h-5" />
-                                                    )}
-                                                </div>
-
-                                                <div className="flex-1">
-                                                    <p className={`text-sm font-medium leading-snug ${activeLesson?.id === lesson.id ? 'text-[#D3E3FD]' : 'text-[#E3E3E3]'}`}>
-                                                        {lesson.title}
-                                                    </p>
-                                                    <div className="flex items-center gap-2 mt-1">
-                                                        <span className="text-[11px] opacity-70 flex items-center gap-1">
-                                                            {lesson.duration} min
-                                                        </span>
-                                                        {lesson.status === 'in_progress' && (
-                                                            <span className="text-[10px] bg-[#A8C7FA] text-[#001D35] px-1.5 py-0.5 rounded-sm font-bold">EM ANDAMENTO</span>
-                                                        )}
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.aside>
-                )}
-            </AnimatePresence>
-
-            {/* --- MAIN CONTENT (Theater Mode) --- */}
-            <main className="flex-1 flex flex-col relative h-full bg-[#131314]">
-                {/* Minimal Header */}
-                <header className="h-16 flex items-center px-6 border-b border-[#28292A] bg-[#131314]/90 backdrop-blur-md sticky top-0 z-10">
-                    <button
-                        onClick={() => setSidebarOpen(!sidebarOpen)}
-                        className="p-2 -ml-2 rounded-full text-[#C4C7C5] hover:bg-[#303336] hover:text-white transition-colors"
-                        title={sidebarOpen ? "Expandir Vídeo" : "Mostrar Aulas"}
-                    >
-                        {sidebarOpen ? <ChevronLeft className="w-6 h-6 rotate-180" /> : <Menu className="w-6 h-6" />}
+            {/* Main Content (Player) */}
+            <div className="flex-1 flex flex-col relative overflow-y-auto">
+                {/* Header */}
+                <div className="h-16 flex items-center px-6 border-b border-white/5 bg-[#0A1A2F]/80 backdrop-blur-md justify-between shrink-0">
+                    <div className="flex items-center gap-4">
+                        <button onClick={() => router.back()} className="text-gray-400 hover:text-white transition-colors">
+                            <ArrowLeft className="w-5 h-5" />
+                        </button>
+                        <h1 className="text-sm font-bold text-gray-200 uppercase tracking-wide truncate max-w-[200px] md:max-w-md">
+                            {course.title}
+                        </h1>
+                        <span className="text-gray-600">/</span>
+                        <span className="text-brand-blue text-sm truncate">{activeLesson.title}</span>
+                    </div>
+                    <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="lg:hidden p-2 text-gray-400">
+                        <Menu className="w-5 h-5" />
                     </button>
-                    <span className="ml-4 text-sm font-medium text-[#E3E3E3] opacity-60">
-                        / {course.title} / <span className="text-white opacity-100">{activeLesson?.title}</span>
-                    </span>
-                </header>
+                </div>
 
-                <div className="flex-1 overflow-y-auto">
-                    <div className="max-w-[1400px] mx-auto p-6 md:p-8 flex flex-col items-center">
+                {/* Player Area */}
+                <div className="flex-1 bg-black relative flex items-center justify-center">
+                    {activeLesson.type === 'video' ? (
+                        <div className="w-full h-full max-h-[80vh] aspect-video relative">
+                            <ReactPlayer
+                                url={activeLesson.url || ''}
+                                width="100%"
+                                height="100%"
+                                controls={true}
+                                playing={false}
+                                config={{
+                                    youtube: {
+                                        playerVars: { showinfo: 1 }
+                                    }
+                                }}
+                            />
+                        </div>
+                    ) : activeLesson.type === 'document' ? (
+                        <div className="w-full h-full p-8 overflow-y-auto bg-[#0F172A]">
+                            <SecurePDFViewer fileUrl="/sample.pdf" />
+                        </div>
+                    ) : (
+                        <div className="text-center p-8">
+                            <h2 className="text-2xl text-white mb-4">Quiz Time!</h2>
+                            <p className="text-gray-400">Funcionalidade em breve.</p>
+                        </div>
+                    )}
+                </div>
 
-                        {activeLesson ? (
-                            <div className="w-full space-y-8">
+                {/* Lesson Description / Tabs */}
+                {/* Could go here */}
+            </div>
 
-                                {/* THEATER PLAYER */}
-                                <div className="w-full relative group">
-                                    <div className={`w-full bg-black rounded-[24px] overflow-hidden border border-[#28292A] shadow-[0_8px_32px_rgba(0,0,0,0.4)] relative z-0 transition-all duration-500 ease-in-out ${activeLesson.type === 'video' ? 'aspect-video' : 'h-[85vh]'}`}>
-                                        {activeLesson.type === 'video' ? (
-                                            <ReactPlayer
-                                                url={`https://www.youtube.com/watch?v=${activeLesson.content}`}
-                                                width="100%"
-                                                height="100%"
-                                                controls
-                                                onEnded={() => handleLessonComplete(activeLesson.id)}
-                                                config={{
-                                                    youtube: {
-                                                        // playerVars removed as they are deprecated/untyped in newer versions
-                                                    }
-                                                }}
-                                            />
-                                        ) : (
-                                            // Secure Document Viewer (Canvas Based)
-                                            <div className="w-full h-full bg-[#1E1F20]">
-                                                <SecurePDFViewer
-                                                    fileUrl={activeLesson.content.startsWith('http') ? activeLesson.content : 'https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf'}
-                                                    userEmail="auditor@algor.com.br"
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-
-                                {/* Content Tabs & Actions */}
-                                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                    {/* Left: Description */}
-                                    <div className="lg:col-span-2 space-y-6">
-                                        <div>
-                                            <h1 className="text-3xl md:text-4xl font-normal text-[#E3E3E3] mb-4">{activeLesson.title}</h1>
-                                            <div className="flex items-center gap-4 text-sm text-[#C4C7C5]">
-                                                <span className="flex items-center gap-1"><PlayCircle className="w-4 h-4" /> {activeLesson.type === 'video' ? 'Videoaula' : 'Leitura'}</span>
-                                                <span className="w-1 h-1 bg-[#444746] rounded-full" />
-                                                <span>Atualizado em Dez 2025</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="prose prose-invert prose-p:text-[#C4C7C5] prose-h3:text-[#E3E3E3] max-w-none">
-                                            <h3>Sobre esta aula</h3>
-                                            <p>
-                                                Nesta lição, exploraremos os fundamentos da cláusula 4 da ISO 42001, focando no entendimento do contexto da organização e como isso impacta a governança de IA. Prepare-se para analisar casos de uso reais.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    {/* Right: Actions Card */}
-                                    <div className="lg:col-span-1">
-                                        <div className="bg-[#1E1F20] rounded-[24px] p-6 border border-[#28292A]">
-                                            <h3 className="text-lg font-medium text-[#E3E3E3] mb-4">Ações da Aula</h3>
-
-                                            <button
-                                                onClick={() => handleLessonComplete(activeLesson.id)}
-                                                className={`w-full py-4 rounded-xl flex items-center justify-center gap-2 font-medium transition-all mb-4
-                                                    ${activeLesson.completed
-                                                        ? 'bg-[#1E1F20] border-2 border-[#6DD58C] text-[#6DD58C] cursor-default'
-                                                        : 'bg-[#004A77] hover:bg-[#005C94] text-[#D3E3FD] shadow-lg'
-                                                    }`}
-                                            >
-                                                {activeLesson.completed ? (
-                                                    <> <CheckCircle className="w-5 h-5" /> Aula Concluída </>
-                                                ) : (
-                                                    "Marcar como Concluída"
-                                                )}
-                                            </button>
-
-                                            <div className="space-y-3">
-                                                <button className="w-full py-3 rounded-xl bg-[#303336] hover:bg-[#444746] text-[#E3E3E3] text-sm flex items-center justify-center gap-2 transition-colors">
-                                                    <Download className="w-4 h-4" /> Material de Apoio (0)
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        ) : (
-                            <div className="text-gray-500 mt-20">Selecione uma aula para começar.</div>
-                        )}
-
+            {/* Curriculum Sidebar */}
+            <div
+                className={`
+                    w-[350px] bg-[#0A1A2F] border-l border-white/5 flex flex-col shrink-0 transition-all duration-300 ease-in-out absolute right-0 top-0 bottom-0 z-20 lg:static
+                    ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full lg:w-0 lg:border-l-0'}
+                `}
+            >
+                <div className="p-6 border-b border-white/5 bg-[#0B1D36]">
+                    <h2 className="font-display font-medium text-white mb-1">Conteúdo do Curso</h2>
+                    <div className="flex items-center justify-between text-xs text-gray-400 font-mono mt-2">
+                        <span>33% Concluído</span>
+                        <span>1/3 Módulos</span>
+                    </div>
+                    <div className="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
+                        <div className="h-full bg-brand-green w-1/3" />
                     </div>
                 </div>
-            </main>
 
+                <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10">
+                    {course.modules.map((module) => (
+                        <div key={module.id} className="border-b border-white/5">
+                            <button
+                                onClick={() => toggleModule(module.id)}
+                                className="w-full flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 transition-colors text-left"
+                            >
+                                <span className="text-sm font-bold text-gray-200">{module.title}</span>
+                                {expandedModules.includes(module.id) ? <ChevronDown className="w-4 h-4 text-gray-500" /> : <ChevronRight className="w-4 h-4 text-gray-500" />}
+                            </button>
+
+                            {/* Lessons List */}
+                            {expandedModules.includes(module.id) && (
+                                <div className="bg-[#050B14]">
+                                    {module.lessons.map((lesson) => (
+                                        <button
+                                            key={lesson.id}
+                                            onClick={() => handleLessonSelect(lesson)}
+                                            disabled={lesson.isLocked}
+                                            className={`
+                                                w-full flex items-start gap-3 p-4 border-l-2 transition-all hover:bg-white/5 text-left
+                                                ${activeLesson.id === lesson.id
+                                                    ? 'border-brand-blue bg-brand-blue/5'
+                                                    : 'border-transparent'
+                                                }
+                                                ${lesson.isLocked ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+                                            `}
+                                        >
+                                            <div className="mt-0.5">
+                                                {lesson.isLocked ? (
+                                                    <Lock className="w-4 h-4 text-gray-600" />
+                                                ) : lesson.isCompleted ? (
+                                                    <CheckCircle className="w-4 h-4 text-brand-green" />
+                                                ) : lesson.type === 'video' ? (
+                                                    <PlayCircle className={`w-4 h-4 ${activeLesson.id === lesson.id ? 'text-brand-blue' : 'text-gray-400'}`} />
+                                                ) : (
+                                                    <FileText className="w-4 h-4 text-gray-400" />
+                                                )}
+                                            </div>
+                                            <div>
+                                                <p className={`text-sm ${activeLesson.id === lesson.id ? 'text-brand-blue font-medium' : 'text-gray-400'}`}>
+                                                    {lesson.title}
+                                                </p>
+                                                <p className="text-[10px] text-gray-600 font-mono mt-1">{lesson.duration}</p>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Mobile Overlay */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/60 z-10 lg:hidden backdrop-blur-sm"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
         </div>
     );
 }
-
-// Fallback Data
-const MOCK_COURSE: CourseStructure = {
-    id: "iso42001-lead",
-    title: "Formação Lead Implementer ISO 42001",
-    description: "Curso completo de implementação.",
-    modules: [
-        {
-            id: 1,
-            title: "Introdução à Governança",
-            lessons: [
-                { id: "l1", title: "O que é a ISO 42001?", type: 'video', content: "dQw4w9WgXcQ", duration: 10, status: 'unlocked', completed: true },
-                { id: "l2", title: "Estrutura HLS (High Level Structure)", type: 'video', content: "M7lc1UVf-VE", duration: 15, status: 'unlocked', completed: false },
-                { id: "l3", title: "Material de Apoio (PDF)", type: 'document', content: "https://raw.githubusercontent.com/mozilla/pdf.js/ba2edeae/examples/learning/helloworld.pdf", duration: 5, status: 'unlocked', completed: false },
-            ]
-        },
-        {
-            id: 2,
-            title: "Planejamento (Cláusula 6)",
-            lessons: [
-                { id: "l4", title: "Matriz de Riscos de IA", type: 'video', content: "xyz", duration: 20, status: 'locked', completed: false },
-            ]
-        }
-    ]
-};

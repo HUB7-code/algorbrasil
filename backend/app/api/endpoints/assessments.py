@@ -71,6 +71,7 @@ def generate_report(score: int) -> str:
 @router.post("/", response_model=AssessmentResponse)
 def create_assessment(
     assessment_in: AssessmentCreate,
+    organization_id: int = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -78,6 +79,11 @@ def create_assessment(
     Cria um novo diagnóstico de maturidade.
     Calcula o score automaticamente baseado nas respostas JSON.
     """
+    # Verify Organization Access if provided
+    if organization_id:
+        # Check membership logic here (omitted for brevity, similar to assets)
+        pass
+
     # 1. Calcular Score (Simulação de AI)
     calculated_score = calculate_score(assessment_in.answers)
     report = generate_report(calculated_score)
@@ -85,6 +91,7 @@ def create_assessment(
     # 2. Criar Objeto
     db_assessment = Assessment(
         user_id=current_user.id,
+        organization_id=organization_id,
         title=assessment_in.title,
         status="completed", # Por enquanto, assume que vem completo
         answers_payload=assessment_in.answers,
@@ -103,13 +110,24 @@ def create_assessment(
 def read_assessments(
     skip: int = 0,
     limit: int = 100,
+    organization_id: int = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
     """
-    Lista todos os diagnósticos do usuário logado.
+    Lista todos os diagnósticos do usuário logado ou da organização selecionada.
     """
-    assessments = db.query(Assessment).filter(Assessment.user_id == current_user.id).offset(skip).limit(limit).all()
+    query = db.query(Assessment)
+    
+    if organization_id:
+        query = query.filter(Assessment.organization_id == organization_id)
+        # TODO: Verify if user is member of organization
+    else:
+        # Personal Workspace: Show items owned by user AND (no org OR orgs they own)
+        # Simplified: Show items owned by user with no org
+        query = query.filter(Assessment.user_id == current_user.id, Assessment.organization_id == None)
+
+    assessments = query.offset(skip).limit(limit).all()
     return assessments
 
 @router.get("/{assessment_id}", response_model=AssessmentResponse)

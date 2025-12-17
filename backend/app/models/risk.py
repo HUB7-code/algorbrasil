@@ -51,3 +51,7 @@ class RiskRegister(Base):
 
     # Relações
     user = relationship("User", back_populates="risks")
+    
+    # Organizacao (Multi-Tenant)
+    organization_id = Column(Integer, ForeignKey("organizations.id"), nullable=True)
+    organization = relationship("backend.app.models.organization.Organization", back_populates="risks")

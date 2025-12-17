@@ -9,12 +9,14 @@ import MethodologySection from '@/components/MethodologySection';
 import Image from 'next/image';
 import HeroDual from '@/components/HeroDual';
 import AnimatedWave from '@/components/AnimatedWave';
+import OfferingsShowcase from '@/components/OfferingsShowcase';
 
 // Memoize heavy static components to prevent re-renders on scroll state changes
 const MemoizedWave = React.memo(AnimatedWave);
 const MemoizedHero = React.memo(HeroDual);
 const MemoizedPersonaGrid = React.memo(PersonaGrid);
 const MemoizedMethodology = React.memo(MethodologySection);
+const MemoizedOfferings = React.memo(OfferingsShowcase); // New component
 const MemoizedFooter = React.memo(Footer);
 
 export default function Home() {
@@ -95,6 +97,11 @@ export default function Home() {
                     </div>
                 </div>
             </section >
+
+            {/* Offerings Showcase - Governança sob Medida */}
+            <div id="governance">
+                <MemoizedOfferings />
+            </div>
 
             {/* Methodology Section - Memoized */}
             <MemoizedMethodology />

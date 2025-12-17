@@ -24,5 +24,8 @@ class Assessment(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    # Relacionamento
+    # Relacionamentos
     owner = relationship("backend.app.models.user.User", back_populates="assessments")
+    
+    organization_id = Column(Integer, ForeignKey("organizations.id"), nullable=True)
+    organization = relationship("backend.app.models.organization.Organization")

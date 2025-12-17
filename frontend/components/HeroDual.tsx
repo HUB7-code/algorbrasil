@@ -38,7 +38,7 @@ export default function HeroDual() {
                     </span>
                 </h1>
                 <p className="font-light text-gray-300 max-w-2xl mx-auto text-sm md:text-lg">
-                    A única consultoria do Brasil com arquitetura ISO 42001 Nativa. Desbloqueie contratos Enterprise e blinde sua operação growth contra a LGPD.
+                    Infraestrutura de Governança e <span className="text-white font-medium">Software de Auditoria (SaaS)</span> com arquitetura ISO 42001 Nativa. Desbloqueie contratos Enterprise e blinde sua operação growth.
                 </p>
             </div>
 
@@ -63,16 +63,16 @@ export default function HeroDual() {
                             <ShieldCheck className="w-6 h-6" />
                         </div>
 
-                        <h2 className="font-serif text-3xl text-white mb-2">Growth Intelligence</h2>
+                        <h2 className="font-serif text-3xl text-white mb-2">Para Empresas</h2>
                         <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Compliance-Led Growth</h3>
 
                         <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
-                            Use Data Clean Rooms para cruzar dados sem ferir a LGPD. Sua infraestrutura de vendas auditável e pronta para escalar.
+                            Use Data Clean Rooms para cruzar dados sem ferir a LGPD. Sua infraestrutura de vendas auditável por software.
                         </p>
 
                         <div className="mt-auto pt-6 w-full border-t border-white/5">
                             <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Fortress Architecture (ISO 42001)</li>
+                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Dashboard de Risco ISO 42001 (SaaS)</li>
                                 <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Risco Zero de Alucinação</li>
                             </ul>
 
@@ -102,16 +102,16 @@ export default function HeroDual() {
                             <Users className="w-6 h-6" />
                         </div>
 
-                        <h2 className="font-serif text-3xl text-white mb-2">Para Profissionais</h2>
-                        <h3 className="font-mono text-xs text-[#00FF94] tracking-widest uppercase mb-6">Carreira & Associação</h3>
+                        <h2 className="font-serif text-3xl text-white mb-2">Para Consultores</h2>
+                        <h3 className="font-mono text-xs text-[#00FF94] tracking-widest uppercase mb-6">Carreira & Ferramentas</h3>
 
                         <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
-                            Junte-se à elite da governança. Acesse metodologias exclusivas, ferramentas de auditoria e conecte-se com o board nacional.
+                            Junte-se à elite da governança. Acesse metodologias exclusivas, <span className="text-white font-medium">licença de software de auditoria</span> e conecte-se com o board.
                         </p>
 
                         <div className="mt-auto pt-6 w-full border-t border-white/5">
                             <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                                <li className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#00FF94]" /> Certificação de Auditor Líder</li>
+                                <li className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-[#00FF94]" /> Software de Auditoria Multi-Cliente</li>
                                 <li className="flex items-center gap-2"><Users className="w-4 h-4 text-[#00FF94]" /> Networking com C-Levels</li>
                             </ul>
 

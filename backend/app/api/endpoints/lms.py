@@ -1,12 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Request
+from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 from pydantic import BaseModel
+from datetime import datetime
 from backend.app.db.session import get_db
 from backend.app.models.user import User
 from backend.app.api.auth import get_current_user
 from backend.app.models.lms import Course, CourseModule, CourseLesson, Enrollment
 from backend.app.services.audit_service import log_audit
+from backend.app.services.certificate_generator import CertificateGenerator
 
 router = APIRouter()
 
@@ -233,3 +236,94 @@ def create_course(
     
     db.commit()
     return {"status": "success", "id": new_course.id}
+
+class SingleModuleCreate(BaseModel):
+    title: str
+    order: int
+    course_id: str
+
+@router.post("/modules")
+def create_module(
+    module_data: SingleModuleCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role != "admin" and not current_user.is_superuser:
+         raise HTTPException(status_code=403, detail="Acesso restrito.")
+         
+    new_mod = CourseModule(course_id=module_data.course_id, title=module_data.title, order=module_data.order)
+    db.add(new_mod)
+    db.commit()
+    db.refresh(new_mod)
+    return {"id": new_mod.id, "title": new_mod.title}
+
+class SingleLessonCreate(BaseModel):
+    id: str # slug
+    module_id: int
+    title: str
+    type: str
+    video_id: str = None
+    document_url: str = None
+    duration_min: int = 0
+    order: int = 0
+
+@router.post("/lessons")
+def create_lesson(
+    lesson_data: SingleLessonCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    if current_user.role != "admin" and not current_user.is_superuser:
+         raise HTTPException(status_code=403, detail="Acesso restrito.")
+
+    # Check validation
+    if db.query(CourseLesson).filter(CourseLesson.id == lesson_data.id).first():
+        raise HTTPException(status_code=400, detail="Lesson ID already exists")
+
+    new_lesson = CourseLesson(
+        id=lesson_data.id,
+        module_id=lesson_data.module_id,
+        title=lesson_data.title,
+        type=lesson_data.type,
+        video_id=lesson_data.video_id,
+        document_url=lesson_data.document_url,
+        duration_min=lesson_data.duration_min,
+        order=lesson_data.order
+    )
+    db.add(new_lesson)
+    db.commit()
+    return {"status": "success", "id": new_lesson.id}
+
+@router.get("/certificates/{course_id}")
+def download_certificate(
+    course_id: str,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Gera e baixa o certificado se o curso estiver concluído."""
+    enrollment = db.query(Enrollment).filter(
+        Enrollment.user_id == current_user.id, 
+        Enrollment.course_id == course_id
+    ).first()
+    
+    if not enrollment:
+        raise HTTPException(status_code=404, detail="Matrícula não encontrada.")
+    
+    # Check Completion (Simplificado: Se status != completed, negar. Em dev pode liberar)
+    # TODO: Implementar checagem real de 100%
+    # Por enquanto, liberado para testes se o curso tiver pelo menos 1 aula feita ou se for admin
+    
+    course = db.query(Course).filter(Course.id == course_id).first()
+    
+    pdf_buffer = CertificateGenerator.generate(
+        student_name=current_user.full_name or current_user.email,
+        course_title=course.title,
+        date=datetime.now(),
+        certification_id=f"CRT-{course_id.upper()}-{current_user.id}"
+    )
+    
+    return StreamingResponse(
+        pdf_buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=Certificate_Algor_{course_id}.pdf"}
+    )

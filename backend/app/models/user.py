@@ -34,3 +34,17 @@ class User(Base):
     # Monetization / Payments
     payments = relationship("backend.app.models.payment.Payment", back_populates="user")
 
+    # AI GOV - Projects
+    projects = relationship("backend.app.models.project.Project", back_populates="user")
+    
+    # AI Inventory
+    assets = relationship("backend.app.models.ai_asset.AIAsset", back_populates="owner")
+
+    # Multi-Tenant / SaaS Organization Support
+    owned_organizations = relationship("backend.app.models.organization.Organization", back_populates="owner")
+    organizations = relationship(
+        "backend.app.models.organization.Organization",
+        secondary="organization_members",
+        back_populates="members"
+    )
+

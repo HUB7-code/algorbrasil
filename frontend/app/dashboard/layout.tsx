@@ -4,8 +4,26 @@ import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { OrganizationProvider } from "@/context/OrganizationContext";
+import OrganizationSwitcher from "@/components/dashboard/OrganizationSwitcher";
 
 export default function DashboardLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    // ... all existing valid code ...
+    // Wrapping content in OrganizationProvider logic moved inside the return
+    // But since this is a layout, we need to wrap the whole sidebar+main structure
+
+    return (
+        <OrganizationProvider>
+            <DashboardLayoutContent children={children} />
+        </OrganizationProvider>
+    );
+}
+
+function DashboardLayoutContent({
     children,
 }: {
     children: React.ReactNode;
@@ -71,30 +89,50 @@ export default function DashboardLayout({
                     </Link>
                 </div>
 
+                {/* Organization Switcher (SaaS Core) */}
+                <OrganizationSwitcher />
+
                 {/* FAB / Primary Action */}
-                <div className="px-6 mb-8">
+                <div className="px-6 mb-8 mt-2">
                     <button className="flex items-center justify-center gap-3 w-full h-[52px] rounded-xl bg-gradient-to-r from-brand-blue to-brand-blue/80 text-white hover:shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:scale-[1.02] transition-all duration-300 font-medium text-sm border border-white/10">
-                        <span className="material-symbols-rounded" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
-                        Nova Avaliação
+                        <span className="material-symbols-rounded" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+                        Iniciar Ciclo
                     </button>
                 </div>
 
                 {/* Navigation Items */}
                 <nav className="flex-1 px-4 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                     <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
-                        Principal
+                        Governança & Estratégia
                     </div>
                     <NavItem
                         href="/dashboard"
-                        icon="space_dashboard"
-                        label="Visão Geral"
+                        icon="shield_with_house"
+                        label="Centro de Excelência (CoE)"
                         active={pathname === "/dashboard"}
+                    />
+                    <NavItem
+                        href="/dashboard/roadmap"
+                        icon="map"
+                        label="Jornada de Adoção"
+                        active={pathname.startsWith("/dashboard/roadmap")}
+                    />
+
+                    <div className="h-6" />
+                    <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
+                        Operações & Compliance
+                    </div>
+                    <NavItem
+                        href="/dashboard/inventory"
+                        icon="database"
+                        label="Inventário de IA (Shadow)"
+                        active={pathname.startsWith("/dashboard/inventory")}
                     />
                     <NavItem
                         href="/dashboard/assessments"
                         icon="fact_check"
-                        label="Avaliações IA"
-                        active={pathname.startsWith("/dashboard/assessments")}
+                        label="Auditorias & Validações"
+                        active={pathname === "/dashboard/assessments"}
                     />
                     <NavItem
                         href="/dashboard/risks"
@@ -102,6 +140,17 @@ export default function DashboardLayout({
                         label="Gestão de Riscos"
                         active={pathname.startsWith("/dashboard/risks")}
                     />
+                    <NavItem
+                        href="/dashboard/projects"
+                        icon="shield_person"
+                        label="Projetos de IA (Gov)"
+                        active={pathname.startsWith("/dashboard/projects")}
+                    />
+
+                    <div className="h-6" />
+                    <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
+                        Capacitação
+                    </div>
                     <NavItem
                         href="/dashboard/courses"
                         icon="school"
@@ -153,6 +202,7 @@ export default function DashboardLayout({
                             <span className="material-symbols-rounded">menu</span>
                         </button>
                         <span className="font-display font-bold text-lg text-white">ALGOR</span>
+                        {/* Mobile Switcher could go here in future */}
                     </div>
                 </header>
 

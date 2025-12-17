@@ -66,10 +66,10 @@ export default function PersonaGrid() {
             <div className="max-w-7xl mx-auto px-4 lg:px-8 relative">
                 <div className="text-center mb-16">
                     <h2 className="font-serif text-3xl md:text-4xl text-white mb-4">
-                        Governança Sob Medida
+                        Quem Lidera a Governança?
                     </h2>
                     <p className="font-mono text-sm text-brand-blue/60 uppercase tracking-widest mb-2">
-                        Auto-Segmentação Estratégica
+                        Perfis Estratégicos de Atuação
                     </p>
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         A metodologia da ALGOR se adapta ao seu papel na organização.

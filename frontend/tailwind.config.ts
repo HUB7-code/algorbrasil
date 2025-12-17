@@ -14,6 +14,8 @@ const config: Config = {
                     green: "#00FF94", // Bio-Luminescent Green (CTA)
                     amber: "#FFB000", // Sensor Amber (Alertas)
                     blue: "#00A3FF", // Electric Blue (Tech)
+                    copper: "#E67E22", // Treinamentos (Laranja/Cobre)
+                    silver: "#BDC3C7", // Estrutura/Metálico
                     glass: "rgba(10, 26, 47, 0.7)", // Vidro Base
                 },
                 corporate: {

@@ -53,7 +53,7 @@ async def create_checkout_session(
         
         # In a real app, this would be a URL to Stripe. 
         # Here we return a URL that the frontend redirects to, simulating success.
-        return {"checkout_url": f"http://localhost:3000/dashboard?payment_success=true&mock_id={new_payment.id}"}
+        return {"checkout_url": f"{settings.FRONTEND_URL}/dashboard?payment_success=true&mock_id={new_payment.id}"}
 
     try:
         checkout_session = stripe.checkout.Session.create(
@@ -70,8 +70,8 @@ async def create_checkout_session(
                 },
             ],
             mode='payment',
-            success_url='http://localhost:3000/dashboard?payment_success=true&session_id={CHECKOUT_SESSION_ID}',
-            cancel_url='http://localhost:3000/dashboard?payment_canceled=true',
+            success_url=f'{settings.FRONTEND_URL}/dashboard?payment_success=true&session_id={{CHECKOUT_SESSION_ID}}',
+            cancel_url=f'{settings.FRONTEND_URL}/dashboard?payment_canceled=true',
             customer_email=current_user.email,
             metadata={
                 "user_id": current_user.id,

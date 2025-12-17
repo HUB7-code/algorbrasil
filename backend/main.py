@@ -9,29 +9,20 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Configuração de CORS (Cross-Origin Resource Sharing)
-# Por enquanto, permitimos tudo para facilitar o desenvolvimento local.
-# Em produção, isso será restrito apenas ao domínio do frontend.
-origins = ["*"]
+# --- Imports de Endpoints ---
+from app.api import auth, forms, profiles, downloads
+from app.api.endpoints import payments, assessments, risks, lms, admin, projects
+from app.api.endpoints.inventory import assets # Novo endpoint
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-@app.get("/")
-async def root():
-    """
-    Endpoint raiz para verificar se a API está online.
-    """
-    return {"message": "Algor Brasil API is running", "status": "online"}
-
-@app.get("/health")
-async def health_check():
-    """
-    Health check para monitoramento de uptime.
-    """
-    return {"status": "healthy"}
+# --- Rotas Existentes ---
+app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
+app.include_router(forms.router, prefix="/api/v1/forms", tags=["forms"])
+app.include_router(profiles.router, prefix="/api/v1/profiles", tags=["profiles"])
+app.include_router(downloads.router, prefix="/api/v1/downloads", tags=["downloads"])
+app.include_router(payments.router, prefix="/api/v1/payments", tags=["payments"])
+app.include_router(assessments.router, prefix="/api/v1/assessments", tags=["assessments"])
+app.include_router(risks.router, prefix="/api/v1/risks", tags=["risks"])
+app.include_router(lms.router, prefix="/api/v1/lms", tags=["lms"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
+app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
+app.include_router(assets.router, prefix="/api/v1/inventory", tags=["inventory"]) # Nova rota registrada

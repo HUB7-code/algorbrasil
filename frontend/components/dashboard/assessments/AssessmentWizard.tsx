@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useOrganization } from "@/context/OrganizationContext";
 
 // Schema de Perguntas (Mantido)
 const STEPS = [
@@ -89,6 +90,7 @@ const STEPS = [
 
 export default function AssessmentWizard() {
     const router = useRouter();
+    const { currentOrganization } = useOrganization();
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [answers, setAnswers] = useState<Record<string, any>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,7 +128,12 @@ export default function AssessmentWizard() {
                 return;
             }
 
-            const response = await fetch('/api/v1/assessments/', {
+            let url = '/api/v1/assessments/';
+            if (currentOrganization) {
+                url += `?organization_id=${currentOrganization.id}`;
+            }
+
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
