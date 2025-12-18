@@ -1,7 +1,15 @@
+"use client";
 
+import React, { useState, useEffect } from "react";
 import CourseEditor from "./components/CourseEditor";
 
-// ... (keep creating other interfaces if needed, but we already have AdminUser)
+interface AdminUser {
+    id: number;
+    email: string;
+    full_name?: string;
+    role: string;
+    payment_status?: string;
+}
 
 export default function AdminDashboard() {
     const [users, setUsers] = useState<AdminUser[]>([]);
@@ -74,7 +82,30 @@ export default function AdminDashboard() {
         setLoading(false);
     }
 
-    // ... (rest of methods: handleCreateInvite, handleDeleteUser, handleUpdateRole, handleDeleteCourse)
+    const handleCreateInvite = async (e: React.FormEvent) => {
+        e.preventDefault();
+        // Mock Implementation for SaaS MVP
+        setInviteLink(`https://algor.com.br/register?invite=${btoa(inviteEmail)}`);
+    };
+
+    const handleDeleteUser = async (userId: number) => {
+        if (!confirm("Banir usuário?")) return;
+        // Mock Delete Local
+        setUsers(users.filter(u => u.id !== userId));
+        // TODO: Backend API Access
+    };
+
+    const handleUpdateRole = async (userId: number, newRole: string) => {
+        // Mock Update Local
+        setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+        // TODO: Backend API Access
+    };
+
+    const handleDeleteCourse = async (courseId: string) => {
+        if (!confirm("Excluir curso?")) return;
+        setCourses(courses.filter(c => c.id !== courseId));
+        // TODO: Backend API Access
+    };
 
     const handleCreateCourse = async () => {
         const id = prompt("ID do Curso (slug, ex: novo-curso):");

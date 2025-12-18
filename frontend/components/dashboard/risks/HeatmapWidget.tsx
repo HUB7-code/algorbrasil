@@ -1,12 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-interface Risk {
-    id: number;
-    probability: number;
-    impact: number;
-    description: string;
-}
+import { Risk } from '@/types/risk';
 
 interface HeatmapWidgetProps {
     risks: Risk[];

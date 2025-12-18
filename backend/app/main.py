@@ -6,7 +6,7 @@ from slowapi.errors import RateLimitExceeded
 from secure import Secure
 
 from backend.app.db.session import engine, Base
-from backend.app.models import user, assessment, profiles, audit, risk, lms, payment, project # Import all models to register tables
+from backend.app.models import user, assessment, profiles, audit, risk, lms, payment, project, organization, ai_asset # Import all models to register tables
 
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
@@ -70,6 +70,8 @@ from backend.app.api import downloads
 app.include_router(downloads.router, prefix="/api/v1", tags=["Downloads"])
 from backend.app.api import profiles
 app.include_router(profiles.router, prefix="/api/v1", tags=["Perfis (Onboarding)"])
+from backend.app.api.endpoints import organizations
+app.include_router(organizations.router, prefix="/api/v1/organizations", tags=["Organizações"])
 from backend.app.api.endpoints import assessments
 app.include_router(assessments.router, prefix="/api/v1/assessments", tags=["Diagnósticos IA"])
 from backend.app.api.endpoints import risks

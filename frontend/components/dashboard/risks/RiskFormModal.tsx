@@ -9,9 +9,10 @@ interface RiskFormModalProps {
     onClose: () => void;
     onSuccess: () => void;
     initialData?: any; // If present, it's an edit
+    organizationId?: number | null;
 }
 
-export default function RiskFormModal({ isOpen, onClose, onSuccess, initialData }: RiskFormModalProps) {
+export default function RiskFormModal({ isOpen, onClose, onSuccess, initialData, organizationId }: RiskFormModalProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         category: "Viés Algorítmico",
@@ -55,9 +56,14 @@ export default function RiskFormModal({ isOpen, onClose, onSuccess, initialData 
 
         try {
             const token = localStorage.getItem('algor_token');
-            const url = initialData
+            let url = initialData
                 ? `/api/v1/risks/${initialData.id}`
                 : '/api/v1/risks/';
+
+            // Add Org ID param for creation scope
+            if (organizationId && !initialData) {
+                url += `?organization_id=${organizationId}`;
+            }
 
             const method = initialData ? 'PATCH' : 'POST';
 

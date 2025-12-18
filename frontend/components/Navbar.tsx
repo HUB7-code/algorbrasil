@@ -77,9 +77,17 @@ export default function Navbar() {
                     <Link href="/associates" className="hover:text-white transition-colors">Associados</Link>
                 </div>
 
-                <Link href="/login">
-                    <button className="hidden md:block px-5 py-2 text-xs font-mono uppercase tracking-widest border border-white/20 rounded hover:bg-white hover:text-[#0A1A2F] transition-all hover:scale-105 active:scale-95">
-                        Login Membros
+                <Link href="/login" className="hidden md:block">
+                    <button className="relative group px-6 py-2.5 overflow-hidden rounded-lg bg-[#0A1A2F] border border-brand-green/30 shadow-[0_0_15px_rgba(0,255,148,0.1)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,255,148,0.4)] hover:border-brand-green/60">
+                        {/* Background Gradient Animation */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-brand-green/10 via-transparent to-brand-green/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+
+                        <div className="relative flex items-center gap-2">
+                            <span className="material-symbols-rounded text-brand-green text-sm transition-transform group-hover:rotate-12">lock</span>
+                            <span className="font-mono text-xs uppercase tracking-widest text-brand-green group-hover:text-white transition-colors font-bold">
+                                Area do Membro
+                            </span>
+                        </div>
                     </button>
                 </Link>
 
@@ -101,8 +109,13 @@ export default function Navbar() {
                     <button onClick={() => handleNavigation('methodology')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Metodologia</button>
                     <Link href="/associates" className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Associados</Link>
                     <Link href="/login" className="w-full">
-                        <button className="w-full py-3 mt-2 bg-white/5 border border-white/10 rounded text-center font-mono uppercase tracking-widest text-xs hover:bg-white hover:text-[#0A1A2F] transition-all">
-                            Login Membros
+                        <button className="w-full py-4 mt-2 relative overflow-hidden rounded-lg bg-gradient-to-r from-brand-navy to-brand-green/20 border border-brand-green/30 text-center group">
+                            <div className="relative flex items-center justify-center gap-2">
+                                <span className="material-symbols-rounded text-brand-green text-sm">lock</span>
+                                <span className="font-mono text-xs uppercase tracking-widest text-white font-bold">
+                                    Acessar Portal
+                                </span>
+                            </div>
                         </button>
                     </Link>
                 </div>

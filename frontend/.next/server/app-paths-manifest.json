@@ -1,4 +1,4 @@
 {
-  "/dashboard/assessments/new/page": "app/dashboard/assessments/new/page.js",
+  "/icon.png/route": "app/icon.png/route.js",
   "/(public)/page": "app/(public)/page.js"
 }

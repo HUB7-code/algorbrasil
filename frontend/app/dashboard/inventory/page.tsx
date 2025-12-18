@@ -5,16 +5,7 @@ import { Search, Filter, Plus, Server, AlertTriangle, ShieldCheck, MoreVertical,
 import { useOrganization } from '@/context/OrganizationContext';
 import AssetDrawer from '@/components/AssetDrawer';
 
-type Asset = {
-    id: number;
-    name: string;
-    department?: string;
-    type: string;
-    risk_level: string; // Changed from 'risk' to match API
-    data_types?: string; // Changed from 'data' to match API
-    status: string;
-    description?: string;
-};
+import { Asset } from '@/types/asset';
 
 export default function InventoryPage() {
     const { currentOrganization } = useOrganization();
@@ -59,7 +50,7 @@ export default function InventoryPage() {
         fetchAssets();
     }, [currentOrganization]);
 
-    const handleAddAsset = async (newAsset: any) => {
+    const handleAddAsset = async (newAsset: Asset) => {
         // Optimistic Update or Refetch
         // For SaaS Demo, let's just make the API call
         try {
@@ -75,14 +66,7 @@ export default function InventoryPage() {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    name: newAsset.name,
-                    department: newAsset.department,
-                    type: newAsset.type,
-                    risk_level: newAsset.risk, // Mapping
-                    data_types: newAsset.dataTypes.join(', '), // Mapping
-                    description: newAsset.description || ""
-                })
+                body: JSON.stringify(newAsset)
             });
 
             if (res.ok) {
@@ -220,7 +204,7 @@ export default function InventoryPage() {
                                         </td>
                                         <td className="p-6 font-mono text-xs text-gray-500">{item.data_types || '-'}</td>
                                         <td className="p-6">
-                                            <StatusBadge status={item.status} />
+                                            <StatusBadge status={item.status || 'Under Review'} />
                                         </td>
                                         <td className="p-6 text-right">
                                             <button className="p-2 text-gray-500 hover:text-white transition-colors">

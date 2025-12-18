@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 16/12/2025 - 19:00
-> **Status Geral:** **SAAS PLATFORM ACTIVATED (MULTI-TENANT)** 🏢🔐
-> **Versão:** 9.1 (Multi-Tenant Core & Organization/Audit Context)
+> **Última Atualização:** 18/12/2025 - 09:50
+> **Status Geral:** **SAAS PLATFORM REFINED (VISUAL PERFECTION)** 💎🧠
+> **Versão:** 9.4 (Visual Identity & Globe Effect)
 
 ## 1. Manifesto Estratégico (The 3 Pillars)
 O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
@@ -17,6 +17,7 @@ O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
 Evolução para **"Cyber-Security Premium"**: Estética de fortaleza digital, confiança bancária e autoridade técnica.
 - **Visual Core:** Confiança absoluta (Azul Deep Navy + Verde "Allow List").
 - **Asset Unificado:** Logo `logo-algor.webp` padronizado em todo o sistema (Web + PDF Reports).
+- **Hero Motion:** Globo Neural Cibernético (Fibonacci Sphere) em rotação constante, representando a inteligência conectada global.
 
 ## 3. Estado Atual dos Arquivos (FULL STACK FORTRESS)
 - **Intelligence Engine (Wizard 3.0 Refactored) [ATIVO]:**
@@ -25,28 +26,29 @@ Evolução para **"Cyber-Security Premium"**: Estética de fortaleza digital, co
 - **Dashboard Command Center [ATIVO]:**
   - **KPIs de Growth:** "Growth Viability Score", "Lead Risk" e "Clean Room Status".
   - **Infraestrutura:** Painel lateral monitorando sistemas de segurança (Consent Engine, Bias Monitor).
-- **Interface Pública (Site) [ALINHADO]:**
-  - **Home:** Copywriting agressivo focado em segurança de vendas e plataforma SaaS.
+- **Interface Pública (Site) [POLIDO E ALINHADO]:**
+  - **Hero Section:** Fundo limpo (Deep Navy puro) com "Globo Neural" (sem blobs/manchas conflitantes).
   - **Metodologia:** Visual "4 Fases" atualizado para "Discovery > Clean Room > Growth > Audit".
   - **Footer:** Selos de "Verified Infrastructure" e links para soluções Enterprise.
 
-### Últimas Atualizações (v9.2 - LMS & Full SaaS)
-- **LMS Engine (Backend):** Modelagem completa (`Course`, `Module`, `Lesson`, `Enrollment`) e APIs de Streaming.
-- **LMS Interface (Frontend):** Hub de Cursos e "Sala de Aula Digital" (Classroom) com player e sidebar de currículo.
-- **Full Multi-Tenancy:** Diagnósticos (Assessments) e Inventários agora 100% segregados por Organização.
-- **Marketing Agility:** Home Hero vendendo a trilogia: Software, Educação (Carreira) e Consultoria.
+### Últimas Atualizações (v9.4 - Visual Polish)
+- **Hero Scene Refactor:** Substituição da malha aleatória por **Fibonacci Sphere (Globo Neural)**.
+  - *Tech:* React Three Fiber, 120 nodes, surface-only connections, auto-rotation.
+- **Clean Layout:** Remoção de camadas de fundo conflitantes (Blobs e AnimatedWave antigos) em `layout.tsx`.
+- **Bug Fixes:** Correção de imports duplicados em `page.tsx`.
 
-### Ciclo Atual (Fase 7 - Education & Delivery - CONCLUÍDO ✅)
-1. ✅ **LMS Backend:** Arquitetura de cursos e matrícula implementada.
-2. ✅ **LMS Frontend:** Interface de aluno (Classroom) estilo "Netflix/Hotmart".
-3. ✅ **Assessments SaaS:** Wizard de diagnóstico integrado ao contexto de Múltiplos Clientes.
+### Ciclo Atual (Fase 8 - Refinamento Visual & Estabilidade)
+1. ✅ **LMS Backend/Frontend:** Completo.
+2. ✅ **SaaS Core:** Multi-tenant e Inventory completo.
+3. ✅ **Visual Identity:** Hero Animation alinhada com a marca (Globo).
+4. ⏳ **Deploy Staging:** Preparar VPS para receber a suíte completa v9.4.
 
 ## 4. Roadmap Imediato
 Seguindo a estratégia "SaaS + Academy":
-68. ✅ **LMS Core:** Banco de Dados populado com "Formação Auditor Líder ISO 42001" (Seed Script).
-69. ✅ **Classroom UX:** Player de Vídeo e Sidebar de navegação responsiva.
-70. ✅ **Multi-Tenant Audit:** Relatórios de Auditoria agora salvos no contexto do Cliente selecionado.
-71. ⏳ **Deploy Staging:** Preparar VPS para receber a suíte completa v9.2.
+72. ✅ **Organization UI:** Componente `CreateOrganizationModal` implementado e funcional.
+73. ✅ **LMS Certificates:** Fluxo de emissão de certificado via frontend completado.
+74. ✅ **Hero Animation:** Globo Neural implementado e limpo.
+75. ⏳ **Deploy Staging:** Preparar VPS para receber as melhorias visuais.
 
 ## 5. Histórico de Versões
 - **v1.0:** MVP Estático (FormSubmit).
@@ -55,4 +57,6 @@ Seguindo a estratégia "SaaS + Academy":
 - **v8.0:** Intelligence Engine & Reporting.
 - **v9.0:** Growth AI Compliant - Pivot completo.
 - **v9.1:** SaaS Multi-Tenant Core.
-- **v9.2:** **Education Suite (ATUAL)** - LMS Completo e Maturação do SaaS.
+- **v9.2:** Education Suite - LMS Completo.
+- **v9.3:** SaaS Management.
+- **v9.4:** **Visual Identity (ATUAL)** - Hero Globe & Clean Layout.

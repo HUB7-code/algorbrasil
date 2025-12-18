@@ -3,10 +3,12 @@
 import React, { useState, useEffect } from 'react';
 import { X, Save, AlertTriangle, ShieldCheck, HelpCircle, Server, Info } from 'lucide-react';
 
+import { Asset } from '@/types/asset';
+
 interface AssetDrawerProps {
     isOpen: boolean;
     onClose: () => void;
-    onSave: (asset: any) => void;
+    onSave: (asset: Asset) => void;
 }
 
 export default function AssetDrawer({ isOpen, onClose, onSave }: AssetDrawerProps) {
@@ -46,7 +48,18 @@ export default function AssetDrawer({ isOpen, onClose, onSave }: AssetDrawerProp
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSave({ ...formData, risk: suggestedRisk?.level });
+
+        const newAsset: Asset = {
+            name: formData.name,
+            department: formData.department,
+            type: formData.type,
+            risk_level: suggestedRisk?.level || 'Low',
+            data_types: formData.dataTypes.join(', '),
+            description: formData.description,
+            status: 'Under Review' // Default status
+        };
+
+        onSave(newAsset);
         onClose();
     };
 

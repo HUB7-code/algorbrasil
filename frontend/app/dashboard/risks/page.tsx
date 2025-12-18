@@ -4,49 +4,43 @@ import React, { useEffect, useState } from 'react';
 import RiskFormModal from '@/components/dashboard/risks/RiskFormModal';
 import HeatmapWidget from '@/components/dashboard/risks/HeatmapWidget';
 
-// Mocked Data for Initial Load / Fallback
-const MOCK_RISKS = [
-    { id: 1, category: "Segurança de Dados", description: "Vazamento de PII em output de LLM", affected_system: "Chatbot RH", probability: 4, impact: 5, risk_level: 20, strategy: "Mitigar", status: "Aberto", mitigation_plan: "Implementar regex filter" },
-    { id: 2, category: "Viés Algorítmico", description: "Disparidade de gênero em triagem", affected_system: "Recrutamento AI", probability: 3, impact: 4, risk_level: 12, strategy: "Monitorar", status: "Em Análise", mitigation_plan: "Revisar dataset" },
-];
-
-export interface Risk {
-    id: number;
-    category: string;
-    description: string;
-    affected_system: string;
-    probability: number;
-    impact: number;
-    risk_level: number;
-    strategy: string;
-    status: string;
-    mitigation_plan: string;
-}
+import { useOrganization } from '@/context/OrganizationContext';
+import { Risk } from '@/types/risk';
 
 export default function RiskDashboardPage() {
-    const [risks, setRisks] = useState<Risk[]>(MOCK_RISKS);
+    const { currentOrganization } = useOrganization();
+    const [risks, setRisks] = useState<Risk[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingRisk, setEditingRisk] = useState<Risk | null>(null);
 
     const fetchRisks = async () => {
+        setLoading(true);
         try {
             const token = localStorage.getItem('algor_token');
             if (token) {
-                // In a real scenario, this endpoint returns the risks.
-                // If backend is not available or returns error, we keep MOCK data for demo purposes.
-                const res = await fetch('/api/v1/risks/', { headers: { 'Authorization': `Bearer ${token}` } });
+                let url = '/api/v1/risks/';
+                if (currentOrganization) {
+                    url += `?organization_id=${currentOrganization.id}`;
+                }
+
+                const res = await fetch(url, { headers: { 'Authorization': `Bearer ${token}` } });
                 if (res.ok) {
                     const data = await res.json();
-                    if (Array.isArray(data) && data.length > 0) setRisks(data);
+                    setRisks(Array.isArray(data) ? data : []);
+                } else {
+                    setRisks([]);
                 }
             }
-        } catch (e) { console.error("Failed to fetch risks", e) } finally { setLoading(false) }
+        } catch (e) {
+            console.error("Failed to fetch risks", e);
+            setRisks([]);
+        } finally { setLoading(false) }
     }
 
     useEffect(() => {
         fetchRisks();
-    }, []);
+    }, [currentOrganization]);
 
     const openEditModal = (risk: Risk) => {
         setEditingRisk(risk);
@@ -91,9 +85,9 @@ export default function RiskDashboardPage() {
 
     // KPIs
     const totalRisks = risks.length;
-    const criticalRisks = risks.filter(r => r.risk_level >= 15).length;
+    const criticalRisks = risks.filter(r => (r.risk_level ?? 0) >= 15).length;
     const mitigatedRisks = risks.filter(r => r.status === 'Mitigado').length;
-    const highRisks = risks.filter(r => r.risk_level >= 15);
+    const highRisks = risks.filter(r => (r.risk_level ?? 0) >= 15);
 
     return (
         <div className="space-y-8 max-w-[1600px] mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 pb-20">
@@ -102,6 +96,7 @@ export default function RiskDashboardPage() {
                 initialData={editingRisk}
                 onClose={() => setIsModalOpen(false)}
                 onSuccess={handleSuccess}
+                organizationId={currentOrganization?.id}
             />
 
             {/* Top Header */}
@@ -192,9 +187,9 @@ export default function RiskDashboardPage() {
                                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-brand-blue opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                 {/* Icon / Leading */}
-                                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 shadow-lg ${risk.risk_level >= 15 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-gray-800/50 text-gray-400 border border-white/5'}`}>
+                                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 shadow-lg ${(risk.risk_level ?? 0) >= 15 ? 'bg-red-500/20 text-red-400 border border-red-500/30' : 'bg-gray-800/50 text-gray-400 border border-white/5'}`}>
                                     <span className="material-symbols-rounded">
-                                        {risk.risk_level >= 15 ? 'priority_high' : 'policy'}
+                                        {(risk.risk_level ?? 0) >= 15 ? 'priority_high' : 'policy'}
                                     </span>
                                 </div>
 
@@ -202,7 +197,7 @@ export default function RiskDashboardPage() {
                                 <div className="flex-1 min-w-0">
                                     <div className="flex items-center gap-3 mb-2">
                                         <h4 className="text-base font-medium text-gray-200 truncate group-hover:text-white transition-colors">{risk.description}</h4>
-                                        {risk.risk_level >= 15 && (
+                                        {(risk.risk_level ?? 0) >= 15 && (
                                             <span className="px-2 py-0.5 rounded-md bg-red-500/20 text-red-300 border border-red-500/20 text-[10px] font-bold uppercase tracking-wider shadow-[0_0_10px_rgba(239,68,68,0.2)]">Crítico</span>
                                         )}
                                     </div>
@@ -217,7 +212,7 @@ export default function RiskDashboardPage() {
                                 <div className="flex items-center gap-8 text-sm text-gray-400 mt-2 md:mt-0">
                                     <div className="text-center min-w-[80px]">
                                         <span className="block text-[10px] text-gray-600 uppercase tracking-wider font-bold mb-1">Severidade</span>
-                                        <span className={`font-display text-lg ${risk.risk_level >= 15 ? 'text-red-400' : 'text-white'}`}>{risk.risk_level}</span>
+                                        <span className={`font-display text-lg ${(risk.risk_level ?? 0) >= 15 ? 'text-red-400' : 'text-white'}`}>{risk.risk_level ?? 0}</span>
                                     </div>
                                     <div className="min-w-[120px] text-center">
                                         <span className={`px-4 py-1.5 rounded-lg text-xs font-bold border backdrop-blur-md uppercase tracking-wider ${risk.status === 'Mitigado' ? 'border-brand-green/30 text-brand-green bg-brand-green/10' : 'border-gray-600/30 text-gray-400 bg-gray-800/30'}`}>
@@ -235,7 +230,7 @@ export default function RiskDashboardPage() {
                                             <span className="material-symbols-rounded text-lg">edit</span>
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(risk.id)}
+                                            onClick={() => risk.id && handleDelete(risk.id)}
                                             className="h-9 w-9 rounded-lg hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center transition-colors text-gray-500 border border-transparent hover:border-red-500/30"
                                             title="Excluir"
                                         >

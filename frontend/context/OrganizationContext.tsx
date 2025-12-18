@@ -27,37 +27,35 @@ export function OrganizationProvider({ children }: { children: React.ReactNode }
     const refreshOrganizations = async () => {
         setIsLoading(true);
         try {
-            // TODO: Replace with actual API call to /api/v1/users/me/organizations
-            // For now, we simulate a delay and some data if user is logged in
+            // Fetch real organizations from API
             const token = localStorage.getItem("algor_token");
-            if (!token) return;
-
-            // Mock Data for SaaS Demo
-            const mockOrgs: Organization[] = [
-                { id: 1, name: "Consultoria Pessoal (Workspace)", role: 'owner' },
-                { id: 101, name: "Acme Corp (Cliente)", role: 'member' },
-                { id: 102, name: "Stark Industries (Cliente)", role: 'member' }
-            ];
-
-            // In a real implementation:
-            // const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me/organizations`);
-            // const data = await res.json();
-
-            setOrganizations(mockOrgs);
-
-            // Restore selection or default to Personal (null or id=1 depending on logic)
-            // Here we use null to mean "Personal/No Org" context if we want separate,
-            // or we treat "Personal" as just another Org in the list.
-            // Let's treat Personal as "null" org_id for API compatibility with "Personal Workspace"
-
-            const savedOrgId = localStorage.getItem("algor_selected_org_id");
-            if (savedOrgId) {
-                const found = mockOrgs.find(o => o.id === Number(savedOrgId));
-                if (found) setCurrentOrganization(found);
+            if (!token) {
+                setIsLoading(false);
+                return;
             }
 
-        } catch (error) {
-            console.error("Failed to load organizations", error);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations/me`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setOrganizations(data);
+
+                // Restore selection if valid
+                const savedOrgId = localStorage.getItem("algor_selected_org_id");
+                if (savedOrgId) {
+                    const found = data.find((o: Organization) => o.id === Number(savedOrgId));
+                    if (found) setCurrentOrganization(found);
+                }
+            } else {
+                console.error("Failed to fetch organizations");
+                // If auth fails/token invalid, maybe clear data
+                setOrganizations([]);
+            }
+
         } finally {
             setIsLoading(false);
         }

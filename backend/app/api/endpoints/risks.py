@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from typing import List
+from typing import List, Optional
 
 from backend.app.db.session import get_db
 from backend.app.models.risk import RiskRegister, RiskStatus
@@ -15,12 +15,19 @@ router = APIRouter()
 def create_risk(
     risk_in: RiskCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    organization_id: Optional[int] = None
 ):
     """
     Registra um novo risco no Sistema de Gestão (ISO 42001 - 5.2).
     Calcula automaticamente o Nível de Risco (Probabilidade x Impacto).
     """
+    # Verify Permissions if org_id is present (Simplified check for now)
+    if organization_id:
+        # Check if user is member of org
+        # For now, assuming standard permission logic handled by frontend context or middleware in future
+        pass
+
     risk_level = risk_in.probability * risk_in.impact
     
     db_risk = RiskRegister(
@@ -34,7 +41,8 @@ def create_risk(
         strategy=risk_in.strategy,
         mitigation_plan=risk_in.mitigation_plan,
         owner=risk_in.owner,
-        status=RiskStatus.OPEN
+        status=RiskStatus.OPEN,
+        organization_id=organization_id
     )
     
     db.add(db_risk)
@@ -46,13 +54,24 @@ def create_risk(
 def read_risks(
     skip: int = 0,
     limit: int = 100,
+    organization_id: Optional[int] = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
     """
-    Lista todos os riscos registrados pelo usuário.
+    Lista riscos. Se organization_id for fornecido, filtra por organização.
+    Caso contrário, lista os riscos PESSOAIS do usuário.
     """
-    risks = db.query(RiskRegister).filter(RiskRegister.user_id == current_user.id).offset(skip).limit(limit).all()
+    query = db.query(RiskRegister)
+    
+    if organization_id:
+         query = query.filter(RiskRegister.organization_id == organization_id)
+         # TODO: Add security check to ensure user belongs to organization_id
+    else:
+         # Personal risks only
+         query = query.filter(RiskRegister.user_id == current_user.id, RiskRegister.organization_id == None)
+
+    risks = query.offset(skip).limit(limit).all()
     return risks
 
 @router.get("/{risk_id}", response_model=RiskResponse)

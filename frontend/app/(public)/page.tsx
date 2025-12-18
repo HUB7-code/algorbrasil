@@ -8,11 +8,9 @@ import PersonaGrid from '@/components/PersonaGrid';
 import MethodologySection from '@/components/MethodologySection';
 import Image from 'next/image';
 import HeroDual from '@/components/HeroDual';
-import AnimatedWave from '@/components/AnimatedWave';
 import OfferingsShowcase from '@/components/OfferingsShowcase';
 
 // Memoize heavy static components to prevent re-renders on scroll state changes
-const MemoizedWave = React.memo(AnimatedWave);
 const MemoizedHero = React.memo(HeroDual);
 const MemoizedPersonaGrid = React.memo(PersonaGrid);
 const MemoizedMethodology = React.memo(MethodologySection);

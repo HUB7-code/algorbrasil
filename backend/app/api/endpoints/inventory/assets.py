@@ -1,9 +1,9 @@
 from typing import Any, List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.api import deps
-from app.models.ai_asset import AIAsset
-from app.models.organization import Organization
+from backend.app.api import deps
+from backend.app.models.ai_asset import AIAsset
+from backend.app.models.organization import Organization
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime

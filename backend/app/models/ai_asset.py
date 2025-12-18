@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Enum
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from app.db.session import Base
+from backend.app.db.session import Base
 
 class AIAsset(Base):
     __tablename__ = "ai_assets"

@@ -3,9 +3,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useOrganization } from "@/context/OrganizationContext";
 
+import CreateOrganizationModal from "./CreateOrganizationModal";
+
 export default function OrganizationSwitcher() {
     const { currentOrganization, organizations, setCurrentOrganization, isLoading } = useOrganization();
     const [isOpen, setIsOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     // Close on click outside
@@ -85,13 +88,21 @@ export default function OrganizationSwitcher() {
                         ))}
                     </div>
                     <div className="p-2 border-t border-white/5 bg-white/5">
-                        <button className="w-full flex items-center justify-center gap-2 p-2 rounded-lg border border-dashed border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-all text-xs font-medium">
+                        <button
+                            onClick={() => {
+                                setIsOpen(false);
+                                setIsModalOpen(true);
+                            }}
+                            className="w-full flex items-center justify-center gap-2 p-2 rounded-lg border border-dashed border-gray-600 text-gray-400 hover:text-white hover:border-gray-400 transition-all text-xs font-medium"
+                        >
                             <span className="material-symbols-rounded text-sm">add</span>
                             Nova Organização
                         </button>
                     </div>
                 </div>
             )}
+
+            <CreateOrganizationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </div>
     );
 }

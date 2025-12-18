@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 
+import HeroScene from './HeroScene';
+
 export default function HeroDual() {
     const router = useRouter();
     const [hoveredSide, setHoveredSide] = useState<'corporate' | 'professional' | null>(null);
@@ -22,12 +24,16 @@ export default function HeroDual() {
     return (
         <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-32 px-4 md:px-0 overflow-hidden">
 
-            {/* Background Effects - Dynamic based on hover */}
+            {/* 3D Neural Background */}
+            <div className="absolute inset-0 z-[1] pointer-events-none">
+                <HeroScene />
+            </div>
+
             {/* Background Effects - Dynamic based on hover */}
             {/* Removed conflicting blobs to prioritize Brain 3D Effect */}
 
             {/* Main Headline */}
-            <div className="relative z-10 text-center mb-0 animate-in slide-in-from-top-10 fade-in duration-700">
+            <div className="relative z-[5] text-center mb-0 animate-in slide-in-from-top-10 fade-in duration-700">
                 <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-[#00FF94] text-[10px] md:text-xs font-mono tracking-[0.2em] mb-10 uppercase backdrop-blur-md">
                     Growth AI Compliant v2.0
                 </span>

@@ -10,9 +10,9 @@ app = FastAPI(
 )
 
 # --- Imports de Endpoints ---
-from app.api import auth, forms, profiles, downloads
-from app.api.endpoints import payments, assessments, risks, lms, admin, projects
-from app.api.endpoints.inventory import assets # Novo endpoint
+from backend.app.api import auth, forms, profiles, downloads
+from backend.app.api.endpoints import payments, assessments, risks, lms, admin, projects, organizations
+from backend.app.api.endpoints.inventory import assets # Novo endpoint
 
 # --- Rotas Existentes ---
 app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
@@ -25,4 +25,5 @@ app.include_router(risks.router, prefix="/api/v1/risks", tags=["risks"])
 app.include_router(lms.router, prefix="/api/v1/lms", tags=["lms"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
-app.include_router(assets.router, prefix="/api/v1/inventory", tags=["inventory"]) # Nova rota registrada
+app.include_router(assets.router, prefix="/api/v1/inventory", tags=["inventory"])
+app.include_router(organizations.router, prefix="/api/v1/organizations", tags=["organizations"])
