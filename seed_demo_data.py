@@ -89,6 +89,58 @@ def seed_data():
             for p in projects:
                 db.add(p)
 
+        # 5. LMS Courses (ISO 42001)
+        from backend.app.models.lms import Course, CourseModule, CourseLesson
+        
+        if not db.query(Course).filter(Course.id == "iso42001-lead").first():
+            print("Creating LMS Course: ISO 42001 Lead...")
+            course = Course(
+                id="iso42001-lead", 
+                title="Formação Lead Implementer ISO 42001",
+                description="Domine a implementação de Sistemas de Gestão de IA conforme a norma internacional.",
+                type="certification",
+                thumbnail_url="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2560&auto=format&fit=crop"
+            )
+            db.add(course)
+            db.commit()
+            
+            # Module 1
+            mod1 = CourseModule(course_id=course.id, title="Módulo 1: Fundamentos da Governança de IA", order=1)
+            db.add(mod1)
+            db.commit()
+            
+            lessons_m1 = [
+                {"id": "iso-m1-l1", "title": "Introdução à ISO 42001", "type": "video", "video_id": "dQw4w9WgXcQ", "duration": 15, "order": 1},
+                {"id": "iso-m1-l2", "title": "O Conceito de Sistema de Gestão", "type": "video", "video_id": "dQw4w9WgXcQ", "duration": 20, "order": 2},
+                {"id": "iso-m1-l3", "title": "O AI Act Europeu vs. Brasil", "type": "document", "doc_url": "/docs/ai-act-summary.pdf", "duration": 30, "order": 3}
+            ]
+            for l in lessons_m1:
+                db.add(CourseLesson(
+                    id=l["id"], module_id=mod1.id, title=l["title"], type=l["type"], 
+                    video_id=l.get("video_id"), document_url=l.get("doc_url"), 
+                    duration_min=l["duration"], order=l["order"]
+                ))
+            
+            # Module 2
+            mod2 = CourseModule(course_id=course.id, title="Módulo 2: Planejamento e Riscos", order=2)
+            db.add(mod2)
+            db.commit()
+            
+            lessons_m2 = [
+                {"id": "iso-m2-l1", "title": "Ações para abordar riscos (6.1)", "type": "video", "video_id": "dQw4w9WgXcQ", "duration": 45, "order": 1},
+                {"id": "iso-m2-l2", "title": "Avaliação de Impacto Algorítmico (AIA)", "type": "video", "video_id": "dQw4w9WgXcQ", "duration": 35, "order": 2},
+                {"id": "iso-m2-quiz", "title": "Quiz: Planejamento", "type": "quiz", "duration": 10, "order": 3}
+            ]
+            for l in lessons_m2:
+                db.add(CourseLesson(
+                    id=l["id"], module_id=mod2.id, title=l["title"], type=l["type"], 
+                    video_id=l.get("video_id"), document_url=l.get("doc_url"), 
+                    duration_min=l["duration"], order=l["order"]
+                ))
+            
+            db.commit()
+            print("LMS Course Seeded.")
+
         db.commit()
         print("✅ Seed Complete! Login with: demo@algor.brasil / password123")
 
