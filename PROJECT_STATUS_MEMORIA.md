@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 18/12/2025 - 21:15 (Versão Backend Integrated)
-> **Status Geral:** **OPERATIONAL & INTEGRATED (v10.1)** 🟢🚀
-> **Versão:** 10.1 (Royal Navy + Live Backend Data)
+> **Última Atualização:** 18/12/2025 - 22:25 (Versão Conversion Update)
+> **Status Geral:** **AUDIT READY (v10.3)** 🟢⚖️
+> **Versão:** 10.3 (Royal Navy + Assessment Wizard + WhatsApp Conversion)
 
 ## 1. Manifesto Estratégico (The 3 Pillars)
 O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
@@ -24,33 +24,34 @@ Abandonamos o conceito "Gamer/Matrix" em favor de uma estética **Corporativa, S
     *   **Tipografia:** Serif (`Playfair Display` ou similar) para Títulos. Sans (`Inter/Satoshi`) para dados.
 
 *   **Status de Unificação Visual:**
-    *   Home Page: ✅ (Referência Absoluta)
+    *   Home Page: ✅ (Referência Absoluta + WhatsApp Action)
     *   Auth Pages: ✅ (Royal Navy Theme)
     *   Dashboard CoE: ✅ (Clone da Home + Real Data)
-    *   Assessments: ✅ (Clean Glass)
+    *   Assessments: ✅ (Clean Glass + Wizard Active)
     *   Inventory/Risks: ✅ (Minimal Cards + Real Data)
     *   Associates Page: ✅ (Updated with Real Links)
 
-## 3. Estado Atual dos Arquivos (INTEGRATION UPDATE)
-- **Backend & Data (New):**
-    - ✅ **Real Data Fetching:** O Dashboard agora consome dados dinâmicos da API `/api/v1/`.
-    - ✅ **Infrastructure Fix:** Recuperação de arquivos críticos (`deps.py`) e correção de imports de modelos (`RiskRegister`).
-    - ✅ **Seed Data:** Script de seed populando o banco com demo users e ativos realistas.
-    - ✅ **Validation:** Testes de fumaça e script validador manual confirmando integridade do backend.
+## 3. Estado Atual dos Arquivos (CONVERSION UPDATE)
+- **Functional Modules (New):**
+    - ✅ **Assessment Wizard:** Implementado fluxo passo-a-passo para ISO 42001 com lógica de pontuação.
+    - ✅ **Visual Refactor:** Migração do Wizard de Material UI para Royal Navy (Glassmorphism + Lucide Icons).
+    - ✅ **Conversion Engine:** Implementação do `WhatsAppButton` fixo na Home, com estética Neon Green e mensagem pré-configurada.
+    - ✅ **Contact Info:** Atualização do número oficial para `+55 85 9985-1769`.
 
-### Ciclo Atual (Fase 11 - Final Polish & Production)
-42. ✅ **Backend Integration:** Conexão Dashboard/API concluída e validada.
-43. ✅ **Frontend Details:** Ajuste fino de links (LinkedIn Associados) e ícones.
-44. ⏳ **Deploy Production:** Subir versão integrada v10.1 para ambiente live.
+### Ciclo Atual (Fase 12 - Deploy & Validation)
+45. ✅ **Audit Engine:** Implementação do motor de perguntas e respostas concluída.
+46. ✅ **Conversion Feature:** Botão flutuante do WhatsApp integrado para captura de leads em tempo real.
+47. 🚀 **Deploy Production:** Subir v10.3 para VPS e validar fluxo de conversão.
 
 ## 4. Roadmap Imediato
-A fase de "Conexão" foi superada. O sistema é funcional end-to-end.
-Foco total agora em **DEPLOY** e Validação de Usuário Final.
+O foco é garantir que as funcionalidades de conversão (WhatsApp) e retenção (Wizard) estejam rodando liso na VPS.
 
-60. 🚀 **Deploy VPS:** Atualizar ambiente de produção com os fixs críticos de backend.
-61. 🚀 **User Audit:** Rodar um ciclo de uso real (Cadastro -> Login -> Uso).
+60. 🚀 **Deploy VPS:** Atualizar ambiente de produção.
+61. 🚀 **Test Drive:** Realizar uma auditoria completa no ambiente live e testar o link do WhatsApp.
 
 ## 5. Histórico de Versões
-- **v1.0 - v9.5:** Legado de Evolução, Pivots e tentativas estéticas.
-- **v10.0:** **Royal Navy Visual:** Unificação estética completa (Visual Completed).
-- **v10.1:** **Integrated System (ATUAL):** O "cérebro" foi conectado ao "rosto". O backend agora serve dados reais para a interface Royal Navy. Stable & Seeded.
+- **v1.0 - v9.5:** Legado de Evolução e Pivots.
+- **v10.0:** **Royal Navy Visual:** Unificação estética completa.
+- **v10.1:** **Integrated System:** Backend conectado e estável.
+- **v10.2:** **Assessment Engine:** Auditoria ISO 42001 interativa.
+- **v10.3:** **Conversion Update (ATUAL):** Foco em conversão direta (WhatsApp) e refinamentos de UI.

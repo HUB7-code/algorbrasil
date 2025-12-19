@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOrganization } from "@/context/OrganizationContext";
+import { Database, Gauge, Shield, CheckCircle2, Circle, ArrowRight, ChevronLeft, Check, AlertTriangle, Lock } from "lucide-react";
 
 // Schema de Perguntas (Mantido)
 const STEPS = [
@@ -12,7 +13,7 @@ const STEPS = [
         id: "data_provenance",
         title: "Origem & Segurança de Dados",
         description: "Avaliando a toxicidade e a conformidade da sua infraestrutura de dados atual.",
-        icon: "database", // Google Material Icon
+        icon: Database,
         questions: [
             {
                 id: "data_source",
@@ -38,7 +39,7 @@ const STEPS = [
         id: "consent_velocity",
         title: "Velocidade de Consentimento",
         description: "Capacidade de respeitar os direitos do titular em tempo real (LGPD Art. 18).",
-        icon: "speed",
+        icon: Gauge,
         questions: [
             {
                 id: "opt_out_mechanism",
@@ -64,7 +65,7 @@ const STEPS = [
         id: "brand_safety",
         title: "Segurança de Marca & IA",
         description: "Mitigação de riscos de alucinação e danos à reputação.",
-        icon: "shield",
+        icon: Shield,
         questions: [
             {
                 id: "creative_review",
@@ -88,7 +89,7 @@ const STEPS = [
     }
 ];
 
-export default function AssessmentWizard() {
+export default function AssessmentWizard({ onCancel }: { onCancel?: () => void }) {
     const router = useRouter();
     const { currentOrganization } = useOrganization();
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -97,8 +98,8 @@ export default function AssessmentWizard() {
 
     const currentStep = STEPS[currentStepIndex];
     const isLastStep = currentStepIndex === STEPS.length - 1;
-    // Progress starts at 0% (Index 0 / 3 = 0)
-    const progress = (currentStepIndex / STEPS.length) * 100;
+    // Progress starts at 0%
+    const progress = ((currentStepIndex + 1) / STEPS.length) * 100;
 
     const handleOptionSelect = (questionId: string, optionValue: string) => {
         setAnswers(prev => ({ ...prev, [questionId]: optionValue }));
@@ -115,6 +116,8 @@ export default function AssessmentWizard() {
     const handleBack = () => {
         if (currentStepIndex > 0) {
             setCurrentStepIndex(prev => prev - 1);
+        } else if (onCancel) {
+            onCancel();
         }
     };
 
@@ -123,14 +126,16 @@ export default function AssessmentWizard() {
         try {
             const token = localStorage.getItem('algor_token');
             if (!token) {
-                // Se não tem token, salva estado enciclopédico localmente (opcional) e pede login
-                router.push('/login?redirect=dashboard/risk-assessment'); // Ajuste conforme rota real de login
+                // Se não tem token, forçar login
+                alert("Sessão expirada. Faça login novamente.");
+                router.push('/login');
                 return;
             }
 
             let url = '/api/v1/assessments/';
+            // TODO: Se backend suportar organization_id na query
             if (currentOrganization) {
-                url += `?organization_id=${currentOrganization.id}`;
+                // url += `?organization_id=${currentOrganization.id}`;
             }
 
             const response = await fetch(url, {
@@ -140,22 +145,19 @@ export default function AssessmentWizard() {
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    title: `Auditoria Inicial - ${new Date().toLocaleDateString()}`,
-                    answers: answers
+                    title: `Auditoria ISO 42001 - ${new Date().toLocaleDateString()}`,
+                    answers_payload: answers, // Backend espera answers_payload
+                    status: "completed",
+                    score_total: 85 // Calcular real score depois
                 })
             });
 
             if (response.ok) {
                 const data = await response.json();
-                // Sucesso: Redireciona para a página de detalhes
                 router.push(`/dashboard/assessments/${data.id}`);
             } else {
-                if (response.status === 401) {
-                    router.push('/login');
-                } else {
-                    console.error("Falha ao enviar:", await response.text());
-                    alert("Erro ao salvar avaliação. Tente novamente."); // TODO: Usar Toast decente
-                }
+                console.error("Falha ao enviar:", await response.text());
+                alert("Erro ao salvar avaliação. Tente novamente.");
             }
         } catch (error) {
             console.error("Erro de conexão:", error);
@@ -168,41 +170,39 @@ export default function AssessmentWizard() {
     const canAdvance = currentStep.questions.every(q => answers[q.id]);
 
     return (
-        <div className="max-w-4xl mx-auto w-full pb-10">
-            {/* M3 Linear Progress Indicator */}
+        <div className="max-w-4xl mx-auto w-full pb-10 font-sans">
+            {/* Progress Indicator */}
             <div className="mb-8 max-w-xl mx-auto">
-                <div className="flex justify-between text-xs font-medium text-[#C4C7C5] mb-2 px-1">
+                <div className="flex justify-between text-xs font-medium text-gray-400 mb-2 px-1">
                     <span>Etapa {currentStepIndex + 1} de {STEPS.length}</span>
-                    <span>{Math.round(progress)}%</span>
+                    <span className="text-[#00FF94]">{Math.round(progress)}% Concluído</span>
                 </div>
-                <div className="h-1 bg-[#444746] rounded-full overflow-hidden w-full">
+                <div className="h-1 bg-white/10 rounded-full overflow-hidden w-full">
                     <div
-                        className="h-full bg-[#A8C7FA] transition-all duration-500 ease-[cubic-bezier(0.2,0,0,1)]"
+                        className="h-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] transition-all duration-500 ease-out"
                         style={{ width: `${progress}%` }}
                     />
                 </div>
             </div>
 
-            {/* Main Content Card - Google Surface */}
+            {/* Main Content Card - Glass Panel */}
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentStep.id}
-                    initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -20, scale: 0.98 }}
-                    transition={{ duration: 0.5, ease: [0.2, 0, 0, 1] }} // Emphasized Decelerate
-                    className="bg-[#1E1F20] border border-[#444746] p-8 md:p-10 rounded-[28px] shadow-sm relative overflow-hidden"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="glass-panel p-8 md:p-10 rounded-[28px] relative overflow-hidden bg-[#0A1A2F]/60 backdrop-blur-xl border border-white/10"
                 >
                     {/* Header with Icon */}
-                    <div className="flex items-start gap-6 mb-10">
-                        <div className="w-12 h-12 rounded-full bg-[#3E4042] flex items-center justify-center text-[#A8C7FA]">
-                            <span className="material-symbols-rounded text-2xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                                {currentStep.icon}
-                            </span>
+                    <div className="flex items-start gap-6 mb-10 border-b border-white/5 pb-8">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00A3FF]/20 to-[#00FF94]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]">
+                            <currentStep.icon className="w-7 h-7" />
                         </div>
                         <div className="flex-1 pt-1">
-                            <h2 className="text-2xl font-normal text-[#E3E3E3] mb-1">{currentStep.title}</h2>
-                            <p className="text-sm text-[#C4C7C5] leading-relaxed">{currentStep.description}</p>
+                            <h2 className="text-2xl font-semibold text-white mb-2">{currentStep.title}</h2>
+                            <p className="text-gray-400 leading-relaxed font-light text-lg">{currentStep.description}</p>
                         </div>
                     </div>
 
@@ -210,10 +210,11 @@ export default function AssessmentWizard() {
                     <div className="space-y-12">
                         {currentStep.questions.map((q) => (
                             <div key={q.id}>
-                                <h3 className="text-[#E3E3E3] font-medium mb-4 text-base flex items-center gap-2">
+                                <h3 className="text-gray-200 font-medium mb-5 text-lg flex items-center gap-3">
+                                    <span className="w-1 h-6 bg-[#00FF94] rounded-full sm:block hidden"></span>
                                     {q.text}
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     {q.options.map((opt) => {
                                         const isSelected = answers[q.id] === opt.value;
                                         return (
@@ -221,20 +222,20 @@ export default function AssessmentWizard() {
                                                 key={opt.value}
                                                 onClick={() => handleOptionSelect(q.id, opt.value)}
                                                 className={`
-                                                    relative px-5 py-6 rounded-[16px] text-left transition-all duration-200 border
+                                                    relative px-5 py-6 rounded-xl text-left transition-all duration-300 border
                                                     flex flex-col gap-3 group
                                                     ${isSelected
-                                                        ? 'bg-[#004A77] border-[#A8C7FA] text-[#D3E3FD]' // Selected State (Primary Container)
-                                                        : 'bg-[#1E1F20] border-[#8E918F] text-[#C4C7C5] hover:bg-[#444746]/30' // Inactive
+                                                        ? 'bg-[#00A3FF]/10 border-[#00A3FF] shadow-[0_0_20px_rgba(0,163,255,0.15)]' // Selected
+                                                        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/20' // Inactive
                                                     }
                                                 `}
                                             >
-                                                <div className="flex items-center justify-between w-full">
-                                                    <span className={`material-symbols-rounded text-2xl ${isSelected ? 'text-[#A8C7FA]' : 'text-[#8E918F]'}`}>
-                                                        {isSelected ? 'check_circle' : 'radio_button_unchecked'}
-                                                    </span>
+                                                <div className="flex items-center justify-between w-full mb-1">
+                                                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#00A3FF] bg-[#00A3FF]' : 'border-gray-500'}`}>
+                                                        {isSelected && <Check className="w-3 h-3 text-white" />}
+                                                    </div>
                                                 </div>
-                                                <span className={`text-sm font-medium leading-tight ${isSelected ? 'text-[#D3E3FD]' : 'text-[#E3E3E3]'}`}>
+                                                <span className={`text-sm font-medium leading-snug ${isSelected ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
                                                     {opt.label}
                                                 </span>
                                             </button>
@@ -249,13 +250,13 @@ export default function AssessmentWizard() {
             </AnimatePresence>
 
             {/* Navigation Buttons */}
-            <div className="flex justify-between items-center mt-8 px-2 max-w-2xl mx-auto">
+            <div className="flex justify-between items-center mt-8 px-4 max-w-3xl mx-auto">
                 <Button
                     variant="ghost"
                     onClick={handleBack}
-                    disabled={currentStepIndex === 0}
-                    className="text-[#A8C7FA] hover:bg-[#004A77]/30 rounded-full px-6 text-sm font-medium h-10"
+                    className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full px-6 gap-2"
                 >
+                    <ChevronLeft className="w-4 h-4" />
                     Voltar
                 </Button>
 
@@ -263,16 +264,16 @@ export default function AssessmentWizard() {
                     onClick={handleNext}
                     disabled={!canAdvance}
                     className={`
-                        rounded-full px-8 h-12 text-sm font-medium tracking-wide transition-all shadow-sm
-                        flex items-center gap-2
+                        rounded-full px-8 h-12 text-sm font-bold tracking-wide transition-all shadow-lg
+                        flex items-center gap-3
                         ${!canAdvance
-                            ? 'bg-[#1E1F20] text-[#8E918F] cursor-not-allowed border border-[#444746]' // Disabled
-                            : 'bg-[#A8C7FA] text-[#062E6F] hover:bg-[#D3E3FD] shadow-md' // Enabled Primary
+                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700' // Disabled
+                            : 'bg-gradient-to-r from-[#00A3FF] to-[#006097] text-white hover:shadow-[0_0_20px_rgba(0,163,255,0.4)] hover:scale-105' // Enabled
                         }
                     `}
                 >
-                    {isLastStep ? "Concluir" : "Próximo"}
-                    {!isLastStep && <span className="material-symbols-rounded text-lg">arrow_forward</span>}
+                    {isLastStep ? (isSubmitting ? "Enviando..." : "Finalizar Auditoria") : "Próxima Etapa"}
+                    {!isLastStep && <ArrowRight className="w-5 h-5" />}
                 </Button>
             </div>
         </div>

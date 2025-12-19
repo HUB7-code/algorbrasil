@@ -1,8 +1,17 @@
 "use client";
 
 import { ShieldCheck, Zap, Activity, FileText, ArrowRight, Star, Lock } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import AssessmentWizard from "@/components/dashboard/assessments/AssessmentWizard";
 
 export default function AssessmentsPage() {
+    const [showWizard, setShowWizard] = useState(false);
+
+    if (showWizard) {
+        return <AssessmentWizard onCancel={() => setShowWizard(false)} />;
+    }
+
     return (
         <div className="p-8 w-full min-h-screen space-y-10 relative text-white font-sans">
             {/* Header Section */}
@@ -29,6 +38,7 @@ export default function AssessmentsPage() {
                     bg="bg-[#00FF94]/10"
                     badge="Most Popular"
                     cost="2 Credits"
+                    onClick={() => setShowWizard(true)}
                 />
 
                 {/* 2. PROTOCOL: LIA Flash */}
@@ -39,6 +49,7 @@ export default function AssessmentsPage() {
                     color="text-[#00A3FF]"
                     bg="bg-[#00A3FF]/10"
                     cost="1 Credit"
+                    onClick={() => alert("Em breve: LIA Flash")}
                 />
 
                 {/* 3. PROTOCOL: Data Clean Room */}
@@ -88,9 +99,12 @@ export default function AssessmentsPage() {
 }
 
 // Componente Visual de Card de Seleção - GLASS DNA
-function AssessmentCard({ title, description, icon, color, bg, badge, cost }: any) {
+function AssessmentCard({ title, description, icon, color, bg, badge, cost, onClick }: any) {
     return (
-        <div className="glass-panel rounded-2xl p-8 flex flex-col justify-between h-[320px] relative group hover:border-[#00FF94]/30 cursor-pointer">
+        <div
+            onClick={onClick}
+            className="glass-panel rounded-2xl p-8 flex flex-col justify-between h-[320px] relative group hover:border-[#00FF94]/30 cursor-pointer"
+        >
 
             {/* Header */}
             <div className="relative z-10">

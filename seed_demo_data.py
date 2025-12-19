@@ -4,6 +4,7 @@ from backend.app.db.session import SessionLocal, engine, Base
 from backend.app.models.user import User
 from backend.app.models.ai_asset import AIAsset
 from backend.app.models.risk import RiskRegister, RiskStatus
+from backend.app.models.assessment import Assessment
 from backend.app.models.project import Project
 from backend.app.core.security import get_password_hash
 from datetime import datetime

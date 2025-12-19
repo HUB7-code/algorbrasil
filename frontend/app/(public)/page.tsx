@@ -9,16 +9,18 @@ import MethodologySection from '@/components/MethodologySection';
 import Image from 'next/image';
 import HeroDual from '@/components/HeroDual';
 import OfferingsShowcase from '@/components/OfferingsShowcase';
+import WhatsAppButton from '@/components/WhatsAppButton';
 
 // Memoize heavy static components to prevent re-renders on scroll state changes
 const MemoizedHero = React.memo(HeroDual);
 const MemoizedPersonaGrid = React.memo(PersonaGrid);
 const MemoizedMethodology = React.memo(MethodologySection);
-const MemoizedOfferings = React.memo(OfferingsShowcase); // New component
+const MemoizedOfferings = React.memo(OfferingsShowcase);
 const MemoizedFooter = React.memo(Footer);
+const MemoizedWhatsApp = React.memo(WhatsAppButton);
 
 export default function Home() {
-    const [scrolled, setScrolled] = useState(false); // Kept for scroll-to-top button logic
+    const [scrolled, setScrolled] = useState(false);
     const [showManifesto, setShowManifesto] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
@@ -55,7 +57,7 @@ export default function Home() {
             </div>
 
             {/* Benefits Section */}
-            < section id="benefits" className="relative z-10 max-w-7xl mx-auto px-6 pb-32" >
+            <section id="benefits" className="relative z-10 max-w-7xl mx-auto px-6 pb-32" >
                 <div className="grid md:grid-cols-3 gap-6">
                     <div className="glass-panel p-8 rounded-xl group transition-all duration-300 hover:-translate-y-2">
                         <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mb-6 group-hover:bg-[#00FF94]/10 transition-all text-white group-hover:text-[#00FF94]">
@@ -184,6 +186,10 @@ export default function Home() {
                     </button>
                 )
             }
+
+            {/* WhatsApp Button - Always Visible */}
+            <MemoizedWhatsApp />
+
             <MemoizedFooter />
         </div >
     );

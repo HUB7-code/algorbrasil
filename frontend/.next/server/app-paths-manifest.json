@@ -1,8 +1,8 @@
 {
   "/icon.png/route": "app/icon.png/route.js",
   "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/projects/page": "app/dashboard/projects/page.js",
   "/dashboard/risks/page": "app/dashboard/risks/page.js",
   "/(public)/page": "app/(public)/page.js",
+  "/dashboard/projects/page": "app/dashboard/projects/page.js",
   "/(public)/associates/page": "app/(public)/associates/page.js"
 }
