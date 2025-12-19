@@ -25,6 +25,19 @@ const config: Config = {
                     text: "#4A5568", // Neutra (Texto)
                     accent: "#6FDC9F", // Accent (Sucesso/Menta)
                 },
+                // --- DESIGN SYSTEM: AURORA TECH (SaaS/Dashboard) ---
+                aurora: {
+                    bg: "#0F172A", // Slate 900 (Fundo Base)
+                    "bg-gradient-start": "#0F172A",
+                    "bg-gradient-end": "#1E293B",
+                    violet: "#6366F1", // Violeta Profundo (Confiança/IA)
+                    cyan: "#06B6D4", // Cyan Elétrico (Inovação)
+                    pink: "#EC4899", // Rosa Neon (Energia)
+                    amber: "#F59E0B", // Âmbar Suave (Alerta)
+                    green: "#00FF94", // Neon Green (Marca - ALGOR Life)
+                    border: "rgba(148, 163, 184, 0.1)", // Bordas sutis
+                    "card-bg": "rgba(15, 23, 42, 0.6)", // Glassmorphism escuro e translúcido
+                },
             },
             fontFamily: {
                 sans: ["var(--font-manrope)"], // Corpo (Clean Modern)
@@ -37,6 +50,22 @@ const config: Config = {
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "grid-pattern": "linear-gradient(to right, #0A1A2F 1px, transparent 1px), linear-gradient(to bottom, #0A1A2F 1px, transparent 1px)",
+                "neon-flow": "linear-gradient(90deg, transparent, #00FF94, transparent)",
+            },
+            animation: {
+                "pulse-slow": "pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+                "border-beam": "border-beam 4s linear infinite",
+            },
+            keyframes: {
+                "border-beam": {
+                    "0%": { "border-color": "rgba(0, 255, 148, 0.1)" },
+                    "50%": { "border-color": "rgba(0, 255, 148, 0.5)" },
+                    "100%": { "border-color": "rgba(0, 255, 148, 0.1)" },
+                },
+                shimmer: {
+                    from: { transform: "translateX(-100%)" },
+                    to: { transform: "translateX(100%)" },
+                },
             },
         },
     },

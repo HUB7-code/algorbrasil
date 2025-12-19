@@ -1,24 +1,81 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial, Float, Line } from "@react-three/drei";
+import { Points, PointMaterial, Float, Line, Sphere } from "@react-three/drei";
 import { useMemo, useRef, useState } from "react";
 import * as THREE from "three";
 import ErrorBoundary from "./ErrorBoundary";
 
+// A single traveling signal (The "Comet")
+function SingleSignal({ connections }: { connections: THREE.Vector3[] }) {
+    const meshRef = useRef<THREE.Mesh>(null!);
+    // Initialize with random position logic
+    const state = useMemo(() => ({
+        segmentIndex: Math.floor(Math.random() * (connections.length / 2)) * 2,
+        progress: Math.random(),
+        speed: 0.01 + Math.random() * 0.03
+    }), [connections.length]);
+
+    useFrame(() => {
+        if (!meshRef.current || !connections.length) return;
+
+        state.progress += state.speed;
+
+        // Loop when reaching the end of the line
+        if (state.progress >= 1) {
+            state.segmentIndex = Math.floor(Math.random() * (connections.length / 2)) * 2;
+            state.progress = 0;
+        }
+
+        const start = connections[state.segmentIndex];
+        const end = connections[state.segmentIndex + 1];
+
+        if (start && end) {
+            meshRef.current.position.lerpVectors(start, end, state.progress);
+        }
+    });
+
+    return (
+        <mesh ref={meshRef}>
+            <sphereGeometry args={[0.08, 8, 8]} /> {/* Bola física de 8cm */}
+            <meshBasicMaterial color="#FFFFFF" toneMapped={false} />
+            {/* Glow / Trail simulated by a larger translucent shell */}
+            <mesh scale={[2, 2, 2]}>
+                <sphereGeometry args={[0.08, 8, 8]} />
+                <meshBasicMaterial color="#0088FF" transparent opacity={0.3} toneMapped={false} />
+            </mesh>
+        </mesh>
+    );
+}
+
+// Manager for multiple signals
+function SynapseManager({ connections }: { connections: THREE.Vector3[] }) {
+    // Generate 30 independent signals
+    const signals = useMemo(() => new Array(30).fill(0), []);
+
+    if (connections.length === 0) return null;
+
+    return (
+        <group>
+            {signals.map((_, i) => (
+                <SingleSignal key={i} connections={connections} />
+            ))}
+        </group>
+    );
+}
+
 function NetworkMesh(props: any) {
     const ref = useRef<THREE.Group>(null!);
-    const [hovered, setHover] = useState(false);
 
-    // Generate points on a Sphere key
+    // Generate points on a Sphere
     const { positions, connections } = useMemo(() => {
-        const count = 120; // Increased count for dense globe
+        const count = 120; // Dense globe
         const radius = 4.5;
         const positions = new Float32Array(count * 3);
-        const connections = [];
-        const vecPositions = []; // Temp storage for vector distance check
+        const connections: THREE.Vector3[] = [];
+        const vecPositions: THREE.Vector3[] = [];
 
-        // Fibonacci Sphere Distribution for even coverage
+        // Fibonacci Sphere Distribution
         for (let i = 0; i < count; i++) {
             const phi = Math.acos(1 - 2 * (i + 0.5) / count);
             const theta = Math.PI * (1 + 5 ** 0.5) * i;
@@ -34,17 +91,12 @@ function NetworkMesh(props: any) {
             vecPositions.push(new THREE.Vector3(x, y, z));
         }
 
-        // Create random connections based on surface distance
+        // Connect nearby points
         for (let i = 0; i < count; i++) {
             for (let j = i + 1; j < count; j++) {
                 const dist = vecPositions[i].distanceTo(vecPositions[j]);
-
-                // Connect if close enough (neighbors on sphere surface)
                 if (dist < 1.8) {
-                    connections.push(
-                        vecPositions[i],
-                        vecPositions[j]
-                    );
+                    connections.push(vecPositions[i], vecPositions[j]);
                 }
             }
         }
@@ -54,17 +106,14 @@ function NetworkMesh(props: any) {
 
     useFrame((state, delta) => {
         if (ref.current) {
-            // Auto rotation + subtle mouse tilt
-            ref.current.rotation.y += delta * 0.05; // Constant slow spin
+            ref.current.rotation.y += delta * 0.05;
 
-            // Subtle mouse influence
-            const x = state.mouse.x * 0.2;
-            const y = state.mouse.y * 0.2;
+            // Subtle mouse tilt
+            const mouseX = state.mouse.x * 0.2;
+            const mouseY = state.mouse.y * 0.2;
 
-            ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, y, 0.1);
-            // We only tilt X with mouse, let Y spin naturally but slightly affected? 
-            // Let's just keep Y strict auto-spin + offset? No, simpler is better.
-            // Just add tilt to X. 
+            ref.current.rotation.x = THREE.MathUtils.lerp(ref.current.rotation.x, mouseY, 0.1);
+            ref.current.rotation.z = THREE.MathUtils.lerp(ref.current.rotation.z, -mouseX, 0.1);
         }
     });
 
@@ -83,16 +132,19 @@ function NetworkMesh(props: any) {
                 />
             </Points>
 
-            {/* Connections (Synapses) */}
+            {/* Static Connections */}
             <Line
                 worldUnits
                 points={connections}
                 color="#00A3FF" /* Electric Blue */
-                opacity={0.3}
+                opacity={0.2}
                 transparent
                 lineWidth={0.02}
                 segments
             />
+
+            {/* Active Electrical Signals (Robust Meshes) */}
+            <SynapseManager connections={connections} />
         </group>
     );
 }

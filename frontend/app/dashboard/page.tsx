@@ -1,345 +1,251 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { ArrowRight, Activity, ShieldCheck, Zap, Database, BarChart3, AlertTriangle } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/Button";
 
-// Mock Data
-const MOCK_ASSESSMENTS = [
-    { title: "Avaliação ISO 42001 - Q4", score: 85, date: "Hoje", status: "completed" },
-    { title: "Auditoria de Algoritmos - RH", score: 42, date: "Ontem", status: "pending" },
-    { title: "Risk Assessment - Marketing GenAI", score: 92, date: "10 Dez", status: "completed" },
-];
-
-export default function DashboardPage() {
-    const [user, setUser] = useState<any>(null);
-    const [recentAssessments, setRecentAssessments] = useState<any[]>([]);
+export default function Dashboard() {
+    const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
-    const [stats, setStats] = useState({
-        maturityLevel: "Calculando...",
-        complianceRate: "0%",
-        vulnerabilities: "0"
-    });
-    const [buying, setBuying] = useState(false);
-    const [hasPurchasedReport, setHasPurchasedReport] = useState(false);
-
-    const handleDownloadReport = async () => {
-        const token = localStorage.getItem("algor_token");
-        if (!token) return;
-
-        try {
-            const res = await fetch("/api/v1/payments/report/download", {
-                headers: { "Authorization": `Bearer ${token}` }
-            });
-
-            if (!res.ok) {
-                alert("Erro ao baixar. Tente novamente.");
-                return;
-            }
-
-            const blob = await res.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Relatorio_Viabilidade_Algor.pdf`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-
-        } catch (err) {
-            console.error("Download Error", err);
-        }
-    };
-
-    const handlePurchase = async () => {
-        setBuying(true);
-        try {
-            const token = localStorage.getItem("algor_token");
-            if (!token) {
-                alert("Sessão expirada. Faça login novamente.");
-                return;
-            }
-
-            const res = await fetch("/api/v1/payments/create-checkout-session", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({ product_type: "viability_report" })
-            });
-
-            if (res.status === 401) {
-                alert("Sessão expirada. Faça login novamente.");
-                window.location.href = "/login";
-                return;
-            }
-
-            const data = await res.json();
-            if (data.checkout_url) {
-                window.location.href = data.checkout_url;
-            } else {
-                console.error("Payment Error Data:", data);
-                alert("Erro ao iniciar pagamento. Tente novamente.");
-            }
-        } catch (err) {
-            console.error("Payment Network Error:", err);
-            alert("Erro de conexão com o servidor de pagamentos.");
-        } finally {
-            setBuying(false);
-        }
-    }
 
     useEffect(() => {
-        const userData = localStorage.getItem("algor_user");
-        const token = localStorage.getItem("algor_token");
+        const fetchDashboardData = async () => {
+            const token = localStorage.getItem("algor_token");
+            if (!token) {
+                // Mock data for unauthenticated visual check (or redirect)
+                // window.location.href = "/login";
+                setLoading(false);
+                return;
+            }
 
-        if (userData) setUser(JSON.parse(userData));
-
-        const fetchData = async () => {
-            if (!token) return;
             try {
-                // 1. Fetch Assessments
-                const resAssessments = await fetch('/api/v1/assessments/?limit=5', {
-                    headers: { 'Authorization': `Bearer ${token}` }
+                const res = await fetch("/api/v1/dashboard/overview", {
+                    headers: { "Authorization": `Bearer ${token}` }
                 });
-                if (resAssessments.ok) {
-                    const data = await resAssessments.json();
-                    setRecentAssessments(data);
-
-                    if (data.length > 0) {
-                        const totalScore = data.reduce((acc: number, curr: any) => acc + curr.score_total, 0);
-                        const avg = Math.round(totalScore / data.length);
-                        setStats(prev => ({
-                            ...prev,
-                            complianceRate: `${avg}%`,
-                            maturityLevel: avg >= 70 ? "Nível 5" : avg >= 30 ? "Nível 3" : "Nível 1"
-                        }));
-                    }
+                if (res.ok) {
+                    const json = await res.json();
+                    setData(json);
                 }
-
-                // 2. Fetch Risks
-                const resRisks = await fetch('/api/v1/risks/', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (resRisks.ok) {
-                    const risksData = await resRisks.json();
-                    const criticalCount = risksData.filter((r: any) => r.risk_level >= 15).length;
-                    setStats(prev => ({
-                        ...prev,
-                        vulnerabilities: `${criticalCount} Críticas`
-                    }));
-                }
-
-                // 3. Check Purchases
-                const resPurchases = await fetch('/api/v1/payments/my-purchases', {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                });
-                if (resPurchases.ok) {
-                    const purchases = await resPurchases.json();
-                    const hasReport = purchases.some((p: any) => p.product_name === 'viability_report' && p.status === 'completed');
-                    setHasPurchasedReport(hasReport);
-                }
-
             } catch (error) {
-                console.error("Dashboard Sync Error:", error);
+                console.error("Failed to fetch dashboard data", error);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchData();
+        fetchDashboardData();
     }, []);
 
-    // Handle Stripe Redirect
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.get('payment_success')) {
-                // Remove param from URL
-                window.history.replaceState({}, document.title, window.location.pathname);
-                // Show success message (Future: Toast)
-                alert("Pagamento confirmado! Seu relatório está sendo gerado.");
-                // Reload data to update permissions
-                window.location.reload();
-            }
-        }
-    }, []);
+    // Derived States or Defaults
+    const complianceScore = data?.kpis?.trust_score || 0;
+    const criticalRisks = data?.critical_alerts || 0;
+    const activeModels = data?.kpis?.active_models || 0;
+    const growthScore = data?.kpis?.growth_score || 0;
 
-    if (!user) return null;
+    // Determine Phase based on Growth Score
+    let currentPhase = "01. FORTALECIMENTO";
+    if (growthScore > 70) currentPhase = "02. EXPANSÃO";
+    if (growthScore > 90) currentPhase = "03. AI-FIRST";
 
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
+        <div className="p-8 max-w-[1600px] mx-auto min-h-screen text-white font-sans relative z-10">
 
-            {/* Top Bar / Welcome Header */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-2 border-b border-white/5">
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10 pb-6 border-b border-white/10">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-display font-medium text-white tracking-tight">
-                        Centro de Excelência (CoE)
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-500' : 'bg-[#00FF94]'} animate-pulse shadow-[0_0_10px_#00FF94]`} />
+                        <span className="text-xs font-mono text-[#00FF94] uppercase tracking-widest">{loading ? "CONNECTING..." : "SYSTEM ONLINE"}</span>
+                    </div>
+                    <h1 className="text-4xl font-serif font-medium text-white mb-2 tracking-tight drop-shadow-lg">
+                        Centro de Excelência
                     </h1>
-                    <p className="text-gray-400 mt-2 font-light">
-                        Bem-vindo ao centro de comando, <span className="text-brand-blue font-medium">{user.name}</span>.
+                    <p className="text-gray-300 text-lg font-light">
+                        Bem-vinda ao comando, <span className="text-white font-medium">Edisio Nascimento</span>.
                     </p>
                 </div>
 
-                {/* Status da Jornada - Fase Atual */}
-                <div className="flex items-center gap-4 bg-white/5 px-4 py-2 rounded-xl border border-white/5">
-                    <div className="flex flex-col items-end">
-                        <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider">Fase Atual</span>
-                        <span className="text-sm font-bold text-brand-copper">1. Fortalecimento</span>
-                    </div>
-                    <div className="w-10 h-10 rounded-full bg-brand-copper/10 flex items-center justify-center text-brand-copper">
-                        <span className="material-symbols-rounded">foundation</span>
-                    </div>
+                <div className="px-5 py-2 rounded-lg glass-panel flex items-center gap-4">
+                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">Fase Atual</span>
+                    <span className="text-sm font-semibold text-white flex items-center gap-2">
+                        <span className="text-[#00FF94]">{currentPhase.split('.')[0]}.</span> {currentPhase.split('.')[1]}
+                    </span>
                 </div>
             </div>
 
-            {/* KPI Cards (Bento Grid) */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <EliteCard
-                    icon="rocket_launch"
-                    label="Growth Viability"
-                    value={stats.maturityLevel}
-                    subtext="Nível de Prontidão"
-                    colorClass="text-brand-blue"
-                />
-                <EliteCard
-                    icon="shield_lock"
-                    label="Data Clean Room"
-                    value="Ativo"
-                    subtext="Criptografia Total"
-                    colorClass="text-brand-green"
-                />
-                <EliteCard
-                    icon="warning"
-                    label="Risco de Dados"
-                    value={stats.vulnerabilities}
-                    subtext="Leads Tóxicos"
-                    colorClass="text-red-400"
-                />
-                <EliteCard
-                    icon="speed"
-                    label="Consent Velocity"
-                    value="< 24h"
-                    subtext="Opt-out SLA"
-                    colorClass="text-purple-400"
-                />
+            {/* KPI Cards - Using Global Glass Panel */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+
+                {/* 1. Growth Score / Readiness */}
+                <KpiCard
+                    title="Nível de Prontidão"
+                    icon={<ShieldCheck className="w-5 h-5 text-[#00FF94]" />}
+                    iconBg="bg-[#00FF94]/10"
+                    trend={loading ? "..." : (complianceScore > 80 ? "+ Stable" : "- Attention")}
+                    trendPositive={complianceScore > 80}
+                >
+                    <div className="flex items-center justify-between mt-4">
+                        <div className="relative w-20 h-20">
+                            <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                                <path className="text-white/5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
+                                <path
+                                    className="text-[#00FF94] drop-shadow-[0_0_8px_rgba(0,255,148,0.5)] transition-all duration-1000 ease-out"
+                                    strokeDasharray={`${complianceScore}, 100`}
+                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="3"
+                                />
+                            </svg>
+                            <div className="absolute inset-0 flex items-center justify-center flex-col">
+                                <span className="text-xl font-bold text-white">{loading ? "--" : `${complianceScore}%`}</span>
+                                <span className="text-[9px] font-bold text-[#00FF94] uppercase">{complianceScore > 80 ? "High" : "Med"}</span>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <div className="text-sm text-gray-400 mb-1">Status ISO</div>
+                            <div className="text-base font-medium text-white">{complianceScore >= 100 ? "Certified" : "Audit Mode"}</div>
+                        </div>
+                    </div>
+                </KpiCard>
+
+                {/* 2. Data Activity */}
+                <KpiCard
+                    title="Atividade de Dados"
+                    icon={<Database className="w-5 h-5 text-[#00A3FF]" />}
+                    iconBg="bg-[#00A3FF]/10"
+                    trend={`${activeModels} Ativos Monitorados`}
+                    trendColor="text-[#00A3FF]"
+                >
+                    <div className="h-20 flex items-end justify-between gap-1 mt-4 px-1">
+                        {[40, 70, 45, 90, 60, 80, 50, 75, 40].map((h, i) => (
+                            <div key={i} className="w-full bg-[#00A3FF]/10 rounded-t-sm relative group">
+                                <div
+                                    className="absolute bottom-0 w-full bg-[#00A3FF] rounded-t-sm transition-all duration-1000 shadow-[0_0_10px_rgba(0,163,255,0.3)]"
+                                    style={{ height: `${loading ? 20 : h}%` }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </KpiCard>
+
+                {/* 3. Risk Monitor */}
+                <KpiCard
+                    title="Monitoramento de Risco"
+                    icon={<AlertTriangle className="w-5 h-5 text-amber-400" />}
+                    iconBg="bg-amber-500/10"
+                    trend={`${data?.risks_summary?.total || 0} Incidentes Totais`}
+                    trendColor="text-amber-400"
+                >
+                    <div className="space-y-4 mt-6">
+                        <div>
+                            <div className="flex justify-between text-xs mb-1.5">
+                                <span className="text-gray-400 font-medium">Críticos</span>
+                                <span className={criticalRisks > 0 ? "text-red-500 font-bold" : "text-[#00FF94] font-bold"}>
+                                    {criticalRisks > 0 ? "ACTION REQUIRED" : "Safe"}
+                                </span>
+                            </div>
+                            <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div
+                                    className={`h-full rounded-full transition-all duration-1000 ${criticalRisks > 0 ? 'bg-red-500 w-[80%]' : 'bg-[#00FF94] w-[10%]'}`}
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="flex justify-between text-xs mb-1.5">
+                                <span className="text-gray-400 font-medium">Alertas Elevados (High)</span>
+                                <span className="text-amber-500 font-bold">{data?.risks_summary?.high || 0} Alerts</span>
+                            </div>
+                            <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <div
+                                    className="h-full bg-amber-500 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.3)] transition-all duration-1000"
+                                    style={{ width: `${(data?.risks_summary?.high || 0) * 10}%` }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </KpiCard>
+
+                {/* 4. Velocity */}
+                <KpiCard
+                    title="Consent Velocity"
+                    icon={<Zap className="w-5 h-5 text-purple-400" />}
+                    iconBg="bg-purple-500/10"
+                    trend="Opt-in SLA"
+                    trendColor="text-purple-300"
+                >
+                    <div className="flex flex-col items-center justify-center mt-2 h-20">
+                        <span className="text-5xl font-serif font-medium text-white tracking-tighter drop-shadow-lg">
+                            4.2<span className="text-2xl text-gray-500 ml-1 font-sans">h</span>
+                        </span>
+                        <span className="text-[10px] font-bold text-gray-400 bg-white/5 border border-white/5 px-2 py-1 rounded mt-2">MÉDIA MENSAL</span>
+                    </div>
+                </KpiCard>
             </div>
 
-            {/* Content Split: List & Sidebar */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Action Area Split */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                {/* Main List: Recent Activity */}
-                <div className="lg:col-span-2 glass-panel rounded-3xl p-1 relative overflow-hidden group">
-                    {/* Inner Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+                {/* Left: Main Action (Auditorias) */}
+                <div className="lg:col-span-2 glass-panel rounded-2xl p-8 relative overflow-hidden group hover:border-[#00FF94]/30">
+                    <div className="relative z-10 flex flex-col items-start h-full justify-between">
+                        <div className="flex w-full justify-between items-start">
+                            <div className="p-3 bg-white/5 rounded-xl text-white mb-4 border border-white/5 shadow-inner">
+                                <Activity className="w-6 h-6" />
+                            </div>
+                            <button className="text-xs font-bold text-gray-500 hover:text-white uppercase tracking-wider transition-colors">
+                                Ver Histórico
+                            </button>
+                        </div>
 
-                    <div className="p-6 pb-4 flex items-center justify-between relative z-10">
-                        <h2 className="text-lg font-medium text-white flex items-center gap-2">
-                            <span className="material-symbols-rounded text-brand-blue">monitoring</span>
-                            Auditorias de Growth
-                        </h2>
-                        <Button variant="ghost" className="text-brand-blue text-xs hover:text-white hover:bg-brand-blue/10 rounded-full px-4">Ver histórico</Button>
-                    </div>
-
-                    <div className="p-2 relative z-10">
-                        {loading ? (
-                            <div className="p-12 text-center text-gray-500 animate-pulse font-mono text-sm">Authenticating handshake...</div>
-                        ) : recentAssessments.length === 0 ? (
-                            <div className="p-12 text-center text-gray-500 font-light">Nenhum diagnóstico de campanha realizado.</div>
-                        ) : (
-                            recentAssessments.map((item, idx) => (
-                                <Link href={`/dashboard/assessments/${item.id}`} key={item.id}>
-                                    <div className="group/item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/5 transition-all duration-300 cursor-pointer border-b border-white/5 last:border-0 hover:pl-6">
-                                        <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover/item:text-brand-blue group-hover/item:bg-brand-blue/10 transition-colors">
-                                            <span className="material-symbols-rounded">check_circle</span>
-                                        </div>
-                                        <div className="flex-1">
-                                            <h3 className="text-sm font-medium text-gray-200 group-hover/item:text-brand-blue transition-colors">{item.title}</h3>
-                                            <p className="text-xs text-gray-500 mt-1 flex items-center gap-2 font-mono">
-                                                SCORE: {item.score_total}/60 • {new Date(item.created_at).toLocaleDateString('pt-BR')}
-                                            </p>
-                                        </div>
-                                        <StatusBadge status={item.status} />
-                                        <span className="material-symbols-rounded text-gray-600 group-hover/item:translate-x-1 transition-transform">chevron_right</span>
-                                    </div>
-                                </Link>
-                            ))
-                        )}
-                    </div>
-                </div>
-
-                {/* Side Panel: Infrastructure */}
-                <div className="space-y-6">
-
-                    {/* Premium Reports Card (Monetization Phase 6) */}
-                    <div className="glass-panel rounded-3xl p-6 border border-brand-amber/20 relative overflow-hidden group hover:border-brand-amber/40 transition-colors">
-                        <div className="absolute inset-0 bg-gradient-to-br from-brand-amber/5 to-transparent opacity-50" />
-
-                        <div className="relative z-10">
-                            <h3 className="text-white font-medium flex items-center gap-2 mb-2">
-                                <span className="material-symbols-rounded text-brand-amber">lock_open</span>
-                                Relatório de Viabilidade
-                            </h3>
-                            <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-                                Análise profunda de risco jurídico e técnico para escalar campanhas (SLA 24h).
+                        <div className="space-y-4 max-w-lg">
+                            <h2 className="text-2xl font-serif font-medium text-white">Auditorias de Growth</h2>
+                            <p className="text-gray-400 leading-relaxed font-light">
+                                Nenhuma validação ativa no momento. Inicie um diagnóstico para desbloquear contratos Enterprise e garantir conformidade.
                             </p>
+                        </div>
 
-                            <div className="flex items-center justify-between mt-4">
-                                <div>
-                                    <p className="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Investimento</p>
-                                    <span className="text-lg font-bold text-white">R$ 1.500</span>
-                                </div>
-                                <button
-                                    onClick={hasPurchasedReport ? handleDownloadReport : handlePurchase}
-                                    disabled={buying}
-                                    className={`text-black text-xs font-bold px-4 py-2 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 ${hasPurchasedReport
-                                        ? 'bg-brand-green hover:bg-[#00E585] hover:shadow-[0_0_15px_rgba(0,255,148,0.4)]'
-                                        : 'bg-brand-amber hover:bg-[#FFC033] hover:shadow-[0_0_15px_rgba(255,176,0,0.4)]'
-                                        }`}
-                                >
-                                    {buying ? (
-                                        <span className="w-3 h-3 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                                    ) : hasPurchasedReport ? (
-                                        <>
-                                            <span className="material-symbols-rounded text-sm">download</span>
-                                            BAIXAR PDF
-                                        </>
-                                    ) : (
-                                        "COMPRAR"
-                                    )}
+                        <div className="mt-8">
+                            <Link href="/dashboard/assessments">
+                                <button className="px-6 py-3 bg-white text-[#0A1A2F] font-bold rounded-xl hover:bg-gray-200 transition-all text-sm tracking-wide flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                                    INICIAR NOVA AUDITORIA <ArrowRight className="w-4 h-4" />
                                 </button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right: Side Actions */}
+                <div className="flex flex-col gap-6">
+                    {/* Viabilidade Card */}
+                    <div className="flex-1 glass-panel rounded-2xl p-6 flex flex-col justify-between group hover:border-[#00FF94]/30">
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <h3 className="text-lg font-serif font-medium text-white flex items-center gap-2">
+                                    <ShieldCheck className="w-5 h-5 text-gray-400" /> Viabilidade
+                                </h3>
+                                <p className="text-sm text-gray-400 mt-2 font-light">Análise profunda de risco jurídico e técnico (SLA 24h).</p>
                             </div>
                         </div>
-                    </div>
-
-                    {/* Enterprise Plan Card */}
-                    <div className="rounded-3xl bg-gradient-to-br from-brand-navy via-brand-navy to-[#0F2942] p-8 text-white relative overflow-hidden border border-white/10 shadow-2xl">
-                        {/* Abstract Art */}
-                        <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/20 rounded-full blur-3xl -mr-10 -mt-10 animate-pulse-slow" />
-
-                        <div className="relative z-10">
-                            <div className="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue flex items-center justify-center mb-6 border border-brand-blue/30 shadow-[0_0_15px_rgba(0,163,255,0.2)]">
-                                <span className="material-symbols-rounded">verified_user</span>
-                            </div>
-                            <h3 className="text-xl font-display font-medium mb-2">Growth License</h3>
-                            <p className="text-sm text-gray-400 mb-8 font-light leading-relaxed">Sua auditoria ISO 42001 está válida para campanhas Enterprise até <span className="text-white font-medium">Jan 2026</span>.</p>
-                            <button className="text-xs font-bold uppercase tracking-widest text-brand-blue hover:text-white hover:underline transition-colors offset-2">Renovar Certificado</button>
+                        <div className="flex justify-between items-end mt-4">
+                            <span className="text-2xl font-bold text-white tracking-tight">R$ 1.500</span>
+                            <button className="h-8 w-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-[#0A1A2F] transition-colors">
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
                         </div>
                     </div>
 
-                    {/* System Status */}
-                    <div className="glass-panel rounded-3xl p-6 border border-white/5">
-                        <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6 flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
-                            Infraestrutura Segura
-                        </h3>
-                        <div className="space-y-5">
-                            <StatusRow label="Data Clean Room" status="online" />
-                            <StatusRow label="Consent Engine" status="online" />
-                            <StatusRow label="Bias Monitor" status="scanning" />
+                    {/* License Card */}
+                    <div className="flex-1 glass-panel rounded-2xl p-6 flex flex-col justify-between group hover:border-[#00FF94]/30">
+                        <div>
+                            <h3 className="text-lg font-serif font-medium text-white flex items-center gap-2">
+                                <ShieldCheck className="w-5 h-5 text-[#00FF94]" /> Growth License
+                            </h3>
+                            <p className="text-sm text-gray-400 mt-1 font-light">Validade Enterprise até <span className="text-white font-medium">Jan 2026</span></p>
                         </div>
+                        <button className="w-full py-2.5 mt-4 rounded-lg border border-white/10 bg-white/5 text-xs font-bold text-gray-300 uppercase tracking-wider hover:bg-white hover:text-[#0A1A2F] transition-all">
+                            Renovar Certificado
+                        </button>
                     </div>
                 </div>
             </div>
@@ -347,52 +253,27 @@ export default function DashboardPage() {
     );
 }
 
-// Components
-
-function EliteCard({ icon, label, value, subtext, colorClass }: any) {
+// Global Glass Card Component Wrapper
+function KpiCard({ title, icon, iconBg, trend, trendPositive, trendColor, children }: any) {
     return (
-        <div className="glass-panel rounded-[24px] p-6 hover:bg-white/5 hover:-translate-y-1 transition-all duration-300 group cursor-default relative overflow-hidden border border-white/5 hover:border-white/10">
-            <div className="absolute -right-6 -top-6 w-24 h-24 bg-white/5 rounded-full blur-xl group-hover:bg-white/10 transition-colors" />
+        <div className="glass-panel rounded-2xl p-6 flex flex-col h-64 relative group hover:border-[#00FF94]/30">
 
-            <div className="flex items-start justify-between mb-4 relative z-10">
-                <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center ${colorClass} text-2xl group-hover:scale-110 transition-transform duration-300 border border-white/5`}>
-                    <span className="material-symbols-rounded">{icon}</span>
+            <div className="flex justify-between items-start mb-4 relative z-10 gap-4">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider leading-relaxed max-w-[70%] group-hover:text-white transition-colors">{title}</span>
+                <div className={`p-2 rounded-lg ${iconBg} border border-white/5 shrink-0`}>
+                    {icon}
                 </div>
             </div>
-            <div className="relative z-10">
-                <p className="text-gray-400 text-sm font-medium tracking-wide">{label}</p>
-                <h2 className="text-3xl font-display font-medium text-white my-1">{value}</h2>
-                <div className="flex items-center gap-1">
-                    <div className={`w-1.5 h-1.5 rounded-full ${subtext.includes('atenção') ? 'bg-red-400' : 'bg-brand-green'}`} />
-                    <p className="text-xs text-gray-500 font-mono">{subtext}</p>
-                </div>
+
+            <div className="flex-1 flex flex-col justify-end relative z-10">
+                {children}
             </div>
+
+            {trend && (
+                <div className={`absolute top-[72px] left-6 text-xs font-bold ${trendPositive ? 'text-[#00FF94]' : trendColor ? trendColor : 'text-gray-500'}`}>
+                    {trend}
+                </div>
+            )}
         </div>
     );
 }
-
-function StatusBadge({ status }: { status: string }) {
-    const isCompleted = status === 'completed';
-    return (
-        <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border backdrop-blur-sm ${isCompleted
-            ? 'bg-brand-green/10 text-brand-green border-brand-green/20'
-            : 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
-            }`}>
-            {isCompleted ? 'Concluído' : 'Pendente'}
-        </span>
-    );
-}
-
-function StatusRow({ label, status }: { label: string, status: string }) {
-    const isOnline = status === 'online';
-    return (
-        <div className="flex items-center justify-between group">
-            <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">{label}</span>
-            <div className="flex items-center gap-2 bg-black/20 px-2 py-1 rounded-lg border border-white/5">
-                <div className={`w-1.5 h-1.5 rounded-full ${isOnline ? 'bg-brand-green shadow-[0_0_8px_#00FF94]' : 'bg-brand-blue animate-pulse'}`} />
-                <span className={`text-[10px] font-mono font-medium uppercase ${isOnline ? 'text-brand-green' : 'text-brand-blue'}`}>{status}</span>
-            </div>
-        </div>
-    )
-}
-

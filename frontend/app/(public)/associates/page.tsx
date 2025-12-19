@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { Linkedin, X } from 'lucide-react';
 
 const ASSOCIATES_DATA = [
     {
@@ -12,7 +13,7 @@ const ASSOCIATES_DATA = [
         cargo: "Presidente ALGOR BRASIL",
         tags: ["Presidência", "Estratégia"],
         bio_curta: "Liderança executiva na condução da estratégia nacional de Governança de IA.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/paulocarvalho11/"
     },
     {
         id: 2,
@@ -21,7 +22,7 @@ const ASSOCIATES_DATA = [
         cargo: "Coordenador Nacional",
         tags: ["Coordenação", "Gestão"],
         bio_curta: "Coordenação de iniciativas nacionais e integração dos núcleos regionais.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/orlandopavani/"
     },
     {
         id: 3,
@@ -48,7 +49,7 @@ const ASSOCIATES_DATA = [
         cargo: "Gestor Regional - São Paulo",
         tags: ["Regional", "São Paulo"],
         bio_curta: "Liderança das iniciativas de governança no estado de São Paulo.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/carloscoan/"
     },
     {
         id: 6,
@@ -57,7 +58,7 @@ const ASSOCIATES_DATA = [
         cargo: "Gestor Regional - Paraná",
         tags: ["Regional", "Paraná"],
         bio_curta: "Gestão e fomento da cultura de IA responsável no Paraná.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/evaldo-reinas-2-54aa37153/"
     },
     {
         id: 7,
@@ -66,7 +67,7 @@ const ASSOCIATES_DATA = [
         cargo: "Delegado Regional - Paraná",
         tags: ["Regional", "Representação"],
         bio_curta: "Atuação como delegado regional para expansão da ALGOR no PR.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/fabioban/"
     },
     {
         id: 8,
@@ -84,7 +85,7 @@ const ASSOCIATES_DATA = [
         cargo: "Gestor Regional - Ceará",
         tags: ["Regional", "Ceará"],
         bio_curta: "Gestão das atividades e membros da ALGOR no estado do Ceará.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/jarisonmelo-ai-governance/"
     },
     {
         id: 10,
@@ -93,7 +94,7 @@ const ASSOCIATES_DATA = [
         cargo: "Delegada Regional - Fortaleza CE",
         tags: ["Regional", "Ceará"],
         bio_curta: "Representação e liderança delegada na capital cearense.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/marcidantas-ia-governanca/"
     },
     {
         id: 11,
@@ -102,7 +103,7 @@ const ASSOCIATES_DATA = [
         cargo: "Gestor Regional - Paraíba",
         tags: ["Regional", "Paraíba"],
         bio_curta: "Fomento à governança de IA e gestão do núcleo Paraíba.",
-        link_linkedin: "#"
+        link_linkedin: "https://www.linkedin.com/in/edisio-consultor/"
     }
 ];
 
@@ -192,6 +193,20 @@ export default function AssociatesGalleryPage() {
                                     <h3 className="text-xl font-bold text-white mb-1 group-hover:text-[#00A3FF] transition-colors">{associate.nome}</h3>
                                     <p className="text-sm text-[#00FF94] font-medium mb-3">{associate.cargo}</p>
 
+                                    {/* Social Link on Card */}
+                                    <div className="mb-4">
+                                        <a
+                                            href={associate.link_linkedin}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/5 hover:bg-[#0077B5] text-gray-400 hover:text-white transition-all border border-white/5 hover:border-transparent"
+                                            title="LinkedIn Profile"
+                                        >
+                                            <Linkedin className="w-4 h-4" />
+                                        </a>
+                                    </div>
+
                                     {/* Tags */}
                                     <div className="flex flex-wrap justify-center gap-2 mt-auto">
                                         {associate.tags.map(tag => (
@@ -232,7 +247,7 @@ export default function AssociatesGalleryPage() {
                             initial={{ opacity: 0, y: 50, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 50, scale: 0.95 }}
-                            className="relative bg-[#1A1C24] border border-white/10 rounded-2xl w-full max-w-lg p-8 shadow-2xl overflow-hidden"
+                            className="relative bg-[#0A1A2F] border border-[#00FF94]/20 rounded-2xl w-full max-w-lg p-8 shadow-2xl overflow-hidden glass-panel"
                         >
                             {/* Decorative Glow */}
                             <div className="absolute -top-20 -right-20 w-64 h-64 bg-[#00A3FF]/20 rounded-full blur-[80px]" />
@@ -241,7 +256,7 @@ export default function AssociatesGalleryPage() {
                                 onClick={() => setSelectedAssociate(null)}
                                 className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors"
                             >
-                                <span className="material-symbols-rounded">close</span>
+                                <X className="w-5 h-5" />
                             </button>
 
                             <div className="flex flex-col items-center text-center relative z-10">
@@ -268,8 +283,8 @@ export default function AssociatesGalleryPage() {
                                         rel="noopener noreferrer"
                                         className="px-8 py-3 rounded-xl bg-[#0077B5] hover:bg-[#006097] text-white font-medium flex items-center gap-2 transition-all shadow-lg hover:shadow-[#0077B5]/40"
                                     >
+                                        <Linkedin className="w-5 h-5" />
                                         <span>LinkedIn</span>
-                                        <span className="material-symbols-rounded text-sm">open_in_new</span>
                                     </a>
                                     <button className="px-8 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-colors">
                                         Ver Perfil Completo

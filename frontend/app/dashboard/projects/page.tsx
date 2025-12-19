@@ -1,169 +1,86 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-
-interface Project {
-    id: number;
-    name: string;
-    description: string;
-    status: string;
-    risk_level: string;
-    created_at: string;
-}
+import { Folder, GitBranch, Users, Play, Plus } from "lucide-react";
 
 export default function ProjectsPage() {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [isCreating, setIsCreating] = useState(false);
-
-    // Form State
-    const [newName, setNewName] = useState("");
-    const [newDesc, setNewDesc] = useState("");
-    const [newRisk, setNewRisk] = useState("low");
-
-    const fetchProjects = async () => {
-        const token = localStorage.getItem("algor_token");
-        if (!token) return;
-        setLoading(true);
-        try {
-            const res = await fetch("/api/v1/projects/", {
-                headers: { "Authorization": `Bearer ${token}` }
-            });
-            if (res.ok) setProjects(await res.json());
-        } catch (e) { console.error(e); }
-        setLoading(false);
-    };
-
-    const handleCreate = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const token = localStorage.getItem("algor_token");
-        try {
-            const res = await fetch("/api/v1/projects/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    name: newName,
-                    description: newDesc,
-                    risk_level: newRisk,
-                    status: "planning"
-                })
-            });
-            if (res.ok) {
-                setIsCreating(false);
-                setNewName("");
-                setNewDesc("");
-                fetchProjects();
-            }
-        } catch (e) { console.error(e); }
-    };
-
-    useEffect(() => {
-        fetchProjects();
-    }, []);
-
-    const getRiskColor = (risk: string) => {
-        switch (risk) {
-            case 'critical': return 'bg-red-500/20 text-red-400 border-red-500/30';
-            case 'high': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
-            case 'medium': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-            default: return 'bg-brand-green/10 text-brand-green border-brand-green/20';
-        }
-    };
-
     return (
-        <div className="min-h-screen bg-[#0A1A2F] text-white p-8 animate-in fade-in">
-            <div className="max-w-6xl mx-auto">
-                <div className="flex justify-between items-center mb-12">
-                    <div>
-                        <h1 className="text-4xl font-display font-bold text-white mb-2">AI GOV <span className="text-brand-blue text-sm align-super">BETA</span></h1>
-                        <p className="text-gray-400">Central de Ciclo de Vida e Governança de Projetos.</p>
-                    </div>
-                    <button
-                        onClick={() => setIsCreating(true)}
-                        className="bg-brand-blue hover:bg-white hover:text-brand-navy text-white px-6 py-3 rounded-xl font-bold transition-all flex items-center gap-2"
-                    >
-                        <span className="material-symbols-rounded">add_circle</span> NOVO PROJETO
-                    </button>
+        <div className="p-8 w-full min-h-screen space-y-10 relative text-white font-sans">
+
+            {/* Header */}
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8 animate-in fade-in slide-in-from-top-4 duration-700">
+                <div>
+                    <h1 className="text-3xl md:text-4xl font-serif font-medium text-white mb-2 tracking-tight">
+                        Projetos de IA (Gov)
+                    </h1>
+                    <p className="text-gray-300 font-light text-lg">
+                        Gestão de ciclo de vida de projetos de Inteligência Artificial.
+                    </p>
                 </div>
 
-                {/* Create Modal Area */}
-                {isCreating && (
-                    <div className="mb-8 p-6 glass-panel rounded-2xl border border-white/10 bg-white/[0.02]">
-                        <h3 className="font-bold text-lg mb-4">Registrar Iniciativa de IA</h3>
-                        <form onSubmit={handleCreate} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <input
-                                placeholder="Nome do Projeto (ex: Chatbot RH)"
-                                className="bg-black/20 border border-white/10 rounded-lg p-3 text-white outline-none focus:border-brand-blue"
-                                value={newName}
-                                onChange={e => setNewName(e.target.value)}
-                                required
-                            />
-                            <select
-                                className="bg-black/20 border border-white/10 rounded-lg p-3 text-white outline-none"
-                                value={newRisk}
-                                onChange={e => setNewRisk(e.target.value)}
-                            >
-                                <option value="low">Risco Baixo (Interno)</option>
-                                <option value="medium">Risco Médio (Assistido)</option>
-                                <option value="high">Risco Alto (Decisão Automatizada)</option>
-                                <option value="critical">Crítico (Biometria/Vida)</option>
-                            </select>
-                            <textarea
-                                placeholder="Descrição do caso de uso..."
-                                className="md:col-span-2 bg-black/20 border border-white/10 rounded-lg p-3 text-white outline-none focus:border-brand-blue h-24"
-                                value={newDesc}
-                                onChange={e => setNewDesc(e.target.value)}
-                            />
-                            <div className="md:col-span-2 flex justify-end gap-3 pt-2">
-                                <button type="button" onClick={() => setIsCreating(false)} className="px-4 py-2 text-gray-400 hover:text-white">Cancelar</button>
-                                <button type="submit" className="px-6 py-2 bg-brand-green text-black font-bold rounded-lg hover:brightness-110">Registrar</button>
-                            </div>
-                        </form>
-                    </div>
-                )}
+                <button className="flex items-center gap-3 px-6 py-3 rounded-lg bg-[#00FF94] hover:bg-[#00FF94]/90 text-[#0A1A2F] font-bold text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(0,255,148,0.2)]">
+                    <Plus className="w-4 h-4" />
+                    NOVO PROJETO
+                </button>
+            </div>
 
-                {/* Project List */}
-                {loading ? (
-                    <div className="flex justify-center p-12"><span className="animate-spin material-symbols-rounded text-4xl text-brand-blue">progress_activity</span></div>
-                ) : projects.length === 0 ? (
-                    <div className="text-center p-16 border border-dashed border-white/10 rounded-3xl opacity-50">
-                        <span className="material-symbols-rounded text-6xl mb-4">folder_off</span>
-                        <p className="text-xl">Nenhum projeto governado ainda.</p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map(p => (
-                            <div key={p.id} className="glass-panel p-6 rounded-3xl border border-white/5 hover:border-brand-blue/30 transition-all group relative overflow-hidden">
-                                <div className={`absolute top-0 right-0 px-3 py-1 text-[10px] font-bold uppercase border-l border-b rounded-bl-xl ${getRiskColor(p.risk_level)}`}>
-                                    {p.risk_level} Risk
-                                </div>
+            {/* Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
+                <ProjectCard
+                    title="Chatbot Cidadão v2"
+                    status="Em Desenvolvimento"
+                    progress={65}
+                    members={4}
+                    color="text-[#00A3FF]"
+                    barColor="bg-[#00A3FF]"
+                />
+                <ProjectCard
+                    title="Análise Preditiva Fiscal"
+                    status="Homologação"
+                    progress={90}
+                    members={8}
+                    color="text-[#00FF94]"
+                    barColor="bg-[#00FF94]"
+                />
+                <ProjectCard
+                    title="Automação de Diário Oficial"
+                    status="Planejamento"
+                    progress={15}
+                    members={2}
+                    color="text-purple-400"
+                    barColor="bg-purple-400"
+                />
+            </div>
+        </div>
+    );
+}
 
-                                <div className="mb-4">
-                                    <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center mb-3 group-hover:bg-brand-blue group-hover:text-white transition-colors">
-                                        <span className="material-symbols-rounded">rocket_launch</span>
-                                    </div>
-                                    <h3 className="text-xl font-bold text-white mb-1">{p.name}</h3>
-                                    <p className="text-xs text-gray-400 uppercase tracking-widest">{p.status}</p>
-                                </div>
+function ProjectCard({ title, status, progress, members, color, barColor }: any) {
+    return (
+        <div className="glass-panel p-8 rounded-2xl relative group hover:border-white/20 transition-all duration-300">
 
-                                <p className="text-sm text-gray-400 mb-6 line-clamp-3 min-h-[3rem]">
-                                    {p.description || "Sem descrição definida."}
-                                </p>
+            <div className="flex justify-between items-start mb-6">
+                <div className="p-3 bg-white/5 rounded-xl border border-white/5">
+                    <Folder className={`w-6 h-6 ${color}`} />
+                </div>
+                <div className="px-2 py-1 rounded bg-white/5 border border-white/5 text-[10px] uppercase font-bold text-gray-400 tracking-wider">
+                    {status}
+                </div>
+            </div>
 
-                                <div className="border-t border-white/5 pt-4 flex justify-between items-center text-xs text-gray-500">
-                                    <span>Atualizado: {new Date(p.created_at).toLocaleDateString()}</span>
-                                    <button className="hover:text-white flex items-center gap-1">
-                                        Gerenciar <span className="material-symbols-rounded text-sm">arrow_forward</span>
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
+            <h3 className="text-xl font-serif font-medium text-white mb-6 group-hover:text-white/90">{title}</h3>
+
+            <div className="space-y-4">
+                <div className="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                    <div className={`h-full ${barColor} transition-all duration-1000`} style={{ width: `${progress}%` }} />
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 font-mono">
+                    <span className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer">
+                        <GitBranch className="w-3 h-3" /> main
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                        <Users className="w-3 h-3" /> {members} devs
+                    </span>
+                </div>
             </div>
         </div>
     );

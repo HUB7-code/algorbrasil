@@ -9,10 +9,21 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
+# Configuração CORS Básica para Dev
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], # Permitir frontend local
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # --- Imports de Endpoints ---
 from backend.app.api import auth, forms, profiles, downloads
-from backend.app.api.endpoints import payments, assessments, risks, lms, admin, projects, organizations
-from backend.app.api.endpoints.inventory import assets # Novo endpoint
+from backend.app.api.endpoints import payments, assessments, risks, lms, admin, projects, organizations, dashboard
+
+# Import específico para evitar conflito de namespace no pacote inventory
+from backend.app.api.endpoints.inventory.assets import router as inventory_router
 
 # --- Rotas Existentes ---
 app.include_router(auth.router, prefix="/api/v1", tags=["auth"])
@@ -25,5 +36,8 @@ app.include_router(risks.router, prefix="/api/v1/risks", tags=["risks"])
 app.include_router(lms.router, prefix="/api/v1/lms", tags=["lms"])
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 app.include_router(projects.router, prefix="/api/v1/projects", tags=["projects"])
-app.include_router(assets.router, prefix="/api/v1/inventory", tags=["inventory"])
 app.include_router(organizations.router, prefix="/api/v1/organizations", tags=["organizations"])
+
+# Rotas Novas
+app.include_router(inventory_router, prefix="/api/v1/inventory", tags=["inventory"])
+app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["dashboard"])

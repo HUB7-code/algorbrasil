@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, Lock, Activity } from "lucide-react";
+import { ShieldCheck, Lock, Activity, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -24,6 +24,18 @@ export default function Footer() {
                             <br /><br />
                             Transformando riscos tecnológicos em ativos estratégicos auditáveis.
                         </p>
+
+                        <a
+                            href="https://www.algor.uk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 mb-6 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-brand-green/30 transition-all group/uk"
+                        >
+                            <span className="font-mono text-[10px] text-gray-400 group-hover/uk:text-white transition-colors">
+                                Uma divisão da <span className="text-brand-green font-bold">ALGOR UK</span>
+                            </span>
+                            <ArrowUpRight className="w-3 h-3 text-brand-green" />
+                        </a>
 
                         {/* Trust Badge: Enterprise Security */}
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-brand-blue/20 bg-brand-navy/50">

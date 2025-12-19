@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 18/12/2025 - 09:50
-> **Status Geral:** **SAAS PLATFORM REFINED (VISUAL PERFECTION)** 💎🧠
-> **Versão:** 9.4 (Visual Identity & Globe Effect)
+> **Última Atualização:** 18/12/2025 - 21:15 (Versão Backend Integrated)
+> **Status Geral:** **OPERATIONAL & INTEGRATED (v10.1)** 🟢🚀
+> **Versão:** 10.1 (Royal Navy + Live Backend Data)
 
 ## 1. Manifesto Estratégico (The 3 Pillars)
 O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
@@ -13,50 +13,44 @@ O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
 3.  **Plataforma SaaS (Delivery):** Entregar ferramentas digitais de alta performance para Consultores auditarem seus clientes.
     *   *Mecanismo:* Dashboard de Inventário de IA, Matriz de Risco Automatizada e Gerador de Políticas.
 
-## 2. Design System & Branding
-Evolução para **"Cyber-Security Premium"**: Estética de fortaleza digital, confiança bancária e autoridade técnica.
-- **Visual Core:** Confiança absoluta (Azul Deep Navy + Verde "Allow List").
-- **Asset Unificado:** Logo `logo-algor.webp` padronizado em todo o sistema (Web + PDF Reports).
-- **Hero Motion:** Globo Neural Cibernético (Fibonacci Sphere) em rotação constante, representando a inteligência conectada global.
+## 2. Design System & Branding: "HOME DNA" (Definitivo)
+Abandonamos o conceito "Gamer/Matrix" em favor de uma estética **Corporativa, Sóbria e Premium**, alinhada 100% com a Home Page pública.
 
-## 3. Estado Atual dos Arquivos (FULL STACK FORTRESS)
-- **Intelligence Engine (Wizard 3.0 Refactored) [ATIVO]:**
-  - **Novas Perguntas:** Foco em "Data Provenance", "Consent Velocity" e "Brand Safety".
-  - **Diagnóstico:** Avalia se o cliente é "Safe to Scale" ou "Toxic Risk".
-- **Dashboard Command Center [ATIVO]:**
-  - **KPIs de Growth:** "Growth Viability Score", "Lead Risk" e "Clean Room Status".
-  - **Infraestrutura:** Painel lateral monitorando sistemas de segurança (Consent Engine, Bias Monitor).
-- **Interface Pública (Site) [POLIDO E ALINHADO]:**
-  - **Hero Section:** Fundo limpo (Deep Navy puro) com "Globo Neural" (sem blobs/manchas conflitantes).
-  - **Metodologia:** Visual "4 Fases" atualizado para "Discovery > Clean Room > Growth > Audit".
-  - **Footer:** Selos de "Verified Infrastructure" e links para soluções Enterprise.
+*   **Tema Global:** "Royal Navy Premium" (Consultoria de Elite).
+*   **Cor Base:** Deep Navy (`#0A1A2F`) - *A mesma da Home*.
+*   **Acentos:** Neon Green (`#00FF94`) e Electric Blue (`#00A3FF`) usados com parcimônia.
+*   **Elementos Chave:**
+    *   **Glass Panel:** Classe global `.glass-panel` usada em tudo (Sites e SaaS). Vidro real translúcido.
+    *   **Tipografia:** Serif (`Playfair Display` ou similar) para Títulos. Sans (`Inter/Satoshi`) para dados.
 
-### Últimas Atualizações (v9.4 - Visual Polish)
-- **Hero Scene Refactor:** Substituição da malha aleatória por **Fibonacci Sphere (Globo Neural)**.
-  - *Tech:* React Three Fiber, 120 nodes, surface-only connections, auto-rotation.
-- **Clean Layout:** Remoção de camadas de fundo conflitantes (Blobs e AnimatedWave antigos) em `layout.tsx`.
-- **Bug Fixes:** Correção de imports duplicados em `page.tsx`.
+*   **Status de Unificação Visual:**
+    *   Home Page: ✅ (Referência Absoluta)
+    *   Auth Pages: ✅ (Royal Navy Theme)
+    *   Dashboard CoE: ✅ (Clone da Home + Real Data)
+    *   Assessments: ✅ (Clean Glass)
+    *   Inventory/Risks: ✅ (Minimal Cards + Real Data)
+    *   Associates Page: ✅ (Updated with Real Links)
 
-### Ciclo Atual (Fase 8 - Refinamento Visual & Estabilidade)
-1. ✅ **LMS Backend/Frontend:** Completo.
-2. ✅ **SaaS Core:** Multi-tenant e Inventory completo.
-3. ✅ **Visual Identity:** Hero Animation alinhada com a marca (Globo).
-4. ⏳ **Deploy Staging:** Preparar VPS para receber a suíte completa v9.4.
+## 3. Estado Atual dos Arquivos (INTEGRATION UPDATE)
+- **Backend & Data (New):**
+    - ✅ **Real Data Fetching:** O Dashboard agora consome dados dinâmicos da API `/api/v1/`.
+    - ✅ **Infrastructure Fix:** Recuperação de arquivos críticos (`deps.py`) e correção de imports de modelos (`RiskRegister`).
+    - ✅ **Seed Data:** Script de seed populando o banco com demo users e ativos realistas.
+    - ✅ **Validation:** Testes de fumaça e script validador manual confirmando integridade do backend.
+
+### Ciclo Atual (Fase 11 - Final Polish & Production)
+42. ✅ **Backend Integration:** Conexão Dashboard/API concluída e validada.
+43. ✅ **Frontend Details:** Ajuste fino de links (LinkedIn Associados) e ícones.
+44. ⏳ **Deploy Production:** Subir versão integrada v10.1 para ambiente live.
 
 ## 4. Roadmap Imediato
-Seguindo a estratégia "SaaS + Academy":
-72. ✅ **Organization UI:** Componente `CreateOrganizationModal` implementado e funcional.
-73. ✅ **LMS Certificates:** Fluxo de emissão de certificado via frontend completado.
-74. ✅ **Hero Animation:** Globo Neural implementado e limpo.
-75. ⏳ **Deploy Staging:** Preparar VPS para receber as melhorias visuais.
+A fase de "Conexão" foi superada. O sistema é funcional end-to-end.
+Foco total agora em **DEPLOY** e Validação de Usuário Final.
+
+60. 🚀 **Deploy VPS:** Atualizar ambiente de produção com os fixs críticos de backend.
+61. 🚀 **User Audit:** Rodar um ciclo de uso real (Cadastro -> Login -> Uso).
 
 ## 5. Histórico de Versões
-- **v1.0:** MVP Estático (FormSubmit).
-- **v6.0:** ISO 42001 Compliance Suite.
-- **v7.0:** Secure Access & Elite Visuals.
-- **v8.0:** Intelligence Engine & Reporting.
-- **v9.0:** Growth AI Compliant - Pivot completo.
-- **v9.1:** SaaS Multi-Tenant Core.
-- **v9.2:** Education Suite - LMS Completo.
-- **v9.3:** SaaS Management.
-- **v9.4:** **Visual Identity (ATUAL)** - Hero Globe & Clean Layout.
+- **v1.0 - v9.5:** Legado de Evolução, Pivots e tentativas estéticas.
+- **v10.0:** **Royal Navy Visual:** Unificação estética completa (Visual Completed).
+- **v10.1:** **Integrated System (ATUAL):** O "cérebro" foi conectado ao "rosto". O backend agora serve dados reais para a interface Royal Navy. Stable & Seeded.

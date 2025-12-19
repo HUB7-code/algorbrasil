@@ -6,7 +6,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 
-import HeroScene from './HeroScene';
+import dynamic from 'next/dynamic';
+
+const HeroScene = dynamic(() => import('./HeroScene'), {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-[#0A1A2F]" />
+});
 
 export default function HeroDual() {
     const router = useRouter();

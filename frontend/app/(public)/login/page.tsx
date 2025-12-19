@@ -58,18 +58,21 @@ export default function LoginPage() {
     };
 
     return (
-        <main className="min-h-screen w-full flex flex-col items-center justify-center bg-[#131314] text-[#E3E3E3] font-sans selection:bg-[#A8C7FA] selection:text-[#001D35]">
+        <main className="min-h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-aurora-bg-gradient-start to-aurora-bg-gradient-end text-gray-100 font-sans selection:bg-aurora-violet selection:text-white relative overflow-hidden">
+            {/* Atmosphere */}
+            <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-aurora-violet/20 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-aurora-cyan/15 rounded-full blur-[120px] pointer-events-none" />
             {/* Google Style Top Bar */}
             <header className="absolute top-0 left-0 w-full p-6 flex justify-between items-center z-10">
-                <Link href="/" className="flex items-center gap-2 text-sm text-[#C4C7C5] hover:text-white transition-colors group">
-                    <div className="w-8 h-8 rounded-full bg-[#444746] flex items-center justify-center group-hover:bg-[#5E5E5E] transition-colors">
+                <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors group">
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors border border-white/5">
                         <ArrowLeft className="w-4 h-4" />
                     </div>
                 </Link>
             </header>
 
-            {/* Main Content: "Product" Aesthetic */}
-            <div className="w-full max-w-[400px] px-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {/* Main Content: "Aurora" Aesthetic */}
+            <div className="w-full max-w-[420px] p-8 rounded-3xl bg-aurora-card-bg backdrop-blur-xl border border-aurora-border shadow-2xl relative z-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
                 {/* Logo Area - Minimalist */}
                 <div className="flex flex-col items-center mb-12">
@@ -84,10 +87,10 @@ export default function LoginPage() {
                             priority
                         />
                     </div>
-                    <h1 className="text-[28px] leading-[36px] font-normal text-center text-[#E3E3E3] mb-2">
+                    <h1 className="text-2xl font-display font-medium text-center text-white mb-2">
                         Bem-vindo de volta
                     </h1>
-                    <p className="text-sm text-[#C4C7C5] text-center">
+                    <p className="text-sm text-aurora-cyan/80 text-center font-mono">
                         Acesse o console de governança
                     </p>
                 </div>
@@ -103,15 +106,15 @@ export default function LoginPage() {
                             required
                             value={formData.email}
                             onChange={handleChange}
-                            className="peer w-full h-[56px] px-4 pt-6 bg-[#1E1F20] text-gray-100 border border-[#444746] rounded-[4px] md:rounded-[16px] placeholder-transparent focus:outline-none focus:border-[#A8C7FA] focus:ring-1 focus:ring-[#A8C7FA] transition-all"
+                            className="peer w-full h-[56px] px-4 pt-6 bg-black/20 text-gray-100 border border-white/10 rounded-xl placeholder-transparent focus:outline-none focus:border-aurora-violet focus:ring-1 focus:ring-aurora-violet/50 transition-all"
                             placeholder="Email"
                         />
                         <label
                             htmlFor="email"
-                            className="absolute left-4 top-2 text-[#C4C7C5] text-xs transition-all 
-                                peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#8E918F]
-                                peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-[#A8C7FA]
-                                peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-[#C4C7C5] pointer-events-none"
+                            className="absolute left-4 top-2 text-gray-500 text-xs transition-all 
+                                peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500
+                                peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-aurora-violet
+                                peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-gray-500 pointer-events-none"
                         >
                             Email corporativo
                         </label>
@@ -127,21 +130,21 @@ export default function LoginPage() {
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="peer w-full h-[56px] px-4 pt-6 bg-[#1E1F20] text-gray-100 border border-[#444746] rounded-[4px] md:rounded-[16px] placeholder-transparent focus:outline-none focus:border-[#A8C7FA] focus:ring-1 focus:ring-[#A8C7FA] transition-all"
+                                className="peer w-full h-[56px] px-4 pt-6 bg-black/20 text-gray-100 border border-white/10 rounded-xl placeholder-transparent focus:outline-none focus:border-aurora-violet focus:ring-1 focus:ring-aurora-violet/50 transition-all"
                                 placeholder="Senha"
                             />
                             <label
                                 htmlFor="password"
-                                className="absolute left-4 top-2 text-[#C4C7C5] text-xs transition-all 
-                                    peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#8E918F]
-                                    peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-[#A8C7FA]
-                                    peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-[#C4C7C5] pointer-events-none"
+                                className="absolute left-4 top-2 text-gray-500 text-xs transition-all 
+                                    peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500
+                                    peer-focus:top-1.5 peer-focus:text-xs peer-focus:text-aurora-violet
+                                    peer-not-placeholder-shown:top-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-gray-500 pointer-events-none"
                             >
                                 Senha
                             </label>
                         </div>
                         <div className="flex justify-end">
-                            <Link href="/forgot-password" className="text-sm font-medium text-[#A8C7FA] hover:text-[#D3E3FD] no-underline hover:underline">
+                            <Link href="/forgot-password" className="text-xs font-medium text-aurora-violet hover:text-aurora-pink transition-colors">
                                 Esqueceu a senha?
                             </Link>
                         </div>
@@ -158,7 +161,7 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full h-[48px] rounded-full bg-[#A8C7FA] text-[#062E6F] text-sm font-medium hover:bg-[#85B5F8] active:bg-[#A8C7FA] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm"
+                            className="w-full h-[52px] rounded-xl bg-gradient-to-r from-aurora-violet to-aurora-pink text-white text-sm font-medium hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-white/10"
                         >
                             {isLoading ? (
                                 <span className="material-symbols-rounded animate-spin">progress_activity</span>
@@ -170,8 +173,8 @@ export default function LoginPage() {
                 </form>
 
                 <div className="mt-8 text-center space-y-4">
-                    <Link href="/register" className="block text-sm text-[#A8C7FA] hover:text-[#D3E3FD] transition-colors">
-                        Não tem conta? Solicite acesso
+                    <Link href="/register" className="block text-sm text-gray-400 hover:text-white transition-colors">
+                        Não tem conta? <span className="text-aurora-cyan">Solicite acesso</span>
                     </Link>
                 </div>
             </div>

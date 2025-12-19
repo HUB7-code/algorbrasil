@@ -12,10 +12,6 @@ export default function DashboardLayout({
 }: {
     children: React.ReactNode;
 }) {
-    // ... all existing valid code ...
-    // Wrapping content in OrganizationProvider logic moved inside the return
-    // But since this is a layout, we need to wrap the whole sidebar+main structure
-
     return (
         <OrganizationProvider>
             <DashboardLayoutContent children={children} />
@@ -33,7 +29,6 @@ function DashboardLayoutContent({
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [user, setUser] = useState<{ name: string, role: string } | null>(null);
 
-    // Auth Check
     useEffect(() => {
         const token = localStorage.getItem("algor_token");
         const userData = localStorage.getItem("algor_user");
@@ -58,7 +53,12 @@ function DashboardLayoutContent({
     if (!user) return null;
 
     return (
-        <div className="flex h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1B2F4E] via-[#0A1A2F] to-[#050B14] overflow-hidden selection:bg-brand-blue selection:text-white font-sans text-gray-100">
+        <div className="flex h-screen bg-[#0A1A2F] text-white overflow-hidden font-sans selection:bg-[#00FF94] selection:text-[#0A1A2F] relative">
+
+            {/* AMBIENT LIGHTING (Matches Home Page feel) */}
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#00A3FF]/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
+
             {/* Mobile Sidebar Overlay */}
             {!isSidebarOpen && (
                 <div
@@ -67,48 +67,49 @@ function DashboardLayoutContent({
                 />
             )}
 
-            {/* Sidebar (Navigation Drawer) - Glassmorphism */}
+            {/* Sidebar - Using Glass Panel DNA */}
             <aside
                 className={`
                     fixed lg:static inset-y-0 left-0 z-30
-                    w-[280px] bg-brand-navy/60 backdrop-blur-xl border-r border-white/5
+                    w-[280px] border-r border-white/5 bg-[#0A1A2F]/80 backdrop-blur-xl
                     transform transition-transform duration-300 ease-in-out
                     flex flex-col
                     ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
                 `}
             >
                 {/* Logo Area */}
-                <div className="h-24 flex items-center px-6 pl-8">
-                    <Link href="/dashboard" className="flex items-center gap-3 group">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-lg shadow-brand-blue/20 group-hover:shadow-brand-blue/40 transition-all duration-500">
+                <div className="h-24 flex items-center px-6 pl-8 border-b border-white/5">
+                    <Link href="/dashboard" className="flex items-center gap-3">
+                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
                             <Image src="/logo-algor.webp" alt="Algor" fill className="object-contain" />
                         </div>
-                        <span className="font-display font-bold text-xl tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-blue/80">
-                            ALGOR
+                        <span className="font-sans font-bold text-lg tracking-wide text-white whitespace-nowrap">
+                            ALGOR BRASIL
                         </span>
                     </Link>
                 </div>
 
-                {/* Organization Switcher (SaaS Core) */}
-                <OrganizationSwitcher />
+                <div className="pt-6 px-4">
+                    <OrganizationSwitcher />
+                </div>
 
-                {/* FAB / Primary Action */}
-                <div className="px-6 mb-8 mt-2">
-                    <button className="flex items-center justify-center gap-3 w-full h-[52px] rounded-xl bg-gradient-to-r from-brand-blue to-brand-blue/80 text-white hover:shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:scale-[1.02] transition-all duration-300 font-medium text-sm border border-white/10">
-                        <span className="material-symbols-rounded" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
-                        Iniciar Ciclo
+                {/* Primary Action Button */}
+                <div className="px-4 mb-6 mt-4">
+                    <button className="flex items-center justify-center gap-3 w-full h-[48px] rounded-lg bg-[#00FF94] hover:bg-[#00FF94]/90 text-[#0A1A2F] font-bold text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(0,255,148,0.2)]">
+                        <span className="material-symbols-rounded text-xl">play_circle</span>
+                        INICIAR CICLO
                     </button>
                 </div>
 
                 {/* Navigation Items */}
-                <nav className="flex-1 px-4 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                    <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
-                        Governança & Estratégia
+                <nav className="flex-1 px-3 space-y-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                    <div className="px-3 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em]">
+                        Estratégia
                     </div>
                     <NavItem
                         href="/dashboard"
                         icon="shield_with_house"
-                        label="Centro de Excelência (CoE)"
+                        label="Centro de Comando"
                         active={pathname === "/dashboard"}
                     />
                     <NavItem
@@ -118,20 +119,20 @@ function DashboardLayoutContent({
                         active={pathname.startsWith("/dashboard/roadmap")}
                     />
 
-                    <div className="h-6" />
-                    <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
-                        Operações & Compliance
+                    <div className="h-4" />
+                    <div className="px-3 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em]">
+                        Operações
                     </div>
                     <NavItem
                         href="/dashboard/inventory"
                         icon="database"
-                        label="Inventário de IA (Shadow)"
+                        label="Inventário de IA"
                         active={pathname.startsWith("/dashboard/inventory")}
                     />
                     <NavItem
                         href="/dashboard/assessments"
                         icon="fact_check"
-                        label="Auditorias & Validações"
+                        label="Auditorias"
                         active={pathname === "/dashboard/assessments"}
                     />
                     <NavItem
@@ -142,106 +143,89 @@ function DashboardLayoutContent({
                     />
                     <NavItem
                         href="/dashboard/projects"
-                        icon="shield_person"
-                        label="Projetos de IA (Gov)"
+                        icon="folder_managed"
+                        label="Projetos Gov"
                         active={pathname.startsWith("/dashboard/projects")}
                     />
 
-                    <div className="h-6" />
-                    <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
-                        Capacitação
+                    <div className="h-4" />
+                    <div className="px-3 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em]">
+                        Conhecimento
                     </div>
                     <NavItem
                         href="/dashboard/courses"
                         icon="school"
-                        label="Academia ALGOR"
+                        label="Academy"
                         active={pathname.startsWith("/dashboard/courses")}
                     />
 
                     {user.role === "admin" && (
                         <>
-                            <div className="h-6" />
-                            <div className="px-4 py-3 text-[11px] font-bold text-gray-400/60 uppercase tracking-[0.2em]">
-                                Sistema
-                            </div>
-                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Administração" />
+                            <div className="h-4" />
+                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Admin System" />
                         </>
                     )}
                 </nav>
 
-                {/* Bottom Section: Profile & Settings */}
-                <div className="p-4 mt-auto">
-                    <NavItem href="/dashboard/settings" icon="settings" label="Configurações" />
-                    <div className="border-t border-white/5 my-3 mx-2" />
+                {/* Bottom Section */}
+                <div className="p-4 mt-auto border-t border-white/5 bg-[#0A1A2F]/50">
+                    <NavItem href="/dashboard/settings" icon="settings" label="Configurações" active={pathname === "/dashboard/settings"} />
 
-                    <div className="flex items-center gap-3 px-3 py-3 rounded-2xl hover:bg-white/5 cursor-pointer transition-colors group">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-blue to-purple-500 text-white flex items-center justify-center text-sm font-bold shadow-inner border border-white/10">
+                    <div className="flex items-center gap-3 px-3 py-3 mt-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group">
+                        <div className="w-9 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs font-bold border border-white/10">
                             {user.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium text-gray-200 truncate group-hover:text-white transition-colors">{user.name}</p>
-                            <p className="text-xs text-brand-blue/80 truncate font-mono">{user.role}</p>
+                            <p className="text-sm font-semibold text-white truncate group-hover:text-[#00FF94] transition-colors">{user?.name}</p>
+                            <p className="text-[11px] text-gray-400 truncate capitalize">{user?.role}</p>
                         </div>
-                        <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors p-2">
-                            <span className="material-symbols-rounded text-xl">logout</span>
+                        <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
+                            <span className="material-symbols-rounded text-lg">logout</span>
                         </button>
                     </div>
                 </div>
             </aside>
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col h-screen relative">
-                {/* Background Atmosphere Elements */}
-                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brand-blue/5 rounded-full blur-[120px] pointer-events-none" />
-                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
-
-                {/* Header Mobile Only */}
-                <header className="h-16 lg:hidden flex items-center justify-between px-4 bg-brand-navy/80 backdrop-blur-md border-b border-white/5 relative z-20">
+            <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-[#0A1A2F]">
+                {/* Mobile Header */}
+                <header className="h-16 lg:hidden flex items-center justify-between px-4 bg-[#0A1A2F] border-b border-white/10 relative z-20">
                     <div className="flex items-center gap-3">
-                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 text-gray-300">
+                        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 text-white">
                             <span className="material-symbols-rounded">menu</span>
                         </button>
-                        <span className="font-display font-bold text-lg text-white">ALGOR</span>
-                        {/* Mobile Switcher could go here in future */}
+                        <span className="font-bold text-lg text-white">ALGOR</span>
                     </div>
                 </header>
 
-                {/* Content Container - Elite Glass Pane */}
-                <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 p-4 lg:p-8 relative z-10">
-                    <div className="max-w-[1600px] mx-auto">
-                        {children}
-                    </div>
+                <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent relative z-10">
+                    {children}
                 </main>
             </div>
         </div>
     );
 }
 
-// Elite Navigation Item
+// Premium Navigation Item
 function NavItem({ href, icon, label, active = false }: { href: string, icon: string, label: string, active?: boolean }) {
     return (
         <Link
             href={href}
             className={`
-                flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 group relative overflow-hidden
+                flex items-center gap-3 px-3 py-2.5 mx-2 rounded-lg text-sm font-medium transition-all duration-200
                 ${active
-                    ? 'text-white'
+                    ? 'bg-white/10 text-white shadow-sm border border-white/5'
                     : 'text-gray-400 hover:text-white hover:bg-white/5'
                 } 
             `}
         >
-            {/* Active Indicator Background */}
-            {active && (
-                <div className="absolute inset-0 bg-gradient-to-r from-brand-blue/20 to-transparent border-l-2 border-brand-blue opacity-100" />
-            )}
-
             <span
-                className={`material-symbols-rounded text-[22px] relative z-10 transition-transform duration-300 ${active ? 'text-brand-blue scale-110 drop-shadow-[0_0_8px_rgba(0,163,255,0.5)]' : 'group-hover:text-gray-200'}`}
-                style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 500" : "'FILL' 0, 'wght' 400" }}
+                className={`material-symbols-rounded text-[20px] transition-colors ${active ? 'text-[#00FF94]' : 'text-gray-500 group-hover:text-white'}`}
+                style={{ fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'FILL' 0, 'wght' 400" }}
             >
                 {icon}
             </span>
-            <span className="relative z-10 tracking-wide">{label}</span>
+            <span className={active ? 'font-semibold tracking-wide' : 'tracking-wide'}>{label}</span>
         </Link>
     );
 }

@@ -1,192 +1,101 @@
 "use client";
 
-import React from 'react';
-import { CheckCircle2, Circle, Lock, ArrowRight, ShieldCheck, Rocket, LayoutGrid } from 'lucide-react';
-import Link from 'next/link';
-
-const ROADMAP_PHASES = [
-    {
-        id: 1,
-        title: "Fase 1: Fortalecimento Fundamental",
-        subtitle: "Otimização e Integração Inicial",
-        status: "in_progress", // in_progress, completed, locked
-        progress: 65,
-        color: "text-brand-copper",
-        bg: "bg-brand-copper",
-        icon: ShieldCheck,
-        steps: [
-            { id: "1.1", title: "Avaliação de Maturidade e Inventário", status: "completed" },
-            { id: "1.2", title: "Definição de Escopos de Uso", status: "completed" },
-            { id: "1.3", title: "Capacitação Inicial da Liderança", status: "in_progress" },
-            { id: "1.4", title: "Constituição do Comitê de IA", status: "pending" }
-        ]
-    },
-    {
-        id: 2,
-        title: "Fase 2: Expansão Estratégica",
-        subtitle: "Pilotando Novas Fronteiras",
-        status: "locked",
-        progress: 0,
-        color: "text-brand-blue",
-        bg: "bg-brand-blue",
-        icon: Rocket,
-        steps: [
-            { id: "2.1", title: "Priorização de Casos de Uso (PoCs)", status: "locked" },
-            { id: "2.2", title: "Pipeline de Dados Escalável", status: "locked" },
-            { id: "2.3", title: "Desenvolvimento de Infraestrutura Segura", status: "locked" },
-            { id: "2.4", title: "Centro de Excelência (CoE) Ativo", status: "locked" }
-        ]
-    },
-    {
-        id: 3,
-        title: "Fase 3: Cultura AI-First",
-        subtitle: "Inovação Contínua e Governança",
-        status: "locked",
-        progress: 0,
-        color: "text-brand-green",
-        bg: "bg-brand-green",
-        icon: LayoutGrid,
-        steps: [
-            { id: "3.1", title: "IA nos Processos Essenciais", status: "locked" },
-            { id: "3.2", title: "Governança Ética Automatizada", status: "locked" },
-            { id: "3.3", title: "Monitoramento Contínuo (KPIs)", status: "locked" }
-        ]
-    }
-];
+import { CheckCircle2, Circle, ArrowRight, Map } from "lucide-react";
 
 export default function RoadmapPage() {
     return (
-        <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="p-8 w-full min-h-screen space-y-10 relative text-white font-sans">
+
             {/* Header */}
-            <div>
-                <h1 className="text-3xl font-display font-medium text-white tracking-tight">
-                    Jornada de Adoção ALGOR
-                </h1>
-                <p className="text-gray-400 mt-2 font-light max-w-3xl">
-                    Seu mapa estratégico para a conformidade ISO 42001. Complete as etapas sequenciais para desbloquear níveis avançados de governança.
-                </p>
-            </div>
-
-            {/* Progress Overview */}
-            <div className="glass-panel p-6 rounded-2xl border border-white/5 bg-brand-navy/60">
-                <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-300">Progresso Geral</span>
-                    <span className="text-xl font-bold text-white">22%</span>
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8 animate-in fade-in slide-in-from-top-4 duration-700">
+                <div>
+                    <h1 className="text-3xl md:text-4xl font-serif font-medium text-white mb-2 tracking-tight">
+                        Jornada de Adoção
+                    </h1>
+                    <p className="text-gray-300 font-light text-lg">
+                        Seu plano de voo para a maturidade em IA.
+                    </p>
                 </div>
-                <div className="w-full h-3 bg-black/40 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-brand-copper via-brand-blue to-brand-green w-[22%] rounded-full relative">
-                        <div className="absolute inset-0 bg-white/20 animate-pulse-slow"></div>
-                    </div>
+                <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm font-mono text-[#00FF94] flex items-center gap-2">
+                    <Map className="w-4 h-4" />
+                    STATUS: FASE 1 - INICIADA
                 </div>
             </div>
 
-            {/* Phases Grid */}
-            <div className="grid gap-6">
-                {ROADMAP_PHASES.map((phase, index) => {
-                    const isActive = phase.status === 'in_progress';
-                    const isLocked = phase.status === 'locked';
-                    const isCompleted = phase.status === 'completed';
+            {/* Roadmap Steps - Vertical List Style (Cleaner) */}
+            <div className="w-full max-w-4xl mx-auto space-y-4 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
 
-                    return (
-                        <div
-                            key={phase.id}
-                            className={`
-                                relative overflow-hidden rounded-3xl border transition-all duration-300
-                                ${isActive ? 'bg-[#0A1A2F] border-brand-copper/30 shadow-[0_0_30px_rgba(230,126,34,0.1)]' : ''}
-                                ${isLocked ? 'bg-[#050B14] border-white/5 opacity-60 grayscale-[0.5]' : ''}
-                                ${isCompleted ? 'bg-brand-navy border-brand-green/30' : ''}
-                            `}
-                        >
-                            {/* Phase Progress Bar Background */}
-                            <div className="absolute top-0 left-0 h-1 bg-white/5 w-full">
-                                <div
-                                    className={`h-full ${phase.bg} transition-all duration-1000`}
-                                    style={{ width: `${phase.progress}%` }}
-                                />
-                            </div>
+                {/* Step 1: Completed */}
+                <StepCard
+                    number="01"
+                    title="Diagnóstico Inicial & Shadow AI"
+                    description="Mapeamento de riscos ocultos e inventário preliminar de ativos de IA."
+                    status="completed"
+                />
 
-                            <div className="p-8 md:flex gap-8 items-start">
-                                {/* Phase Header */}
-                                <div className="md:w-1/3 mb-6 md:mb-0">
-                                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 text-2xl ${isActive ? 'bg-brand-copper/10 text-brand-copper' : 'bg-white/5 text-gray-500'}`}>
-                                        <phase.icon className="w-7 h-7" />
-                                    </div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <span className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${isActive ? 'bg-brand-copper/10 text-brand-copper border-brand-copper/20' : 'bg-white/5 text-gray-500 border-white/10'}`}>
-                                            {isLocked ? 'Bloqueado' : isActive ? 'Em Progresso' : 'Concluído'}
-                                        </span>
-                                    </div>
-                                    <h2 className="text-2xl font-serif text-white mb-2">{phase.title}</h2>
-                                    <p className="text-sm text-gray-400 font-light">{phase.subtitle}</p>
+                {/* Step 2: Active */}
+                <StepCard
+                    number="02"
+                    title="Estruturação da Governança"
+                    description="Definição de comitê de ética, políticas de uso e escolha de frameworks (ISO/NIST)."
+                    status="active"
+                />
 
-                                    {isActive && (
-                                        <Link href="/dashboard/inventory">
-                                            <button className="mt-8 px-6 py-3 bg-brand-copper hover:bg-[#D35400] text-white text-sm font-bold rounded-xl transition-all flex items-center gap-2">
-                                                Continuar Jornada
-                                                <ArrowRight className="w-4 h-4" />
-                                            </button>
-                                        </Link>
-                                    )}
-                                </div>
+                {/* Step 3: Locked */}
+                <StepCard
+                    number="03"
+                    title="Implementação Técnica"
+                    description="Deploy de Data Clean Rooms e auditoria contínua de modelos."
+                    status="locked"
+                />
 
-                                {/* Steps List */}
-                                <div className="flex-1 space-y-4 pt-2">
-                                    {phase.steps.map((step) => (
-                                        <div
-                                            key={step.id}
-                                            className={`
-                                                flex items-center gap-4 p-4 rounded-xl border transition-all
-                                                ${step.status === 'completed' ? 'bg-brand-green/5 border-brand-green/10' : ''}
-                                                ${step.status === 'in_progress' ? 'bg-white/5 border-white/10' : ''}
-                                                ${step.status === 'locked' || step.status === 'pending' ? 'border-transparent opacity-60' : ''}
-                                            `}
-                                        >
-                                            <div className="shrink-0">
-                                                {step.status === 'completed' ? (
-                                                    <CheckCircle2 className="w-6 h-6 text-brand-green" />
-                                                ) : step.status === 'in_progress' ? (
-                                                    <div className="relative">
-                                                        <Circle className="w-6 h-6 text-brand-copper" />
-                                                        <div className="absolute inset-0 w-6 h-6 border-2 border-brand-copper rounded-full border-t-transparent animate-spin" />
-                                                    </div>
-                                                ) : step.status === 'locked' ? (
-                                                    <Lock className="w-5 h-5 text-gray-600" />
-                                                ) : (
-                                                    <Circle className="w-6 h-6 text-gray-600" />
-                                                )}
-                                            </div>
+                {/* Step 4: Locked */}
+                <StepCard
+                    number="04"
+                    title="Certificação & Escala"
+                    description="Auditoria final para selo ISO 42001 e expansão para toda a organização."
+                    status="locked"
+                />
 
-                                            <div className="flex-1">
-                                                <div className="flex justify-between mb-1">
-                                                    <span className={`text-sm font-medium ${step.status === 'completed' ? 'text-gray-200' : 'text-gray-400'}`}>
-                                                        {step.title}
-                                                    </span>
-                                                    <span className="text-xs font-mono text-gray-600">ID {step.id}</span>
-                                                </div>
-                                                {step.status === 'in_progress' && (
-                                                    <div className="w-full h-1 bg-white/5 rounded-full mt-2 overflow-hidden">
-                                                        <div className="h-full bg-brand-copper w-1/3 animate-pulse"></div>
-                                                    </div>
-                                                )}
-                                            </div>
-
-                                            {step.status === 'in_progress' && (
-                                                <button className="text-xs text-brand-copper hover:underline whitespace-nowrap">
-                                                    Retomar
-                                                </button>
-                                            )}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
             </div>
         </div>
     );
 }
 
-// Utility for later:
-// We can fetch user progress from the backend (API) and dynamically map it to this structure.
-// This is currently mocking the "Fortalecimento" phase as active.
+function StepCard({ number, title, description, status }: any) {
+    const isCompleted = status === 'completed';
+    const isActive = status === 'active';
+    const isLocked = status === 'locked';
+
+    return (
+        <div className={`
+            w-full p-6 rounded-xl border transition-all duration-300 flex items-center gap-6
+            ${isCompleted ? 'bg-[#00FF94]/5 border-[#00FF94]/30' : ''}
+            ${isActive ? 'glass-panel border-[#00FF94] shadow-[0_0_20px_rgba(0,255,148,0.1)]' : ''}
+            ${isLocked ? 'bg-white/5 border-white/5 opacity-60' : ''}
+        `}>
+            {/* Status Icon */}
+            <div className="shrink-0">
+                {isCompleted && <CheckCircle2 className="w-8 h-8 text-[#00FF94]" />}
+                {isActive && <div className="w-8 h-8 rounded-full border-2 border-[#00FF94] flex items-center justify-center"><div className="w-3 h-3 bg-[#00FF94] rounded-full animate-pulse" /></div>}
+                {isLocked && <Circle className="w-8 h-8 text-gray-600" />}
+            </div>
+
+            {/* Content */}
+            <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-xs font-bold uppercase tracking-widest ${isActive ? 'text-[#00FF94]' : 'text-gray-500'}`}>Fase {number}</span>
+                </div>
+                <h3 className={`text-xl font-serif font-medium ${isActive ? 'text-white' : 'text-gray-300'}`}>{title}</h3>
+                <p className="text-sm text-gray-400 font-light mt-1">{description}</p>
+            </div>
+
+            {/* Action (if active) */}
+            {isActive && (
+                <button className="px-4 py-2 rounded-lg bg-[#00FF94] text-[#0A1A2F] text-sm font-bold hover:bg-white transition-colors flex items-center gap-2">
+                    Continuar <ArrowRight className="w-4 h-4" />
+                </button>
+            )}
+        </div>
+    )
+}

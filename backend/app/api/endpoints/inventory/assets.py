@@ -29,7 +29,7 @@ class AIAssetOut(AIAssetBase):
     created_at: datetime
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Read All (With Organization Filter)
 @router.get("/", response_model=List[AIAssetOut])
