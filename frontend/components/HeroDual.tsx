@@ -49,7 +49,7 @@ export default function HeroDual() {
                     </span>
                 </h1>
                 <p className="font-light text-gray-300 max-w-2xl mx-auto text-sm md:text-lg">
-                    Infraestrutura de Governança e <span className="text-white font-medium">Software de Auditoria (SaaS)</span> com arquitetura ISO 42001 Nativa. Desbloqueie contratos Enterprise e blinde sua operação growth.
+                    Infraestrutura de Governança e <span className="text-white font-medium">Software de Auditoria (SaaS)</span> com arquitetura ISO 42001 Nativa. Desbloqueie contratos Enterprise e blinde sua operação de IA.
                 </p>
             </div>
 
