@@ -20,9 +20,9 @@ export default function HeroDual() {
     const handleDiagnosticClick = () => {
         const token = localStorage.getItem("algor_token");
         if (token) {
-            router.push("/dashboard/assessments/new");
+            router.push("/dashboard/assessments?new=true");
         } else {
-            router.push("/login?redirect=/dashboard/assessments/new");
+            router.push("/login?redirect=/dashboard/assessments?new=true");
         }
     };
 
@@ -75,25 +75,26 @@ export default function HeroDual() {
                         </div>
 
                         <h2 className="font-serif text-3xl text-white mb-2">Para Empresas</h2>
-                        <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Compliance-Led Growth</h3>
+                        <h3 className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase mb-6">Governança como Motor de Receita</h3>
 
                         <p className="text-gray-300 mb-8 leading-relaxed text-sm md:text-base">
-                            Use Data Clean Rooms para cruzar dados sem ferir a LGPD. Sua infraestrutura de vendas auditável por software.
+                            Desbloqueie projetos de IA travados pelo Compliance. Transforme a governança em vantagem competitiva com nossa infraestrutura auditável e seguro técnico contra riscos algorítmicos.
                         </p>
 
                         <div className="mt-auto pt-6 w-full border-t border-white/5">
                             <ul className="space-y-3 mb-8 text-sm text-gray-300">
-                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Dashboard de Risco ISO 42001 (SaaS)</li>
-                                <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Risco Zero de Alucinação</li>
+                                <li className="flex items-center gap-2"><Lock className="w-4 h-4 text-[#00A3FF]" /> Selo ISO 42001 Nativo</li>
+                                <li className="flex items-center gap-2"><Activity className="w-4 h-4 text-[#00A3FF]" /> Mitigação Técnica de Riscos</li>
                             </ul>
 
-                            <button
-                                onClick={handleDiagnosticClick}
-                                className="w-full py-4 bg-[#00A3FF] hover:bg-[#33B5FF] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2"
-                            >
-                                Diagnóstico Gratuito
-                                <ArrowRight className="w-4 h-4" />
-                            </button>
+                            <Link href="/solutions/enterprise" className="w-full">
+                                <button
+                                    className="w-full py-4 bg-[#00A3FF] hover:bg-[#33B5FF] text-white font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00A3FF]/20 group-hover:shadow-[#00A3FF]/40 flex items-center justify-center gap-2"
+                                >
+                                    Soluções Enterprise
+                                    <ArrowRight className="w-4 h-4" />
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -126,9 +127,9 @@ export default function HeroDual() {
                                 <li className="flex items-center gap-2"><Users className="w-4 h-4 text-[#00FF94]" /> Networking com C-Levels</li>
                             </ul>
 
-                            <Link href="/register" className="w-full">
+                            <Link href="/partners" className="w-full">
                                 <button className="w-full py-4 bg-transparent border border-[#00FF94] text-[#00FF94] hover:bg-[#00FF94] hover:text-[#0A1A2F] font-bold tracking-wider uppercase text-xs rounded transition-all shadow-lg shadow-[#00FF94]/5 group-hover:shadow-[#00FF94]/30 flex items-center justify-center gap-2">
-                                    Aplicar para Associação
+                                    Programa de Parceiros
                                     <ArrowRight className="w-4 h-4" />
                                 </button>
                             </Link>

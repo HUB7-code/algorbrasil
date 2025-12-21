@@ -7,6 +7,8 @@ import hashlib
 from backend.app.db.session import get_db
 from backend.app.models.governance import GovernanceTrace
 from backend.app.schemas.governance import GuardrailRequest, GuardrailResponse
+from backend.app.models.user import User as UserModel
+from backend.app.api.auth import get_current_user
 
 router = APIRouter()
 
@@ -16,8 +18,8 @@ def generate_hash(content: str) -> str:
 @router.post("/guardrail", response_model=GuardrailResponse)
 def check_compliance_guardrail(
     request: GuardrailRequest,
-    db: Session = Depends(get_db)
-    # TODO: Adicionar dependência de Auth (JWT) na Fase de Segurança
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
 ):
     """
     ETHICAL GUARDRAIL (Middleware):
@@ -93,7 +95,20 @@ def check_compliance_guardrail(
             pii_found = True
             policy_name = "legacy-fallback"
 
-    # 3. Registrar no Evidence Vault (Imutabilidade)
+    # 3. Registrar no Evidence Vault (Imutabilidade) - TRUST HUB LOGIC
+    
+    # 3.a Fetch Previous Block for Hash Chaining
+    previous_trace = db.query(GovernanceTrace).filter(
+        GovernanceTrace.organization_id == request.organization_id
+    ).order_by(GovernanceTrace.created_at.desc()).first()
+    
+    previous_hash_val = previous_trace.block_hash if previous_trace else "GENESIS_ALGOR_TRUST_HUB_v1"
+    
+    # 3.b Calculate Current Block Hash
+    # Payload for hashing: TraceID + InputHash + Verdict + Score + PrevHash
+    block_payload = f"{trace_uuid}{generate_hash(request.prompt_text)}{verdict}{risk_score}{previous_hash_val}"
+    current_block_hash = generate_hash(block_payload)
+
     trace_entry = GovernanceTrace(
         trace_id=trace_uuid,
         organization_id=request.organization_id,
@@ -108,7 +123,11 @@ def check_compliance_guardrail(
         risk_score=risk_score,
         pii_detected=pii_found,
         topics_flagged=violation_details, # Novo campo JSON
-        Model_name=request.model_name
+        Model_name=request.model_name,
+        
+        # New Trust Hub Fields
+        previous_hash=previous_hash_val,
+        block_hash=current_block_hash
     )
     
     db.add(trace_entry)

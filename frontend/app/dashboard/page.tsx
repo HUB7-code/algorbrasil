@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Activity, ShieldCheck, Zap, Database, BarChart3, AlertTriangle } from "lucide-react";
+import { ArrowRight, Activity, ShieldCheck, Zap, Database, BarChart3, AlertTriangle, HelpCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Dashboard() {
@@ -79,6 +79,7 @@ export default function Dashboard() {
                 {/* 1. Growth Score / Readiness */}
                 <KpiCard
                     title="Nível de Prontidão"
+                    description="Nota de confiabilidade auditável (ISO 42001). Baseada em riscos ativos e controles implementados."
                     icon={<ShieldCheck className="w-5 h-5 text-[#00FF94]" />}
                     iconBg="bg-[#00FF94]/10"
                     trend={loading ? "..." : (complianceScore > 80 ? "+ Stable" : "- Attention")}
@@ -112,6 +113,7 @@ export default function Dashboard() {
                 {/* 2. Data Activity */}
                 <KpiCard
                     title="Atividade de Dados"
+                    description="Volume de ativos de IA (Modelos/SaaS) em status de produção monitorados pelo Guardrail."
                     icon={<Database className="w-5 h-5 text-[#00A3FF]" />}
                     iconBg="bg-[#00A3FF]/10"
                     trend={`${activeModels} Ativos Monitorados`}
@@ -132,6 +134,7 @@ export default function Dashboard() {
                 {/* 3. Risk Monitor */}
                 <KpiCard
                     title="Monitoramento de Risco"
+                    description="Incidentes de segurança e conformidade detectados em tempo real na matriz de risco."
                     icon={<AlertTriangle className="w-5 h-5 text-amber-400" />}
                     iconBg="bg-amber-500/10"
                     trend={`${data?.risks_summary?.total || 0} Incidentes Totais`}
@@ -169,6 +172,7 @@ export default function Dashboard() {
                 {/* 4. Velocity */}
                 <KpiCard
                     title="Consent Velocity"
+                    description="Tempo médio para processar solicitações de opt-out (descadastro). Meta de SLA: < 24h."
                     icon={<Zap className="w-5 h-5 text-purple-400" />}
                     iconBg="bg-purple-500/10"
                     trend="Opt-in SLA"
@@ -254,12 +258,24 @@ export default function Dashboard() {
 }
 
 // Global Glass Card Component Wrapper
-function KpiCard({ title, icon, iconBg, trend, trendPositive, trendColor, children }: any) {
+function KpiCard({ title, icon, iconBg, trend, trendPositive, trendColor, description, children }: any) {
     return (
         <div className="glass-panel rounded-2xl p-6 flex flex-col h-64 relative group hover:border-[#00FF94]/30">
 
             <div className="flex justify-between items-start mb-4 relative z-10 gap-4">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider leading-relaxed max-w-[70%] group-hover:text-white transition-colors">{title}</span>
+                <div className="flex items-start gap-2 max-w-[70%]">
+                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider leading-relaxed group-hover:text-white transition-colors">
+                        {title}
+                    </span>
+                    {description && (
+                        <div className="relative group/tooltip">
+                            <HelpCircle className="w-3 h-3 text-gray-600 hover:text-[#00FF94] cursor-help transition-colors mt-0.5" />
+                            <div className="absolute left-0 top-6 w-48 p-3 bg-[#0A1A2F] border border-white/10 rounded-lg shadow-xl text-xs text-gray-300 pointer-events-none opacity-0 group-hover/tooltip:opacity-100 transition-opacity z-50 backdrop-blur-xl">
+                                {description}
+                            </div>
+                        </div>
+                    )}
+                </div>
                 <div className={`p-2 rounded-lg ${iconBg} border border-white/5 shrink-0`}>
                     {icon}
                 </div>

@@ -16,9 +16,11 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PolicyManager } from '@/components/growth-hub/PolicyManager';
+import { useSearchParams } from 'next/navigation';
 
 export default function GrowthHubPage() {
-    const [activeTab, setActiveTab] = useState('overview');
+    const searchParams = useSearchParams();
+    const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'overview');
 
     // State for Real KPIs and Logs
     const [kpis, setKpis] = useState<{

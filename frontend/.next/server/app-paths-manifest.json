@@ -1,7 +1,5 @@
 {
-  "/dashboard/page": "app/dashboard/page.js",
-  "/dashboard/risks/page": "app/dashboard/risks/page.js",
-  "/dashboard/projects/page": "app/dashboard/projects/page.js",
-  "/(public)/page": "app/(public)/page.js",
-  "/(public)/associates/page": "app/(public)/associates/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(public)/register/page": "app/(public)/register/page.js",
+  "/(public)/page": "app/(public)/page.js"
 }

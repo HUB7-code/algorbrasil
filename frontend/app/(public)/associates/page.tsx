@@ -130,7 +130,7 @@ export default function AssociatesGalleryPage() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
-                        Nossos Associados
+                        Nossa Rede de Especialistas
                     </h1>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg">
                         Conheça a elite da governança de Inteligência Artificial no Brasil.
@@ -185,6 +185,7 @@ export default function AssociatesGalleryPage() {
                                                 fill
                                                 sizes="96px"
                                                 className="object-cover"
+                                                priority={true}
                                             />
                                         </div>
                                     </div>

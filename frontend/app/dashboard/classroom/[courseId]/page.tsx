@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+const ReactPlayer = dynamic(() => import("react-player"), { ssr: false }) as any;
 
 interface Lesson {
     id: string;
@@ -201,11 +201,6 @@ export default function ClassroomPage() {
                                         height="100%"
                                         controls={true}
                                         onEnded={() => handleLessonComplete(activeLesson.id)}
-                                        config={{
-                                            youtube: {
-                                                playerVars: { showinfo: 1 }
-                                            } as any
-                                        }}
                                     />
                                 ) : (
                                     <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-slate-400">

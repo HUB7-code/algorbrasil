@@ -6,6 +6,7 @@ import { AlertTriangle, ShieldAlert, Activity, Plus } from "lucide-react";
 export default function RisksPage() {
     const [risks, setRisks] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchRisks = async () => {
@@ -55,11 +56,92 @@ export default function RisksPage() {
                     </p>
                 </div>
 
-                <button className="flex items-center gap-3 px-6 py-3 rounded-lg bg-[#00FF94] hover:bg-[#00FF94]/90 text-[#0A1A2F] font-bold text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(0,255,148,0.2)]">
+                <button
+                    onClick={() => setShowModal(true)}
+                    className="flex items-center gap-3 px-6 py-3 rounded-lg bg-[#00FF94] hover:bg-[#00FF94]/90 text-[#0A1A2F] font-bold text-sm tracking-wide transition-all shadow-[0_0_20px_rgba(0,255,148,0.2)]"
+                >
                     <Plus className="w-4 h-4" />
                     REPORTAR RISCO
                 </button>
             </div>
+
+            {/* Risk Report Modal */}
+            {showModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+                    <div className="bg-[#0A1A2F] border border-white/10 rounded-2xl p-8 max-w-md w-full relative shadow-2xl">
+                        <button
+                            onClick={() => setShowModal(false)}
+                            className="absolute top-4 right-4 text-gray-400 hover:text-white"
+                        >
+                            ✕
+                        </button>
+                        <h2 className="text-xl font-serif font-medium text-white mb-6 flex items-center gap-2">
+                            <AlertTriangle className="w-5 h-5 text-[#00FF94]" /> Novo Incidente
+                        </h2>
+
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Categoria</label>
+                                <select
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-[#00FF94] outline-none"
+                                    id="riskCategory"
+                                >
+                                    <option value="Security">Segurança de Dados</option>
+                                    <option value="Privacy">Privacidade (LGPD)</option>
+                                    <option value="AI Safety">Alucinação / Bias</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Severidade</label>
+                                <select
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-[#00FF94] outline-none"
+                                    id="riskLevel"
+                                >
+                                    <option value="16">CRÍTICO (Afeta Trust Score)</option>
+                                    <option value="10">ALTA (Requer Atenção)</option>
+                                    <option value="5">MÉDIA</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Descrição</label>
+                                <textarea
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:border-[#00FF94] outline-none h-24"
+                                    placeholder="Descreva o risco detectado..."
+                                    id="riskDesc"
+                                />
+                            </div>
+
+                            <button
+                                onClick={async () => {
+                                    const cat = (document.getElementById('riskCategory') as HTMLSelectElement).value;
+                                    const level = parseInt((document.getElementById('riskLevel') as HTMLSelectElement).value);
+                                    const desc = (document.getElementById('riskDesc') as HTMLTextAreaElement).value;
+
+                                    const token = localStorage.getItem("algor_token");
+                                    await fetch("/api/v1/risks/", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Authorization": `Bearer ${token}`
+                                        },
+                                        body: JSON.stringify({
+                                            category: cat,
+                                            risk_level: level,
+                                            description: desc,
+                                            status: "Open"
+                                        })
+                                    });
+                                    setShowModal(false);
+                                    window.location.reload(); // Refresh to show new risk and update dashboard
+                                }}
+                                className="w-full py-3 bg-[#00FF94] text-[#0A1A2F] font-bold rounded-lg hover:bg-[#00FF94]/90 transition-all mt-2"
+                            >
+                                REGISTRAR OCORRÊNCIA
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Risk Overview Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">

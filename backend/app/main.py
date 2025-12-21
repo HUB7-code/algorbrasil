@@ -32,11 +32,13 @@ import os
 os.makedirs("backend/app/static/uploads", exist_ok=True)
 app.mount("/static", StaticFiles(directory="backend/app/static"), name="static")
 
-# Configuração de CORS (Restrição de Acesso)
-# Em produção, substitua "*" pelos domínios reais (ex: https://algorbrasil.com.br)
+from backend.app.core.config import settings
+
+
+# Configuração de CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # TODO: Restringir em produção
+    allow_origins=settings.BACKEND_CORS_ORIGINS,
     allow_credentials=True,
     allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],

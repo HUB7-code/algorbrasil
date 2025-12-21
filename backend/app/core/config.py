@@ -4,6 +4,9 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Algor AI Gov"
     API_V1_STR: str = "/api/v1"
     
+    # CORS
+    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8000"]
+    
     # Segurança
     SECRET_KEY: str = "SEGREDO_TEMPORARIO_DEV_2025_TROCAR_EM_PROD"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8 # 8 dias

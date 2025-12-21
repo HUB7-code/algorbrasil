@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 19/12/2025 - 07:45 (Copy Refinement)
-> **Status Geral:** **AUDIT READY (v10.4)** 🟢⚖️
-> **Versão:** 10.4 (Royal Navy + Assessment Wizard + Copy Refinement)
+> **Última Atualização:** 21/12/2025 - 19:15 (Production Hardening)
+> **Status Geral:** **RELEASE CANDIDATE READY (V6.0-RC1)** 🟢🚀
+> **Versão:** 6.0-RC1 (Security Audited + Build Fixed + Env Config)
 
 ## 1. Manifesto Estratégico (The 3 Pillars)
 O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
@@ -23,37 +23,43 @@ Abandonamos o conceito "Gamer/Matrix" em favor de uma estética **Corporativa, S
     *   **Glass Panel:** Classe global `.glass-panel` usada em tudo (Sites e SaaS). Vidro real translúcido.
     *   **Tipografia:** Serif (`Playfair Display` ou similar) para Títulos. Sans (`Inter/Satoshi`) para dados.
 
-*   **Status de Unificação Visual:**
-    *   Home Page: ✅ (Referência Absoluta + WhatsApp Action + Copy Refinado)
-    *   Auth Pages: ✅ (Royal Navy Theme)
-    *   Dashboard CoE: ✅ (Clone da Home + Real Data)
-    *   Assessments: ✅ (Clean Glass + Wizard Active)
-    *   Inventory/Risks: ✅ (Minimal Cards + Real Data)
-    *   Associates Page: ✅ (Updated with Real Links)
+*   **Status de Unificação Visual (FRONTEND V1.0 COMPLETE):**
+    *   ✅ **Home Page:** Refinada (Links corretos, rolagem ajustada, Copy "Motor de Receita").
+    *   ✅ **Menu:** "A Autoridade", "Soluções Enterprise", "Metodologia ALGOR", "Rede de Especialistas".
+    *   ✅ **Páginas Institucionais:**
+        - **Enterprise (`/solutions/enterprise`):** Traduzida e alinhada (Risco-como-Serviço, Telemetria).
+        - **Partners (`/partners`):** Landing page de conversão para parceiros.
+        - **Associates (`/associates`):** "Nossa Rede de Especialistas".
+    *   ✅ **Institutional Storytelling:** Nova seção "A Autoridade" na Home.
 
-## 3. Estado Atual dos Arquivos (GROWTH HUB ACTIVE)
-- **Functional Modules (New):**
-    - ✅ **Growth IA Governance Hub:** Infraestrutura "Middle-ware" implementada (`/api/v1/governance`).
-        - **Guardrail:** Interceptação dinâmica baseada em políticas (Validado por `test_dynamic_policy.py`).
-        - **Policy Engine:** Gestão de regras ativas (Block/Flag) via Frontend e API (Dynamic CRUD).
-        - **Evidence Vault:** Logs imutáveis de cada transação de IA.
-        - **Dashboard:** KPIs financeiros (Multas Mitigadas, CICR) em tempo real.
-        - **XAI Widget:** Componente de transparência para o frontend do cliente.
-    - ✅ **Assessment Wizard:** Implementado fluxo passo-a-passo para ISO 42001.
-    - ✅ **Conversion Engine:** Implementação do `WhatsAppButton` fixo na Home.
-    - ✅ **Copywriting:** Home Page refinada com foco corporativo.
+## 3. Estado Atual dos Arquivos (SECURITY HARDENED)
 
-### Ciclo Atual (Fase 15 - Content Ingestion)
-50. ✅ **LMS Structure:** Módulo de Cursos e Sala de Aula ("Classroom Pattern") implementados e conectados ao Backend.
-51. ⏳ **Content Upload:** Ingressar com o conteúdo real (vídeos do curso Auditor Líder) no banco de dados.
+### 🛡️ Backend & Segurança (Ações Realizadas)
+- ✅ **Secrets Management:** `SECRET_KEY` removida do código-fonte e migrada para `.env` + `config.py`.
+- ✅ **CORS Policy:** Restrição de origem dinâmica via variável de ambiente (wildcard removido de `main.py`).
+- ✅ **Endpoint Protection:** Endpoint `/guardrail` agora exige autenticação JWT (`get_current_user`).
+- ✅ **Bug Fixes:** Correção de `ImportError` circular no módulo de Autenticação.
 
-## 4. Roadmap Imediato
-Com o deploy da v10.3 estabilizado, o foco vira para a entrega de valor educacional (LMS) e refinamentos de copy.
+### ⚛️ Frontend & Build
+- ✅ **Build Restore:** Correção crítica no componente `ReactPlayer` (TypeScript error) permitindo build.
+- ✅ **Environment:** Criação de `.env.example` para documentação de infraestrutura.
 
-60. 🚀 **Deploy VPS (v10.4):** Atualizar ambiente de produção com o novo copy da Home.
-61. 📚 **LMS Backend:** Modelagem de Cursos, Módulos e Aulas.
+### ⛓️ Trust Hub (v5.1 Stable)
+- ✅ **Hash Chaining:** Logs com criptografia de rastreio (Imutabilidade) no DB.
+- ✅ **Evidence Vault:** Auditoria de integridade funcional.
+
+### Ciclo Atual (Fase de Estabilização)
+50. ✅ **Hash Chaining:** Implementado e auditado.
+51. ✅ **Security Audit:** Backend blindado e pronto para deploy.
+52. ✅ **Build Check:** Frontend compilando com sucesso.
+
+## 4. Roadmap Imediato (v6.0 - Deploy)
+Foco total em colocar essa versão estável e segura no ar.
+
+60. 🚀 **VPS Deploy:** Atualizar ambiente de produção com Docker.
+61. 🕵️ **Edge Agent:** Iniciar desenvolvimento do cliente Python.
 
 ## 5. Histórico de Versões
-- **v10.2:** **Assessment Engine:** Auditoria ISO 42001 interativa.
-- **v10.3:** **Conversion Update:** WhatsApp Button + Fixes.
-- **v10.4:** **Copy Refinement (ATUAL):** Ajuste de posicionamento textual na Home ("Operação de IA").
+- **v10.5:** Educational UX (Legacy).
+- **v5.1:** Trust Hub (Hash Chain).
+- **v6.0-RC1:** **Release Candidate (ATUAL):** Segurança Hardened, Bugs de Build Corrigidos, Configuração Centralizada.

@@ -36,6 +36,10 @@ class GovernanceTrace(Base):
     latency_ms = Column(Integer, nullable=True)
     Model_name = Column(String, nullable=True) # Ex: gpt-4-turbo
 
+    # Trust Hub v5.1 - Hash Chaining
+    previous_hash = Column(String, nullable=True, index=True) 
+    block_hash = Column(String, nullable=True, unique=True)
+
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
 
 class GovernancePolicy(Base):

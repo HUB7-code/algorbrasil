@@ -10,7 +10,8 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
 from backend.app.schemas import UserCreate, UserLogin, Token
-from backend.app.core.security import get_password_hash, verify_password, create_access_token, SECRET_KEY, ALGORITHM
+from backend.app.core.security import get_password_hash, verify_password, create_access_token, ALGORITHM
+from backend.app.core.config import settings
 from backend.app.core.security_encryption import encrypt_field
 from backend.app.db.session import get_db
 from backend.app.models.user import User
@@ -30,7 +31,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
@@ -181,7 +182,7 @@ async def verify_2fa_code(otp_data: OTPVerify, db: Session = Depends(get_db)):
     """
     try:
         # Decodificar o token temporario
-        payload = jwt.decode(otp_data.temp_token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(otp_data.temp_token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         email = payload.get("sub")
         role = payload.get("role")
         

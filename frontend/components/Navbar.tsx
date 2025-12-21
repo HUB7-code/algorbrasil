@@ -71,10 +71,10 @@ export default function Navbar() {
 
                 {/* Desktop Menu */}
                 <div className="hidden md:flex gap-8 text-sm font-medium text-gray-300">
-                    <button onClick={() => handleNavigation('benefits')} className="hover:text-white transition-colors">A Associação</button>
-                    <button onClick={() => handleNavigation('personas')} className="hover:text-white transition-colors">Intelligence Hub</button>
-                    <button onClick={() => handleNavigation('methodology')} className="hover:text-white transition-colors">Metodologia</button>
-                    <Link href="/associates" className="hover:text-white transition-colors">Associados</Link>
+                    <button onClick={() => handleNavigation('governance')} className="hover:text-white transition-colors">A Autoridade</button>
+                    <button onClick={() => handleNavigation('personas')} className="hover:text-white transition-colors">Soluções Enterprise</button>
+                    <button onClick={() => handleNavigation('methodology')} className="hover:text-white transition-colors">Metodologia ALGOR</button>
+                    <Link href="/associates" className="hover:text-white transition-colors" prefetch={true}>Rede de Especialistas</Link>
                 </div>
 
                 <Link href="/login" className="hidden md:block">
@@ -104,10 +104,10 @@ export default function Navbar() {
             {/* Mobile Menu Overlay */}
             {mobileMenuOpen && (
                 <div className="absolute top-full left-0 w-full bg-[#0A1A2F]/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-6 md:hidden animate-in slide-in-from-top-5">
-                    <button onClick={() => handleNavigation('benefits')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">A Associação</button>
-                    <button onClick={() => handleNavigation('personas')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Intelligence Hub</button>
-                    <button onClick={() => handleNavigation('methodology')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Metodologia</button>
-                    <Link href="/associates" className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)}>Associados</Link>
+                    <button onClick={() => handleNavigation('governance')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">A Autoridade</button>
+                    <button onClick={() => handleNavigation('personas')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Soluções Enterprise</button>
+                    <button onClick={() => handleNavigation('methodology')} className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white">Metodologia ALGOR</button>
+                    <Link href="/associates" className="text-left py-2 border-b border-white/5 text-gray-300 hover:text-white" onClick={() => setMobileMenuOpen(false)} prefetch={true}>Rede de Especialistas</Link>
                     <Link href="/login" className="w-full">
                         <button className="w-full py-4 mt-2 relative overflow-hidden rounded-lg bg-gradient-to-r from-brand-navy to-brand-green/20 border border-brand-green/30 text-center group">
                             <div className="relative flex items-center justify-center gap-2">
