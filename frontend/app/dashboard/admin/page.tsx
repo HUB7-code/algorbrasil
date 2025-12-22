@@ -15,7 +15,10 @@ interface AdminUser {
 export default function AdminDashboard() {
     const [users, setUsers] = useState<AdminUser[]>([]);
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState<'users' | 'lms' | 'invites'>('users');
+    const [activeTab, setActiveTab] = useState<'users' | 'lms' | 'invites' | 'partners'>('users');
+
+    // Partner Requests State
+    const [partnerRequests, setPartnerRequests] = useState<any[]>([]);
 
     // Invite State
     const [inviteEmail, setInviteEmail] = useState("");
@@ -24,6 +27,8 @@ export default function AdminDashboard() {
     // LMS State
     const [courses, setCourses] = useState<any[]>([]);
     const [selectedCourseForEdit, setSelectedCourseForEdit] = useState<any | null>(null);
+
+    // ... existing state
 
     const fetchAllData = async () => {
         const token = localStorage.getItem("algor_token");
@@ -41,6 +46,12 @@ export default function AdminDashboard() {
                 return;
             }
             if (res.ok) setUsers(await res.json());
+
+            // Fetch Partner Applications
+            const resPartners = await fetch("/api/v1/partners/applications", {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            if (resPartners.ok) setPartnerRequests(await resPartners.json());
 
             // Fetch Courses for LMS Management
             const resCourses = await fetch("/api/v1/lms/courses", {
@@ -65,65 +76,123 @@ export default function AdminDashboard() {
         }
     };
 
-    const handleEditCourse = async (courseId: string) => {
-        setLoading(true);
+    const handleUpdatePartnerStatus = async (appId: number, newStatus: string) => {
+        if (!confirm(`Confirmar alteração de status para: ${newStatus}?`)) return;
+
         const token = localStorage.getItem("algor_token");
         try {
-            const res = await fetch(`/api/v1/lms/courses/${courseId}`, {
+            const res = await fetch(`/api/v1/partners/applications/${appId}/status?new_status=${newStatus}`, {
+                method: 'PUT',
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (res.ok) {
-                setSelectedCourseForEdit(await res.json());
+                fetchAllData(); // Refresh list
             }
-        } catch (e) { console.error(e); }
-        setLoading(false);
-    }
-
-    const handleCreateInvite = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setInviteLink(`https://algor.com.br/register?invite=${btoa(inviteEmail)}`);
-    };
-
-    const handleDeleteUser = async (userId: number) => {
-        if (!confirm("Banir usuário?")) return;
-        setUsers(users.filter(u => u.id !== userId));
-    };
-
-    const handleUpdateRole = async (userId: number, newRole: string) => {
-        setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
-    };
-
-    const handleDeleteCourse = async (courseId: string) => {
-        if (!confirm("Excluir curso?")) return;
-        setCourses(courses.filter(c => c.id !== courseId));
-    };
-
-    const handleCreateCourse = async () => {
-        const id = prompt("ID do Curso (slug, ex: novo-curso):");
-        if (!id) return;
-        const title = prompt("Título do Curso:");
-        if (!title) return;
-
-        const token = localStorage.getItem("algor_token");
-        try {
-            const res = await fetch("/api/v1/lms/courses", {
-                method: "POST",
-                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
-                body: JSON.stringify({
-                    id: id,
-                    title: title,
-                    description: "Descrição pendente...",
-                    modules: []
-                })
-            });
-            if (res.ok) fetchAllData();
-            else alert("Erro ao criar curso");
         } catch (e) { console.error(e); }
     };
 
     useEffect(() => {
         fetchAllData();
     }, []);
+
+    // --- HANDLERS ---
+
+    const handleUpdateRole = async (userId: number, newRole: string) => {
+        const token = localStorage.getItem("algor_token");
+        try {
+            await fetch(`/api/v1/admin/users/${userId}/role`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ role: newRole })
+            });
+            setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao atualizar função.");
+        }
+    };
+
+    const handleDeleteUser = async (userId: number) => {
+        if (!confirm("Tem certeza que deseja remover este usuário?")) return;
+        const token = localStorage.getItem("algor_token");
+        try {
+            await fetch(`/api/v1/admin/users/${userId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            setUsers(users.filter(u => u.id !== userId));
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao deletar usuário.");
+        }
+    };
+
+    const handleCreateInvite = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const token = localStorage.getItem("algor_token");
+        try {
+            const res = await fetch("/api/v1/admin/invites", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ email: inviteEmail, type: "enterprise" })
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setInviteLink(data.link); // Assuming backend returns { link: "..." }
+            } else {
+                alert("Falha ao criar convite.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // LMS Handlers
+    const handleCreateCourse = async () => {
+        const token = localStorage.getItem("algor_token");
+        try {
+            const res = await fetch("/api/v1/lms/courses", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ title: "Novo Curso Sem Título", description: "Descrição..." })
+            });
+            if (res.ok) {
+                const newCourse = await res.json();
+                setCourses([...courses, newCourse]);
+                setSelectedCourseForEdit(newCourse);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleDeleteCourse = async (courseId: number) => {
+        if (!confirm("Deletar curso permanentemente?")) return;
+        const token = localStorage.getItem("algor_token");
+        try {
+            await fetch(`/api/v1/lms/courses/${courseId}`, {
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            setCourses(courses.filter(c => c.id !== courseId));
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const handleEditCourse = async (courseId: number) => {
+        const course = courses.find(c => c.id === courseId);
+        if (course) setSelectedCourseForEdit(course);
+    };
 
     return (
         <div className="p-8 w-full min-h-screen space-y-10 relative text-white font-sans bg-[#0A1A2F]">
@@ -146,14 +215,16 @@ export default function AdminDashboard() {
                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100">
 
                     {/* Tabs */}
-                    <div className="flex gap-2 mb-8 border-b border-white/5">
+                    <div className="flex gap-2 mb-8 border-b border-white/5 overflow-x-auto pb-2">
                         <TabButton active={activeTab === 'users'} onClick={() => setActiveTab('users')} icon={<Users className="w-4 h-4" />} label={`Usuários (${users.length})`} />
+                        <TabButton active={activeTab === 'partners'} onClick={() => setActiveTab('partners')} icon={<ShieldAlert className="w-4 h-4" />} label={`Candidaturas (${partnerRequests.filter(r => r.status === 'pending').length})`} />
                         <TabButton active={activeTab === 'lms'} onClick={() => setActiveTab('lms')} icon={<BookOpen className="w-4 h-4" />} label="Conteúdo LMS" />
                         <TabButton active={activeTab === 'invites'} onClick={() => setActiveTab('invites')} icon={<UserPlus className="w-4 h-4" />} label="Invites Enterprise" />
                     </div>
 
                     {/* USERS TAB */}
                     {activeTab === 'users' && (
+                        // ... existing users table
                         <div className="glass-panel rounded-2xl overflow-hidden">
                             <table className="w-full text-left">
                                 <thead className="bg-white/5 border-b border-white/5 text-xs uppercase font-bold text-gray-400 tracking-wider">
@@ -198,6 +269,75 @@ export default function AdminDashboard() {
                                     ))}
                                 </tbody>
                             </table>
+                        </div>
+                    )}
+
+                    {/* PARTNERS TAB */}
+                    {activeTab === 'partners' && (
+                        <div className="glass-panel rounded-2xl overflow-hidden">
+                            {partnerRequests.length === 0 ? (
+                                <div className="p-12 text-center text-gray-500">Nenhuma solicitação encontrada.</div>
+                            ) : (
+                                <table className="w-full text-left">
+                                    <thead className="bg-white/5 border-b border-white/5 text-xs uppercase font-bold text-gray-400 tracking-wider">
+                                        <tr>
+                                            <th className="px-6 py-4">Candidato</th>
+                                            <th className="px-6 py-4">Perfil</th>
+                                            <th className="px-6 py-4">Motivação</th>
+                                            <th className="px-6 py-4">Status</th>
+                                            <th className="px-6 py-4 text-right">Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-white/5 text-sm">
+                                        {partnerRequests.map((req) => (
+                                            <tr key={req.id} className="hover:bg-white/5 transition-colors">
+                                                <td className="px-6 py-4">
+                                                    <div className="font-bold text-white">{req.full_name}</div>
+                                                    <div className="text-xs text-gray-400">{req.email}</div>
+                                                    <a href={`https://wa.me/${req.whatsapp.replace(/\D/g, '')}`} target="_blank" className="text-xs text-[#00FF94] hover:underline flex items-center gap-1 mt-1">
+                                                        <span className="material-symbols-rounded text-[10px]">chat</span> WhatsApp
+                                                    </a>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="text-gray-300 mb-1">{req.area}</div>
+                                                    {req.linkedin && (
+                                                        <a href={req.linkedin} target="_blank" className="text-xs text-blue-400 hover:text-blue-300">Ver LinkedIn ↗</a>
+                                                    )}
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <p className="max-w-xs truncate text-gray-500" title={req.motivation}>{req.motivation}</p>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${req.status === 'approved' ? 'bg-[#00FF94]/10 text-[#00FF94]' :
+                                                        req.status === 'rejected' ? 'bg-red-500/10 text-red-500' :
+                                                            'bg-yellow-500/10 text-yellow-500'
+                                                        }`}>
+                                                        {req.status}
+                                                    </span>
+                                                </td>
+                                                <td className="px-6 py-4 text-right">
+                                                    {req.status === 'pending' && (
+                                                        <div className="flex justify-end gap-2">
+                                                            <button
+                                                                onClick={() => handleUpdatePartnerStatus(req.id, 'approved')}
+                                                                className="px-3 py-1 bg-[#00FF94]/20 hover:bg-[#00FF94]/30 text-[#00FF94] rounded text-xs font-bold transition-colors"
+                                                            >
+                                                                Aprovar
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleUpdatePartnerStatus(req.id, 'rejected')}
+                                                                className="px-3 py-1 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded text-xs font-bold transition-colors"
+                                                            >
+                                                                Rejeitar
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            )}
                         </div>
                     )}
 

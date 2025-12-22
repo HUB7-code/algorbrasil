@@ -79,12 +79,12 @@ function DashboardLayoutContent({
             >
                 {/* Logo Area */}
                 <div className="h-24 flex items-center px-6 pl-8 border-b border-white/5">
-                    <Link href="/dashboard" className="flex items-center gap-3">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-white/10 shrink-0">
+                    <Link href="/dashboard" className="flex items-center gap-4">
+                        <div className="relative w-14 h-14 rounded-full overflow-hidden border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)] shrink-0">
                             <Image src="/logo-algor.webp" alt="Algor" fill className="object-contain" />
                         </div>
-                        <span className="font-sans font-bold text-lg tracking-wide text-white whitespace-nowrap">
-                            ALGOR BRASIL
+                        <span className="font-display font-bold text-lg tracking-wide text-white whitespace-nowrap">
+                            ALGOR <span className="text-[#00FF94]">BRASIL</span>
                         </span>
                     </Link>
                 </div>

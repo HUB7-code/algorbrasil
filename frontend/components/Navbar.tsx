@@ -14,7 +14,8 @@ export default function Navbar() {
     const router = useRouter();
 
     const isHome = pathname === '/';
-    const isAuthPage = pathname === '/login' || pathname === '/register' || pathname === '/2fa' || pathname === '/onboarding';
+    const normalizedPath = pathname?.replace(/\/$/, '') || '';
+    const isAuthPage = ['/login', '/register', '/2fa', '/onboarding', '/partners/apply'].includes(normalizedPath);
 
     useEffect(() => {
         let ticking = false;
@@ -36,6 +37,10 @@ export default function Navbar() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    useEffect(() => {
+        setMobileMenuOpen(false);
+    }, [pathname]);
+
     if (isAuthPage) return null;
 
     const handleNavigation = (sectionId: string) => {
@@ -51,7 +56,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className={`fixed w-full z-50 transition-all duration-300 will-change-transform ${scrolled ? 'bg-[#0A1A2F]/90 backdrop-blur-md border-b border-white/5 py-4 shadow-lg' : 'py-8 bg-transparent'}`}>
+        <nav className={`fixed w-full z-50 transition-all duration-300 will-change-transform ${scrolled ? 'bg-[#0A1A2F]/90 backdrop-blur-md border-b border-white/5 py-4 shadow-lg' : 'py-6 bg-transparent'}`}>
             <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-[#00A3FF] via-[#00FF94] to-[#00A3FF] will-change-[width]"
                 style={{ width: `${scrollProgress}%`, transition: 'width 0.1s linear' }} />
 

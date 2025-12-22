@@ -57,3 +57,23 @@ class ProfessionalProfileResponse(ProfessionalProfileCreate):
     
     class Config:
         from_attributes = True
+
+# === USER MANAGEMENT SCHEMAS ===
+
+class UserUpdate(BaseModel):
+    full_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    phone: Optional[str] = None
+    password: Optional[str] = None
+
+class UserResponse(BaseModel):
+    id: int
+    email: EmailStr
+    full_name: Optional[str] = None
+    role: str
+    is_active: bool
+    is_totp_enabled: bool = False
+    profile_image: Optional[str] = None
+    
+    class Config:
+        from_attributes = True

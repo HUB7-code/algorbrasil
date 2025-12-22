@@ -1,5 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/(public)/register/page": "app/(public)/register/page.js",
-  "/(public)/page": "app/(public)/page.js"
+  "/icon.png/route": "app/icon.png/route.js",
+  "/dashboard/settings/page": "app/dashboard/settings/page.js",
+  "/dashboard/roadmap/page": "app/dashboard/roadmap/page.js",
+  "/dashboard/page": "app/dashboard/page.js",
+  "/dashboard/inventory/page": "app/dashboard/inventory/page.js",
+  "/dashboard/assessments/page": "app/dashboard/assessments/page.js",
+  "/dashboard/risks/page": "app/dashboard/risks/page.js"
 }

@@ -9,7 +9,7 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
-from backend.app.schemas import UserCreate, UserLogin, Token
+from backend.app.schemas import UserCreate, UserLogin, Token, UserUpdate, UserResponse
 from backend.app.core.security import get_password_hash, verify_password, create_access_token, ALGORITHM
 from backend.app.core.config import settings
 from backend.app.core.security_encryption import encrypt_field
@@ -214,3 +214,83 @@ async def verify_2fa_code(otp_data: OTPVerify, db: Session = Depends(get_db)):
         "username": user.full_name,
         "requires_2fa": False
     }
+
+# ==========================================
+# USER MANAGEMENT (SELF)
+# ==========================================
+
+@router.get("/users/me", response_model=UserResponse)
+async def read_users_me(current_user: User = Depends(get_current_user)):
+    """
+    Retorna os dados do usuario logado.
+    """
+    return current_user
+
+@router.put("/users/me", response_model=UserResponse)
+async def update_user_me(
+    user_in: UserUpdate, 
+    current_user: User = Depends(get_current_user), 
+    db: Session = Depends(get_db)
+):
+    """
+    Atualiza dados do perfi (Nome, Email, Senha).
+    """
+    # 1. Update basics
+    if user_in.full_name is not None:
+        current_user.full_name = user_in.full_name
+    if user_in.email is not None:
+        # Check uniqueness if email changing
+        if user_in.email != current_user.email:
+            existing = db.query(User).filter(User.email == user_in.email).first()
+            if existing:
+                 raise HTTPException(status_code=400, detail="Este e-mail ja esta em uso.")
+            current_user.email = user_in.email
+
+    if user_in.phone is not None:
+        current_user.phone = encrypt_field(user_in.phone)
+
+    # 2. Update Password if provided
+    if user_in.password:
+        current_user.hashed_password = get_password_hash(user_in.password)
+
+    db.add(current_user)
+    db.commit()
+    db.refresh(current_user)
+    
+    return current_user
+
+import shutil
+import os
+from fastapi import UploadFile, File
+
+@router.post("/users/me/avatar")
+async def upload_avatar(
+    file: UploadFile = File(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """
+    Upload de foto de perfil.
+    """
+    # 1. Definir local de salvamento
+    UPLOAD_DIR = "backend/app/static/uploads/avatars"
+    os.makedirs(UPLOAD_DIR, exist_ok=True)
+    
+    # 2. Gerar nome de arquivo seguro
+    file_ext = file.filename.split(".")[-1]
+    filename = f"user_{current_user.id}_avatar.{file_ext}"
+    file_path = os.path.join(UPLOAD_DIR, filename)
+    
+    # 3. Salvar arquivo
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    # 4. Atualizar no Banco
+    # URL relativa para acesso via static
+    relative_url = f"/static/uploads/avatars/{filename}"
+    current_user.profile_image = relative_url
+    
+    db.add(current_user)
+    db.commit()
+    
+    return {"message": "Avatar atualizado", "url": relative_url}

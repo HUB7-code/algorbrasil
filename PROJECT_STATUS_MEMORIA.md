@@ -1,7 +1,7 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 21/12/2025 - 19:15 (Production Hardening)
-> **Status Geral:** **RELEASE CANDIDATE READY (V6.0-RC1)** 🟢🚀
-> **Versão:** 6.0-RC1 (Security Audited + Build Fixed + Env Config)
+> **Última Atualização:** 22/12/2025 - 15:00 (Settings Module & UI Polish)
+> **Status Geral:** **OPERACIONAL E EXPANDIDO (V6.4)** ⚙️📸
+> **Versão:** 6.4-Beta (Settings, Profile Picture, Sidebar Branding)
 
 ## 1. Manifesto Estratégico (The 3 Pillars)
 O ecossistema ALGOR BRASIL opera sob três mandatos inegociáveis:
@@ -23,43 +23,51 @@ Abandonamos o conceito "Gamer/Matrix" em favor de uma estética **Corporativa, S
     *   **Glass Panel:** Classe global `.glass-panel` usada em tudo (Sites e SaaS). Vidro real translúcido.
     *   **Tipografia:** Serif (`Playfair Display` ou similar) para Títulos. Sans (`Inter/Satoshi`) para dados.
 
-*   **Status de Unificação Visual (FRONTEND V1.0 COMPLETE):**
+*   **Status de Unificação Visual (FRONTEND V1.2 COMPLETE):**
     *   ✅ **Home Page:** Refinada (Links corretos, rolagem ajustada, Copy "Motor de Receita").
-    *   ✅ **Menu:** "A Autoridade", "Soluções Enterprise", "Metodologia ALGOR", "Rede de Especialistas".
-    *   ✅ **Páginas Institucionais:**
-        - **Enterprise (`/solutions/enterprise`):** Traduzida e alinhada (Risco-como-Serviço, Telemetria).
-        - **Partners (`/partners`):** Landing page de conversão para parceiros.
-        - **Associates (`/associates`):** "Nossa Rede de Especialistas".
-    *   ✅ **Institutional Storytelling:** Nova seção "A Autoridade" na Home.
+    *   ✅ **Register Journey:** Implementado "Cinematic Holographic Personas" na tela de cadastro.
+    *   ✅ **Admin Dashboard:**
+        - Sidebar: Logo ampliado (`w-14 h-14`), tipografia `Orbitron`, e "BRASIL" em verde neon.
+        - Aba "Candidaturas" adicionada.
+    *   ✅ **Fixes Críticos:** Resolvido bug de "Tela Escura/Bloqueada" no Navbar (Mobile Overlay) e Loading.
 
-## 3. Estado Atual dos Arquivos (SECURITY HARDENED)
+## 3. Estado Atual dos Arquivos (FULL STACK CONNECTED)
 
-### 🛡️ Backend & Segurança (Ações Realizadas)
-- ✅ **Secrets Management:** `SECRET_KEY` removida do código-fonte e migrada para `.env` + `config.py`.
-- ✅ **CORS Policy:** Restrição de origem dinâmica via variável de ambiente (wildcard removido de `main.py`).
-- ✅ **Endpoint Protection:** Endpoint `/guardrail` agora exige autenticação JWT (`get_current_user`).
-- ✅ **Bug Fixes:** Correção de `ImportError` circular no módulo de Autenticação.
+### ⚙️ Módulo de Configurações & Perfil (NEW V6.4)
+- ✅ **Frontend (`/dashboard/settings`):** Página totalmente interativa.
+    - Abas funcionais: Perfil, Segurança, Faturamento, Notificações.
+    - Edição de dados: Nome, Email, Senha (backend conectado).
+    - **Upload de Foto:** Input hidden e preview instantâneo.
+- ✅ **Backend (`/api/v1/users/me`):**
+    - `PUT /users/me`: Atualização segura de dados cadastrais.
+    - `POST /users/me/avatar`: Upload, armazenamento local e linkagem no banco.
+    - **Schema:** Adicionada coluna `profile_image` à tabela `users`.
+- ✅ **Static Serving:** Next.js configurado para servir imagens estáticas do FastAPI.
 
-### ⚛️ Frontend & Build
-- ✅ **Build Restore:** Correção crítica no componente `ReactPlayer` (TypeScript error) permitindo build.
-- ✅ **Environment:** Criação de `.env.example` para documentação de infraestrutura.
+### 🤝 Módulo de Parceiros
+- ✅ **Backend (`models/partner.py`):** Tabela `partner_applications` com suporte a status.
+- ✅ **API (`api/partners.py`):** Endpoints públicos de submissão e privados de gestão.
+- ✅ **Frontend Admin (`dashboard/admin`):** Painel de controle para aprovar/rejeitar candidaturas.
 
-### ⛓️ Trust Hub (v5.1 Stable)
-- ✅ **Hash Chaining:** Logs com criptografia de rastreio (Imutabilidade) no DB.
-- ✅ **Evidence Vault:** Auditoria de integridade funcional.
+### 🛡️ Backend & Segurança & Reparos
+- ✅ **Admin Recovery:** Scripts `fix_admin.py` e `force_reset_robust.py` criados.
+- ✅ **Banco de Dados:** SQLite atualizado com migração manual (`add_profile_image_column.py`).
+- ✅ **Secrets Management:** `SECRET_KEY` centralizada em `.env`.
 
-### Ciclo Atual (Fase de Estabilização)
-50. ✅ **Hash Chaining:** Implementado e auditado.
-51. ✅ **Security Audit:** Backend blindado e pronto para deploy.
-52. ✅ **Build Check:** Frontend compilando com sucesso.
+### Ciclo Atual (Fase de Polimento e Expansão)
+67. ✅ **Sidebar Polish:** Branding da dashboard alinhado à Home.
+68. ✅ **Settings Engine:** Módulo de configurações 100% funcional.
+69. ✅ **Profile Picture:** Upload de avatar implementado com sucesso.
 
-## 4. Roadmap Imediato (v6.0 - Deploy)
-Foco total em colocar essa versão estável e segura no ar.
+## 4. Roadmap Imediato (v6.5 - Deploy & Docs)
+Com a plataforma funcional e segura:
 
-60. 🚀 **VPS Deploy:** Atualizar ambiente de produção com Docker.
-61. 🕵️ **Edge Agent:** Iniciar desenvolvimento do cliente Python.
+70. 🚀 **VPS Deploy:** Levar a v6.4 para produção.
+71. 📄 **Documentação:** Atualizar manuais de usuário e administrador.
 
 ## 5. Histórico de Versões
-- **v10.5:** Educational UX (Legacy).
-- **v5.1:** Trust Hub (Hash Chain).
-- **v6.0-RC1:** **Release Candidate (ATUAL):** Segurança Hardened, Bugs de Build Corrigidos, Configuração Centralizada.
+- **v6.0-RC1:** Security Hardening.
+- **v6.1-Beta:** Edge Telemetry.
+- **v6.2-UX:** Visual Storytelling (Personas Holográficas).
+- **v6.3-Stable:** Partner Credentialing & Debug.
+- **v6.4-Beta:** **Settings & Profile (ATUAL):** Upload de imagem, dashboard update, sidebar branding.

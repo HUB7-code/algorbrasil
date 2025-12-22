@@ -7,7 +7,7 @@ import * as THREE from "three";
 import ErrorBoundary from "./ErrorBoundary";
 
 // A single traveling signal (The "Comet")
-function SingleSignal({ connections }: { connections: THREE.Vector3[] }) {
+function SingleSignal({ connections, color }: { connections: THREE.Vector3[], color: string }) {
     const meshRef = useRef<THREE.Mesh>(null!);
     // Initialize with random position logic
     const state = useMemo(() => ({
@@ -42,7 +42,7 @@ function SingleSignal({ connections }: { connections: THREE.Vector3[] }) {
             {/* Glow / Trail simulated by a larger translucent shell */}
             <mesh scale={[2, 2, 2]}>
                 <sphereGeometry args={[0.08, 8, 8]} />
-                <meshBasicMaterial color="#0088FF" transparent opacity={0.3} toneMapped={false} />
+                <meshBasicMaterial color={color} transparent opacity={0.3} toneMapped={false} />
             </mesh>
         </mesh>
     );
@@ -58,7 +58,11 @@ function SynapseManager({ connections }: { connections: THREE.Vector3[] }) {
     return (
         <group>
             {signals.map((_, i) => (
-                <SingleSignal key={i} connections={connections} />
+                <SingleSignal
+                    key={i}
+                    connections={connections}
+                    color={i % 2 === 0 ? "#00A3FF" : "#00FF94"} /* Alternating Blue/Green */
+                />
             ))}
         </group>
     );

@@ -13,6 +13,7 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
     role = Column(String, default="user") # 'admin', 'auditor', 'user'
+    profile_image = Column(String, nullable=True)
 
     # Relacionamento com Avaliações
     assessments = relationship("backend.app.models.assessment.Assessment", back_populates="owner")
