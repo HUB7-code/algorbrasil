@@ -1,14 +1,14 @@
 {
   "pages": {
-    "/dashboard/settings/page": [
+    "/(public)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/settings/page.js"
+      "static/chunks/app/(public)/page.js"
     ],
-    "/dashboard/layout": [
+    "/(public)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/layout.js"
+      "static/chunks/app/(public)/layout.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -22,30 +22,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
-    "/dashboard/page": [
+    "/dashboard/compliance-scanner/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/page.js"
+      "static/chunks/app/dashboard/compliance-scanner/page.js"
     ],
-    "/dashboard/roadmap/page": [
+    "/dashboard/compliance-scanner/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/roadmap/page.js"
+      "static/chunks/app/dashboard/compliance-scanner/layout.js"
     ],
-    "/dashboard/inventory/page": [
+    "/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/inventory/page.js"
+      "static/chunks/app/dashboard/layout.js"
     ],
-    "/dashboard/assessments/page": [
+    "/dashboard/compliance-scanner/technical/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/assessments/page.js"
+      "static/chunks/app/dashboard/compliance-scanner/technical/page.js"
     ],
-    "/dashboard/risks/page": [
+    "/dashboard/compliance-scanner/compliance/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/risks/page.js"
+      "static/chunks/app/dashboard/compliance-scanner/compliance/page.js"
     ]
   }
 }

@@ -20,3 +20,17 @@ def get_current_active_user(
     if not current_user.is_active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
+
+def get_current_member_user(
+    current_user: User = Depends(get_current_active_user),
+) -> User:
+    """
+    Verifica se o usuario e Membro Associado (Categoria B) ou Admin.
+    Caso contrario, nega acesso a conteudos premium.
+    """
+    if current_user.role not in ["member", "admin", "auditor"]:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Conteudo exclusivo para Membros Associados. Faca o upgrade do seu plano."
+        )
+    return current_user

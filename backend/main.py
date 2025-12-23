@@ -41,3 +41,7 @@ app.include_router(organizations.router, prefix="/api/v1/organizations", tags=["
 # Rotas Novas
 app.include_router(inventory_router, prefix="/api/v1/inventory", tags=["inventory"])
 app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["dashboard"])
+
+# Scanner Module (MVP Freemium)
+from backend.app.api.endpoints import scanner
+app.include_router(scanner.router, prefix="/api/v1/scanner", tags=["scanner"])

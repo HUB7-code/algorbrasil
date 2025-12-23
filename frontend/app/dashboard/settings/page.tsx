@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User, Lock, Bell, CreditCard, Save, Camera, CheckCircle, Shield, AlertTriangle } from "lucide-react";
+import { User, Lock, Bell, CreditCard, Save, Camera, CheckCircle, Shield, AlertTriangle, Eye, EyeOff } from "lucide-react";
 
 export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'billing' | 'notifications'>('profile');
@@ -18,6 +18,10 @@ export default function SettingsPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    // Toggle States
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     // Fetch User Data
     useEffect(() => {
@@ -202,25 +206,43 @@ export default function SettingsPage() {
                                             className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all"
                                         />
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 relative">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Nova Senha</label>
-                                        <input
-                                            type="password"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder="Deixe em branco para manter"
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all"
-                                        />
+                                        <div className="relative">
+                                            <input
+                                                type={showPassword ? "text" : "password"}
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                placeholder="Deixe em branco para manter"
+                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all pr-10"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                                            >
+                                                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 relative">
                                         <label className="text-xs font-bold text-gray-400 uppercase tracking-wider">Confirmar Senha</label>
-                                        <input
-                                            type="password"
-                                            value={confirmPassword}
-                                            onChange={(e) => setConfirmPassword(e.target.value)}
-                                            placeholder="Repita a nova senha"
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all"
-                                        />
+                                        <div className="relative">
+                                            <input
+                                                type={showConfirmPassword ? "text" : "password"}
+                                                value={confirmPassword}
+                                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                                placeholder="Repita a nova senha"
+                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all pr-10"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                                            >
+                                                {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

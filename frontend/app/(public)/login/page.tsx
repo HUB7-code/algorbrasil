@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 
 export default function LoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -124,15 +125,22 @@ export default function LoginPage() {
                     <div className="space-y-2">
                         <div className="group relative">
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 name="password"
                                 id="password"
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="peer w-full h-[56px] px-4 pt-6 bg-black/20 text-gray-100 border border-white/10 rounded-xl placeholder-transparent focus:outline-none focus:border-aurora-violet focus:ring-1 focus:ring-aurora-violet/50 transition-all"
+                                className="peer w-full h-[56px] px-4 pt-6 bg-black/20 text-gray-100 border border-white/10 rounded-xl placeholder-transparent focus:outline-none focus:border-aurora-violet focus:ring-1 focus:ring-aurora-violet/50 transition-all pr-12"
                                 placeholder="Senha"
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+                            >
+                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                            </button>
                             <label
                                 htmlFor="password"
                                 className="absolute left-4 top-2 text-gray-500 text-xs transition-all 
@@ -161,13 +169,24 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="w-full h-[52px] rounded-xl bg-gradient-to-r from-aurora-violet to-aurora-pink text-white text-sm font-medium hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-white/10"
+                            className="relative w-full h-[52px] rounded-xl bg-gradient-to-r from-aurora-violet to-aurora-pink text-white text-sm font-medium hover:shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-100 disabled:cursor-not-allowed flex items-center justify-center gap-2 border border-white/10 overflow-hidden"
                         >
-                            {isLoading ? (
-                                <span className="material-symbols-rounded animate-spin">progress_activity</span>
-                            ) : (
-                                "Acessar sistema"
-                            )}
+                            {/* Progress Bar Layer */}
+                            <div
+                                className={`absolute left-0 top-0 h-full bg-white/20 transition-all duration-[3000ms] ease-out ${isLoading ? 'w-full' : 'w-0'}`}
+                            />
+
+                            {/* Text Layer (z-10 to stay on top) */}
+                            <div className="relative z-10 flex items-center gap-2">
+                                {isLoading ? (
+                                    <>
+                                        <span className="material-symbols-rounded animate-spin text-[18px]">progress_activity</span>
+                                        <span>Acessando...</span>
+                                    </>
+                                ) : (
+                                    "Acessar sistema"
+                                )}
+                            </div>
                         </button>
                     </div>
                 </form>

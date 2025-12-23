@@ -170,14 +170,22 @@ function DashboardLayoutContent({
                 {/* Bottom Section */}
                 <div className="p-4 mt-auto border-t border-white/5 bg-[#0A1A2F]/50">
                     <NavItem href="/dashboard/settings" icon="settings" label="Configurações" active={pathname === "/dashboard/settings"} />
+                    <NavItem href="/dashboard/exclusive" icon="diamond" label="Acervo Premium" active={pathname === "/dashboard/exclusive"} />
 
-                    <div className="flex items-center gap-3 px-3 py-3 mt-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group">
-                        <div className="w-9 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs font-bold border border-white/10">
+                    <div className="flex items-center gap-3 px-3 py-3 mt-2 rounded-lg hover:bg-white/5 cursor-pointer transition-colors group relative">
+                        <div className="w-9 h-9 rounded-full bg-slate-700 text-white flex items-center justify-center text-xs font-bold border border-white/10 shrink-0">
                             {user.name.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-semibold text-white truncate group-hover:text-[#00FF94] transition-colors">{user?.name}</p>
-                            <p className="text-[11px] text-gray-400 truncate capitalize">{user?.role}</p>
+                            <div className="flex items-center gap-2">
+                                <p className="text-[10px] text-gray-400 truncate capitalize">{user?.role}</p>
+                                {user.role === 'member' || user.role === 'admin' ? (
+                                    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30">PRO</span>
+                                ) : (
+                                    <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-gray-700 text-gray-400 border border-gray-600">FREE</span>
+                                )}
+                            </div>
                         </div>
                         <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
                             <span className="material-symbols-rounded text-lg">logout</span>
