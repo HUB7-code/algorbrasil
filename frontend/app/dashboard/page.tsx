@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Activity, ShieldCheck, Zap, Database, AlertTriangle, HelpCircle, CheckCircle2, Lock, Play } from "lucide-react";
+import { ArrowRight, Activity, ShieldCheck, Zap, Database, AlertTriangle, HelpCircle, CheckCircle2, Lock, Play, X, ShoppingCart, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { TrendChart, RiskRadar, MiniGauge } from "@/components/dashboard/OverviewCharts";
+import { useSearchParams, useRouter } from "next/navigation";
 
 // ========================================
 // DASHBOARD - POWER BI PREMIUM DARK MODE
@@ -28,13 +29,16 @@ const itemVariants = {
 export default function Dashboard() {
     const [data, setData] = useState<any>(null);
     const [loading, setLoading] = useState(true);
+    const [purchasing, setPurchasing] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+    const searchParams = useSearchParams();
+    const router = useRouter();
 
     useEffect(() => {
         const fetchDashboardData = async () => {
             const token = localStorage.getItem("algor_token");
-            // If no token, layout handles redirect, but we safeguard here
             if (!token) {
-                // Simulated Delay for animation demo
                 setTimeout(() => setLoading(false), 1000);
                 return;
             }
@@ -55,7 +59,43 @@ export default function Dashboard() {
         };
 
         fetchDashboardData();
-    }, []);
+
+        // Check for payment success
+        if (searchParams.get("payment_success") === "true") {
+            setShowSuccessModal(true);
+            // Clean URL
+            router.replace("/dashboard");
+        }
+    }, [searchParams, router]);
+
+    const handleBuyReport = async () => {
+        setPurchasing(true);
+        const token = localStorage.getItem("algor_token");
+
+        try {
+            const res = await fetch("/api/v1/payments/create-checkout-session", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ product_type: "viability_report" })
+            });
+
+            if (res.ok) {
+                const json = await res.json();
+                if (json.checkout_url) {
+                    window.location.href = json.checkout_url;
+                }
+            } else {
+                console.error("Erro no pagamento");
+            }
+        } catch (error) {
+            console.error("Payment error:", error);
+        } finally {
+            setPurchasing(false);
+        }
+    };
 
     // Derived States or Defaults
     const complianceScore = data?.kpis?.trust_score || 0;
@@ -63,7 +103,6 @@ export default function Dashboard() {
     const activeModels = data?.kpis?.active_models || 0;
     const growthScore = data?.kpis?.growth_score || 0;
 
-    // Determine Phase based on Growth Score
     let currentPhase = "01. FORTALECIMENTO";
     if (growthScore > 70) currentPhase = "02. EXPANSÃO";
     if (growthScore > 90) currentPhase = "03. AI-FIRST";
@@ -238,8 +277,20 @@ export default function Dashboard() {
                     {/* Secondary Actions Stack */}
                     <div className="flex flex-col gap-6">
 
-                        {/* Viabilidade */}
-                        <motion.div variants={itemVariants} className="flex-1 glass-panel p-6 flex flex-col justify-between group cursor-pointer hover:border-[#00FF94]/30 transition-colors">
+                        {/* Viabilidade (Interactive) */}
+                        <motion.div
+                            variants={itemVariants}
+                            onClick={handleBuyReport}
+                            className={`flex-1 glass-panel p-6 flex flex-col justify-between group cursor-pointer hover:border-[#00FF94]/30 transition-colors relative overflow-hidden ${purchasing ? 'opacity-70 pointer-events-none' : ''}`}
+                        >
+                            {purchasing && (
+                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-20">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <Loader2 className="w-8 h-8 text-[#00FF94] animate-spin" />
+                                        <span className="text-xs font-mono text-[#00FF94]">PROCESSANDO...</span>
+                                    </div>
+                                </div>
+                            )}
                             <div className="flex justify-between items-start">
                                 <div>
                                     <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Serviço Premium</span>
@@ -253,6 +304,9 @@ export default function Dashboard() {
                                 <div>
                                     <p className="text-2xl font-bold text-white tracking-tight">R$ 1.500</p>
                                     <p className="text-xs text-gray-500 mt-1">SLA 24 horas</p>
+                                </div>
+                                <div className="text-xs font-bold text-[#00FF94] opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider flex items-center gap-1">
+                                    ADQUIRIR <ShoppingCart className="w-3 h-3" />
                                 </div>
                             </div>
                         </motion.div>
@@ -277,6 +331,49 @@ export default function Dashboard() {
                 </div>
 
             </motion.div>
+
+            {/* Success Modal */}
+            <AnimatePresence>
+                {showSuccessModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-[#0A1A2F] border border-[#00FF94]/50 rounded-2xl p-8 max-w-md w-full relative shadow-[0_0_50px_rgba(0,255,148,0.2)]"
+                        >
+                            <button
+                                onClick={() => setShowSuccessModal(false)}
+                                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            <div className="flex flex-col items-center text-center">
+                                <div className="w-16 h-16 rounded-full bg-[#00FF94]/20 flex items-center justify-center mb-6">
+                                    <CheckCircle2 className="w-8 h-8 text-[#00FF94]" />
+                                </div>
+                                <h3 className="text-2xl font-serif font-medium text-white mb-2">Pagamento Confirmado!</h3>
+                                <p className="text-gray-400 mb-8">
+                                    Seu Relatório de Viabilidade foi desbloqueado e está sendo gerado. Você receberá uma cópia por e-mail em instantes.
+                                </p>
+                                <button
+                                    onClick={() => setShowSuccessModal(false)}
+                                    className="w-full py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black font-bold rounded-xl transition-all"
+                                >
+                                    ENTENDIDO
+                                </button>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
         </div>
     );
 }

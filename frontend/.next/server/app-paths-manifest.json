@@ -1,9 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/icon.png/route": "app/icon.png/route.js",
   "/(public)/page": "app/(public)/page.js",
   "/(public)/policies/privacy/page": "app/(public)/policies/privacy/page.js",
-  "/(public)/policies/cookies/page": "app/(public)/policies/cookies/page.js",
   "/(public)/policies/dpo/page": "app/(public)/policies/dpo/page.js",
+  "/(public)/policies/cookies/page": "app/(public)/policies/cookies/page.js",
   "/(public)/policies/terms/page": "app/(public)/policies/terms/page.js"
 }
