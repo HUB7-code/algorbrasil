@@ -302,7 +302,7 @@ function RegisterContent() {
                                     required
                                 />
                                 <label htmlFor="consent" className="text-sm text-gray-400 leading-snug">
-                                    Concordo com a <Link href="/policies/terms" className="text-aurora-cyan hover:underline">Política de Privacidade</Link> e aceito o processamento dos meus dados.
+                                    Concordo com os <Link href="/policies/terms" className="text-aurora-cyan hover:underline">Termos de Uso</Link> e <Link href="/policies/privacy" className="text-aurora-cyan hover:underline">Política de Privacidade</Link>, e aceito o processamento dos meus dados.
                                 </label>
                             </div>
 

@@ -85,6 +85,7 @@ Experiência de "Centro de Comando" coesa e rica em dados.
 ## 6. Próximos Passos (Backlog)
 
 1.  ✅ **LGPD Legal Hub** - Entregue (Prioridade 1) ⚖️
+    *   *Includes: Privacy Policy, Terms, Cookies, DPO Channel, and Registration Consent Checkbox.*
 2.  ✅ **Integração Stripe** - Implementado (Frontend + Mock Backend) 💳
 3.  ✅ **Dashboard de Leads** - Verificado & Premium 📊
 4.  ✅ **Testes Automatizados (CI/CD)** - Pipeline Configurado (GitHub Actions) 🧪
