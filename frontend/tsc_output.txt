@@ -1,0 +1,16 @@
+﻿app/dashboard/compliance-scanner/page.tsx(202,45): error TS2322: Type '{ type: string; exposures: number; severity: string; trend: string; action: string; }[]' is not assignable to type 'DataRow[]'.
+  Type '{ type: string; exposures: number; severity: string; trend: string; action: string; }' is not assignable to type 'DataRow'.
+    Types of property 'severity' are incompatible.
+      Type 'string' is not assignable to type '"medium" | "low" | "high"'.
+app/dashboard/compliance-scanner/page.tsx(207,42): error TS2322: Type '{ id: number; text: string; completed: boolean; priority: string; }[]' is not assignable to type 'ActionItem[]'.
+  Type '{ id: number; text: string; completed: boolean; priority: string; }' is not assignable to type 'ActionItem'.
+    Types of property 'priority' are incompatible.
+      Type 'string' is not assignable to type '"medium" | "critical" | "low" | "high"'.
+app/dashboard/compliance-scanner/page.tsx(212,39): error TS2322: Type '{ id: number; type: string; message: string; timestamp: string; blocked: boolean; }[]' is not assignable to type 'ActivityItem[]'.
+  Type '{ id: number; type: string; message: string; timestamp: string; blocked: boolean; }' is not assignable to type 'ActivityItem'.
+    Types of property 'type' are incompatible.
+      Type 'string' is not assignable to type '"normal" | "hallucination" | "pii" | "injection"'.
+app/dashboard/compliance-scanner/technical/page.tsx(291,41): error TS2322: Type '(value: number) => [string, "Count"]' is not assignable to type 'Formatter<number, "Count">'.
+  Types of parameters 'value' and 'value' are incompatible.
+    Type 'number | undefined' is not assignable to type 'number'.
+      Type 'undefined' is not assignable to type 'number'.

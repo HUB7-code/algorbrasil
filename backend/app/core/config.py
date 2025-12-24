@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8000"]
     
     # Segurança
-    SECRET_KEY: str = "SEGREDO_TEMPORARIO_DEV_2025_TROCAR_EM_PROD"
+    SECRET_KEY: str # Deve vir do .env
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8 # 8 dias
     
     # Banco de Dados
@@ -33,6 +33,11 @@ class Settings(BaseSettings):
 
 
     class Config:
+        # Legacy config support
         case_sensitive = True
 
-settings = Settings()
+    # Nova configuração Pydantic v2
+    # model_config = SettingsConfigDict(env_file=".env", env_file_encoding='utf-8')
+    # Para compatibilidade com a versão instalada, vamos forçar a leitura se necessário ou contar que BaseSettings já lê do env.
+    
+settings = Settings(_env_file=".env", _env_file_encoding='utf-8')

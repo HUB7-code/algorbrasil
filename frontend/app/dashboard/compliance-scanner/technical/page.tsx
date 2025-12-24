@@ -288,7 +288,7 @@ export default function TechnicalDashboard() {
                                     <YAxis stroke="#4b5563" fontSize={10} tickFormatter={(v) => `${(v / 1000).toFixed(0)}k`} />
                                     <Tooltip
                                         contentStyle={{ backgroundColor: '#1a1f2e', border: '1px solid #374151', borderRadius: '8px' }}
-                                        formatter={(value: number) => [`${value.toLocaleString()} requests`, 'Count']}
+                                        formatter={(value: number | undefined) => value !== undefined ? [`${value.toLocaleString()} requests`, 'Count'] : ['', 'Count']}
                                     />
                                     <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                                         {tokenDistribution.map((entry, index) => (
@@ -339,8 +339,8 @@ export default function TechnicalDashboard() {
                                         <td className="px-4 py-3 text-gray-400">{log.timestamp}</td>
                                         <td className="px-4 py-3">
                                             <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${log.level === 'ERROR' ? 'bg-red-500/20 text-red-400' :
-                                                    log.level === 'WARN' ? 'bg-amber-500/20 text-amber-400' :
-                                                        'bg-emerald-500/20 text-emerald-400'
+                                                log.level === 'WARN' ? 'bg-amber-500/20 text-amber-400' :
+                                                    'bg-emerald-500/20 text-emerald-400'
                                                 }`}>
                                                 {log.level}
                                             </span>
@@ -358,8 +358,8 @@ export default function TechnicalDashboard() {
                                         </td>
                                         <td className="px-4 py-3">
                                             <span className={`${log.status === 'success' ? 'text-emerald-400' :
-                                                    log.status === 'slow' ? 'text-amber-400' :
-                                                        'text-red-400'
+                                                log.status === 'slow' ? 'text-amber-400' :
+                                                    'text-red-400'
                                                 }`}>
                                                 {log.status}
                                             </span>

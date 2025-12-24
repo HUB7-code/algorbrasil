@@ -42,6 +42,11 @@ class GovernanceTrace(Base):
 
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
 
+    # Relacionamentos
+    organization = relationship("backend.app.models.organization.Organization")
+    project = relationship("backend.app.models.project.Project")
+    ai_asset = relationship("backend.app.models.ai_asset.AIAsset")
+
 class GovernancePolicy(Base):
     """
     Define um conjunto de regras de governança ativas para uma organização.

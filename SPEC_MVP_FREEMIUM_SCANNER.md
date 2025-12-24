@@ -1,7 +1,7 @@
 # ESPECIFICAÇÃO TÉCNICA: AI COMPLIANCE SCANNER BRASIL (MVP FREEMIUM)
 
-> **Versão:** 2.0 (MVP + Enterprise Dashboards)
-> **Última Atualização:** 23/12/2025
+> **Versão:** 2.2 (SaaS Premium Redesign Update)
+> **Última Atualização:** 24/12/2025
 > **Objetivo:** Ferramenta "Self-Service" para quantificar riscos de IA (LGPD, Alucinação, Segurança).
 > **Público:** Desenvolvedores, Líderes de Produto, CTOs, DPOs e Executivos C-Level.
 
@@ -32,8 +32,8 @@ O **AI Compliance Scanner Brasil** é uma ferramenta web onde o usuário submete
 ### 2.1 Stack Tecnológico (Atual - Implementado)
 *   **Frontend:** Next.js 14 (App Router) + TailwindCSS + Framer Motion + Recharts.
 *   **Backend:** FastAPI (Python) integrado ao projeto existente.
-*   **Gráficos:** Recharts (LineChart, BarChart, PieChart, ComposedChart).
-*   **Animações:** Framer Motion para micro-interações.
+*   **Gráficos:** Recharts (AreaChart, RadarChart, Gauges).
+*   **Animações:** Framer Motion (Staggered Children, Spring, AnimatePresence).
 *   **Ícones:** Lucide React.
 
 ### 2.2 Diagrama de Fluxo de Dados
@@ -86,135 +86,88 @@ interface Finding {
 
 ---
 
-## 4. DETALHAMENTO DO MOTOR DE ANÁLISE
+## 4. DASHBOARDS ENTERPRISE (V2.2 - PREMIUM UPDATE)
 
-### 4.1 Módulo 1: Risco LGPD (PII) - **IMPLEMENTADO**
-*   **Ferramenta:** Regex Customizado BR.
-*   **Padrões Detectados:**
-    *   CPF (`\d{3}\.\d{3}\.\d{3}-\d{2}`)
-    *   CNPJ
-    *   E-mail
-    *   Telefone BR (+55)
-*   **Regra de Negócio:** Se encontrar PII, calcula multa estimada baseada em artigo LGPD.
+O SaaS foi atualizado com um Design System "Power BI Premium", focado em visualização de dados rica e dark mode profundo.
 
-### 4.2 Módulo 2: Risco OWASP (Injection) - **IMPLEMENTADO**
-*   **Ferramenta:** Lista de padrões conhecidos (Jailbreak vectors).
-*   **Keywords:** "Ignore previous instructions", "DAN mode", "System override", "Do anything now".
-*   **Regra de Negócio:** Detectar intenção maliciosa no input do usuário final.
+### 4.1 Design System
+- **Paleta:** Dark Mode Premium (`#0A0E1A`, `#131825`)
+- **Acentos:** Neon Green (`#00FF94`), Electric Blue (`#00A3FF`), Amber (`#F59E0B`).
+- **Efeitos:** Backdrop Blur, Gradient Borders, Ambient Glows.
 
-### 4.3 Módulo 3: Risco Operacional (Alucinação) - **MOCKADO**
-*   **Status:** Preparado para integração com LLM (Claude Haiku).
-*   **Score atual:** Retorna 100% (sem detecção real ainda).
+### 4.2 Dashboard Overview (`/dashboard`)
+**Persona:** CEO/CFO (KPIs Executivos)
+
+| Componente | Tipo Visual | Descrição |
+|------------|-------------|-----------|
+| `TrendChart` | Area Chart (Recharts) | Evolução histórica do "Trust Score" com gradiente. |
+| `RiskRadar` | Radar Chart (Recharts) | Comparativo spider-web de 5 eixos de risco. |
+| `KpiCard` | Cards Animados | Gauges circulares e barras de progresso "spring". |
+
+### 4.3 Jornada de Adoção (`/dashboard/roadmap`)
+**Persona:** CTO/Gerente de Projeto
+
+| Componente | Tipo Visual | Descrição |
+|------------|-------------|-----------|
+| `TimelineItem` | Zig-Zag Layout | Cards alternados conectados por linha central. |
+| `StatusNode` | Pulse Animation | Nó central que pulsa indicando a fase ativa. |
+| `PhaseCard` | Glass Panel | Card detalhado com checklist e botão de ação. |
+
+### 4.4 Inventário de IA (`/dashboard/inventory`)
+**Persona:** DPO/Engenheiro de ML
+
+| Componente | Tipo Visual | Descrição |
+|------------|-------------|-----------|
+| `AssetGrid` | Staggered Grid | Grade de ativos que carrega em cascata. |
+| `AssetModal` | Premium Modal | Modal com inputs translúcidos e borda neon. |
+| `FilterPills` | Interactive Chips | Filtros visuais para Modelos, Datasets e Sistemas. |
 
 ---
 
-## 5. DASHBOARDS ENTERPRISE (V2.0 - NOVO)
+## 5. DETALHAMENTO DO MOTOR DE ANÁLISE
 
-### 5.1 Design System
-- **Paleta:** Dark Mode Premium
-  - Background: `#0A0E1A`
-  - Cards: `#131825`
-  - Borders: `#1f2937`
-- **Cores de Risco:**
-  - 🟢 Verde (#10B981): Score 0-3 (Baixo)
-  - 🟡 Amarelo (#F59E0B): Score 4-6 (Médio)
-  - 🔴 Vermelho (#EF4444): Score 7-10 (Alto)
-- **Tipografia:** Inter (corpo) + JetBrains Mono (números)
-- **Efeitos:** Glassmorphism, gradientes sutis, micro-animações
+### 5.1 Módulo 1: Risco LGPD (PII) - **IMPLEMENTADO**
+*   **Ferramenta:** Regex Customizado BR.
+*   **Padrões:** CPF, CNPJ, E-mail, Telefone.
+*   **Ação:** Calcula multa estimada baseada em artigo LGPD.
 
-### 5.2 Dashboard Overview (`/dashboard/compliance-scanner`)
-**Persona:** CEO/CFO (10 segundos para entender o risco)
+### 5.2 Módulo 2: Risco OWASP (Injection) - **IMPLEMENTADO**
+*   **Ferramenta:** Lista de padrões conhecidos (Jailbreak vectors).
+*   **Keywords:** "Ignore previous instructions", "DAN mode", etc.
 
-| Componente | Descrição |
-|------------|-----------|
-| `RiskScoreGauge` | Gauge SVG semi-circular animado com contador |
-| `RiskCard` (x3) | Cards de LGPD, Alucinação, Segurança com glassmorphism |
-| `TimelineChart` | Gráfico Recharts de 30 dias (requisições vs risk score) |
-| `DataBreakdownTable` | Tabela de tipos de dados com badges e ações |
-| `ActionChecklist` | Checklist interativo com prioridades |
-| `ActivityFeed` | Feed simulando streaming em tempo real |
-| Financial Banner | Exposição financeira total com breakdown |
-
-### 5.3 Dashboard Technical (`/dashboard/compliance-scanner/technical`)
-**Persona:** CTO/DevOps (debug em 2 minutos)
-
-| Componente | Descrição |
-|------------|-----------|
-| Metric Cards | Latência P50/P95/P99, Taxa de erro, Tokens/hora |
-| Latency Chart | Line chart com 3 percentis (24h) |
-| Model Pie | Distribuição de uso por modelo (GPT-4, Claude) |
-| Error Bar Chart | Taxa de erro por endpoint |
-| Token Histogram | Distribuição de tokens consumidos |
-| Realtime Logs | Tabela estilo terminal com logs coloridos |
-| Filters | Seletores de modelo e ambiente (prod/staging) |
-
-### 5.4 Dashboard Compliance (`/dashboard/compliance-scanner/compliance`)
-**Persona:** DPO/Jurídico (relatório em 1 clique)
-
-| Componente | Descrição |
-|------------|-----------|
-| Framework Cards | Status LGPD (94%), PL 2338 (67%), ISO 42001 (0%) |
-| Audit Trail | Tabela com busca, filtros e badges de ação |
-| Reports Section | Relatórios pré-formatados para download |
-| Pending Items | Checklist de pendências regulatórias |
+### 5.3 Módulo 3: Risco Operacional (Alucinação) - **MOCKADO**
+*   **Status:** Preparado para integração com LLM.
 
 ---
 
 ## 6. SECURITY HARDENING (BLINDAGEM)
 
 ### 6.1 Limites de Recurso (DoS Protection)
-*   **Max File Size:** 5MB (Hard Limit).
-*   **Row Limit:** 10.000 linhas por arquivo.
-*   **Memory Safety:** Leitura em memória com validação prévia.
+*   **Max File Size:** 5MB.
+*   **Row Limit:** 10.000 linhas.
+*   **Memory Safety:** Processamento em RAM.
 
 ### 6.2 Validação de Input
-*   **MIME Type Check:** `application/json`, `text/csv`, `text/plain`.
-*   **Defensive Parsing:** Try/catch granulares para erros de encoding e parsing.
-
-### 6.3 Privacidade (Data Minimization)
-*   **No Persistence:** Arquivos processados em RAM, nunca salvos em disco.
+*   **MIME Type Check:** `application/json`, `text/csv`.
+*   **Defensive Parsing:** Try/catch robustos.
 
 ---
 
-## 7. ARQUIVOS IMPLEMENTADOS
+## 7. ARQUIVOS IMPLEMENTADOS (Principais)
 
 ```
-backend/app/api/endpoints/scanner/
-├── __init__.py           # Router principal
-└── upload.py             # Endpoint POST /upload com engine regex
+frontend/components/dashboard/
+├── OverviewCharts.tsx       # Gráficos Recharts (Novo)
+├── inventory/CreateAssetModal.tsx # Modal Premium (Novo)
+...
 
-frontend/app/
-├── scanner/page.tsx      # Página de upload (MVP simples)
-└── dashboard/compliance-scanner/
-    ├── page.tsx          # Dashboard Overview
-    ├── layout.tsx        # Layout dark
-    ├── technical/page.tsx # Dashboard Technical
-    └── compliance/page.tsx # Dashboard Compliance
-
-frontend/components/
-├── scanner/
-│   ├── UploadDropzone.tsx
-│   └── RiskReport.tsx
-└── compliance-scanner/
-    ├── index.ts
-    ├── mockData.ts
-    ├── RiskScoreGauge.tsx
-    ├── RiskCard.tsx
-    ├── TimelineChart.tsx
-    ├── DataBreakdownTable.tsx
-    ├── ActionChecklist.tsx
-    └── ActivityFeed.tsx
+frontend/app/dashboard/
+├── page.tsx                 # Overview Redesign
+├── roadmap/page.tsx         # Roadmap Redesign
+├── inventory/page.tsx       # Inventory Redesign
+...
 ```
 
 ---
 
-## 8. PRÓXIMOS PASSOS (SPRINT 2)
-
-1.  **Integração Backend-Dashboard:** Conectar dashboards a dados reais do `/scanner/upload`.
-2.  **LLM Integration:** Implementar Claude Haiku para detecção de alucinação.
-3.  **Export PDF:** Botão "Gerar Relatório ANPD" funcional.
-4.  **Persistência:** Salvar histórico de scans no banco de dados.
-5.  **Autenticação:** Vincular scans ao usuário logado.
-
----
-*Fim da Especificação Técnica v2.0*
+*Fim da Especificação Técnica v2.2*

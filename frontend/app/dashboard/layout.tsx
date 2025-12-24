@@ -59,13 +59,8 @@ function DashboardLayoutContent({
             <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#00A3FF]/10 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
 
-            {/* Mobile Sidebar Overlay */}
-            {!isSidebarOpen && (
-                <div
-                    className="fixed inset-0 bg-black/60 z-20 lg:hidden backdrop-blur-sm"
-                    onClick={() => setIsSidebarOpen(true)}
-                />
-            )}
+            {/* Mobile Sidebar Overlay - REMOVED FOR STABILITY */}
+            {/* Overlay removed to prevent blocking */}
 
             {/* Sidebar - Using Glass Panel DNA */}
             <aside
@@ -162,7 +157,11 @@ function DashboardLayoutContent({
                     {user.role === "admin" && (
                         <>
                             <div className="h-4" />
-                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Admin System" />
+                            <div className="px-3 py-3 text-[11px] font-bold text-gray-500 uppercase tracking-[0.15em]">
+                                Admin
+                            </div>
+                            <NavItem href="/dashboard/leads" icon="group" label="Gestão de Leads" active={pathname.startsWith("/dashboard/leads")} />
+                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Admin System" active={pathname.startsWith("/dashboard/admin")} />
                         </>
                     )}
                 </nav>

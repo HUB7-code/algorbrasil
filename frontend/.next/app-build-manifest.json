@@ -1,9 +1,14 @@
 {
   "pages": {
-    "/(public)/page": [
+    "/(public)/policies/privacy/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/page.js"
+      "static/chunks/app/(public)/policies/privacy/page.js"
+    ],
+    "/(public)/policies/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/policies/layout.js"
     ],
     "/(public)/layout": [
       "static/chunks/webpack.js",
@@ -13,7 +18,7 @@
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/css-node_modules_next_font_google_target_css-node_modules_next_font_google_target_css-node_mo-281113.css",
+      "static/css/css-app_print_css-node_modules_next_font_google_target_css-node_modules_next_font_google_targ-d013e7.css",
       "static/css/css-app_globals_css.css",
       "static/chunks/app/layout.js"
     ],
@@ -22,30 +27,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
-    "/dashboard/compliance-scanner/page": [
+    "/(public)/policies/cookies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/compliance-scanner/page.js"
+      "static/chunks/app/(public)/policies/cookies/page.js"
     ],
-    "/dashboard/compliance-scanner/layout": [
+    "/(public)/policies/dpo/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/compliance-scanner/layout.js"
+      "static/chunks/app/(public)/policies/dpo/page.js"
     ],
-    "/dashboard/layout": [
+    "/(public)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/layout.js"
+      "static/chunks/app/(public)/page.js"
     ],
-    "/dashboard/compliance-scanner/technical/page": [
+    "/(public)/policies/terms/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/compliance-scanner/technical/page.js"
+      "static/chunks/app/(public)/policies/terms/page.js"
     ],
-    "/dashboard/compliance-scanner/compliance/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/dashboard/compliance-scanner/compliance/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

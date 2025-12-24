@@ -9,6 +9,7 @@ from backend.app.models.governance import GovernanceTrace
 from backend.app.schemas.governance import GuardrailRequest, GuardrailResponse
 from backend.app.models.user import User as UserModel
 from backend.app.api.auth import get_current_user
+from backend.app.services.analysis_engine import AnalysisEngine
 
 router = APIRouter()
 
@@ -54,20 +55,31 @@ def check_compliance_guardrail(
             
             triggered = False
             
-            # A. Keyword Matching
-            if rule.rule_type == "keyword_precise":
+            # A. Keyword/Regex Matching using AnalysisEngine
+            if rule.rule_type == "pii_classifier":
+                analysis = AnalysisEngine.analyze_text(request.prompt_text)
+                if analysis["pii_detected"]:
+                     triggered = True
+                     violation_details.append(f"PII Detectado: {len(analysis['pii_details'])} ocorrências.")
+                     pii_found = True
+            elif rule.rule_type == "injection_classifier":
+                analysis = AnalysisEngine.analyze_text(request.prompt_text)
+                if analysis["injection_detected"]:
+                    triggered = True
+                    violation_details.append(f"Prompt Injection: {len(analysis['injection_details'])} termos.")
+            
+            # Legacy/Simple Keyword Check (Manter compatibilidade)
+            elif rule.rule_type == "keyword_precise":
                 if rule.content.lower() in request.prompt_text.lower().split():
                      triggered = True
             elif rule.rule_type == "keyword_fuzzy":
                  if rule.content.lower() in request.prompt_text.lower():
                      triggered = True
             
-            # TODO: Add Regex and PII Classifier logic here in next iterations
-            
             if triggered:
+                # ... (manter lógica de score existente)
                 violation_details.append(f"Regra violada: {rule.content} ({rule.severity})")
                 
-                # Update Risk Score
                 if rule.severity == "CRITICAL" or rule.severity == "HIGH":
                     risk_score = 0.95
                     verdict = "BLOCKED"
@@ -77,23 +89,23 @@ def check_compliance_guardrail(
                 else: 
                      risk_score = max(risk_score, 0.2)
                 
-                # Check specifics
-                if "pii" in rule.rule_type or "cpf" in rule.content or "password" in rule.content:
-                    pii_found = True
-                    
-                # Break on BLOCK to save processing? For audit, maybe finding all is better.
-                # Let's simple break for now if blocked.
                 if verdict == "BLOCKED":
                     break
     
-    # Fallback Hardcoded (Para testes sem configurar política)
+    # Fallback Policy (No policy active)
     else:
-        # Regra simples de teste legado
-        if "senha" in request.prompt_text.lower() or "password" in request.prompt_text.lower():
-            risk_score = 0.9
-            verdict = "BLOCKED"
-            pii_found = True
-            policy_name = "legacy-fallback"
+        # Default Safe Mode: Analyze using Engine directly
+        analysis = AnalysisEngine.analyze_text(request.prompt_text)
+        
+        if analysis["verdict"] == "BLOCKED" or analysis["pii_detected"]:
+             risk_score = analysis["risk_score"]
+             verdict = analysis["verdict"]
+             pii_found = analysis["pii_detected"]
+             policy_name = "system-default-safe"
+             if analysis["pii_detected"]: violation_details.append("PII Detectado (Default Policy)")
+             if analysis["injection_detected"]: violation_details.append("Injection Detectado (Default Policy)")
+        else:
+             policy_name = "system-default-allow"
 
     # 3. Registrar no Evidence Vault (Imutabilidade) - TRUST HUB LOGIC
     
@@ -142,6 +154,39 @@ def check_compliance_guardrail(
         audit_log_ref=f"/audit/trace/{trace_uuid}"
     )
 
+from backend.app.schemas.trace_completion import TraceCompletionRequest
+
+@router.patch("/guardrail/{trace_id}/complete")
+def complete_trace_audit(
+    trace_id: str,
+    completion: TraceCompletionRequest,
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
+    """
+    TRUST HUB: Fecha o ciclo de auditoria registrando o hash da saída.
+    Apenas o dono da organização original pode atualizar.
+    """
+    trace = db.query(GovernanceTrace).filter(GovernanceTrace.trace_id == trace_id).first()
+    if not trace:
+        raise HTTPException(status_code=404, detail="Trace not found")
+        
+    if trace.output_hash:
+        raise HTTPException(status_code=400, detail="Trace already completed (Immutable)")
+        
+    # Calculate Output Hash
+    output_hash = generate_hash(completion.output_text)
+    
+    # Update Trace
+    trace.output_hash = output_hash
+    if completion.latency_ms:
+        trace.latency_ms = completion.latency_ms
+        
+    db.commit()
+    db.refresh(trace)
+    
+    return {"status": "completed", "integrity_check": "valid", "final_hash": trace.block_hash}
+
 # --- POLICY MANAGEMENT ENDPOINTS ---
 
 from pydantic import BaseModel
@@ -157,7 +202,11 @@ class PolicyCreate(BaseModel):
     description: str = None
 
 @router.post("/policies")
-def create_policy(policy: PolicyCreate, db: Session = Depends(get_db)):
+def create_policy(
+    policy: PolicyCreate, 
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
     from backend.app.models.governance import GovernancePolicy
     
     # Check existing policy name for org
@@ -180,7 +229,12 @@ def create_policy(policy: PolicyCreate, db: Session = Depends(get_db)):
     return {"id": new_policy.id, "name": new_policy.name, "status": "created"}
 
 @router.post("/policies/{policy_id}/rules")
-def add_rule_to_policy(policy_id: int, rule: RuleCreate, db: Session = Depends(get_db)):
+def add_rule_to_policy(
+    policy_id: int, 
+    rule: RuleCreate, 
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
     from backend.app.models.governance import GovernancePolicy, GovernanceRule
     
     policy = db.query(GovernancePolicy).filter(GovernancePolicy.id == policy_id).first()
@@ -199,7 +253,11 @@ def add_rule_to_policy(policy_id: int, rule: RuleCreate, db: Session = Depends(g
     return {"id": new_rule.id, "content": new_rule.content, "action": new_rule.action}
 
 @router.get("/policies")
-def list_policies(organization_id: int, db: Session = Depends(get_db)):
+def list_policies(
+    organization_id: int, 
+    db: Session = Depends(get_db),
+    current_user: UserModel = Depends(get_current_user)
+):
     from backend.app.models.governance import GovernancePolicy
     
     policies = db.query(GovernancePolicy).filter(

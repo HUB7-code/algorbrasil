@@ -1,8 +1,29 @@
-"use client";
+'use client';
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Activity, ShieldCheck, Zap, Database, BarChart3, AlertTriangle, HelpCircle } from "lucide-react";
+import { ArrowRight, Activity, ShieldCheck, Zap, Database, AlertTriangle, HelpCircle, CheckCircle2, Lock, Play } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { TrendChart, RiskRadar, MiniGauge } from "@/components/dashboard/OverviewCharts";
+
+// ========================================
+// DASHBOARD - POWER BI PREMIUM DARK MODE
+// ========================================
+
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1
+        }
+    }
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+};
 
 export default function Dashboard() {
     const [data, setData] = useState<any>(null);
@@ -11,10 +32,10 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchDashboardData = async () => {
             const token = localStorage.getItem("algor_token");
+            // If no token, layout handles redirect, but we safeguard here
             if (!token) {
-                // Mock data for unauthenticated visual check (or redirect)
-                // window.location.href = "/login";
-                setLoading(false);
+                // Simulated Delay for animation demo
+                setTimeout(() => setLoading(false), 1000);
                 return;
             }
 
@@ -50,221 +71,226 @@ export default function Dashboard() {
     return (
         <div className="p-8 max-w-[1600px] mx-auto min-h-screen text-white font-sans relative z-10">
 
-            {/* Header Section */}
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-10 pb-6 border-b border-white/10">
-                <div>
-                    <div className="flex items-center gap-2 mb-2">
-                        <span className={`w-2 h-2 rounded-full ${loading ? 'bg-amber-500' : 'bg-[#00FF94]'} animate-pulse shadow-[0_0_10px_#00FF94]`} />
-                        <span className="text-xs font-mono text-[#00FF94] uppercase tracking-widest">{loading ? "CONNECTING..." : "SYSTEM ONLINE"}</span>
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="space-y-8"
+            >
+                {/* Header Section */}
+                <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/5 pb-8">
+                    <div>
+                        <div className="flex items-center gap-2 mb-3">
+                            <div className="relative flex h-2.5 w-2.5">
+                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${loading ? 'bg-amber-400' : 'bg-[#00FF94]'}`}></span>
+                                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${loading ? 'bg-amber-500' : 'bg-[#00FF94]'}`}></span>
+                            </div>
+                            <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em] font-bold">
+                                {loading ? "ESTABLISHING UPLINK..." : "SYSTEM ONLINE"}
+                            </span>
+                        </div>
+                        <h1 className="text-5xl font-serif font-medium text-white mb-2 tracking-tight">
+                            Centro de <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Excelência</span>
+                        </h1>
+                        <p className="text-gray-400 text-lg font-light flex items-center gap-2">
+                            Bem-vindo ao comando, <span className="text-white font-medium border-b border-[#00FF94]/30 pb-0.5">Gestor de IA</span>.
+                        </p>
                     </div>
-                    <h1 className="text-4xl font-serif font-medium text-white mb-2 tracking-tight drop-shadow-lg">
-                        Centro de Excelência
-                    </h1>
-                    <p className="text-gray-300 text-lg font-light">
-                        Bem-vinda ao comando, <span className="text-white font-medium">Edisio Nascimento</span>.
-                    </p>
+
+                    <div className="flex items-center gap-4">
+                        <div className="px-5 py-3 rounded-xl bg-[#0A1A2F]/50 backdrop-blur-md border border-white/10 flex items-center gap-4 shadow-lg group hover:border-[#00FF94]/30 transition-colors cursor-default">
+                            <div>
+                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Fase Atual</p>
+                                <p className="text-sm font-bold text-white flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94]" />
+                                    {currentPhase}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
+
+                {/* KPI Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {/* 1. Readiness Gauge */}
+                    <KpiCard
+                        title="Nível de Prontidão"
+                        icon={<ShieldCheck className="w-5 h-5 text-[#00FF94]" />}
+                        description="Índice de conformidade auditável ISO 42001."
+                        delay={0.1}
+                    >
+                        <div className="flex items-center gap-4 mt-2">
+                            <MiniGauge value={complianceScore} color={complianceScore > 80 ? "#00FF94" : "#F59E0B"} />
+                            <div>
+                                <p className="text-2xl font-bold text-white font-mono">{complianceScore}%</p>
+                                <p className="text-xs text-gray-400">Score de Confiança</p>
+                            </div>
+                        </div>
+                    </KpiCard>
+
+                    {/* 2. Active Models */}
+                    <KpiCard title="Ativos Monitorados" icon={<Database className="w-5 h-5 text-[#00A3FF]" />} delay={0.2}>
+                        <div className="flex items-end gap-2 mt-4">
+                            <p className="text-3xl font-bold text-white font-mono">{activeModels}</p>
+                            <span className="text-xs text-[#00A3FF] mb-1.5 font-bold">+2 novos</span>
+                        </div>
+                        <div className="w-full bg-[#00A3FF]/10 h-1.5 rounded-full mt-3 overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: '65%' }} className="h-full bg-[#00A3FF]" />
+                        </div>
+                    </KpiCard>
+
+                    {/* 3. Incidents */}
+                    <KpiCard title="Incidentes Críticos" icon={<AlertTriangle className="w-5 h-5 text-[#EF4444]" />} delay={0.3}>
+                        <div className="flex items-end gap-2 mt-4">
+                            <p className={`text-3xl font-bold font-mono ${criticalRisks > 0 ? "text-[#EF4444]" : "text-[#00FF94]"}`}>{criticalRisks}</p>
+                            <span className="text-xs text-gray-400 mb-1.5">Detectados hoje</span>
+                        </div>
+                        <div className="w-full bg-white/5 h-1.5 rounded-full mt-3 overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: criticalRisks > 0 ? '20%' : '100%' }} className={`h-full ${criticalRisks > 0 ? "bg-[#EF4444]" : "bg-[#00FF94]"}`} />
+                        </div>
+                    </KpiCard>
+
+                    {/* 4. Velocity */}
+                    <KpiCard title="Consent Velocity" icon={<Zap className="w-5 h-5 text-[#8B5CF6]" />} delay={0.4}>
+                        <div className="flex items-end gap-2 mt-4">
+                            <p className="text-3xl font-bold text-white font-mono">4.2h</p>
+                            <span className="text-xs text-[#8B5CF6] mb-1.5 font-bold">-18% vs média</span>
+                        </div>
+                        <div className="w-full bg-[#8B5CF6]/10 h-1.5 rounded-full mt-3 overflow-hidden">
+                            <motion.div initial={{ width: 0 }} animate={{ width: '80%' }} className="h-full bg-[#8B5CF6]" />
+                        </div>
+                    </KpiCard>
                 </div>
 
-                <div className="px-5 py-2 rounded-lg glass-panel flex items-center gap-4">
-                    <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">Fase Atual</span>
-                    <span className="text-sm font-semibold text-white flex items-center gap-2">
-                        <span className="text-[#00FF94]">{currentPhase.split('.')[0]}.</span> {currentPhase.split('.')[1]}
-                    </span>
+                {/* ANALYTICS SECTION (POWER BI STYLE) */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[350px]">
+
+                    {/* Trend Chart Area */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="lg:col-span-2 glass-panel p-6 flex flex-col relative group hover:border-[#00FF94]/30 transition-colors"
+                    >
+                        <div className="flex justify-between items-center mb-6">
+                            <div>
+                                <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Evolução do Trust Score</h3>
+                                <p className="text-xs text-gray-500">Histórico de 6 meses (ISO 42001)</p>
+                            </div>
+                            <div className="flex gap-2">
+                                <span className="flex items-center gap-1 text-[10px] text-gray-400 uppercase"><div className="w-2 h-2 rounded-full bg-[#00FF94]" />Score</span>
+                                <span className="flex items-center gap-1 text-[10px] text-gray-400 uppercase"><div className="w-2 h-2 rounded-full bg-[#00A3FF]" />Ativos</span>
+                            </div>
+                        </div>
+                        <TrendChart />
+                    </motion.div>
+
+                    {/* Radar Chart Area */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="glass-panel p-6 flex flex-col relative group hover:border-[#F59E0B]/30 transition-colors"
+                    >
+                        <div className="mb-2">
+                            <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Matriz de Risco</h3>
+                            <p className="text-xs text-gray-500">Distribuição por Categoria</p>
+                        </div>
+                        <RiskRadar />
+                    </motion.div>
+
                 </div>
-            </div>
 
-            {/* KPI Cards - Using Global Glass Panel */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                {/* Main Action Area */}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                {/* 1. Growth Score / Readiness */}
-                <KpiCard
-                    title="Nível de Prontidão"
-                    description="Nota de confiabilidade auditável (ISO 42001). Baseada em riscos ativos e controles implementados."
-                    icon={<ShieldCheck className="w-5 h-5 text-[#00FF94]" />}
-                    iconBg="bg-[#00FF94]/10"
-                    trend={loading ? "..." : (complianceScore > 80 ? "+ Stable" : "- Attention")}
-                    trendPositive={complianceScore > 80}
-                >
-                    <div className="flex items-center justify-between mt-4">
-                        <div className="relative w-20 h-20">
-                            <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                                <path className="text-white/5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
-                                <path
-                                    className="text-[#00FF94] drop-shadow-[0_0_8px_rgba(0,255,148,0.5)] transition-all duration-1000 ease-out"
-                                    strokeDasharray={`${complianceScore}, 100`}
-                                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="3"
-                                />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center flex-col">
-                                <span className="text-xl font-bold text-white">{loading ? "--" : `${complianceScore}%`}</span>
-                                <span className="text-[9px] font-bold text-[#00FF94] uppercase">{complianceScore > 80 ? "High" : "Med"}</span>
+                    {/* Hero Card: Auditorias */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="lg:col-span-2 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#131825] to-[#0A0E1A] border border-white/10 p-10 group"
+                    >
+                        {/* Background Decoration */}
+                        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00FF94]/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#00FF94]/10 transition-colors duration-700" />
+
+                        <div className="relative z-10 flex flex-col items-start h-full justify-between gap-10">
+                            <div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-xs font-bold text-gray-300 uppercase tracking-wider mb-6">
+                                    <Activity className="w-4 h-4" />
+                                    Ação Recomendada
+                                </div>
+                                <h2 className="text-3xl font-serif font-medium text-white mb-4">
+                                    Iniciar Novo Ciclo de Auditoria
+                                </h2>
+                                <p className="text-gray-400 font-light max-w-xl text-lg leading-relaxed">
+                                    Nenhuma validação ativa detectada. Inicie um diagnóstico completo para identificar brechas de conformidade, atualizar a matriz de risco e desbloquear recursos Enterprise.
+                                </p>
                             </div>
-                        </div>
-                        <div className="text-right">
-                            <div className="text-sm text-gray-400 mb-1">Status ISO</div>
-                            <div className="text-base font-medium text-white">{complianceScore >= 100 ? "Certified" : "Audit Mode"}</div>
-                        </div>
-                    </div>
-                </KpiCard>
 
-                {/* 2. Data Activity */}
-                <KpiCard
-                    title="Atividade de Dados"
-                    description="Volume de ativos de IA (Modelos/SaaS) em status de produção monitorados pelo Guardrail."
-                    icon={<Database className="w-5 h-5 text-[#00A3FF]" />}
-                    iconBg="bg-[#00A3FF]/10"
-                    trend={`${activeModels} Ativos Monitorados`}
-                    trendColor="text-[#00A3FF]"
-                >
-                    <div className="h-20 flex items-end justify-between gap-1 mt-4 px-1">
-                        {[40, 70, 45, 90, 60, 80, 50, 75, 40].map((h, i) => (
-                            <div key={i} className="w-full bg-[#00A3FF]/10 rounded-t-sm relative group">
-                                <div
-                                    className="absolute bottom-0 w-full bg-[#00A3FF] rounded-t-sm transition-all duration-1000 shadow-[0_0_10px_rgba(0,163,255,0.3)]"
-                                    style={{ height: `${loading ? 20 : h}%` }}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </KpiCard>
-
-                {/* 3. Risk Monitor */}
-                <KpiCard
-                    title="Monitoramento de Risco"
-                    description="Incidentes de segurança e conformidade detectados em tempo real na matriz de risco."
-                    icon={<AlertTriangle className="w-5 h-5 text-amber-400" />}
-                    iconBg="bg-amber-500/10"
-                    trend={`${data?.risks_summary?.total || 0} Incidentes Totais`}
-                    trendColor="text-amber-400"
-                >
-                    <div className="space-y-4 mt-6">
-                        <div>
-                            <div className="flex justify-between text-xs mb-1.5">
-                                <span className="text-gray-400 font-medium">Críticos</span>
-                                <span className={criticalRisks > 0 ? "text-red-500 font-bold" : "text-[#00FF94] font-bold"}>
-                                    {criticalRisks > 0 ? "ACTION REQUIRED" : "Safe"}
-                                </span>
-                            </div>
-                            <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                <div
-                                    className={`h-full rounded-full transition-all duration-1000 ${criticalRisks > 0 ? 'bg-red-500 w-[80%]' : 'bg-[#00FF94] w-[10%]'}`}
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <div className="flex justify-between text-xs mb-1.5">
-                                <span className="text-gray-400 font-medium">Alertas Elevados (High)</span>
-                                <span className="text-amber-500 font-bold">{data?.risks_summary?.high || 0} Alerts</span>
-                            </div>
-                            <div className="w-full h-1.5 bg-white/5 rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-amber-500 rounded-full shadow-[0_0_10px_rgba(245,158,11,0.3)] transition-all duration-1000"
-                                    style={{ width: `${(data?.risks_summary?.high || 0) * 10}%` }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </KpiCard>
-
-                {/* 4. Velocity */}
-                <KpiCard
-                    title="Consent Velocity"
-                    description="Tempo médio para processar solicitações de opt-out (descadastro). Meta de SLA: < 24h."
-                    icon={<Zap className="w-5 h-5 text-purple-400" />}
-                    iconBg="bg-purple-500/10"
-                    trend="Opt-in SLA"
-                    trendColor="text-purple-300"
-                >
-                    <div className="flex flex-col items-center justify-center mt-2 h-20">
-                        <span className="text-5xl font-serif font-medium text-white tracking-tighter drop-shadow-lg">
-                            4.2<span className="text-2xl text-gray-500 ml-1 font-sans">h</span>
-                        </span>
-                        <span className="text-[10px] font-bold text-gray-400 bg-white/5 border border-white/5 px-2 py-1 rounded mt-2">MÉDIA MENSAL</span>
-                    </div>
-                </KpiCard>
-            </div>
-
-            {/* Main Action Area Split */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                {/* Left: Main Action (Auditorias) */}
-                <div className="lg:col-span-2 glass-panel rounded-2xl p-8 relative overflow-hidden group hover:border-[#00FF94]/30">
-                    <div className="relative z-10 flex flex-col items-start h-full justify-between">
-                        <div className="flex w-full justify-between items-start">
-                            <div className="p-3 bg-white/5 rounded-xl text-white mb-4 border border-white/5 shadow-inner">
-                                <Activity className="w-6 h-6" />
-                            </div>
-                            <button className="text-xs font-bold text-gray-500 hover:text-white uppercase tracking-wider transition-colors">
-                                Ver Histórico
-                            </button>
-                        </div>
-
-                        <div className="space-y-4 max-w-lg">
-                            <h2 className="text-2xl font-serif font-medium text-white">Auditorias de Growth</h2>
-                            <p className="text-gray-400 leading-relaxed font-light">
-                                Nenhuma validação ativa no momento. Inicie um diagnóstico para desbloquear contratos Enterprise e garantir conformidade.
-                            </p>
-                        </div>
-
-                        <div className="mt-8">
                             <Link href="/dashboard/assessments">
-                                <button className="px-6 py-3 bg-white text-[#0A1A2F] font-bold rounded-xl hover:bg-gray-200 transition-all text-sm tracking-wide flex items-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                                    INICIAR NOVA AUDITORIA <ArrowRight className="w-4 h-4" />
-                                </button>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    className="px-8 py-4 bg-white text-[#0A1A2F] font-bold rounded-xl hover:bg-gray-100 transition-all text-sm tracking-widest flex items-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.15)]"
+                                >
+                                    <Play className="w-4 h-4 fill-current" />
+                                    EXECUTAR SCANNER DIAGNÓSTICO
+                                </motion.button>
                             </Link>
                         </div>
-                    </div>
-                </div>
+                    </motion.div>
 
-                {/* Right: Side Actions */}
-                <div className="flex flex-col gap-6">
-                    {/* Viabilidade Card */}
-                    <div className="flex-1 glass-panel rounded-2xl p-6 flex flex-col justify-between group hover:border-[#00FF94]/30">
-                        <div className="flex justify-between items-start">
-                            <div>
-                                <h3 className="text-lg font-serif font-medium text-white flex items-center gap-2">
-                                    <ShieldCheck className="w-5 h-5 text-gray-400" /> Viabilidade
-                                </h3>
-                                <p className="text-sm text-gray-400 mt-2 font-light">Análise profunda de risco jurídico e técnico (SLA 24h).</p>
+                    {/* Secondary Actions Stack */}
+                    <div className="flex flex-col gap-6">
+
+                        {/* Viabilidade */}
+                        <motion.div variants={itemVariants} className="flex-1 glass-panel p-6 flex flex-col justify-between group cursor-pointer hover:border-[#00FF94]/30 transition-colors">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Serviço Premium</span>
+                                    <h3 className="text-lg font-serif font-medium text-white mt-1">Análise de Viabilidade</h3>
+                                </div>
+                                <div className="p-2 rounded-lg bg-white/5 text-gray-400 group-hover:text-white transition-colors">
+                                    <ArrowRight className="w-4 h-4" />
+                                </div>
                             </div>
-                        </div>
-                        <div className="flex justify-between items-end mt-4">
-                            <span className="text-2xl font-bold text-white tracking-tight">R$ 1.500</span>
-                            <button className="h-8 w-8 rounded-full bg-white/10 border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-[#0A1A2F] transition-colors">
-                                <ArrowRight className="w-4 h-4" />
-                            </button>
-                        </div>
-                    </div>
+                            <div className="flex items-end justify-between mt-4">
+                                <div>
+                                    <p className="text-2xl font-bold text-white tracking-tight">R$ 1.500</p>
+                                    <p className="text-xs text-gray-500 mt-1">SLA 24 horas</p>
+                                </div>
+                            </div>
+                        </motion.div>
 
-                    {/* License Card */}
-                    <div className="flex-1 glass-panel rounded-2xl p-6 flex flex-col justify-between group hover:border-[#00FF94]/30">
-                        <div>
-                            <h3 className="text-lg font-serif font-medium text-white flex items-center gap-2">
-                                <ShieldCheck className="w-5 h-5 text-[#00FF94]" /> Growth License
-                            </h3>
-                            <p className="text-sm text-gray-400 mt-1 font-light">Validade Enterprise até <span className="text-white font-medium">Jan 2026</span></p>
-                        </div>
-                        <button className="w-full py-2.5 mt-4 rounded-lg border border-white/10 bg-white/5 text-xs font-bold text-gray-300 uppercase tracking-wider hover:bg-white hover:text-[#0A1A2F] transition-all">
-                            Renovar Certificado
-                        </button>
+                        {/* License Status */}
+                        <motion.div variants={itemVariants} className="flex-1 glass-panel p-6 flex flex-col justify-center gap-4 group hover:border-[#00A3FF]/30 transition-colors">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
+                                    <CheckCircle2 className="w-5 h-5" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-bold text-white">Growth License</p>
+                                    <p className="text-xs text-[#00A3FF]">Ativa até Jan 2026</p>
+                                </div>
+                            </div>
+                            <button className="w-full py-2.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-300 uppercase tracking-wider transition-all">
+                                Gerenciar Assinatura
+                            </button>
+                        </motion.div>
+
                     </div>
                 </div>
-            </div>
+
+            </motion.div>
         </div>
     );
 }
 
-// Global Glass Card Component Wrapper
-function KpiCard({ title, icon, iconBg, trend, trendPositive, trendColor, description, children }: any) {
+// Glass Card Component
+function KpiCard({ title, icon, description, delay, children }: any) {
     return (
-        <div className="glass-panel rounded-2xl p-6 flex flex-col h-64 relative group hover:border-[#00FF94]/30">
-
-            <div className="flex justify-between items-start mb-4 relative z-10 gap-4">
-                <div className="flex items-start gap-2 max-w-[70%]">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider leading-relaxed group-hover:text-white transition-colors">
+        <motion.div
+            variants={itemVariants}
+            className="glass-panel p-6 flex flex-col h-[280px] relative group hover:border-[#00FF94]/30 transition-colors"
+        >
+            <div className="flex justify-between items-start mb-6">
+                <div className="flex items-start gap-2">
+                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-white transition-colors">
                         {title}
                     </span>
                     {description && (
@@ -276,20 +302,14 @@ function KpiCard({ title, icon, iconBg, trend, trendPositive, trendColor, descri
                         </div>
                     )}
                 </div>
-                <div className={`p-2 rounded-lg ${iconBg} border border-white/5 shrink-0`}>
+                <div className="p-2 rounded-lg bg-white/5 border border-white/5 text-gray-400 group-hover:text-white transition-colors">
                     {icon}
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col justify-end relative z-10">
+            <div className="flex-1 flex flex-col justify-end">
                 {children}
             </div>
-
-            {trend && (
-                <div className={`absolute top-[72px] left-6 text-xs font-bold ${trendPositive ? 'text-[#00FF94]' : trendColor ? trendColor : 'text-gray-500'}`}>
-                    {trend}
-                </div>
-            )}
-        </div>
+        </motion.div>
     );
 }

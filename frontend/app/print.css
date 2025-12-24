@@ -1,0 +1,50 @@
+@media print {
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  body {
+    background-color: white !important;
+    color: black !important;
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Ocultar elementos desnecessários na impressão */
+  header, footer, nav, aside, .no-print {
+    display: none !important;
+  }
+
+  /* Layout de impressão limpo */
+  main {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: black !important;
+  }
+
+  /* Links */
+  a {
+    color: black !important;
+    text-decoration: underline;
+  }
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+  
+  /* Tipografia de Impressão */
+  h1 { font-size: 24pt; margin-bottom: 24px; color: black !important; }
+  h2 { font-size: 18pt; margin-top: 24px; margin-bottom: 12px; color: black !important; border-bottom: 1px solid #ccc; }
+  h3 { font-size: 14pt; margin-top: 18px; color: black !important; }
+  p, li { color: black !important; }
+
+  /* Utilities */
+  .text-transparent {
+    color: black !important;
+    -webkit-text-fill-color: initial !important;
+    background: none !important;
+  }
+}

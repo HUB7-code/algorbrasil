@@ -58,20 +58,31 @@ export const financialSummary = {
     roiPercentage: 340
 };
 
-export const dataBreakdown = [
-    { type: "CPF", exposures: 127, severity: "high", trend: "stable", action: "block" },
-    { type: "Email", exposures: 89, severity: "medium", trend: "down", action: "review" },
-    { type: "Telefone", exposures: 45, severity: "medium", trend: "up", action: "review" },
-    { type: "Geolocalização", exposures: 43, severity: "high", trend: "up", action: "block" },
-    { type: "Nome Completo", exposures: 234, severity: "low", trend: "stable", action: "monitor" }
-];
+export const dataBreakdown: Array<{
+    type: string;
+    exposures: number;
+    severity: "high" | "medium" | "low";
+    trend: "up" | "down" | "stable";
+    action: "block" | "review" | "monitor";
+}> = [
+        { type: "CPF", exposures: 127, severity: "high", trend: "stable", action: "block" },
+        { type: "Email", exposures: 89, severity: "medium", trend: "down", action: "review" },
+        { type: "Telefone", exposures: 45, severity: "medium", trend: "up", action: "review" },
+        { type: "Geolocalização", exposures: 43, severity: "high", trend: "up", action: "block" },
+        { type: "Nome Completo", exposures: 234, severity: "low", trend: "stable", action: "monitor" }
+    ];
 
-export const actionItems = [
-    { id: 1, text: "Ativar filtro PII para endpoints de produção", completed: false, priority: "critical" },
-    { id: 2, text: "Configurar hallucination threshold em 0.7", completed: false, priority: "high" },
-    { id: 3, text: "Revisar 12 logs marcados como suspeitos", completed: false, priority: "medium" },
-    { id: 4, text: "Atualizar política de retenção de dados", completed: true, priority: "low" }
-];
+export const actionItems: Array<{
+    id: number;
+    text: string;
+    completed: boolean;
+    priority: "critical" | "high" | "medium" | "low";
+}> = [
+        { id: 1, text: "Ativar filtro PII para endpoints de produção", completed: false, priority: "critical" },
+        { id: 2, text: "Configurar hallucination threshold em 0.7", completed: false, priority: "high" },
+        { id: 3, text: "Revisar 12 logs marcados como suspeitos", completed: false, priority: "medium" },
+        { id: 4, text: "Atualizar política de retenção de dados", completed: true, priority: "low" }
+    ];
 
 // 30 days timeline data
 export const timelineData = Array.from({ length: 30 }, (_, i) => {
@@ -102,13 +113,19 @@ export const modelDistribution = [
     { name: "Claude Haiku", percentage: 10, requests: 5000, color: "#F59E0B" }
 ];
 
-export const recentActivity = [
-    { id: 1, type: "pii", message: "CPF detectado em prompt de atendimento", timestamp: "há 3 min", blocked: true },
-    { id: 2, type: "hallucination", message: "Resposta com confiança 0.42 (abaixo limiar)", timestamp: "há 7 min", blocked: false },
-    { id: 3, type: "injection", message: "Tentativa de jailbreak bloqueada", timestamp: "há 2 horas", blocked: true },
-    { id: 4, type: "pii", message: "Geolocalização precisa em resposta", timestamp: "há 4 horas", blocked: true },
-    { id: 5, type: "normal", message: "Batch de 150 requisições processado", timestamp: "há 5 horas", blocked: false }
-];
+export const recentActivity: Array<{
+    id: number;
+    type: "pii" | "hallucination" | "injection" | "normal";
+    message: string;
+    timestamp: string;
+    blocked: boolean;
+}> = [
+        { id: 1, type: "pii", message: "CPF detectado em prompt de atendimento", timestamp: "há 3 min", blocked: true },
+        { id: 2, type: "hallucination", message: "Resposta com confiança 0.42 (abaixo limiar)", timestamp: "há 7 min", blocked: false },
+        { id: 3, type: "injection", message: "Tentativa de jailbreak bloqueada", timestamp: "há 2 horas", blocked: true },
+        { id: 4, type: "pii", message: "Geolocalização precisa em resposta", timestamp: "há 4 horas", blocked: true },
+        { id: 5, type: "normal", message: "Batch de 150 requisições processado", timestamp: "há 5 horas", blocked: false }
+    ];
 
 export const complianceStatus = {
     lgpd: { percentage: 94, pending: 6, status: "compliant" as const },
