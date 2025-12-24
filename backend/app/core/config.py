@@ -5,7 +5,13 @@ class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
     
     # CORS
-    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8000", "http://localhost:3005"]
+    BACKEND_CORS_ORIGINS: list[str] = [
+        "http://localhost:3000", 
+        "http://localhost:8000", 
+        "http://localhost:3005",
+        "https://algorbrasil.com.br",
+        "https://www.algorbrasil.com.br"
+    ]
     
     # Segurança
     SECRET_KEY: str # Deve vir do .env
