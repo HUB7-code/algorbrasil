@@ -1,14 +1,9 @@
 {
   "pages": {
-    "/(public)/policies/privacy/page": [
+    "/(public)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/policies/privacy/page.js"
-    ],
-    "/(public)/policies/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(public)/policies/layout.js"
+      "static/chunks/app/(public)/page.js"
     ],
     "/(public)/layout": [
       "static/chunks/webpack.js",
@@ -27,25 +22,35 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
-    "/(public)/policies/cookies/page": [
+    "/(public)/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/policies/cookies/page.js"
+      "static/chunks/app/(public)/login/page.js"
     ],
-    "/(public)/policies/dpo/page": [
+    "/dashboard/assessments/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/policies/dpo/page.js"
+      "static/chunks/app/dashboard/assessments/page.js"
     ],
-    "/(public)/page": [
+    "/dashboard/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/page.js"
+      "static/chunks/app/dashboard/layout.js"
     ],
-    "/(public)/policies/terms/page": [
+    "/(public)/register/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/policies/terms/page.js"
+      "static/chunks/app/(public)/register/page.js"
+    ],
+    "/dashboard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/dashboard/page.js"
+    ],
+    "/(public)/forgot-password/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/forgot-password/page.js"
     ]
   }
 }

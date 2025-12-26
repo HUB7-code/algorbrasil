@@ -1,7 +1,7 @@
 {
   "/(public)/page": "app/(public)/page.js",
-  "/(public)/policies/privacy/page": "app/(public)/policies/privacy/page.js",
-  "/(public)/policies/dpo/page": "app/(public)/policies/dpo/page.js",
-  "/(public)/policies/cookies/page": "app/(public)/policies/cookies/page.js",
-  "/(public)/policies/terms/page": "app/(public)/policies/terms/page.js"
+  "/(public)/login/page": "app/(public)/login/page.js",
+  "/(public)/register/page": "app/(public)/register/page.js",
+  "/(public)/forgot-password/page": "app/(public)/forgot-password/page.js",
+  "/dashboard/page": "app/dashboard/page.js"
 }
