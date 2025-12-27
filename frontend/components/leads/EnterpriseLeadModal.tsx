@@ -221,8 +221,6 @@ export default function EnterpriseLeadModal({ isOpen, onClose, source = 'enterpr
                                                     <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-mono uppercase tracking-wider">
                                                         Gratuito
                                                     </span>
-                                                    <span className="text-gray-500 text-sm">•</span>
-                                                    <span className="text-gray-400 text-sm">Sem compromisso</span>
                                                 </div>
                                             </div>
                                         </div>
