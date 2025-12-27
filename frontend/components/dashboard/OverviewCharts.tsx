@@ -45,11 +45,14 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     return null;
 };
 
-export function TrendChart() {
+export function TrendChart({ data }: { data?: any[] }) {
+    if (!data || data.length === 0) {
+        return <div className="h-[280px] w-full flex items-center justify-center text-gray-500 text-xs">Aguardando dados de telemetria...</div>;
+    }
     return (
         <div className="h-[280px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={trendData}>
+                <AreaChart data={data}>
                     <defs>
                         <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
                             <stop offset="5%" stopColor="#00FF94" stopOpacity={0.3} />
@@ -101,11 +104,15 @@ export function TrendChart() {
     );
 }
 
-export function RiskRadar() {
+export function RiskRadar({ data }: { data?: any[] }) {
+    if (!data || data.length === 0) {
+        return <div className="h-[280px] w-full flex items-center justify-center text-gray-500 text-xs">Sem riscos mapeados.</div>;
+    }
+
     return (
         <div className="h-[280px] w-full flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={riskData}>
+                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
                     <PolarGrid stroke="rgba(255,255,255,0.1)" />
                     <PolarAngleAxis dataKey="subject" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
                     <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from backend.app.db.session import get_db
 from backend.app.api.auth import get_current_user
 from backend.app.models.user import User
@@ -32,20 +33,46 @@ async def get_dashboard_overview(
     # 3. Projetos em Andamento
     active_projects = db.query(Project).filter(Project.status == "In Progress").count()
     
-    # 4. Cálculo de Scores (Mockado com lógica básica por enquanto)
-    # Growth Score: Baseado em projetos ativos + ativos implementados
-    growth_score = min(100, (active_projects * 10) + (total_assets * 5) + 50)
+    # 5. Trend Chart Data (Last 6 Months Mock - In Real Life, use Assessment History)
+    # Simulator for demo purposes based on trust_score
+    import datetime
+    today = datetime.date.today()
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
     
-    # AI Trust Score: Começa em 100 e perde pontos por riscos
-    trust_score = 100 - (critical_risks * 20) - (high_risks * 5)
-    trust_score = max(0, trust_score) # Não pode ser negativo
+    trend_data = []
+    current_month_idx = today.month - 1
+    for i in range(5, -1, -1):
+        idx = (current_month_idx - i) % 12
+        score = trust_score - (i * 2) # Simulate improvement
+        active = total_assets - i
+        trend_data.append({
+            "name": months[idx],
+            "score": max(20, min(100, score)),
+            "active": max(0, active)
+        })
+
+    # 6. Risk Radar Data (Real aggregations)
+    risk_categories = db.query(RiskRegister.category, func.count(RiskRegister.id)).group_by(RiskRegister.category).all()
+    # Map to Radar Format
+    risk_radar = []
+    # If no data, provide seeds so chart isn't empty
+    default_categories = ["Segurança", "Ética", "Privacidade", "Performance", "Robustez", "Legal"]
+    for cat in default_categories:
+        count = next((c for c_name, c in risk_categories if c_name == cat), 0)
+        # Normalize for chart 0-150 scale
+        normalized_value = min(150, count * 30 + 50) if count > 0 else 30 # Base 30
+        risk_radar.append({
+            "subject": cat,
+            "A": normalized_value,
+            "fullMark": 150
+        })
 
     return {
         "kpis": {
             "growth_score": int(growth_score),
             "trust_score": int(trust_score), # Compliance Readiness
             "active_models": total_assets,
-            "data_events": 8920, # Mockado (hard to track real events without event bus)
+            "data_events": 8920,
         },
         "critical_alerts": critical_risks,
         "active_projects_count": active_projects,
@@ -53,5 +80,9 @@ async def get_dashboard_overview(
             "total": total_risks,
             "critical": critical_risks,
             "high": high_risks
+        },
+        "charts": {
+            "trend_data": trend_data,
+            "risk_radar": risk_radar
         }
     }

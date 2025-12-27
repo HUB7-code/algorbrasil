@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
     Building2, Plus, Search, MoreVertical,
-    TrendingUp, ShieldAlert, ArrowRight, Briefcase
+    TrendingUp, ShieldAlert, ArrowRight, Briefcase, FileText
 } from 'lucide-react';
 import { useOrganization } from '@/context/OrganizationContext';
 import { useRouter } from 'next/navigation';
@@ -136,19 +136,32 @@ export default function ClientsPage() {
 
                                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
                                     <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${org.plan_tier === 'enterprise'
-                                            ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
-                                            : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
+                                        ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30'
+                                        : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                                         }`}>
                                         {org.plan_tier || 'FREE'}
                                     </span>
 
-                                    <button
-                                        onClick={() => handleAccessWorkspace(org)}
-                                        className="text-sm font-medium text-white hover:text-brand-blue flex items-center gap-1 transition-colors"
-                                    >
-                                        Acessar
-                                        <ArrowRight className="w-4 h-4" />
-                                    </button>
+                                    <div className="flex gap-3">
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                window.open(`/dashboard/report-iso42001/${org.id}`, '_blank');
+                                            }}
+                                            className="text-gray-400 hover:text-white transition-colors"
+                                            title="Gerar Relatório ISO 42001"
+                                        >
+                                            <FileText className="w-4 h-4" />
+                                        </button>
+
+                                        <button
+                                            onClick={() => handleAccessWorkspace(org)}
+                                            className="text-sm font-medium text-white hover:text-brand-blue flex items-center gap-1 transition-colors"
+                                        >
+                                            Acessar
+                                            <ArrowRight className="w-4 h-4" />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

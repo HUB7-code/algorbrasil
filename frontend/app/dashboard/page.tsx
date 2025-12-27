@@ -219,7 +219,7 @@ export default function Dashboard() {
                                 <span className="flex items-center gap-1 text-[10px] text-gray-400 uppercase"><div className="w-2 h-2 rounded-full bg-[#00A3FF]" />Ativos</span>
                             </div>
                         </div>
-                        <TrendChart />
+                        <TrendChart data={data?.charts?.trend_data} />
                     </motion.div>
 
                     {/* Radar Chart Area */}
@@ -231,7 +231,7 @@ export default function Dashboard() {
                             <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Matriz de Risco</h3>
                             <p className="text-xs text-gray-500">Distribuição por Categoria</p>
                         </div>
-                        <RiskRadar />
+                        <RiskRadar data={data?.charts?.risk_radar} />
                     </motion.div>
 
                 </div>
