@@ -52,82 +52,99 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     """
     Cadastra um novo usuario (Status: Pendente de Verificacao).
     """
-    print(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
-    user = db.query(User).filter(User.email == user_in.email).first()
-    if user:
-        raise HTTPException(
-            status_code=400,
-            detail="Este e-mail ja esta cadastrado no sistema."
+    try:
+        print(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
+        user = db.query(User).filter(User.email == user_in.email).first()
+        if user:
+            raise HTTPException(
+                status_code=400,
+                detail="Este e-mail ja esta cadastrado no sistema."
+            )
+        
+        # Criptografar phone apenas se não for None
+        encrypted_phone = encrypt_field(user_in.phone) if user_in.phone else None
+        
+        new_user = User(
+            email=user_in.email,
+            hashed_password=get_password_hash(user_in.password),
+            full_name=user_in.full_name,
+            phone=encrypted_phone,
+            role="subscriber",
+            is_active=False, # BLOQUEADO ATE CONFIRMAR EMAIL
+            is_totp_enabled=False 
         )
-    
-    new_user = User(
-        email=user_in.email,
-        hashed_password=get_password_hash(user_in.password),
-        full_name=user_in.full_name,
-        phone=encrypt_field(user_in.phone),
-        role="subscriber",
-        is_active=False, # BLOQUEADO ATE CONFIRMAR EMAIL
-        is_totp_enabled=False 
-    )
-    
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    print(f"✅ Usuário salvo no DB (ID: {new_user.id})")
+        
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+        print(f"✅ Usuário salvo no DB (ID: {new_user.id})")
 
-    # === [FIX PERSONA A] ===
-    # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos
-    # Isso evita o erro "Nenhuma organizacao owner encontrada" no primeiro login
-    try:
-        from backend.app.models.organization import Organization, organization_members
+        # === [FIX PERSONA A] ===
+        # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos
+        # Isso evita o erro "Nenhuma organizacao owner encontrada" no primeiro login
+        try:
+            from backend.app.models.organization import Organization, organization_members
+            
+            default_org_name = f"Org de {user_in.full_name.split()[0]}" if user_in.full_name else "Minha Organização"
+            new_org = Organization(
+                name=default_org_name,
+                owner_id=new_user.id,
+                plan_tier="free",
+                credits_balance=3 # <--- O OURO ESTÁ AQUI (3 Créditos de Demo)
+            )
+            db.add(new_org)
+            db.commit()
+            db.refresh(new_org)
+            
+            # Linkar como Owner
+            stmt = organization_members.insert().values(
+                user_id=new_user.id,
+                organization_id=new_org.id,
+                role="owner"
+            )
+            db.execute(stmt)
+            db.commit()
+            print(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
+            
+        except Exception as e_org:
+            print(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
+            # Não abortamos o cadastro por isso, mas logamos
         
-        default_org_name = f"Org de {user_in.full_name.split()[0]}" if user_in.full_name else "Minha Organização"
-        new_org = Organization(
-            name=default_org_name,
-            owner_id=new_user.id,
-            plan_tier="free",
-            credits_balance=3 # <--- O OURO ESTÁ AQUI (3 Créditos de Demo)
+        # Gerar Token de Verificacao (Validade: 24h)
+        verification_token = create_access_token(
+            data={"sub": new_user.email, "type": "email_verification"},
+            expires_delta=timedelta(hours=24)
         )
-        db.add(new_org)
-        db.commit()
-        db.refresh(new_org)
         
-        # Linkar como Owner
-        stmt = organization_members.insert().values(
-            user_id=new_user.id,
-            organization_id=new_org.id,
-            role="owner"
-        )
-        db.execute(stmt)
-        db.commit()
-        print(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
-        
-    except Exception as e_org:
-        print(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
-        # Não abortamos o cadastro por isso, mas logamos
+        # Envio SÍNCRONO para garantir e debugar (sem BackgroundTasks por enquanto)
+        print("📧 Preparando envio de e-mail...")
+        try:
+            from backend.app.services.email_service import send_verification_email
+            send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
+            print("✅ E-mail de verificação despachado com sucesso!")
+        except Exception as e:
+            print(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
+            # Em produção, não parariamos o cadastro, mas para debug queremos ver o erro
+            # raise HTTPException(status_code=500, detail=f"Erro no envio de e-mail: {str(e)}")
+
+        return {
+            "message": "Cadastro realizado. Verifique seu e-mail para ativar a conta.", 
+            "email": new_user.email,
+            "status": "pending_verification"
+        }
     
-    # Gerar Token de Verificacao (Validade: 24h)
-    verification_token = create_access_token(
-        data={"sub": new_user.email, "type": "email_verification"},
-        expires_delta=timedelta(hours=24)
-    )
-    
-    # Envio SÍNCRONO para garantir e debugar (sem BackgroundTasks por enquanto)
-    print("📧 Preparando envio de e-mail...")
-    try:
-        from backend.app.services.email_service import send_verification_email
-        send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
-        print("✅ E-mail de verificação despachado com sucesso!")
+    except HTTPException:
+        # Re-raise HTTPExceptions (já são JSON válidos)
+        raise
     except Exception as e:
-        print(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
-        # Em produção, não parariamos o cadastro, mas para debug queremos ver o erro
-        # raise HTTPException(status_code=500, detail=f"Erro no envio de e-mail: {str(e)}")
-
-    return {
-        "message": "Cadastro realizado. Verifique seu e-mail para ativar a conta.", 
-        "email": new_user.email,
-        "status": "pending_verification"
-    }
+        # Capturar qualquer outro erro e retornar JSON válido
+        print(f"❌ ERRO INTERNO NO SIGNUP: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro interno ao processar cadastro: {str(e)}"
+        )
 
 class EmailVerification(BaseModel):
     token: str
