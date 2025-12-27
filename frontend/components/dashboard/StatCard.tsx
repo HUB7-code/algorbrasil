@@ -45,7 +45,7 @@ export function StatCard({
                     <div className={`
                         flex items-center gap-1 text-[10px] font-mono px-2 py-1 rounded-full border
                         ${trendUp
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                            ? 'bg-[#00FF94]/10 text-[#00FF94] border-[#00FF94]/20'
                             : 'bg-red-500/10 text-red-400 border-red-500/20'
                         }
                     `}>
