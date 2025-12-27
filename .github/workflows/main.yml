@@ -32,7 +32,7 @@ jobs:
       run: |
         # Roda apenas testes verificados (Smoke e Scanner Core)
         # Ignora legado quebrado temporariamente
-        pytest backend/tests/test_smoke.py backend/tests/test_scanner_core.py -v
+        pytest tests/test_smoke.py tests/test_scanner_core.py -v
 
   frontend-build:
     runs-on: ubuntu-latest
