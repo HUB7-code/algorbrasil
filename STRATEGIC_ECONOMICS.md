@@ -16,6 +16,24 @@ Se uma IA fosse encarregada de otimizar a monetização de uma plataforma SaaS m
 
 ---
 
+## Capítulo 0: O Modelo da Associação (Freemium de Propósito)
+### A Economia do Pertencimento vs. Economia do Software
+
+Antes de mergulhar nas métricas de SaaS puro, a ALGOR Brasil introduz uma camada estratégica única: o modelo de associação. Diferente de um software tradicional onde o usuário paga por funcionalidades, aqui o usuário paga por **autoridade e pertencimento**.
+
+#### 0.1. O Sandbox Comunitário (The Hook)
+Para capturar a **Persona C (Estudante)** e nutrir a **Persona B (Consultor Iniciante)**, a plataforma oferece um "Laboratório Pessoal" (Sandbox).
+*   **Mecânica:** Acesso gratuito, mas limitado a 1 Workspace.
+*   **Valor:** O usuário aprende a metodologia ALGOR auditando seus próprios projetos.
+*   **A Trava Econômica:** O momento de monetização ocorre quando o usuário tenta vender o serviço para terceiros (criar o 2º workspace).
+
+#### 0.2. A Associação como Gateway de Receita
+O upgrade não é para "Premium", é para **"Associado"**. Isso muda a percepção de custo para investimento na carreira.
+*   **Arbitragem de Status:** O software é a ferramenta, mas a associação é o selo de qualidade que permite ao consultor cobrar mais caro de seus clientes.
+*   **Alavancagem:** O valor da mensalidade associativa é infímo perto do valor de um único contrato de consultoria fechado com o aval da ALGOR.
+
+---
+
 ## Capítulo 1: A Transição Ontológica
 ### Do Aluguel de Ferramentas à Compra de Desfechos (Outcome-Based Pricing)
 

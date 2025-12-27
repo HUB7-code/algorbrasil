@@ -43,39 +43,39 @@ const personas = [
     },
     {
         id: 'guardian',
-        title: 'O Guardião',
-        role: 'Risco & Compliance',
+        title: 'O Auditor',
+        role: 'Consultores & Risk',
         icon: ShieldCheck,
         color: '#FFB000',
         gradient: 'from-amber-500 to-orange-500',
-        description: 'Foco em ISO 42001, Controles e Auditoria.',
-        solutions: ['Matriz de Risco', 'Framework de Controles', 'Manual do Auditor'],
-        path: '/solutions/risk',
-        badge: 'Compliance'
+        description: 'Gerencie múltiplos clientes em um único painel.',
+        solutions: ['Portfólio Multi-Tenant', 'Matriz de Risco ISO 42001', 'Gerador de Relatórios'],
+        path: '/dashboard/clients', // Link direto
+        badge: 'Consultant'
     },
     {
         id: 'builder',
-        title: 'O Construtor',
+        title: 'O Engenheiro',
         role: 'CTO & Tech Lead',
         icon: Cpu,
         color: '#00A3FF',
         gradient: 'from-blue-500 to-purple-500',
-        description: 'Foco em MLOps, Arquitetura e Performance.',
-        solutions: ['Governança em CI/CD', 'Monitoramento de Drift', 'Blueprints Técnicos'],
-        path: '/solutions/tech',
+        description: 'Integre governança ao CI/CD com nossa API (curl).',
+        solutions: ['API Scanner (cURL)', 'Regulation-as-Code', 'Monitoramento de Drift'],
+        path: '/scanner?mode=api', // Link direto
         badge: 'Technical'
     },
     {
         id: 'protector',
-        title: 'O Protetor',
+        title: 'O Especialista',
         role: 'Jurídico & DPO',
         icon: Scale,
         color: '#8B5CF6',
         gradient: 'from-purple-500 to-pink-500',
-        description: 'Foco em LGPD, PL 2338 e Segurança Jurídica.',
-        solutions: ['Compliance Regulatório', 'Modelos de Contrato', 'Diagnóstico Legal'],
-        path: '/solutions/legal',
-        badge: 'Legal'
+        description: 'Acesse a base de conhecimento e leis atualizadas.',
+        solutions: ['Knowledge Hub', 'Modelos de Contrato', 'Diagnóstico Legal'],
+        path: '/hub', // Futuro Hub
+        badge: 'Knowledge'
     }
 ];
 

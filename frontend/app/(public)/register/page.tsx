@@ -45,6 +45,11 @@ const personaImages: Record<string, { src: string; alt: string; label: string }>
         src: "/images/personas/protector.png",
         alt: "Fortaleza Jurídica LGPD",
         label: "Blindagem Legal"
+    },
+    student: {
+        src: "/images/personas/protector.png",
+        alt: "Algor Knowledge Hub",
+        label: "Membro Acadêmico"
     }
 };
 
@@ -110,7 +115,7 @@ function RegisterContent() {
 
             setStatus("success");
             setTimeout(() => {
-                router.push("/login");
+                router.push("/register/success");
             }, 2000);
 
         } catch (error: any) {
@@ -148,18 +153,11 @@ function RegisterContent() {
                 {/* Top Section */}
                 <div className="relative z-10">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center gap-4 mb-12 group">
-                        <motion.div
-                            className="w-14 h-14 rounded-xl overflow-hidden border border-[#00FF94]/30 shadow-[0_0_25px_rgba(0,255,148,0.2)]"
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 40px rgba(0,255,148,0.3)" }}
-                        >
-                            <Image src="/logo-algor.webp" alt="Algor" width={56} height={56} className="object-contain" />
-                        </motion.div>
+                    <Link href="/" className="flex flex-col gap-1 mb-12 group">
                         <div>
-                            <span className="font-display font-bold text-xl text-white">
+                            <span className="font-orbitron font-bold text-xl text-white">
                                 ALGOR <span className="text-[#00FF94]">BRASIL</span>
                             </span>
-                            <p className="text-[10px] font-mono text-gray-500 uppercase tracking-[0.2em]">Trust Hub v5.1</p>
                         </div>
                     </Link>
 
@@ -182,7 +180,7 @@ function RegisterContent() {
 
                 {/* Center: Persona Visualization */}
                 <motion.div
-                    className="relative z-10 flex-grow flex items-center justify-center py-8"
+                    className="relative z-10 flex-grow flex items-center justify-center py-8 -mt-24"
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
@@ -204,10 +202,10 @@ function RegisterContent() {
                         {/* Main Image Container */}
                         <div className="relative w-full h-full rounded-full overflow-hidden border border-white/10 bg-gradient-to-br from-[#131825] to-[#0A0E1A] shadow-[0_0_60px_rgba(0,0,0,0.5)] group-hover:border-[#00FF94]/30 transition-all duration-500">
                             <Image
-                                src={activePersona.src}
-                                alt={activePersona.alt}
+                                src="/logo-algor.webp"
+                                alt="Algor Brasil"
                                 fill
-                                className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                                className="object-contain p-12 opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                                 priority
                             />
 
@@ -215,10 +213,8 @@ function RegisterContent() {
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E1A] via-transparent to-transparent opacity-80" />
 
                             {/* Label */}
-                            <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center text-center">
-                                <h3 className="text-2xl font-serif font-medium text-white mb-3">
-                                    {activePersona.label}
-                                </h3>
+                            <div className="absolute bottom-12 left-0 right-0 flex flex-col items-center text-center">
+                                {/* Label Removed as requested */}
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-[#00FF94]/30 backdrop-blur-md">
                                     <div className="w-2 h-2 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] animate-pulse" />
                                     <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em]">
@@ -253,11 +249,11 @@ function RegisterContent() {
 
                     {/* Mobile Logo */}
                     <div className="lg:hidden mb-8 flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-[#00FF94]/30 shadow-[0_0_20px_rgba(0,255,148,0.2)]">
-                            <Image src="/logo-algor.webp" alt="Algor" width={48} height={48} className="object-contain" />
+                        <div className="w-24 h-24 rounded-full overflow-hidden border border-[#00FF94]/30 shadow-[0_0_20px_rgba(0,255,148,0.2)]">
+                            <Image src="/logo-algor.webp" alt="Algor" width={96} height={96} className="object-contain" />
                         </div>
                         <div>
-                            <span className="font-display font-bold text-lg text-white">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
+                            <span className="font-orbitron font-bold text-lg text-white">ALGOR <span className="text-[#00FF94]">BRASIL</span></span>
                         </div>
                     </div>
 
@@ -281,7 +277,7 @@ function RegisterContent() {
                             Criar <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Conta</span>
                         </h2>
                         <p className="text-gray-400 font-light">
-                            {role ? `Perfil: ${role.charAt(0).toUpperCase() + role.slice(1)}` : "Junte-se à plataforma de governança de IA."}
+                            {role === 'student' ? "Perfil: Estudante / Acadêmico" : (role ? `Perfil: ${role.charAt(0).toUpperCase() + role.slice(1)}` : "Junte-se à plataforma de governança de IA.")}
                         </p>
                     </motion.div>
 
@@ -303,7 +299,7 @@ function RegisterContent() {
                                     <CheckCircle2 className="w-10 h-10 text-[#00FF94]" />
                                 </motion.div>
                                 <h3 className="text-2xl font-serif font-medium text-white mb-2">Conta Criada!</h3>
-                                <p className="text-gray-400">Redirecionando para o login...</p>
+                                <p className="text-gray-400">Redirecionando para verificação...</p>
                             </motion.div>
                         ) : (
                             <motion.form
@@ -506,8 +502,8 @@ function RegisterContent() {
                         )}
                     </AnimatePresence>
                 </div>
-            </motion.div>
-        </main>
+            </motion.div >
+        </main >
     );
 }
 

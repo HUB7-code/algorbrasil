@@ -1,7 +1,109 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 26/12/2025 - 09:48 (Full Premium UI/UX Complete)
-> **Status Geral:** **POWER BI PREMIUM DARK MODE - UI COMPLETA (V15.0)** 🎨✅
-> **Versão:** 15.0 (Full Premium Visual Experience)
+> **Última Atualização:** 27/12/2025 - 11:10 (Persona B Limits & Homepage Refresh)
+> **Status Geral:** **PERSONA B: COMMUNITY LIMITS & HOMEPAGE ALIGNMENT (V16.1.1)** 🚀✅
+> **Versão:** 16.1.1 (Community Sandbox vs Associate Pro)
+
+---
+
+## 1. Destaque: Modelo de Negócio (Comunidade vs Associado)
+
+Refinamos a estratégia da **Persona B (Consultor)** para alinhar com o modelo de Associação da ALGOR Brasil.
+
+### 🚀 Business Logic V16.1.1
+
+| Regra | Detalhe | Status |
+|-------|---------|--------|
+| **Comunidade (Free)** | Acesso a ferramentas, mas limitado a **1 Workspace** (Sandbox Pessoal). | ✅ Validado |
+| **Associado (Pro)** | Acesso desbloqueado a **Workspaces Ilimitados** para gestão de clientes. | ✅ Validado |
+| **Upsell Trigger** | Tentativa de criar 2º workspace dispara bloqueio `403` e mensagem de conversão. | ✅ Validado |
+
+---
+
+## 2. Homepage: Alinhamento Estratégico (V16.1.1)
+
+A Homepage foi atualizada para vender corretamente as funcionalidades que construímos, eliminando o gap entre "Marketing" e "Produto".
+
+### 🛍️ Vitrine de Personas
+
+| Persona | Oferta Atualizada | Link Direto |
+|---------|-------------------|-------------|
+| **O Auditor (Consultor)** | "Gerencie múltiplos clientes em um único painel." | `/dashboard/clients` |
+| **O Engenheiro (Tech)** | "Integre governança ao CI/CD com nossa API (curl)." | `/scanner?mode=api` |
+| **O Especialista (Legal)** | "Acesse o Knowledge Hub e leis atualizadas." | `/hub` (Em construção) |
+
+---
+
+## 3. Destaque Anterior: Gestão de Portfólio (Persona B)
+
+Início da jornada da **Persona B (Auditor/Consultor)**, implementando a capacidade de gerenciar múltiplos clientes.
+
+### 🚀 Core Features V16.1
+
+| Feature | Especificação | Status |
+|---------|---------------|--------|
+| **Client Portfolio Page** | Dashboard exclusivo para gestão de múltiplos workspaces | ✅ Frontend |
+| **Multi-Tenant Architecture** | Backend validado para suportar N organizações por usuário | ✅ Backend |
+| **Client Onboarding** | Modal "Novo Cliente" otimizado para consultores | ✅ Frontend |
+
+---
+
+## 4. Destaque Anterior: Monetização "Audit Credits" (Persona A)
+
+Entrega completa da jornada da **Persona A (Empresa/Visitante)** na versão 16.0.
+
+### 💎 Core Features V16.0
+
+| Feature | Especificação | Status |
+|---------|---------------|--------|
+| **Scanner "Regulation-as-Code"** | Aba API com cURL snippet + Upload Manual | ✅ Developer exp |
+| **Scanner Protection** | Auth Guard + Credit Debit (-1 por uso) | ✅ Security |
+| **Demo Usage Limit** | Bloqueio automático (`402` Payment Required) após 3 usos | ✅ Business |
+
+---
+
+## 5. Próximos Passos (Backlog)
+
+| Prioridade | Tarefa | Status |
+|------------|--------|--------|
+| 1 | ✅ **Persona B (Limits)** - Sandbox Comunitário vs Associado | 🚀 Complete |
+| 2 | ✅ **Homepage Refresh** - Alinhamento com Produto | 🛍️ Complete |
+| 3 | 🚀 **Persona C (Knowledge Hub)** - Página `/hub` | Próximo Foco |
+| 4 | 🚀 **Persona B (Tools)** - Gerador de Relatório ISO 42001 | Backlog |
+
+---
+
+## 6. Resumo Visual V16.1.1
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                 ALGOR BRASIL v16.1.1                        │
+│         COMMUNITY SANDBOX & HOMEPAGE ALIGNMENT              │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  🚀 BUSINESS LOGIC (ASSOCIATION MODEL)                      │
+│  ├── Free User (Community) -> 1 Workspace Lmt... ✅         │
+│  ├── Pro User (Associate) -> Unlimited Worksp... ✅         │
+│  ├── Upsell Gate (403 Forbidden)................ ✅         │
+│                                                              │
+│  🛍️ HOMEPAGE STRATEGY                                       │
+│  ├── "O Auditor" -> Vende Multi-Tenant.......... ✅         │
+│  ├── "O Engenheiro" -> Vende API Scanner........ ✅         │
+│  ├── "O Especialista" -> Vende Hub (Link)....... ✅         │
+│                                                              │
+│  ✅ JORNADAS ATIVAS                                         │
+│  ├── Persona A (Empresa) ....................... ✅ (100%)  │
+│  ├── Persona B (Consultor) ..................... 🚧 (50%)   │
+│  └── Persona C (Estudante) ..................... ⏳ (Start) │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+*Documento atualizado automaticamente. Versão 16.1.1 (Stable - Community Limits & Homepage Refresh).*
+> **Última Atualização:** 27/12/2025 - 09:17 (Enterprise & Branding)
+> **Status Geral:** **POWER BI PREMIUM DARK MODE - ENTERPRISE & BRANDING (V15.4)** 🎨✅
+> **Versão:** 15.4 (Enterprise Journey & Logo Standardization)
 
 ---
 
@@ -63,7 +165,7 @@ Redesign completo do menu lateral do dashboard:
 | **User Card Premium** | Avatar gradient, badge PRO/FREE animado | ✅ |
 | **Badges por Item** | Contadores e labels ("PRO", "4") | ✅ |
 | **Logo com Glow** | Shadow neon + hover scale | ✅ |
-| **Versão Trust Hub** | Badge "Trust Hub v5.1" | ✅ |
+| **Branding** | Logo Orbitron Padronizada | ✅ |
 
 ---
 
@@ -125,7 +227,11 @@ Centro Legal e de Privacidade completo:
 | **CORS Policy** | Restrito a localhost e produção | ✅ |
 | **Auth Guard** | Endpoints protegidos | ✅ |
 | **Privacy by Design** | Consent checkbox obrigatório | ✅ |
-| **Trust Hub v5.1** | Hash Chaining + Edge Telemetry | ✅ |
+| **Trust Architecture** | Hash Chaining + Edge Telemetry | ✅ |
+| **Verify Email** | Hard Confirm + Gmail SMTP (CID Logo) | ✅ |
+| **Corporate Data Policy** | CNPJ omitido do footer (Reativação Cadastral) | ✅ |
+| **Onboarding 401 Fix** | Tratamento robusto de token expirado/inválido | ✅ |
+| **Leads API Fix** | Router registrado + CORS via Proxy (Next.js) | ✅ |
 
 ---
 
@@ -158,11 +264,26 @@ Centro Legal e de Privacidade completo:
 
 ---
 
-## 10. Resumo Visual
+## 10. Atualizações Recentes (V15.4)
+
+### 🏢 Enterprise Journey
+- ✅ **Página Enterprise (`/solutions/enterprise`)**: Layout corrigido (Title Spacing), Fontes Orbitron.
+- ✅ **Lead Capture**: Modais (`Diagnóstico`, `Especialista`) integrados e funcionais.
+- ✅ **Fix CORS**: Requisições via Proxy (`/api/v1/...`) para evitar bloqueio do navegador.
+- ✅ **Admin**: Leads salvos visíveis em `/dashboard/leads`.
+
+### 🎨 Branding Standardization
+- ✅ **Logo Orbitron**: Aplicada em Navbar, Sidebar, Register e Enterprise Page.
+- ✅ **Remoção de Ruído**: Badge "Trust Hub v5.1" removido para limpeza visual.
+- ✅ **Tipografia Coesa**: Títulos principais alinhados com a identidade da marca.
+
+---
+
+## 11. Resumo Visual
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    ALGOR BRASIL v15.0                       │
+│                    ALGOR BRASIL v15.4                       │
 │              Power BI Premium Dark Mode                      │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
@@ -194,4 +315,4 @@ Centro Legal e de Privacidade completo:
 
 ---
 
-*Documento atualizado automaticamente. Versão 15.0 (Stable - Full Premium UI).*
+*Documento atualizado automaticamente. Versão 15.4 (Stable - Enterprise & Branding Complete).*
