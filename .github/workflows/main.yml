@@ -9,10 +9,6 @@ on:
 jobs:
   backend-test:
     runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ./backend
 
     steps:
     - uses: actions/checkout@v3
@@ -25,14 +21,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        if [ -f backend/requirements.txt ]; then pip install -r backend/requirements.txt; fi
         pip install pytest httpx
 
     - name: Run Tests with pytest
       run: |
         # Roda apenas testes verificados (Smoke e Scanner Core)
-        # Ignora legado quebrado temporariamente
-        pytest tests/test_smoke.py tests/test_scanner_core.py -v
+        # Pytest deve rodar do diretório raiz para resolver imports absolutos
+        python -m pytest backend/tests/test_smoke.py backend/tests/test_scanner_core.py -v
 
   frontend-build:
     runs-on: ubuntu-latest
