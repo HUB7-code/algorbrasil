@@ -22,10 +22,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/loading.js"
     ],
-    "/(public)/solutions/enterprise/page": [
+    "/(public)/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(public)/solutions/enterprise/page.js"
+      "static/chunks/app/(public)/login/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
