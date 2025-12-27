@@ -161,8 +161,8 @@ const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; total
         {Array.from({ length: totalSteps }).map((_, i) => (
             <motion.div
                 key={i}
-                className={`h-2 rounded-full transition-all ${i < currentStep ? 'bg-blue-500 w-8' :
-                    i === currentStep ? 'bg-blue-400 w-12' :
+                className={`h-2 rounded-full transition-all ${i < currentStep ? 'bg-[#00A3FF] w-8' :
+                    i === currentStep ? 'bg-[#00A3FF]/80 w-12' :
                         'bg-gray-700 w-2'
                     }`}
                 initial={{ scale: 0.8 }}
@@ -277,7 +277,7 @@ export default function CalculadoraMultasPage() {
                     </h1>
 
                     <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-                        Descubra quanto sua empresa pode perder em multas e riscos operacionais
+                        Descubra quanto sua empresa pode em multas e riscos operacionais
                     </p>
                 </motion.div>
 
@@ -306,7 +306,7 @@ export default function CalculadoraMultasPage() {
                                             exit={{ opacity: 0, x: -50 }}
                                         >
                                             <div className="flex items-center gap-4 mb-6">
-                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00A3FF] to-[#0088CC] flex items-center justify-center">
                                                     <Building2 className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
@@ -323,12 +323,12 @@ export default function CalculadoraMultasPage() {
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
                                                         className={`p-4 rounded-xl border text-left transition-all flex items-center gap-3 ${sector === s.value
-                                                            ? 'bg-blue-500/20 border-blue-500 shadow-lg shadow-blue-500/20'
+                                                            ? 'bg-[#00A3FF]/20 border-[#00A3FF] shadow-lg shadow-[#00A3FF]/20'
                                                             : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
                                                             }`}
                                                     >
                                                         <span className="text-2xl">{s.icon}</span>
-                                                        <span className={`text-sm ${sector === s.value ? 'text-blue-400' : 'text-gray-400'}`}>
+                                                        <span className={`text-sm ${sector === s.value ? 'text-[#00A3FF]' : 'text-gray-400'}`}>
                                                             {s.label}
                                                         </span>
                                                     </motion.button>
@@ -346,7 +346,7 @@ export default function CalculadoraMultasPage() {
                                             exit={{ opacity: 0, x: -50 }}
                                         >
                                             <div className="flex items-center gap-4 mb-6">
-                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00FF94] to-[#00CC76] flex items-center justify-center">
                                                     <BarChart3 className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
@@ -363,11 +363,11 @@ export default function CalculadoraMultasPage() {
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
                                                         className={`p-4 rounded-xl border text-center transition-all ${companySize === size.value
-                                                            ? 'bg-emerald-500/20 border-emerald-500 shadow-lg shadow-emerald-500/20'
+                                                            ? 'bg-[#00FF94]/20 border-[#00FF94] shadow-lg shadow-[#00FF94]/20'
                                                             : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
                                                             }`}
                                                     >
-                                                        <span className={`text-sm font-medium ${companySize === size.value ? 'text-emerald-400' : 'text-gray-400'}`}>
+                                                        <span className={`text-sm font-medium ${companySize === size.value ? 'text-[#00FF94]' : 'text-gray-400'}`}>
                                                             {size.label}
                                                         </span>
                                                     </motion.button>
@@ -385,7 +385,7 @@ export default function CalculadoraMultasPage() {
                                             exit={{ opacity: 0, x: -50 }}
                                         >
                                             <div className="flex items-center gap-4 mb-6">
-                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F59E0B] to-[#D97706] flex items-center justify-center">
                                                     <Database className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
@@ -402,16 +402,16 @@ export default function CalculadoraMultasPage() {
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
                                                         className={`p-5 rounded-xl border text-left transition-all flex items-center gap-4 ${selectedDataTypes.includes(dt.id)
-                                                            ? 'bg-purple-500/20 border-purple-500 shadow-lg shadow-purple-500/20'
+                                                            ? 'bg-[#F59E0B]/20 border-[#F59E0B] shadow-lg shadow-[#F59E0B]/20'
                                                             : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
                                                             }`}
                                                     >
-                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedDataTypes.includes(dt.id) ? 'bg-purple-500/30' : 'bg-gray-700'
+                                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${selectedDataTypes.includes(dt.id) ? 'bg-[#F59E0B]/30' : 'bg-gray-700'
                                                             }`}>
-                                                            <dt.icon className={`w-5 h-5 ${selectedDataTypes.includes(dt.id) ? 'text-purple-400' : 'text-gray-400'}`} />
+                                                            <dt.icon className={`w-5 h-5 ${selectedDataTypes.includes(dt.id) ? 'text-[#F59E0B]' : 'text-gray-400'}`} />
                                                         </div>
                                                         <div className="flex-1">
-                                                            <p className={`font-medium ${selectedDataTypes.includes(dt.id) ? 'text-purple-400' : 'text-gray-300'}`}>
+                                                            <p className={`font-medium ${selectedDataTypes.includes(dt.id) ? 'text-[#F59E0B]' : 'text-gray-300'}`}>
                                                                 {dt.label}
                                                             </p>
                                                             <span className={`text-xs px-2 py-0.5 rounded ${dt.risk === 'critical' ? 'bg-red-500/20 text-red-400' :
@@ -422,7 +422,7 @@ export default function CalculadoraMultasPage() {
                                                             </span>
                                                         </div>
                                                         {selectedDataTypes.includes(dt.id) && (
-                                                            <CheckCircle2 className="w-5 h-5 text-purple-400" />
+                                                            <CheckCircle2 className="w-5 h-5 text-[#F59E0B]" />
                                                         )}
                                                     </motion.button>
                                                 ))}
@@ -439,7 +439,7 @@ export default function CalculadoraMultasPage() {
                                             exit={{ opacity: 0, x: -50 }}
                                         >
                                             <div className="flex items-center gap-4 mb-6">
-                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#F59E0B] to-[#EA580C] flex items-center justify-center">
                                                     <Zap className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
@@ -456,11 +456,11 @@ export default function CalculadoraMultasPage() {
                                                         whileHover={{ scale: 1.01 }}
                                                         whileTap={{ scale: 0.99 }}
                                                         className={`w-full p-5 rounded-xl border text-left transition-all flex items-center justify-between ${aiUsage === ai.value
-                                                            ? 'bg-amber-500/20 border-amber-500 shadow-lg shadow-amber-500/20'
+                                                            ? 'bg-[#F59E0B]/20 border-[#F59E0B] shadow-lg shadow-[#F59E0B]/20'
                                                             : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
                                                             }`}
                                                     >
-                                                        <span className={`font-medium ${aiUsage === ai.value ? 'text-amber-400' : 'text-gray-300'}`}>
+                                                        <span className={`font-medium ${aiUsage === ai.value ? 'text-[#F59E0B]' : 'text-gray-300'}`}>
                                                             {ai.label}
                                                         </span>
                                                         <div className="flex items-center gap-3">
@@ -473,7 +473,7 @@ export default function CalculadoraMultasPage() {
                                                                     +{((ai.multiplier - 1) * 100).toFixed(0)}% risco
                                                                 </span>
                                                             )}
-                                                            {aiUsage === ai.value && <CheckCircle2 className="w-5 h-5 text-amber-400" />}
+                                                            {aiUsage === ai.value && <CheckCircle2 className="w-5 h-5 text-[#F59E0B]" />}
                                                         </div>
                                                     </motion.button>
                                                 ))}
@@ -490,7 +490,7 @@ export default function CalculadoraMultasPage() {
                                             exit={{ opacity: 0, x: -50 }}
                                         >
                                             <div className="flex items-center gap-4 mb-6">
-                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#00A3FF] to-[#0088CC] flex items-center justify-center">
                                                     <Shield className="w-6 h-6 text-white" />
                                                 </div>
                                                 <div>
@@ -505,19 +505,19 @@ export default function CalculadoraMultasPage() {
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
                                                     className={`p-8 rounded-2xl border transition-all flex flex-col items-center gap-4 ${hasGovernance === true
-                                                        ? 'bg-emerald-500/20 border-emerald-500 shadow-lg shadow-emerald-500/20'
+                                                        ? 'bg-[#00FF94]/20 border-[#00FF94] shadow-lg shadow-[#00FF94]/20'
                                                         : 'bg-gray-800/50 border-gray-700 hover:border-gray-600'
                                                         }`}
                                                 >
-                                                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${hasGovernance === true ? 'bg-emerald-500/30' : 'bg-gray-700'
+                                                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${hasGovernance === true ? 'bg-[#00FF94]/30' : 'bg-gray-700'
                                                         }`}>
-                                                        <CheckCircle2 className={`w-8 h-8 ${hasGovernance === true ? 'text-emerald-400' : 'text-gray-400'}`} />
+                                                        <CheckCircle2 className={`w-8 h-8 ${hasGovernance === true ? 'text-[#00FF94]' : 'text-gray-400'}`} />
                                                     </div>
                                                     <div className="text-center">
-                                                        <p className={`font-bold text-lg ${hasGovernance === true ? 'text-emerald-400' : 'text-white'}`}>
+                                                        <p className={`font-bold text-lg ${hasGovernance === true ? 'text-[#00FF94]' : 'text-white'}`}>
                                                             Sim, temos
                                                         </p>
-                                                        <p className="text-emerald-400/70 text-sm mt-1">-40% na multa</p>
+                                                        <p className="text-[#00FF94]/70 text-sm mt-1">-40% na multa</p>
                                                     </div>
                                                 </motion.button>
 
@@ -561,7 +561,7 @@ export default function CalculadoraMultasPage() {
                                         whileHover={{ scale: canProceed() ? 1.02 : 1 }}
                                         whileTap={{ scale: canProceed() ? 0.98 : 1 }}
                                         className={`px-8 py-4 rounded-xl font-semibold flex items-center gap-2 transition-all ${canProceed() && !isCalculating
-                                            ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/30'
+                                            ? 'bg-gradient-to-r from-[#00A3FF] to-[#00FF94] text-white shadow-lg shadow-[#00A3FF]/30'
                                             : 'bg-gray-800 text-gray-500 cursor-not-allowed'
                                             }`}
                                     >
@@ -659,17 +659,17 @@ export default function CalculadoraMultasPage() {
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.5 }}
-                                            className="bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/30 rounded-2xl p-6"
+                                            className="bg-gradient-to-r from-[#00FF94]/10 to-[#00A3FF]/10 border border-[#00FF94]/30 rounded-2xl p-6"
                                         >
                                             <div className="flex items-start gap-4">
-                                                <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center">
-                                                    <Sparkles className="w-7 h-7 text-emerald-400" />
+                                                <div className="w-14 h-14 rounded-2xl bg-[#00FF94]/20 flex items-center justify-center">
+                                                    <Sparkles className="w-7 h-7 text-[#00FF94]" />
                                                 </div>
                                                 <div className="flex-1">
                                                     <h4 className="text-white font-bold text-lg mb-1">Com Governança você economizaria</h4>
-                                                    <p className="text-4xl font-bold text-emerald-400 font-mono mb-2">
+                                                    <p className="text-4xl font-bold text-[#00FF94] font-mono mb-2">
                                                         {formatCurrency(result.legalFine * 0.67)}
-                                                        <span className="text-lg text-emerald-400/70">/ano</span>
+                                                        <span className="text-lg text-[#00FF94]/70">/ano</span>
                                                     </p>
                                                     <p className="text-gray-400 text-sm">
                                                         Empresas com governança estruturada têm até 40% de redução em multas
@@ -684,7 +684,7 @@ export default function CalculadoraMultasPage() {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.6 }}
-                                        className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-2xl p-8 text-center"
+                                        className="bg-gradient-to-r from-[#00A3FF]/20 to-[#F59E0B]/20 border border-[#00A3FF]/30 rounded-2xl p-8 text-center"
                                     >
                                         <h3 className="text-2xl font-bold text-white mb-2">Proteja sua Empresa</h3>
                                         <p className="text-gray-400 mb-6 max-w-xl mx-auto">
@@ -695,7 +695,7 @@ export default function CalculadoraMultasPage() {
                                                 <motion.button
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
-                                                    className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 flex items-center gap-2"
+                                                    className="px-8 py-4 bg-gradient-to-r from-[#00A3FF] to-[#00FF94] text-white font-semibold rounded-xl shadow-lg shadow-[#00A3FF]/30 flex items-center gap-2"
                                                 >
                                                     Começar Gratuitamente
                                                     <ArrowRight className="w-5 h-5" />
