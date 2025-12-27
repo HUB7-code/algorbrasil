@@ -1,14 +1,19 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V16.2.1 (Premium UX & Integrated Flywheel)**
+## STATUS ATUAL: **V16.3.0 (Infrastructure Stability & Auto-Healing)**
 **Data:** 27/12/2025
-**Objetivo:** Consolidar o ciclo completo de valor (Scan -> Risk -> Dashboard -> Report) e garantir consistência visual premium em todas as páginas públicas e autenticadas.
+**Objetivo:** Garantir estabilidade total em produção (VPS), corrigindo falhas de login, persistência de dados e pipeline de testes CI/CD.
 
 ---
 
-### 🚀 **Últimas Grandes Conquistas (V16.2.1)**
+### 🚀 **Últimas Grandes Conquistas (V16.3.0)**
 
-1.  **Scanner API (Persona A) - Real Integration**
+1.  **Infrastructure & Persistence (Critical Fixes)**
+    *   **Auto-Healing Database:** Script de inicialização (`initial_data.py`) reescrito em SQL Puro para eliminar dependências circulares e garantir criação de Admin/Org em qualquer ambiente.
+    *   **Robust Migrations:** Alembic configurado corretamente para gerenciar mudanças de schema na VPS.
+    *   **CI/CD Pipeline:** GitHub Actions corrigido (`ModuleNotFoundError`) e passando 100%.
+
+2.  **Scanner API (Persona A) - Real Integration**
     *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização (`RiskRegister`).
     *   **Impacto:** "Regulation-as-Code" agora alimenta o dashboard executivo em tempo real. Se o CI/CD falha, o Board vê o risco na hora.
     *   **Validation:** Testes de integração CI/CD (`test_scanner_api.py`) comprovam bloqueio de pipeline.

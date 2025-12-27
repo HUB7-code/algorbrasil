@@ -12,7 +12,7 @@ O projeto "Algor Brasil" opera em um modelo híbrido de desenvolvimento local e 
         - `frontend`: Next.js (Node 20 Alpine).
         - `backend`: Python FastAPI.
         - `web`: Nginx (Proxy Reverso).
-        - `db`: SQLite (Persistido via Volume).
+        - `db`: SQLite (Persistido via Volume mapping `./backend/sql_app.db`).
 
 ## 2. Fluxo de Trabalho (Workflow)
 
@@ -22,30 +22,40 @@ O projeto "Algor Brasil" opera em um modelo híbrido de desenvolvimento local e 
 3.  **Commit:** O Agente envia as alterações para o repositório GitHub (`main`).
 
 ### Passo 2: Atualização da VPS (Responsabilidade do Usuário)
-O usuário acessa a VPS via SSH e executa a sincronização. Como o ambiente é DOCKER, não basta baixar o código; é necessário reconstruir os containers se houver mudanças em dependências (`package.json`).
+O usuário acessa a VPS via SSH e executa a sincronização.
 
-#### Comandos Padrão de Deploy:
+#### Protocolo Padrão de Deploy (Atualizado V16.3):
+
 ```bash
 cd ~/algorbrasil
 
-# 1. Sincronizar Código com GitHub (Forçar exatidão)
+# 1. Sincronizar Código com GitHub
 git fetch origin
 git reset --hard origin/main
 
-# 2. Reconstruir Containers (CRUCIAL para novas dependências)
-# O flag --build força o Docker a reler o package.json e rodar npm install
+# 2. Reconstruir Containers (Se houve mudança em libs ou Dockerfile)
 docker-compose down
 docker-compose up --build -d
 ```
 
-### Passo 3: Verificação
-- Acompanhar logs se necessário: `docker logs -f algor_frontend`
-- Verificar se a aplicação está online.
+### Passo 3: Garantia de Integridade do Banco (Crucial!)
+Sempre que houver mudanças no banco de dados (novas colunas, tabelas) ou problemas de login, execute estes comandos de "Auto-Cura":
+
+```bash
+# 1. Aplicar Migrations (Garante estrutura das tabelas)
+docker-compose exec backend alembic -c backend/alembic.ini upgrade head
+
+# 2. Inicializar/Reparar Dados (Garante Admin e Organização Principal)
+# (Este script é idempotente e usa SQL puro, à prova de falhas)
+docker-compose exec backend python -m backend.app.initial_data
+```
 
 ## 3. Notas Técnicas Importantes
-- **Persistência:** O banco de dados SQLite (`sql_app.db`) é mapeado como volume. O `git reset --hard` NÃO apaga o banco de dados de produção, pois ele geralmente está no `.gitignore` ou é preservado pelo Docker Volume, mas cuidado com arquivos locais não versionados.
-- **Dependências:** Se adicionarmos uma lib (ex: `three`, `framer-motion`) localmente, ela SÓ funcionará na VPS após o `docker-compose up --build`. O simples restart não instala pacotes novos.
-- **Conflitos:** A pasta `.next` e `node_modules` dentro do container são efêmeras. O `git reset` na VPS garante que não haja conflitos de merge com arquivos gerados automaticamente.
+- **Persistência:** O banco de dados SQLite é mapeado como volume. O `git reset` NÃO apaga o banco de dados.
+- **SQLite Path:** O arquivo real fica em `~/algorbrasil/backend/sql_app.db` na VPS.
+- **Erros Comuns:** 
+    - *Login falhando após deploy?* Rode o comando `initial_data` (Passo 3.2).
+    - *Erro 500 no Signup?* Rode as migrations (Passo 3.1).
 
 ---
-**Regra de Ouro:** "Se mudou o `package.json` ou configs de build, tem que rodar com `--build` na VPS."
+**Regra de Ouro:** "Na dúvida, rode o `initial_data`. Ele conserta usuários Admin e Organizações quebradas."
