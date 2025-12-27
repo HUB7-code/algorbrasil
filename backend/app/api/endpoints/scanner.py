@@ -134,6 +134,40 @@ async def scan_upload(
     if len(rows) > 0:
         operational_score -= (empty_lines / len(rows)) * 50
     
+    # --- PERSISTENCE LAYER (BRIDGE TO DASHBOARD) ---
+    # Persist HIGH/CRITICAL findings to Risk Register so Dashboard updates
+    try:
+        from backend.app.models.risk import RiskRegister, RiskStatus, RiskStrategy
+        
+        for finding in findings:
+            if finding.severity in ["HIGH", "CRITICAL"]:
+                # Check for duplicate risk to avoid spamming DB on repeated scans
+                # Simple dedup based on description signature
+                existing = db.query(RiskRegister).filter(
+                    RiskRegister.organization_id == owned_org.id,
+                    RiskRegister.description == finding.description
+                ).first()
+                
+                if not existing:
+                    new_risk = RiskRegister(
+                        user_id=current_user.id,
+                        organization_id=owned_org.id,
+                        category=finding.category,
+                        description=finding.description,
+                        affected_system=f"File: {filename}",
+                        probability=3 if finding.severity == "HIGH" else 5,
+                        impact=4 if finding.severity == "HIGH" else 5,
+                        risk_level=12 if finding.severity == "HIGH" else 25, # Simple calc
+                        strategy=RiskStrategy.MITIGATE,
+                        status=RiskStatus.OPEN
+                    )
+                    db.add(new_risk)
+        
+        db.commit()
+    except Exception as e:
+        print(f"Failed to persist risks: {e}")
+        # Dont block response if persistence fails
+    
     return ScanResult(
         total_rows=total_received,
         risks_found=len(findings),

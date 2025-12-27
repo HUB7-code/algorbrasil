@@ -1,7 +1,28 @@
-# MEMÓRIA DO PROJETO - ALGOR BRASIL (SAVE STATE)
-> **Última Atualização:** 27/12/2025 - 11:10 (Persona B Limits & Homepage Refresh)
-> **Status Geral:** **PERSONA B: COMMUNITY LIMITS & HOMEPAGE ALIGNMENT (V16.1.1)** 🚀✅
-> **Versão:** 16.1.1 (Community Sandbox vs Associate Pro)
+# MEMÓRIA DO PROJETO - ALGOR BRASIL
+
+## STATUS ATUAL: **V16.2 (Integrated Flywheel Engine)**
+**Data:** 27/12/2025
+**Objetivo:** Consolidar o ciclo completo de valor (Scan -> Risk -> Dashboard -> Report) e fortalecer a oferta para as 3 personas (Engineer, Consultant, Specialist).
+
+---
+
+### 🚀 **Últimas Grandes Conquistas (V16.2)**
+1.  **Scanner API (Persona A) - Real Integration**
+    *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização.
+    *   **Impacto:** "Regulation-as-Code" agora alimenta o dashboard executivo em tempo real. Se o CI/CD falha, o Board vê o risco na hora.
+    *   **Validation:** Testes de integração CI/CD (`test_scanner_api.py`) comprovam bloqueio de pipeline.
+
+2.  **Smart Report ISO 42001 (Persona B)**
+    *   **Engine:** Gerador de PDFs customizados (`backend/services/ReportGenerator`) com Score de Viabilidade.
+    *   **Viewer:** Interface A4 Web-ready (`frontend/app/dashboard/report-iso42001`) para consultores imprimirem auditorias.
+    *   **Workflow:** Botão integrado na gestão de carteira de clientes (`/dashboard/clients`).
+
+3.  **Knowledge Hub (Persona C)**
+    *   **Portal:** Nova área `/hub` lançada com Glossário Interativo e News Ticker.
+    *   **Onboarding:** Fluxo de registro adaptado para estudantes/acadêmicos.
+
+4.  **Dashboard "Vivo"**
+    *   **Telemetry:** Gráficos (Trend & Radar) agora consomem dados reais do banco. O "Trust Score" flutua conforme novos riscos são detectados pelo Scanner.
 
 ---
 
