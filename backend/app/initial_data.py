@@ -1,7 +1,22 @@
 import logging
-from backend.app.db.session import SessionLocal
+# IMPORTANTE: Importar Base e TODOS os models antes de iniciar a sessão
+# Isso garante que o SQLAlchemy conheça todos os relacionamentos entre tabelas
+from backend.app.db.session import SessionLocal, Base
 from backend.app.core.security import get_password_hash
-from backend.app.models import user, organization, profiles
+
+# Importação em bloco para registrar modelos no metadata
+from backend.app.models import (
+    user, 
+    organization, 
+    profiles, 
+    assessment, 
+    risk, 
+    lms, 
+    payment, 
+    project, 
+    ai_asset, 
+    governance
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -47,13 +62,12 @@ def init_db():
             db.commit()
             logger.info("✅ Organization created.")
         else:
-            # Garantir dados atualizados
             if org.plan_tier != 'enterprise':
                 org.plan_tier = 'enterprise'
                 db.commit()
                 logger.info("🔄 Organization updated to Enterprise.")
 
-        # 3. Check/Create Profile (Prevent Frontend Lockout)
+        # 3. Check/Create Profile
         profile = db.query(profiles.CorporateProfile).filter(profiles.CorporateProfile.user_id == current_user.id).first()
         if not profile:
             logger.info("➕ Creating Corporate Profile...")
@@ -71,7 +85,6 @@ def init_db():
             
     except Exception as e:
         logger.error(f"❌ Error during initialization: {e}")
-        # db.rollback() # Optional
     finally:
         db.close()
 
