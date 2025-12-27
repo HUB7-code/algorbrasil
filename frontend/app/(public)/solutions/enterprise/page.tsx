@@ -5,48 +5,31 @@ import { motion } from 'framer-motion';
 import {
     Shield, Lock, Zap, Activity, CheckCircle2, BarChart3,
     Globe, Server, ArrowRight, ChevronRight, Play, Cpu,
-    Eye, FileText, Users, TrendingUp, Clock, Award
+    Eye, FileText, Users, TrendingUp, Clock, Award, LayoutDashboard
 } from 'lucide-react';
 import Link from 'next/link';
 import { EnterpriseLeadModal, SpecialistContactModal } from '@/components/leads';
 
-// Animation variants
-const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6 }
-};
+// --- DATA & CONTENT ---
 
-const staggerContainer = {
-    animate: {
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
-};
-
-// Feature Cards Data
 const valueProps = [
     {
         icon: Lock,
         title: 'Risco-como-Serviço',
         description: 'Não oferecemos apenas software; entregamos certeza. Nossa infraestrutura assume a responsabilidade técnica da conformidade.',
-        color: 'blue',
-        gradient: 'from-blue-500 to-cyan-500'
+        color: '#00A3FF' // Brand Blue
     },
     {
         icon: Server,
         title: 'Telemetria na Borda',
         description: 'Latência zero para sua IA. Nosso Agente de Borda coleta telemetria de risco assincronamente, sem gargalar sua produção.',
-        color: 'green',
-        gradient: 'from-emerald-500 to-teal-500'
+        color: '#00FF94' // Brand Green
     },
     {
         icon: Shield,
         title: 'Criptografia de Rastreio',
         description: 'Logs de auditoria matematicamente imutáveis. Criptografia de hash encadeado garante histórico à prova de adulteração.',
-        color: 'purple',
-        gradient: 'from-purple-500 to-pink-500'
+        color: '#F59E0B' // Brand Warning/Gold
     }
 ];
 
@@ -54,20 +37,20 @@ const architectureSteps = [
     {
         number: '01',
         title: 'Interceptação Segura',
-        description: 'Todo prompt passa pelo nosso Ethical Guardrail antes de chegar na OpenAI/Azure. Bloqueamos PII e toxicidade na origem.',
-        color: 'blue'
+        description: 'Todo prompt passa pelo nosso Ethical Guardrail antes de chegar na OpenAI/Azure. Bloqueamos PII na origem.',
+        color: '#00A3FF'
     },
     {
         number: '02',
         title: 'Cofre de Evidências',
         description: 'Logs são assinados e armazenados em cofre imutável. Sua prova de inocência jurídica, gerada automaticamente.',
-        color: 'green'
+        color: '#00FF94'
     },
     {
         number: '03',
         title: 'Índice Atuarial (ARI)',
         description: 'Calculamos seu Score de Risco em tempo real para reduzir prêmios de seguro e desbloquear vendas B2B.',
-        color: 'purple'
+        color: '#F59E0B'
     }
 ];
 
@@ -87,13 +70,15 @@ const integrations = [
     { name: 'LlamaIndex', logo: '🦙' }
 ];
 
+// --- COMPONENT ---
+
 export default function EnterprisePage() {
     const [activeStep, setActiveStep] = useState(0);
     const [isDiagnosticModalOpen, setIsDiagnosticModalOpen] = useState(false);
     const [isSpecialistModalOpen, setIsSpecialistModalOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white pt-24 pb-20 font-sans">
+        <div className="min-h-screen bg-[#0A0E1A] text-white pt-32 pb-20 font-sans selection:bg-[#00FF94] selection:text-[#0A0E1A]">
 
             {/* Lead Capture Modals */}
             <EnterpriseLeadModal
@@ -107,99 +92,78 @@ export default function EnterprisePage() {
                 source="enterprise-cta"
             />
 
-            {/* Background Ambience */}
+            {/* Background Ambience (Subtle & Premium) */}
             <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-[#131825] to-transparent opacity-80" />
-                <div className="absolute top-[20%] right-[-10%] w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-[120px]" />
-                <div className="absolute bottom-[20%] left-[-10%] w-[600px] h-[600px] bg-emerald-500/5 rounded-full blur-[100px]" />
+                <div className="absolute top-[-20%] left-[-10%] w-[1000px] h-[1000px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
             </div>
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="max-w-[1400px] mx-auto px-6 relative z-10">
 
                 {/* --- HERO SECTION --- */}
                 <motion.header
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="text-center pb-32"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-center pb-32 relative"
                 >
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-[#00FF94] tracking-widest uppercase mb-8 cursor-default hover:bg-white/10 transition-colors">
+                        <Shield className="w-3 h-3" />
+                        Enterprise Grade Security
+                    </div>
 
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-5xl lg:text-7xl font-orbitron font-bold mb-8 leading-tight tracking-tight mt-16"
-                    >
-                        Cresça Rápido. <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400">
+                    <h1 className="text-5xl lg:text-8xl font-serif font-medium mb-8 leading-[0.9] tracking-tight text-white">
+                        Cresça Rápido.<br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">
                             Durma Tranquilo.
                         </span>
-                    </motion.h1>
+                    </h1>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed font-light"
-                    >
-                        A única infraestrutura do Brasil que une <span className="text-white font-medium">Growth Hacking</span> com <span className="text-white font-medium">ISO 42001 Nativa</span>.
-                        Desbloqueie contratos Enterprise transformando governança em ativo de confiança.
-                    </motion.p>
+                    <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed font-light">
+                        A única infraestrutura do Brasil que une <span className="text-white font-medium border-b border-[#00A3FF]/30">Growth Hacking</span> com <span className="text-white font-medium border-b border-[#00FF94]/30">ISO 42001 Nativa</span>.
+                        Transforme governança em vantagem competitiva.
+                    </p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="flex flex-col sm:flex-row items-center justify-center gap-4"
-                    >
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                         <motion.button
                             onClick={() => setIsDiagnosticModalOpen(true)}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 flex items-center gap-3 cursor-pointer"
+                            className="px-8 py-4 bg-[#00FF94] text-[#0A1A2F] font-bold rounded-xl hover:bg-[#00CC76] transition-all flex items-center gap-3 shadow-[0_0_30px_rgba(0,255,148,0.2)]"
                         >
-                            Agendar Diagnóstico Técnico
-                            <Zap className="w-5 h-5" />
+                            <Zap className="w-5 h-5 fill-current" />
+                            AGENDAR DIAGNÓSTICO
                         </motion.button>
                         <Link href="#architecture">
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
+                                whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.1)" }}
                                 whileTap={{ scale: 0.98 }}
-                                className="px-8 py-4 bg-gray-800/50 hover:bg-gray-800 border border-gray-700 rounded-xl font-medium transition-all backdrop-blur-sm flex items-center gap-3"
+                                className="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold rounded-xl transition-all flex items-center gap-3 backdrop-blur-md"
                             >
-                                Entender a Arquitetura
-                                <Play className="w-5 h-5" />
+                                <LayoutDashboard className="w-5 h-5" />
+                                VER ARQUITETURA
                             </motion.button>
                         </Link>
-                    </motion.div>
+                    </div>
                 </motion.header>
 
-                {/* --- STATS BAR --- */}
+                {/* --- STATS BAR (Power BI Cards) --- */}
                 <motion.section
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mb-24"
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-32"
                 >
-                    <div className="bg-gradient-to-r from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-3xl p-8">
-                        <div className="grid grid-cols-4 gap-8">
-                            {benefits.map((benefit, idx) => (
-                                <motion.div
-                                    key={benefit.label}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.1 }}
-                                    className="text-center"
-                                >
-                                    <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center mx-auto mb-3">
-                                        <benefit.icon className="w-6 h-6 text-blue-400" />
-                                    </div>
-                                    <p className="text-3xl font-bold text-white font-mono mb-1">{benefit.value}</p>
-                                    <p className="text-gray-500 text-sm">{benefit.label}</p>
-                                </motion.div>
-                            ))}
+                    {benefits.map((benefit, idx) => (
+                        <div key={benefit.label} className="group relative overflow-hidden bg-[#0A1A2F]/60 backdrop-blur-xl border border-white/5 rounded-2xl p-6 hover:border-[#00FF94]/30 transition-colors">
+                            <div className="flex justify-between items-start mb-4">
+                                <p className="text-xs font-bold text-gray-500 uppercase tracking-wider">{benefit.label}</p>
+                                <benefit.icon className="w-5 h-5 text-[#00A3FF] group-hover:text-[#00FF94] transition-colors" />
+                            </div>
+                            <p className="text-4xl font-mono font-bold text-white group-hover:scale-105 transition-transform origin-left">{benefit.value}</p>
                         </div>
-                    </div>
+                    ))}
                 </motion.section>
 
                 {/* --- VALUE PROPOSITION --- */}
@@ -207,30 +171,30 @@ export default function EnterprisePage() {
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    className="grid lg:grid-cols-3 gap-6 mb-32"
+                    className="grid lg:grid-cols-3 gap-8 mb-32"
                 >
                     {valueProps.map((prop, idx) => (
                         <motion.div
                             key={prop.title}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
                             transition={{ delay: idx * 0.1 }}
-                            whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                            className="group bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-3xl p-8 hover:border-gray-700 transition-all"
+                            whileHover={{ y: -8 }}
+                            className="group p-8 rounded-3xl bg-gradient-to-b from-[#131825] to-[#0A0E1A] border border-white/5 hover:border-white/10 transition-all relative overflow-hidden"
                         >
-                            <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${prop.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                                <prop.icon className="w-7 h-7 text-white" />
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-[50px] group-hover:bg-[#00A3FF]/10 transition-colors" />
+
+                            <div className="w-14 h-14 rounded-2xl bg-[#0A1A2F] border border-white/10 flex items-center justify-center mb-8 group-hover:border-[#00FF94]/50 transition-colors shadow-lg">
+                                <prop.icon className="w-6 h-6" style={{ color: prop.color }} />
                             </div>
-                            <h3 className="text-2xl font-bold mb-4 text-white">{prop.title}</h3>
-                            <p className="text-gray-400 leading-relaxed">
+
+                            <h3 className="text-2xl font-serif font-medium text-white mb-4">{prop.title}</h3>
+                            <p className="text-gray-400 leading-relaxed text-sm">
                                 {prop.description}
                             </p>
                         </motion.div>
                     ))}
                 </motion.section>
 
-                {/* --- ARCHITECTURE DIAGRAM --- */}
+                {/* --- ARCHITECTURE DIAGRAM (Live Monitor) --- */}
                 <motion.section
                     id="architecture"
                     initial={{ opacity: 0 }}
@@ -238,200 +202,145 @@ export default function EnterprisePage() {
                     viewport={{ once: true }}
                     className="mb-32 scroll-mt-32"
                 >
-                    <div className="bg-gradient-to-b from-[#131825]/90 to-[#0A0E1A]/90 backdrop-blur-xl border border-gray-800 rounded-3xl p-12 relative overflow-hidden">
+                    <div className="p-1 rounded-3xl bg-gradient-to-b from-white/10 to-transparent">
+                        <div className="bg-[#0D1117] rounded-[22px] p-8 lg:p-16 relative overflow-hidden">
+                            {/* Background Glow */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00A3FF]/10 blur-[100px] pointer-events-none" />
 
-                        <div className="grid lg:grid-cols-2 gap-16 items-center">
-                            <div>
-                                <motion.h2
-                                    initial={{ opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    className="text-3xl lg:text-4xl font-bold mb-10"
-                                >
-                                    A Infraestrutura Invisível de <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">Confiança Digital</span>
-                                </motion.h2>
+                            <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
+                                <div>
+                                    <h2 className="text-4xl lg:text-5xl font-serif font-medium mb-12">
+                                        Infraestrutura de <br />
+                                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">Confiança Digital</span>
+                                    </h2>
 
-                                <div className="space-y-6">
-                                    {architectureSteps.map((step, idx) => (
-                                        <motion.div
-                                            key={step.number}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: idx * 0.15 }}
-                                            className={`flex gap-4 p-4 rounded-2xl cursor-pointer transition-all ${activeStep === idx ? 'bg-gray-800/50 border border-gray-700' : 'hover:bg-gray-800/30'
-                                                }`}
-                                            onClick={() => setActiveStep(idx)}
-                                        >
-                                            <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${step.color === 'blue' ? 'bg-blue-500/20' :
-                                                step.color === 'green' ? 'bg-emerald-500/20' :
-                                                    'bg-purple-500/20'
-                                                }`}>
-                                                <span className={`font-mono font-bold ${step.color === 'blue' ? 'text-blue-400' :
-                                                    step.color === 'green' ? 'text-emerald-400' :
-                                                        'text-purple-400'
-                                                    }`}>{step.number}</span>
+                                    <div className="space-y-4">
+                                        {architectureSteps.map((step, idx) => (
+                                            <div
+                                                key={step.number}
+                                                onClick={() => setActiveStep(idx)}
+                                                className={`group flex gap-6 p-6 rounded-2xl cursor-pointer transition-all border ${activeStep === idx
+                                                        ? 'bg-[#1C2333] border-[#00FF94]/30'
+                                                        : 'bg-transparent border-transparent hover:bg-white/5'
+                                                    }`}
+                                            >
+                                                <div className={`text-sm font-mono font-bold pt-1 transition-colors ${activeStep === idx ? 'text-[#00FF94]' : 'text-gray-600'
+                                                    }`}>
+                                                    {step.number}
+                                                </div>
+                                                <div>
+                                                    <h4 className={`text-lg font-bold mb-2 transition-colors ${activeStep === idx ? 'text-white' : 'text-gray-400 group-hover:text-white'
+                                                        }`}>
+                                                        {step.title}
+                                                    </h4>
+                                                    <p className="text-gray-500 text-sm leading-relaxed max-w-md">
+                                                        {step.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 className="text-lg font-bold mb-1 text-white">{step.title}</h4>
-                                                <p className="text-gray-400 text-sm leading-relaxed">{step.description}</p>
-                                            </div>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            {/* Live Monitor */}
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                className="relative h-[450px] w-full bg-[#0A0E1A] rounded-3xl border border-gray-800 flex flex-col overflow-hidden"
-                            >
-                                {/* Header */}
-                                <div className="px-6 py-4 border-b border-gray-800 flex items-center justify-between bg-black/30">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-3 h-3 rounded-full bg-red-500" />
-                                        <div className="w-3 h-3 rounded-full bg-amber-500" />
-                                        <div className="w-3 h-3 rounded-full bg-emerald-500" />
-                                    </div>
-                                    <span className="text-xs font-mono text-gray-500">ALGOR-MONITOR-LIVE</span>
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                                        <span className="text-xs text-emerald-400">ONLINE</span>
+                                        ))}
                                     </div>
                                 </div>
 
-                                {/* Content */}
-                                <div className="flex-1 flex items-center justify-center relative p-8">
-                                    {/* Ambient blobs */}
-                                    <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-blue-500/20 rounded-full blur-[60px] animate-pulse" />
-                                    <div className="absolute top-1/2 right-1/4 w-32 h-32 bg-emerald-500/20 rounded-full blur-[60px] animate-pulse" style={{ animationDelay: '1s' }} />
+                                {/* Live Widget Visualization */}
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-[#00FF94]/5 blur-3xl" />
+                                    <div className="relative bg-[#0A1A2F]/90 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl">
+                                        {/* Mock Header */}
+                                        <div className="h-10 border-b border-white/5 bg-[#050912] flex items-center px-4 justify-between">
+                                            <div className="flex gap-2">
+                                                <div className="w-2.5 h-2.5 rounded-full bg-red-500/20 border border-red-500/50" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-amber-500/20 border border-amber-500/50" />
+                                                <div className="w-2.5 h-2.5 rounded-full bg-green-500/20 border border-green-500/50" />
+                                            </div>
+                                            <div className="text-[10px] font-mono text-gray-500 uppercase">algor_guardrail_v2.sys</div>
+                                        </div>
 
-                                    <div className="relative z-10 text-center">
-                                        <div className="text-xs font-mono text-gray-500 mb-4 uppercase tracking-widest">Monitoramento ao Vivo</div>
+                                        {/* Monitor Content */}
+                                        <div className="p-8 flex flex-col items-center justify-center min-h-[400px]">
+                                            <div className="relative w-48 h-48 flex items-center justify-center mb-8">
+                                                {/* Animated Rings */}
+                                                <div className="absolute inset-0 border-4 border-[#00A3FF]/20 rounded-full animate-spin-slow" />
+                                                <div className="absolute inset-4 border-4 border-t-[#00FF94] border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" />
 
-                                        <motion.div
-                                            className="text-7xl font-bold font-mono text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400 mb-2"
-                                            initial={{ opacity: 0, scale: 0.5 }}
-                                            whileInView={{ opacity: 1, scale: 1 }}
-                                            viewport={{ once: true }}
-                                        >
-                                            99.98%
-                                        </motion.div>
-                                        <div className="text-gray-400 mb-8">Taxa de Conformidade</div>
+                                                <div className="text-center">
+                                                    <div className="text-5xl font-mono font-bold text-white tracking-tighter">99.9</div>
+                                                    <div className="text-[10px] uppercase tracking-widest text-[#00FF94] mt-1">SLA Verified</div>
+                                                </div>
+                                            </div>
 
-                                        <div className="flex justify-center gap-4">
-                                            <motion.div
-                                                initial={{ opacity: 0, x: -20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                className="px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-xl"
-                                            >
-                                                <p className="text-red-400 text-xl font-bold font-mono">142</p>
-                                                <p className="text-gray-500 text-xs">Bloqueados</p>
-                                            </motion.div>
-                                            <motion.div
-                                                initial={{ opacity: 0, x: 20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                viewport={{ once: true }}
-                                                className="px-4 py-2 bg-emerald-500/10 border border-emerald-500/30 rounded-xl"
-                                            >
-                                                <p className="text-emerald-400 text-xl font-bold font-mono">8.4k</p>
-                                                <p className="text-gray-500 text-xs">Verificados</p>
-                                            </motion.div>
+                                            <div className="grid grid-cols-2 gap-4 w-full">
+                                                <div className="bg-[#131825] p-4 rounded-xl border border-white/5 text-center">
+                                                    <div className="text-xs text-gray-500 uppercase mb-1">Threats Blocked</div>
+                                                    <div className="text-2xl font-mono text-[#F59E0B]">1,402</div>
+                                                </div>
+                                                <div className="bg-[#131825] p-4 rounded-xl border border-white/5 text-center">
+                                                    <div className="text-xs text-gray-500 uppercase mb-1">Safe Requests</div>
+                                                    <div className="text-2xl font-mono text-[#00A3FF]">842k</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
                 </motion.section>
 
-                {/* --- INTEGRATIONS --- */}
+                {/* --- LEGACY INTEGRATIONS --- */}
                 <motion.section
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     className="text-center mb-32"
                 >
-                    <p className="text-gray-500 text-sm uppercase tracking-widest mb-10">Compatível com o Ecossistema Moderno</p>
-                    <div className="flex flex-wrap justify-center gap-6">
+                    <p className="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] mb-12">Native Integrations</p>
+                    <div className="flex flex-wrap justify-center gap-4">
                         {integrations.map((integration, idx) => (
                             <motion.div
                                 key={integration.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: idx * 0.05 }}
-                                whileHover={{ scale: 1.05, y: -5 }}
-                                className="px-6 py-4 bg-gray-800/30 border border-gray-800 rounded-2xl hover:border-gray-700 transition-all cursor-pointer"
+                                whileHover={{ scale: 1.05, borderColor: "rgba(255,255,255,0.2)" }}
+                                className="px-6 py-3 bg-white/5 border border-white/5 rounded-full flex items-center gap-3 cursor-default"
                             >
-                                <span className="text-2xl mr-2">{integration.logo}</span>
-                                <span className="text-white font-medium">{integration.name}</span>
+                                <span className="text-xl grayscale opacity-70">{integration.logo}</span>
+                                <span className="text-sm font-medium text-gray-300">{integration.name}</span>
                             </motion.div>
                         ))}
                     </div>
                 </motion.section>
 
-                {/* --- CTA FINAL --- */}
+                {/* --- FINAL CTA --- */}
                 <motion.section
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
-                    className="relative overflow-hidden rounded-3xl"
+                    className="rounded-3xl bg-[#00A3FF] relative overflow-hidden p-12 lg:p-24 text-center"
                 >
-                    <div className="bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-emerald-500/10 border border-gray-800 p-12 lg:p-20 text-center relative z-10">
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="text-4xl lg:text-5xl font-bold mb-6"
-                        >
-                            Pronto para blindar sua operação?
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
-                            className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto"
-                        >
-                            Não espere a notificação da ANPD. Implemente o ALGOR Trust Hub e transforme compliance em vantagem competitiva.
-                        </motion.p>
+                    <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A2F] via-transparent to-transparent opacity-90" />
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
-                            className="flex flex-col sm:flex-row gap-4 justify-center"
+                    <div className="relative z-10 max-w-3xl mx-auto">
+                        <h2 className="text-4xl lg:text-5xl font-serif font-medium text-white mb-6">
+                            Sua Governança é o <br />Novo Diferencial Competitivo.
+                        </h2>
+                        <p className="text-blue-100 text-lg mb-10 max-w-xl mx-auto">
+                            Clientes Enterprise exigem segurança. Entregue ISO 42001 by default e feche contratos maiores, mais rápido.
+                        </p>
+
+                        <motion.button
+                            onClick={() => setIsSpecialistModalOpen(true)}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="px-10 py-5 bg-white text-[#0A1A2F] font-bold rounded-xl shadow-xl flex items-center gap-2 mx-auto"
                         >
-                            <motion.button
-                                onClick={() => setIsSpecialistModalOpen(true)}
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="px-10 py-5 bg-white text-[#0A1A2F] font-bold text-lg rounded-xl shadow-2xl flex items-center gap-3 mx-auto cursor-pointer"
-                            >
-                                Falar com Engenheiro de Soluções
-                                <ArrowRight className="w-5 h-5" />
-                            </motion.button>
-                            <Link href="/calculadora">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="px-10 py-5 bg-gray-800 text-white font-bold text-lg rounded-xl flex items-center gap-3 mx-auto"
-                                >
-                                    Calcular Minha Exposição
-                                </motion.button>
-                            </Link>
-                        </motion.div>
+                            FALAR COM ESPECIALISTA
+                            <ArrowRight className="w-5 h-5" />
+                        </motion.button>
+
+                        <p className="mt-6 text-sm text-blue-200/60">
+                            Implementação média em 48 horas.
+                        </p>
                     </div>
-
-                    {/* Background decorations */}
-                    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2 pointer-events-none" />
                 </motion.section>
 
             </div>
