@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Printer, ShieldCheck, AlertTriangle, CheckCircle2, TrendingUp, Download, Building2, User } from 'lucide-react';
-import { api } from '@/lib/api';
 
 // ========================================
 // SMART REPORT ISO 42001 (A4 FORMAT)
@@ -35,7 +34,7 @@ interface ReportData {
 
 export default function ISO42001ReportPage() {
     const params = useParams();
-    const orgId = params.orgId;
+    const orgId = Array.isArray(params.orgId) ? params.orgId[0] : params.orgId as string;
     const [data, setData] = useState<ReportData | null>(null);
     const [loading, setLoading] = useState(true);
 
