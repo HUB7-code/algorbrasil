@@ -15,7 +15,7 @@ from backend.app.core.config import settings
 from backend.app.core.security_encryption import encrypt_field
 from backend.app.db.session import get_db
 from backend.app.models.user import User
-from backend.app.services.email_service import send_welcome_email
+from backend.app.services.email_service import send_welcome_email, send_verification_email
 
 router = APIRouter()
 
@@ -48,10 +48,11 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 # ==========================================
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
-async def create_user(user_in: UserCreate, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     """
-    Cadastra um novo usuario.
+    Cadastra um novo usuario (Status: Pendente de Verificacao).
     """
+    print(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
     user = db.query(User).filter(User.email == user_in.email).first()
     if user:
         raise HTTPException(
@@ -65,17 +66,179 @@ async def create_user(user_in: UserCreate, background_tasks: BackgroundTasks, db
         full_name=user_in.full_name,
         phone=encrypt_field(user_in.phone),
         role="subscriber",
-        is_active=True,
-        is_totp_enabled=False # Padrao off
+        is_active=False, # BLOQUEADO ATE CONFIRMAR EMAIL
+        is_totp_enabled=False 
     )
     
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
-    background_tasks.add_task(send_welcome_email, new_user.full_name or "Membro", new_user.email, False)
+    print(f"✅ Usuário salvo no DB (ID: {new_user.id})")
 
-    return {"message": "Usuario criado com sucesso", "email": new_user.email}
+    # === [FIX PERSONA A] ===
+    # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos
+    # Isso evita o erro "Nenhuma organizacao owner encontrada" no primeiro login
+    try:
+        from backend.app.models.organization import Organization, organization_members
+        
+        default_org_name = f"Org de {user_in.full_name.split()[0]}" if user_in.full_name else "Minha Organização"
+        new_org = Organization(
+            name=default_org_name,
+            owner_id=new_user.id,
+            plan_tier="free",
+            credits_balance=3 # <--- O OURO ESTÁ AQUI (3 Créditos de Demo)
+        )
+        db.add(new_org)
+        db.commit()
+        db.refresh(new_org)
+        
+        # Linkar como Owner
+        stmt = organization_members.insert().values(
+            user_id=new_user.id,
+            organization_id=new_org.id,
+            role="owner"
+        )
+        db.execute(stmt)
+        db.commit()
+        print(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
+        
+    except Exception as e_org:
+        print(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
+        # Não abortamos o cadastro por isso, mas logamos
+    
+    # Gerar Token de Verificacao (Validade: 24h)
+    verification_token = create_access_token(
+        data={"sub": new_user.email, "type": "email_verification"},
+        expires_delta=timedelta(hours=24)
+    )
+    
+    # Envio SÍNCRONO para garantir e debugar (sem BackgroundTasks por enquanto)
+    print("📧 Preparando envio de e-mail...")
+    try:
+        from backend.app.services.email_service import send_verification_email
+        send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
+        print("✅ E-mail de verificação despachado com sucesso!")
+    except Exception as e:
+        print(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
+        # Em produção, não parariamos o cadastro, mas para debug queremos ver o erro
+        # raise HTTPException(status_code=500, detail=f"Erro no envio de e-mail: {str(e)}")
+
+    return {
+        "message": "Cadastro realizado. Verifique seu e-mail para ativar a conta.", 
+        "email": new_user.email,
+        "status": "pending_verification"
+    }
+
+class EmailVerification(BaseModel):
+    token: str
+
+@router.post("/verify-email")
+async def verify_email_token(data: EmailVerification, db: Session = Depends(get_db)):
+    """
+    Valida o token de e-mail e ativa a conta.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Token de verificação inválido ou expirado."
+    )
+    
+    try:
+        payload = jwt.decode(data.token, settings.SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        token_type: str = payload.get("type")
+        
+        if email is None or token_type != "email_verification":
+            raise credentials_exception
+            
+    except JWTError:
+        raise credentials_exception
+    
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+         
+    if user.is_active:
+        return {"message": "Conta já está ativa. Pode fazer login."}
+        
+    user.is_active = True
+    db.commit()
+    
+    # Opcional: Enviar boas vindas agora
+    # send_welcome_email...
+    
+    return {"message": "E-mail confirmado com sucesso! Sua conta foi ativada."}
+
+    
+    return {"message": "E-mail confirmado com sucesso! Sua conta foi ativada."}
+
+# ==========================================
+# RESET DE SENHA
+# ==========================================
+
+class ForgotPasswordRequest(BaseModel):
+    email: str
+
+class PasswordReset(BaseModel):
+    token: str
+    new_password: str
+
+@router.post("/forgot-password")
+async def forgot_password(request: ForgotPasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
+    """
+    Solicita redefinicao de senha por e-mail.
+    """
+    user = db.query(User).filter(User.email == request.email).first()
+    
+    # Security: Always return success to prevent email enumeration
+    if user:
+        # Generate Reset Token (Valid for 1 hour)
+        reset_token = create_access_token(
+            data={"sub": user.email, "type": "password_reset"},
+            expires_delta=timedelta(hours=1)
+        )
+        
+        # Enviar Email (Sincrono ou Async conforme necessidade)
+        # Vamos usar Sincrono agora para garantir que o cliente veja erros de SMTP se houver
+        # background_tasks.add_task(send_password_reset_email, user.full_name, user.email, reset_token)
+        try:
+             from backend.app.services.email_service import send_password_reset_email
+             send_password_reset_email(user.full_name, user.email, reset_token)
+             print(f"📧 Reset email sent to {user.email}")
+        except Exception as e:
+            print(f"❌ Failed to send reset email: {e}")
+    
+    return {"message": "Se este e-mail estiver cadastrado, você receberá as instruções em breve."}
+
+@router.post("/reset-password")
+async def reset_password(data: PasswordReset, db: Session = Depends(get_db)):
+    """
+    Redefine a senha usando o token recebido por e-mail.
+    """
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Token inválido ou expirado."
+    )
+    
+    try:
+        payload = jwt.decode(data.token, settings.SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        token_type: str = payload.get("type")
+        
+        if email is None or token_type != "password_reset":
+             raise credentials_exception
+             
+    except JWTError:
+        raise credentials_exception
+    
+    user = db.query(User).filter(User.email == email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
+    
+    # Update Password
+    user.hashed_password = get_password_hash(data.new_password)
+    db.commit()
+    
+    return {"message": "Senha redefinida com sucesso! Você já pode fazer login."}
 
 @router.post("/login", response_model=Token)
 async def login_for_access_token(user_data: UserLogin, db: Session = Depends(get_db)):

@@ -97,7 +97,7 @@ export default function Navbar() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-0.5">
-                        <span className="font-display text-2xl tracking-wide font-bold text-white leading-none">
+                        <span className="font-orbitron text-2xl tracking-wide font-bold text-white leading-none">
                             ALGOR <span className="text-[#00FF94]">BRASIL</span>
                         </span>
                         <span className="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em] ml-0.5">

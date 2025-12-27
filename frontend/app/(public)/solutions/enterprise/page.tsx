@@ -93,7 +93,7 @@ export default function EnterprisePage() {
     const [isSpecialistModalOpen, setIsSpecialistModalOpen] = useState(false);
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white pt-44 pb-20 font-sans">
+        <div className="min-h-screen bg-[#0A0E1A] text-white pt-24 pb-20 font-sans">
 
             {/* Lead Capture Modals */}
             <EnterpriseLeadModal
@@ -120,23 +120,14 @@ export default function EnterprisePage() {
                 <motion.header
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-center pb-20"
+                    className="text-center pb-32"
                 >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/30 mb-8"
-                    >
-                        <Shield className="w-4 h-4 text-emerald-400" />
-                        <span className="text-sm font-mono text-emerald-400 tracking-wider uppercase">ALGOR Trust Hub v5.1</span>
-                    </motion.div>
 
                     <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-5xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight"
+                        className="text-5xl lg:text-7xl font-orbitron font-bold mb-8 leading-tight tracking-tight mt-16"
                     >
                         Cresça Rápido. <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400">

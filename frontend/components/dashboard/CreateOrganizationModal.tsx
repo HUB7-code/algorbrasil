@@ -38,7 +38,12 @@ export default function CreateOrganizationModal({ isOpen, onClose }: CreateOrgan
                 setName("");
                 setCnpj("");
             } else {
-                console.error("Failed to create organization");
+                const data = await res.json();
+                if (res.status === 403) {
+                    alert(data.detail); // TODO: Replace with a nice Upsell Modal later
+                } else {
+                    console.error("Failed to create organization");
+                }
             }
         } catch (error) {
             console.error(error);

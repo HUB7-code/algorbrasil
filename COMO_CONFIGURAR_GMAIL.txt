@@ -1,0 +1,20 @@
+#########################################################
+# INSTRUÇÕES PARA CONFIGURAR GMAIL (SMTP) - ALGOR BRASIL
+#########################################################
+
+# 1. Abra o arquivo '.env' na pasta raiz do projeto.
+# 2. Apague (ou comente com #) qualquer configuração de SMTP antiga.
+# 3. Copie e cole as linhas abaixo no final do seu arquivo .env.
+# 4. Substitua os valores 'seu_email@gmail.com' e 'senha_de_app' pelos seus dados reais.
+
+SMTP_SERVER=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=seu_email_aqui@gmail.com
+SMTP_PASSWORD=colar_senha_de_app_aqui_sem_espacos
+SMTP_FROM_EMAIL=seu_email_aqui@gmail.com
+SMTP_FROM_NAME="Algor Security Team"
+
+# IMPORTANTE: 
+# - A senha NÃO é a senha normal do seu email.
+# - É a "Senha de App" de 16 dígitos gerada em myaccount.google.com/security
+# - Reinicie o backend após salvar o arquivo .env (Ctrl+C e rode novamente)

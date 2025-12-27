@@ -6,6 +6,8 @@ type Organization = {
     id: number;
     name: string;
     role: string; // 'owner' | 'member'
+    plan_tier?: string;
+    credits_balance?: number;
 };
 
 type OrganizationContextType = {

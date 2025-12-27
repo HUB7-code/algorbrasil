@@ -20,6 +20,10 @@ class Organization(Base):
     name = Column(String, index=True, nullable=False)
     cnpj = Column(String, unique=True, index=True, nullable=True) # Optional for international
     
+    # Monetization / Credits System (Persona A)
+    plan_tier = Column(String, default="free") # 'free', 'pro', 'enterprise'
+    credits_balance = Column(Integer, default=3) # Créditos para uso de ferramentas (Demo Limitada)
+    
     # Metadata
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

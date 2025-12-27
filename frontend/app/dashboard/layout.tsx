@@ -97,10 +97,9 @@ function DashboardLayoutContent({
                             <Image src="/logo-algor.webp" alt="Algor" fill className="object-contain" />
                         </motion.div>
                         <div>
-                            <span className="font-display font-bold text-lg tracking-wide text-white whitespace-nowrap flex items-center gap-1">
+                            <span className="font-orbitron font-bold text-lg tracking-wide text-white whitespace-nowrap flex items-center gap-1">
                                 ALGOR <span className="text-[#00FF94]">BRASIL</span>
                             </span>
-                            <span className="text-[9px] font-mono text-gray-500 uppercase tracking-[0.2em]">Trust Hub v5.1</span>
                         </div>
                     </Link>
                 </div>
@@ -138,6 +137,13 @@ function DashboardLayoutContent({
                         label="Centro de Comando"
                         active={pathname === "/dashboard"}
                         color="#00FF94"
+                    />
+                    <NavItem
+                        href="/dashboard/clients"
+                        icon="business_center"
+                        label="Meus Clientes"
+                        active={pathname.startsWith("/dashboard/clients")}
+                        color="#F59E0B"
                     />
                     <NavItem
                         href="/dashboard/roadmap"

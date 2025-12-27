@@ -43,6 +43,18 @@ export default function OrganizationSwitcher() {
                         <p className="text-sm font-bold text-white truncate">
                             {currentOrganization?.name || "Pessoal (Padrão)"}
                         </p>
+                        {currentOrganization && currentOrganization.plan_tier !== 'enterprise' && (
+                            <div className="flex items-center gap-1 mt-0.5">
+                                <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded uppercase tracking-wider ${(currentOrganization.credits_balance || 0) > 0
+                                        ? 'bg-[#FFD700]/20 text-[#FFD700] border border-[#FFD700]/30'
+                                        : 'bg-red-500/20 text-red-500 border border-red-500/30'
+                                    }`}>
+                                    {(currentOrganization.credits_balance || 0) > 0
+                                        ? `${currentOrganization.credits_balance} Créditos`
+                                        : 'Esgotado'}
+                                </span>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <span className={`material-symbols-rounded text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>

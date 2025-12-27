@@ -22,11 +22,16 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
         if (!consent) return alert("O consentimento LGPD é obrigatório.");
 
         setLoading(true);
+
+        // ✅ CRITICAL: Verify token exists BEFORE making request
         const token = localStorage.getItem("algor_token");
 
         if (!token) {
-            alert("Sessão expirada. Faça login novamente.");
-            window.location.href = "/login";
+            setLoading(false);
+            alert("⚠️ Sessão expirada ou inválida. Você será redirecionado para o login.");
+            setTimeout(() => {
+                window.location.href = "/login?redirect=/onboarding";
+            }, 1500);
             return;
         }
 
@@ -42,11 +47,27 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
 
             const data = await res.json();
 
+            // ✅ CRITICAL: Handle 401 Unauthorized (Invalid/Expired Token)
+            if (res.status === 401) {
+                setLoading(false);
+                alert("🔒 Token inválido ou expirado. Faça login novamente.");
+                localStorage.removeItem("algor_token");
+                localStorage.removeItem("algor_user");
+                setTimeout(() => {
+                    window.location.href = "/login?redirect=/onboarding";
+                }, 1500);
+                return;
+            }
+
             if (!res.ok) {
+                if (Array.isArray(data.detail)) {
+                    const errorMessages = data.detail.map((err: any) => `${err.loc.join('.')} - ${err.msg}`).join('\n');
+                    throw new Error(errorMessages);
+                }
                 throw new Error(data.detail || "Erro ao criar perfil profissional.");
             }
 
-            // Update user role in storage if needed
+            // ✅ SUCCESS: Update user role in storage
             const user = JSON.parse(localStorage.getItem("algor_user") || "{}");
             user.role = "professional_candidate";
             localStorage.setItem("algor_user", JSON.stringify(user));
@@ -54,28 +75,28 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
             onSuccess();
 
         } catch (error: any) {
-            console.error(error);
-            alert(error.message);
+            console.error("❌ Professional Onboarding Error:", error);
+            alert(`Erro: ${error.message || "Erro desconhecido. Verifique o console."}`);
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-6 animate-fadeIn">
-            <div className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
+            <div className="space-y-6">
                 {/* LinkedIn */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="group">
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
                         LinkedIn Profile URL
                         <LegalTooltip content="Utilizado para validar seu histórico profissional e conexões no mercado." />
                     </label>
                     <div className="relative">
-                        <Linkedin className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                        <Linkedin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors" />
                         <input
                             type="url"
                             required
-                            className="w-full bg-[#050d18]/50 border border-gray-700 rounded-lg py-3 pl-10 px-4 text-white focus:ring-2 focus:ring-[#00FF94] focus:border-transparent outline-none transition-all"
+                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium"
                             placeholder="https://linkedin.com/in/seu-perfil"
                             value={formData.linkedin_url}
                             onChange={e => setFormData({ ...formData, linkedin_url: e.target.value })}
@@ -84,69 +105,79 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                 </div>
 
                 {/* Expertise */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="group">
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
                         Área de Expertise Primária
                         <LegalTooltip content="Para direcionar oportunidades de auditoria compatíveis." />
                     </label>
                     <div className="relative">
-                        <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                        <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors" />
                         <select
                             required
-                            className="w-full bg-[#050d18]/50 border border-gray-700 rounded-lg py-3 pl-10 px-4 text-white focus:ring-2 focus:ring-[#00FF94] outline-none appearance-none"
+                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none appearance-none transition-all font-medium cursor-pointer"
                             value={formData.primary_expertise}
                             onChange={e => setFormData({ ...formData, primary_expertise: e.target.value })}
                         >
-                            <option value="" disabled>Selecione sua área...</option>
-                            <option value="Jurídica">Jurídica / Compliance</option>
-                            <option value="Técnica">Técnica / Engenharia de Dados</option>
-                            <option value="Ética">Ética / Sociologia</option>
-                            <option value="Geral">Consultoria Geral</option>
+                            <option value="" disabled className="bg-[#050810] text-gray-500">Selecione sua área...</option>
+                            <option value="Jurídica" className="bg-[#050810]">Jurídica / Compliance</option>
+                            <option value="Técnica" className="bg-[#050810]">Técnica / Engenharia de Dados</option>
+                            <option value="Ética" className="bg-[#050810]">Ética / Sociologia</option>
+                            <option value="Geral" className="bg-[#050810]">Consultoria Geral</option>
                         </select>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-12 gap-4">
                     {/* Years Experience */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                            Anos de Experiência
+                    <div className="col-span-4 group">
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                            Exp (Anos)
                         </label>
                         <input
                             type="number"
                             min="0"
                             max="50"
                             required
-                            className="w-full bg-[#050d18]/50 border border-gray-700 rounded-lg py-3 px-4 text-white focus:ring-2 focus:ring-[#00FF94] outline-none"
+                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium text-center"
                             value={formData.years_experience}
                             onChange={e => setFormData({ ...formData, years_experience: parseInt(e.target.value) })}
                         />
                     </div>
 
-                    {/* Location (Simplified for now) */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">
-                            UF
-                            <LegalTooltip content="Para matching geográfico de projetos presenciais." />
+                    {/* City */}
+                    <div className="col-span-5 group">
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                            Cidade
                         </label>
-                        <div className="relative">
-                            <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-                            <input
-                                type="text"
-                                maxLength={2}
-                                required
-                                placeholder="SP"
-                                className="w-full bg-[#050d18]/50 border border-gray-700 rounded-lg py-3 pl-9 px-4 text-white focus:ring-2 focus:ring-[#00FF94] outline-none uppercase"
-                                value={formData.state}
-                                onChange={e => setFormData({ ...formData, state: e.target.value.toUpperCase() })}
-                            />
-                        </div>
+                        <input
+                            type="text"
+                            required
+                            placeholder="São Paulo"
+                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium"
+                            value={formData.city}
+                            onChange={e => setFormData({ ...formData, city: e.target.value })}
+                        />
+                    </div>
+
+                    {/* UF */}
+                    <div className="col-span-3 group">
+                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                            UF
+                        </label>
+                        <input
+                            type="text"
+                            maxLength={2}
+                            required
+                            placeholder="SP"
+                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium uppercase text-center"
+                            value={formData.state}
+                            onChange={e => setFormData({ ...formData, state: e.target.value.toUpperCase() })}
+                        />
                     </div>
                 </div>
-
             </div>
 
-            <div className="pt-4 border-t border-gray-800">
+            <div className="pt-6 border-t border-white/5">
                 <ConsentCheckbox
                     id="prof-consent"
                     checked={consent}
@@ -159,14 +190,14 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
             <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-[#00FF94] to-[#00CC76] hover:from-[#00DD83] hover:to-[#00BB65] text-[#0A1A2F] font-bold py-4 rounded-lg shadow-[0_0_20px_rgba(0,255,148,0.3)] transition-all transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+                className="w-full h-14 bg-gradient-to-r from-[#00A3FF] to-[#0066FF] text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:shadow-[0_0_30px_rgba(0,163,255,0.5)] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-3"
             >
                 {loading ? (
-                    <span className="w-5 h-5 border-2 border-[#0A1A2F]/30 border-t-[#0A1A2F] rounded-full animate-spin mr-2" />
+                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                    <UserCheck className="w-5 h-5 mr-2" />
+                    <UserCheck className="w-5 h-5" />
                 )}
-                {loading ? 'Processando Cadastro...' : 'Enviar Solicitação de Associação'}
+                {loading ? 'Processando Cadastro...' : 'Enviar Solicitação'}
             </button>
         </form>
     );

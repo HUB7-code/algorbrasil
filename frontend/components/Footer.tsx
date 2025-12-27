@@ -213,7 +213,7 @@ export default function Footer() {
                         <div className="flex-1">
                             <p className="font-mono text-[10px] text-gray-500 max-w-3xl leading-relaxed">
                                 © 2025 Algor Association. Representada juridicamente no Brasil pela{' '}
-                                <strong className="text-gray-400">XPER BRASIL GESTAO EM INOVAÇÃO TECNOLÓGICA LTDA (CNPJ: 33.173.492/0001-76)</strong>.
+                                <strong className="text-gray-400">XPER BRASIL GESTAO EM INOVAÇÃO TECNOLÓGICA LTDA</strong>.
                                 <br />
                                 ALGOR é uma organização profissional associativa com registro no Reino Unido (London).{' '}
                                 <a href="mailto:global@algor.uk" className="text-[#00A3FF] hover:underline inline-flex items-center gap-1">

@@ -19,6 +19,8 @@ class OrganizationOut(BaseModel):
     name: str
     cnpj: Optional[str] = None
     role: str = "owner"
+    plan_tier: str = "free"
+    credits_balance: int = 3
 
     class Config:
         from_attributes = True
@@ -33,12 +35,30 @@ def create_organization(
 ):
     """
     Cria uma nova organização e define o usuário atual como proprietário.
+    Regra de Negócio:
+    - Usuários 'subscriber'/'free' (Comunidade) só podem ter 1 Organização (Sandbox Pessoal).
+    - Usuários 'pro'/'admin' (Associados) têm workspaces ilimitados.
     """
+    # 1. Verifica Quantas Orgs o Usuário Já Possui (como Owner)
+    owned_orgs_count = db.query(Organization).filter(Organization.owner_id == current_user.id).count()
+
+    # 2. Define Limites
+    # TODO: Refatorar roles para Enum robusto (free, pro, admin)
+    is_pro_or_admin = current_user.role in ["admin", "pro", "associate"]
+    
+    if not is_pro_or_admin and owned_orgs_count >= 1:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="LIMIT_REACHED: Membros da comunidade podem gerenciar apenas 1 Workspace (Sandbox Pessoal). Torne-se um Consultor Associado para desbloquear múltiplos clientes."
+        )
+
     # Create Org
     new_org = Organization(
         name=org_in.name,
         cnpj=org_in.cnpj,
-        owner_id=current_user.id
+        owner_id=current_user.id,
+        plan_tier="free",
+        credits_balance=3 # Default para novas contas
     )
     db.add(new_org)
     db.commit()
@@ -58,7 +78,9 @@ def create_organization(
         "id": new_org.id,
         "name": new_org.name,
         "cnpj": new_org.cnpj,
-        "role": "owner"
+        "role": "owner",
+        "plan_tier": new_org.plan_tier,
+        "credits_balance": new_org.credits_balance
     }
 
 @router.get("/me", response_model=List[OrganizationOut])
@@ -89,7 +111,9 @@ def list_my_organizations(
             "id": org.id,
             "name": org.name,
             "cnpj": org.cnpj,
-            "role": role
+            "role": role,
+            "plan_tier": org.plan_tier,
+            "credits_balance": org.credits_balance
         })
 
     return orgs_out

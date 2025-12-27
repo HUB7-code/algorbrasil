@@ -97,8 +97,7 @@ export default function SpecialistContactModal({ isOpen, onClose, source = 'ente
         setIsSubmitting(true);
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-            const response = await fetch(`${apiUrl}/leads/specialist`, {
+            const response = await fetch('/api/v1/leads/specialist', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

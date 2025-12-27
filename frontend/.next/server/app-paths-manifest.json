@@ -1,7 +1,4 @@
 {
-  "/(public)/page": "app/(public)/page.js",
-  "/(public)/login/page": "app/(public)/login/page.js",
-  "/(public)/register/page": "app/(public)/register/page.js",
-  "/(public)/forgot-password/page": "app/(public)/forgot-password/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/icon.png/route": "app/icon.png/route.js",
+  "/(public)/page": "app/(public)/page.js"
 }

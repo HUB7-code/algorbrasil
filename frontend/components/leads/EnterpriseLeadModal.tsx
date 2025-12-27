@@ -110,8 +110,7 @@ export default function EnterpriseLeadModal({ isOpen, onClose, source = 'enterpr
         setIsSubmitting(true);
 
         try {
-            const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-            const response = await fetch(`${apiUrl}/leads/diagnostic`, {
+            const response = await fetch('/api/v1/leads/diagnostic', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

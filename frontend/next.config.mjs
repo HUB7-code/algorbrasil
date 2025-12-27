@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     transpilePackages: ['three'],
+    optimizeFonts: false, // Fix: Avoid SSL errors with Google Fonts in local dev
     compiler: {
         removeConsole: process.env.NODE_ENV === "production",
     },

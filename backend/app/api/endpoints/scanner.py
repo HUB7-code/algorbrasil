@@ -18,13 +18,34 @@ INJECTION_KEYWORDS = [
 ]
 
 @router.post("/upload", response_model=ScanResult)
-async def scan_upload(file: UploadFile = File(...)):
+async def scan_upload(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     """
-    Endpoint Público para Scanner Freemium (LGPD + OWASP)
+    Endpoint Autenticado para Scanner (Persona A - Demo)
+    Consome 1 crédito por uso. Retorna 402 se sem créditos.
     Aceita arquivos CSV ou JSON. Limite de 100 linhas processadas.
     """
     from backend.app.services.analysis_engine import AnalysisEngine
+    from backend.app.models.organization import organization_members, Organization
     
+    # 0. Verificar Créditos (Persona A Logic)
+    # Busca a organização qual o user é DONO (para este MVP simples)
+    # TODO: No futuro, usar a 'current_organization' selecionada no Frontend
+    owned_org = db.query(Organization).filter(Organization.owner_id == current_user.id).first()
+    
+    if not owned_org:
+        # Se não tem organização (ex: convidado), verifica se é membro de alguma com créditos (MVP simplificado: block)
+         raise HTTPException(status_code=403, detail="Você precisa ser dono de uma conta para usar o Scanner.")
+         
+    if owned_org.plan_tier != 'enterprise' and (owned_org.credits_balance is None or owned_org.credits_balance <= 0):
+        raise HTTPException(
+            status_code=402, # Payment Required
+            detail="Seus créditos de demonstração acabaram. Atualize para o plano Enterprise."
+        )
+
     # 1. Validar Tipo e Ler Conteúdo
     content_type = file.content_type
     filename = file.filename.lower()
@@ -56,7 +77,13 @@ async def scan_upload(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Erro ao processar arquivo: {str(e)}")
 
-    # 2. Limitar (Freemium)
+    # 2. Limitar & Debitar (Se sucesso garantido na leitura)
+    # Debita 1 crédito
+    if owned_org.plan_tier != 'enterprise':
+        owned_org.credits_balance -= 1
+        db.commit() # Salva o débito antes de processar pesado
+
+    # Limite Rows
     total_received = len(rows)
     if len(rows) > 100:
         rows = rows[:100]
