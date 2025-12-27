@@ -1,16 +1,18 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V16.2 (Integrated Flywheel Engine)**
+## STATUS ATUAL: **V16.2.1 (Premium UX & Integrated Flywheel)**
 **Data:** 27/12/2025
-**Objetivo:** Consolidar o ciclo completo de valor (Scan -> Risk -> Dashboard -> Report) e fortalecer a oferta para as 3 personas (Engineer, Consultant, Specialist).
+**Objetivo:** Consolidar o ciclo completo de valor (Scan -> Risk -> Dashboard -> Report) e garantir consistência visual premium em todas as páginas públicas e autenticadas.
 
 ---
 
-### 🚀 **Últimas Grandes Conquistas (V16.2)**
+### 🚀 **Últimas Grandes Conquistas (V16.2.1)**
+
 1.  **Scanner API (Persona A) - Real Integration**
-    *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização.
+    *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização (`RiskRegister`).
     *   **Impacto:** "Regulation-as-Code" agora alimenta o dashboard executivo em tempo real. Se o CI/CD falha, o Board vê o risco na hora.
     *   **Validation:** Testes de integração CI/CD (`test_scanner_api.py`) comprovam bloqueio de pipeline.
+    *   **Bridge:** Scanner → RiskRegister → Dashboard Trust Score (ciclo fechado).
 
 2.  **Smart Report ISO 42001 (Persona B)**
     *   **Engine:** Gerador de PDFs customizados (`backend/services/ReportGenerator`) com Score de Viabilidade.
@@ -23,6 +25,12 @@
 
 4.  **Dashboard "Vivo"**
     *   **Telemetry:** Gráficos (Trend & Radar) agora consomem dados reais do banco. O "Trust Score" flutua conforme novos riscos são detectados pelo Scanner.
+
+5.  **Enterprise Page - Power BI Premium Redesign**
+    *   **Aesthetic:** Página `/solutions/enterprise` totalmente redesenhada para alinhar com o Design System "Power BI Premium Dark Mode".
+    *   **Cores:** Paleta unificada (`#00FF94` Brand Green, `#00A3FF` Brand Blue, `#F59E0B` Warning Gold).
+    *   **Components:** Cards glassmorphism, Live Monitor Widget (simula dashboard real), tipografia serif premium.
+    *   **Modals:** Refinamento do modal "Diagnóstico Técnico" (remoção de texto desnecessário "Sem compromisso").
 
 ---
 
