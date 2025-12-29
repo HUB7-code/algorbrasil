@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+import os
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Algor AI Gov"
@@ -14,7 +15,9 @@ class Settings(BaseSettings):
     ]
     
     # Segurança
-    SECRET_KEY: str # Deve vir do .env
+    # ATENÇÃO: Em produção, SEMPRE defina SECRET_KEY no arquivo .env com um valor seguro!
+    # Este valor padrão é apenas para desenvolvimento e testes automatizados
+    SECRET_KEY: str = "dev-secret-key-change-in-production-use-env-file"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8 # 8 dias
     
     # Banco de Dados
@@ -36,14 +39,15 @@ class Settings(BaseSettings):
     # Frontend
     FRONTEND_URL: str = "http://localhost:3005"
 
-
-
     class Config:
         # Legacy config support
         case_sensitive = True
+        # Torna o arquivo .env opcional (não falha se não existir)
+        env_file = ".env"
+        env_file_encoding = 'utf-8'
+        # Permite que variáveis de ambiente do sistema sobrescrevam os padrões
+        case_sensitive = True
 
-    # Nova configuração Pydantic v2
-    # model_config = SettingsConfigDict(env_file=".env", env_file_encoding='utf-8')
-    # Para compatibilidade com a versão instalada, vamos forçar a leitura se necessário ou contar que BaseSettings já lê do env.
-    
-settings = Settings(_env_file=".env", _env_file_encoding='utf-8')
+# Instancia as configurações
+# O arquivo .env é opcional - se não existir, usa os valores padrão acima
+settings = Settings()
