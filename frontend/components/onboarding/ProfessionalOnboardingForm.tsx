@@ -1,10 +1,19 @@
-
 'use client';
 
 import React, { useState } from 'react';
-import { UserCheck, Linkedin, Briefcase, MapPin } from 'lucide-react';
+import { UserCheck, Linkedin, Briefcase, MapPin, ChevronDown, Sparkles } from 'lucide-react';
 import LegalTooltip from '@/components/ui/LegalTooltip';
 import ConsentCheckbox from '@/components/ui/ConsentCheckbox';
+import { motion } from 'framer-motion';
+
+// ============================================================
+// POWER BI PREMIUM DARK MODE - PROFESSIONAL ONBOARDING FORM
+// ============================================================
+
+const inputVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+};
 
 export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: () => void }) {
     const [formData, setFormData] = useState({
@@ -23,7 +32,6 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
 
         setLoading(true);
 
-        // ✅ CRITICAL: Verify token exists BEFORE making request
         const token = localStorage.getItem("algor_token");
 
         if (!token) {
@@ -47,7 +55,6 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
 
             const data = await res.json();
 
-            // ✅ CRITICAL: Handle 401 Unauthorized (Invalid/Expired Token)
             if (res.status === 401) {
                 setLoading(false);
                 alert("🔒 Token inválido ou expirado. Faça login novamente.");
@@ -67,7 +74,6 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                 throw new Error(data.detail || "Erro ao criar perfil profissional.");
             }
 
-            // ✅ SUCCESS: Update user role in storage
             const user = JSON.parse(localStorage.getItem("algor_user") || "{}");
             user.role = "professional_candidate";
             localStorage.setItem("algor_user", JSON.stringify(user));
@@ -82,55 +88,85 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
         }
     };
 
+    // Premium Input Style
+    const inputStyle = `
+        w-full h-14 bg-gradient-to-br from-[#0A1A2F]/80 to-[#050810]/80 
+        border border-white/[0.08] rounded-xl px-4 text-white 
+        placeholder-gray-500 
+        focus:ring-2 focus:ring-[#00A3FF]/40 focus:border-[#00A3FF]/60 
+        hover:border-white/20
+        outline-none transition-all duration-300 font-medium
+        backdrop-blur-sm
+        shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]
+    `;
+
+    const labelStyle = `
+        flex items-center gap-2 text-xs font-bold text-gray-400 
+        uppercase tracking-[0.15em] mb-3 
+        group-focus-within:text-[#00A3FF] transition-colors duration-300
+    `;
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
+        <motion.form
+            onSubmit={handleSubmit}
+            className="space-y-8"
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+        >
             <div className="space-y-6">
                 {/* LinkedIn */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Linkedin className="w-4 h-4 text-[#00A3FF]" />
                         LinkedIn Profile URL
                         <LegalTooltip content="Utilizado para validar seu histórico profissional e conexões no mercado." />
                     </label>
                     <div className="relative">
-                        <Linkedin className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors" />
                         <input
                             type="url"
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium"
+                            className={`${inputStyle} pl-12`}
                             placeholder="https://linkedin.com/in/seu-perfil"
                             value={formData.linkedin_url}
                             onChange={e => setFormData({ ...formData, linkedin_url: e.target.value })}
                         />
+                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors">
+                            <Linkedin className="w-5 h-5" />
+                        </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Expertise */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Briefcase className="w-4 h-4 text-[#00A3FF]" />
                         Área de Expertise Primária
                         <LegalTooltip content="Para direcionar oportunidades de auditoria compatíveis." />
                     </label>
                     <div className="relative">
-                        <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors" />
                         <select
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none appearance-none transition-all font-medium cursor-pointer"
+                            className={`${inputStyle} pl-12 pr-12 appearance-none cursor-pointer`}
                             value={formData.primary_expertise}
                             onChange={e => setFormData({ ...formData, primary_expertise: e.target.value })}
                         >
-                            <option value="" disabled className="bg-[#050810] text-gray-500">Selecione sua área...</option>
-                            <option value="Jurídica" className="bg-[#050810]">Jurídica / Compliance</option>
-                            <option value="Técnica" className="bg-[#050810]">Técnica / Engenharia de Dados</option>
-                            <option value="Ética" className="bg-[#050810]">Ética / Sociologia</option>
-                            <option value="Geral" className="bg-[#050810]">Consultoria Geral</option>
+                            <option value="" disabled className="bg-[#0A1A2F] text-gray-500">Selecione sua área...</option>
+                            <option value="Jurídica" className="bg-[#0A1A2F] text-white">Jurídica / Compliance</option>
+                            <option value="Técnica" className="bg-[#0A1A2F] text-white">Técnica / Engenharia de Dados</option>
+                            <option value="Ética" className="bg-[#0A1A2F] text-white">Ética / Sociologia</option>
+                            <option value="Geral" className="bg-[#0A1A2F] text-white">Consultoria Geral</option>
                         </select>
+                        <Briefcase className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00A3FF] transition-colors pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
                     </div>
-                </div>
+                </motion.div>
 
-                <div className="grid grid-cols-12 gap-4">
+                {/* Location Grid */}
+                <motion.div variants={inputVariants} className="grid grid-cols-12 gap-4">
                     {/* Years Experience */}
                     <div className="col-span-4 group">
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                        <label className={labelStyle}>
                             Exp (Anos)
                         </label>
                         <input
@@ -138,7 +174,7 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                             min="0"
                             max="50"
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium text-center"
+                            className={`${inputStyle} text-center`}
                             value={formData.years_experience}
                             onChange={e => setFormData({ ...formData, years_experience: parseInt(e.target.value) })}
                         />
@@ -146,14 +182,15 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
 
                     {/* City */}
                     <div className="col-span-5 group">
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                        <label className={labelStyle}>
+                            <MapPin className="w-4 h-4 text-[#00A3FF]" />
                             Cidade
                         </label>
                         <input
                             type="text"
                             required
                             placeholder="São Paulo"
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium"
+                            className={inputStyle}
                             value={formData.city}
                             onChange={e => setFormData({ ...formData, city: e.target.value })}
                         />
@@ -161,7 +198,7 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
 
                     {/* UF */}
                     <div className="col-span-3 group">
-                        <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00A3FF] transition-colors">
+                        <label className={labelStyle}>
                             UF
                         </label>
                         <input
@@ -169,15 +206,19 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                             maxLength={2}
                             required
                             placeholder="SP"
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00A3FF]/50 focus:border-[#00A3FF] outline-none transition-all font-medium uppercase text-center"
+                            className={`${inputStyle} text-center uppercase`}
                             value={formData.state}
                             onChange={e => setFormData({ ...formData, state: e.target.value.toUpperCase() })}
                         />
                     </div>
-                </div>
+                </motion.div>
             </div>
 
-            <div className="pt-6 border-t border-white/5">
+            {/* Consent Section */}
+            <motion.div
+                variants={inputVariants}
+                className="pt-8 border-t border-white/[0.06]"
+            >
                 <ConsentCheckbox
                     id="prof-consent"
                     checked={consent}
@@ -185,20 +226,37 @@ export default function ProfessionalOnboardingForm({ onSuccess }: { onSuccess: (
                     required
                     label="Autorizo o processamento do meu perfil profissional e aceito a Política para Membros."
                 />
-            </div>
+            </motion.div>
 
-            <button
+            {/* Submit Button - Premium Gradient */}
+            <motion.button
+                variants={inputVariants}
                 type="submit"
                 disabled={loading}
-                className="w-full h-14 bg-gradient-to-r from-[#00A3FF] to-[#0066FF] text-white font-bold uppercase tracking-widest text-sm rounded-xl shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:shadow-[0_0_30px_rgba(0,163,255,0.5)] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-3"
+                whileHover={{ scale: 1.01, boxShadow: "0 0 50px rgba(0,163,255,0.3)" }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full h-16 bg-gradient-to-r from-[#00A3FF] via-[#0088FF] to-[#0066FF] 
+                    text-white font-bold uppercase tracking-[0.2em] text-sm rounded-xl 
+                    shadow-[0_10px_40px_rgba(0,163,255,0.25),_inset_0_1px_0_rgba(255,255,255,0.1)] 
+                    hover:shadow-[0_20px_60px_rgba(0,163,255,0.35)] 
+                    active:scale-[0.98] transition-all duration-300 
+                    disabled:opacity-50 disabled:cursor-not-allowed 
+                    flex justify-center items-center gap-4
+                    relative overflow-hidden group"
             >
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
+                    translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
                 {loading ? (
-                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                 ) : (
-                    <UserCheck className="w-5 h-5" />
+                    <Sparkles className="w-5 h-5" />
                 )}
-                {loading ? 'Processando Cadastro...' : 'Enviar Solicitação'}
-            </button>
-        </form>
+                <span className="relative z-10">
+                    {loading ? 'Processando Cadastro...' : 'Enviar Solicitação'}
+                </span>
+            </motion.button>
+        </motion.form>
     );
 }

@@ -1,10 +1,19 @@
-
 'use client';
 
 import React, { useState } from 'react';
-import { Building2, Globe, Database } from 'lucide-react';
+import { Building2, Globe, Database, ChevronDown, Rocket, Users } from 'lucide-react';
 import LegalTooltip from '@/components/ui/LegalTooltip';
 import ConsentCheckbox from '@/components/ui/ConsentCheckbox';
+import { motion } from 'framer-motion';
+
+// ============================================================
+// POWER BI PREMIUM DARK MODE - CORPORATE ONBOARDING FORM
+// ============================================================
+
+const inputVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+};
 
 export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () => void }) {
     const [formData, setFormData] = useState({
@@ -22,7 +31,6 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
 
         setLoading(true);
 
-        // ✅ CRITICAL: Verify token exists BEFORE making request
         const token = localStorage.getItem("algor_token");
 
         if (!token) {
@@ -34,7 +42,6 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
             return;
         }
 
-        // Sanitize Payload (Empty string is not valid URL)
         const payload = {
             ...formData,
             website: formData.website.trim() === '' ? null : formData.website
@@ -52,7 +59,6 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
 
             const data = await res.json();
 
-            // ✅ CRITICAL: Handle 401 Unauthorized (Invalid/Expired Token)
             if (res.status === 401) {
                 setLoading(false);
                 alert("🔒 Token inválido ou expirado. Faça login novamente.");
@@ -65,21 +71,18 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
             }
 
             if (!res.ok) {
-                // Handle FastAPI/Pydantic validation errors (Array)
                 if (Array.isArray(data.detail)) {
                     const errorMessages = data.detail.map((err: any) => `${err.loc.join('.')} - ${err.msg}`).join('\n');
                     throw new Error(errorMessages);
                 }
-                // Handle Generic HTTP Exception (String)
                 throw new Error(data.detail || "Erro ao criar perfil corporativo.");
             }
 
-            // ✅ SUCCESS: Update user role in storage
             const user = JSON.parse(localStorage.getItem("algor_user") || "{}");
             user.role = "corporate_lead";
             localStorage.setItem("algor_user", JSON.stringify(user));
 
-            onSuccess(); // Trigger parent success flow
+            onSuccess();
 
         } catch (error: any) {
             console.error("❌ Onboarding Error:", error);
@@ -89,96 +92,130 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
         }
     };
 
+    // Premium Input Style
+    const inputStyle = `
+        w-full h-14 bg-gradient-to-br from-[#0A1A2F]/80 to-[#050810]/80 
+        border border-white/[0.08] rounded-xl px-4 text-white 
+        placeholder-gray-500 
+        focus:ring-2 focus:ring-[#00FF94]/40 focus:border-[#00FF94]/60 
+        hover:border-white/20
+        outline-none transition-all duration-300 font-medium
+        backdrop-blur-sm
+        shadow-[inset_0_1px_0_rgba(255,255,255,0.02)]
+    `;
+
+    const labelStyle = `
+        flex items-center gap-2 text-xs font-bold text-gray-400 
+        uppercase tracking-[0.15em] mb-3 
+        group-focus-within:text-[#00FF94] transition-colors duration-300
+    `;
+
     return (
-        <form onSubmit={handleSubmit} className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-700">
+        <motion.form
+            onSubmit={handleSubmit}
+            className="space-y-8"
+            initial="hidden"
+            animate="visible"
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
+        >
             <div className="space-y-6">
                 {/* Company Name */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00FF94] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Building2 className="w-4 h-4 text-[#00FF94]" />
                         Nome da Empresa
                         <LegalTooltip content="Identificação da pessoa jurídica para fins contratuais e de faturamento." />
                     </label>
                     <div className="relative">
-                        <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors" />
                         <input
                             type="text"
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00FF94]/50 focus:border-[#00FF94] outline-none transition-all font-medium"
+                            className={`${inputStyle} pl-12`}
                             placeholder="Ex: Tech Solutions Ltda"
                             value={formData.company_name}
                             onChange={e => setFormData({ ...formData, company_name: e.target.value })}
                         />
+                        <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors pointer-events-none" />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Sector */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00FF94] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Database className="w-4 h-4 text-[#00FF94]" />
                         Setor de Atuação
                         <LegalTooltip content="Para benchmarking e análise de riscos setoriais específicos." />
                     </label>
                     <div className="relative">
-                        <Database className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors" />
                         <select
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white focus:ring-2 focus:ring-[#00FF94]/50 focus:border-[#00FF94] outline-none appearance-none transition-all font-medium cursor-pointer"
+                            className={`${inputStyle} pl-12 pr-12 appearance-none cursor-pointer`}
                             value={formData.sector}
                             onChange={e => setFormData({ ...formData, sector: e.target.value })}
                         >
-                            <option value="" disabled className="bg-[#050810] text-gray-500">Selecione um setor...</option>
-                            <option value="Tecnologia" className="bg-[#050810]">Tecnologia</option>
-                            <option value="Financeiro" className="bg-[#050810]">Financeiro</option>
-                            <option value="Saúde" className="bg-[#050810]">Saúde</option>
-                            <option value="Varejo" className="bg-[#050810]">Varejo</option>
-                            <option value="Indústria" className="bg-[#050810]">Indústria</option>
-                            <option value="Serviços" className="bg-[#050810]">Serviços</option>
+                            <option value="" disabled className="bg-[#0A1A2F] text-gray-500">Selecione um setor...</option>
+                            <option value="Tecnologia" className="bg-[#0A1A2F] text-white">Tecnologia</option>
+                            <option value="Financeiro" className="bg-[#0A1A2F] text-white">Financeiro</option>
+                            <option value="Saúde" className="bg-[#0A1A2F] text-white">Saúde</option>
+                            <option value="Varejo" className="bg-[#0A1A2F] text-white">Varejo</option>
+                            <option value="Indústria" className="bg-[#0A1A2F] text-white">Indústria</option>
+                            <option value="Serviços" className="bg-[#0A1A2F] text-white">Serviços</option>
                         </select>
+                        <Database className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Size Range */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00FF94] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Users className="w-4 h-4 text-[#00FF94]" />
                         Tamanho da Empresa
                         <LegalTooltip content="Para dimensionar o plano de governança adequado." />
                     </label>
                     <div className="relative">
-                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 flex items-center justify-center font-serif text-xs font-bold group-focus-within:text-[#00FF94] transition-colors">#</div>
                         <select
                             required
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white focus:ring-2 focus:ring-[#00FF94]/50 focus:border-[#00FF94] outline-none appearance-none transition-all font-medium cursor-pointer"
+                            className={`${inputStyle} pl-12 pr-12 appearance-none cursor-pointer`}
                             value={formData.size_range}
                             onChange={e => setFormData({ ...formData, size_range: e.target.value })}
                         >
-                            <option value="" disabled className="bg-[#050810] text-gray-500">Número de colaboradores...</option>
-                            <option value="1-50" className="bg-[#050810]">1-50 (Pequena)</option>
-                            <option value="51-200" className="bg-[#050810]">51-200 (Média)</option>
-                            <option value="201-1000" className="bg-[#050810]">201-1000 (Grande)</option>
-                            <option value="1000+" className="bg-[#050810]">1000+ (Enterprise)</option>
+                            <option value="" disabled className="bg-[#0A1A2F] text-gray-500">Número de colaboradores...</option>
+                            <option value="1-50" className="bg-[#0A1A2F] text-white">1-50 (Pequena)</option>
+                            <option value="51-200" className="bg-[#0A1A2F] text-white">51-200 (Média)</option>
+                            <option value="201-1000" className="bg-[#0A1A2F] text-white">201-1000 (Grande)</option>
+                            <option value="1000+" className="bg-[#0A1A2F] text-white">1000+ (Enterprise)</option>
                         </select>
+                        <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors pointer-events-none" />
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 pointer-events-none" />
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Website */}
-                <div className="group">
-                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 group-focus-within:text-[#00FF94] transition-colors">
+                <motion.div variants={inputVariants} className="group">
+                    <label className={labelStyle}>
+                        <Globe className="w-4 h-4 text-[#00FF94]" />
                         Website Corporativo
                         <LegalTooltip content="Utilizado para verificação de domínio e reputação digital." />
                     </label>
                     <div className="relative">
-                        <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors" />
                         <input
                             type="url"
-                            className="w-full h-12 bg-[#050810]/50 border border-white/10 rounded-xl pl-12 px-4 text-white placeholder-gray-600 focus:ring-2 focus:ring-[#00FF94]/50 focus:border-[#00FF94] outline-none transition-all font-medium"
+                            className={`${inputStyle} pl-12`}
                             placeholder="https://suaempresa.com.br"
                             value={formData.website}
                             onChange={e => setFormData({ ...formData, website: e.target.value })}
                         />
+                        <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-[#00FF94] transition-colors pointer-events-none" />
                     </div>
-                </div>
+                </motion.div>
             </div>
 
-            <div className="pt-6 border-t border-white/5">
+            {/* Consent Section */}
+            <motion.div
+                variants={inputVariants}
+                className="pt-8 border-t border-white/[0.06]"
+            >
                 <ConsentCheckbox
                     id="corp-consent"
                     checked={consent}
@@ -186,20 +223,37 @@ export default function CorporateOnboardingForm({ onSuccess }: { onSuccess: () =
                     required
                     label="Declaro que estou autorizado a representar esta empresa e aceito a Política de Privacidade B2B."
                 />
-            </div>
+            </motion.div>
 
-            <button
+            {/* Submit Button - Premium Green Gradient */}
+            <motion.button
+                variants={inputVariants}
                 type="submit"
                 disabled={loading}
-                className="w-full h-14 bg-gradient-to-r from-[#00FF94] to-[#00CC76] text-[#050810] font-bold uppercase tracking-widest text-sm rounded-xl shadow-[0_0_20px_rgba(0,255,148,0.3)] hover:shadow-[0_0_30px_rgba(0,255,148,0.5)] active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-3"
+                whileHover={{ scale: 1.01, boxShadow: "0 0 50px rgba(0,255,148,0.3)" }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full h-16 bg-gradient-to-r from-[#00FF94] via-[#00DD80] to-[#00CC76] 
+                    text-[#050810] font-bold uppercase tracking-[0.2em] text-sm rounded-xl 
+                    shadow-[0_10px_40px_rgba(0,255,148,0.25),_inset_0_1px_0_rgba(255,255,255,0.2)] 
+                    hover:shadow-[0_20px_60px_rgba(0,255,148,0.35)] 
+                    active:scale-[0.98] transition-all duration-300 
+                    disabled:opacity-50 disabled:cursor-not-allowed 
+                    flex justify-center items-center gap-4
+                    relative overflow-hidden group"
             >
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                    translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
                 {loading ? (
-                    <span className="w-5 h-5 border-2 border-[#050810]/30 border-t-[#050810] rounded-full animate-spin" />
+                    <span className="w-6 h-6 border-2 border-[#050810]/30 border-t-[#050810] rounded-full animate-spin" />
                 ) : (
-                    <Database className="w-5 h-5" />
+                    <Rocket className="w-5 h-5" />
                 )}
-                {loading ? 'Processando Blindagem...' : 'Acessar War Room'}
-            </button>
-        </form>
+                <span className="relative z-10">
+                    {loading ? 'Processando Blindagem...' : 'Acessar War Room'}
+                </span>
+            </motion.button>
+        </motion.form>
     );
 }
