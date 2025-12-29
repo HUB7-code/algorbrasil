@@ -11,6 +11,8 @@ services:
       - ./backend/sql_app.db:/app/sql_app.db
       # Persistir Uploads (LMS)
       - ./backend/app/static/uploads:/app/backend/app/static/uploads
+      # Montar Assets Públicos (Logo para Emails) - CRÍTICO PARA VPS
+      - ./frontend/public:/app/frontend/public
     environment:
       - DATABASE_URL=sqlite:///./sql_app.db
       - SMTP_SERVER=smtp-relay.brevo.com

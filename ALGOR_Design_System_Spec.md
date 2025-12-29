@@ -197,7 +197,7 @@ whileTap={{ scale: 0.98 }}
 <motion.div
     className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#131825] to-[#0A0E1A] 
                border border-white/[0.06] p-5 group hover:border-opacity-20"
-    whileHover={{ scale: 1.02, borderColor: `{'${color}30'}` }}
+    whileHover={{ scale: 1.02, borderColor: "#00FF9430" }}
 >
 ```
 
