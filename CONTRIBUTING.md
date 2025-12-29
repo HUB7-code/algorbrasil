@@ -207,13 +207,15 @@ git rev-list --objects --all | \
 ## 🆘 Problemas Comuns
 
 ### "Arquivo muito grande para GitHub"
-- Limite: 100 MB por arquivo
+- Limite rígido: 100 MB por arquivo
 - Solução: Use Git LFS para arquivos grandes ou remova-os
 
-### "Repositório acima de 1 GB"
-- Remova arquivos desnecessários do histórico
-- Use `.gitignore` adequadamente
-- Considere separar assets grandes em outro repositório
+### "Repositório acima do limite recomendado"
+- GitHub avisa sobre repositórios acima de 100 MB
+- Limite suave: 1 GB (aviso)
+- Limite rígido: 2 GB (pode ter restrições de push)
+- Solução: Remova arquivos desnecessários do histórico, use `.gitignore` adequadamente
+- Considere separar assets grandes em outro repositório ou usar Git LFS
 
 ### "Arquivos aparecem em git status mesmo estando no .gitignore"
 - Eles podem já estar rastreados pelo git

@@ -9,8 +9,6 @@
 # next.js - BUILD FILES (NEVER COMMIT!)
 /.next/
 /out/
-.next
-*.next
 
 # production
 /build
