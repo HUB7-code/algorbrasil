@@ -18,14 +18,14 @@ def seed_data():
         print("🌱 Seeding Demo Data for Royal Navy Dashboard...")
 
         # 1. Get or Create User
-        user = db.query(User).filter(User.email == "demo@algor.brasil").first()
-        demo_password = "password123"
+        user = db.query(User).filter(User.email == "admin@algorbrasil.com.br").first()
+        demo_password = "admin"
         hashed_pwd = get_password_hash(demo_password)
 
         if not user:
             print("Creating Demo User...")
             user = User(
-                email="demo@algor.brasil",
+                email="admin@algorbrasil.com.br",
                 full_name="Edisio Demo",
                 hashed_password=hashed_pwd, 
                 is_active=True,

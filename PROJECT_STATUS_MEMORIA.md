@@ -1,41 +1,34 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V16.3.0 (Infrastructure Stability & Auto-Healing)**
+## STATUS ATUAL: **V16.4.0 (Dashboard Localization & Premium UX)**
 **Data:** 27/12/2025
-**Objetivo:** Garantir estabilidade total em produção (VPS), corrigindo falhas de login, persistência de dados e pipeline de testes CI/CD.
+**Objetivo:** Localização completa (PT-BR) dos dashboards e refinamento estético "Power BI Premium".
 
 ---
 
-### 🚀 **Últimas Grandes Conquistas (V16.3.0)**
+### 🚀 Últimas Grandes Conquistas (V16.4.0)
 
-1.  **Infrastructure & Persistence (Critical Fixes)**
+1.  **Dashboard Localization (PT-BR)**
+    *   **Admin Dashboard:** Tradução 100% de termos técnicos (e.g., "Command Center" → "Centro de Comando", "User Activity" → "Atividade (Semanal)").
+    *   **User Dashboard:** Tradução de KPIs e Gráficos (e.g., "Trust Score" → "Índice de Confiança", "Risk Matrix" → "Matriz de Risco").
+    *   **Consistency:** Termos unificados em toda a interface administrativa e do usuário.
+
+2.  **Infrastructure & Persistence (Critical Fixes)**
     *   **Auto-Healing Database:** Script de inicialização (`initial_data.py`) reescrito em SQL Puro para eliminar dependências circulares e garantir criação de Admin/Org em qualquer ambiente.
     *   **Robust Migrations:** Alembic configurado corretamente para gerenciar mudanças de schema na VPS.
     *   **CI/CD Pipeline:** GitHub Actions corrigido (`ModuleNotFoundError`) e passando 100%.
 
-2.  **Scanner API (Persona A) - Real Integration**
+3.  **Scanner API (Persona A) - Real Integration**
     *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização (`RiskRegister`).
     *   **Impacto:** "Regulation-as-Code" agora alimenta o dashboard executivo em tempo real. Se o CI/CD falha, o Board vê o risco na hora.
-    *   **Validation:** Testes de integração CI/CD (`test_scanner_api.py`) comprovam bloqueio de pipeline.
-    *   **Bridge:** Scanner → RiskRegister → Dashboard Trust Score (ciclo fechado).
 
-2.  **Smart Report ISO 42001 (Persona B)**
+4.  **Smart Report ISO 42001 (Persona B)**
     *   **Engine:** Gerador de PDFs customizados (`backend/services/ReportGenerator`) com Score de Viabilidade.
     *   **Viewer:** Interface A4 Web-ready (`frontend/app/dashboard/report-iso42001`) para consultores imprimirem auditorias.
-    *   **Workflow:** Botão integrado na gestão de carteira de clientes (`/dashboard/clients`).
 
-3.  **Knowledge Hub (Persona C)**
-    *   **Portal:** Nova área `/hub` lançada com Glossário Interativo e News Ticker.
-    *   **Onboarding:** Fluxo de registro adaptado para estudantes/acadêmicos.
-
-4.  **Dashboard "Vivo"**
-    *   **Telemetry:** Gráficos (Trend & Radar) agora consomem dados reais do banco. O "Trust Score" flutua conforme novos riscos são detectados pelo Scanner.
-
-5.  **Enterprise Page - Power BI Premium Redesign**
-    *   **Aesthetic:** Página `/solutions/enterprise` totalmente redesenhada para alinhar com o Design System "Power BI Premium Dark Mode".
-    *   **Cores:** Paleta unificada (`#00FF94` Brand Green, `#00A3FF` Brand Blue, `#F59E0B` Warning Gold).
-    *   **Components:** Cards glassmorphism, Live Monitor Widget (simula dashboard real), tipografia serif premium.
-    *   **Modals:** Refinamento do modal "Diagnóstico Técnico" (remoção de texto desnecessário "Sem compromisso").
+5.  **Dashboard "Vivo" & Premium**
+    *   **Visual:** Refinamento "Power BI Premium" com glassmorphism aprofundado e gradientes neon (`#00FF94`/`#00A3FF`).
+    *   **Telemetry:** Gráficos (Trend & Radar) totalmente traduzidos e integrados visualmente.
 
 ---
 
@@ -99,45 +92,48 @@ Entrega completa da jornada da **Persona A (Empresa/Visitante)** na versão 16.0
 
 | Prioridade | Tarefa | Status |
 |------------|--------|--------|
-| 1 | ✅ **Persona B (Limits)** - Sandbox Comunitário vs Associado | 🚀 Complete |
+| 1 | ✅ **Dashboard Localization** - PT-BR Completo | 🇧🇷 Complete |
 | 2 | ✅ **Homepage Refresh** - Alinhamento com Produto | 🛍️ Complete |
 | 3 | 🚀 **Persona C (Knowledge Hub)** - Página `/hub` | Próximo Foco |
 | 4 | 🚀 **Persona B (Tools)** - Gerador de Relatório ISO 42001 | Backlog |
 
 ---
 
-## 6. Resumo Visual V16.1.1
+## 6. Resumo Visual V16.4.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v16.1.1                        │
-│         COMMUNITY SANDBOX & HOMEPAGE ALIGNMENT              │
+│                 ALGOR BRASIL v16.4.0                        │
+│         DASHBOARD LOCALIZATION & PREMIUM UX                 │
 ├─────────────────────────────────────────────────────────────┤
 │                                                              │
-│  🚀 BUSINESS LOGIC (ASSOCIATION MODEL)                      │
-│  ├── Free User (Community) -> 1 Workspace Lmt... ✅         │
-│  ├── Pro User (Associate) -> Unlimited Worksp... ✅         │
-│  ├── Upsell Gate (403 Forbidden)................ ✅         │
+│  🇧🇷 LOCALIZATION (PT-BR)                                    │
+│  ├── Admin Dashboard ........................... ✅ (100%)  │
+│  ├── User Dashboard ............................ ✅ (100%)  │
+│  ├── Charts & KPIs ............................. ✅ (100%)  │
 │                                                              │
-│  🛍️ HOMEPAGE STRATEGY                                       │
-│  ├── "O Auditor" -> Vende Multi-Tenant.......... ✅         │
-│  ├── "O Engenheiro" -> Vende API Scanner........ ✅         │
-│  ├── "O Especialista" -> Vende Hub (Link)....... ✅         │
+│  🎨 PREMIUM UX REFINEMENT                                   │
+│  ├── StatCards V2 (Glass/Neon) ................. ✅         │
+│  ├── Admin Grid Layout ......................... ✅         │
+│                                                              │
+│  🚀 BUSINESS LOGIC (ASSOCIATION MODEL)                      │
+│  ├── Free User (Community Limits) .............. ✅         │
+│  ├── Upsell Gate (403 Forbidden)................ ✅         │
 │                                                              │
 │  ✅ JORNADAS ATIVAS                                         │
 │  ├── Persona A (Empresa) ....................... ✅ (100%)  │
 │  ├── Persona B (Consultor) ..................... 🚧 (50%)   │
-│  └── Persona C (Estudante) ..................... ⏳ (Start) │
 │                                                              │
 └─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-*Documento atualizado automaticamente. Versão 16.1.1 (Stable - Community Limits & Homepage Refresh).*
-> **Última Atualização:** 27/12/2025 - 09:17 (Enterprise & Branding)
-> **Status Geral:** **POWER BI PREMIUM DARK MODE - ENTERPRISE & BRANDING (V15.4)** 🎨✅
-> **Versão:** 15.4 (Enterprise Journey & Logo Standardization)
+*Documento atualizado automaticamente. Versão 16.4.0 (Stable - Localized & Premium).*
+> **Última Atualização:** 27/12/2025 - 22:00 (Localization)
+> **Status Geral:** **POWER BI PREMIUM DARK MODE - PT-BR (V16.4)** 🇧🇷✅
+> **Versão:** 16.4.0
+
 
 ---
 

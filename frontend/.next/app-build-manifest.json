@@ -27,10 +27,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(public)/login/page.js"
     ],
-    "/_not-found/page": [
+    "/(public)/partners/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(public)/partners/page.js"
+    ],
+    "/(public)/associates/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/associates/page.js"
+    ],
+    "/(public)/associates/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/associates/layout.js"
+    ],
+    "/(public)/register/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/register/page.js"
+    ],
+    "/(public)/register/success/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(public)/register/success/page.js"
     ]
   }
 }

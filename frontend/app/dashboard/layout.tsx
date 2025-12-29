@@ -68,7 +68,7 @@ function DashboardLayoutContent({
                 <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-[#8B5CF6]/3 rounded-full blur-[120px]" />
             </div>
 
-            {/* Sidebar - Power BI Premium Dark Mode */}
+            {/* Sidebar - Ultra Modern */}
             <motion.aside
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -76,212 +76,131 @@ function DashboardLayoutContent({
                 className={`
                     fixed lg:static inset-y-0 left-0 z-30
                     w-[280px] 
-                    bg-gradient-to-b from-[#0A0E1A] via-[#0D1117] to-[#0A0E1A]
+                    bg-[#0A0E1A]/60
+                    backdrop-blur-xl
                     border-r border-white/[0.06]
-                    backdrop-blur-2xl
                     transform transition-transform duration-300 ease-in-out
                     flex flex-col
                     ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
                 `}
             >
                 {/* Sidebar Glow Effect */}
-                <div className="absolute top-0 right-0 w-px h-full bg-gradient-to-b from-[#00FF94]/20 via-transparent to-[#00A3FF]/20 pointer-events-none" />
+                <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#00FF94]/5 to-transparent pointer-events-none" />
 
                 {/* Logo Area */}
-                <div className="h-20 flex items-center px-6 border-b border-white/[0.04] relative">
-                    <Link href="/dashboard" className="flex items-center gap-4 group">
-                        <motion.div
-                            className="relative w-12 h-12 rounded-xl overflow-hidden border border-[#00FF94]/30 shadow-[0_0_20px_rgba(0,255,148,0.15)] shrink-0"
-                            whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(0,255,148,0.3)" }}
-                        >
-                            <Image src="/logo-algor.webp" alt="Algor" fill className="object-contain" />
-                        </motion.div>
-                        <div>
-                            <span className="font-orbitron font-bold text-lg tracking-wide text-white whitespace-nowrap flex items-center gap-1">
-                                ALGOR <span className="text-[#00FF94]">BRASIL</span>
-                            </span>
+                <div className="h-32 flex items-center justify-center px-6 relative mt-4 mb-2">
+                    <Link href="/dashboard" className="flex flex-col items-center gap-4 group">
+                        <div className="relative w-24 h-24 rounded-full border-2 border-[#00FF94]/20 bg-[#0A0E1A] flex items-center justify-center shadow-[0_0_30px_rgba(0,255,148,0.15)] group-hover:border-[#00FF94]/50 group-hover:shadow-[0_0_50px_rgba(0,255,148,0.3)] transition-all duration-500">
+                            <div className="absolute inset-0 rounded-full bg-[#00FF94] blur-[30px] opacity-10 group-hover:opacity-30 transition-opacity" />
+                            <Image src="/logo-algor.webp" alt="Algor" width={72} height={72} className="object-contain relative z-10 drop-shadow-[0_0_10px_rgba(0,255,148,0.5)]" />
                         </div>
                     </Link>
                 </div>
 
-                {/* Organization Switcher */}
-                <div className="pt-5 px-4">
+                {/* Organization Switcher - Minimalist */}
+                <div className="px-6 mb-6 mt-8">
                     <OrganizationSwitcher />
                 </div>
 
-                {/* Primary Action Button */}
-                <div className="px-4 mb-4 mt-4">
+                {/* Primary Action Button - Neon Outline Style */}
+                <div className="px-6 mb-8">
                     <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: "0 0 40px rgba(0,255,148,0.3)" }}
+                        whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0,255,148,0.15)" }}
                         whileTap={{ scale: 0.98 }}
-                        className="flex items-center justify-center gap-3 w-full h-[48px] rounded-xl bg-gradient-to-r from-[#00FF94] to-[#00CC76] hover:from-[#00FF94] hover:to-[#00FF94] text-[#0A0E1A] font-bold text-sm tracking-wide transition-all shadow-[0_0_25px_rgba(0,255,148,0.25)] border border-[#00FF94]/50"
+                        className="group relative flex items-center justify-center gap-3 w-full h-[48px] rounded-lg bg-[#00FF94]/5 hover:bg-[#00FF94]/10 border border-[#00FF94]/30 hover:border-[#00FF94]/60 text-[#00FF94] font-bold text-xs tracking-widest transition-all overflow-hidden"
                     >
-                        <span className="material-symbols-rounded text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>play_circle</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF94]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                        <span className="material-symbols-rounded text-lg">play_circle</span>
                         INICIAR CICLO
                     </motion.button>
                 </div>
 
                 {/* Navigation Items */}
-                <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                <nav className="flex-1 px-4 space-y-1 overflow-y-auto overflow-x-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
                     {/* Section: Strategy */}
-                    <div className="px-3 pt-4 pb-2">
-                        <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
-                            <div className="w-4 h-px bg-gradient-to-r from-[#00FF94]/50 to-transparent" />
+                    <div className="px-4 py-3 mt-2">
+                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
                             Estratégia
                         </span>
                     </div>
-                    <NavItem
-                        href="/dashboard"
-                        icon="shield_with_house"
-                        label="Centro de Comando"
-                        active={pathname === "/dashboard"}
-                        color="#00FF94"
-                    />
-                    <NavItem
-                        href="/dashboard/clients"
-                        icon="business_center"
-                        label="Meus Clientes"
-                        active={pathname.startsWith("/dashboard/clients")}
-                        color="#F59E0B"
-                    />
-                    <NavItem
-                        href="/dashboard/roadmap"
-                        icon="map"
-                        label="Jornada de Adoção"
-                        active={pathname.startsWith("/dashboard/roadmap")}
-                        color="#00A3FF"
-                    />
+                    <NavItem href="/dashboard" icon="shield_with_house" label="Centro de Comando" active={pathname === "/dashboard"} color="#00FF94" />
+                    <NavItem href="/dashboard/clients" icon="business_center" label="Meus Clientes" active={pathname.startsWith("/dashboard/clients")} color="#F59E0B" />
+                    <NavItem href="/dashboard/roadmap" icon="map" label="Jornada de Adoção" active={pathname.startsWith("/dashboard/roadmap")} color="#00A3FF" />
 
                     {/* Section: Operations */}
-                    <div className="px-3 pt-6 pb-2">
-                        <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
-                            <div className="w-4 h-px bg-gradient-to-r from-[#00A3FF]/50 to-transparent" />
+                    <div className="px-4 py-3 mt-4">
+                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
                             Operações
                         </span>
                     </div>
-                    <NavItem
-                        href="/dashboard/inventory"
-                        icon="database"
-                        label="Inventário de IA"
-                        active={pathname.startsWith("/dashboard/inventory")}
-                        color="#00A3FF"
-                    />
-                    <NavItem
-                        href="/dashboard/assessments"
-                        icon="fact_check"
-                        label="Auditorias"
-                        active={pathname === "/dashboard/assessments"}
-                        color="#00FF94"
-                        badge="4"
-                    />
-                    <NavItem
-                        href="/dashboard/risks"
-                        icon="health_and_safety"
-                        label="Gestão de Riscos"
-                        active={pathname.startsWith("/dashboard/risks")}
-                        color="#F59E0B"
-                    />
-                    <NavItem
-                        href="/dashboard/projects"
-                        icon="folder_managed"
-                        label="Projetos Gov"
-                        active={pathname.startsWith("/dashboard/projects")}
-                        color="#8B5CF6"
-                    />
+                    <NavItem href="/dashboard/inventory" icon="database" label="Inventário de IA" active={pathname.startsWith("/dashboard/inventory")} color="#00A3FF" />
+                    <NavItem href="/dashboard/assessments" icon="fact_check" label="Auditorias" active={pathname === "/dashboard/assessments"} color="#00FF94" badge="4" />
+                    <NavItem href="/dashboard/risks" icon="health_and_safety" label="Gestão de Riscos" active={pathname.startsWith("/dashboard/risks")} color="#F59E0B" />
+                    <NavItem href="/dashboard/projects" icon="folder_managed" label="Projetos Gov" active={pathname.startsWith("/dashboard/projects")} color="#8B5CF6" />
 
                     {/* Section: Knowledge */}
-                    <div className="px-3 pt-6 pb-2">
-                        <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
-                            <div className="w-4 h-px bg-gradient-to-r from-[#8B5CF6]/50 to-transparent" />
+                    <div className="px-4 py-3 mt-4">
+                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
                             Conhecimento
                         </span>
                     </div>
-                    <NavItem
-                        href="/dashboard/courses"
-                        icon="school"
-                        label="Academy"
-                        active={pathname.startsWith("/dashboard/courses")}
-                        color="#8B5CF6"
-                    />
+                    <NavItem href="/dashboard/courses" icon="school" label="Academia" active={pathname.startsWith("/dashboard/courses")} color="#8B5CF6" />
 
                     {/* Admin Section */}
                     {user.role === "admin" && (
                         <>
-                            <div className="px-3 pt-6 pb-2">
-                                <span className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.2em] flex items-center gap-2">
-                                    <div className="w-4 h-px bg-gradient-to-r from-[#EF4444]/50 to-transparent" />
-                                    Admin
+                            <div className="px-4 py-3 mt-4">
+                                <span className="text-[9px] font-bold text-[#EF4444]/70 uppercase tracking-[0.2em] font-mono">
+                                    Núcleo Admin
                                 </span>
                             </div>
                             <NavItem href="/dashboard/leads" icon="group" label="Gestão de Leads" active={pathname.startsWith("/dashboard/leads")} color="#EF4444" />
-                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Admin System" active={pathname.startsWith("/dashboard/admin")} color="#EF4444" />
+                            <NavItem href="/dashboard/admin" icon="admin_panel_settings" label="Status do Sistema" active={pathname.startsWith("/dashboard/admin")} color="#EF4444" />
                         </>
                     )}
                 </nav>
 
                 {/* Bottom Section */}
-                <div className="p-4 mt-auto border-t border-white/[0.04] bg-gradient-to-t from-[#0A0E1A] to-transparent">
-                    <div className="space-y-1 mb-4">
-                        <NavItem href="/dashboard/settings" icon="settings" label="Configurações" active={pathname === "/dashboard/settings"} color="#6B7280" />
-                        <NavItem href="/dashboard/exclusive" icon="diamond" label="Acervo Premium" active={pathname === "/dashboard/exclusive"} color="#FFD700" badge="PRO" />
-                    </div>
+                <div className="p-4 mt-auto border-t border-white/[0.04] bg-[#0A0E1A]/80 backdrop-blur-md">
+                    <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition-colors text-sm font-medium mb-1">
+                        <span className="material-symbols-rounded text-lg">settings</span>
+                        Configurações
+                    </Link>
 
-                    {/* User Card */}
-                    <motion.div
-                        className="flex items-center gap-3 px-3 py-3 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] hover:border-white/[0.08] cursor-pointer transition-all group relative overflow-hidden"
-                        whileHover={{ scale: 1.01 }}
-                    >
-                        {/* User Card Glow */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#00FF94]/5 via-transparent to-[#00A3FF]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00FF94]/20 to-[#00A3FF]/20 text-white flex items-center justify-center text-sm font-bold border border-white/10 shrink-0 relative">
-                            <span className="relative z-10">{user.name.charAt(0).toUpperCase()}</span>
-                        </div>
-                        <div className="flex-1 min-w-0 relative z-10">
-                            <p className="text-sm font-semibold text-white truncate group-hover:text-[#00FF94] transition-colors">{user?.name}</p>
-                            <div className="flex items-center gap-2">
-                                <p className="text-[10px] text-gray-500 truncate capitalize">{user?.role}</p>
-                                {user.role === 'member' || user.role === 'admin' ? (
-                                    <span className="px-1.5 py-0.5 rounded text-[8px] font-bold bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/20">PRO</span>
-                                ) : (
-                                    <span className="px-1.5 py-0.5 rounded text-[8px] font-bold bg-gray-800 text-gray-500 border border-gray-700">FREE</span>
-                                )}
+                    {/* User Profile Compact */}
+                    <div className="flex items-center justify-between px-4 pt-2">
+                        <div className="flex items-center gap-3">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00FF94] to-[#00A3FF] p-[1px]">
+                                <div className="w-full h-full rounded-full bg-[#0A0E1A] flex items-center justify-center">
+                                    <span className="text-xs font-bold text-white">{user.name.charAt(0)}</span>
+                                </div>
+                            </div>
+                            <div className="flex flex-col">
+                                <span className="text-xs font-bold text-white leading-none mb-1">{user.name}</span>
+                                <span className="text-[10px] text-gray-500 leading-none capitalize">{user.role}</span>
                             </div>
                         </div>
-                        <motion.button
-                            onClick={handleLogout}
-                            className="p-2 rounded-lg text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-all relative z-10"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
                             <span className="material-symbols-rounded text-lg">logout</span>
-                        </motion.button>
-                    </motion.div>
+                        </button>
+                    </div>
                 </div>
             </motion.aside>
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col h-screen relative overflow-hidden">
+            <div className="flex-1 flex flex-col h-screen relative overflow-hidden bg-[#0A0E1A]">
                 {/* Mobile Header */}
                 <header className="h-16 lg:hidden flex items-center justify-between px-4 bg-[#0A0E1A]/95 backdrop-blur-xl border-b border-white/[0.04] relative z-20">
                     <div className="flex items-center gap-3">
-                        <motion.button
-                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                            className="p-2 text-white rounded-lg hover:bg-white/5 transition-colors"
-                            whileTap={{ scale: 0.95 }}
-                        >
+                        <motion.button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 text-white" whileTap={{ scale: 0.95 }}>
                             <span className="material-symbols-rounded">menu</span>
                         </motion.button>
-                        <span className="font-bold text-lg text-white">ALGOR</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
-                        <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-wider">Online</span>
+                        <span className="font-orbitron font-bold text-white">ALGOR</span>
                     </div>
                 </header>
 
-                <main className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent relative z-10">
+                <main className="flex-1 overflow-y-auto relative z-10" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {children}
                 </main>
             </div>
@@ -290,82 +209,49 @@ function DashboardLayoutContent({
 }
 
 // ========================================
-// PREMIUM NAVIGATION ITEM
+// ULTRA MODERN NAV ITEM
 // ========================================
-function NavItem({
-    href,
-    icon,
-    label,
-    active = false,
-    color = "#00FF94",
-    badge
-}: {
-    href: string;
-    icon: string;
-    label: string;
-    active?: boolean;
-    color?: string;
-    badge?: string;
-}) {
+function NavItem({ href, icon, label, active = false, color = "#00FF94", badge }: any) {
     return (
         <Link href={href}>
-            <motion.div
-                className={`
-                    flex items-center gap-3 px-3 py-2.5 mx-2 rounded-xl text-sm font-medium transition-all duration-200 relative overflow-hidden group
-                    ${active
-                        ? 'bg-white/[0.06] text-white border border-white/[0.08]'
-                        : 'text-gray-400 hover:text-white hover:bg-white/[0.03] border border-transparent'
-                    } 
-                `}
-                whileHover={{ x: 4 }}
-                whileTap={{ scale: 0.98 }}
-            >
-                {/* Active Indicator */}
+            <div className={`relative px-4 py-2.5 flex items-center gap-3 group transition-all duration-300 ${active ? 'bg-white/[0.03]' : 'hover:bg-white/[0.01]'}`}>
+
+                {/* Active Indicator Line */}
                 {active && (
                     <motion.div
-                        className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full"
-                        style={{ backgroundColor: color }}
-                        layoutId="activeIndicator"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        layoutId="activeNavIndicator"
+                        className="absolute left-0 top-0 bottom-0 w-[2px] shadow-[0_0_10px]"
+                        style={{ backgroundColor: color, boxShadow: `0 0 10px ${color}` }}
                     />
                 )}
 
-                {/* Hover Glow */}
-                <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
-                    style={{
-                        background: `linear-gradient(90deg, ${color}08 0%, transparent 100%)`
-                    }}
-                />
-
+                {/* Icon */}
                 <span
-                    className={`material-symbols-rounded text-[20px] transition-all relative z-10 ${active ? '' : 'group-hover:scale-110'}`}
-                    style={{
-                        color: active ? color : undefined,
-                        fontVariationSettings: active ? "'FILL' 1, 'wght' 600" : "'FILL' 0, 'wght' 400"
-                    }}
+                    className={`material-symbols-rounded text-lg transition-colors duration-300 ${active ? 'text-white' : 'text-gray-500 group-hover:text-gray-300'}`}
+                    style={{ textShadow: active ? `0 0 10px ${color}` : 'none' }}
                 >
                     {icon}
                 </span>
-                <span className={`flex-1 relative z-10 ${active ? 'font-semibold tracking-wide' : 'tracking-wide'}`}>
+
+                {/* Label */}
+                <span className={`text-sm tracking-wide transition-colors duration-300 ${active ? 'text-white font-medium' : 'text-gray-500 group-hover:text-gray-300'}`}>
                     {label}
                 </span>
 
                 {/* Badge */}
                 {badge && (
                     <span
-                        className="px-1.5 py-0.5 rounded text-[9px] font-bold border relative z-10"
+                        className="ml-auto text-[9px] font-bold px-1.5 py-0.5 rounded-sm border"
                         style={{
-                            backgroundColor: `${color}15`,
-                            borderColor: `${color}30`,
-                            color: color
+                            color: active ? color : '#6B7280',
+                            borderColor: active ? `${color}40` : 'rgba(255,255,255,0.1)',
+                            backgroundColor: active ? `${color}10` : 'transparent'
                         }}
                     >
                         {badge}
                     </span>
                 )}
-            </motion.div>
+            </div>
         </Link>
     );
 }

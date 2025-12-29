@@ -181,17 +181,17 @@ npm run dev
   - [ ] Clique "Nova Organização"
   - [ ] Crie uma organização: "Cliente Teste Ltda"
   - [ ] Verifique se mudou para a nova organização
-- [ ] **KPI Cards:**
-  - [ ] Trust Score (deve ter valor)
-  - [ ] Riscos Ativos
-  - [ ] Assessments
-  - [ ] Ativos de IA
+- [ ] **KPI Cards (Verifique Tradução):**
+  - [ ] Nível de Prontidão (Trust Score)
+  - [ ] Ativos Monitorados
+  - [ ] Incidentes Críticos
+  - [ ] Velocidade de Aprovação
 - [ ] **Gráficos:**
-  - [ ] Trend Chart (linha do tempo)
-  - [ ] Risk Radar (radar de riscos)
+  - [ ] Evolução do Trust Score (Linha do tempo)
+  - [ ] Matriz de Risco (Radar)
   - [ ] Verifique se os dados são reais (não mock)
 
-**✅ Critério de Sucesso:** Dashboard carrega, organização criada, KPIs exibem dados reais.
+**✅ Critério de Sucesso:** Dashboard carrega com termos em Português, organização criada, KPIs exibem dados reais.
 
 ---
 

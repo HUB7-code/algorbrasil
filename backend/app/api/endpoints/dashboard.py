@@ -33,8 +33,15 @@ async def get_dashboard_overview(
     # 3. Projetos em Andamento
     active_projects = db.query(Project).filter(Project.status == "In Progress").count()
     
-    # 5. Trend Chart Data (Last 6 Months Mock - In Real Life, use Assessment History)
-    # Simulator for demo purposes based on trust_score
+    # 4. Calculate Scores
+    # Logic: Start at 100. Deduct 10 per critical risk, 5 per high risk. Min score 20.
+    penalty = (critical_risks * 10) + (high_risks * 5)
+    trust_score = max(20, 100 - penalty)
+    
+    # Growth Score: Based on assets deployed and projects active.
+    growth_score = min(100, (total_assets * 10) + (active_projects * 15) + 30)
+
+    # 5. Trend Chart Data
     import datetime
     today = datetime.date.today()
     months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -43,27 +50,56 @@ async def get_dashboard_overview(
     current_month_idx = today.month - 1
     for i in range(5, -1, -1):
         idx = (current_month_idx - i) % 12
-        score = trust_score - (i * 2) # Simulate improvement
-        active = total_assets - i
+        # Simulate history: Score was lower in the past, improved recently
+        simulated_score = max(20, min(100, trust_score - (i * 3))) 
+        simulated_active = max(1, total_assets - i)
         trend_data.append({
             "name": months[idx],
-            "score": max(20, min(100, score)),
-            "active": max(0, active)
+            "score": simulated_score,
+            "active": simulated_active
         })
 
-    # 6. Risk Radar Data (Real aggregations)
-    risk_categories = db.query(RiskRegister.category, func.count(RiskRegister.id)).group_by(RiskRegister.category).all()
-    # Map to Radar Format
+    # 6. Risk Radar Data (Map DB categories to Radar Axis)
+    risk_categories_db = db.query(RiskRegister.category, func.count(RiskRegister.id)).group_by(RiskRegister.category).all()
+    
+    # Generic mapping if DB categories don't match exactly
+    # "Viés Discriminatório" -> "Ética"
+    # "Alucinação" -> "Robustez"
+    # "Vazamento de PII" -> "Privacidade"
+    
+    radar_map = {
+        "Segurança": 0, "Ética": 0, "Privacidade": 0, 
+        "Performance": 0, "Robustez": 0, "Legal": 0
+    }
+    
+    for cat, count in risk_categories_db:
+        cat_lower = cat.lower()
+        if "viés" in cat_lower or "bias" in cat_lower:
+            radar_map["Ética"] += count
+        elif "alucinação" in cat_lower or "hallucination" in cat_lower:
+            radar_map["Robustez"] += count
+        elif "pii" in cat_lower or "vazamento" in cat_lower or "privacy" in cat_lower:
+            radar_map["Privacidade"] += count
+        elif "legal" in cat_lower or "lei" in cat_lower:
+            radar_map["Legal"] += count
+        elif "performance" in cat_lower or "lento" in cat_lower:
+            radar_map["Performance"] += count
+        else:
+            radar_map["Segurança"] += count # Default catch-all
+
     risk_radar = []
-    # If no data, provide seeds so chart isn't empty
-    default_categories = ["Segurança", "Ética", "Privacidade", "Performance", "Robustez", "Legal"]
-    for cat in default_categories:
-        count = next((c for c_name, c in risk_categories if c_name == cat), 0)
-        # Normalize for chart 0-150 scale
-        normalized_value = min(150, count * 30 + 50) if count > 0 else 30 # Base 30
+    for subject, count in radar_map.items():
+        # Scale: 0 risks = 150 (Perfect), 1 risk = 100, 2 risks = 50...
+        # Wait, chart is "Risk Detected" -> High value = High Risk?
+        # Let's assume High Value = High Presence of Risk for this visual.
+        # 1 risk = 50 points, 2 = 100, 3+ = 150.
+        val = min(150, count * 50) 
+        # If 0 risks, show small value (20) just so chart isn't invisible
+        final_val = val if val > 0 else 20
+        
         risk_radar.append({
-            "subject": cat,
-            "A": normalized_value,
+            "subject": subject,
+            "A": final_val,
             "fullMark": 150
         })
 

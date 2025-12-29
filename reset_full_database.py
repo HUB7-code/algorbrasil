@@ -25,7 +25,7 @@ def reset_and_seed():
     # 3. Create Admin Completo
     db = SessionLocal()
     try:
-        admin_email = "admin@algor.com"
+        admin_email = "admin@algorbrasil.com.br"
         admin_pass = "admin"
         
         # 3.1 Usuário
@@ -59,13 +59,13 @@ def reset_and_seed():
         # Se houver tabela de associação, seria aqui. Mas owner_id já garante ownership.
 
         # 3.4 Perfil (Para pular o Onboarding)
+        # 3.4 Perfil (Para pular o Onboarding)
         admin_profile = profiles.CorporateProfile(
             user_id=superuser.id,
             company_name="Algor Brasil",
-            role="CTO",
-            industry="Technology",
-            employee_count="11-50",
-            privacy_level="High"
+            sector="Technology",
+            size_range="51-200",
+            website="https://algorbrasil.com.br"
         )
         db.add(admin_profile)
 
@@ -73,9 +73,9 @@ def reset_and_seed():
         prof_profile = profiles.ProfessionalProfile(
             user_id=superuser.id,
             bio="System Administrator",
-            experience_years="10+",
-            linkedin_profile="https://linkedin.com/in/admin",
-            focus_area="Security"
+            years_experience=10,
+            linkedin_url="https://linkedin.com/in/admin",
+            primary_expertise="Security"
         )
         db.add(prof_profile)
 

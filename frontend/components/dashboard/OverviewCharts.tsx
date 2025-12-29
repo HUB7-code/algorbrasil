@@ -7,37 +7,21 @@ import {
 } from 'recharts';
 import { motion } from 'framer-motion';
 
-// Mock Data - Power BI Style
-const trendData = [
-    { name: 'Jan', score: 65, active: 12 },
-    { name: 'Feb', score: 68, active: 15 },
-    { name: 'Mar', score: 75, active: 18 },
-    { name: 'Apr', score: 72, active: 22 },
-    { name: 'May', score: 80, active: 25 },
-    { name: 'Jun', score: 85, active: 24 },
-    { name: 'Jul', score: 82, active: 30 },
-];
-
-const riskData = [
-    { subject: 'LGPD', A: 120, fullMark: 150 },
-    { subject: 'Segurança', A: 98, fullMark: 150 },
-    { subject: 'Alucinação', A: 86, fullMark: 150 },
-    { subject: 'Viés', A: 99, fullMark: 150 },
-    { subject: 'Jailbreak', A: 85, fullMark: 150 },
-    { subject: 'PII Data', A: 65, fullMark: 150 },
-];
+// ===================================
+// ULTRA-MODERN CHART COMPONENTS
+// ===================================
 
 const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-[#0A1A2F]/95 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-2xl">
-                <p className="font-bold text-white mb-2">{label}</p>
+            <div className="bg-[#0A0E1A]/90 backdrop-blur-xl border border-white/10 p-3 rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)]">
+                <p className="font-mono text-[10px] text-gray-400 mb-1 uppercase tracking-widest">{label}</p>
                 {payload.map((p: any, idx: number) => (
-                    <p key={idx} className="text-sm font-mono flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full" style={{ backgroundColor: p.color }} />
-                        <span className="text-gray-300 capitalize">{p.name}:</span>
-                        <span className="text-white font-bold">{p.value}</span>
-                    </p>
+                    <div key={idx} className="flex items-center gap-2 mb-1 last:mb-0">
+                        <div className="w-1.5 h-1.5 rounded-full shadow-[0_0_5px]" style={{ backgroundColor: p.stroke || p.fill, boxShadow: `0 0 5px ${p.stroke || p.fill}` }} />
+                        <span className="text-xs text-white font-bold font-mono">{p.value}</span>
+                        <span className="text-[10px] text-gray-400 capitalize">{p.name}</span>
+                    </div>
                 ))}
             </div>
         );
@@ -46,58 +30,29 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export function TrendChart({ data }: { data?: any[] }) {
-    if (!data || data.length === 0) {
-        return <div className="h-[280px] w-full flex items-center justify-center text-gray-500 text-xs">Aguardando dados de telemetria...</div>;
-    }
+    if (!data || data.length === 0) return <div className="h-[200px] flex items-center justify-center text-xs text-gray-600 font-mono">SEM DADOS</div>;
+
     return (
-        <div className="h-[280px] w-full">
+        <div className="h-[220px] w-full -ml-4">
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data}>
+                <AreaChart data={data} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <defs>
                         <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#00FF94" stopOpacity={0.3} />
-                            <stop offset="95%" stopColor="#00FF94" stopOpacity={0} />
+                            <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.5} />
+                            <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
                         </linearGradient>
                         <linearGradient id="colorActive" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
+                            <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.5} />
                             <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
-                    <XAxis
-                        dataKey="name"
-                        stroke="#6B7280"
-                        fontSize={10}
-                        tickLine={false}
-                        axisLine={false}
-                    />
-                    <YAxis
-                        stroke="#6B7280"
-                        fontSize={10}
-                        tickLine={false}
-                        axisLine={false}
-                    />
-                    <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1 }} />
-                    <ReferenceLine y={90} label="" stroke="#00FF94" strokeDasharray="3 3" opacity={0.5} />
+                    <CartesianGrid strokeDasharray="2 4" stroke="rgba(255,255,255,0.03)" vertical={false} />
+                    <XAxis dataKey="name" stroke="#4B5563" fontSize={9} tickLine={false} axisLine={false} tickFormatter={(v) => v.toUpperCase()} dy={10} fontFamily="var(--font-jetbrains-mono)" />
+                    <YAxis stroke="#4B5563" fontSize={9} tickLine={false} axisLine={false} fontFamily="var(--font-jetbrains-mono)" />
+                    <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'rgba(255,255,255,0.1)', strokeWidth: 1, strokeDasharray: '4 4' }} />
 
-                    <Area
-                        type="monotone"
-                        dataKey="score"
-                        name="Trust Score"
-                        stroke="#00FF94"
-                        strokeWidth={2}
-                        fillOpacity={1}
-                        fill="url(#colorScore)"
-                    />
-                    <Area
-                        type="monotone"
-                        dataKey="active"
-                        name="Modelos Ativos"
-                        stroke="#00A3FF"
-                        strokeWidth={2}
-                        fillOpacity={1}
-                        fill="url(#colorActive)"
-                    />
+                    <Area type="monotone" dataKey="score" name="Índice de Confiança" stroke="#8B5CF6" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" activeDot={{ r: 6, strokeWidth: 0, fill: "#fff" }} />
+                    <Area type="monotone" dataKey="active" name="Ativos" stroke="#00A3FF" strokeWidth={3} fillOpacity={1} fill="url(#colorActive)" activeDot={{ r: 6, strokeWidth: 0, fill: "#fff" }} />
                 </AreaChart>
             </ResponsiveContainer>
         </div>
@@ -105,16 +60,17 @@ export function TrendChart({ data }: { data?: any[] }) {
 }
 
 export function RiskRadar({ data }: { data?: any[] }) {
-    if (!data || data.length === 0) {
-        return <div className="h-[280px] w-full flex items-center justify-center text-gray-500 text-xs">Sem riscos mapeados.</div>;
-    }
+    if (!data || data.length === 0) return <div className="h-[200px] flex items-center justify-center text-xs text-gray-600 font-mono">SISTEMA SEGURO</div>;
 
     return (
-        <div className="h-[280px] w-full flex items-center justify-center">
+        <div className="h-[240px] w-full flex items-center justify-center relative">
+            {/* Background Glow */}
+            <div className="absolute inset-0 bg-gradient-radial from-[#F59E0B]/5 to-transparent blur-2xl" />
+
             <ResponsiveContainer width="100%" height="100%">
                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={data}>
-                    <PolarGrid stroke="rgba(255,255,255,0.1)" />
-                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#9CA3AF', fontSize: 10 }} />
+                    <PolarGrid gridType="polygon" stroke="rgba(255,255,255,0.05)" />
+                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#6B7280', fontSize: 9, fontFamily: 'var(--font-jetbrains-mono)' }} tickFormatter={(val) => val.toUpperCase()} />
                     <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
                     <Radar
                         name="Risco Detectado"
@@ -122,7 +78,7 @@ export function RiskRadar({ data }: { data?: any[] }) {
                         stroke="#F59E0B"
                         strokeWidth={2}
                         fill="#F59E0B"
-                        fillOpacity={0.3}
+                        fillOpacity={0.4}
                     />
                     <Tooltip content={<CustomTooltip />} />
                 </RadarChart>
@@ -131,27 +87,56 @@ export function RiskRadar({ data }: { data?: any[] }) {
     );
 }
 
-// Pequeno gauge circular para cards
 export function MiniGauge({ value, color = "#00FF94" }: { value: number, color?: string }) {
+    // Semi-circle gauge (180 degrees)
     return (
-        <div className="relative w-16 h-16">
-            <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
-                <path className="text-white/5" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
+        <div className="relative w-24 h-12 overflow-hidden flex items-end justify-center">
+            <svg viewBox="0 0 100 50" className="w-full h-full">
+                {/* Background Track */}
+                <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8" strokeLinecap="round" />
+                {/* Active Track */}
                 <motion.path
-                    initial={{ strokeDasharray: "0, 100" }}
-                    animate={{ strokeDasharray: `${value}, 100` }}
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: value / 100 }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    d="M 10 50 A 40 40 0 0 1 90 50"
                     fill="none"
                     stroke={color}
-                    strokeWidth="3"
+                    strokeWidth="8"
                     strokeLinecap="round"
-                    className="drop-shadow-[0_0_8px_rgba(0,0,0,0.5)]"
+                    className="drop-shadow-[0_0_10px_currentColor]"
                 />
             </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-[10px] font-bold text-white font-mono">{value}%</span>
+            <div className="absolute bottom-0 flex flex-col items-center">
+                <span className="text-2xl font-bold text-white font-mono leading-none tracking-tighter shadow-black drop-shadow-md">{value}%</span>
             </div>
+        </div>
+    );
+}
+
+// Sparkline for small cards
+export function SparkLine({ data, color }: { data: number[], color: string }) {
+    const formattedData = data.map((val, i) => ({ i, val }));
+    return (
+        <div className="h-10 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={formattedData}>
+                    <defs>
+                        <linearGradient id={`gradsw-${color}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stopColor={color} stopOpacity={0.4} />
+                            <stop offset="100%" stopColor={color} stopOpacity={0} />
+                        </linearGradient>
+                    </defs>
+                    <Area
+                        type="monotone"
+                        dataKey="val"
+                        stroke={color}
+                        strokeWidth={2}
+                        fill={`url(#gradsw-${color})`}
+                        isAnimationActive={true}
+                    />
+                </AreaChart>
+            </ResponsiveContainer>
         </div>
     );
 }

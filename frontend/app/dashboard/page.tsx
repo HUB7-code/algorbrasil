@@ -1,30 +1,28 @@
 'use client';
 
 import { useState, useEffect } from "react";
-import { ArrowRight, Activity, ShieldCheck, Zap, Database, AlertTriangle, HelpCircle, CheckCircle2, Lock, Play, X, ShoppingCart, Loader2 } from "lucide-react";
+import { ArrowRight, Activity, ShieldCheck, Zap, Database, AlertTriangle, HelpCircle, CheckCircle2, Lock, Play, X, ShoppingCart, Loader2, Search } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { TrendChart, RiskRadar, MiniGauge } from "@/components/dashboard/OverviewCharts";
+import { TrendChart, RiskRadar, MiniGauge, SparkLine } from "@/components/dashboard/OverviewCharts";
 import { useSearchParams, useRouter } from "next/navigation";
 
 // ========================================
-// DASHBOARD - POWER BI PREMIUM DARK MODE
+// DASHBOARD V2.0 - COMMAND CENTER
 // ========================================
 
 const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-        opacity: 1,
-        transition: {
-            staggerChildren: 0.1
-        }
-    }
+    visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100 } }
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
+
+// Mock data for sparklines
+const sparkData = [40, 30, 45, 60, 55, 70, 65, 80];
 
 export default function Dashboard() {
     const [data, setData] = useState<any>(null);
@@ -39,7 +37,8 @@ export default function Dashboard() {
         const fetchDashboardData = async () => {
             const token = localStorage.getItem("algor_token");
             if (!token) {
-                setTimeout(() => setLoading(false), 1000);
+                // Determine if we should mock for demo or wait
+                setTimeout(() => setLoading(false), 800);
                 return;
             }
 
@@ -60,10 +59,8 @@ export default function Dashboard() {
 
         fetchDashboardData();
 
-        // Check for payment success
         if (searchParams.get("payment_success") === "true") {
             setShowSuccessModal(true);
-            // Clean URL
             router.replace("/dashboard");
         }
     }, [searchParams, router]);
@@ -87,8 +84,6 @@ export default function Dashboard() {
                 if (json.checkout_url) {
                     window.location.href = json.checkout_url;
                 }
-            } else {
-                console.error("Erro no pagamento");
             }
         } catch (error) {
             console.error("Payment error:", error);
@@ -97,7 +92,7 @@ export default function Dashboard() {
         }
     };
 
-    // Derived States or Defaults
+    // Derived States
     const complianceScore = data?.kpis?.trust_score || 0;
     const criticalRisks = data?.critical_alerts || 0;
     const activeModels = data?.kpis?.active_models || 0;
@@ -108,226 +103,191 @@ export default function Dashboard() {
     if (growthScore > 90) currentPhase = "03. AI-FIRST";
 
     return (
-        <div className="p-8 max-w-[1600px] mx-auto min-h-screen text-white font-sans relative z-10">
+        <div className="p-8 w-full min-h-screen space-y-8 relative text-white font-sans bg-[#0A0E1A] overflow-x-hidden">
+            {/* Ambient Background Glow */}
+            <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-[#00A3FF]/10 rounded-full blur-[128px] pointer-events-none" />
+            <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[128px] pointer-events-none" />
+
+            {/* Header */}
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-6 mb-8 border-b border-white/5 pb-6"
+            >
+                <div>
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className={`inline-block w-2 h-2 rounded-full ${loading ? 'bg-amber-400 animate-pulse' : 'bg-[#00FF94] shadow-[0_0_10px_#00FF94]'}`}></span>
+                        <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em] font-bold">
+                            {loading ? "INICIALIZANDO..." : "SISTEMA OPERACIONAL"}
+                        </span>
+                    </div>
+                    <h1 className="text-4xl font-bold font-orbitron text-white mb-2 tracking-wide flex items-center gap-3">
+                        CENTRO DE EXCELÊNCIA
+                    </h1>
+                    <p className="text-gray-400 font-mono text-xs tracking-widest uppercase">
+                        Hub de Governança de IA | <span className="text-[#00A3FF]">{currentPhase}</span>
+                    </p>
+                </div>
+
+                <div className="flex gap-3">
+                    <div className="px-4 py-2 bg-[#0A1A2F]/80 backdrop-blur-md border border-[#00FF94]/30 rounded-lg shadow-[0_0_15px_rgba(0,255,148,0.1)]">
+                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1">Score de Crescimento</p>
+                        <p className="text-xl font-bold text-white font-mono">{growthScore}/100</p>
+                    </div>
+                </div>
+            </motion.div>
 
             <motion.div
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="space-y-8"
+                className="relative z-10 space-y-6"
             >
-                {/* Header Section */}
-                <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/5 pb-8">
-                    <div>
-                        <div className="flex items-center gap-2 mb-3">
-                            <div className="relative flex h-2.5 w-2.5">
-                                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${loading ? 'bg-amber-400' : 'bg-[#00FF94]'}`}></span>
-                                <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${loading ? 'bg-amber-500' : 'bg-[#00FF94]'}`}></span>
-                            </div>
-                            <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em] font-bold">
-                                {loading ? "ESTABLISHING UPLINK..." : "SYSTEM ONLINE"}
-                            </span>
-                        </div>
-                        <h1 className="text-5xl font-serif font-medium text-white mb-2 tracking-tight">
-                            Centro de <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Excelência</span>
-                        </h1>
-                        <p className="text-gray-400 text-lg font-light flex items-center gap-2">
-                            Bem-vindo ao comando, <span className="text-white font-medium border-b border-[#00FF94]/30 pb-0.5">Gestor de IA</span>.
-                        </p>
-                    </div>
-
-                    <div className="flex items-center gap-4">
-                        <div className="px-5 py-3 rounded-xl bg-[#0A1A2F]/50 backdrop-blur-md border border-white/10 flex items-center gap-4 shadow-lg group hover:border-[#00FF94]/30 transition-colors cursor-default">
-                            <div>
-                                <p className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Fase Atual</p>
-                                <p className="text-sm font-bold text-white flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94]" />
-                                    {currentPhase}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* KPI Cards Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {/* 1. Readiness Gauge */}
-                    <KpiCard
+                {/* KPI Cards Grid - Dense Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Readiness Gauge */}
+                    <NewStatCard
                         title="Nível de Prontidão"
-                        icon={<ShieldCheck className="w-5 h-5 text-[#00FF94]" />}
-                        description="Índice de conformidade auditável ISO 42001."
+                        value={`${complianceScore}%`}
+                        subValue="Pronto p/ ISO 42001"
+                        icon={<ShieldCheck className="w-5 h-5" />}
+                        color="#00FF94"
                         delay={0.1}
                     >
-                        <div className="flex items-center gap-4 mt-2">
-                            <MiniGauge value={complianceScore} color={complianceScore > 80 ? "#00FF94" : "#F59E0B"} />
-                            <div>
-                                <p className="text-2xl font-bold text-white font-mono">{complianceScore}%</p>
-                                <p className="text-xs text-gray-400">Score de Confiança</p>
-                            </div>
+                        <div className="absolute right-2 bottom-2 opacity-50">
+                            <MiniGauge value={complianceScore} color="#00FF94" />
                         </div>
-                    </KpiCard>
+                    </NewStatCard>
 
-                    {/* 2. Active Models */}
-                    <KpiCard title="Ativos Monitorados" icon={<Database className="w-5 h-5 text-[#00A3FF]" />} delay={0.2}>
-                        <div className="flex items-end gap-2 mt-4">
-                            <p className="text-3xl font-bold text-white font-mono">{activeModels}</p>
-                            <span className="text-xs text-[#00A3FF] mb-1.5 font-bold">+2 novos</span>
+                    {/* Active Assets */}
+                    <NewStatCard
+                        title="Ativos Monitorados"
+                        value={activeModels.toString()}
+                        subValue="+2 novos essa semana"
+                        icon={<Database className="w-5 h-5" />}
+                        color="#00A3FF"
+                        delay={0.2}
+                    >
+                        <div className="absolute bottom-6 left-6 w-24 h-8 opacity-70">
+                            <SparkLine data={sparkData} color="#00A3FF" />
                         </div>
-                        <div className="w-full bg-[#00A3FF]/10 h-1.5 rounded-full mt-3 overflow-hidden">
-                            <motion.div initial={{ width: 0 }} animate={{ width: '65%' }} className="h-full bg-[#00A3FF]" />
-                        </div>
-                    </KpiCard>
+                    </NewStatCard>
 
-                    {/* 3. Incidents */}
-                    <KpiCard title="Incidentes Críticos" icon={<AlertTriangle className="w-5 h-5 text-[#EF4444]" />} delay={0.3}>
-                        <div className="flex items-end gap-2 mt-4">
-                            <p className={`text-3xl font-bold font-mono ${criticalRisks > 0 ? "text-[#EF4444]" : "text-[#00FF94]"}`}>{criticalRisks}</p>
-                            <span className="text-xs text-gray-400 mb-1.5">Detectados hoje</span>
-                        </div>
-                        <div className="w-full bg-white/5 h-1.5 rounded-full mt-3 overflow-hidden">
-                            <motion.div initial={{ width: 0 }} animate={{ width: criticalRisks > 0 ? '20%' : '100%' }} className={`h-full ${criticalRisks > 0 ? "bg-[#EF4444]" : "bg-[#00FF94]"}`} />
-                        </div>
-                    </KpiCard>
+                    {/* Critical Incidents */}
+                    <NewStatCard
+                        title="Incidentes Críticos"
+                        value={criticalRisks.toString()}
+                        subValue={criticalRisks === 0 ? "Ambiente Seguro" : "Ação Necessária"}
+                        icon={<AlertTriangle className="w-5 h-5" />}
+                        color={criticalRisks > 0 ? "#EF4444" : "#00FF94"}
+                        delay={0.3}
+                    />
 
-                    {/* 4. Velocity */}
-                    <KpiCard title="Consent Velocity" icon={<Zap className="w-5 h-5 text-[#8B5CF6]" />} delay={0.4}>
-                        <div className="flex items-end gap-2 mt-4">
-                            <p className="text-3xl font-bold text-white font-mono">4.2h</p>
-                            <span className="text-xs text-[#8B5CF6] mb-1.5 font-bold">-18% vs média</span>
+                    {/* Velocity */}
+                    <NewStatCard
+                        title="Velocidade de Aprovação"
+                        value="4.2h"
+                        subValue="Eficiência Alta"
+                        icon={<Zap className="w-5 h-5" />}
+                        color="#8B5CF6"
+                        delay={0.4}
+                    >
+                        <div className="absolute bottom-6 left-6 w-24 h-8 opacity-70">
+                            <SparkLine data={[10, 25, 40, 30, 50, 70, 60, 90]} color="#8B5CF6" />
                         </div>
-                        <div className="w-full bg-[#8B5CF6]/10 h-1.5 rounded-full mt-3 overflow-hidden">
-                            <motion.div initial={{ width: 0 }} animate={{ width: '80%' }} className="h-full bg-[#8B5CF6]" />
-                        </div>
-                    </KpiCard>
+                    </NewStatCard>
                 </div>
 
-                {/* ANALYTICS SECTION (POWER BI STYLE) */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[350px]">
+                {/* Main Interactive Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto lg:h-[450px]">
 
-                    {/* Trend Chart Area */}
-                    <motion.div
-                        variants={itemVariants}
-                        className="lg:col-span-2 glass-panel p-6 flex flex-col relative group hover:border-[#00FF94]/30 transition-colors"
-                    >
+                    {/* Trend Chart (Large) */}
+                    <div className="lg:col-span-8 p-6 rounded-2xl bg-[#0D1117]/80 backdrop-blur-xl border border-white/5 flex flex-col relative overflow-hidden group">
+                        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                         <div className="flex justify-between items-center mb-6">
-                            <div>
-                                <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Evolução do Trust Score</h3>
-                                <p className="text-xs text-gray-500">Histórico de 6 meses (ISO 42001)</p>
-                            </div>
-                            <div className="flex gap-2">
-                                <span className="flex items-center gap-1 text-[10px] text-gray-400 uppercase"><div className="w-2 h-2 rounded-full bg-[#00FF94]" />Score</span>
-                                <span className="flex items-center gap-1 text-[10px] text-gray-400 uppercase"><div className="w-2 h-2 rounded-full bg-[#00A3FF]" />Ativos</span>
+                            <h3 className="text-sm font-bold text-gray-300 uppercase tracking-widest flex items-center gap-2">
+                                <Activity className="w-4 h-4 text-[#8B5CF6]" />
+                                Evolução do Trust Score
+                            </h3>
+                            <div className="flex gap-4">
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+                                    <span className="text-[10px] text-gray-400 font-mono">ÍNDICE DE CONFIANÇA</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="w-2 h-2 rounded-full bg-[#00A3FF]" />
+                                    <span className="text-[10px] text-gray-400 font-mono">ATIVOS</span>
+                                </div>
                             </div>
                         </div>
-                        <TrendChart data={data?.charts?.trend_data} />
-                    </motion.div>
-
-                    {/* Radar Chart Area */}
-                    <motion.div
-                        variants={itemVariants}
-                        className="glass-panel p-6 flex flex-col relative group hover:border-[#F59E0B]/30 transition-colors"
-                    >
-                        <div className="mb-2">
-                            <h3 className="text-sm font-bold text-gray-300 uppercase tracking-wider">Matriz de Risco</h3>
-                            <p className="text-xs text-gray-500">Distribuição por Categoria</p>
+                        <div className="flex-1 w-full min-h-0">
+                            <TrendChart data={data?.charts?.trend_data} />
                         </div>
-                        <RiskRadar data={data?.charts?.risk_radar} />
-                    </motion.div>
+                    </div>
 
+                    {/* Risk Radar (Side) */}
+                    <div className="lg:col-span-4 p-6 rounded-2xl bg-[#0D1117]/80 backdrop-blur-xl border border-white/5 flex flex-col relative overflow-hidden group hover:border-[#F59E0B]/30 transition-colors">
+                        <div className="mb-4 text-center">
+                            <h3 className="text-sm font-bold text-gray-300 uppercase tracking-widest">Matriz de Risco</h3>
+                            <p className="text-[10px] text-[#F59E0B] font-mono mt-1">MONITORAMENTO EM TEMPO REAL</p>
+                        </div>
+                        <div className="flex-1 flex items-center justify-center">
+                            <RiskRadar data={data?.charts?.risk_radar} />
+                        </div>
+                    </div>
                 </div>
 
-                {/* Main Action Area */}
+                {/* Bottom Action Row */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-                    {/* Hero Card: Auditorias */}
+                    {/* Main CTA Card */}
                     <motion.div
                         variants={itemVariants}
-                        className="lg:col-span-2 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#131825] to-[#0A0E1A] border border-white/10 p-10 group"
+                        className="lg:col-span-2 relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#131825] to-[#0A0E1A] border border-white/10 p-8 group"
                     >
-                        {/* Background Decoration */}
                         <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00FF94]/5 rounded-full blur-[100px] pointer-events-none group-hover:bg-[#00FF94]/10 transition-colors duration-700" />
 
-                        <div className="relative z-10 flex flex-col items-start h-full justify-between gap-10">
+                        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
                             <div>
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/5 border border-white/5 text-xs font-bold text-gray-300 uppercase tracking-wider mb-6">
-                                    <Activity className="w-4 h-4" />
-                                    Ação Recomendada
-                                </div>
-                                <h2 className="text-3xl font-serif font-medium text-white mb-4">
-                                    Iniciar Novo Ciclo de Auditoria
-                                </h2>
-                                <p className="text-gray-400 font-light max-w-xl text-lg leading-relaxed">
-                                    Nenhuma validação ativa detectada. Inicie um diagnóstico completo para identificar brechas de conformidade, atualizar a matriz de risco e desbloquear recursos Enterprise.
+                                <h2 className="text-2xl font-bold font-orbitron text-white mb-2">Iniciar Novo Ciclo de Auditoria</h2>
+                                <p className="text-gray-400 max-w-lg text-sm">
+                                    Diagnóstico completo para identificar brechas de conformidade (ISO 42001/EU AI Act) e atualizar sua matriz de riscos.
                                 </p>
                             </div>
-
                             <Link href="/dashboard/assessments">
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="px-8 py-4 bg-white text-[#0A1A2F] font-bold rounded-xl hover:bg-gray-100 transition-all text-sm tracking-widest flex items-center gap-3 shadow-[0_0_30px_rgba(255,255,255,0.15)]"
-                                >
+                                <button className="px-6 py-3 bg-white text-[#0A1A2F] font-bold rounded-xl hover:bg-[#00FF94] hover:text-[#0A1A2F] transition-all text-xs tracking-widest flex items-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] uppercase">
                                     <Play className="w-4 h-4 fill-current" />
-                                    EXECUTAR SCANNER DIAGNÓSTICO
-                                </motion.button>
+                                    Executar Scanner
+                                </button>
                             </Link>
                         </div>
                     </motion.div>
 
-                    {/* Secondary Actions Stack */}
-                    <div className="flex flex-col gap-6">
-
-                        {/* Viabilidade (Interactive) */}
-                        <motion.div
-                            variants={itemVariants}
-                            onClick={handleBuyReport}
-                            className={`flex-1 glass-panel p-6 flex flex-col justify-between group cursor-pointer hover:border-[#00FF94]/30 transition-colors relative overflow-hidden ${purchasing ? 'opacity-70 pointer-events-none' : ''}`}
-                        >
-                            {purchasing && (
-                                <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-20">
-                                    <div className="flex flex-col items-center gap-2">
-                                        <Loader2 className="w-8 h-8 text-[#00FF94] animate-spin" />
-                                        <span className="text-xs font-mono text-[#00FF94]">PROCESSANDO...</span>
-                                    </div>
-                                </div>
-                            )}
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Serviço Premium</span>
-                                    <h3 className="text-lg font-serif font-medium text-white mt-1">Análise de Viabilidade</h3>
-                                </div>
-                                <div className="p-2 rounded-lg bg-white/5 text-gray-400 group-hover:text-white transition-colors">
-                                    <ArrowRight className="w-4 h-4" />
-                                </div>
+                    {/* Premium Service Card */}
+                    <div
+                        onClick={handleBuyReport}
+                        className={`cursor-pointer lg:col-span-1 rounded-2xl bg-[#0D1117]/60 backdrop-blur-md border border-[#00FF94]/20 p-6 flex flex-col justify-between group relative overflow-hidden transition-all hover:bg-[#00FF94]/5 ${purchasing ? 'opacity-70 pointer-events-none' : ''}`}
+                    >
+                        {purchasing && (
+                            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-20">
+                                <Loader2 className="w-6 h-6 text-[#00FF94] animate-spin" />
                             </div>
-                            <div className="flex items-end justify-between mt-4">
-                                <div>
-                                    <p className="text-2xl font-bold text-white tracking-tight">R$ 1.500</p>
-                                    <p className="text-xs text-gray-500 mt-1">SLA 24 horas</p>
-                                </div>
-                                <div className="text-xs font-bold text-[#00FF94] opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-wider flex items-center gap-1">
-                                    ADQUIRIR <ShoppingCart className="w-3 h-3" />
-                                </div>
+                        )}
+                        <div className="flex justify-between items-start">
+                            <div>
+                                <span className="text-[10px] font-bold text-[#00FF94] uppercase tracking-wider mb-1 block">Upgrade Premium</span>
+                                <h3 className="text-lg font-bold text-white">Viabilidade Técnica</h3>
                             </div>
-                        </motion.div>
-
-                        {/* License Status */}
-                        <motion.div variants={itemVariants} className="flex-1 glass-panel p-6 flex flex-col justify-center gap-4 group hover:border-[#00A3FF]/30 transition-colors">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
-                                    <CheckCircle2 className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <p className="text-sm font-bold text-white">Growth License</p>
-                                    <p className="text-xs text-[#00A3FF]">Ativa até Jan 2026</p>
-                                </div>
+                            <ShoppingCart className="w-5 h-5 text-gray-500 group-hover:text-[#00FF94] transition-colors" />
+                        </div>
+                        <div className="mt-4">
+                            <div className="flex items-end justify-between">
+                                <span className="text-2xl font-mono text-white font-bold">R$ 1.500</span>
+                                <span className="text-[10px] text-gray-400 uppercase">Pagamento Único</span>
                             </div>
-                            <button className="w-full py-2.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 text-xs font-bold text-gray-300 uppercase tracking-wider transition-all">
-                                Gerenciar Assinatura
-                            </button>
-                        </motion.div>
-
+                        </div>
                     </div>
+
                 </div>
 
             </motion.div>
@@ -339,7 +299,7 @@ export default function Dashboard() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+                        className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl p-4"
                     >
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
@@ -355,58 +315,58 @@ export default function Dashboard() {
                             </button>
 
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-16 h-16 rounded-full bg-[#00FF94]/20 flex items-center justify-center mb-6">
+                                <div className="w-16 h-16 rounded-full bg-[#00FF94]/10 flex items-center justify-center mb-6 border border-[#00FF94]/20">
                                     <CheckCircle2 className="w-8 h-8 text-[#00FF94]" />
                                 </div>
-                                <h3 className="text-2xl font-serif font-medium text-white mb-2">Pagamento Confirmado!</h3>
-                                <p className="text-gray-400 mb-8">
+                                <h3 className="text-2xl font-orbitron font-bold text-white mb-2">Pagamento Confirmado!</h3>
+                                <p className="text-gray-400 mb-8 text-sm">
                                     Seu Relatório de Viabilidade foi desbloqueado e está sendo gerado. Você receberá uma cópia por e-mail em instantes.
                                 </p>
                                 <button
                                     onClick={() => setShowSuccessModal(false)}
-                                    className="w-full py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black font-bold rounded-xl transition-all"
+                                    className="w-full py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black font-bold rounded-xl transition-all uppercase tracking-widest text-xs"
                                 >
-                                    ENTENDIDO
+                                    Confirmar
                                 </button>
                             </div>
                         </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
-
         </div>
     );
 }
 
-// Glass Card Component
-function KpiCard({ title, icon, description, delay, children }: any) {
+// Reusable "StatCard" Component matching Admin Dashboard
+function NewStatCard({ title, value, subValue, icon, color, delay, children }: any) {
+    // Generate a subtle border color based on the prop color
+    const borderColor = color ? `${color}40` : '#ffffff10'; // 25% opacity
+
     return (
-        <motion.div
-            variants={itemVariants}
-            className="glass-panel p-6 flex flex-col h-[280px] relative group hover:border-[#00FF94]/30 transition-colors"
+        <div
+            className="p-5 rounded-2xl bg-[#0D1117]/60 backdrop-blur-md border border-white/5 relative overflow-hidden group hover:border-white/10 transition-all h-[140px]"
+            style={{ borderColor: borderColor }}
         >
-            <div className="flex justify-between items-start mb-6">
-                <div className="flex items-start gap-2">
-                    <span className="text-xs font-bold text-gray-500 uppercase tracking-wider group-hover:text-white transition-colors">
-                        {title}
-                    </span>
-                    {description && (
-                        <div className="relative group/tooltip">
-                            <HelpCircle className="w-3 h-3 text-gray-600 hover:text-[#00FF94] cursor-help transition-colors mt-0.5" />
-                            <div className="absolute left-0 top-6 w-48 p-3 bg-[#0A1A2F] border border-white/10 rounded-lg shadow-xl text-xs text-gray-300 pointer-events-none opacity-0 group-hover/tooltip:opacity-100 transition-opacity z-50 backdrop-blur-xl">
-                                {description}
-                            </div>
-                        </div>
-                    )}
-                </div>
-                <div className="p-2 rounded-lg bg-white/5 border border-white/5 text-gray-400 group-hover:text-white transition-colors">
+            {/* Background glow effect on hover */}
+            <div className={`absolute top-0 right-0 p-16 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity blur-3xl rounded-full translate-x-10 -translate-y-10`} style={{ backgroundColor: color }} />
+
+            <div className="flex justify-between items-start mb-2 relative z-10">
+                <div className={`p-2 rounded-lg bg-white/5`} style={{ color: color }}>
                     {icon}
+                </div>
+                {/* Optional sparkline or extra graphic goes here via children, usually absolute positioned */}
+            </div>
+
+            <div className="relative z-10 mt-2">
+                <h3 className="text-3xl font-bold text-white font-mono tracking-tight leading-none mb-1">{value}</h3>
+                <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wider mb-1">{title}</p>
+                <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-bold" style={{ color: color }}>{subValue}</span>
                 </div>
             </div>
 
-            <div className="flex-1 flex flex-col justify-end">
-                {children}
-            </div>
-        </motion.div>
+            {/* Render children (sparklines/gauges) */}
+            {children}
+        </div>
     );
 }

@@ -65,7 +65,7 @@ export default function LoginPage() {
             console.log("Redirecting to:", redirectParam || "/dashboard");
 
             // Define target URL
-            const targetUrl = redirectParam || (data.role === "subscriber" ? "/onboarding" : "/dashboard");
+            const targetUrl = redirectParam || (data.role === "admin" ? "/dashboard/admin" : data.role === "subscriber" ? "/onboarding" : "/dashboard");
 
             // Use window.location as fallback if router.push hangs
             router.push(targetUrl);
