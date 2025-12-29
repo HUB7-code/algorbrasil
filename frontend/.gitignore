@@ -6,12 +6,15 @@
 # testing
 /coverage
 
-# next.js
+# next.js - BUILD FILES (NEVER COMMIT!)
 /.next/
 /out/
+.next
+*.next
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -32,3 +35,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Build logs (NEVER COMMIT!)
+build_log*.txt
+*.build.log
+build.log
+errors.txt
+lint_log.txt
+lint_output.txt
+tsc_output.txt
