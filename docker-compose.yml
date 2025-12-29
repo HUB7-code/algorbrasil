@@ -20,6 +20,7 @@ services:
       - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL}
+      - FRONTEND_URL=${FRONTEND_URL}
 
   # Serviço Frontend (Next.js)
   frontend:

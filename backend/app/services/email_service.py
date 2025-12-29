@@ -61,7 +61,7 @@ def send_verification_email(name: str, email: str, token: str):
     """
     Envia e-mail com link de ativacao (Double Opt-in) - Design Premium v2 com LOGO REAL.
     """
-    verification_link = f"http://localhost:3000/verify-email?token={token}"
+    verification_link = f"{settings.FRONTEND_URL}/verify-email?token={token}"
     
     subject = f"Confirme seu cadastro - Algor Brasil"
 
@@ -152,7 +152,7 @@ def send_password_reset_email(name: str, email: str, token: str):
     """
     Envia e-mail com link de redefinicao de senha - Design Premium v2.
     """
-    reset_link = f"http://localhost:3000/reset-password?token={token}"
+    reset_link = f"{settings.FRONTEND_URL}/reset-password?token={token}"
     
     subject = f"Redefinição de Senha - Algor Brasil"
 
