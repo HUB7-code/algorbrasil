@@ -219,7 +219,7 @@ whileTap={{ scale: 0.98 }}
 <div 
     className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full blur-[100px] 
                pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity"
-    style={{ backgroundColor: `${accentColor}10` }}
+    style={{ backgroundColor: "#00FF9410" }}
 />
 ```
 
