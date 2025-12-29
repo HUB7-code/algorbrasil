@@ -42,3 +42,8 @@ node_modules/
 # Ambientes Virtuais
 venv/
 env/
+
+# Environment Variables (NUNCA COMMITAR!)
+.env
+.env.*
+!.env.example
