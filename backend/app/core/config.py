@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings
-import os
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Algor AI Gov"
@@ -40,8 +39,6 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:3005"
 
     class Config:
-        # Legacy config support
-        case_sensitive = True
         # Torna o arquivo .env opcional (não falha se não existir)
         env_file = ".env"
         env_file_encoding = 'utf-8'
