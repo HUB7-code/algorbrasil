@@ -1,40 +1,39 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V16.4.0 (Dashboard Localization & Premium UX)**
-**Data:** 27/12/2025
-**Objetivo:** Localização completa (PT-BR) dos dashboards e refinamento estético "Power BI Premium".
+## STATUS ATUAL: **V16.5.0 (Production Email & Deploy Automation)**
+**Data:** 29/12/2025
+**Objetivo:** Sistema de e-mail transacional 100% funcional em produção e automação de deploy.
 
 ---
 
-### 🚀 Últimas Grandes Conquistas (V16.4.0)
+### 🚀 Últimas Grandes Conquistas (V16.5.0)
+
+1.  **Production Email System (VPS) ✅**
+    *   **Autenticação SMTP:** Credenciais Gmail configuradas corretamente via variáveis de ambiente no Docker.
+    *   **Links Dinâmicos:** E-mails de verificação e reset agora usam `FRONTEND_URL` do `.env` (ex: `https://algorbrasil.com.br`).
+    *   **Logo Inline (CID):** Imagem da marca embutida nos e-mails via volume mount Docker.
+    *   **Security Fix:** Arquivo `.env` removido do Git e adicionado ao `.gitignore`.
+
+2.  **Deploy Automation**
+    *   **Script `deploy.sh`:** Automatiza `git pull`, limpeza de containers e rebuild em um único comando.
+    *   **Workaround Bug Docker-Compose 1.29.2:** Script contorna erro `ContainerConfig` com limpeza manual.
+
+3.  **Infrastructure Hardening**
+    *   **SECRET_KEY obrigatória:** Passada como variável de ambiente no `docker-compose.yml`.
+    *   **`.env.example` criado:** Template documentado para configuração de novos ambientes.
+
+---
+
+### 🚀 Conquistas Anteriores (V16.4.x)
 
 1.  **Dashboard Localization (PT-BR)**
-    *   **Admin Dashboard:** Tradução 100% de termos técnicos (e.g., "Command Center" → "Centro de Comando", "User Activity" → "Atividade (Semanal)").
-    *   **User Dashboard:** Tradução de KPIs e Gráficos (e.g., "Trust Score" → "Índice de Confiança", "Risk Matrix" → "Matriz de Risco").
-    *   **Consistency:** Termos unificados em toda a interface administrativa e do usuário.
+    *   **Admin Dashboard:** Tradução 100% de termos técnicos.
+    *   **User Dashboard:** Tradução de KPIs e Gráficos.
 
-2.  **Infrastructure & Persistence (Critical Fixes)**
-    *   **Auto-Healing Database:** Script de inicialização (`initial_data.py`) reescrito em SQL Puro para eliminar dependências circulares e garantir criação de Admin/Org em qualquer ambiente.
-    *   **Robust Migrations:** Alembic configurado corretamente para gerenciar mudanças de schema na VPS.
-    *   **CI/CD Pipeline:** GitHub Actions corrigido (`ModuleNotFoundError`) e passando 100%.
-    *   **GitHub Pages (Docs):** Corrigido erro de build Jekyll/Liquid em `ALGOR_Design_System_Spec.md`.
-
-4.  **VPS Infrastructure Stability (v16.4.1 Hotfix)**
-    *   **Email System:** Resolvido erro de autenticação SMTP e caminho de anexos (Logo CID) no ambiente Docker da VPS.
-    *   **Docker Assets:** Adicionado volume mount explícito para `public/` assets no container backend.
-    *   **Security:** Uso estrito de variáveis de ambiente (`.env`) para credenciais SMTP no `docker-compose.yml`.
-
-3.  **Scanner API (Persona A) - Real Integration**
-    *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização (`RiskRegister`).
-    *   **Impacto:** "Regulation-as-Code" agora alimenta o dashboard executivo em tempo real. Se o CI/CD falha, o Board vê o risco na hora.
-
-4.  **Smart Report ISO 42001 (Persona B)**
-    *   **Engine:** Gerador de PDFs customizados (`backend/services/ReportGenerator`) com Score de Viabilidade.
-    *   **Viewer:** Interface A4 Web-ready (`frontend/app/dashboard/report-iso42001`) para consultores imprimirem auditorias.
-
-5.  **Dashboard "Vivo" & Premium**
-    *   **Visual:** Refinamento "Power BI Premium" com glassmorphism aprofundado e gradientes neon (`#00FF94`/`#00A3FF`).
-    *   **Telemetry:** Gráficos (Trend & Radar) totalmente traduzidos e integrados visualmente.
+2.  **Infrastructure & Persistence**
+    *   **Auto-Healing Database:** Script `initial_data.py` em SQL Puro.
+    *   **Robust Migrations:** Alembic configurado para VPS.
+    *   **GitHub Pages (Docs):** Corrigido erro de build Jekyll/Liquid.
 
 ---
 
