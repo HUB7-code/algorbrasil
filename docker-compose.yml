@@ -15,11 +15,11 @@ services:
       - ./frontend/public:/app/frontend/public
     environment:
       - DATABASE_URL=sqlite:///./sql_app.db
-      - SMTP_SERVER=smtp-relay.brevo.com
-      - SMTP_PORT=587
-      - SMTP_USER=9daf55001@smtp-brevo.com
+      - SMTP_SERVER=${SMTP_SERVER}
+      - SMTP_PORT=${SMTP_PORT}
+      - SMTP_USER=${SMTP_USER}
       - SMTP_PASSWORD=${SMTP_PASSWORD}
-      - SMTP_FROM_EMAIL=contato@algorbrasil.com.br
+      - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL}
 
   # Serviço Frontend (Next.js)
   frontend:
