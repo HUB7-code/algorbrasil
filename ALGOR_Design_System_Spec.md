@@ -215,6 +215,7 @@ whileTap={{ scale: 0.98 }}
 ```
 
 ### 7.2 Card Glow Effect (On Hover)
+{% raw %}
 ```tsx
 <div 
     className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full blur-[100px] 
@@ -222,6 +223,7 @@ whileTap={{ scale: 0.98 }}
     style={{ backgroundColor: `${accentColor}10` }}
 />
 ```
+{% endraw %}
 
 ---
 
@@ -235,6 +237,7 @@ import { ShieldCheck, Activity, ArrowRight } from "lucide-react";
 ```
 
 ### 8.2 Material Symbols (Secondary)
+{% raw %}
 ```tsx
 <span 
     className="material-symbols-rounded text-[20px]"
@@ -246,6 +249,7 @@ import { ShieldCheck, Activity, ArrowRight } from "lucide-react";
     fact_check
 </span>
 ```
+{% endraw %}
 
 ---
 
