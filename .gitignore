@@ -47,3 +47,14 @@ env/
 .env
 .env.*
 !.env.example
+
+# Build Outputs (NUNCA COMMITAR!)
+**/.next/
+**/out/
+**/dist/
+**/build/
+
+# Build Logs
+**/build_log*.txt
+**/*.build.log
+
