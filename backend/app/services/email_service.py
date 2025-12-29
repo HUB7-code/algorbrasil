@@ -24,26 +24,28 @@ def send_smtp_email(to_email: str, subject: str, html_content: str, logo_path: s
     msg_alternative.attach(MIMEText(html_content, 'html'))
 
     # Anexar Logo Inline se fornecido
-    if logo_path and os.path.exists(logo_path):
-        try:
-            with open(logo_path, 'rb') as f:
-                img_data = f.read()
-            
-            # Determinar subtipo (webp, png, jpg)
-            ext = logo_path.split('.')[-1]
-            # webp não tem subtipo oficial em MIMEImage antigo, usar 'octet-stream' ou tratar casos
-            # Mas MIMEImage costuma detectar ou aceitar se passarmos _subtype
-            if ext == 'webp':
-                img = MIMEImage(img_data, _subtype='webp')
-            else:
-                img = MIMEImage(img_data)
-            
-            img.add_header('Content-ID', '<logo_algor>') # O ID usado no HTML src="cid:logo_algor"
-            img.add_header('Content-Disposition', 'inline', filename=os.path.basename(logo_path))
-            msg.attach(img)
-            print(f"📎 Logo anexada: {logo_path}")
-        except Exception as e:
-            print(f"⚠️ Falha ao anexar logo: {e}")
+    if logo_path:
+        print(f"📧 DEBUG: Tentando anexar logo de: {logo_path}")
+        if os.path.exists(logo_path):
+            try:
+                with open(logo_path, 'rb') as f:
+                    img_data = f.read()
+                
+                # Determinar subtipo (webp, png, jpg)
+                ext = logo_path.split('.')[-1]
+                if ext == 'webp':
+                    img = MIMEImage(img_data, _subtype='webp')
+                else:
+                    img = MIMEImage(img_data)
+                
+                img.add_header('Content-ID', '<logo_algor>')
+                img.add_header('Content-Disposition', 'inline', filename=os.path.basename(logo_path))
+                msg.attach(img)
+                print(f"📎 Logo anexada com sucesso!")
+            except Exception as e:
+                print(f"⚠️ Falha ao ler/anexar logo: {e}")
+        else:
+            print(f"⚠️ Logo NÃO encontrada em: {logo_path} (CWD: {os.getcwd()})")
 
     try:
         print(f"🔄 Connecting to {settings.SMTP_SERVER}:{settings.SMTP_PORT}...")
