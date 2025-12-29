@@ -64,8 +64,17 @@ def send_verification_email(name: str, email: str, token: str):
     subject = f"Confirme seu cadastro - Algor Brasil"
 
     # Caminho absoluto para a logo (ajustar conforme ambiente)
-    # Assumindo execução da raiz do projeto
-    logo_path = os.path.join(os.getcwd(), "frontend", "public", "logo-algor.webp")
+    # Tenta resolver o caminho relativo à raiz do projeto
+    # Na VPS, o cwd pode variar dependendo de como o uvicorn é iniciado
+    current_dir = os.getcwd()
+    
+    # Se estiver rodando de backend/, subir um nível
+    if os.path.basename(current_dir) == "backend":
+        base_dir = os.path.abspath(os.path.join(current_dir, ".."))
+    else:
+        base_dir = current_dir
+        
+    logo_path = os.path.join(base_dir, "frontend", "public", "logo-algor.webp")
     
     body = f"""
     <!DOCTYPE html>
@@ -146,7 +155,14 @@ def send_password_reset_email(name: str, email: str, token: str):
     subject = f"Redefinição de Senha - Algor Brasil"
 
     # Caminho absoluto para a logo
-    logo_path = os.path.join(os.getcwd(), "frontend", "public", "logo-algor.webp")
+    # Tenta resolver o caminho relativo à raiz do projeto
+    current_dir = os.getcwd()
+    if os.path.basename(current_dir) == "backend":
+        base_dir = os.path.abspath(os.path.join(current_dir, ".."))
+    else:
+        base_dir = current_dir
+
+    logo_path = os.path.join(base_dir, "frontend", "public", "logo-algor.webp")
     
     body = f"""
     <!DOCTYPE html>
