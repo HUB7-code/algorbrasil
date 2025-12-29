@@ -17,6 +17,12 @@
     *   **Auto-Healing Database:** Script de inicialização (`initial_data.py`) reescrito em SQL Puro para eliminar dependências circulares e garantir criação de Admin/Org em qualquer ambiente.
     *   **Robust Migrations:** Alembic configurado corretamente para gerenciar mudanças de schema na VPS.
     *   **CI/CD Pipeline:** GitHub Actions corrigido (`ModuleNotFoundError`) e passando 100%.
+    *   **GitHub Pages (Docs):** Corrigido erro de build Jekyll/Liquid em `ALGOR_Design_System_Spec.md`.
+
+4.  **VPS Infrastructure Stability (v16.4.1 Hotfix)**
+    *   **Email System:** Resolvido erro de autenticação SMTP e caminho de anexos (Logo CID) no ambiente Docker da VPS.
+    *   **Docker Assets:** Adicionado volume mount explícito para `public/` assets no container backend.
+    *   **Security:** Uso estrito de variáveis de ambiente (`.env`) para credenciais SMTP no `docker-compose.yml`.
 
 3.  **Scanner API (Persona A) - Real Integration**
     *   **Feature:** Endpoint `/scanner/upload` agora persiste automaticamente riscos críticos (PII/Injection) no banco de dados da organização (`RiskRegister`).

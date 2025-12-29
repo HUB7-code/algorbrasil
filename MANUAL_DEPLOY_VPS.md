@@ -59,3 +59,27 @@ docker-compose exec backend python -m backend.app.initial_data
 
 ---
 **Regra de Ouro:** "Na dúvida, rode o `initial_data`. Ele conserta usuários Admin e Organizações quebradas."
+
+## 4. Troubleshooting de E-mail (SMTP)
+Se houver problemas no envio de e-mails na VPS:
+
+1.  **Verifique Logs do Backend:**
+    ```bash
+    docker compose logs backend --tail 100
+    ```
+    Procure por `📧 DEBUG` ou erros de autenticação (535).
+
+2.  **Valide o .env:**
+    Certifique-se de que o `.env` na VPS contenha as credenciais corretas do Gmail/Provedor:
+    ```ini
+    SMTP_SERVER=smtp.gmail.com
+    SMTP_PORT=587
+    SMTP_USER=seu.email@gmail.com
+    SMTP_PASSWORD=sua-chave-app-senha
+    ```
+
+3.  **Reinicie Recriando Containers:**
+    Sempre que alterar o `.env`, é necessário recriar o container para injetar as novas variáveis:
+    ```bash
+    docker compose up -d --force-recreate backend
+    ```
