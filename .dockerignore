@@ -25,3 +25,5 @@ site_algor_brasil.zip
 test_results.txt
 PROJECT_STATUS_MEMORIA.md
 *.md
+.env
+.env.*
