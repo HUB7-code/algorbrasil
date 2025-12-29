@@ -1,6 +1,6 @@
 # PROCESSO DE DEPLOY E ARQUITETURA DE INFRAESTRUTURA
 > **IMPORTANTE:** Este documento descreve o fluxo de trabalho OBRIGATÓRIO para atualização do ambiente de produção (VPS).
-> **Versão:** 16.5.0 (29/12/2025)
+> **Versão:** 16.6.0 (29/12/2025)
 
 ## 1. Arquitetura do Sistema
 O projeto "Algor Brasil" opera em um modelo híbrido de desenvolvimento local e deploy containerizado em VPS.

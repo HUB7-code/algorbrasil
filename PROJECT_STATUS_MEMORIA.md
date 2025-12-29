@@ -1,39 +1,50 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V16.5.0 (Production Email & Deploy Automation)**
+## STATUS ATUAL: **V16.6.0 (Power BI Premium UI & Security Hardening)**
 **Data:** 29/12/2025
-**Objetivo:** Sistema de e-mail transacional 100% funcional em produção e automação de deploy.
+**Objetivo:** Redesign completo das interfaces para padrão Power BI Premium e melhorias de segurança.
 
 ---
 
-### 🚀 Últimas Grandes Conquistas (V16.5.0)
+### 🚀 Últimas Grandes Conquistas (V16.6.0)
+
+1.  **UI Redesign - Power BI Premium Dark Mode**
+    *   **Dashboard Principal ("Centro de Excelência"):** Completamente redesenhado com:
+        - Gauge circular animado (SVG) para Score de Crescimento
+        - KPI Cards premium com glassmorphism intenso e sparklines
+        - Animações Framer Motion (spring, stagger, hover effects)
+        - Tipografia Orbitron nos títulos
+        - Ambient lighting effects (3 orbs de fundo)
+        - AnimatedCounter para números progressivos
+    *   **Página de Onboarding:** Redesenhada com:
+        - Cards de seleção com hover glow e shimmer effect
+        - LED status indicator "Secure Onboarding"
+        - Título com gradiente verde/azul
+        - Animações de entrada staggered
+    *   **Formulários de Onboarding (Corporate/Professional):**
+        - Inputs com gradient background + backdrop-blur
+        - Labels com ícones coloridos (verde/azul)
+        - Botão submit com shimmer effect
+        - Animações de entrada por campo
+
+2.  **Security Hardening**
+    *   **SECRET_KEY com valor padrão:** Backend funciona sem `.env` em desenvolvimento.
+    *   **`.env` opcional:** Não falha se arquivo não existir.
+    *   **Avisos de segurança:** Alerta no console quando usando chave padrão em produção.
+    *   **`backend/README.md`:** Guia completo de configuração de segurança.
+    *   **`.env.example` melhorado:** Instruções detalhadas com comandos de geração de chaves.
+
+---
+
+### 🚀 Conquistas Anteriores (V16.5.x)
 
 1.  **Production Email System (VPS) ✅**
-    *   **Autenticação SMTP:** Credenciais Gmail configuradas corretamente via variáveis de ambiente no Docker.
-    *   **Links Dinâmicos:** E-mails de verificação e reset agora usam `FRONTEND_URL` do `.env` (ex: `https://algorbrasil.com.br`).
-    *   **Logo Inline (CID):** Imagem da marca embutida nos e-mails via volume mount Docker.
-    *   **Security Fix:** Arquivo `.env` removido do Git e adicionado ao `.gitignore`.
+    *   Autenticação SMTP, Links Dinâmicos, Logo Inline (CID).
+    *   Arquivo `.env` removido do Git.
 
 2.  **Deploy Automation**
-    *   **Script `deploy.sh`:** Automatiza `git pull`, limpeza de containers e rebuild em um único comando.
-    *   **Workaround Bug Docker-Compose 1.29.2:** Script contorna erro `ContainerConfig` com limpeza manual.
-
-3.  **Infrastructure Hardening**
-    *   **SECRET_KEY obrigatória:** Passada como variável de ambiente no `docker-compose.yml`.
-    *   **`.env.example` criado:** Template documentado para configuração de novos ambientes.
-
----
-
-### 🚀 Conquistas Anteriores (V16.4.x)
-
-1.  **Dashboard Localization (PT-BR)**
-    *   **Admin Dashboard:** Tradução 100% de termos técnicos.
-    *   **User Dashboard:** Tradução de KPIs e Gráficos.
-
-2.  **Infrastructure & Persistence**
-    *   **Auto-Healing Database:** Script `initial_data.py` em SQL Puro.
-    *   **Robust Migrations:** Alembic configurado para VPS.
-    *   **GitHub Pages (Docs):** Corrigido erro de build Jekyll/Liquid.
+    *   Script `deploy.sh` automatizado.
+    *   Workaround para bug Docker-Compose 1.29.2.
 
 ---
 
