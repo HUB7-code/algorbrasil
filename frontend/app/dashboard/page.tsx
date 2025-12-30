@@ -112,7 +112,8 @@ function PremiumKPICard({
     color,
     trend,
     sparkData,
-    isLarge = false
+    isLarge = false,
+    isLocked = false
 }: {
     title: string;
     value: string;
@@ -122,24 +123,36 @@ function PremiumKPICard({
     trend?: string;
     sparkData?: number[];
     isLarge?: boolean;
+    isLocked?: boolean;
 }) {
     return (
         <motion.div
             variants={itemVariants}
-            whileHover={{
+            whileHover={!isLocked ? {
                 y: -4,
                 boxShadow: `0 20px 40px ${color}15, 0 0 0 1px ${color}40`
-            }}
+            } : {}}
             className={`relative overflow-hidden rounded-2xl 
                 bg-gradient-to-br from-[#0D1117]/90 to-[#050810]/90 
                 backdrop-blur-xl border border-white/[0.06] 
                 transition-all duration-500 group
-                ${isLarge ? 'p-8' : 'p-6'}`}
+                ${isLarge ? 'p-8' : 'p-6'}
+                ${isLocked ? 'cursor-not-allowed' : ''}`}
         >
+            {/* Locked Overlay */}
+            {isLocked && (
+                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/40 backdrop-blur-md border border-white/5 rounded-2xl">
+                    <div className="p-3 rounded-full bg-white/5 border border-white/10 mb-2 shadow-2xl">
+                        <Lock className="w-6 h-6 text-white/50" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-widest text-white/40 font-bold">Premium Only</span>
+                </div>
+            )}
+
             {/* Ambient Glow */}
             <div
-                className="absolute top-0 right-0 w-[200px] h-[200px] rounded-full blur-[80px] 
-                    opacity-20 group-hover:opacity-40 transition-opacity duration-700 -translate-y-1/2 translate-x-1/2"
+                className={`absolute top-0 right-0 w-[200px] h-[200px] rounded-full blur-[80px] 
+                    opacity-20 ${!isLocked && 'group-hover:opacity-40'} transition-opacity duration-700 -translate-y-1/2 translate-x-1/2`}
                 style={{ background: color }}
             />
 
@@ -150,7 +163,7 @@ function PremiumKPICard({
             />
 
             {/* Icon Badge */}
-            <div className="flex items-start justify-between mb-4">
+            <div className={`flex items-start justify-between mb-4 ${isLocked ? 'opacity-20 blur-[2px]' : ''}`}>
                 <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
                     style={{
@@ -169,12 +182,12 @@ function PremiumKPICard({
             </div>
 
             {/* Value */}
-            <div className="relative z-10">
+            <div className={`relative z-10 ${isLocked ? 'opacity-20 blur-[2px]' : ''}`}>
                 <h3
                     className={`font-bold text-white mb-1 tracking-tight ${isLarge ? 'text-5xl' : 'text-4xl'}`}
                     style={{ fontFamily: "'Orbitron', sans-serif" }}
                 >
-                    {value}
+                    {isLocked ? "---" : value}
                 </h3>
                 <p className="text-[11px] text-gray-400 font-medium uppercase tracking-[0.15em] mb-2">{title}</p>
                 <div className="flex items-center gap-2">
@@ -187,7 +200,7 @@ function PremiumKPICard({
             </div>
 
             {/* Mini Sparkline */}
-            {sparkData && (
+            {sparkData && !isLocked && (
                 <div className="absolute bottom-4 right-4 w-20 h-10 opacity-50 group-hover:opacity-80 transition-opacity">
                     <SparkLine data={sparkData} color={color} />
                 </div>
@@ -195,6 +208,8 @@ function PremiumKPICard({
         </motion.div>
     );
 }
+
+import { Lock, Crown } from "lucide-react"; // Importando ícones extras
 
 export default function Dashboard() {
     const [data, setData] = useState<any>(null);
@@ -236,6 +251,12 @@ export default function Dashboard() {
         }
     }, [searchParams, router]);
 
+    const handleUpgradeToAssociate = () => {
+        // Redirecionar para página de planos ou checkout de associação
+        router.push("/dashboard/membership");
+    };
+
+    // Feature Toggle de Compra
     const handleBuyReport = async () => {
         setPurchasing(true);
         const token = localStorage.getItem("algor_token");
@@ -269,9 +290,18 @@ export default function Dashboard() {
     const activeModels = data?.kpis?.active_models || 0;
     const growthScore = data?.kpis?.growth_score || 0;
 
+    // Perfil Check
+    const isCommunityUser = data?.user_status?.upgrade_required === true;
+    const userName = data?.user_status?.name || "Visitante";
+
     let currentPhase = "01. FORTALECIMENTO";
     if (growthScore > 70) currentPhase = "02. EXPANSÃO";
     if (growthScore > 90) currentPhase = "03. AI-FIRST";
+
+    // Community Override
+    if (isCommunityUser) {
+        currentPhase = "00. COMUNIDADE (Não Verificado)";
+    }
 
     return (
         <div className="p-8 w-full min-h-screen space-y-8 relative text-white bg-[#050810] overflow-x-hidden">
@@ -292,11 +322,11 @@ export default function Dashboard() {
                 <div>
                     {/* Status Badge */}
                     <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] mb-6">
-                        <span className={`w-2.5 h-2.5 rounded-full ${loading ? 'bg-amber-400 animate-pulse' : 'bg-[#00FF94]'}`}
-                            style={{ boxShadow: loading ? undefined : '0 0 12px #00FF94' }}
+                        <span className={`w-2.5 h-2.5 rounded-full ${loading ? 'bg-amber-400 animate-pulse' : (isCommunityUser ? 'bg-yellow-500' : 'bg-[#00FF94]')}`}
+                            style={{ boxShadow: loading ? undefined : (isCommunityUser ? '0 0 12px #eab308' : '0 0 12px #00FF94') }}
                         />
                         <span className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.2em]">
-                            {loading ? "INICIALIZANDO..." : "SISTEMA OPERACIONAL"}
+                            {loading ? "INICIALIZANDO..." : (isCommunityUser ? "MEMBRO DA COMUNIDADE" : "SISTEMA OPERACIONAL")}
                         </span>
                     </div>
 
@@ -304,10 +334,21 @@ export default function Dashboard() {
                         className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight"
                         style={{ fontFamily: "'Orbitron', sans-serif" }}
                     >
-                        CENTRO DE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">EXCELÊNCIA</span>
+                        {isCommunityUser ? (
+                            <>
+                                OLÁ, <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">{userName.split(' ')[0]}</span>
+                            </>
+                        ) : (
+                            <>
+                                CENTRO DE <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">EXCELÊNCIA</span>
+                            </>
+                        )}
                     </h1>
                     <p className="text-gray-400 text-sm tracking-wide">
-                        Hub de Governança de IA • <span className="text-[#00A3FF] font-medium">{currentPhase}</span>
+                        {isCommunityUser
+                            ? "Complete seu perfil para acessar ferramentas avançadas de governança."
+                            : <span>Hub de Governança de IA • <span className="text-[#00A3FF] font-medium">{currentPhase}</span></span>
+                        }
                     </p>
                 </div>
 
@@ -318,9 +359,61 @@ export default function Dashboard() {
                     transition={{ delay: 0.3 }}
                     className="relative"
                 >
-                    <CircularGauge value={growthScore} color="#00FF94" size={140} label="Crescimento" />
+                    <CircularGauge
+                        value={isCommunityUser ? 15 : growthScore}
+                        color={isCommunityUser ? "#F59E0B" : "#00FF94"}
+                        size={140}
+                        label={isCommunityUser ? "Progresso Perfil" : "Crescimento"}
+                    />
                 </motion.div>
             </motion.div>
+
+            {/* Community Banner Upgrade */}
+            {isCommunityUser && !loading && (
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative z-20 w-full mb-8 rounded-3xl overflow-hidden p-8 md:p-12 border border-[#F59E0B]/30"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#F59E0B]/10 to-transparent backdrop-blur-md" />
+                    <div className="absolute top-0 right-0 w-full h-full bg-[url('/img/grid-pattern.svg')] opacity-10" />
+
+                    <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div className="max-w-xl">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="p-2 rounded-lg bg-[#F59E0B]/20 border border-[#F59E0B]/30">
+                                    <Crown className="w-5 h-5 text-[#F59E0B]" />
+                                </span>
+                                <span className="text-[#F59E0B] font-bold text-xs uppercase tracking-widest">Acesso Restrito</span>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" style={{ fontFamily: "'Orbitron', sans-serif" }}>
+                                Torne-se um Associado Profissional
+                            </h2>
+                            <p className="text-gray-300 text-lg leading-relaxed">
+                                Você está na modalidade gratuita. Desbloqueie o acesso completo às ferramentas de Auditoria ISO 42001,
+                                marketplace de projetos e receba seu selo de verificação digital.
+                            </p>
+                            <div className="mt-6 flex flex-wrap gap-4 text-sm text-gray-400">
+                                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#F59E0B]" /> Ferramentas de Auditoria</span>
+                                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#F59E0B]" /> Acesso a Oportunidades</span>
+                                <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#F59E0B]" /> Networking Exclusivo</span>
+                            </div>
+                        </div>
+
+                        <motion.button
+                            onClick={handleUpgradeToAssociate}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="px-8 py-5 bg-gradient-to-r from-[#F59E0B] to-[#D97706] 
+                                text-white font-bold rounded-2xl text-base tracking-widest uppercase
+                                shadow-[0_10px_40px_rgba(245,158,11,0.3)] flex items-center gap-3 min-w-[200px] justify-center"
+                        >
+                            <Crown className="w-5 h-5 fill-current" />
+                            Upgrade Agora
+                        </motion.button>
+                    </div>
+                </motion.div>
+            )}
 
             <motion.div
                 variants={containerVariants}
@@ -328,16 +421,16 @@ export default function Dashboard() {
                 animate="visible"
                 className="relative z-10 space-y-8"
             >
-                {/* KPI Cards Grid - Premium Layout */}
+                {/* KPI Cards Grid - Logic: Lock specific cards for Community users */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <PremiumKPICard
                         title="Nível de Prontidão"
-                        value={`${complianceScore}%`}
-                        subValue="Pronto p/ ISO 42001"
+                        value={isCommunityUser ? "Básico" : `${complianceScore}%`}
+                        subValue={isCommunityUser ? "Demo View" : "Pronto p/ ISO 42001"}
                         icon={<Shield className="w-6 h-6" />}
-                        color="#00FF94"
-                        trend="+5%"
-                        sparkData={[40, 45, 42, 55, 60, 58, 70, complianceScore]}
+                        color={isCommunityUser ? "#64748B" : "#00FF94"}
+                        sparkData={isCommunityUser ? [20, 20, 20, 20, 20] : [40, 45, 42, 55, 60, 58, 70, complianceScore]}
+                        isLocked={false} // Always Visible as teaser
                     />
 
                     <PremiumKPICard
@@ -347,6 +440,7 @@ export default function Dashboard() {
                         icon={<Cpu className="w-6 h-6" />}
                         color="#00A3FF"
                         sparkData={[3, 4, 4, 5, 6, 7, 8, activeModels]}
+                        isLocked={isCommunityUser} // LOCK
                     />
 
                     <PremiumKPICard
@@ -355,6 +449,7 @@ export default function Dashboard() {
                         subValue={criticalRisks === 0 ? "Ambiente Seguro" : "Ação Necessária"}
                         icon={<AlertTriangle className="w-6 h-6" />}
                         color={criticalRisks > 0 ? "#EF4444" : "#00FF94"}
+                        isLocked={isCommunityUser} // LOCK
                     />
 
                     <PremiumKPICard
@@ -364,6 +459,7 @@ export default function Dashboard() {
                         icon={<Clock className="w-6 h-6" />}
                         color="#8B5CF6"
                         sparkData={[10, 25, 40, 30, 50, 70, 60, 90]}
+                        isLocked={isCommunityUser} // LOCK
                     />
                 </div>
 
@@ -372,11 +468,21 @@ export default function Dashboard() {
                     {/* Trend Chart - Large */}
                     <motion.div
                         variants={itemVariants}
-                        className="lg:col-span-8 p-8 rounded-3xl 
+                        className={`lg:col-span-8 p-8 rounded-3xl 
                             bg-gradient-to-br from-[#0D1117]/80 to-[#050810]/80 
                             backdrop-blur-xl border border-white/[0.06] 
-                            relative overflow-hidden group"
+                            relative overflow-hidden group 
+                            ${isCommunityUser ? 'grayscale opacity-80' : ''}`}
                     >
+                        {isCommunityUser && (
+                            <div className="absolute inset-0 z-30 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                                <div className="text-center">
+                                    <Lock className="w-12 h-12 text-white/30 mx-auto mb-4" />
+                                    <p className="text-white/50 text-sm font-bold tracking-widest uppercase">Análise Histórica Bloqueada</p>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Top Accent */}
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#8B5CF6]/50 to-transparent" />
 
@@ -392,16 +498,18 @@ export default function Dashboard() {
                                     <p className="text-xs text-gray-500">Últimos 30 dias</p>
                                 </div>
                             </div>
-                            <div className="flex gap-6">
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 rounded-full bg-[#8B5CF6] shadow-[0_0_10px_#8B5CF6]" />
-                                    <span className="text-[11px] text-gray-400 font-medium">Índice de Confiança</span>
+                            {!isCommunityUser && (
+                                <div className="flex gap-6">
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-3 h-3 rounded-full bg-[#8B5CF6] shadow-[0_0_10px_#8B5CF6]" />
+                                        <span className="text-[11px] text-gray-400 font-medium">Índice de Confiança</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-3 h-3 rounded-full bg-[#00A3FF] shadow-[0_0_10px_#00A3FF]" />
+                                        <span className="text-[11px] text-gray-400 font-medium">Ativos</span>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <span className="w-3 h-3 rounded-full bg-[#00A3FF] shadow-[0_0_10px_#00A3FF]" />
-                                    <span className="text-[11px] text-gray-400 font-medium">Ativos</span>
-                                </div>
-                            </div>
+                            )}
                         </div>
                         <div className="h-[300px] w-full">
                             <TrendChart data={data?.charts?.trend_data} />
@@ -416,6 +524,16 @@ export default function Dashboard() {
                             backdrop-blur-xl border border-white/[0.06] 
                             relative overflow-hidden group hover:border-[#F59E0B]/30 transition-colors"
                     >
+                        {/* Unlockable even for community? No, keep logic simple: Radar is open as teaser or blocked? Let's block it for premium feel */}
+                        {isCommunityUser && (
+                            <div className="absolute inset-0 z-30 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                                <div className="text-center">
+                                    <Lock className="w-10 h-10 text-white/30 mx-auto mb-2" />
+                                    <p className="text-white/50 text-xs font-bold tracking-widest uppercase">Radar Avançado</p>
+                                </div>
+                            </div>
+                        )}
+
                         {/* Top Accent */}
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#F59E0B]/50 to-transparent" />
 
@@ -431,19 +549,35 @@ export default function Dashboard() {
                     </motion.div>
                 </div>
 
-                {/* Bottom Action Row */}
+                {/* Bottom Action Row - Community sees Upgrade CTA, Premium sees Scanner */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Main CTA - Scanner */}
                     <motion.div
                         variants={itemVariants}
-                        className="lg:col-span-2 relative overflow-hidden rounded-3xl 
+                        className={`lg:col-span-2 relative overflow-hidden rounded-3xl 
                             bg-gradient-to-br from-[#0A1A2F]/80 to-[#050810]/80 
-                            border border-[#00FF94]/20 p-10 group"
+                            border ${isCommunityUser ? 'border-gray-800' : 'border-[#00FF94]/20'} p-10 group
+                            ${isCommunityUser ? 'opacity-90' : ''}`}
                     >
-                        {/* Animated Glow */}
-                        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[120px] 
-                            pointer-events-none group-hover:bg-[#00FF94]/10 transition-all duration-1000" />
-                        <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-[#00A3FF]/5 rounded-full blur-[100px] pointer-events-none" />
+                        {/* Animated Glow - Conditional */}
+                        {!isCommunityUser && (
+                            <>
+                                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[120px] 
+                                    pointer-events-none group-hover:bg-[#00FF94]/10 transition-all duration-1000" />
+                                <div className="absolute -bottom-20 -left-20 w-[300px] h-[300px] bg-[#00A3FF]/5 rounded-full blur-[100px] pointer-events-none" />
+                            </>
+                        )}
+
+                        {isCommunityUser && (
+                            <div className="absolute inset-0 z-30 bg-black/60 backdrop-blur-[2px] flex items-center justify-center border border-white/5">
+                                <div className="text-center">
+                                    <h4 className="text-2xl font-bold text-white mb-2" style={{ fontFamily: "'Orbitron', sans-serif" }}>Scanner IA PRO</h4>
+                                    <button onClick={handleUpgradeToAssociate} className="px-6 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-full text-sm font-bold uppercase tracking-widest transition-all">
+                                        Exclusivo para Associados
+                                    </button>
+                                </div>
+                            </div>
+                        )}
 
                         <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                             <div>
@@ -461,14 +595,16 @@ export default function Dashboard() {
                                     Diagnóstico completo para identificar brechas de conformidade (ISO 42001/EU AI Act) e atualizar sua matriz de riscos.
                                 </p>
                             </div>
-                            <Link href="/dashboard/assessments">
+                            <Link href={isCommunityUser ? "#" : "/dashboard/assessments"}>
                                 <motion.button
-                                    whileHover={{ scale: 1.02, boxShadow: "0 0 50px rgba(0,255,148,0.3)" }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="px-8 py-4 bg-gradient-to-r from-[#00FF94] to-[#00CC76] 
+                                    disabled={isCommunityUser}
+                                    whileHover={!isCommunityUser ? { scale: 1.02, boxShadow: "0 0 50px rgba(0,255,148,0.3)" } : {}}
+                                    whileTap={!isCommunityUser ? { scale: 0.98 } : {}}
+                                    className={`px-8 py-4 bg-gradient-to-r from-[#00FF94] to-[#00CC76] 
                                         text-[#050810] font-bold rounded-xl text-sm tracking-widest 
                                         flex items-center gap-3 uppercase whitespace-nowrap
-                                        shadow-[0_10px_40px_rgba(0,255,148,0.25)]"
+                                        shadow-[0_10px_40px_rgba(0,255,148,0.25)]
+                                        ${isCommunityUser ? 'opacity-50 cursor-not-allowed grayscale' : ''}`}
                                 >
                                     <Play className="w-5 h-5 fill-current" />
                                     Executar Scanner
@@ -477,7 +613,7 @@ export default function Dashboard() {
                         </div>
                     </motion.div>
 
-                    {/* Premium Service Card */}
+                    {/* Premium Service Card - Always Available (Upsell) */}
                     <motion.div
                         variants={itemVariants}
                         onClick={handleBuyReport}

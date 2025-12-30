@@ -92,7 +92,7 @@ export default function HeroDual() {
                 {/* Headline */}
                 <motion.h1
                     variants={itemVariants}
-                    className="font-serif text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6"
+                    className="font-orbitron text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6"
                 >
                     Cresça Rápido. <br />
                     <span className="relative">
@@ -182,7 +182,7 @@ export default function HeroDual() {
                                 </div>
                             </motion.div>
 
-                            <h2 className="font-serif text-3xl text-white mb-2 group-hover:text-[#00A3FF]/90 transition-colors">Para Empresas</h2>
+                            <h2 className="font-orbitron text-3xl text-white mb-2 group-hover:text-[#00A3FF]/90 transition-colors">Para Empresas</h2>
                             <div className="flex items-center gap-2 mb-6">
                                 <span className="font-mono text-xs text-[#00A3FF] tracking-widest uppercase">Governança como Motor de Receita</span>
                                 <Target className="w-3 h-3 text-[#00A3FF]" />
@@ -269,7 +269,7 @@ export default function HeroDual() {
                                 </div>
                             </motion.div>
 
-                            <h2 className="font-serif text-3xl text-white mb-2 group-hover:text-[#00FF94]/90 transition-colors">Para Consultores</h2>
+                            <h2 className="font-orbitron text-3xl text-white mb-2 group-hover:text-[#00FF94]/90 transition-colors">Para Consultores</h2>
                             <div className="flex items-center gap-2 mb-6">
                                 <span className="font-mono text-xs text-[#00FF94] tracking-widest uppercase">Carreira & Ferramentas</span>
                                 <Bot className="w-3 h-3 text-[#00FF94]" />

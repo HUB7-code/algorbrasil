@@ -78,7 +78,7 @@ export default function Home() {
                     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm fade-in" onClick={() => setShowManifesto(false)}>
                         <div className="bg-[#0A1A2F] border border-white/10 rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto glass-panel slide-up" onClick={e => e.stopPropagation()}>
                             <div className="sticky top-0 bg-[#0A1A2F]/95 backdrop-blur-md p-6 border-b border-white/10 flex justify-between items-center z-10">
-                                <h3 className="font-serif text-2xl">Manifesto ALGOR Brasil</h3>
+                                <h3 className="font-orbitron text-2xl">Manifesto ALGOR Brasil</h3>
                                 <button
                                     onClick={() => setShowManifesto(false)}
                                     className="w-8 h-8 flex items-center justify-center hover:bg-white/10 rounded-lg transition-colors"
@@ -99,7 +99,7 @@ export default function Home() {
                                     uma rede de organizações que não apenas cumprem regulações, mas que as antecipam e as moldam.
                                 </p>
                                 <div className="bg-white/5 border border-[#00FF94]/20 rounded-lg p-6 my-6">
-                                    <h4 className="font-serif text-xl text-white mb-3">Nossos Princípios</h4>
+                                    <h4 className="font-orbitron text-xl text-white mb-3">Nossos Princípios</h4>
                                     <ul className="space-y-2 text-sm">
                                         <li className="flex items-start gap-2">
                                             <CheckCircle2 className="w-4 h-4 text-[#00FF94] mt-1 flex-shrink-0" />

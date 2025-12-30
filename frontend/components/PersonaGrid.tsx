@@ -108,7 +108,7 @@ export default function PersonaGrid() {
                         Perfis Estratégicos
                     </motion.span>
 
-                    <h2 className="font-serif text-3xl md:text-5xl text-white mb-4">
+                    <h2 className="font-orbitron text-3xl md:text-5xl text-white mb-4">
                         Quem Lidera a{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">
                             Governança?
@@ -199,7 +199,7 @@ export default function PersonaGrid() {
                                         </div>
 
                                         {/* Content */}
-                                        <h3 className="font-serif text-xl text-white mb-1 group-hover:text-white transition-colors">
+                                        <h3 className="font-orbitron text-xl text-white mb-1 group-hover:text-white transition-colors">
                                             {persona.title}
                                         </h3>
                                         <p

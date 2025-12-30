@@ -124,7 +124,30 @@ async def get_dashboard_overview(
             "fullMark": 150
         })
 
+    # 7. Verifica Status do Perfil Profissional (Para UX Degustação vs Premium)
+    professional_profile = current_user.professional_profile
+    profile_status = "standard" # default
+    is_upgrade_required = False
+    
+    if professional_profile:
+        # Se tem perfil profissional mas não está aprovado/pago
+        if professional_profile.status in ["pending", "under_review", "rejected"]:
+            profile_status = "community"
+            is_upgrade_required = True
+        elif professional_profile.status == "approved":
+            profile_status = "associate_premium"
+            
+    # Se for admin, sempre premium
+    if current_user.role == "admin":
+        profile_status = "admin_master"
+        is_upgrade_required = False
+
     return {
+        "user_status": {
+            "profile_type": profile_status,
+            "upgrade_required": is_upgrade_required,
+            "name": current_user.full_name
+        },
         "kpis": {
             "growth_score": int(growth_score),
             "trust_score": int(trust_score), # Compliance Readiness

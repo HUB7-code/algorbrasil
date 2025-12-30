@@ -75,7 +75,7 @@ export default function AboutSection() {
 
                         {/* Title */}
                         <motion.h2
-                            className="font-serif text-4xl md:text-5xl text-white mb-6 leading-tight"
+                            className="font-orbitron text-4xl md:text-5xl text-white mb-6 leading-tight"
                             variants={itemVariants}
                         >
                             A Autoridade que Define <br />

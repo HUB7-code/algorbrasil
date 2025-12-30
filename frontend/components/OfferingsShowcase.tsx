@@ -109,7 +109,7 @@ export default function OfferingsShowcase() {
                         Soluções Integradas
                     </motion.span>
 
-                    <h2 className="font-serif text-4xl md:text-5xl text-white mb-4">
+                    <h2 className="font-orbitron text-4xl md:text-5xl text-white mb-4">
                         Governança{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">
                             Sob Medida
@@ -190,7 +190,7 @@ export default function OfferingsShowcase() {
                                         </div>
                                     </motion.div>
                                     <div>
-                                        <h3 className="text-2xl font-serif text-white group-hover:text-white transition-colors">
+                                        <h3 className="font-orbitron text-2xl text-white group-hover:text-white transition-colors">
                                             {offering.title}
                                         </h3>
                                         <p

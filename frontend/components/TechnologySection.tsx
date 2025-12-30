@@ -85,7 +85,7 @@ export default function TechnologySection() {
                     Infraestrutura
                 </motion.span>
 
-                <h2 className="font-serif text-3xl md:text-5xl text-white mb-4">
+                <h2 className="font-orbitron text-3xl md:text-5xl text-white mb-4">
                     Nossa <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">Tecnologia</span>
                 </h2>
                 <p className="text-gray-400 max-w-2xl mx-auto font-light text-lg">
@@ -160,7 +160,7 @@ export default function TechnologySection() {
 
                             {/* Title */}
                             <h3
-                                className="font-serif text-2xl mb-4 text-white group-hover:transition-colors"
+                                className="font-orbitron text-2xl mb-4 text-white group-hover:transition-colors"
                                 style={{ '--hover-color': card.color } as React.CSSProperties}
                             >
                                 <span className="group-hover:text-[var(--hover-color)] transition-colors">

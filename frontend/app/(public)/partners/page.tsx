@@ -26,9 +26,9 @@ export default function PartnersPage() {
                         <span className="text-sm font-mono text-[#00A3FF] tracking-wider uppercase">Para Consultores & Advogados</span>
                     </div>
 
-                    <h1 className="text-5xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight animate-in fade-in zoom-in duration-1000">
+                    <h1 className="font-orbitron text-5xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight animate-in fade-in zoom-in duration-1000">
                         Escale sua Consultoria.<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-white">
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">
                             Automatize sua Auditoria.
                         </span>
                     </h1>
@@ -60,7 +60,7 @@ export default function PartnersPage() {
                 {/* Reusing existing assets to show value */}
                 <section className="mb-32">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-bold mb-4">O Arsenal Tecnológico do Parceiro</h2>
+                        <h2 className="font-orbitron text-3xl font-bold mb-4">O Arsenal Tecnológico do Parceiro</h2>
                         <p className="text-gray-400 max-w-2xl mx-auto">Você não recebe apenas uma certificação. Você recebe uma plataforma de guerra para governança de IA.</p>
                     </div>
 
@@ -150,7 +150,7 @@ export default function PartnersPage() {
                         <div className="absolute inset-0 bg-[#00A3FF]/20 blur-[60px] rounded-full" />
                         <div className="glass-panel p-8 rounded-2xl border border-white/10 relative z-10 transition-transform duration-500 hover:-translate-y-2 h-full flex flex-col justify-between">
                             <div>
-                                <h3 className="text-2xl font-serif mb-6 border-b border-white/10 pb-4">O Velho Modelo (Consultoria 1.0)</h3>
+                                <h3 className="font-orbitron text-2xl mb-6 border-b border-white/10 pb-4">O Velho Modelo (Consultoria 1.0)</h3>
                                 <ul className="space-y-4 text-gray-400">
                                     <li className="flex gap-3">
                                         <span className="text-red-500 font-bold">✕</span>
@@ -182,7 +182,7 @@ export default function PartnersPage() {
                         <div className="absolute inset-0 bg-[#00FF94]/20 blur-[60px] rounded-full" />
                         <div className="glass-panel p-8 rounded-2xl border border-[#00FF94]/30 relative z-10 bg-[#0A1A2F]/80 transition-transform duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(0,255,148,0.1)] h-full flex flex-col justify-between">
                             <div>
-                                <h3 className="text-2xl font-serif mb-6 border-b border-white/10 pb-4 text-[#00FF94]">O Modelo ALGOR (Consultoria 2.0)</h3>
+                                <h3 className="font-orbitron text-2xl mb-6 border-b border-white/10 pb-4 text-[#00FF94]">O Modelo ALGOR (Consultoria 2.0)</h3>
                                 <ul className="space-y-4 text-gray-300">
                                     <li className="flex gap-3">
                                         <CheckCircle2 className="w-5 h-5 text-[#00FF94] flex-shrink-0" />
@@ -208,7 +208,7 @@ export default function PartnersPage() {
 
                 {/* --- CTA FINAL --- */}
                 <section className="text-center py-20 border-t border-white/10">
-                    <h2 className="text-4xl font-bold mb-6">Sua cadeira no futuro da Governança está vazia.</h2>
+                    <h2 className="font-orbitron text-4xl font-bold mb-6">Sua cadeira no futuro da Governança está vazia.</h2>
                     <p className="text-gray-400 mb-8">As vagas para Partner Regional são limitadas por geografia.</p>
                     <Link
                         href="/partners/apply"

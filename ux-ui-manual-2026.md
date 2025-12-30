@@ -1525,8 +1525,41 @@ O design de dashboards em 2026 transcende a mera exibição de números — é s
 
 **Lembre-se**: O melhor dashboard é aquele que o usuário nem percebe que está usando — ele flui naturalmente para as decisões certas.
 
+
+---
+
+## 11. Identidade Visual ALGOR (Aplicação Prática)
+
+Especificações oficiais para a implementação da marca **ALGOR PREMIERE**.
+
+### 11.1 Tipografia Oficial
+
+A tipografia define o tom da interface: "Futurista, Autoritária, Segura".
+
+*   **Display / Headings (L1 - L3):** `Orbitron`
+    *   **Uso:** Títulos principais (H1), Títulos de seção (H2), Badges de Status.
+    *   **Características:** Geometria técnica, espaçamento expandido (tracking-wide), kerning agressivo.
+    *   **Class:** `.font-orbitron`
+*   **Body / Texto de Apoio (L4 - L6):** `Inter` ou `Sans-serif` System default.
+    *   **Uso:** Parágrafos, listas, cartões de dados.
+    *   **Características:** Alta legibilidade, neutra, funcional.
+    *   **Class:** `font-sans`
+*   **Dados Táticos:** `JetBrains Mono` ou `Monospace`
+    *   **Uso:** Códigos, IDs, Tokens, Metadados técnicos.
+    *   **Class:** `font-mono`
+
+> **Nota Crítica (30/12/2025):** A fonte `Serif` foi oficialmente depreciada para títulos. Todos os headers devem usar `Orbitron` para consistência com o tema "Secure Terminal".
+
+### 11.2 Estética "Secure Terminal"
+
+Utilizada em páginas transacionais críticas e dashboards de alta segurança.
+
+1.  **Hologramas Neurais:** Elementos 3D giratórios (`HeroScene`) usados como âncora visual para representar IA viva.
+2.  **Inputs Táticos:** Campos de formulário com feedback imediato de foco (brilho neon), lembrando interfaces militares/cyberpunk refinadas.
+3.  **Data Encryption Motion:** Animações de loading que simulam criptografia de dados em tempo real (ex: texto embaralhado resolvendo para texto limpo).
+
 ---
 
 *Manual atualizado com pesquisa extensiva sobre tendências UX/UI 2025-2026*
-*Foco especial em: Dashboards Enterprise, KPI Visualization, Data Storytelling*
-*Última atualização: 30/12/2025*
+*Foco especial em: Dashboards Enterprise, KPI Visualization, Data Storytelling, Brand Identity Unification*
+*Última atualização: 30/12/2025 - **V17.1.0 Compatible***

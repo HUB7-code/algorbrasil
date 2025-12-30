@@ -97,7 +97,7 @@ export default function MethodologySection() {
 
                         {/* Title */}
                         <motion.h2
-                            className="font-serif text-4xl md:text-5xl text-white mb-6 leading-tight"
+                            className="font-orbitron text-4xl md:text-5xl text-white mb-6 leading-tight"
                             variants={itemVariants}
                         >
                             Do Caos à{' '}
@@ -163,7 +163,7 @@ export default function MethodologySection() {
                                             >
                                                 {phase.id}
                                             </span>
-                                            <h3 className="text-lg font-serif text-white group-hover:text-white transition-colors">
+                                            <h3 className="text-lg font-orbitron text-white group-hover:text-white transition-colors">
                                                 {phase.title}
                                             </h3>
                                         </div>

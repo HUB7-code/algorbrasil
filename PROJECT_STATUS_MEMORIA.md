@@ -1,29 +1,37 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V17.0.1 (Production Deployed)**
+## STATUS ATUAL: **V17.1.0 (Visual Unification)**
 **Data:** 30/12/2025
-**Objetivo:** Deploy de produção validado com todas as configurações de segurança.
+**Objetivo:** Consolidação da identidade visual "Algor Premiere" e lançamento da área de Parceiros.
 
 ---
 
-### 🚀 Deploy de Produção Validado (V17.0.1)
+### 🚀 Partners Area & Visual Identity (V17.1.0)
 
-1.  **Deploy VPS Bem-Sucedido (30/12/2025 09:18)**
-    *   Todos os 5 containers rodando: `frontend`, `backend`, `web`, `adminer`, `certbot`
-    *   Backend iniciando sem erros ou avisos
-    *   SSL/HTTPS ativo via Certbot
+1.  **Redesign Completo: Área de Parceiros**
+    *   **Landing Page (`/partners`):** Aesthetic "Premiere" com tipografia Orbitron, Cards Cenográficos e hierarquia visual clara.
+    *   **Application Terminal (`/partners/apply`):** Experiência imersiva "Secure Terminal" com:
+        - Holograma Neural Responsivo (ajustado para mobile/tablet).
+        - Inputs táticos com feedback visual.
+        - Animações de sucesso "Data Encryption".
 
-2.  **Configuração de Segurança Corrigida**
-    *   **DATA_ENCRYPTION_KEY:**
-        - Adicionada ao `docker-compose.yml` como variável obrigatória
-        - Formato correto: Fernet base64 (não hex)
-        - Comando para gerar: `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`
-    *   **Sincronização Local-VPS:** Arquivos `.env.example` e `docker-compose.yml` atualizados
+2.  **Unificação Tipográfica (Brand Consistency)**
+    *   **Orbitron Everywhere:** Substituída a fonte `serif` antiga por `Orbitron` em **toda a Homepage**.
+    *   **Componentes Atualizados:**
+        - `HeroDual`: Headline principal agora alinhada à marca.
+        - `OfferingsShowcase`, `TechnologySection`, `MethodologySection`: Títulos padronizados.
+        - `AboutSection` & `PersonaGrid`: Identidade coesa.
 
-3.  **Documentação Atualizada**
-    *   `MANUAL_DEPLOY_VPS.md`: Nova seção 4.5 (erro Fernet)
-    *   `.env.example`: DATA_ENCRYPTION_KEY agora obrigatória
-    *   `ux-ui-manual-2026.md`: Nova seção Premium Dashboards (600+ linhas)
+3.  **Holograma Responsivo**
+    *   Correção crítica de layout no globo holográfico (`max-w` adaptativo) para evitar quebra em telas de laptop.
+
+---
+
+### 📜 Histórico Recente: V17.0.1 (Production Deploy)
+**Data:** 30/12/2025 09:18
+*   Deploy VPS Bem-Sucedido com Docker Multi-Stage.
+*   Correção de `DATA_ENCRYPTION_KEY` Fernet.
+*   Zero Technical Debt alcançado.
 
 ---
 
