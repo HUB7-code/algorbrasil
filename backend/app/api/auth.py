@@ -14,6 +14,9 @@ from backend.app.core.security import get_password_hash, verify_password, create
 from backend.app.core.config import settings
 from backend.app.core.security_encryption import encrypt_field
 from backend.app.db.session import get_db
+import logging
+
+logger = logging.getLogger(__name__)
 from backend.app.models.user import User
 from backend.app.services.email_service import send_welcome_email, send_verification_email
 
@@ -53,7 +56,7 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
     Cadastra um novo usuario (Status: Pendente de Verificacao).
     """
     try:
-        print(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
+        logger.info(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
         user = db.query(User).filter(User.email == user_in.email).first()
         if user:
             raise HTTPException(
@@ -77,7 +80,7 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        print(f"✅ Usuário salvo no DB (ID: {new_user.id})")
+        logger.info(f"✅ Usuário salvo no DB (ID: {new_user.id})")
 
         # === [FIX PERSONA A] ===
         # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos
@@ -104,10 +107,10 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
             )
             db.execute(stmt)
             db.commit()
-            print(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
+            logger.info(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
             
         except Exception as e_org:
-            print(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
+            logger.warning(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
             # Não abortamos o cadastro por isso, mas logamos
         
         # Gerar Token de Verificacao (Validade: 24h)
@@ -117,13 +120,13 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
         )
         
         # Envio SÍNCRONO para garantir e debugar (sem BackgroundTasks por enquanto)
-        print("📧 Preparando envio de e-mail...")
+        logger.info("📧 Preparando envio de e-mail...")
         try:
             from backend.app.services.email_service import send_verification_email
             send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
-            print("✅ E-mail de verificação despachado com sucesso!")
+            logger.info("✅ E-mail de verificação despachado com sucesso!")
         except Exception as e:
-            print(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
+            logger.error(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
             # Em produção, não parariamos o cadastro, mas para debug queremos ver o erro
             # raise HTTPException(status_code=500, detail=f"Erro no envio de e-mail: {str(e)}")
 
@@ -138,9 +141,9 @@ async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
         raise
     except Exception as e:
         # Capturar qualquer outro erro e retornar JSON válido
-        print(f"❌ ERRO INTERNO NO SIGNUP: {str(e)}")
+        logger.error(f"❌ ERRO INTERNO NO SIGNUP: {str(e)}")
         import traceback
-        traceback.print_exc()
+        traceback.print_exc() # Manter traceback é ok em dev, mas idealmente usar logger.exception
         raise HTTPException(
             status_code=500,
             detail=f"Erro interno ao processar cadastro: {str(e)}"
@@ -220,9 +223,9 @@ async def forgot_password(request: ForgotPasswordRequest, background_tasks: Back
         try:
              from backend.app.services.email_service import send_password_reset_email
              send_password_reset_email(user.full_name, user.email, reset_token)
-             print(f"📧 Reset email sent to {user.email}")
+             logger.info(f"📧 Reset email sent to {user.email}")
         except Exception as e:
-            print(f"❌ Failed to send reset email: {e}")
+            logger.error(f"❌ Failed to send reset email: {e}")
     
     return {"message": "Se este e-mail estiver cadastrado, você receberá as instruções em breve."}
 

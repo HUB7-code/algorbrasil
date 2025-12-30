@@ -42,8 +42,6 @@ export default function LoginPage() {
 
             if (!res.ok) throw new Error(data.detail || "Credenciais inválidas.");
 
-            console.log("Login success:", data);
-
             if (data.requires_2fa) {
                 localStorage.setItem("algor_temp_token", data.access_token);
                 router.push("/2fa?flow=login");
@@ -62,7 +60,6 @@ export default function LoginPage() {
             const urlParams = new URLSearchParams(window.location.search);
             const redirectParam = urlParams.get('redirect');
 
-            console.log("Redirecting to:", redirectParam || "/dashboard");
 
             // Define target URL
             const targetUrl = redirectParam || (data.role === "admin" ? "/dashboard/admin" : data.role === "subscriber" ? "/onboarding" : "/dashboard");
@@ -72,7 +69,6 @@ export default function LoginPage() {
             router.refresh(); // Ensure strict refresh
 
         } catch (error: any) {
-            console.error("Login Error:", error);
             setErrorMessage(error.message || "Erro ao conectar com o servidor.");
             setIsLoading(false); // ALWAYS reset loading on error
         } finally {

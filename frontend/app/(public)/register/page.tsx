@@ -111,17 +111,14 @@ function RegisterContent() {
 
             // Capturar o texto bruto primeiro para debug
             const responseText = await res.text();
-            console.log("📡 Response Status:", res.status);
-            console.log("📡 Response Text:", responseText);
 
             // Tentar fazer parse do JSON
             let data;
             try {
                 data = JSON.parse(responseText);
             } catch (parseError) {
-                console.error("❌ JSON Parse Error:", parseError);
-                console.error("❌ Raw Response:", responseText);
-                throw new Error(`Erro ao processar resposta do servidor. Resposta inválida: ${responseText.substring(0, 100)}`);
+                // Silently fails parsing logs in production
+                throw new Error(`Erro ao processar resposta do servidor.`);
             }
 
             if (!res.ok) throw new Error(data.detail || "Erro ao criar conta.");
