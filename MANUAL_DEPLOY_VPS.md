@@ -1,6 +1,6 @@
 # PROCESSO DE DEPLOY E ARQUITETURA DE INFRAESTRUTURA
 > **IMPORTANTE:** Este documento descreve o fluxo de trabalho OBRIGATÓRIO para atualização do ambiente de produção (VPS).
-> **Versão:** 16.6.0 (29/12/2025)
+> **Versão:** 17.0.0 (30/12/2025)
 
 ## 1. Arquitetura do Sistema
 O projeto "Algor Brasil" opera em um modelo híbrido de desenvolvimento local e deploy containerizado em VPS.
@@ -11,8 +11,8 @@ O projeto "Algor Brasil" opera em um modelo híbrido de desenvolvimento local e 
     - **Gerenciador:** Docker & Docker Compose (v1.29.2).
     - **Serviços:**
         - `frontend`: Next.js (Node 20 Alpine).
-        - `backend`: Python FastAPI.
-        - `web`: Nginx (Proxy Reverso).
+        - `backend`: Python FastAPI (usuário não-root `appuser`).
+        - `web`: Nginx (Proxy Reverso + SSL).
         - `db`: SQLite (Persistido via Volume mapping `./backend/sql_app.db`).
 
 ---
@@ -36,7 +36,7 @@ cd ~/algorbrasil
 1. ✅ Sincroniza código com GitHub (`git fetch` + `reset`)
 2. ✅ Para containers de forma limpa (evita bug ContainerConfig)
 3. ✅ Remove containers órfãos
-4. ✅ Reconstrói imagens Docker
+4. ✅ Reconstrói imagens Docker (multi-stage build, non-root)
 5. ✅ Sobe todos os serviços
 6. ✅ Exibe status e logs recentes
 
@@ -51,12 +51,20 @@ O arquivo `.env` contém credenciais sensíveis e configurações específicas d
 
 ### Variáveis Obrigatórias:
 ```ini
+# Segurança JWT (gere com: python -c "import secrets; print(secrets.token_hex(32))")
 SECRET_KEY=sua-chave-secreta-aqui
+
+# Criptografia de dados (gere com: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())")
+DATA_ENCRYPTION_KEY=sua-chave-fernet-base64-aqui
+
+# E-mail SMTP
 SMTP_SERVER=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USER=seu.email@gmail.com
 SMTP_PASSWORD=sua-senha-de-app
 SMTP_FROM_EMAIL=seu.email@gmail.com
+
+# URLs
 FRONTEND_URL=https://algorbrasil.com.br
 ```
 
@@ -66,6 +74,7 @@ nano .env
 # Ou usando heredoc:
 cat > .env << 'EOF'
 SECRET_KEY=...
+DATA_ENCRYPTION_KEY=...
 SMTP_SERVER=smtp.gmail.com
 # ... resto das variáveis
 EOF
@@ -109,7 +118,32 @@ Rode o Auto-Cure:
 docker-compose exec backend python -m backend.app.initial_data
 ```
 
+### 4.5 Erro "Fernet key must be 32 url-safe base64-encoded bytes"
+A `DATA_ENCRYPTION_KEY` está no formato errado. Deve ser uma chave Fernet (base64), não hex.
+
+**Gerar chave correta:**
+```bash
+python3 -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+```
+
+**Atualizar no `.env`:**
+```bash
+nano .env
+# Substitua a linha DATA_ENCRYPTION_KEY pela chave gerada
+```
+
+**Reiniciar:**
+```bash
+docker-compose down
+docker-compose up -d
+```
+
 ---
 
 ## 5. Referência: Arquivo `.env.example`
-Um template está disponível em `.env.example` no repositório.
+Um template completo está disponível em `.env.example` no repositório.
+
+---
+
+*Última atualização: 30/12/2025 - v17.0.0*
+

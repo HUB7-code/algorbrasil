@@ -1,12 +1,33 @@
 # MEMÓRIA DO PROJETO - ALGOR BRASIL
 
-## STATUS ATUAL: **V17.0.0 (Enterprise Ready - Zero Technical Debt)**
+## STATUS ATUAL: **V17.0.1 (Production Deployed)**
 **Data:** 30/12/2025
-**Objetivo:** Auditoria de segurança completa, eliminação de dívida técnica e hardening de produção.
+**Objetivo:** Deploy de produção validado com todas as configurações de segurança.
 
 ---
 
-### 🏆 Últimas Grandes Conquistas (V17.0.0 - Deep Scan)
+### 🚀 Deploy de Produção Validado (V17.0.1)
+
+1.  **Deploy VPS Bem-Sucedido (30/12/2025 09:18)**
+    *   Todos os 5 containers rodando: `frontend`, `backend`, `web`, `adminer`, `certbot`
+    *   Backend iniciando sem erros ou avisos
+    *   SSL/HTTPS ativo via Certbot
+
+2.  **Configuração de Segurança Corrigida**
+    *   **DATA_ENCRYPTION_KEY:**
+        - Adicionada ao `docker-compose.yml` como variável obrigatória
+        - Formato correto: Fernet base64 (não hex)
+        - Comando para gerar: `python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"`
+    *   **Sincronização Local-VPS:** Arquivos `.env.example` e `docker-compose.yml` atualizados
+
+3.  **Documentação Atualizada**
+    *   `MANUAL_DEPLOY_VPS.md`: Nova seção 4.5 (erro Fernet)
+    *   `.env.example`: DATA_ENCRYPTION_KEY agora obrigatória
+    *   `ux-ui-manual-2026.md`: Nova seção Premium Dashboards (600+ linhas)
+
+---
+
+### 🏆 Conquistas V17.0.0 (Deep Scan)
 
 1.  **Security Deep Scan & Hardening**
     *   **Backend Logging Profissional:**
