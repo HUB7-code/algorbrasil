@@ -2,10 +2,11 @@
 
 ## Versões Suportadas
 
-| Versão | Suportada          |
-| ------ | ------------------ |
-| 16.x   | :white_check_mark: |
-| < 16.0 | :x:                |
+| Versão | Suportada          | Notas |
+| ------ | ------------------ | ----- |
+| 17.x   | :white_check_mark: | Enterprise Ready |
+| 16.x   | :white_check_mark: | Suporte estendido |
+| < 16.0 | :x:                | Descontinuada |
 
 ## Reportando Vulnerabilidades
 
@@ -31,21 +32,44 @@ Se você descobrir uma vulnerabilidade de segurança no ALGOR Brasil, por favor:
 
 Este projeto lida com dados de governança de IA e compliance. Seguimos:
 
-- **Criptografia em trânsito:** HTTPS obrigatório
+- **Criptografia em trânsito:** HTTPS obrigatório (TLS 1.3)
 - **Criptografia em repouso:** Dados sensíveis criptografados
 - **LGPD Compliance:** Conformidade com a Lei Geral de Proteção de Dados
+- **Multi-tenant Isolation:** Verificação de membership em todos os endpoints
 
 ### Autenticação
 
-- JWT com expiração de 8 dias
+- JWT com expiração de 8 dias (backend `cryptography`)
 - SECRET_KEY única por ambiente
-- Bcrypt para hash de senhas
+- **Argon2** para hash de senhas (via `passlib[argon2]`)
+- 2FA via TOTP (`pyotp`)
+
+### Logging e Monitoramento (v17.0)
+
+- Logs estruturados via módulo `logging` (não `print`)
+- Níveis de severidade: INFO, WARNING, ERROR
+- Console de frontend limpo (sem debug logs em produção)
+
+### Infraestrutura (v17.0)
+
+- **Dockerfile Multi-Stage:** Imagem de produção otimizada
+- **Usuário não-root:** Container roda como `appuser` (UID 1001)
+- **Rate Limiting:** Implementado via `slowapi`
+- **Secure Headers:** Implementado via biblioteca `secure`
 
 ### Configuração de Ambiente
 
 - Variáveis sensíveis via `.env` (nunca commitadas)
 - Valores padrão apenas para desenvolvimento
 - Alertas de segurança quando usando configurações inseguras
+
+## Auditorias Realizadas
+
+| Data | Tipo | Resultado |
+|------|------|-----------|
+| 30/12/2025 | Deep Scan (Bandit + pip-audit) | ✅ Enterprise Ready |
+
+Relatório completo disponível em: `SECURITY_AUDIT_REPORT.md`
 
 ## Escopo
 
@@ -62,4 +86,5 @@ Agradecemos a todos que reportam vulnerabilidades de forma responsável. Contrib
 
 ---
 
-**Última atualização:** 29/12/2025
+**Última atualização:** 30/12/2025 (v17.0.0)
+

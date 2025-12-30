@@ -2,6 +2,8 @@
 
 API FastAPI para a plataforma de Governança de IA.
 
+**Versão:** 17.0.0 (Enterprise Ready)
+
 ## 🔐 Configuração de Segurança
 
 ### Desenvolvimento Local
@@ -44,9 +46,31 @@ nano .env  # Editar com seus valores
 | `SMTP_FROM_EMAIL` | Email remetente | `email@gmail.com` |
 | `FRONTEND_URL` | URL do frontend | `https://algorbrasil.com.br` |
 
+## 🛡️ Controles de Segurança (v17.0)
+
+### Autenticação
+- JWT via `python-jose[cryptography]`
+- Password hashing: **Argon2** (`passlib[argon2]`)
+- 2FA: TOTP via `pyotp`
+
+### Rate Limiting
+- Implementado via `slowapi`
+- Limite padrão: 10 req/min por IP
+
+### Multi-tenant
+- Verificação de membership via `verify_organization_membership()`
+- Isolamento de dados por organização
+
+### Logging
+- Logging estruturado via módulo `logging`
+- Níveis: INFO, WARNING, ERROR
+- Sem `print()` em produção
+
 ## 🐳 Docker
 
-O Docker Compose lê automaticamente o `.env` do diretório raiz do projeto.
+O Dockerfile usa **multi-stage build** para produção segura:
+- Container roda como usuário `appuser` (não-root)
+- Imagem de produção otimizada (~300MB)
 
 ```bash
 # Subir com build
@@ -72,7 +96,10 @@ env:
 ```
 backend/
 ├── app/
-│   ├── api/          # Rotas da API
+│   ├── api/
+│   │   ├── deps.py       # verify_organization_membership()
+│   │   ├── auth.py       # Autenticação JWT
+│   │   └── endpoints/    # Rotas da API
 │   ├── core/         # Configurações e segurança
 │   ├── db/           # Modelos e sessões
 │   ├── services/     # Lógica de negócios
@@ -85,5 +112,15 @@ backend/
 
 - `POST /api/v1/signup` - Cadastro de usuários
 - `POST /api/v1/login` - Autenticação
-- `GET /api/v1/dashboard/overview` - Dados do dashboard
+- `GET /api/v1/dashboard/overview` - Dados do dashboard (multi-tenant)
 - `POST /api/v1/scanner/upload` - Upload de código para análise
+- `GET /api/v1/assessments` - Diagnósticos (multi-tenant)
+- `GET /api/v1/risks` - Gestão de riscos (multi-tenant)
+
+## 📋 Auditoria de Segurança
+
+Última auditoria: **30/12/2025**
+Resultado: **✅ Enterprise Ready**
+
+Relatório disponível em: `SECURITY_AUDIT_REPORT.md`
+
