@@ -14,12 +14,14 @@ export default function CreateOrganizationModal({ isOpen, onClose }: CreateOrgan
     const [name, setName] = useState("");
     const [cnpj, setCnpj] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
 
     if (!isOpen) return null;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
+        setError("");
 
         try {
             const token = localStorage.getItem('algor_token');
@@ -40,13 +42,14 @@ export default function CreateOrganizationModal({ isOpen, onClose }: CreateOrgan
             } else {
                 const data = await res.json();
                 if (res.status === 403) {
-                    alert(data.detail); // TODO: Replace with a nice Upsell Modal later
+                    // Limite atingido - mostra mensagem amigável
+                    setError(data.detail || "Limite de organizações atingido. Faça upgrade para criar mais.");
                 } else {
-                    console.error("Failed to create organization");
+                    setError("Falha ao criar organização. Tente novamente.");
                 }
             }
-        } catch (error) {
-            console.error(error);
+        } catch (err) {
+            setError("Erro de conexão com o servidor.");
         } finally {
             setIsLoading(false);
         }
@@ -100,6 +103,13 @@ export default function CreateOrganizationModal({ isOpen, onClose }: CreateOrgan
                             className="w-full bg-[#050B14] border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-brand-blue/50 focus:ring-1 focus:ring-brand-blue/50 transition-all font-mono text-sm"
                         />
                     </div>
+
+                    {/* Error Display */}
+                    {error && (
+                        <div className="p-3 rounded-xl bg-red-900/20 border border-red-500/20 text-red-300 text-sm">
+                            {error}
+                        </div>
+                    )}
 
                     <div className="pt-4 flex items-center gap-3">
                         <button

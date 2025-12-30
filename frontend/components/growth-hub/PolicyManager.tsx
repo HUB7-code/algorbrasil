@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Plus, Trash2, Shield, AlertTriangle, CheckCircle, Save } from "lucide-react";
+import { useOrganization } from "@/context/OrganizationContext";
 
 interface Rule {
     id: number;
@@ -21,6 +22,7 @@ interface Policy {
 }
 
 export function PolicyManager() {
+    const { currentOrganization } = useOrganization();
     const [policies, setPolicies] = useState<Policy[]>([]);
     const [activePolicy, setActivePolicy] = useState<Policy | null>(null);
     const [loading, setLoading] = useState(true);
@@ -29,15 +31,16 @@ export function PolicyManager() {
     const [newRuleContent, setNewRuleContent] = useState("");
     const [newRuleSeverity, setNewRuleSeverity] = useState("HIGH");
 
-    const ORG_ID = 1; // TODO: Context
+    // Organization ID from context, fallback to 1 for backwards compatibility
+    const orgId = currentOrganization?.id || 1;
 
     useEffect(() => {
         fetchPolicies();
-    }, []);
+    }, [orgId]);
 
     async function fetchPolicies() {
         try {
-            const res = await fetch(`http://localhost:8000/api/v1/governance/policies?organization_id=${ORG_ID}`);
+            const res = await fetch(`/api/v1/governance/policies?organization_id=${orgId}`);
             const data = await res.json();
             setPolicies(data);
 
@@ -53,11 +56,11 @@ export function PolicyManager() {
     async function handleCreatePolicy() {
         // Quick setup for demo: Create "Corporate Policy 2025" if none exists
         try {
-            const res = await fetch(`http://localhost:8000/api/v1/governance/policies`, {
+            const res = await fetch(`/api/v1/governance/policies`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    organization_id: ORG_ID,
+                    organization_id: orgId,
                     name: "Política Corporativa padrão 2026",
                     description: "Regras base de segurança de IA."
                 })
@@ -74,7 +77,7 @@ export function PolicyManager() {
         if (!activePolicy || !newRuleContent) return;
 
         try {
-            const res = await fetch(`http://localhost:8000/api/v1/governance/policies/${activePolicy.id}/rules`, {
+            const res = await fetch(`/api/v1/governance/policies/${activePolicy.id}/rules`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -124,8 +127,8 @@ export function PolicyManager() {
                             key={p.id}
                             onClick={() => setActivePolicy(p)}
                             className={`p-4 rounded-xl border cursor-pointer transition-all ${activePolicy?.id === p.id
-                                    ? "bg-[#00A3FF]/10 border-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]"
-                                    : "bg-white/5 border-white/5 hover:border-white/20"
+                                ? "bg-[#00A3FF]/10 border-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]"
+                                : "bg-white/5 border-white/5 hover:border-white/20"
                                 }`}
                         >
                             <div className="flex justify-between items-start mb-2">

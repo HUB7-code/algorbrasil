@@ -10,13 +10,14 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jet
 const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", display: "swap" });
 
 export const metadata: Metadata = {
+    metadataBase: new URL('https://www.algorbrasil.com.br'),
     title: {
         template: '%s | Algor Brasil',
         default: 'Algor Brasil | A Elite da Governança de IA',
     },
     description: "Associação referência em Governança de Inteligência Artificial e Conformidade ISO 42001. Aceleramos a maturidade de IA no Brasil com ética e precisão técnica.",
     keywords: ["Governança de IA", "ISO 42001", "Compliance AI", "Auditoria de Algoritmos", "LGPD", "Inteligência Artificial Brasil"],
-    authors: [{ name: "Algor Brasil", url: "https://algorbrasil.example.com" }],
+    authors: [{ name: "Algor Brasil", url: "https://www.algorbrasil.com.br" }],
     creator: "Algor Brasil Technical Team",
     publisher: "Algor Brasil Association",
     formatDetection: {
@@ -27,13 +28,13 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Algor Brasil | Governança de IA de Elite",
         description: "Liderando a conformidade ética e técnica da IA no Brasil. Junte-se à elite da governança.",
-        url: 'https://algorbrasil.example.com',
+        url: 'https://www.algorbrasil.com.br',
         siteName: 'Algor Brasil',
         locale: 'pt_BR',
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg', // Placeholder
+                url: '/og-image.jpg',
                 width: 1200,
                 height: 630,
                 alt: 'Algor Brasil Hero Image',

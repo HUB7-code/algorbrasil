@@ -351,11 +351,31 @@ def download_certificate(
     if not enrollment:
         raise HTTPException(status_code=404, detail="Matrícula não encontrada.")
     
-    # Check Completion (Simplificado: Se status != completed, negar. Em dev pode liberar)
-    # TODO: Implementar checagem real de 100%
-    # Por enquanto, liberado para testes se o curso tiver pelo menos 1 aula feita ou se for admin
-    
+    # Verifica conclusão real do curso
     course = db.query(Course).filter(Course.id == course_id).first()
+    if not course:
+        raise HTTPException(status_code=404, detail="Curso não encontrado.")
+    
+    # Calcula total de aulas e aulas concluídas
+    total_lessons = 0
+    completed_lessons = 0
+    
+    for module in course.modules:
+        for lesson in module.lessons:
+            total_lessons += 1
+            progress = enrollment.progress_data.get(lesson.id, {})
+            if progress.get("status") == "completed":
+                completed_lessons += 1
+    
+    # Permite certificado se 100% concluído OU se for admin (para testes)
+    is_admin = current_user.role == "admin" or getattr(current_user, 'is_superuser', False)
+    completion_rate = (completed_lessons / total_lessons * 100) if total_lessons > 0 else 0
+    
+    if completion_rate < 100 and not is_admin:
+        raise HTTPException(
+            status_code=403, 
+            detail=f"Você precisa completar 100% do curso para obter o certificado. Progresso atual: {completion_rate:.0f}%"
+        )
     
     pdf_buffer = CertificateGenerator.generate(
         student_name=current_user.full_name or current_user.email,

@@ -7,6 +7,7 @@ from backend.app.models.assessment import Assessment
 from backend.app.models.user import User
 from backend.app.schemas_assessment import AssessmentCreate, AssessmentResponse
 from backend.app.api.auth import get_current_user
+from backend.app.api.deps import verify_organization_membership
 
 router = APIRouter()
 
@@ -81,8 +82,7 @@ def create_assessment(
     """
     # Verify Organization Access if provided
     if organization_id:
-        # Check membership logic here (omitted for brevity, similar to assets)
-        pass
+        verify_organization_membership(current_user.id, organization_id, db)
 
     # 1. Calcular Score (Simulação de AI)
     calculated_score = calculate_score(assessment_in.answers)
@@ -120,8 +120,8 @@ def read_assessments(
     query = db.query(Assessment)
     
     if organization_id:
+        verify_organization_membership(current_user.id, organization_id, db)
         query = query.filter(Assessment.organization_id == organization_id)
-        # TODO: Verify if user is member of organization
     else:
         # Personal Workspace: Show items owned by user AND (no org OR orgs they own)
         # Simplified: Show items owned by user with no org

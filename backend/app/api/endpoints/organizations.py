@@ -42,9 +42,9 @@ def create_organization(
     # 1. Verifica Quantas Orgs o Usuário Já Possui (como Owner)
     owned_orgs_count = db.query(Organization).filter(Organization.owner_id == current_user.id).count()
 
-    # 2. Define Limites
-    # TODO: Refatorar roles para Enum robusto (free, pro, admin)
-    is_pro_or_admin = current_user.role in ["admin", "pro", "associate"]
+    # 2. Define Limites baseado no tier do usuário
+    # Roles: subscriber/free (Comunidade), member/pro (Associados), admin (Gestão)
+    is_pro_or_admin = current_user.role in ["admin", "pro", "associate", "member", "auditor"]
     
     if not is_pro_or_admin and owned_orgs_count >= 1:
         raise HTTPException(

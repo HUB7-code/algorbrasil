@@ -1,11 +1,18 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, UploadFile, File, HTTPException, Depends
 from typing import List, Dict
+from sqlalchemy.orm import Session
 import json
 import csv
 import io
 import re
+import logging
 
 from backend.app.schemas.scanner import ScanResult, Finding
+from backend.app.db.session import get_db
+from backend.app.models.user import User
+from backend.app.api.auth import get_current_user
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -32,8 +39,8 @@ async def scan_upload(
     from backend.app.models.organization import organization_members, Organization
     
     # 0. Verificar Créditos (Persona A Logic)
-    # Busca a organização qual o user é DONO (para este MVP simples)
-    # TODO: No futuro, usar a 'current_organization' selecionada no Frontend
+    # Busca a organização qual o user é DONO
+    # Nota: Para multi-tenancy completo, implementar seleção de organização via header X-Organization-Id
     owned_org = db.query(Organization).filter(Organization.owner_id == current_user.id).first()
     
     if not owned_org:
@@ -165,7 +172,7 @@ async def scan_upload(
         
         db.commit()
     except Exception as e:
-        print(f"Failed to persist risks: {e}")
+        logger.warning(f"Failed to persist risks to dashboard: {e}")
         # Dont block response if persistence fails
     
     return ScanResult(

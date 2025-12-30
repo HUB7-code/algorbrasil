@@ -12,6 +12,7 @@ router = APIRouter()
 
 @router.get("/overview")
 async def get_dashboard_overview(
+    organization_id: int = None,
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -19,19 +20,39 @@ async def get_dashboard_overview(
     Retorna KPI consolidados para o Dashboard CoE.
     Filtra por Organization se o usuário pertencer a uma.
     """
+    from backend.app.api.deps import verify_organization_membership
     
-    # Base query filters (TODO: Multi-tenant filtering based on organization_id)
+    # Verificar acesso à organização se fornecida
+    if organization_id:
+        verify_organization_membership(current_user.id, organization_id, db)
+    
+    # Base query filters com suporte multi-tenant
     # 1. Ativos de IA (Inventory)
-    total_assets = db.query(AIAsset).count()
+    assets_query = db.query(AIAsset)
+    if organization_id:
+        assets_query = assets_query.filter(AIAsset.organization_id == organization_id)
+    else:
+        assets_query = assets_query.filter(AIAsset.user_id == current_user.id)
+    total_assets = assets_query.count()
     
     # 2. Riscos Ativos
-    # Contagem de riscos por nível (Logica: Critical >= 15, High > 8)
-    total_risks = db.query(RiskRegister).count()
-    critical_risks = db.query(RiskRegister).filter(RiskRegister.risk_level >= 15).count()
-    high_risks = db.query(RiskRegister).filter(RiskRegister.risk_level > 8, RiskRegister.risk_level < 15).count()
+    risks_query = db.query(RiskRegister)
+    if organization_id:
+        risks_query = risks_query.filter(RiskRegister.organization_id == organization_id)
+    else:
+        risks_query = risks_query.filter(RiskRegister.user_id == current_user.id)
+    
+    total_risks = risks_query.count()
+    critical_risks = risks_query.filter(RiskRegister.risk_level >= 15).count()
+    high_risks = risks_query.filter(RiskRegister.risk_level > 8, RiskRegister.risk_level < 15).count()
     
     # 3. Projetos em Andamento
-    active_projects = db.query(Project).filter(Project.status == "In Progress").count()
+    projects_query = db.query(Project).filter(Project.status == "In Progress")
+    if organization_id:
+        projects_query = projects_query.filter(Project.organization_id == organization_id)
+    else:
+        projects_query = projects_query.filter(Project.user_id == current_user.id)
+    active_projects = projects_query.count()
     
     # 4. Calculate Scores
     # Logic: Start at 100. Deduct 10 per critical risk, 5 per high risk. Min score 20.

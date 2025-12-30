@@ -17,9 +17,11 @@ import {
 import { motion } from 'framer-motion';
 import { PolicyManager } from '@/components/growth-hub/PolicyManager';
 import { useSearchParams } from 'next/navigation';
+import { useOrganization } from '@/context/OrganizationContext';
 
 export default function GrowthHubPage() {
     const searchParams = useSearchParams();
+    const { currentOrganization } = useOrganization();
     const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'overview');
 
     // State for Real KPIs and Logs
@@ -33,19 +35,19 @@ export default function GrowthHubPage() {
     const [recentLogs, setRecentLogs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Organization ID from context, fallback to 1 for backwards compatibility
+    const orgId = currentOrganization?.id || 1;
+
     // Fetch Real Data from Backend
     React.useEffect(() => {
         const fetchData = async () => {
             try {
-                // TODO: Get Organization ID dynamically from Context
-                const orgId = 1;
-
                 // 1. Fetch KPIs
-                const statsRes = await fetch(`http://localhost:8000/api/v1/governance-stats/dashboard-stats?organization_id=${orgId}`);
+                const statsRes = await fetch(`/api/v1/governance-stats/dashboard-stats?organization_id=${orgId}`);
                 const statsData = await statsRes.json();
 
                 // 2. Fetch Recent Logs
-                const logsRes = await fetch(`http://localhost:8000/api/v1/governance-stats/recent-logs?organization_id=${orgId}&limit=5`);
+                const logsRes = await fetch(`/api/v1/governance-stats/recent-logs?organization_id=${orgId}&limit=5`);
                 const logsData = await logsRes.json();
 
                 setKpis(statsData.kpis);
@@ -58,7 +60,7 @@ export default function GrowthHubPage() {
         };
 
         fetchData();
-    }, []);
+    }, [orgId]);
 
     // KPIs Configuration (mapped to fetched data)
     const kpiConfig = [

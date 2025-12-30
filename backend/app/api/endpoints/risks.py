@@ -8,6 +8,7 @@ from backend.app.models.risk import RiskRegister, RiskStatus
 from backend.app.models.user import User
 from backend.app.schemas_risk import RiskCreate, RiskUpdate, RiskResponse
 from backend.app.api.auth import get_current_user
+from backend.app.api.deps import verify_organization_membership
 
 router = APIRouter()
 
@@ -22,11 +23,9 @@ def create_risk(
     Registra um novo risco no Sistema de Gestão (ISO 42001 - 5.2).
     Calcula automaticamente o Nível de Risco (Probabilidade x Impacto).
     """
-    # Verify Permissions if org_id is present (Simplified check for now)
+    # Verify Permissions if org_id is present
     if organization_id:
-        # Check if user is member of org
-        # For now, assuming standard permission logic handled by frontend context or middleware in future
-        pass
+        verify_organization_membership(current_user.id, organization_id, db)
 
     risk_level = risk_in.probability * risk_in.impact
     
@@ -65,8 +64,8 @@ def read_risks(
     query = db.query(RiskRegister)
     
     if organization_id:
+         verify_organization_membership(current_user.id, organization_id, db)
          query = query.filter(RiskRegister.organization_id == organization_id)
-         # TODO: Add security check to ensure user belongs to organization_id
     else:
          # Personal risks only
          query = query.filter(RiskRegister.user_id == current_user.id, RiskRegister.organization_id == None)

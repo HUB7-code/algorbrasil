@@ -68,7 +68,28 @@ class CertificateGenerator:
         elements.append(Paragraph(f"Data de Emissão: {date.strftime('%d/%m/%Y')}", text_style))
         elements.append(Paragraph(f"Código de Validação: {certification_id}", ParagraphStyle('Code', parent=text_style, fontSize=10, textColor=colors.gray)))
 
-        # TODO: Adicionar Assinatura Digital e Logo
+        # Assinatura e Rodapé Institucional
+        elements.append(Spacer(1, 0.8*inch))
+        
+        signature_style = ParagraphStyle(
+            'Signature',
+            parent=styles['Normal'],
+            fontSize=12,
+            alignment=1,
+            textColor=colors.HexColor("#333333")
+        )
+        
+        elements.append(Paragraph("_______________________________", signature_style))
+        elements.append(Paragraph("ALGOR BRASIL", ParagraphStyle('SignatureName', parent=signature_style, fontSize=14, fontName='Helvetica-Bold')))
+        elements.append(Paragraph("Associação de Governança de IA", signature_style))
+        
+        # Nota de verificação digital
+        elements.append(Spacer(1, 0.3*inch))
+        verification_note = ParagraphStyle('Note', parent=text_style, fontSize=8, textColor=colors.gray)
+        elements.append(Paragraph(
+            f"Este certificado pode ser verificado em: https://www.algorbrasil.com.br/verify/{certification_id}",
+            verification_note
+        ))
 
         doc.build(elements)
         buffer.seek(0)

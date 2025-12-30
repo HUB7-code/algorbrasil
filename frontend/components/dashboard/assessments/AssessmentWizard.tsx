@@ -148,9 +148,9 @@ export default function AssessmentWizard({ onCancel }: { onCancel?: () => void }
             // Remove trailing slash to avoid 307 Redirects which may strip Authorization headers
             let url = '/api/v1/assessments';
 
-            // TODO: Se backend suportar organization_id na query
+            // Passa organization_id se uma org estiver selecionada
             if (currentOrganization) {
-                // url += `?organization_id=${currentOrganization.id}`;
+                url += `?organization_id=${currentOrganization.id}`;
             }
 
             const response = await fetch(url, {
