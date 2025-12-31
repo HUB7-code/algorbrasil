@@ -19,6 +19,11 @@
     *   **Estética:** "Quantum Ultra-Premium". Substituição do layout anterior por gradientes de malha (`mesh gradients`), orbes pulsantes e identidade visual híbrida (Playfair Display + Orbitron).
     *   **UI Elements:** Cards holográficos.
 
+4.  **Repository Cleanup & Deploy Ops:**
+    *   **Standardization:** Remoção de 50+ scripts temporários de diagnóstico.
+    *   **Guides:** Criação de `DEPLOY_INSTRUCTIONS.md` e `DEPLOY_INSTRUCTIONS_DOCKER.md` para facilitar atualização em VPS.
+
+
 ---
 
 ### 📜 Histórico Recente
