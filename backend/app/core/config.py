@@ -29,7 +29,7 @@ class Settings(BaseSettings):
     # Em produção, SEMPRE configure via variável de ambiente!
     # Gere uma chave segura com: python -c "import secrets; print(secrets.token_hex(32))"
     SECRET_KEY: str = "dev-secret-key-change-in-production-use-env-file"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 8  # 8 dias
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30  # 30 minutos (Segurança Aumentada)
     
     # ========================================
     # Banco de Dados

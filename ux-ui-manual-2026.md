@@ -233,6 +233,56 @@ Design System
 
 ---
 
+### 6. **Quantum Prestige (Institutional Layer)**
+**Introduzido em:** V17.4 (Institute & Academy)
+
+**Conceito:**
+Uma fusão de autoridade acadêmica clássica com futurismo "Hard Sci-Fi". Evoca confiança, precisão técnica e vanguarda.
+
+**Design Tokens Exclusivos:**
+1.  **Motion Background (Quantum Mesh):**
+    *   Camadas sobrepostas de gradientes radiais com `animate-pulse-slow`.
+    *   `mix-blend-mode: screen` para luminosidade etérea.
+    *   Cores: Deep Navy (#0A1A2F) + Neon Blue (#00A3FF) + Bio Green (#00FF94).
+
+2.  **Typography Hybrid:**
+    *   **Headline:** `Playfair Display` (Serifa, Peso 700+) -> *O peso da lei.*
+    *   **Subhead/UI:** `Orbitron` (Sans, Peso 400-600) -> *A velocidade da inovação.*
+
+3.  **Holographic Cards:**
+    *   Borda de vidro: `border-white/10`
+    *   Glow interativo: `hover:shadow-[color]/50` e `hover:border-[color]/50`
+    *   Backdrop: `bg-[#0A111A]/90 backdrop-blur-xl`
+
+4.  **Skewed Actions:**
+    *   Botões com `skew-x-[-10deg]` para dinamismo agressivo (estilo militar/tático).
+    *   Animação interna de "slide" no hover.
+
+**Exemplo de Componente (Quantum Button):**
+```tsx
+<button className="group relative px-8 py-4 bg-[#00FF94] skew-x-[-10deg] overflow-hidden">
+  <span className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+  <span className="skew-x-[10deg] font-bold text-[#050A10]">Acessar</span>
+</button>
+```
+
+---
+
+### 7. **Ghost UI (Locked States)**
+
+**O que é**: Técnica visual para exibir funcionalidades futuras ou bloqueadas, gerando curiosidade e engajamento sem frustração.
+
+**Características:**
+- Conteúdo real (mock) ao fundo
+- Desfoque intenso (`backdrop-filter: blur(8px)`)
+- Opacidade reduzida
+- Overlay holográfico com CTA claro ("Solicitar Acesso")
+
+**Por que usar:**
+- Mostra valor futuro ("O que estou perdendo")
+- Mantém a imersão visual (sem telas em branco)
+- Valida interesse (botão de solicitação)
+
 ## 🎬 Animações e Microinterações {#animações}
 
 ### Filosofia 2026: "Functional Motion"

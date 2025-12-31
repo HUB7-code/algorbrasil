@@ -5,6 +5,11 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { motion } from 'framer-motion';
+import {
+    Share2, Download, ArrowLeft, Calendar, FileText,
+    CheckCircle2, AlertTriangle, XCircle, TrendingUp
+} from 'lucide-react';
 
 interface AssessmentDetail {
     id: number;
@@ -45,7 +50,6 @@ export default function AssessmentDetailPage() {
                 setAssessment(data);
             } else {
                 console.error("Failed to fetch assessment");
-                // Handle 404
             }
         } catch (error) {
             console.error(error);
@@ -54,39 +58,12 @@ export default function AssessmentDetailPage() {
         }
     };
 
-    const downloadPDF = async () => {
-        if (!assessment) return;
-        try {
-            const token = localStorage.getItem('algor_token');
-            const res = await fetch(`/api/v1/assessments/${assessment.id}/pdf`, {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (res.ok) {
-                const blob = await res.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = `Algor_Report_ISO42001_${assessment.id}.pdf`;
-                document.body.appendChild(a);
-                a.click();
-                window.URL.revokeObjectURL(url);
-                document.body.removeChild(a);
-            } else {
-                alert("Erro ao gerar PDF.");
-            }
-        } catch (error) {
-            console.error(error);
-            alert("Erro de conexão.");
-        }
-    };
-
     if (loading) {
         return (
-            <div className="min-h-screen w-full flex items-center justify-center bg-[#131314] text-[#E3E3E3]">
+            <div className="min-h-screen w-full flex items-center justify-center bg-[#0A0E1A] text-white">
                 <div className="flex flex-col items-center gap-4">
-                    <div className="w-10 h-10 border-4 border-[#A8C7FA] border-t-transparent rounded-full animate-spin"></div>
-                    <span className="text-sm font-medium">Carregando auditoria...</span>
+                    <div className="w-12 h-12 border-4 border-[#00FF94] border-t-transparent rounded-full animate-spin"></div>
+                    <span className="text-sm font-mono text-[#00FF94] tracking-widest animate-pulse">CARREGANDO DIAGNÓSTICO...</span>
                 </div>
             </div>
         );
@@ -94,152 +71,211 @@ export default function AssessmentDetailPage() {
 
     if (!assessment) {
         return (
-            <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#131314] text-[#E3E3E3]">
-                <span className="material-symbols-rounded text-4xl text-[#FFB4AB] mb-4">error</span>
-                <h2 className="text-xl">Auditoria não encontrada</h2>
-                <Link href="/dashboard" className="mt-4 text-[#A8C7FA] hover:underline">Voltar ao Dashboard</Link>
+            <div className="min-h-screen w-full flex flex-col items-center justify-center bg-[#0A0E1A] text-white">
+                <AlertTriangle className="w-16 h-16 text-[#F59E0B] mb-6" />
+                <h2 className="text-3xl font-orbitron mb-2">Relatório Não Encontrado</h2>
+                <Link href="/dashboard" className="mt-4 px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-[#00FF94] border border-[#00FF94]/30 hover:border-[#00FF94] transition-all flex items-center gap-2">
+                    <ArrowLeft className="w-4 h-4" />
+                    Voltar ao Comando
+                </Link>
             </div>
         );
     }
 
-    // Helper to format keys (e.g. "data_privacy" -> "Data Privacy")
-    const formatKey = (key: string) => {
-        return key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const formatKey = (key: string) => key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+
+    const getScoreColor = (score: number) => {
+        if (score >= 70) return { text: 'text-[#00FF94]', border: 'border-[#00FF94]', bg: 'bg-[#00FF94]', glow: 'shadow-[0_0_30px_#00FF94]' };
+        if (score >= 30) return { text: 'text-[#F59E0B]', border: 'border-[#F59E0B]', bg: 'bg-[#F59E0B]', glow: 'shadow-[0_0_30px_#F59E0B]' };
+        return { text: 'text-[#EF4444]', border: 'border-[#EF4444]', bg: 'bg-[#EF4444]', glow: 'shadow-[0_0_30px_#EF4444]' };
     };
 
-    // Determine Status Color
-    const statusColor = assessment.score_total >= 70 ? 'text-[#6DD58C]' :
-        assessment.score_total >= 30 ? 'text-[#FABD00]' : 'text-[#FFB4AB]';
-
-    const statusBg = assessment.score_total >= 70 ? 'bg-[#6DD58C]/10 border-[#6DD58C]/20' :
-        assessment.score_total >= 30 ? 'bg-[#FABD00]/10 border-[#FABD00]/20' : 'bg-[#FFB4AB]/10 border-[#FFB4AB]/20';
+    const scoreStyle = getScoreColor(assessment.score_total);
 
     return (
-        <div className="min-h-screen bg-[#131314] text-[#E3E3E3] p-6 pb-20 animate-in fade-in slide-in-from-bottom-8 duration-700">
-            <div className="max-w-[1200px] mx-auto space-y-6">
+        <div className="min-h-screen bg-[#0A0E1A] text-white p-8 pb-20 relative overflow-hidden font-sans">
+
+            {/* Ambient Background */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+            </div>
+
+            <div className="max-w-7xl mx-auto space-y-8 relative z-10">
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4">
-                        <Link href="/dashboard" className="w-10 h-10 rounded-full border border-[#444746] flex items-center justify-center hover:bg-[#444746] transition-colors text-[#C4C7C5]">
-                            <span className="material-symbols-rounded">arrow_back</span>
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 border-b border-white/10">
+                    <div className="flex items-start gap-6">
+                        <Link href="/dashboard" className="p-3 rounded-full border border-white/10 hover:border-[#00FF94] text-gray-400 hover:text-[#00FF94] bg-white/5 transition-all group">
+                            <ArrowLeft className="w-6 h-6 group-hover:-translate-x-1 transition-transform" />
                         </Link>
                         <div>
-                            <h1 className="text-2xl md:text-3xl font-normal text-[#E3E3E3]">{assessment.title}</h1>
-                            <div className="flex items-center gap-2 text-sm text-[#C4C7C5] mt-1">
-                                <span className="material-symbols-rounded text-base">calendar_today</span>
-                                {format(new Date(assessment.created_at), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+                            <div className="flex items-center gap-3 mb-2">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                                    Relatório Técnico
+                                </span>
+                                <span className="flex items-center gap-1.5 text-xs text-gray-400 font-mono">
+                                    <Calendar className="w-3 h-3" />
+                                    {format(new Date(assessment.created_at), "dd MMM yyyy", { locale: ptBR }).toUpperCase()}
+                                </span>
                             </div>
+                            <h1 className="text-3xl md:text-4xl font-bold font-orbitron text-white tracking-wide">
+                                {assessment.title}
+                            </h1>
                         </div>
                     </div>
 
-                    <div className="flex gap-2">
-                        <button
-                            onClick={downloadPDF}
-                            className="h-10 px-4 rounded-full border border-[#444746] text-[#A8C7FA] text-sm font-medium hover:bg-[#A8C7FA]/10 flex items-center gap-2 transition-colors"
-                        >
-                            <span className="material-symbols-rounded">download</span>
-                            PDF
-                        </button>
-                        <button className="h-10 px-4 rounded-full bg-[#A8C7FA] text-[#062E6F] text-sm font-medium hover:bg-[#D3E3FD] flex items-center gap-2 shadow-sm">
-                            <span className="material-symbols-rounded">share</span>
+                    <div className="flex gap-3">
+                        <button className="h-12 px-6 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white text-sm font-bold flex items-center gap-2 transition-all">
+                            <Share2 className="w-4 h-4" />
                             Compartilhar
+                        </button>
+                        <button className="h-12 px-6 rounded-xl bg-[#00A3FF] hover:bg-[#0090E0] text-[#0A0E1A] text-sm font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:shadow-[0_0_30px_rgba(0,163,255,0.5)] transition-all">
+                            <Download className="w-4 h-4" />
+                            Baixar PDF
                         </button>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-                    {/* Left Column: Score Card */}
-                    <div className="space-y-6">
-                        <div className="rounded-[24px] bg-[#1E1F20] border border-[#444746] p-8 flex flex-col items-center text-center relative overflow-hidden">
-                            <div className="absolute inset-0 bg-gradient-to-b from-[#A8C7FA]/5 to-transparent opacity-50" />
+                    {/* Left Column: Score Sidebar */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5 }}
+                        className="space-y-6"
+                    >
+                        {/* Score Card - Glass Panel */}
+                        <div className="relative overflow-hidden rounded-[32px] bg-[#0A0E1A]/60 backdrop-blur-xl border border-white/10 p-8 flex flex-col items-center text-center shadow-2xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] to-transparent pointer-events-none" />
 
-                            <h3 className="text-sm font-medium text-[#C4C7C5] uppercase tracking-wider mb-6 relative z-10">Score de Conformidade</h3>
+                            {/* Neon Title */}
+                            <h3 className="text-xs font-bold font-orbitron text-gray-400 uppercase tracking-[0.2em] mb-8 relative z-10">
+                                Índice de Compliance
+                            </h3>
 
-                            <div className="relative w-40 h-40 flex items-center justify-center mb-6 z-10">
-                                {/* Simple SVG Circle logic for visual */}
-                                <svg className="w-full h-full -rotate-90" viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#28292A" strokeWidth="8" />
+                            {/* Score Circle */}
+                            <div className="relative w-48 h-48 flex items-center justify-center mb-8 z-10">
+                                {/* Glow Layer */}
+                                <div className={`absolute inset-0 rounded-full blur-3xl opacity-20 ${scoreStyle.bg}`} />
+
+                                <svg className="w-full h-full -rotate-90 transform drop-shadow-[0_0_10px_rgba(0,0,0,0.5)]" viewBox="0 0 100 100">
+                                    {/* Track */}
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#1E293B" strokeWidth="6" />
+                                    {/* Progress */}
                                     <circle
-                                        cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="8"
+                                        cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="6"
+                                        strokeLinecap="round"
                                         strokeDasharray="283"
                                         strokeDashoffset={283 - (283 * assessment.score_total) / 100}
-                                        className={`${statusColor} transition-all duration-1000 ease-out`}
+                                        className={`${scoreStyle.text} transition-all duration-1000 ease-out`}
                                     />
                                 </svg>
+
                                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span className={`text-4xl font-normal ${statusColor}`}>{assessment.score_total}</span>
-                                    <span className="text-xs text-[#8E918F]">/ 100</span>
+                                    <span className={`text-6xl font-bold font-orbitron ${scoreStyle.text} drop-shadow-[0_0_10px_rgba(0,0,0,0.8)]`}>
+                                        {assessment.score_total}
+                                    </span>
+                                    <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mt-1">/ 100 PTS</span>
                                 </div>
                             </div>
 
-                            <div className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide border ${statusBg} ${statusColor} relative z-10 mb-4`}>
-                                {assessment.score_total >= 70 ? 'Otimizado' : assessment.score_total >= 30 ? 'Definido' : 'Inicial / Risco'}
+                            {/* Status Badge */}
+                            <div className={`px-5 py-2 rounded-full text-xs font-bold font-orbitron uppercase tracking-widest border backdrop-blur-md ${scoreStyle.bg.replace('bg-', 'bg-')}/10 ${scoreStyle.border} ${scoreStyle.text} relative z-10 mb-6 shadow-lg`}>
+                                {assessment.score_total >= 70 ? 'CERTIFIED READY' : assessment.score_total >= 30 ? 'EM ADEQUAÇÃO' : 'CRÍTICO'}
                             </div>
 
-                            <p className="text-sm text-[#C4C7C5] leading-relaxed relative z-10">
+                            <p className="text-sm text-gray-400 leading-relaxed font-light relative z-10 border-t border-white/5 pt-6 w-full">
                                 {assessment.report_summary}
                             </p>
                         </div>
-                    </div>
+
+                        {/* Quick Actions Sidebar */}
+                        <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-4 space-y-2">
+                            <h4 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-2 mb-2">Ações Recomendadas</h4>
+                            <button className="w-full p-3 rounded-lg bg-[#00FF94]/5 hover:bg-[#00FF94]/10 border border-[#00FF94]/20 hover:border-[#00FF94]/40 flex items-center gap-3 transition-colors group">
+                                <CheckCircle2 className="w-4 h-4 text-[#00FF94]" />
+                                <span className="text-xs font-bold text-[#00FF94] group-hover:text-white transition-colors">Iniciar Correções</span>
+                            </button>
+                            <button className="w-full p-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 flex items-center gap-3 transition-colors text-gray-400 hover:text-white">
+                                <FileText className="w-4 h-4" />
+                                <span className="text-xs font-bold">Ver Metodologia</span>
+                            </button>
+                        </div>
+                    </motion.div>
 
                     {/* Right Column: Details & Answers */}
-                    <div className="md:col-span-2 space-y-6">
+                    <div className="lg:col-span-2 space-y-6">
 
-                        {/* Report Summary Details */}
-                        <div className="rounded-[24px] bg-[#1E1F20] border border-[#444746] p-8">
-                            <h3 className="text-lg font-normal text-[#E3E3E3] mb-4 flex items-center gap-2">
-                                <span className="material-symbols-rounded text-[#A8C7FA]">analytics</span>
+                        {/* Executive Summary */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="rounded-3xl bg-gradient-to-br from-[#131825] to-[#0A0E1A] border border-white/10 p-8 shadow-xl"
+                        >
+                            <h3 className="text-lg font-bold font-orbitron text-white mb-4 flex items-center gap-3">
+                                <TrendingUp className="w-5 h-5 text-[#00A3FF]" />
                                 Diagnóstico Executivo
                             </h3>
-                            <div className="space-y-4 text-sm text-[#C4C7C5] leading-relaxed">
+                            <div className="space-y-4 text-base text-gray-300 font-light leading-relaxed">
                                 <p>
-                                    Com base nas respostas fornecidas, sua iniciativa apresenta um nível de maturidade
-                                    <strong className={`mx-1 ${statusColor}`}>{assessment.score_total}%</strong>
-                                    em relação aos controles da ISO 42001.
+                                    A análise da infraestrutura indica um nível de maturidade
+                                    <strong className={`mx-2 ${scoreStyle.text} font-bold font-orbitron`}>{assessment.score_total}%</strong>
+                                    em conformidade com os controles da ISO/IEC 42001.
                                 </p>
                                 <p>
-                                    Recomenda-se focar nas áreas onde a resposta foi negativa ou parcial para elevar o nível de compliance antes da auditoria externa.
+                                    As áreas de <span className="text-white font-medium">Privacidade de Dados</span> e <span className="text-white font-medium">Segurança Algorítmica</span> requerem atenção imediata para mitigar riscos de sanções regulatórias.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        {/* Answer List */}
-                        <div className="rounded-[24px] bg-[#1E1F20] border border-[#444746] overflow-hidden">
-                            <div className="p-6 border-b border-[#444746] bg-[#222324]">
-                                <h3 className="text-lg font-normal text-[#E3E3E3] flex items-center gap-2">
-                                    <span className="material-symbols-rounded text-[#A8C7FA]">list_alt</span>
-                                    Respostas Registradas
-                                </h3>
+                        {/* Answer List - Tech Style */}
+                        <div className="space-y-4">
+                            <div className="flex items-center justify-between px-2">
+                                <h3 className="text-sm font-bold text-gray-500 uppercase tracking-[0.2em]">Mapeamento de Respostas</h3>
+                                <div className="h-[1px] flex-1 bg-white/5 ml-4" />
                             </div>
 
-                            <div className="divide-y divide-[#444746]">
+                            <div className="grid gap-4">
                                 {Object.entries(assessment.answers_payload || {}).map(([key, value], index) => (
-                                    <div key={key} className="p-6 hover:bg-[#444746]/10 transition-colors flex flex-col md:flex-row justify-between gap-4">
-                                        <div className="flex-1">
-                                            <div className="flex items-center gap-3 mb-1">
-                                                <span className="text-xs font-mono text-[#8E918F] bg-[#28292A] px-2 py-0.5 rounded border border-[#444746]">
+                                    <motion.div
+                                        key={key}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: index * 0.05 + 0.2 }}
+                                        className="group relative overflow-hidden rounded-xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] p-5 transition-all duration-300"
+                                    >
+                                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
+                                            <div className="flex items-start gap-4">
+                                                <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#00A3FF]/10 text-[#00A3FF] text-xs font-mono font-bold border border-[#00A3FF]/20 mt-0.5">
                                                     Q{index + 1}
                                                 </span>
-                                                <span className="text-sm font-medium text-[#E3E3E3] capitalize">
-                                                    {formatKey(key)}
-                                                </span>
+                                                <div className="flex flex-col">
+                                                    <span className="text-[10px] text-gray-500 font-bold uppercase tracking-wider mb-1">Parâmetro Avaliado</span>
+                                                    <span className="text-sm font-medium text-white capitalize font-orbitron tracking-wide">
+                                                        {formatKey(key)}
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div className="flex items-center pl-12 md:pl-0">
+                                                <div className="px-4 py-2 rounded-lg bg-[#0A0E1A] border border-white/10 text-sm font-mono text-[#00FF94] group-hover:border-[#00FF94]/30 transition-colors shadow-inner">
+                                                    {String(value)}
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center">
-                                            <span className="px-3 py-1.5 rounded-lg bg-[#28292A] border border-[#444746] text-sm text-[#A8C7FA] font-medium break-all md:break-normal">
-                                                {String(value)}
-                                            </span>
-                                        </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
-                                {Object.keys(assessment.answers_payload || {}).length === 0 && (
-                                    <div className="p-8 text-center text-[#8E918F]">
-                                        Nenhuma resposta registrada para esta avaliação.
-                                    </div>
-                                )}
                             </div>
+
+                            {Object.keys(assessment.answers_payload || {}).length === 0 && (
+                                <div className="p-12 text-center border border-dashed border-white/10 rounded-2xl bg-white/[0.01]">
+                                    <AlertTriangle className="w-8 h-8 text-gray-600 mx-auto mb-3" />
+                                    <p className="text-gray-500">Nenhuma telemetria registrada.</p>
+                                </div>
+                            )}
                         </div>
 
                     </div>

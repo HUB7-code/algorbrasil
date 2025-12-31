@@ -1,21 +1,12 @@
 from datetime import datetime, timedelta
 from typing import Optional
-from jose import jwt
+from datetime import datetime, timedelta
+from typing import Optional
+import jwt # Replaces from jose import jwt
 from passlib.context import CryptContext
 from backend.app.core.config import settings
 
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
-pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
-
-def verify_password(plain_password: str, hashed_password: str) -> bool:
-    """Verifica se a senha em texto plano bate com o hash."""
-    return pwd_context.verify(plain_password, hashed_password)
-
-def get_password_hash(password: str) -> str:
-    """Gera um hash seguro da senha."""
-    return pwd_context.hash(password)
+# ...
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Cria um token JWT com tempo de expiração."""
@@ -27,5 +18,6 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = datetime.utcnow() + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     
     to_encode.update({"exp": expire})
+    # PyJWT encode returns string, jose returns string.
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt

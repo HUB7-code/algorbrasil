@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Manrope, Playfair_Display, JetBrains_Mono, Orbitron } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { CookieBanner } from "@/components/CookieBanner";
 
 // Fontes Elite Design
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
@@ -74,6 +75,7 @@ export default function RootLayout({
             </head>
             <body className={`${manrope.variable} ${playfair.variable} ${jetbrainsMono.variable} ${orbitron.variable} font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
                 {children}
+                <CookieBanner />
                 {/* <Footer /> Footer is now included in page components for custom layout control */}
             </body>
         </html>

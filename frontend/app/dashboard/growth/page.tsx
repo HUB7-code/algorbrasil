@@ -1,283 +1,278 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    ShieldCheck,
-    TrendingUp,
-    AlertTriangle,
-    Activity,
-    Lock,
-    Eye,
-    FileText,
-    CheckCircle2,
-    BarChart3,
-    Globe2,
-    Zap
+    ShieldCheck, TrendingUp, AlertTriangle, Activity, Lock, Eye,
+    FileText, CheckCircle2, BarChart3, Globe2, Zap, ArrowRight,
+    Terminal, LayoutGrid, Search, Settings, ChevronRight
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PolicyManager } from '@/components/growth-hub/PolicyManager';
+import { ScopeDefinition } from '@/components/growth-hub/modules/ScopeDefinition';
+import { RiskClassification } from '@/components/growth-hub/modules/RiskClassification';
+import { LegalCompliance } from '@/components/growth-hub/modules/LegalCompliance';
+import { ImpactAssessment } from '@/components/growth-hub/modules/ImpactAssessment';
+import { ExplainabilityDashboard } from '@/components/growth-hub/modules/ExplainabilityDashboard';
+import { HumanOversight } from '@/components/growth-hub/modules/HumanOversight';
+import { MonitoringDashboard } from '@/components/growth-hub/modules/MonitoringDashboard';
 import { useSearchParams } from 'next/navigation';
 import { useOrganization } from '@/context/OrganizationContext';
+import {
+    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from 'recharts';
+
+// ========================================
+// GROWTH AI GOVERNANCE HUB - WORKBENCH MODE
+// ========================================
+
+const steps = [
+    { id: 'overview', label: 'Visão Geral', icon: LayoutGrid, desc: 'Dashboard de Operações' },
+    { id: 'scope', label: '1. Definição Escopo', icon: Globe2, desc: 'Identificação e Limites' },
+    { id: 'risks', label: '2. Classif. Riscos', icon: AlertTriangle, desc: 'Matriz de Impacto' },
+    { id: 'legal', label: '3. Conformidade Legal', icon: FileText, desc: 'LGPD, EU AI Act' },
+    { id: 'aia', label: '4. Impacto (AIA)', icon: Activity, desc: 'Relatório Algorítmico' },
+    { id: 'policy', label: '5. Políticas (SGIA)', icon: ShieldCheck, desc: 'Governança Interna' },
+    { id: 'xai', label: '6. Explicabilidade', icon: Eye, desc: 'Transparência de Modelo' },
+    { id: 'human', label: '7. Supervisão Humana', icon: Lock, desc: 'Human-in-the-loop' },
+    { id: 'monitor', label: '8. Monitoramento', icon: BarChart3, desc: 'Observabilidade Contínua' },
+];
+
+// MOCK DATA FOR VISUALS
+const auditHistory = Array.from({ length: 12 }, (_, i) => ({
+    name: i,
+    events: Math.floor(Math.random() * 50) + 10,
+    blocked: Math.floor(Math.random() * 10),
+}));
 
 export default function GrowthHubPage() {
     const searchParams = useSearchParams();
     const { currentOrganization } = useOrganization();
-    const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'overview');
 
-    // State for Real KPIs and Logs
-    const [kpis, setKpis] = useState<{
-        cicr: { value: string; delta: string; isPositive: boolean };
-        risk_mitigation: { value: string; delta: string; isPositive: boolean };
-        audit_readiness: { value: string; delta: string; isPositive: boolean };
-        secure_sessions: { value: string; delta: string; isPositive: boolean };
-    } | null>(null);
+    // Determine active tab (default: overview)
+    // We use internal state to switch instantly, but could sync with URL
+    const [activeTab, setActiveTab] = useState('overview');
 
-    const [recentLogs, setRecentLogs] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+    // Sync with URL param on mount
+    useEffect(() => {
+        const tab = searchParams.get('tab');
+        if (tab) setActiveTab(tab);
+    }, [searchParams]);
 
-    // Organization ID from context, fallback to 1 for backwards compatibility
-    const orgId = currentOrganization?.id || 1;
-
-    // Fetch Real Data from Backend
-    React.useEffect(() => {
-        const fetchData = async () => {
-            try {
-                // 1. Fetch KPIs
-                const statsRes = await fetch(`/api/v1/governance-stats/dashboard-stats?organization_id=${orgId}`);
-                const statsData = await statsRes.json();
-
-                // 2. Fetch Recent Logs
-                const logsRes = await fetch(`/api/v1/governance-stats/recent-logs?organization_id=${orgId}&limit=5`);
-                const logsData = await logsRes.json();
-
-                setKpis(statsData.kpis);
-                setRecentLogs(logsData);
-                setLoading(false);
-            } catch (error) {
-                console.error("Failed to fetch Growth Hub data:", error);
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [orgId]);
-
-    // KPIs Configuration (mapped to fetched data)
-    const kpiConfig = [
-        {
-            key: 'cicr',
-            label: "CICR Conversion Rate",
-            icon: TrendingUp,
-            desc: "Taxa de conversão em funis auditados"
-        },
-        {
-            key: 'risk_mitigation',
-            label: "Multas Mitigadas (Est.)",
-            icon: ShieldCheck,
-            desc: "Baseado em infrações LGPD evitadas"
-        },
-        {
-            key: 'audit_readiness',
-            label: "Audit Readiness",
-            icon: CheckCircle2,
-            desc: "Prontidão para ISO 42001"
-        },
-        {
-            key: 'secure_sessions',
-            label: "Sessões Seguras",
-            icon: Activity,
-            desc: "Interações de IA interceptadas via API"
-        },
-    ];
+    // Derived: Current Step Info
+    const currentStep = steps.find(s => s.id === activeTab) || steps[0];
 
     return (
-        <div className="p-8 space-y-8 min-h-screen bg-[#0A1A2F] text-slate-100 font-sans">
+        <div className="flex w-full min-h-screen bg-[#050A14] text-white font-sans overflow-hidden">
 
-            {/* Header Section */}
-            <div className="flex justify-between items-end border-b border-white/10 pb-6">
-                <div>
-                    <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">
-                        Growth AI Governance Hub
-                    </h1>
-                    <p className="text-slate-400 mt-2 max-w-2xl text-sm leading-relaxed">
-                        Transforme conformidade em receita. Gerencie o ciclo de vida ético de suas IAs e desbloqueie contratos Enterprise com o selo de confiança ALGOR.
-                    </p>
-                </div>
-                <div className="flex gap-3">
-                    <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-all text-sm font-semibold">
-                        <Zap size={16} />
-                        Gerar Relatório Board
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#00A3FF] hover:bg-[#0082CC] text-white font-bold transition-all shadow-lg shadow-blue-500/20 text-sm">
-                        <ShieldCheck size={16} />
-                        Novo Guardrail
-                    </button>
-                </div>
+            {/* BACKGROUND EFFECTS */}
+            <div className="fixed inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-[#00A3FF]/5 rounded-full blur-[200px]" />
+                <div className="absolute bottom-0 left-0 w-[800px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px]" />
             </div>
 
-            {/* KPI Grid - Financial Impact */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {loading ? (
-                    // Skeleton Loading
-                    [1, 2, 3, 4].map(i => (
-                        <div key={i} className="h-32 rounded-xl bg-white/5 animate-pulse" />
-                    ))
-                ) : (
-                    kpiConfig.map((config, idx) => {
-                        const data = kpis ? (kpis as any)[config.key] : { value: "-", delta: "-", isPositive: true };
-                        return (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className="p-5 rounded-xl border border-white/5 bg-white/5 backdrop-blur-sm hover:border-white/10 transition-colors group"
-                            >
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className={`p-2 rounded-lg bg-slate-900/50 text-slate-400 group-hover:text-emerald-400 transition-colors`}>
-                                        <config.icon size={20} />
-                                    </div>
-                                    <span className={`text-xs font-bold px-2 py-1 rounded-full ${data.isPositive ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
-                                        {data.delta}
-                                    </span>
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-1">{data.value}</h3>
-                                <p className="text-sm font-medium text-slate-400 mb-1">{config.label}</p>
-                                <p className="text-xs text-slate-500">{config.desc}</p>
-                            </motion.div>
-                        );
-                    })
-                )}
-            </div>
-
-            {/* Main Workbench */}
-            <div className="flex gap-6 h-[800px]">
-
-                {/* Sidebar Nav (11 Etapas) */}
-                <div className="w-64 shrink-0 space-y-2">
-                    <div className="px-4 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
-                        Metodologia ALGOR
+            {/* SIDEBAR NAVIGATION (Command Center Style) */}
+            <motion.div
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                className="w-80 shrink-0 border-r border-white/5 bg-[#0A111F]/80 backdrop-blur-xl flex flex-col z-20"
+            >
+                {/* Brand / Header */}
+                <div className="p-6 border-b border-white/5">
+                    <div className="flex items-center gap-3 text-[#00FF94] mb-2">
+                        <Terminal className="w-6 h-6" />
+                        <span className="font-orbitron font-bold text-lg tracking-wider">ALGOR.AI</span>
                     </div>
-                    {[
-                        { id: 'overview', label: 'Visão Geral', icon: BarChart3 },
-                        { id: 'scope', label: '1. Definição Escopo', icon: Globe2 },
-                        { id: 'risks', label: '2. Classif. Riscos', icon: AlertTriangle },
-                        { id: 'legal', label: '3. Conformidade Legal', icon: FileText },
-                        { id: 'aia', label: '4. Impacto (AIA)', icon: Activity },
-                        { id: 'policy', label: '5. Políticas (SGIA)', icon: ShieldCheck },
-                        { id: 'xai', label: '6. Explicabilidade', icon: Eye },
-                        { id: 'human', label: '7. Supervisão Humana', icon: Lock },
-                        { id: 'monitor', label: '8. Monitoramento', icon: BarChart3 },
-                    ].map((item) => (
-                        <button
-                            key={item.id}
-                            onClick={() => setActiveTab(item.id)}
-                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all ${activeTab === item.id
-                                ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
-                                : 'text-slate-400 hover:text-white hover:bg-white/5'
-                                }`}
-                        >
-                            <item.icon size={18} />
-                            {item.label}
-                        </button>
-                    ))}
+                    <p className="text-xs text-gray-500 font-mono">Governance Workbench v2.1</p>
                 </div>
 
-                {/* Content Area */}
-                <div className="flex-1 rounded-2xl border border-white/5 bg-slate-900/50 backdrop-blur-sm p-6 relative overflow-hidden">
+                {/* Navigation List */}
+                <div className="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
+                    <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest px-4 mb-4">Pipeline de Governança</p>
 
-                    {/* Background Grid Decoration */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_0%,black_70%,transparent_100%)] pointer-events-none" />
+                    {steps.map((step) => {
+                        const isActive = activeTab === step.id;
+                        return (
+                            <button
+                                key={step.id}
+                                onClick={() => setActiveTab(step.id)}
+                                className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive
+                                        ? 'bg-[#00A3FF]/10 text-white shadow-[0_0_20px_rgba(0,163,255,0.1)]'
+                                        : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                                    }`}
+                            >
+                                {isActive && <div className="absolute inset-y-0 left-0 w-1 bg-[#00A3FF] rounded-full" />}
 
-                    {activeTab === 'overview' && (
-                        <div className="relative z-10 space-y-6">
-                            {/* ... Overview Content ... */}
-                            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                                <Activity className="text-blue-400" />
-                                Live Governance Trace
-                            </h2>
+                                <step.icon className={`w-5 h-5 ${isActive ? 'text-[#00A3FF]' : 'text-gray-500 group-hover:text-white'}`} />
+                                <div className="text-left">
+                                    <div className={`text-sm font-bold ${isActive ? 'text-white' : ''}`}>{step.label}</div>
+                                    <div className="text-[10px] text-gray-500 font-medium opacity-80">{step.desc}</div>
+                                </div>
+                                {isActive && <ChevronRight className="w-4 h-4 ml-auto text-[#00A3FF]" />}
+                            </button>
+                        );
+                    })}
+                </div>
 
-                            {/* Tabela Mock de Logs Recentes */}
-                            <div className="overflow-hidden rounded-xl border border-white/10 bg-black/20">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="bg-white/5 text-slate-400 font-medium border-b border-white/10">
-                                        <tr>
-                                            <th className="px-6 py-4">Trace ID</th>
-                                            <th className="px-6 py-4">Timestamp</th>
-                                            <th className="px-6 py-4">Modelo</th>
-                                            <th className="px-6 py-4">Status</th>
-                                            <th className="px-6 py-4">Privacidade</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-white/5 text-slate-300">
-                                        {loading ? (
-                                            <tr><td colSpan={5} className="text-center py-8 text-slate-500">Carregando logs de auditoria...</td></tr>
-                                        ) : (
-                                            recentLogs.map((log: any) => (
-                                                <tr key={log.id} className="hover:bg-white/5 transition-colors">
-                                                    <td className="px-6 py-4 font-mono text-xs text-slate-500" title={log.trace_id}>
-                                                        {log.trace_id.substring(0, 12)}...
-                                                    </td>
-                                                    <td className="px-6 py-4 text-slate-400">
-                                                        {new Date(log.created_at).toLocaleTimeString()}
-                                                    </td>
-                                                    <td className="px-6 py-4">{log.Model_name || "Unknown"}</td>
-                                                    <td className="px-6 py-4">
-                                                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold ${log.verdict === 'BLOCKED' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
-                                                            }`}>
-                                                            {log.verdict}
-                                                        </span>
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        <div className="flex items-center gap-2">
-                                                            <div className="h-1.5 w-16 bg-slate-700 rounded-full overflow-hidden">
-                                                                <div
-                                                                    className={`h-full ${log.risk_score > 0.5 ? 'bg-amber-500' : 'bg-emerald-500'}`}
-                                                                    style={{ width: `${(1 - log.risk_score) * 100}%` }}
-                                                                />
-                                                            </div>
-                                                            <span className="text-xs text-slate-500">{log.risk_score > 0.5 ? 'Medium' : 'High'}</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        )}
-                                    </tbody>
-                                </table>
+                {/* Footer User Info */}
+                <div className="p-4 border-t border-white/5 bg-black/20">
+                    <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00A3FF] to-[#00FF94]" />
+                        <div className="overflow-hidden">
+                            <p className="text-sm font-bold truncate text-white">{currentOrganization?.name || 'Algor Demo'}</p>
+                            <p className="text-[10px] text-gray-400">Enterprise Plan</p>
+                        </div>
+                        <Settings className="w-4 h-4 ml-auto text-gray-500 hover:text-white cursor-pointer" />
+                    </div>
+                </div>
+            </motion.div>
+
+            {/* MAIN CONTENT AREA */}
+            <div className="flex-1 flex flex-col min-w-0 relative z-10 h-screen overflow-hidden">
+
+                {/* Top Breadcrumb Bar */}
+                <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#050A14]/80 backdrop-blur-md">
+                    <div className="flex items-center gap-4">
+                        <span className="text-gray-500 text-sm">Dashboard</span>
+                        <ChevronRight className="w-4 h-4 text-gray-600" />
+                        <span className="text-[#00FF94] text-sm font-bold uppercase tracking-wider bg-[#00FF94]/10 px-3 py-1 rounded-full border border-[#00FF94]/20 flex items-center gap-2">
+                            <currentStep.icon className="w-3 h-3" />
+                            {currentStep.label}
+                        </span>
+                    </div>
+
+                    <div className="flex gap-3">
+                        <div className="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-xs font-mono text-gray-400">
+                            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                            LIVE AUDIT LOG
+                        </div>
+                    </div>
+                </header>
+
+                {/* Dynamic Content Scroll Area */}
+                <main className="flex-1 overflow-y-auto p-8 custom-scrollbar relative">
+
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={activeTab}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className="h-full"
+                        >
+                            {activeTab === 'overview' && <OverviewDashboard />}
+                            {activeTab === 'scope' && <ScopeDefinition />}
+                            {activeTab === 'risks' && <RiskClassification />}
+                            {activeTab === 'legal' && <LegalCompliance />}
+                            {activeTab === 'aia' && <ImpactAssessment />}
+                            {activeTab === 'policy' && <PolicyManager />}
+                            {activeTab === 'xai' && <ExplainabilityDashboard />}
+                            {activeTab === 'human' && <HumanOversight />}
+                            {activeTab === 'monitor' && <MonitoringDashboard />}
+                        </motion.div>
+                    </AnimatePresence>
+
+                </main>
+            </div>
+        </div>
+    );
+}
+
+// ==========================================
+// SUB-COMPONENTS (Overview Specific)
+// ==========================================
+
+function OverviewDashboard() {
+    return (
+        <div className="space-y-8 max-w-[1600px] mx-auto">
+            {/* Header Hero */}
+            <div className="relative rounded-[32px] overflow-hidden bg-gradient-to-r from-[#00A3FF]/10 to-[#00FF94]/5 border border-white/5 p-10">
+                <div className="relative z-10 max-w-2xl">
+                    <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Central de Governança</h2>
+                    <p className="text-gray-300 text-lg leading-relaxed mb-8">
+                        Visão consolidada de todos os vetores de IA. Seu ecossistema está <span className="text-[#00FF94] font-bold">94% conforme</span> com a ISO 42001.
+                    </p>
+                    <div className="flex gap-4">
+                        <button className="px-6 py-3 bg-[#00FF94] text-[#050A14] font-bold rounded-xl shadow-lg shadow-[#00FF94]/30 hover:shadow-[#00FF94]/50 transition-all flex items-center gap-2 uppercase tracking-wide text-xs">
+                            <Zap className="w-4 h-4" /> Relatório Executivo
+                        </button>
+                        <button className="px-6 py-3 bg-white/5 text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-2 uppercase tracking-wide text-xs">
+                            <Settings className="w-4 h-4 ml-1" /> Configurar Alertas
+                        </button>
+                    </div>
+                </div>
+                {/* Decorative BG */}
+                <div className="absolute right-0 top-0 h-full w-1/2 bg-[url('/img/grid-pattern.svg')] opacity-20 mask-image-linear-gradient" />
+            </div>
+
+            {/* KPIs Row */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                {[
+                    { label: "Modelos Auditados", val: "12", sub: "+2 essa semana", color: "#00A3FF", icon: CheckCircle2 },
+                    { label: "Riscos Mitigados", val: "847", sub: "99.9% Taxa de Sucesso", color: "#00FF94", icon: ShieldCheck },
+                    { label: "Incidentes Críticos", val: "0", sub: "Sistema Seguro", color: "#F59E0B", icon: AlertTriangle },
+                    { label: "Tempo Médio (Review)", val: "4h", sub: "-20% vs média", color: "#8B5CF6", icon: Activity },
+                ].map((kpi, i) => (
+                    <div key={i} className="bg-[#0A111F]/60 backdrop-blur border border-white/5 p-6 rounded-2xl hover:border-white/10 transition-colors group">
+                        <div className="flex justify-between items-start mb-4">
+                            <div className={`p-3 rounded-lg bg-[${kpi.color}]/10`} style={{ color: kpi.color }}>
+                                <kpi.icon className="w-6 h-6" />
                             </div>
+                        </div>
+                        <h3 className="text-3xl font-orbitron font-bold text-white mb-1">{kpi.val}</h3>
+                        <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">{kpi.label}</p>
+                        <span className="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded inline-block">
+                            {kpi.sub}
+                        </span>
+                    </div>
+                ))}
+            </div>
 
-                            {/* Integração Widget Snippet */}
-                            <div className="p-6 rounded-xl bg-gradient-to-br from-purple-900/20 to-blue-900/10 border border-purple-500/20 mt-8">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h3 className="text-lg font-bold text-white mb-2">Injete Transparência no seu Frontend</h3>
-                                        <p className="text-slate-400 text-sm max-w-xl">
-                                            Copie o snippet abaixo para instalar o Widget de Explicação (XAI) no seu site e garantir conformidade com o Art. 20 da LGPD (Direito à Explicação).
-                                        </p>
-                                    </div>
-                                    <div className="bg-black/50 p-4 rounded-lg font-mono text-xs text-cyan-400 border border-white/10 w-[450px]">
-                                        {`<script src="https://api.algorbrasil.com/widget.js" \n  data-token="pk_live_51M..." \n  data-theme="dark">\n</script>`}
-                                    </div>
+            {/* Activity Chart & Logs */}
+            <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 h-[500px]">
+                <div className="xl:col-span-2 bg-[#0A111F]/60 backdrop-blur border border-white/5 p-8 rounded-[32px] flex flex-col">
+                    <h3 className="text-xl font-orbitron font-bold text-white mb-6">Volume de Interceptações (Firewall)</h3>
+                    <div className="flex-1 w-full min-h-0">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <AreaChart data={auditHistory}>
+                                <defs>
+                                    <linearGradient id="colorEvents" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                    </linearGradient>
+                                </defs>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
+                                <XAxis dataKey="name" hide />
+                                <YAxis stroke="#475569" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
+                                <Tooltip contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
+                                <Area type="monotone" dataKey="events" stroke="#00A3FF" strokeWidth={2} fillOpacity={1} fill="url(#colorEvents)" />
+                                <Area type="monotone" dataKey="blocked" stroke="#EF4444" strokeWidth={2} fillOpacity={1} fill="transparent" strokeDasharray="5 5" />
+                            </AreaChart>
+                        </ResponsiveContainer>
+                    </div>
+                </div>
+
+                <div className="bg-[#0A111F]/60 backdrop-blur border border-white/5 p-8 rounded-[32px] flex flex-col">
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-xl font-orbitron font-bold text-white">Últimos Logs</h3>
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    </div>
+                    <div className="space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                        {[1, 2, 3, 4, 5, 6].map((_, i) => (
+                            <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors cursor-pointer group">
+                                <div className="flex justify-between mb-1">
+                                    <span className="text-[10px] font-mono text-[#00A3FF] font-bold">TRACE-839{i}</span>
+                                    <span className="text-[10px] text-gray-500">14:02:{i}0</span>
+                                </div>
+                                <p className="text-sm font-bold text-white mb-1">PII Detectado (CPF)</p>
+                                <div className="flex justify-between items-center">
+                                    <span className="text-xs text-gray-400">GPT-4-Turbo</span>
+                                    <span className="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded uppercase font-bold">Blocked</span>
                                 </div>
                             </div>
-
-                        </div>
-                    )}
-
-                    {activeTab === 'policy' && <PolicyManager />}
-
-                    {activeTab !== 'overview' && activeTab !== 'policy' && (
-                        <div className="flex flex-col items-center justify-center h-[400px] text-center">
-                            <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-                                <Lock className="text-slate-500" />
-                            </div>
-                            <h3 className="text-lg font-bold text-white">Módulo em Desenvolvimento</h3>
-                            <p className="text-slate-400 max-w-md mt-2">
-                                A implementação técnica desta etapa da metodologia (item {activeTab}) será liberada na próxima sprint do roadmap v10.5.
-                            </p>
-                        </div>
-                    )}
-
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

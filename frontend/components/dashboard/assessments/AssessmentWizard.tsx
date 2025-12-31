@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useOrganization } from "@/context/OrganizationContext";
-import { Database, Gauge, Shield, CheckCircle2, Circle, ArrowRight, ChevronLeft, Check, AlertTriangle, Lock } from "lucide-react";
+import { Database, Gauge, Shield, ArrowRight, ChevronLeft, Check, Info } from "lucide-react";
 
-// Schema de Perguntas (Mantido)
 // Schema de Perguntas (Enriquecido com Contexto Educativo)
 const STEPS = [
     {
@@ -191,18 +190,27 @@ export default function AssessmentWizard({ onCancel }: { onCancel?: () => void }
     const canAdvance = currentStep.questions.every(q => answers[q.id]);
 
     return (
-        <div className="max-w-4xl mx-auto w-full pb-10 font-sans">
-            {/* Progress Indicator */}
-            <div className="mb-8 max-w-xl mx-auto">
-                <div className="flex justify-between text-xs font-medium text-gray-400 mb-2 px-1">
-                    <span>Etapa {currentStepIndex + 1} de {STEPS.length}</span>
-                    <span className="text-[#00FF94]">{Math.round(progress)}% Concluído</span>
+        <div className="max-w-5xl mx-auto w-full pb-10 font-sans selection:bg-[#00FF94] selection:text-[#0A0E1A]">
+
+            {/* Progress Header */}
+            <div className="mb-10 max-w-2xl mx-auto px-4">
+                <div className="flex justify-between items-end mb-3">
+                    <div className="flex flex-col">
+                        <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-gray-500 mb-1">Status da Auditoria</span>
+                        <span className="text-xl font-orbitron font-bold text-white">Etapa {currentStepIndex + 1} <span className="text-gray-600">/ {STEPS.length}</span></span>
+                    </div>
+                    <span className="text-[#00FF94] font-mono text-sm font-bold bg-[#00FF94]/10 px-3 py-1 rounded-full border border-[#00FF94]/20 shadow-[0_0_10px_rgba(0,255,148,0.2)]">
+                        {Math.round(progress)}% Concluído
+                    </span>
                 </div>
-                <div className="h-1 bg-white/10 rounded-full overflow-hidden w-full">
+                <div className="h-2 bg-white/5 rounded-full overflow-hidden w-full border border-white/5 relative">
+                    {/* Glossy Progress Bar */}
                     <div
-                        className="h-full bg-[#00FF94] shadow-[0_0_10px_#00FF94] transition-all duration-500 ease-out"
-                        style={{ width: `${progress}%` }}
-                    />
+                        className="h-full bg-gradient-to-r from-[#00FF94] to-[#00A3FF] shadow-[0_0_20px_rgba(0,255,148,0.5)] transition-all duration-700 ease-out relative"
+                        style={{ width: `${progress === 0 ? 5 : progress}%` }}
+                    >
+                        <div className="absolute inset-0 bg-white/30 animate-pulse-slow" />
+                    </div>
                 </div>
             </div>
 
@@ -210,74 +218,91 @@ export default function AssessmentWizard({ onCancel }: { onCancel?: () => void }
             <AnimatePresence mode="wait">
                 <motion.div
                     key={currentStep.id}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -20 }}
-                    transition={{ duration: 0.3 }}
-                    className="glass-panel p-8 md:p-10 rounded-[28px] relative overflow-hidden bg-[#0A1A2F]/60 backdrop-blur-xl border border-white/10"
+                    initial={{ opacity: 0, x: 50, scale: 0.98 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -50, scale: 0.98 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="relative overflow-hidden bg-[#0A0E1A]/80 backdrop-blur-2xl border border-white/[0.08] p-8 md:p-12 rounded-[32px] shadow-2xl shadow-black/50"
                 >
-                    {/* Header with Icon */}
-                    <div className="flex items-start gap-6 mb-10 border-b border-white/5 pb-8">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#00A3FF]/20 to-[#00FF94]/10 border border-[#00A3FF]/30 flex items-center justify-center text-[#00A3FF] shadow-[0_0_15px_rgba(0,163,255,0.2)]">
-                            <currentStep.icon className="w-7 h-7" />
+                    {/* Background Glows */}
+                    <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#00A3FF]/5 rounded-full blur-[120px] pointer-events-none" />
+                    <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00FF94]/5 rounded-full blur-[120px] pointer-events-none" />
+
+                    {/* Step Header */}
+                    <div className="flex items-start gap-8 mb-12 border-b border-white/10 pb-8 relative z-10">
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-gradient-to-br from-[#00A3FF] to-[#00FF94] rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity" />
+                            <div className="relative w-20 h-20 rounded-2xl bg-[#0F172A] border border-white/10 flex items-center justify-center shadow-xl">
+                                <currentStep.icon className="w-10 h-10 text-[#00A3FF] drop-shadow-[0_0_10px_rgba(0,163,255,0.5)]" />
+                            </div>
                         </div>
-                        <div className="flex-1 pt-1">
-                            <h2 className="text-2xl font-semibold text-white mb-2">{currentStep.title}</h2>
-                            <p className="text-gray-400 leading-relaxed font-light text-lg">{currentStep.description}</p>
+                        <div className="flex-1 pt-2">
+                            <h2 className="text-3xl font-bold font-orbitron text-white mb-3 tracking-wide">{currentStep.title}</h2>
+                            <p className="text-gray-400 text-lg font-light leading-relaxed max-w-2xl">{currentStep.description}</p>
                         </div>
                     </div>
 
                     {/* Questions Group */}
-                    <div className="space-y-12">
+                    <div className="space-y-16 relative z-10 w-full max-w-5xl mx-auto">
                         {currentStep.questions.map((q) => (
-                            <div key={q.id}>
-                                <div className="mb-4">
-                                    <h3 className="text-gray-200 font-medium text-lg flex items-center gap-3">
-                                        <span className="w-1 h-6 bg-[#00FF94] rounded-full sm:block hidden"></span>
+                            <div key={q.id} className="relative">
+                                {/* Vertical Connector Line */}
+                                <div className="absolute left-[7px] top-10 bottom-[-40px] w-[2px] bg-gradient-to-b from-[#334155] to-transparent last:hidden md:hidden lg:block -z-10 opacity-30" />
+
+                                <div className="mb-6 pl-4 md:pl-0">
+                                    <h3 className="text-xl font-bold text-white flex items-center gap-4 mb-3">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] shadow-[0_0_10px_#00FF94]" />
                                         {q.text}
                                     </h3>
+
                                     {(q as any).helpText && (
-                                        <div className="mt-3 text-sm bg-gradient-to-r from-[#00A3FF]/15 via-[#00A3FF]/5 to-transparent p-4 rounded-xl border-l-4 border-[#00A3FF] flex gap-4 items-start relative overflow-hidden group animate-in fade-in slide-in-from-left-2 duration-500">
-                                            <div className="mt-0.5 shrink-0 p-2 bg-[#00A3FF]/20 rounded-full shadow-[0_0_15px_rgba(0,163,255,0.2)]">
-                                                <AlertTriangle className="w-5 h-5 text-[#00A3FF]" />
+                                        <div className="mt-4 bg-[#0B1121]/80 rounded-xl border-l-[3px] border-[#00A3FF] p-5 flex gap-4 backdrop-blur-sm relative overflow-hidden group">
+                                            {/* Tech Pattern Background */}
+                                            <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-5 pointer-events-none" />
+
+                                            <div className="mt-1 shadow-[0_0_20px_rgba(0,163,255,0.2)] rounded-full bg-[#00A3FF]/10 p-2 h-fit">
+                                                <Info className="w-5 h-5 text-[#00A3FF]" />
                                             </div>
-                                            <div>
-                                                <p className="font-medium text-blue-100/90 leading-relaxed mb-2 text-base">
+                                            <div className="flex-1">
+                                                <p className="text-gray-300 leading-relaxed mb-3 text-sm">
                                                     {(q as any).helpText}
                                                 </p>
-                                                <div className="text-xs text-slate-300 font-sans bg-[#0A1A2F]/80 inline-block px-3 py-1.5 rounded-lg border border-[#00FF94]/20 shadow-sm">
-                                                    <span className="text-[#00FF94] font-bold tracking-wider uppercase mr-2">CONTEXTO REGULATÓRIO:</span>
-                                                    {(q as any).rationale}
+                                                <div className="inline-flex items-center gap-2 bg-[#00A3FF]/10 border border-[#00A3FF]/20 px-3 py-1.5 rounded-lg">
+                                                    <span className="text-[10px] font-bold font-orbitron text-[#00A3FF] uppercase tracking-wider">CONTEXTO REGULATÓRIO</span>
+                                                    <div className="w-[1px] h-3 bg-[#00A3FF]/30" />
+                                                    <span className="text-xs text-blue-200/80 font-mono">{(q as any).rationale}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     )}
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pl-4 md:pl-5">
                                     {q.options.map((opt) => {
                                         const isSelected = answers[q.id] === opt.value;
                                         return (
-                                            <button
+                                            <motion.button
                                                 key={opt.value}
+                                                whileHover={{ scale: 1.02, y: -2 }}
+                                                whileTap={{ scale: 0.98 }}
                                                 onClick={() => handleOptionSelect(q.id, opt.value)}
                                                 className={`
-                                                    relative px-5 py-6 rounded-xl text-left transition-all duration-300 border
-                                                    flex flex-col gap-3 group
+                                                    relative p-6 rounded-2xl text-left transition-all duration-300 border flex flex-col gap-4 group h-full
                                                     ${isSelected
-                                                        ? 'bg-[#00A3FF]/10 border-[#00A3FF] shadow-[0_0_20px_rgba(0,163,255,0.15)]' // Selected
-                                                        : 'bg-white/5 border-white/5 hover:bg-white/10 hover:border-white/20' // Inactive
+                                                        ? 'bg-gradient-to-br from-[#00A3FF]/20 to-[#0A0E1A] border-[#00A3FF] shadow-[0_0_30px_rgba(0,163,255,0.15)] ring-1 ring-[#00A3FF]/50'
+                                                        : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.04] hover:border-white/20'
                                                     }
                                                 `}
                                             >
-                                                <div className="flex items-center justify-between w-full mb-1">
-                                                    <div className={`w-5 h-5 rounded-full border flex items-center justify-center transition-colors ${isSelected ? 'border-[#00A3FF] bg-[#00A3FF]' : 'border-gray-500'}`}>
-                                                        {isSelected && <Check className="w-3 h-3 text-white" />}
+                                                <div className="flex items-center justify-between w-full">
+                                                    <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${isSelected ? 'border-[#00A3FF] bg-[#00A3FF]' : 'border-gray-600 group-hover:border-gray-400'}`}>
+                                                        {isSelected && <Check className="w-3 h-3 text-white stroke-[4]" />}
                                                     </div>
                                                 </div>
-                                                <span className={`text-sm font-medium leading-snug ${isSelected ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
+                                                <span className={`text-sm font-medium leading-relaxed transition-colors ${isSelected ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
                                                     {opt.label}
                                                 </span>
-                                            </button>
+                                            </motion.button>
                                         );
                                     })}
                                 </div>
@@ -288,32 +313,34 @@ export default function AssessmentWizard({ onCancel }: { onCancel?: () => void }
                 </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Buttons */}
-            <div className="flex justify-between items-center mt-8 px-4 max-w-3xl mx-auto">
+            {/* Navigation Footer */}
+            <div className="flex justify-between items-center mt-12 px-6 max-w-4xl mx-auto">
                 <Button
                     variant="ghost"
                     onClick={handleBack}
-                    className="text-gray-400 hover:text-white hover:bg-white/5 rounded-full px-6 gap-2"
+                    className="text-gray-500 hover:text-white hover:bg-white/5 rounded-xl px-6 py-6 font-orbitron tracking-wide"
                 >
-                    <ChevronLeft className="w-4 h-4" />
-                    Voltar
+                    <ChevronLeft className="w-5 h-5 mr-2" />
+                    VOLTAR
                 </Button>
 
-                <Button
-                    onClick={handleNext}
-                    disabled={!canAdvance}
-                    className={`
-                        rounded-full px-8 h-12 text-sm font-bold tracking-wide transition-all shadow-lg
-                        flex items-center gap-3
-                        ${!canAdvance
-                            ? 'bg-gray-800 text-gray-500 cursor-not-allowed border border-gray-700' // Disabled
-                            : 'bg-gradient-to-r from-[#00A3FF] to-[#006097] text-white hover:shadow-[0_0_20px_rgba(0,163,255,0.4)] hover:scale-105' // Enabled
-                        }
-                    `}
-                >
-                    {isLastStep ? (isSubmitting ? "Enviando..." : "Finalizar Auditoria") : "Próxima Etapa"}
-                    {!isLastStep && <ArrowRight className="w-5 h-5" />}
-                </Button>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Button
+                        onClick={handleNext}
+                        disabled={!canAdvance}
+                        className={`
+                            rounded-xl px-10 py-7 text-sm font-bold font-orbitron tracking-widest transition-all shadow-xl
+                            flex items-center gap-3
+                            ${!canAdvance
+                                ? 'bg-[#1E293B] text-gray-500 cursor-not-allowed border border-white/5'
+                                : 'bg-gradient-to-r from-[#00A3FF] to-[#006097] text-white hover:shadow-[0_0_30px_rgba(0,163,255,0.4)] border border-[#00A3FF]/50'
+                            }
+                        `}
+                    >
+                        {isLastStep ? (isSubmitting ? "ENVIANDO..." : "FINALIZAR AUDITORIA") : "PRÓXIMA ETAPA"}
+                        {!isLastStep && <ArrowRight className="w-5 h-5" />}
+                    </Button>
+                </motion.div>
             </div>
         </div>
     );

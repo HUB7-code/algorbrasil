@@ -33,7 +33,6 @@ function DashboardLayoutContent({
     const pathname = usePathname();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [user, setUser] = useState<{ name: string, role: string } | null>(null);
-    const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
     useEffect(() => {
         const token = localStorage.getItem("algor_token");
@@ -61,14 +60,14 @@ function DashboardLayoutContent({
     return (
         <div className="flex h-screen bg-[#0A0E1A] text-white overflow-hidden font-sans selection:bg-[#00FF94] selection:text-[#0A0E1A] relative">
 
-            {/* AMBIENT LIGHTING - Power BI Premium Style */}
+            {/* AMBIENT LIGHTING - Power BI Premium Style (Enhanced) */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-10%] left-[-5%] w-[600px] h-[600px] bg-[#00A3FF]/8 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
-                <div className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-[#8B5CF6]/3 rounded-full blur-[120px]" />
+                <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-[#00A3FF]/10 rounded-full blur-[180px] mix-blend-screen" />
+                <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-[#00FF94]/5 rounded-full blur-[180px] mix-blend-screen" />
+                <div className="absolute top-[30%] left-[40%] w-[500px] h-[500px] bg-[#8B5CF6]/5 rounded-full blur-[150px] animate-pulse-slow" />
             </div>
 
-            {/* Sidebar - Ultra Modern */}
+            {/* Sidebar - Ultra Modern Premium */}
             <motion.aside
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -76,42 +75,48 @@ function DashboardLayoutContent({
                 className={`
                     fixed lg:static inset-y-0 left-0 z-30
                     w-[280px] 
-                    bg-[#0A0E1A]/60
-                    backdrop-blur-xl
-                    border-r border-white/[0.06]
+                    bg-gradient-to-b from-[#0A0E1A] via-[#0D121F] to-[#0A0E1A]
+                    backdrop-blur-2xl
+                    border-r border-[#00FF94]/10
                     transform transition-transform duration-300 ease-in-out
                     flex flex-col
+                    shadow-[0_0_50px_rgba(0,0,0,0.5)]
                     ${isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
                 `}
             >
-                {/* Sidebar Glow Effect */}
-                <div className="absolute top-0 left-0 w-full h-[300px] bg-gradient-to-b from-[#00FF94]/5 to-transparent pointer-events-none" />
+                {/* Sidebar Top Glow */}
+                <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF94]/50 to-transparent opacity-50" />
 
                 {/* Logo Area */}
-                <div className="h-32 flex items-center justify-center px-6 relative mt-4 mb-2">
+                <div className="h-32 flex flex-col items-center justify-center px-6 relative mt-4 mb-2">
                     <Link href="/dashboard" className="flex flex-col items-center gap-4 group">
-                        <div className="relative w-24 h-24 rounded-full border-2 border-[#00FF94]/20 bg-[#0A0E1A] flex items-center justify-center shadow-[0_0_30px_rgba(0,255,148,0.15)] group-hover:border-[#00FF94]/50 group-hover:shadow-[0_0_50px_rgba(0,255,148,0.3)] transition-all duration-500">
-                            <div className="absolute inset-0 rounded-full bg-[#00FF94] blur-[30px] opacity-10 group-hover:opacity-30 transition-opacity" />
-                            <Image src="/logo-algor.webp" alt="Algor" width={72} height={72} className="object-contain relative z-10 drop-shadow-[0_0_10px_rgba(0,255,148,0.5)]" />
+                        <div className="relative w-20 h-20">
+                            {/* Animated Rings */}
+                            <div className="absolute inset-0 rounded-full border border-[#00FF94]/30 group-hover:scale-110 transition-transform duration-700" />
+                            <div className="absolute inset-0 rounded-full border border-[#00A3FF]/30 rotate-45 group-hover:rotate-90 transition-transform duration-700" />
+
+                            <div className="relative z-10 w-full h-full rounded-full bg-[#0A0E1A] flex items-center justify-center shadow-[0_0_30px_rgba(0,255,148,0.15)] group-hover:shadow-[0_0_50px_rgba(0,255,148,0.3)] transition-all duration-500">
+                                <Image src="/logo-algor.webp" alt="Algor" width={64} height={64} className="object-contain drop-shadow-[0_0_10px_rgba(0,255,148,0.5)]" />
+                            </div>
                         </div>
                     </Link>
                 </div>
 
-                {/* Organization Switcher - Minimalist */}
-                <div className="px-6 mb-6 mt-8">
+                {/* Organization Switcher */}
+                <div className="px-6 mb-6 mt-4">
                     <OrganizationSwitcher />
                 </div>
 
-                {/* Primary Action Button - Neon Outline Style */}
+                {/* Primary Action Button - Premium */}
                 <div className="px-6 mb-8">
                     <motion.button
-                        whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0,255,148,0.15)" }}
+                        whileHover={{ scale: 1.02, boxShadow: "0 0 25px rgba(0,255,148,0.2)" }}
                         whileTap={{ scale: 0.98 }}
-                        className="group relative flex items-center justify-center gap-3 w-full h-[48px] rounded-lg bg-[#00FF94]/5 hover:bg-[#00FF94]/10 border border-[#00FF94]/30 hover:border-[#00FF94]/60 text-[#00FF94] font-bold text-xs tracking-widest transition-all overflow-hidden"
+                        className="group relative flex items-center justify-center gap-3 w-full h-[48px] rounded-xl bg-gradient-to-r from-[#00FF94]/10 to-[#00A3FF]/10 hover:from-[#00FF94]/20 hover:to-[#00A3FF]/20 border border-[#00FF94]/30 hover:border-[#00FF94]/60 transition-all overflow-hidden"
                     >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF94]/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                        <span className="material-symbols-rounded text-lg">play_circle</span>
-                        INICIAR CICLO
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                        <span className="material-symbols-rounded text-[#00FF94] text-xl">play_circle</span>
+                        <span className="font-orbitron font-bold text-xs tracking-widest text-white">INICIAR CICLO</span>
                     </motion.button>
                 </div>
 
@@ -119,8 +124,9 @@ function DashboardLayoutContent({
                 <nav className="flex-1 px-4 space-y-1 overflow-y-auto overflow-x-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
 
                     {/* Section: Strategy */}
-                    <div className="px-4 py-3 mt-2">
-                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
+                    <div className="px-4 py-2 mt-2 flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-gray-600" />
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] font-orbitron">
                             Estratégia
                         </span>
                     </div>
@@ -129,8 +135,9 @@ function DashboardLayoutContent({
                     <NavItem href="/dashboard/roadmap" icon="map" label="Jornada de Adoção" active={pathname.startsWith("/dashboard/roadmap")} color="#00A3FF" />
 
                     {/* Section: Operations */}
-                    <div className="px-4 py-3 mt-4">
-                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
+                    <div className="px-4 py-2 mt-6 flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-gray-600" />
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] font-orbitron">
                             Operações
                         </span>
                     </div>
@@ -140,8 +147,9 @@ function DashboardLayoutContent({
                     <NavItem href="/dashboard/projects" icon="folder_managed" label="Projetos Gov" active={pathname.startsWith("/dashboard/projects")} color="#8B5CF6" />
 
                     {/* Section: Knowledge */}
-                    <div className="px-4 py-3 mt-4">
-                        <span className="text-[9px] font-bold text-gray-500 uppercase tracking-[0.2em] font-mono">
+                    <div className="px-4 py-2 mt-6 flex items-center gap-2">
+                        <div className="w-1 h-1 rounded-full bg-gray-600" />
+                        <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.2em] font-orbitron">
                             Conhecimento
                         </span>
                     </div>
@@ -150,8 +158,9 @@ function DashboardLayoutContent({
                     {/* Admin Section */}
                     {user.role === "admin" && (
                         <>
-                            <div className="px-4 py-3 mt-4">
-                                <span className="text-[9px] font-bold text-[#EF4444]/70 uppercase tracking-[0.2em] font-mono">
+                            <div className="px-4 py-2 mt-6 flex items-center gap-2">
+                                <div className="w-1 h-1 rounded-full bg-[#EF4444]" />
+                                <span className="text-[10px] font-bold text-[#EF4444]/70 uppercase tracking-[0.2em] font-orbitron">
                                     Núcleo Admin
                                 </span>
                             </div>
@@ -161,28 +170,33 @@ function DashboardLayoutContent({
                     )}
                 </nav>
 
-                {/* Bottom Section */}
-                <div className="p-4 mt-auto border-t border-white/[0.04] bg-[#0A0E1A]/80 backdrop-blur-md">
-                    <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:text-white transition-colors text-sm font-medium mb-1">
-                        <span className="material-symbols-rounded text-lg">settings</span>
+                {/* Bottom Section - User Profile */}
+                <div className="p-4 mt-auto border-t border-white/[0.06] bg-[#0A0E1A]/40">
+                    <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white transition-colors text-xs font-medium mb-3 group">
+                        <span className="material-symbols-rounded text-base group-hover:rotate-90 transition-transform duration-500">settings</span>
                         Configurações
                     </Link>
 
-                    {/* User Profile Compact */}
-                    <div className="flex items-center justify-between px-4 pt-2">
+                    <div className="flex items-center justify-between px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.05] hover:border-white/[0.1] transition-colors">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00FF94] to-[#00A3FF] p-[1px]">
-                                <div className="w-full h-full rounded-full bg-[#0A0E1A] flex items-center justify-center">
-                                    <span className="text-xs font-bold text-white">{user.name.charAt(0)}</span>
+                            <div className="relative">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00FF94] to-[#00A3FF] p-[1.5px]">
+                                    <div className="w-full h-full rounded-full bg-[#0B1121] flex items-center justify-center">
+                                        {/* Fallback to Initials */}
+                                        <span className="font-orbitron font-bold text-white text-xs">{user.name.charAt(0)}</span>
+                                    </div>
                                 </div>
+                                {/* Online Status Dot */}
+                                <div className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-[#00FF94] border-2 border-[#0A0E1A]" />
                             </div>
+
                             <div className="flex flex-col">
-                                <span className="text-xs font-bold text-white leading-none mb-1">{user.name}</span>
-                                <span className="text-[10px] text-gray-500 leading-none capitalize">{user.role}</span>
+                                <span className="text-sm font-bold text-white leading-none mb-1 font-orbitron tracking-tight truncate max-w-[100px]">{user.name.split(' ')[0]}</span>
+                                <span className="text-[10px] text-gray-400 leading-none uppercase tracking-wider">{user.role}</span>
                             </div>
                         </div>
-                        <button onClick={handleLogout} className="text-gray-500 hover:text-red-400 transition-colors">
-                            <span className="material-symbols-rounded text-lg">logout</span>
+                        <button onClick={handleLogout} className="text-gray-500 hover:text-[#EF4444] transition-colors p-2 hover:bg-white/5 rounded-lg">
+                            <span className="material-symbols-rounded text-xl">logout</span>
                         </button>
                     </div>
                 </div>
@@ -196,7 +210,7 @@ function DashboardLayoutContent({
                         <motion.button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="p-2 text-white" whileTap={{ scale: 0.95 }}>
                             <span className="material-symbols-rounded">menu</span>
                         </motion.button>
-                        <span className="font-orbitron font-bold text-white">ALGOR</span>
+                        <span className="font-orbitron font-bold text-white tracking-widest">ALGOR</span>
                     </div>
                 </header>
 

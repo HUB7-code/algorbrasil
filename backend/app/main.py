@@ -7,12 +7,11 @@ from secure import Secure
 
 from backend.app.db.session import engine, Base
 from backend.app.models import user, assessment, profiles, audit, risk, lms, payment, project, organization, ai_asset, governance, partner, lead # Import all models to register tables
+from backend.app.core.limiter import limiter # Import Shared Limiter
 
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
 
-# Configuração de Rate Limiting (Blindagem contra Brute Force/DDoS)
-limiter = Limiter(key_func=get_remote_address)
 
 app = FastAPI(
     title="Algor AI Gov API",
@@ -57,6 +56,9 @@ async def set_secure_headers(request: Request, call_next):
     # Para garantir, vamos setar manualmente se a lib falhar, mas vamos tentar o método padrão da lib nova
     try:
         secure_headers.set_headers(response)
+        # [SECURITY HARDENING] Remove Server header to prevent tech stack fingerprinting
+        if "server" in response.headers:
+            del response.headers["server"]
     except AttributeError:
          # Fallback para versões mais antigas ou interface diferente
          pass

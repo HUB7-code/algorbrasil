@@ -3,9 +3,12 @@ import qrcode
 import io
 import base64
 from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks
+from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Request
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
+from backend.app.core.limiter import limiter
+import jwt # Replaces from jose import jwt, JWTError
+from jwt.exceptions import PyJWTError # Replaces JWTError
+
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 
@@ -34,11 +37,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
+        # PyJWT decode does not require algorithms list as strictly but good practice
         payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
         email: str = payload.get("sub")
         if email is None:
             raise credentials_exception
-    except JWTError:
+    except PyJWTError: # Catch generic PyJWT error
         raise credentials_exception
     
     user = db.query(User).filter(User.email == email).first()
@@ -51,7 +55,8 @@ async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = De
 # ==========================================
 
 @router.post("/signup", status_code=status.HTTP_201_CREATED)
-async def create_user(user_in: UserCreate, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+async def create_user(request: Request, user_in: UserCreate, db: Session = Depends(get_db)):
     """
     Cadastra um novo usuario (Status: Pendente de Verificacao).
     """
@@ -170,7 +175,7 @@ async def verify_email_token(data: EmailVerification, db: Session = Depends(get_
         if email is None or token_type != "email_verification":
             raise credentials_exception
             
-    except JWTError:
+    except PyJWTError:
         raise credentials_exception
     
     user = db.query(User).filter(User.email == email).first()
@@ -261,7 +266,8 @@ async def reset_password(data: PasswordReset, db: Session = Depends(get_db)):
     return {"message": "Senha redefinida com sucesso! Você já pode fazer login."}
 
 @router.post("/login", response_model=Token)
-async def login_for_access_token(user_data: UserLogin, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+async def login_for_access_token(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
     """
     Autentica o usuario. Se tiver 2FA ativado, retorna token temporario.
     """
