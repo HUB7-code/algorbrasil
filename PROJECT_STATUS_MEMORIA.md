@@ -16,6 +16,7 @@
 
 3.  **CI/CD & Backend Testing:**
     *   **Pipeline de Testes:** 100% funcional com novos `PYTHONPATH` fix.
+    *   **Dependências de Build:** Adicionada `cryptography` ao `requirements.txt` para corrigir falhas de importação no CI.
     *   **Scanner Tests:** Refatorados e passando.
 
 4.  **Launch Readiness:**
