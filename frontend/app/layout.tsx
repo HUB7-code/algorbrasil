@@ -35,10 +35,10 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: '/og-image.jpg',
+                url: '/og-governance.jpg',
                 width: 1200,
                 height: 630,
-                alt: 'Algor Brasil Hero Image',
+                alt: 'Algor Brasil - Governança de IA de Elite',
             },
         ],
     },

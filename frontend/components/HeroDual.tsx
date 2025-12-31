@@ -59,7 +59,7 @@ export default function HeroDual() {
     };
 
     return (
-        <section className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-32 px-4 md:px-0 overflow-hidden">
+        <section data-testid="hero-section" className="relative min-h-[90vh] flex flex-col pt-48 pb-48 md:pb-32 px-4 md:px-0 overflow-hidden">
 
             {/* 3D Neural Background - PRESERVADO INTACTO */}
             <div className="absolute inset-0 z-[1] pointer-events-none">
@@ -91,6 +91,7 @@ export default function HeroDual() {
 
                 {/* Headline */}
                 <motion.h1
+                    data-testid="hero-title"
                     variants={itemVariants}
                     className="font-orbitron text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6"
                 >
@@ -214,7 +215,7 @@ export default function HeroDual() {
                                     </motion.li>
                                 </ul>
 
-                                <Link href="/solutions/enterprise" className="w-full block">
+                                <Link href="/solutions/enterprise" className="w-full block" data-testid="cta-enterprise">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -301,7 +302,7 @@ export default function HeroDual() {
                                     </motion.li>
                                 </ul>
 
-                                <Link href="/partners" className="w-full block">
+                                <Link href="/partners" className="w-full block" data-testid="cta-partners">
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}

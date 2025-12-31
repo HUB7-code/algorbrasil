@@ -11,6 +11,12 @@ import { motion } from "framer-motion";
 // LOGIN PAGE - Power BI Premium Dark Mode
 // ========================================
 
+export const metadata = {
+    title: 'Login | Algor Brasil',
+    description: 'Acesse seu console de governança de IA',
+};
+
+
 export default function LoginPage() {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
@@ -129,7 +135,7 @@ export default function LoginPage() {
                 </div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6" data-testid="login-form">
                     {/* Email Input */}
                     <div className="group relative">
                         <div className="absolute inset-0 bg-gradient-to-r from-[#00FF94]/20 to-transparent opacity-0 group-focus-within:opacity-100 transition-opacity rounded-xl -z-10 blur-md" />
@@ -137,6 +143,7 @@ export default function LoginPage() {
                             type="email"
                             name="email"
                             id="email"
+                            data-testid="email-input"
                             required
                             value={formData.email}
                             onChange={handleChange}
@@ -162,6 +169,7 @@ export default function LoginPage() {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 id="password"
+                                data-testid="password-input"
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
@@ -206,6 +214,7 @@ export default function LoginPage() {
                     <div className="pt-2">
                         <motion.button
                             type="submit"
+                            data-testid="login-submit"
                             disabled={isLoading}
                             className="relative w-full h-[56px] rounded-xl overflow-hidden group disabled:opacity-70 disabled:cursor-not-allowed"
                             whileHover={{ scale: 1.01 }}

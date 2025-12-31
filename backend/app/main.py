@@ -100,6 +100,8 @@ from backend.app.api import leads
 app.include_router(leads.router, prefix="/api/v1", tags=["Leads / Sales Funnel"])
 from backend.app.api.endpoints import reports
 app.include_router(reports.router, prefix="/api/v1", tags=["Relatórios & Exportação"])
+from backend.app.api.endpoints import health
+app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP

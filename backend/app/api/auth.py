@@ -252,7 +252,7 @@ async def reset_password(data: PasswordReset, db: Session = Depends(get_db)):
         if email is None or token_type != "password_reset":
              raise credentials_exception
              
-    except JWTError:
+    except PyJWTError:
         raise credentials_exception
     
     user = db.query(User).filter(User.email == email).first()
@@ -378,7 +378,7 @@ async def verify_2fa_code(otp_data: OTPVerify, db: Session = Depends(get_db)):
         if role != "PRE_2FA":
              raise HTTPException(status_code=400, detail="Token invalido para esta etapa.")
              
-    except JWTError:
+    except PyJWTError:
         raise HTTPException(status_code=401, detail="Sessao expirada. Faca login novamente.")
 
     user = db.query(User).filter(User.email == email).first()

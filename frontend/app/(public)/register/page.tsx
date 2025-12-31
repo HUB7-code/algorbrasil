@@ -11,6 +11,12 @@ import Image from "next/image";
 // REGISTER PAGE - POWER BI PREMIUM
 // ========================================
 
+export const metadata = {
+    title: 'Cadastro | Algor Brasil',
+    description: 'Crie sua conta e acesse a plataforma de governança de IA',
+};
+
+
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -314,6 +320,7 @@ function RegisterContent() {
                         ) : (
                             <motion.form
                                 key="form"
+                                data-testid="register-form"
                                 onSubmit={handleSubmit}
                                 className="space-y-6"
                                 variants={containerVariants}
@@ -331,6 +338,7 @@ function RegisterContent() {
                                         <input
                                             name="full_name"
                                             type="text"
+                                            data-testid="name-input"
                                             className="w-full h-14 bg-[#131825] border border-white/10 rounded-xl px-4 text-white focus:border-[#00FF94]/50 focus:ring-1 focus:ring-[#00FF94]/30 focus:bg-[#131825] outline-none transition-all placeholder:text-gray-600 hover:border-white/20"
                                             placeholder="Seu nome completo"
                                             value={formData.full_name}
@@ -474,6 +482,7 @@ function RegisterContent() {
                                 <motion.div variants={itemVariants} className="pt-4 space-y-4">
                                     <motion.button
                                         type="submit"
+                                        data-testid="register-submit"
                                         disabled={isLoading || !consent}
                                         whileHover={{ scale: 1.01, boxShadow: "0 0 40px rgba(0,255,148,0.3)" }}
                                         whileTap={{ scale: 0.99 }}

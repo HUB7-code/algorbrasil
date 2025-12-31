@@ -1,0 +1,17 @@
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+tests/reports/
+tests/screenshots/
+
+# Node modules
+node_modules/
+package-lock.json
+
+# Videos
+*.webm
+*.mp4
+
+# Logs
+*.log

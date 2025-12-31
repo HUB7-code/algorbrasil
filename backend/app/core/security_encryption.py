@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from cryptography.fernet import Fernet
 import os
 import base64
@@ -13,7 +13,7 @@ ENCRYPTION_KEY_ENV = os.getenv("DATA_ENCRYPTION_KEY")
 if not ENCRYPTION_KEY_ENV:
     # Fallback para desenvolvimento apenas - Nunca usar em prod
     # Gera uma chave válida para Fernet (32 url-safe base64-encoded bytes)
-    print("⚠️  AVISO: DATA_ENCRYPTION_KEY não encontrada. Usando chave temporária insegura.")
+    print("WARNING: DATA_ENCRYPTION_KEY not found. Using temporary insecure key.")
     _key = Fernet.generate_key()
 else:
     _key = ENCRYPTION_KEY_ENV.encode()

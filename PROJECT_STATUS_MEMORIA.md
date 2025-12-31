@@ -1,27 +1,28 @@
 # MEMÓRIA DE STATUS DO PROJETO - ALGOR BRASIL
-**Versão Atual:** V17.5.0
-**Data da Última Atualização:** 30/12/2025
-**Status:** 🛡️ DEPLOY READY / AUDITADO (Security Hardened)
+**Versão Atual:** V17.6.0
+**Data da Última Atualização:** 31/12/2025
+**Status:** 🚀 LAUNCH READY (Pronto para Divulgação)
 
-### 🚀 Últimas Conquistas (V17.5.0 - Auditoria de Segurança)
+### 🚀 Últimas Conquistas (V17.6.0 - Launch Ready)
 
-1.  **Security Hardening (OWASP Top 10):**
-    *   **Vulnerability Fixes:** ECDSA (python-jose -> pyjwt), Server Header Removal (Fingerprinting), SQL Injection Prevention.
-    *   **Adversarial AI Defense:** Atualização do `AnalysisEngine` para bloquear *Prompt Injection* (incl. Leetspeak e Ofuscação) e detecção de entropia.
-    *   **Rate Limiting:** Proteção ativa em rotas de auth (`/login`, `/signup`) e gerais (10 req/min).
+1.  **Páginas Institucionais Completas:**
+    *   **`/institute/about`:** Nova página "Nossa Metodologia" com pilares de atuação.
+    *   **`/institute/policy`:** Pareceres técnicos sobre PL 2338 e regulação de IA.
+    *   **`/institute/research`:** Biblioteca de whitepapers (status: "Em Breve").
 
-2.  **Compliance & Governance (LGPD / ISO 42001):**
-    *   **Consent Management:** Novo Banner de Cookies (`CookieBanner.tsx`) com controle granular (Essenciais vs Opcionais).
-    *   **Data Inventory (ROPA):** Mapeamento completo do ciclo de vida dos dados (`COMPLIANCE_REPORT_V1.md`).
-    *   **Transparency:** Página `/policies/privacy` revisada com bases legais e direitos dos titulares.
+2.  **Navegação Melhorada (Navbar):**
+    *   **Novo Dropdown "Institucional":** Links para Instituto, Academy e Enterprise.
+    *   **Menu Mobile:** Seção institucional adicionada com ícones.
 
-3.  **Institute Page "Quantum Prestige" Redesign (V17.4):**
-    *   **Estética:** "Quantum Ultra-Premium". Substituição do layout anterior por gradientes de malha (`mesh gradients`), orbes pulsantes e identidade visual híbrida (Playfair Display + Orbitron).
-    *   **UI Elements:** Cards holográficos.
+3.  **SEO Otimizado:**
+    *   **Sitemap Completo:** 17 URLs públicas (era 5).
+    *   **Metadados OG Corrigidos:** Imagem de preview para redes sociais funcionando.
 
-4.  **Repository Cleanup & Deploy Ops:**
-    *   **Standardization:** Remoção de 50+ scripts temporários de diagnóstico.
-    *   **Guides:** Criação de `DEPLOY_INSTRUCTIONS.md` e `DEPLOY_INSTRUCTIONS_DOCKER.md` para facilitar atualização em VPS.
+4.  **Academy (Fase 2 - Desativada):**
+    *   Botões alterados para "Lista de Espera" (cursos em desenvolvimento).
+    *   Cards de curso continuam visíveis para gerar interesse.
+
+5.  **Build Validado:** `npm run build` executado sem erros.
 
 
 ---

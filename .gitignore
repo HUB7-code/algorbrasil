@@ -58,3 +58,31 @@ env/
 **/build_log*.txt
 **/*.build.log
 
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+tests/reports/
+tests/screenshots/
+
+# Scripts Temporários e de Diagnóstico (Raiz)
+debug_*.py
+check_*.py
+reset_*.py
+create_*.py
+seed_*.py
+diagnose_*.py
+verify_*.py
+reproduce_*.py
+setup_*.py
+migrate_*.py
+fix_*.py
+cleanup_*.py
+run_*.py
+inspect_*.py
+test_*.py
+!tests/**/test_*.py
+
+# Relatórios json específicos
+security_report.json
+

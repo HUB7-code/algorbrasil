@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Lock, Search, Calculator, ShieldCheck, Users, BookOpen } from 'lucide-react';
+import { Menu, X, ChevronDown, Lock, Search, Calculator, ShieldCheck, Users, BookOpen, Building2, GraduationCap, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
@@ -162,6 +162,56 @@ export default function Navbar() {
                         </div>
                     </div>
 
+                    {/* Institucional Dropdown */}
+                    <div className="relative group">
+                        <button className="flex items-center gap-1.5 hover:text-white transition-colors py-2">
+                            Institucional
+                            <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-300" />
+                        </button>
+
+                        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-1 w-3 h-3 bg-[#131825] border-t border-l border-white/10 rotate-45" />
+
+                            <div className="relative bg-[#131825]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+                                <div className="absolute -top-10 -left-10 w-20 h-20 bg-[#8B5CF6]/20 rounded-full blur-[30px]" />
+
+                                <div className="p-2 space-y-1 relative z-10">
+                                    <Link href="/institute" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                                        <div className="w-8 h-8 rounded-lg bg-[#00FF94]/10 flex items-center justify-center text-[#00FF94] group-hover/item:scale-110 transition-transform">
+                                            <Building2 className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-white text-sm font-medium">Instituto ALGOR</p>
+                                            <p className="text-gray-500 text-xs">Pesquisa & Regulação de IA</p>
+                                        </div>
+                                    </Link>
+
+                                    <Link href="/academy" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                                        <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center text-[#8B5CF6] group-hover/item:scale-110 transition-transform">
+                                            <GraduationCap className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-white text-sm font-medium">Academy</p>
+                                            <p className="text-gray-500 text-xs">Formação em ISO 42001</p>
+                                        </div>
+                                    </Link>
+
+                                    <div className="h-[1px] bg-white/5 my-1 mx-2" />
+
+                                    <Link href="/solutions/enterprise" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                                        <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF] group-hover/item:scale-110 transition-transform">
+                                            <Briefcase className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-white text-sm font-medium">Enterprise</p>
+                                            <p className="text-gray-500 text-xs">Soluções corporativas</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     {/* Navigation Links */}
                     {navLinks.map((link) => (
                         <button
@@ -252,6 +302,28 @@ export default function Navbar() {
                                     prefetch={true}
                                 >
                                     Especialistas
+                                </Link>
+                            </div>
+
+                            <div className="space-y-2">
+                                <p className="text-xs text-gray-500 uppercase tracking-widest px-2 mb-2">Institucional</p>
+                                <Link href="/institute" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <div className="w-8 h-8 rounded-lg bg-[#00FF94]/10 flex items-center justify-center text-[#00FF94]">
+                                        <Building2 className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-white text-sm font-medium">Instituto ALGOR</span>
+                                </Link>
+                                <Link href="/academy" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center text-[#8B5CF6]">
+                                        <GraduationCap className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-white text-sm font-medium">Academy</span>
+                                </Link>
+                                <Link href="/solutions/enterprise" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
+                                        <Briefcase className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-white text-sm font-medium">Enterprise</span>
                                 </Link>
                             </div>
 
