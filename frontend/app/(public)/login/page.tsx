@@ -11,11 +11,6 @@ import { motion } from "framer-motion";
 // LOGIN PAGE - Power BI Premium Dark Mode
 // ========================================
 
-export const metadata = {
-    title: 'Login | Algor Brasil',
-    description: 'Acesse seu console de governança de IA',
-};
-
 
 export default function LoginPage() {
     const router = useRouter();

@@ -11,11 +11,6 @@ import Image from "next/image";
 // REGISTER PAGE - POWER BI PREMIUM
 // ========================================
 
-export const metadata = {
-    title: 'Cadastro | Algor Brasil',
-    description: 'Crie sua conta e acesse a plataforma de governança de IA',
-};
-
 
 const containerVariants = {
     hidden: { opacity: 0 },
