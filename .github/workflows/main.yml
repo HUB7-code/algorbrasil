@@ -26,9 +26,11 @@ jobs:
         pip install pytest httpx
 
     - name: Run Tests with pytest
+      env:
+        PYTHONPATH: ${{ github.workspace }}
       run: |
-        # Roda da RAIZ para que 'from backend.app.*' funcione
-        pytest backend/tests/test_smoke.py backend/tests/test_scanner_core.py -v
+        cd backend
+        pytest -v
 
   frontend-build:
     runs-on: ubuntu-latest

@@ -153,13 +153,53 @@ function NetworkMesh(props: any) {
     );
 }
 
+// Feature detection hook
+function useWebGLAvailable() {
+    const [available, setAvailable] = useState(true);
+
+    useMemo(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (!gl) setAvailable(false);
+            } catch (e) {
+                setAvailable(false);
+            }
+        }
+    }, []);
+
+    return available;
+}
+
 export default function HeroScene() {
+    const webglAvailable = useWebGLAvailable();
+
+    if (!webglAvailable) {
+        return (
+            <div className="absolute inset-0 z-0 h-full w-full pointer-events-none overflow-hidden bg-[#0A1A2F]">
+                {/* CSS Fallback Animation - Premium Pulse */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[100px] animate-pulse" />
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-[#00A3FF]/20 rounded-full animate-spin-slow opacity-30" />
+            </div>
+        );
+    }
+
     return (
         <div className="absolute inset-0 z-0 h-full w-full pointer-events-none">
             <ErrorBoundary fallback={
-                <div className="absolute inset-0 bg-gradient-to-b from-brand-navy via-brand-navy/90 to-black pointer-events-none" />
+                <div className="absolute inset-0 bg-[#0A1A2F]" />
             }>
-                <Canvas camera={{ position: [0, 0, 12], fov: 60 }} gl={{ preserveDrawingBuffer: true, alpha: true }}>
+                <Canvas
+                    camera={{ position: [0, 0, 12], fov: 60 }}
+                    gl={{
+                        antialias: true,
+                        powerPreference: "default",
+                        alpha: true,
+                        failIfMajorPerformanceCaveat: true
+                    }}
+                    dpr={[1, 1.5]}
+                >
                     <ambientLight intensity={0.5} />
 
                     <Float speed={1.5} rotationIntensity={0.5} floatIntensity={0.5}>

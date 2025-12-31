@@ -217,12 +217,33 @@ function NeuronTraffic({ count = 600 }) { // HIGH DENSITY DEFAULT
 }
 
 export default function AnimatedWave() {
+    // Basic WebGL Check inline to avoid complex hook duplication across files without a shared utils file
+    const [webglAvailable, setWebglAvailable] = React.useState(true);
+
+    React.useMemo(() => {
+        if (typeof window !== 'undefined') {
+            try {
+                const canvas = document.createElement('canvas');
+                const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                if (!gl) setWebglAvailable(false);
+            } catch (e) {
+                setWebglAvailable(false);
+            }
+        }
+    }, []);
+
+    if (!webglAvailable) return <div className="absolute inset-0 bg-[#0A1A2F] z-0" />;
+
     return (
         <div className="w-full h-full absolute inset-0 z-0 pointer-events-none">
             <Canvas
                 camera={{ position: [0, 0, 40], fov: 45 }}
-                gl={{ alpha: true, antialias: true }}
-                dpr={[1, 2]}
+                gl={{
+                    alpha: true,
+                    antialias: true,
+                    failIfMajorPerformanceCaveat: true
+                }}
+                dpr={[1, 1.5]}
                 style={{ width: '100%', height: '100%' }}
             >
                 <NeuronTraffic count={600} />

@@ -189,14 +189,40 @@ npm run dev
 
 ---
 
-## 📊 CHECKLIST FINAL V17.5
+## 🎯 JORNADA 5: ESTABILIDADE & HARMONIA (V17.8 - CRÍTICO)
 
+### Objetivo: Garantir que o site não crasha e parece profissional
+
+#### 5.1 WebGL Graceful Degradation (Homepage)
+- [ ] Abra o Console do Navegador (F12)
+- [ ] Simule falta de WebGL (ou use máquina virtual/celular antigo)
+- [ ] **Comportamento Esperado:**
+  - [ ] Hero Section exibe fundo animado CSS (Pulsante) ou cor sólida, SEM erro branco.
+  - [ ] AnimatedWave (rodapé) exibe gradiente suave.
+  - [ ] Console NÃO mostra "Context creation failed" como erro fatal.
+
+#### 5.2 Enterprise Visual Check (`/solutions/enterprise`)
+- [ ] Acesse http://localhost:3000/solutions/enterprise
+- [ ] **Harmonia Tipográfica:**
+  - [ ] Título "Cresça Rápido" deve ser Manrope Light (Fino e elegante).
+  - [ ] Título "Durma Tranquilo" deve ser Orbitron Bold.
+  - [ ] NENHUMA fonte Serif (Playfair) deve estar visível no topo ou rodapé.
+- [ ] **Limpeza:**
+  - [ ] Badge "Enterprise Grade Security" deve ser pequeno e discreto.
+  - [ ] Parágrafo hero deve ser limpo, sem palavras com bordas coloridas.
+
+**✅ Critério de Sucesso:** Site inquebrável e visualmente coeso (Premium Corporate).
+
+---
+
+## 📊 CHECKLIST FINAL - LAUNCH READY (V17.8)
+
+- [ ] ✅ **STABILITY:** WebGL Fallbacks & Error Boundaries Testados
+- [ ] ✅ **VISUAL:** Enterprise Page Polida (Sem "Carnaval" de fontes)
 - [ ] ✅ **SECURITY:** Auditoria e Hardening (Adversarial AI)
 - [ ] ✅ **COMPLIANCE:** Cookies, Privacy e Inventário
-- [ ] ✅ Nova Identidade (Quantum Prestige) em Institute
-- [ ] ✅ Compliance LGPD Art. 20 em Governance Policy
-- [ ] ✅ Dashboards: Main, Clients, Growth, Assessments, Projects
-- [ ] ✅ Gráficos Recharts (Area, Radar, Radial, Line)
-- [ ] ✅ Performance (Carregamento rápido, animações suaves)
+- [ ] ✅ **CONTENT:** Institucional Completo (About, Policy)
+- [ ] ✅ **PERFORMANCE:** Build Prod Otimizado
 
-**Tempo estimado:** 60 minutos
+**Tempo estimado:** 60 minutos (Regressão Completa)
+
