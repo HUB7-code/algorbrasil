@@ -1,9 +1,9 @@
 # MEMÓRIA DE STATUS DO PROJETO - ALGOR BRASIL
-**Versão Atual:** V17.8.1
+**Versão Atual:** V17.8.2
 **Data da Última Atualização:** 01/01/2026
-**Status:** 🚀 LAUNCH READY (Final Polish)
+**Status:** 🚀 LAUNCH READY (Production Stable)
 
-### 🚀 Últimas Conquistas (V17.8.0 - Visual Polish)
+### 🚀 Últimas Conquistas (V17.8.2 - Typography & CI Stability)
 
 1.  **Refinamento Visual Enterprise (`/solutions/enterprise`):**
     *   **Harmonização Tipográfica:** Substituição da mistura de fontes (Playfair/Orbitron) por uma hierarquia limpa (Manrope Light + Orbitron Bold).
@@ -25,11 +25,19 @@
     *   SEO e Sitemap validados.
     *   Build de produção validado.
 
+5.  **Correções V17.8.2 (01/01/2026):**
+    *   **Proporção Tipográfica Institute:** Reduzido tamanho do título hero de `8xl` para `6xl` para equilibrar com Enterprise.
+    *   **Assets Criados:** `grid.svg` adicionado ao `public/` para background patterns.
+    *   **Image Optimization:** Adicionado `sizes` prop aos componentes `next/image` com `fill`.
+    *   **CI/CD Fix:** Adicionado `python-jose` ao `requirements.txt` para resolver `ModuleNotFoundError: jose`.
+    *   **Remoção de Italic:** Eliminado uso de `italic` em fontes sans-serif para evitar fallback para serifas.
+
 
 ---
 
 ### 📜 Histórico Recente
 
+- [x] **V17.8.2:** Proporção Tipográfica Institute, Assets, Image Optimization e CI Fix.
 - [x] **V17.8.1:** Correções Globais de Tipografia (Academy/Institute/Enterprise) e Restauração de Build.
 - [x] **V17.8.0:** Harmonização Visual da Página Enterprise e Polimento UI.
 - [x] **V17.7.0:** Estabilidade WebGL e Correções CI/CD.
@@ -83,8 +91,8 @@ Evolução refinada para o lançamento:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 17.8.1 (Final Polish).*
-> **Última Atualização:** 01/01/2026 - 19:05
+*Documento atualizado automaticamente. Versão 17.8.2 (Production Stable).*
+> **Última Atualização:** 01/01/2026 - 19:38
 > **Status Geral:** **IMPECÁVEL & PRONTO** 🚀
-> **Versão:** 17.8.1
+> **Versão:** 17.8.2
 

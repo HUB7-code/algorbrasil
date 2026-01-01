@@ -1,7 +1,7 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 30/12/2025  
-**Versão:** V17.5 (Security Hardened)  
-**Objetivo:** Validar 100% das funcionalidades, incluyendo a nova camada de Segurança, Compliance LGPD e Institutional.
+**Data:** 01/01/2026  
+**Versão:** V17.8.2 (Production Stable)  
+**Objetivo:** Validar 100% das funcionalidades, incluindo Tipografia Premium, Segurança, Compliance LGPD e Institutional.
 
 ---
 
@@ -38,10 +38,11 @@
 
 #### 3.1 Institute Page (`/institute`)
 - [ ] Acesse http://localhost:3000/institute
-- [ ] **Visual "Quantum Prestige":**
+- [ ] **Visual "Quantum Prestige v2":**
   - [ ] Verifique fundo animado (Mesh Gradients pulsantes)
-  - [ ] Verifique título híbrido (Playfair Display + Orbitron)
+  - [ ] Verifique título híbrido (Manrope Light + Orbitron Bold) - **SEM SERIFA**
   - [ ] Verifique cards holográficos "PL 2338" e "ISO 42001" (Blur + Border Glow)
+  - [ ] Verifique proporção do título hero (text-4xl/5xl/6xl) - **NÃO EXAGERADO**
 - [ ] **Interação:**
   - [ ] Hover no botão "Nossa Metodologia" → Animação Skew/Slide
   - [ ] Hover nos cards de pilares → Flutuação e brilho
