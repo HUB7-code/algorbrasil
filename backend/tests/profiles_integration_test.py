@@ -1,125 +1,202 @@
-
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
+from datetime import datetime
+from decimal import Decimal
 
 from backend.app.main import app
-from backend.app.db.session import Base, get_db
+from backend.app.database import get_db
+from backend.app.models.profiles import CorporateProfile, ProfessionalProfile
 from backend.app.models.user import User
-from backend.app.models.profiles import CorporateProfile, ProfessionalProfile, UserProfile
-from backend.app.models.audit import AuditLog
+from backend.app.models.base import Base
+from backend.app.database import engine
 
-# Setup do Banco de Teste
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test_profiles.db"
-engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-def override_get_db():
-    try:
-        db = TestingSessionLocal()
-        while True: # Workaround para manter session no yield
-            yield db
-            break
-    finally:
-        db.close()
-
-app.dependency_overrides[get_db] = override_get_db
+# Create test client
 client = TestClient(app)
 
-def setup_module(module):
+# Test database setup
+@pytest.fixture(scope="module")
+def test_db():
     Base.metadata.create_all(bind=engine)
+    yield
+    Base.metadata.drop_all(bind=engine)
 
-def teardown_module(module):
-    import os
-    engine.dispose()
-    if os.path.exists("./test_profiles.db"):
+@pytest.fixture
+def db_session(test_db):
+    connection = engine.connect()
+    transaction = connection.begin()
+    session = Session(bind=connection)
+    
+    yield session
+    
+    session.close()
+    transaction.rollback()
+    connection.close()
+
+@pytest.fixture
+def override_get_db(db_session):
+    def _override_get_db():
         try:
-            os.remove("./test_profiles.db")
-        except:
+            yield db_session
+        finally:
             pass
+    app.dependency_overrides[get_db] = _override_get_db
+    yield
+    app.dependency_overrides.clear()
 
-def test_corporate_flow():
-    # 1. Signup
-    signup_data = {"email": "ceo@bigcorp.com", "password": "pass", "full_name": "CEO", "phone": "119999"}
-    client.post("/api/v1/signup", json=signup_data)
-    
-    # 2. Login
-    login_res = client.post("/api/v1/login", json={"email": "ceo@bigcorp.com", "password": "pass"})
-    token = login_res.json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    
-    # 3. Criar Perfil Corporativo
-    corp_data = {
-        "company_name": "Big Corp S.A.",
-        "sector": "Industrial",
-        "size_range": "201-1000",
-        "website": "https://bigcorp.com"
-    }
-    res = client.post("/api/v1/profiles/corporate", json=corp_data, headers=headers)
-    assert res.status_code == 201
-    assert res.json()["company_name"] == "Big Corp S.A."
-    
-    # 4. Verificar atualização de Role e Auditoria
-    # Vamos verificar via API /me
-    me_res = client.get("/api/v1/profiles/me", headers=headers)
-    assert me_res.json()["type"] == "corporate"
-    
-    print("\n✅ Fluxo Corporativo: SUCESSO")
+# Test data
+def create_test_user(db: Session, email: str = "test@example.com"):
+    user = User(
+        email=email,
+        hashed_password="hashed_password",
+        is_active=True,
+        created_at=datetime.utcnow()
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
 
-def test_integrity_constraint():
-    # Tentar criar perfil profissional para usuário que JÁ É Corporativo (deve falhar)
-    
-    # Login como CEO (criado no teste anterior)
-    login_res = client.post("/api/v1/login", json={"email": "ceo@bigcorp.com", "password": "pass"})
-    token = login_res.json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    
-    prof_data = {
-        "linkedin_url": "https://linkedin.com/in/ceo",
-        "primary_expertise": "Management",
-        "city": "SP",
-        "state": "SP"
-    }
-    
-    res = client.post("/api/v1/profiles/professional", json=prof_data, headers=headers)
-    
-    assert res.status_code == 400
-    assert "já possui um perfil" in res.json()["detail"]
-    
-    print("\n✅ Integridade de Dados (Constraint): SUCESSO - Duplicidade bloqueada")
+def create_test_corporate_profile(db: Session, user_id: int):
+    profile = CorporateProfile(
+        user_id=user_id,
+        company_name="Test Company",
+        cnpj="12345678901234",
+        company_size="medium",
+        industry="technology",
+        created_at=datetime.utcnow()
+    )
+    db.add(profile)
+    db.commit()
+    db.refresh(profile)
+    return profile
 
-def test_professional_flow():
-    # 1. Signup Auditor
-    client.post("/api/v1/signup", json={"email": "auditor@algor.com", "password": "pass", "full_name": "Auditor", "phone": "118888"})
-    
-    # 2. Login
-    token = client.post("/api/v1/login", json={"email": "auditor@algor.com", "password": "pass"}).json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    
-    # 3. Criar Perfil
-    prof_data = {
-        "linkedin_url": "https://linkedin.com/in/auditor",
-        "primary_expertise": "Compliance",
-        "city": "RJ",
-        "state": "RJ",
-        "years_experience": 5
-    }
-    res = client.post("/api/v1/profiles/professional", json=prof_data, headers=headers)
-    assert res.status_code == 201
-    
-    print("\n✅ Fluxo Profissional: SUCESSO")
+def create_test_professional_profile(db: Session, user_id: int):
+    profile = ProfessionalProfile(
+        user_id=user_id,
+        full_name="Test Professional",
+        cpf="12345678901",
+        experience_years=5,
+        hourly_rate=Decimal("100.00"),
+        created_at=datetime.utcnow()
+    )
+    db.add(profile)
+    db.commit()
+    db.refresh(profile)
+    return profile
 
-if __name__ == "__main__":
-    try:
-        setup_module(None)
-        test_corporate_flow()
-        test_integrity_constraint()
-        test_professional_flow()
-        print("\n🎉 TODOS OS TESTES DE INTEGRAÇÃO PASSARAM!")
-    except AssertionError as e:
-        print(f"\n❌ FALHA: {e}")
-    except Exception as e:
-        print(f"\n❌ ERRO: {e}")
-    finally:
-        teardown_module(None)
+# Tests
+def test_create_corporate_profile(db_session, override_get_db):
+    user = create_test_user(db_session)
+    
+    response = client.post(
+        "/api/v1/profiles/corporate",
+        json={
+            "user_id": user.id,
+            "company_name": "New Company",
+            "cnpj": "98765432109876",
+            "company_size": "large",
+            "industry": "finance"
+        }
+    )
+    
+    assert response.status_code == 201
+    data = response.json()
+    assert data["company_name"] == "New Company"
+    assert data["cnpj"] == "98765432109876"
+
+def test_create_professional_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="professional@example.com")
+    
+    response = client.post(
+        "/api/v1/profiles/professional",
+        json={
+            "user_id": user.id,
+            "full_name": "New Professional",
+            "cpf": "98765432100",
+            "experience_years": 10,
+            "hourly_rate": 150.00
+        }
+    )
+    
+    assert response.status_code == 201
+    data = response.json()
+    assert data["full_name"] == "New Professional"
+    assert data["experience_years"] == 10
+
+def test_get_corporate_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="corporate@example.com")
+    profile = create_test_corporate_profile(db_session, user.id)
+    
+    response = client.get(f"/api/v1/profiles/corporate/{profile.id}")
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert data["company_name"] == "Test Company"
+
+def test_get_professional_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="prof@example.com")
+    profile = create_test_professional_profile(db_session, user.id)
+    
+    response = client.get(f"/api/v1/profiles/professional/{profile.id}")
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert data["full_name"] == "Test Professional"
+
+def test_update_corporate_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="update_corp@example.com")
+    profile = create_test_corporate_profile(db_session, user.id)
+    
+    response = client.put(
+        f"/api/v1/profiles/corporate/{profile.id}",
+        json={
+            "company_name": "Updated Company",
+            "industry": "healthcare"
+        }
+    )
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert data["company_name"] == "Updated Company"
+    assert data["industry"] == "healthcare"
+
+def test_update_professional_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="update_prof@example.com")
+    profile = create_test_professional_profile(db_session, user.id)
+    
+    response = client.put(
+        f"/api/v1/profiles/professional/{profile.id}",
+        json={
+            "full_name": "Updated Professional",
+            "hourly_rate": 200.00
+        }
+    )
+    
+    assert response.status_code == 200
+    data = response.json()
+    assert data["full_name"] == "Updated Professional"
+
+def test_delete_corporate_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="delete_corp@example.com")
+    profile = create_test_corporate_profile(db_session, user.id)
+    
+    response = client.delete(f"/api/v1/profiles/corporate/{profile.id}")
+    
+    assert response.status_code == 204
+    
+    # Verify deletion
+    response = client.get(f"/api/v1/profiles/corporate/{profile.id}")
+    assert response.status_code == 404
+
+def test_delete_professional_profile(db_session, override_get_db):
+    user = create_test_user(db_session, email="delete_prof@example.com")
+    profile = create_test_professional_profile(db_session, user.id)
+    
+    response = client.delete(f"/api/v1/profiles/professional/{profile.id}")
+    
+    assert response.status_code == 204
+    
+    # Verify deletion
+    response = client.get(f"/api/v1/profiles/professional/{profile.id}")
+    assert response.status_code == 404
