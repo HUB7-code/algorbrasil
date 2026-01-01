@@ -1,6 +1,6 @@
 # MEMÓRIA DE STATUS DO PROJETO - ALGOR BRASIL
-**Versão Atual:** V17.8.0
-**Data da Última Atualização:** 31/12/2025
+**Versão Atual:** V17.8.1
+**Data da Última Atualização:** 01/01/2026
 **Status:** 🚀 LAUNCH READY (Final Polish)
 
 ### 🚀 Últimas Conquistas (V17.8.0 - Visual Polish)
@@ -9,6 +9,7 @@
     *   **Harmonização Tipográfica:** Substituição da mistura de fontes (Playfair/Orbitron) por uma hierarquia limpa (Manrope Light + Orbitron Bold).
     *   **Limpeza de Interface:** Remoção de destaques excessivos e badges de tamanho desproporcional. A página agora respira elegância corporativa.
     *   **CTA Harmonizado:** Rodapé alinhado com a nova identidade visual sóbria.
+    *   **Extensão Global:** Correções aplicadas também às páginas `/academy`, `/institute` e `/hub`, eliminando completamente o uso indevido de serifas.
 
 2.  **Estabilidade Frontend (V17.7 - WebGL Protection):**
     *   **Correção de Crash Crítico:** Implementada proteção `useWebGLAvailable` na Homepage.
@@ -29,6 +30,7 @@
 
 ### 📜 Histórico Recente
 
+- [x] **V17.8.1:** Correções Globais de Tipografia (Academy/Institute/Enterprise) e Restauração de Build.
 - [x] **V17.8.0:** Harmonização Visual da Página Enterprise e Polimento UI.
 - [x] **V17.7.0:** Estabilidade WebGL e Correções CI/CD.
 - [x] **V17.6.0:** Conteúdo Institucional Completo e Sitemap.
@@ -81,8 +83,8 @@ Evolução refinada para o lançamento:
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 17.8.0 (Final Polish).*
-> **Última Atualização:** 31/12/2025 - 12:20
+*Documento atualizado automaticamente. Versão 17.8.1 (Final Polish).*
+> **Última Atualização:** 01/01/2026 - 19:05
 > **Status Geral:** **IMPECÁVEL & PRONTO** 🚀
-> **Versão:** 17.8.0
+> **Versão:** 17.8.1
 

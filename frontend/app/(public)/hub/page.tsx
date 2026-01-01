@@ -86,7 +86,7 @@ export default function KnowledgeHubPage() {
                         <BookOpen className="w-3 h-3" />
                         KNOWLEDGE HUB
                     </span>
-                    <h1 className="text-4xl md:text-6xl font-serif font-medium mb-6 leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-display font-medium mb-6 leading-tight">
                         A Inteligência da <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">
                             Governança de IA
@@ -153,7 +153,7 @@ export default function KnowledgeHubPage() {
             {/* 3. GLOSSARY SECTION */}
             <section className="max-w-7xl mx-auto px-4 md:px-8 py-20">
                 <div className="flex items-center justify-between mb-10">
-                    <h2 className="text-2xl font-serif">Glossário de Governança</h2>
+                    <h2 className="text-2xl font-display">Glossário de Governança</h2>
                     <span className="text-xs text-gray-500 font-mono">LIVE UPDATED</span>
                 </div>
 
@@ -209,7 +209,7 @@ export default function KnowledgeHubPage() {
             {/* 4. CTA SECTION (The Hook) */}
             <section className="relative w-full py-24 mb-20 border-y border-white/5 bg-gradient-to-b from-[#0A0E1A] to-[#131825]">
                 <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-3xl md:text-5xl font-serif mb-6">
+                    <h2 className="text-3xl md:text-5xl font-display mb-6">
                         Quer transformar conhecimento em <br />
                         <span className="text-[#00A3FF]">Carreira?</span>
                     </h2>

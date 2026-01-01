@@ -64,7 +64,7 @@ export default function ForgotPasswordPage() {
                         <div className="w-20 h-20 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/30 flex items-center justify-center mb-6">
                             <div className="w-10 h-10 text-[#00FF94]">📩</div>
                         </div>
-                        <h2 className="text-2xl font-serif text-white mb-4">Verifique seu E-mail</h2>
+                        <h2 className="text-2xl font-display text-white mb-4">Verifique seu E-mail</h2>
                         <p className="text-sm text-gray-400 mb-8 leading-relaxed">
                             {message}
                         </p>
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
                             <div className="w-20 h-20 rounded-full bg-[#00A3FF]/10 flex items-center justify-center mb-6 border border-[#00A3FF]/30 shadow-[0_0_30px_rgba(0,163,255,0.2)]">
                                 <KeyRound className="w-8 h-8 text-[#00A3FF]" />
                             </div>
-                            <h1 className="text-3xl font-serif text-center text-white mb-3">
+                            <h1 className="text-3xl font-display text-center text-white mb-3">
                                 Recuperar Senha
                             </h1>
                             <p className="text-sm text-gray-400 text-center font-light max-w-xs">

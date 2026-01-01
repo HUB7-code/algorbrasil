@@ -31,7 +31,7 @@ export default function ExclusiveContentPage() {
     return (
         <div className="p-8 w-full min-h-screen space-y-8 relative">
             <div className="border-b border-white/10 pb-6">
-                <h1 className="text-3xl font-serif font-medium text-white mb-2">Acervo Premium</h1>
+                <h1 className="text-3xl font-display font-medium text-white mb-2">Acervo Premium</h1>
                 <p className="text-gray-400">Materiais técnicos de alta profundidade para implementação e auditoria.</p>
             </div>
 
@@ -67,7 +67,7 @@ export default function ExclusiveContentPage() {
                                 </div>
 
                                 <div>
-                                    <h2 className="text-2xl font-serif text-white mb-2">Conteúdo Exclusivo</h2>
+                                    <h2 className="text-2xl font-display text-white mb-2">Conteúdo Exclusivo</h2>
                                     <p className="text-gray-400 text-sm leading-relaxed">
                                         O acesso a templates editáveis, playbooks e ferramentas de auditoria é restrito a <strong>Membros Associados</strong>.
                                     </p>

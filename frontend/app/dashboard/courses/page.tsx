@@ -43,7 +43,7 @@ export default function CoursesPage() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-8 animate-in fade-in slide-in-from-top-4 duration-700">
                 <div>
-                    <h1 className="text-3xl md:text-4xl font-serif font-medium text-white mb-2 tracking-tight">
+                    <h1 className="text-3xl md:text-4xl font-display font-medium text-white mb-2 tracking-tight">
                         Universidade ALGOR
                     </h1>
                     <p className="text-gray-300 font-light text-lg">
@@ -62,7 +62,7 @@ export default function CoursesPage() {
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A3FF]/10 text-[#00A3FF] border border-[#00A3FF]/20 text-[10px] font-bold uppercase tracking-widest">
                         <Star className="w-3 h-3 fill-current" /> Certificação Oficial
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-serif font-medium text-white leading-tight">
+                    <h2 className="text-4xl md:text-5xl font-display font-medium text-white leading-tight">
                         Auditor Líder <br />ISO 42001
                     </h2>
                     <p className="text-gray-300 max-w-lg text-lg font-light leading-relaxed">
@@ -116,7 +116,7 @@ function CourseCard({ title, type, students, duration, onClick }: any) {
             </div>
 
             <div className="flex-1">
-                <h3 className="text-xl font-serif font-medium text-white mb-2 group-hover:text-white/80 transition-colors line-clamp-2">
+                <h3 className="text-xl font-sans font-medium text-white mb-2 group-hover:text-white/80 transition-colors line-clamp-2">
                     {title}
                 </h3>
                 <div className="flex items-center gap-4 text-xs text-gray-500 font-mono mt-4">

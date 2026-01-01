@@ -71,7 +71,7 @@ function VerifyEmailContent() {
                     <div className="w-20 h-20 rounded-full bg-[#00FF94]/10 flex items-center justify-center mb-6 ring-1 ring-[#00FF94]/30">
                         <CheckCircle className="w-10 h-10 text-[#00FF94]" />
                     </div>
-                    <h2 className="text-2xl text-white font-serif mb-4">Conta Ativada</h2>
+                    <h2 className="text-2xl text-white font-display mb-4">Conta Ativada</h2>
                     <p className="text-gray-400 mb-8 max-w-xs">{message}</p>
 
                     <Link href="/login" className="w-full">

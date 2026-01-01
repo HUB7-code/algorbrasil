@@ -42,7 +42,7 @@ export default function InstitutePage() {
 
                         {/* Main Title */}
                         <h1 className="text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 tracking-tight font-light text-white">
-                            <span className="font-playfair italic">A Ciência da</span> <br />
+                            <span className="font-sans font-light text-white/80">A Ciência da</span> <br />
                             <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] via-[#00A3FF] to-[#00FF94] bg-[length:200%_auto] animate-gradient-text tracking-tighter">
                                 Confiança Artificial
                             </span>
@@ -188,7 +188,7 @@ export default function InstitutePage() {
 
                         <blockquote className="font-manrope text-3xl md:text-5xl lg:text-6xl font-light leading-snug mb-12 text-white tracking-tight">
                             "A confiança não é um
-                            <span className="italic font-playfair text-gray-400 px-3">atributo de software</span>,
+                            <span className="font-sans font-light text-gray-400 px-3">atributo de software</span>,
                             mas uma <span className="font-orbitron font-bold text-[#00FF94] tracking-wide">construção social</span> validada por rigorosa auditoria."
                         </blockquote>
 

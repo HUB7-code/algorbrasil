@@ -290,7 +290,7 @@ export default function Navbar() {
                                     <button
                                         key={link.id}
                                         onClick={() => handleNavigation(link.id)}
-                                        className="w-full text-left p-2 text-xl font-serif text-white hover:text-[#00FF94] transition-colors"
+                                        className="w-full text-left p-2 text-xl font-sans text-white hover:text-[#00FF94] transition-colors"
                                     >
                                         {link.label}
                                     </button>
@@ -298,7 +298,7 @@ export default function Navbar() {
                                 <Link
                                     href="/associates"
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="block p-2 text-xl font-serif text-white hover:text-[#00FF94] transition-colors"
+                                    className="block p-2 text-xl font-sans text-white hover:text-[#00FF94] transition-colors"
                                     prefetch={true}
                                 >
                                     Especialistas

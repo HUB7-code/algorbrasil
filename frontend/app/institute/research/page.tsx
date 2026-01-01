@@ -31,7 +31,7 @@ export default function InstituteResearchPage() {
                         <span className="text-xs font-mono uppercase tracking-widest text-[#8B5CF6]">Laboratório de Pesquisa</span>
                     </div>
 
-                    <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                    <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight">
                         Pesquisa & <span className="text-[#8B5CF6]">Inteligência</span>
                     </h1>
                     <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">

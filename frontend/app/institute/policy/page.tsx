@@ -26,7 +26,7 @@ export default function InstitutoPolicyPage() {
                         <span className="text-sm font-mono uppercase tracking-widest">Voltar ao Instituto</span>
                     </Link>
 
-                    <h1 className="font-playfair text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                    <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight">
                         Pareceres <span className="text-[#00A3FF]">Técnicos</span>
                     </h1>
                     <p className="text-xl text-gray-300 leading-relaxed max-w-2xl">

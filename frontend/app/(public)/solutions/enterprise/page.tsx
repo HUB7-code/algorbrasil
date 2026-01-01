@@ -114,7 +114,7 @@ export default function EnterprisePage() {
                     </div>
 
                     <h1 className="text-5xl lg:text-8xl font-light mb-8 leading-[0.9] tracking-tight text-white">
-                        <span className="font-manrope font-light text-white/90 block mb-2 tracking-tight">Cresça Rápido.</span>
+                        <span className="font-sans font-light text-white/80 block mb-2 tracking-tight">Cresça Rápido.</span>
                         <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00FF94] to-[#00A3FF] animate-gradient-text">
                             Durma Tranquilo.
                         </span>
@@ -210,7 +210,7 @@ export default function EnterprisePage() {
                             <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
                                 <div>
                                     <h2 className="text-4xl lg:text-5xl font-light mb-12 leading-tight">
-                                        <span className="font-playfair italic block mb-2">Infraestrutura de</span>
+                                        <span className="font-sans font-light text-white/80 block mb-2">Infraestrutura de</span>
                                         <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF] animate-gradient-text tracking-tight">Confiança Digital</span>
                                     </h2>
 

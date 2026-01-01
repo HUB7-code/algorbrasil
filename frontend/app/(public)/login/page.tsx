@@ -121,7 +121,7 @@ export default function LoginPage() {
                         </div>
                     </motion.div>
 
-                    <h1 className="text-3xl font-serif text-white mb-2 text-center">
+                    <h1 className="text-3xl font-display text-white mb-2 text-center">
                         Bem-vindo
                     </h1>
                     <p className="text-sm text-gray-400 text-center font-light">

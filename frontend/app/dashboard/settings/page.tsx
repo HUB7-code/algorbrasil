@@ -121,7 +121,7 @@ export default function SettingsPage() {
 
             {/* Header */}
             <div className="border-b border-white/10 pb-8 animate-in fade-in slide-in-from-top-4 duration-700">
-                <h1 className="text-3xl md:text-4xl font-serif font-medium text-white mb-2 tracking-tight">
+                <h1 className="text-3xl md:text-4xl font-display font-medium text-white mb-2 tracking-tight">
                     Configurações
                 </h1>
                 <p className="text-gray-300 font-light text-lg">
@@ -166,10 +166,10 @@ export default function SettingsPage() {
                     {activeTab === 'profile' && (
                         <>
                             <div className="glass-panel p-8 rounded-2xl">
-                                <h3 className="text-xl font-serif font-medium text-white mb-6">Informações Pessoais</h3>
+                                <h3 className="text-xl font-sans font-medium text-white mb-6">Informações Pessoais</h3>
 
                                 <div className="flex items-center gap-6 mb-8">
-                                    <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-3xl font-serif text-white relative group overflow-hidden">
+                                    <div className="w-24 h-24 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-3xl font-sans text-white relative group overflow-hidden">
                                         {userData.profile_image ? (
                                             <img src={userData.profile_image} alt="Profile" className="w-full h-full object-cover" />
                                         ) : (
@@ -249,7 +249,7 @@ export default function SettingsPage() {
 
                             <div className="glass-panel p-8 rounded-2xl">
                                 <div className="flex justify-between items-center mb-6">
-                                    <h3 className="text-xl font-serif font-medium text-white">API Keys</h3>
+                                    <h3 className="text-xl font-sans font-medium text-white">API Keys</h3>
                                     <button className="text-xs font-bold text-[#00FF94] uppercase tracking-wider hover:underline" onClick={() => alert("Gerar nova chave: Recurso Enterprise.")}>Gerar Nova Chave</button>
                                 </div>
                                 <div className="p-4 bg-black/20 rounded-xl border border-white/5 flex items-center justify-between font-mono text-sm text-gray-400">
@@ -273,7 +273,7 @@ export default function SettingsPage() {
                     {/* === SECURITY TAB === */}
                     {activeTab === 'security' && (
                         <div className="glass-panel p-8 rounded-2xl space-y-8">
-                            <h3 className="text-xl font-serif font-medium text-white flex items-center gap-2">
+                            <h3 className="text-xl font-sans font-medium text-white flex items-center gap-2">
                                 <Shield className="w-5 h-5 text-[#00FF94]" /> Segurança da Conta
                             </h3>
 
@@ -312,7 +312,7 @@ export default function SettingsPage() {
                             <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto">
                                 <CreditCard className="w-8 h-8 text-gray-400" />
                             </div>
-                            <h3 className="text-xl font-serif font-medium text-white">Gerenciamento de Assinatura</h3>
+                            <h3 className="text-xl font-sans font-medium text-white">Gerenciamento de Assinatura</h3>
                             <p className="text-gray-400 text-sm max-w-md mx-auto">
                                 Você está atualmente no plano <strong>Enterprise Beta</strong>. O faturamento será ativado na versão 7.0.
                             </p>
@@ -325,7 +325,7 @@ export default function SettingsPage() {
                     {/* === NOTIFICATIONS TAB === */}
                     {activeTab === 'notifications' && (
                         <div className="glass-panel p-8 rounded-2xl">
-                            <h3 className="text-xl font-serif font-medium text-white mb-6">Preferências de Notificação</h3>
+                            <h3 className="text-xl font-sans font-medium text-white mb-6">Preferências de Notificação</h3>
                             <div className="space-y-6">
                                 <ToggleRow label="Alertas de Segurança" description="Notificar sobre novos logins e alterações de senha." checked />
                                 <ToggleRow label="Relatórios Semanais" description="Resumo de auditorias e riscos toda segunda-feira." checked />

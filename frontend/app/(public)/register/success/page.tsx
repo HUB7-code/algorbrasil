@@ -31,7 +31,7 @@ export default function RegisterSuccessPage() {
                     </div>
                 </div>
 
-                <h1 className="text-2xl font-serif text-white mb-4">
+                <h1 className="text-2xl font-display text-white mb-4">
                     Confirme seu E-mail
                 </h1>
 

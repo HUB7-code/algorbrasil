@@ -38,7 +38,7 @@ export default function AcademyPage() {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-light mb-8 leading-[0.95] tracking-tight text-white">
-                            <span className="font-playfair italic text-gray-200">Domine a</span> <br />
+                            <span className="font-sans font-light text-gray-200">Domine a</span> <br />
                             <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] via-[#00A3FF] to-[#00FF94] bg-[length:200%_auto] animate-gradient-text">
                                 Governança de IA
                             </span>

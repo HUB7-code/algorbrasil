@@ -178,7 +178,7 @@ function RegisterContent() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <h1 className="text-5xl font-serif font-medium leading-tight mb-6 text-white">
+                        <h1 className="text-5xl font-display font-medium leading-tight mb-6 text-white">
                             Bem-vindo à <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">Elite</span>
                         </h1>
                         <p className="text-gray-400 text-lg max-w-md font-light leading-relaxed">
@@ -284,7 +284,7 @@ function RegisterContent() {
                                 Secure Registration
                             </span>
                         </div>
-                        <h2 className="text-4xl font-serif font-medium text-white mb-2">
+                        <h2 className="text-4xl font-display font-medium text-white mb-2">
                             Criar <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Conta</span>
                         </h2>
                         <p className="text-gray-400 font-light">
@@ -309,7 +309,7 @@ function RegisterContent() {
                                 >
                                     <CheckCircle2 className="w-10 h-10 text-[#00FF94]" />
                                 </motion.div>
-                                <h3 className="text-2xl font-serif font-medium text-white mb-2">Conta Criada!</h3>
+                                <h3 className="text-2xl font-display font-medium text-white mb-2">Conta Criada!</h3>
                                 <p className="text-gray-400">Redirecionando para verificação...</p>
                             </motion.div>
                         ) : (

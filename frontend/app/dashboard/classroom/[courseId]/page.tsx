@@ -111,7 +111,7 @@ export default function ClassroomPage() {
                 `}
             >
                 <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                    <h2 className="font-serif font-bold text-lg tracking-wide truncate max-w-[200px]" title={course.title}>
+                    <h2 className="font-display font-bold text-lg tracking-wide truncate max-w-[200px]" title={course.title}>
                         {course.title}
                     </h2>
                     <button onClick={() => setSidebarOpen(false)} className="lg:hidden p-1 hover:bg-white/10 rounded">
