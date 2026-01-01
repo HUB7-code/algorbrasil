@@ -37,7 +37,7 @@ export default function ResetPasswordPage() {
                 <div className="flex flex-col items-center mb-8">
                     {/* Logo Small */}
                     <div className="w-[120px] h-[60px] relative mb-6">
-                        <Image src="/logo-algor.webp" alt="Algor" fill className="object-contain" />
+                        <Image src="/logo-algor.webp" alt="Algor" fill sizes="120px" className="object-contain" />
                     </div>
 
                     <h1 className="text-[28px] font-normal text-center text-[#E3E3E3] mb-2">

@@ -91,6 +91,7 @@ export default function Navbar() {
                                 src="/logo-algor.webp"
                                 alt="Algor Brasil Logo"
                                 fill
+                                sizes="112px"
                                 className="object-cover"
                                 priority
                             />

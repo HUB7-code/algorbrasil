@@ -41,9 +41,9 @@ export default function InstitutePage() {
                         </div>
 
                         {/* Main Title */}
-                        <h1 className="text-6xl md:text-7xl lg:text-8xl leading-[0.95] mb-8 tracking-tight font-light text-white">
-                            <span className="font-sans font-light text-white/80">A Ciência da</span> <br />
-                            <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] via-[#00A3FF] to-[#00FF94] bg-[length:200%_auto] animate-gradient-text tracking-tighter">
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl leading-[1.1] mb-8 tracking-tight text-white">
+                            <span className="font-sans font-light text-white/80 block mb-2">A Ciência da</span>
+                            <span className="font-orbitron font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] via-[#00A3FF] to-[#00FF94] bg-[length:200%_auto] animate-gradient-text">
                                 Confiança Artificial
                             </span>
                         </h1>
