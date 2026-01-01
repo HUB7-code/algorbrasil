@@ -6,7 +6,9 @@ from sqlalchemy.orm import sessionmaker
 
 from backend.app.main import app
 from backend.app.db.session import Base, get_db
-from backend.app.models.profiles import CorporateProfile, ProfessionalProfile # Import para create_all
+from backend.app.models.user import User
+from backend.app.models.profiles import CorporateProfile, ProfessionalProfile, UserProfile
+from backend.app.models.audit import AuditLog
 
 # Setup do Banco de Teste
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_profiles.db"

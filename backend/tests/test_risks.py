@@ -10,6 +10,11 @@ from sqlalchemy.orm import sessionmaker
 from backend.app.main import app
 from backend.app.db.session import Base, get_db
 
+# ✅ ADICIONE ESTES IMPORTS DOS MODELOS
+from backend.app.models.user import User
+from backend.app.models.risk import RiskRegister
+from backend.app.models.audit import AuditLog
+
 # Setup Database for Testing
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_risks.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
@@ -26,11 +31,12 @@ app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
-def setup_database():
+# ✅ ADICIONE DECORATOR PYTEST PARA SETUP/TEARDOWN
+@pytest.fixture(scope="class", autouse=True)
+def setup_database_fixture():
     print("Setting up database...")
     Base.metadata.create_all(bind=engine)
-
-def teardown_database():
+    yield
     print("Tearing down database...")
     Base.metadata.drop_all(bind=engine)
     engine.dispose()
@@ -118,19 +124,7 @@ import logging
 logging.basicConfig(filename='test_debug.log', level=logging.DEBUG, filemode='w')
 
 if __name__ == "__main__":
-    setup_database()
-    try:
-        logging.info("Starting tests...")
-        tester = TestRiskModule()
-        tester.setup_class()
-        tester.test_create_risk()
-        tester.test_list_risks()
-        tester.test_update_risk()
-        tester.test_unauthorized_access()
-        print("\n✅ ALL BACKEND TESTS PASSED SUCCESSFULLY!")
-        logging.info("ALL PASSED")
-    except Exception as e:
-        print(f"\n❌ TEST FAILED: {e}")
-        logging.error(f"TEST FAILED: {e}", exc_info=True)
-    finally:
-        teardown_database()
+    # Fixtures don't run automatically in __name__ == "__main__", but pytest tests do.
+    # We can keep a minimal run wrapper or let pytest handle it.
+    # Given the complexity, we assume this file is run via pytest in CI.
+    pytest.main([__file__])
