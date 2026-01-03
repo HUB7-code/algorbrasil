@@ -1,0 +1,26 @@
+LAUDO MÉDICO CONFIDENCIAL
+DATA: 03/01/2026
+HOSPITAL ALBERT EINSTEIN - UNIDADE MORUMBI
+
+PACIENTE: CARLOS DRUMMOND DE ANDRADE
+CPF: 153.298.447-89
+DATA DE NASCIMENTO: 31/10/1902
+
+MÉDICO RESPONSÁVEL: DR. DRAUZIO VARELLA
+CRM/SP: 123456
+
+HISTÓRICO CLÍNICO:
+Paciente relata dores torácicas agudas. Exames preliminares indicam isquemia miocárdica silenciosa.
+Encaminhado para cateterismo de urgência.
+
+DIAGNÓSTICO PRINCIPAL:
+CID-10 I20.9 - Angina pectoris não especificada
+CID-10 I25.1 - Doença aterosclerótica do coração
+
+OBSERVAÇÕES DE ENFERMAGEM:
+Paciente é alérgico a Dipirona.
+Contato de emergência: (11) 98888-7777 (Filha Maria).
+E-mail pessoal: carlos.drummond@poesia.com.br
+
+CONFIDENCIAL - USO RESTRITO AO CORPO CLÍNICO
+PROIBIDA A CÓPIA OU REPRODUÇÃO - LEI 13.709/2018 (LGPD)

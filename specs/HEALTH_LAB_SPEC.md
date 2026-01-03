@@ -91,9 +91,27 @@ Plataforma de Diagnóstico Operacional para o setor de Saúde, focada em auditar
 **Roadmap de Implementação:**
 - [x] Docker Compose com PostgreSQL.
 - [x] Dependências Backend (psycopg2, asyncpg).
-- [ ] Criar endpoint `/xai`.
+- [x] Backend Core Logic (XAIService) + Testes TDD.
+- [ ] Criar endpoint `/xai`. (Já criado, falta integrar no frontend)
 - [ ] Integrar Microsoft Presidio.
 - [ ] Modelagem `Assessment` com JSONB.
+
+---
+
+## 6. UX/UI Requirements ("The Expert Pause")
+
+**Estratégia:** "Teatro de Auditoria". O sistema deve simular um processamento profundo para valorizar a complexidade da análise ("A Pausa do Especialista").
+
+**Status Loading Sequence (~3s total):**
+Ocorrerá em overlay sobre um gráfico desfocado (blur/noise):
+1.  *"Interrogando pesos sinápticos e vetores de explicabilidade (XAI)..."*
+2.  *"Mapeando aderência ao Art. 20 da LGPD & requisitos do PL 2338..."*
+3.  *"Auditando integridade de PHI (Personal Health Information) e entropia de dados..."*
+4.  *"Sintetizando Mapa de Calor de Risco e Veredito de Governança..."*
+
+**Reveal:**
+- O blur desaparece ("Snap focus").
+- Cores Neon Green (Low Risk) ou Electric Red (High Risk) "explodem" na tela.
 
 ---
 *Gerado por Antigravity para Astra - ALGOR BRASIL*

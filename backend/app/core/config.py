@@ -21,6 +21,12 @@ class Settings(BaseSettings):
         "https://algorbrasil.com.br",
         "https://www.algorbrasil.com.br"
     ]
+
+    # ========================================
+    # Rate Limiting & Security
+    # ========================================
+    # IPs imunes ao Rate Limiter (Ex: Escritório Edisio, Localhost, Test Runners)
+    WHITELISTED_IPS: list[str] = ["127.0.0.1", "::1"]
     
     # ========================================
     # SEGURANÇA

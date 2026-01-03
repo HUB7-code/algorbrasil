@@ -2,6 +2,9 @@ import pandas as pd
 import io
 import re
 import time
+import sys
+import os
+import psutil
 from typing import BinaryIO
 from backend.app.schemas.lab import XAIAuditResult
 
@@ -13,7 +16,7 @@ class XAIService:
         "Confidence Intervals": r"(confidence|interval|std_err|uncertainty)",
         "Native Probabilities": r"(proba|score|prediction_raw)"
     }
-
+    
     RISK_PATTERNS = {
         "Obfuscated Features": r"^(f\d+|var_\d+|feat_\d+|v\d+)$", # ex: f1, var_23
     }
@@ -22,17 +25,28 @@ class XAIService:
     def audit_file(file_content: bytes, filename: str) -> XAIAuditResult:
         start_time = time.time()
         
-        # 1. Carregar em Memória (Zero Retention)
+        # Telemetria de Memória (Start)
+        process = psutil.Process(os.getpid())
+        mem_start = process.memory_info().rss / 1024 / 1024
+        
+        # 1. Carregar em Memória (Zero Retention) - FULL SCAN
         try:
             if filename.endswith('.csv'):
-                df = pd.read_csv(io.BytesIO(file_content), nrows=50) # Lê apenas header e primeiras linhas p/ performance
+                # Removido nrows=50 para auditoria completa e teste de stress real
+                df = pd.read_csv(io.BytesIO(file_content)) 
             elif filename.endswith('.json'):
                 df = pd.read_json(io.BytesIO(file_content))
             else:
-                # Tenta CSV como fallback
-                df = pd.read_csv(io.BytesIO(file_content), nrows=50)
+                df = pd.read_csv(io.BytesIO(file_content))
+                
+            # Telemetria de Memória (Peak)
+            mem_peak = process.memory_info().rss / 1024 / 1024
+            mem_delta = mem_peak - mem_start
+            print(f"[MEMORY TELEMETRY] File: {filename} | Rows: {len(df)} | RAM Delta: {mem_delta:.2f} MB")
+
         except Exception as e:
-            raise ValueError(f"Formato de arquivo inválido ou corrompido: {str(e)}")
+            print(f"[MEMORY ERROR] Falha ao carregar arquivo na RAM: {str(e)}")
+            raise ValueError(f"Arquivo corrompido ou muito grande para auditoria express: {str(e)}")
 
         columns = df.columns.tolist()
         
@@ -42,13 +56,11 @@ class XAIService:
         missing_components = []
         
         # Bonificações (Compliant)
-        has_xai = False
         for name, pattern in XAIService.CRITICAL_PATTERNS.items():
             matches = [col for col in columns if re.search(pattern, col, re.IGNORECASE)]
             if matches:
                 score += 25 if "SHAP" in name or "LIME" in name else 15
                 detected_methods.append(name)
-                has_xai = True
             else:
                 missing_components.append(name)
 
@@ -62,7 +74,7 @@ class XAIService:
             penalty = min(30, obfuscated_count * 2) # Teto de 30 pontos de penalidade
             score -= penalty
             if penalty > 10:
-                missing_components.append(f"Alta Ofuscação detectada ({obfuscated_count} colunas genéricas)")
+                missing_components.append(f"Alta Ofuscação ({obfuscated_count} col.)")
 
         # Normalização do Score (0-100)
         score = max(0, min(100, score))
@@ -79,6 +91,11 @@ class XAIService:
             verdict = "CAIXA-PRETA DETECTADA. Alto risco jurídico. Ausência de vetores de explicabilidade."
 
         processing_time = (time.time() - start_time) * 1000
+
+        # Liberar memória explicitamente (Good Practice)
+        del df
+        import gc
+        gc.collect()
 
         return XAIAuditResult(
             score=score,
