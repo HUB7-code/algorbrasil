@@ -103,6 +103,10 @@ app.include_router(reports.router, prefix="/api/v1", tags=["Relatórios & Export
 from backend.app.api.endpoints import health
 app.include_router(health.router, prefix="/api/v1", tags=["Health"])
 
+# HEALTH LAB (AUDIT) MODULE
+from backend.app.api.endpoints import lab
+app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab (Audit)"])
+
 @app.get("/", tags=["Status"])
 @limiter.limit("10/minute") # Exemplo: max 10 requests por minuto por IP
 async def health_check(request: Request):

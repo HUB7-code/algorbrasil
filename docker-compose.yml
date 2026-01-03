@@ -12,9 +12,9 @@ services:
       # Persistir Uploads (LMS)
       - ./backend/app/static/uploads:/app/backend/app/static/uploads
       # Montar Assets Públicos (Logo para Emails) - CRÍTICO PARA VPS
-      - ./frontend/public:/app/frontend/public
     environment:
-      - DATABASE_URL=sqlite:///./sql_app.db
+      # - DATABASE_URL=sqlite:///./sql_app.db # Legacy SQLite
+      - DATABASE_URL=postgresql://algor:algor_secure_pass@db:5432/algor_db
       - SECRET_KEY=${SECRET_KEY}
       - DATA_ENCRYPTION_KEY=${DATA_ENCRYPTION_KEY}
       - SMTP_SERVER=${SMTP_SERVER}
@@ -23,6 +23,22 @@ services:
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL}
       - FRONTEND_URL=${FRONTEND_URL}
+    depends_on:
+      - db
+
+  # Serviço Banco de Dados (PostgreSQL 16)
+  db:
+    image: postgres:16-alpine
+    container_name: algor_db
+    restart: always
+    environment:
+      - POSTGRES_USER=algor
+      - POSTGRES_PASSWORD=algor_secure_pass
+      - POSTGRES_DB=algor_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   # Serviço Frontend (Next.js)
   frontend:
@@ -74,7 +90,11 @@ services:
       - ./backend/sql_app.db:/app/sql_app.db # Acessa o mesmo arquivo DB
     # Nota: Adminer roda na porta 8080 por padrão do container
 
-    # Rede compartilhada (opcional, pois docker-compose cria default)
+    # Rede compartilhada
+volumes:
+  postgres_data:
+
+
 networks:
   default:
     name: algor_network
