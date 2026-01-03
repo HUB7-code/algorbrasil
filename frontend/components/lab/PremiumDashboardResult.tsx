@@ -121,18 +121,182 @@ export default function PremiumDashboardResult({
         { name: 'Empty', value: 100 - score }
     ];
 
-    // PDF Export
+    // PDF Export - Professional Report
     const handleExportPDF = async () => {
-        if (!dashboardRef.current) return;
         setExporting(true);
         try {
-            const html2canvas = (await import('html2canvas')).default;
             const jsPDF = (await import('jspdf')).default;
-            const canvas = await html2canvas(dashboardRef.current, { scale: 2, backgroundColor: '#0D1117' });
-            const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [canvas.width, canvas.height] });
-            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
-            pdf.save(`ALGOR_Relatorio_${new Date().toISOString().split('T')[0]}.pdf`);
-        } catch (e) { console.error(e); }
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const margin = 20;
+            let y = 20;
+
+            // Helper functions
+            const addTitle = (text: string, size: number = 16) => {
+                pdf.setFontSize(size);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(30, 41, 59);
+                pdf.text(text, margin, y);
+                y += size * 0.5;
+            };
+
+            const addText = (text: string, size: number = 11) => {
+                pdf.setFontSize(size);
+                pdf.setFont('helvetica', 'normal');
+                pdf.setTextColor(71, 85, 105);
+                const lines = pdf.splitTextToSize(text, pageWidth - margin * 2);
+                pdf.text(lines, margin, y);
+                y += lines.length * size * 0.4 + 2;
+            };
+
+            const addSection = (title: string, content: string, action?: string) => {
+                // Check if we need a new page
+                if (y > 250) {
+                    pdf.addPage();
+                    y = 20;
+                }
+
+                // Section title
+                pdf.setFillColor(241, 245, 249);
+                pdf.roundedRect(margin - 2, y - 4, pageWidth - margin * 2 + 4, 8, 2, 2, 'F');
+                pdf.setFontSize(11);
+                pdf.setFont('helvetica', 'bold');
+                pdf.setTextColor(30, 41, 59);
+                pdf.text(title, margin, y + 2);
+                y += 12;
+
+                // Content
+                addText(content);
+
+                // Action if exists
+                if (action) {
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'bolditalic');
+                    pdf.setTextColor(isGood ? 0 : 220, isGood ? 150 : 50, isGood ? 100 : 50);
+                    pdf.text('→ Ação Recomendada: ', margin, y);
+                    pdf.setFont('helvetica', 'italic');
+                    const actionLines = pdf.splitTextToSize(action, pageWidth - margin * 2 - 35);
+                    pdf.text(actionLines, margin + 35, y);
+                    y += actionLines.length * 4 + 6;
+                }
+                y += 4;
+            };
+
+            // ========== HEADER ==========
+            pdf.setFillColor(13, 17, 23);
+            pdf.rect(0, 0, pageWidth, 40, 'F');
+
+            pdf.setFontSize(22);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(255, 255, 255);
+            pdf.text('ALGOR BRASIL', margin, 18);
+
+            pdf.setFontSize(10);
+            pdf.setFont('helvetica', 'normal');
+            pdf.setTextColor(148, 163, 184);
+            pdf.text('RELATÓRIO DE AUDITORIA DE INTELIGÊNCIA ARTIFICIAL', margin, 26);
+            pdf.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, margin, 32);
+
+            y = 55;
+
+            // ========== EXECUTIVE SUMMARY ==========
+            addTitle('RESUMO EXECUTIVO', 18);
+            y += 5;
+
+            // Score Box
+            pdf.setFillColor(isGood ? 220 : 255, isGood ? 252 : 230, isGood ? 231 : 230);
+            pdf.roundedRect(margin, y, pageWidth - margin * 2, 35, 3, 3, 'F');
+
+            pdf.setFontSize(40);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(isGood ? 0 : 220, isGood ? 150 : 50, isGood ? 100 : 50);
+            pdf.text(`${score}`, margin + 10, y + 25);
+
+            pdf.setFontSize(12);
+            pdf.text('/100', margin + 35, y + 25);
+
+            pdf.setFontSize(14);
+            pdf.setTextColor(30, 41, 59);
+            pdf.text(isGood ? 'MODELO AUDITÁVEL' : 'CAIXA-PRETA DETECTADA', margin + 60, y + 18);
+
+            pdf.setFontSize(10);
+            pdf.setTextColor(71, 85, 105);
+            pdf.text(verdict, margin + 60, y + 28);
+
+            y += 50;
+
+            // ========== DETAILED FINDINGS ==========
+            addTitle('ANÁLISE DETALHADA', 16);
+            y += 8;
+
+            // Iterate through metrics
+            metrics.forEach((m) => {
+                const config = CONFIG[m.label as keyof typeof CONFIG];
+                if (config) {
+                    const status = m.trend === 'up' ? '✓ Adequado' : '⚠ Atenção';
+                    addSection(
+                        `${m.label}: ${m.value} ${m.sub ? `(${m.sub})` : ''} - ${status}`,
+                        config.meaning,
+                        config.action
+                    );
+                }
+            });
+
+            // ========== CHART ANALYSIS ==========
+            addSection(
+                'Evolução Temporal',
+                CONFIG['Evolução Temporal'].meaning,
+                CONFIG['Evolução Temporal'].action
+            );
+
+            addSection(
+                'Distribuição de Variáveis',
+                CONFIG['Distribuição'].meaning,
+                CONFIG['Distribuição'].action
+            );
+
+            // ========== CONCLUSION ==========
+            if (y > 220) {
+                pdf.addPage();
+                y = 20;
+            }
+
+            addTitle('CONCLUSÃO E PRÓXIMOS PASSOS', 16);
+            y += 5;
+
+            if (isGood) {
+                addText('O modelo analisado apresenta características compatíveis com as boas práticas de governança de IA. Recomenda-se manter o monitoramento contínuo e realizar auditorias periódicas para garantir a conformidade ao longo do tempo.');
+                y += 5;
+                addText('Próximos passos sugeridos:');
+                addText('1. Documentar os resultados desta auditoria no inventário de IA da organização.');
+                addText('2. Agendar próxima auditoria em 90 dias.');
+                addText('3. Compartilhar este relatório com o comitê de governança.');
+            } else {
+                addText('O modelo analisado apresenta RISCOS SIGNIFICATIVOS que requerem ação imediata. A ausência de mecanismos de explicabilidade configura uma "caixa-preta" algorítmica, o que pode violar o Art. 20 da LGPD e expor a organização a sanções administrativas.');
+                y += 5;
+                addText('Próximos passos OBRIGATÓRIOS:');
+                addText('1. SUSPENDER o uso do modelo em decisões que afetem pessoas até regularização.');
+                addText('2. Notificar o fornecedor da IA sobre os requisitos de explicabilidade.');
+                addText('3. Agendar reunião urgente com o DPO e jurídico da organização.');
+                addText('4. Documentar este relatório como evidência de due diligence.');
+            }
+
+            // ========== FOOTER ==========
+            const totalPages = pdf.internal.pages.length - 1;
+            for (let i = 1; i <= totalPages; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(8);
+                pdf.setTextColor(148, 163, 184);
+                pdf.text(`ALGOR BRASIL - Relatório Confidencial - Página ${i} de ${totalPages}`, margin, 290);
+                pdf.text('Este documento foi gerado automaticamente pelo sistema de auditoria algorítmica.', pageWidth - margin - 80, 290);
+            }
+
+            pdf.save(`ALGOR_Relatorio_Auditoria_${new Date().toISOString().split('T')[0]}.pdf`);
+        } catch (e) {
+            console.error('Erro ao gerar PDF:', e);
+            alert('Erro ao gerar o relatório. Tente novamente.');
+        }
         finally { setExporting(false); }
     };
 
