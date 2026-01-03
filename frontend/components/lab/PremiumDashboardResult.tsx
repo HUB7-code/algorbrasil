@@ -46,10 +46,10 @@ export default function PremiumDashboardResult({
                 <div>
                     <div className="flex items-center gap-3 mb-2">
                         <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-orbitron text-gray-400 tracking-widest uppercase">
-                            ALGOR INTELLIGENCE UNIT
+                            UNIDADE DE INTELIGÊNCIA ALGOR
                         </span>
                         <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-orbitron text-gray-400 tracking-widest uppercase">
-                            {type.toUpperCase()} MODULE
+                            MÓDULO {type.toUpperCase()}
                         </span>
                     </div>
                     <h2 className="text-4xl font-orbitron font-bold text-white tracking-tight">{title}</h2>
@@ -59,7 +59,7 @@ export default function PremiumDashboardResult({
                 <div className="text-right">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 cursor-pointer hover:bg-white/10 transition-colors">
                         <Download className="w-4 h-4 text-[#00A3FF]" />
-                        <span className="text-sm font-semibold text-gray-300">Export PDF</span>
+                        <span className="text-sm font-semibold text-gray-300">Exportar PDF</span>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@ export default function PremiumDashboardResult({
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
                 {/* Score Card (Gauge) */}
                 <div className="md:col-span-1 bg-[#0A0E1A] border border-white/10 rounded-2xl p-4 relative flex flex-col items-center justify-center">
-                    <h3 className="text-xs text-gray-500 uppercase tracking-widest absolute top-4 left-4">Trust Score</h3>
+                    <h3 className="text-xs text-gray-500 uppercase tracking-widest absolute top-4 left-4">Índice de Confiança</h3>
                     <div className="relative w-full h-[140px] flex items-center justify-center">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
@@ -152,7 +152,7 @@ export default function PremiumDashboardResult({
                 {/* Side Bar Chart (Categories) */}
                 <div className="md:col-span-1 bg-[#0A0E1A] border border-white/10 rounded-2xl p-6">
                     <h3 className="text-xs text-gray-500 uppercase tracking-widest mb-4">
-                        {type === 'xai' ? 'Feature Importance (SHAP)' : 'Tipos de Violação'}
+                        {type === 'xai' ? 'Importância das Variáveis' : 'Tipos de Violação'}
                     </h3>
                     <ResponsiveContainer width="100%" height="85%">
                         <BarChart layout="vertical" data={barData} barSize={10}>

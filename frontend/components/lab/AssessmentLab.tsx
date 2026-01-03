@@ -105,7 +105,7 @@ export default function AssessmentLab() {
                         exit={{ opacity: 0, y: -20 }}
                         className="text-center w-full max-w-xl z-10"
                     >
-                        <h2 className="text-4xl font-orbitron font-bold text-white mb-2">Health AI Auditor</h2>
+                        <h2 className="text-4xl font-orbitron font-bold text-white mb-2">Auditor de IA para Saúde</h2>
                         <p className="text-gray-400 mb-8 font-manrope">Arraste os logs do modelo para iniciar o diagnóstico forense ISO 42001.</p>
 
                         <div
@@ -177,13 +177,13 @@ export default function AssessmentLab() {
                     <div className="w-full z-10 animate-in fade-in duration-700">
                         <PremiumDashboardResult
                             type="xai"
-                            title="Health AI Auditor Report"
+                            title="Relatório de Auditoria de IA"
                             score={result.score}
                             riskLevel={result.risk_level}
                             verdict={result.verdict}
                             metrics={[
-                                { label: 'Features Lidas', value: result.transparency_metrics.total_columns_scanned, sub: 'Colunas processadas' },
-                                { label: 'Métodos XAI', value: result.detected_explainability_methods.length, sub: 'SHAP / LIME Detectados', trend: result.detected_explainability_methods.length > 0 ? 'up' : 'down' },
+                                { label: 'Variáveis Analisadas', value: result.transparency_metrics.total_columns_scanned, sub: 'Colunas processadas' },
+                                { label: 'Métodos de Explicabilidade', value: result.detected_explainability_methods.length, sub: 'SHAP / LIME Detectados', trend: result.detected_explainability_methods.length > 0 ? 'up' : 'down' },
                                 { label: 'Entropia', value: result.transparency_metrics.entropy_flag ? 'ALTA' : 'BAIXA', sub: 'Complexidade Interna' }
                             ]}
                             chartData={[

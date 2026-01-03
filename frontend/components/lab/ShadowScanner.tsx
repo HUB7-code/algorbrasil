@@ -53,7 +53,7 @@ export default function ShadowScanner() {
             <div className="mb-6 flex justify-between items-center">
                 <div>
                     <h2 className="text-2xl font-orbitron font-bold text-white flex items-center gap-2">
-                        <EyeOff className="text-red-500" /> Shadow AI Simulator
+                        <EyeOff className="text-red-500" /> Simulador de Shadow AI
                     </h2>
                     <p className="text-gray-400 text-sm">Simule vazamento de dados em IAs públicas (ChatGPT/Gemini).</p>
                 </div>
@@ -77,7 +77,7 @@ export default function ShadowScanner() {
                             disabled={!text}
                             className="self-end px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <Search className="w-5 h-5" /> SCAN EXPOSURE
+                            <Search className="w-5 h-5" /> ESCANEAR EXPOSIÇÃO
                         </button>
                     </motion.div>
                 )}

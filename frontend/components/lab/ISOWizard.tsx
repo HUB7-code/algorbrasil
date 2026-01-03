@@ -48,7 +48,7 @@ export default function ISOWizard() {
             {step < 5 && (
                 <div className="w-full mb-8">
                     <div className="flex justify-between text-xs text-gray-500 uppercase tracking-widest mb-2">
-                        <span>ISO 42001 Assessment</span>
+                        <span>Avaliação ISO 42001</span>
                         <span>Questão {step + 1} de {QUESTIONS.length}</span>
                     </div>
                     <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden">
@@ -108,7 +108,7 @@ export default function ISOWizard() {
 
                         <div className="bg-white/5 p-8 rounded-2xl border border-white/10 mb-8">
                             <div className="text-6xl font-bold text-[#00FF94]">{result.score}/100</div>
-                            <p className="text-sm text-gray-500 mt-2">ALGOR COMPLIANCE INDEX</p>
+                            <p className="text-sm text-gray-500 mt-2">ÍNDICE DE CONFORMIDADE ALGOR</p>
                         </div>
 
                         {result.recommendations.length > 0 && (
