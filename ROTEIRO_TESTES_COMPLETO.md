@@ -1,7 +1,7 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 01/01/2026  
-**Versão:** V17.8.2 (Production Stable)  
-**Objetivo:** Validar 100% das funcionalidades, incluindo Tipografia Premium, Segurança, Compliance LGPD e Institutional.
+**Data:** 03/01/2026
+**Versão:** V17.9.0 (Health Lab Ultimate)
+**Objetivo:** Validar 100% das funcionalidades, incluindo Auditoria Premium, Relatórios PDF, Segurança e Compliance.
 
 ---
 
@@ -190,7 +190,38 @@ npm run dev
 
 ---
 
-## 🎯 JORNADA 5: ESTABILIDADE & HARMONIA (V17.8 - CRÍTICO)
+## 🎯 JORNADA 5: HEALTH LAB ULTIMATE (V17.9 - NOVO)
+
+### Objetivo: Validar auditoria premium e relatórios profissionais
+
+#### 5.1 Power BI Dashboard (`/lab/audit`)
+- [ ] Processe um arquivo de teste (`RISCO_MODELO_BLACKBOX.csv`).
+- [ ] **Visual "Bento Grid":**
+  - [ ] Verifique layout gradeado com cards de diferentes tamanhos.
+  - [ ] Verifique se o **Score Radial** pulsa suavemente (Animação).
+  - [ ] Verifique se os números grandes têm contagem animada (0 -> Valor Final).
+- [ ] **Data Viz:**
+  - [ ] Verifique Sparklines (mini gráficos) dentro dos cards de métricas.
+  - [ ] Verifique se o Gráfico de Evolução (Area Chart) tem gradiente azul/neon.
+- [ ] **Smart Tooltips:**
+  - [ ] Passe o mouse sobre o ícone "i" (Info) em "Variáveis Analisadas".
+  - [ ] O tooltip deve aparecer **sobre** o card (sem ser cortado).
+  - [ ] Verifique se contém duas seções: "O que significa?" e "O que fazer?".
+
+#### 5.2 Professional PDF Report
+- [ ] Clique no botão "Exportar PDF".
+- [ ] Aguarde o download do arquivo `ALGOR_Relatorio_Auditoria_[DATA].pdf`.
+- [ ] Abra o PDF e valide:
+  - [ ] **Header:** Fundo Navy (`#0A1A2F`) com Logo da Algor à esquerda.
+  - [ ] **Cores:** Título "ALGOR BRASIL" em Verde Neon (`#00FF94`).
+  - [ ] **Resumo Executivo:** Score grande com caixa colorida (Verde se >70, Vermelho se <70).
+  - [ ] **Recomendações:** Ações específicas (ex: "Solicite documentação...") aparecem em destaque.
+  - [ ] **Legibilidade:** Texto selecionável (não imagem) em fonte limpa.
+- [ ] Teste com um arquivo "Risco Alto" e verifique se o relatório reflete o tom de alerta (Vermelho).
+
+---
+
+## 🎯 JORNADA 6: ESTABILIDADE & HARMONIA (V17.8)
 
 ### Objetivo: Garantir que o site não crasha e parece profissional
 

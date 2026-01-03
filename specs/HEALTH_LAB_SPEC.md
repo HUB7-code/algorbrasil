@@ -113,5 +113,37 @@ Ocorrerá em overlay sobre um gráfico desfocado (blur/noise):
 - O blur desaparece ("Snap focus").
 - Cores Neon Green (Low Risk) ou Electric Red (High Risk) "explodem" na tela.
 
+## 7. Especificação de Relatórios & Paleta Oficial (V17.9)
+
+#### 7.1 Relatório Profissional (PDF)
+O sistema deve gerar relatórios em PDF nativo via `jspdf`, não screenshots.
+
+**Estrutura Obrigatória:**
+1.  **Header:**
+    *   Background: `#0A1A2F` (Deep Navy)
+    *   Logo: Carregada dinamicamente
+    *   Título: "ALGOR BRASIL" em `#00FF94`
+    *   Metadados: Timestamp de geração
+2.  **Resumo Executivo:**
+    *   Score em destaque (tamanho 40pt+)
+    *   Caixa de status com cor semântica (Verde/Vermelho)
+3.  **Análise Detalhada:**
+    *   Lista de indicadores auditados
+    *   Seção "O que significa?" (Educativa)
+    *   Seção "Ação Recomendada" (Consultiva)
+4.  **Conclusão:** Texto dinâmico baseado no veredito.
+
+#### 7.2 Paleta de Cores Oficial (Health Lab)
+Usar estritamente estas cores para garantir consistência "Power BI Premium":
+
+| Cor | Hex | Uso Principal |
+|-----|-----|---------------|
+| **Deep Navy** | `#0A1A2F` | Backgrounds, Headers, Cards (com opacidade) |
+| **Neon Green** | `#00FF94` | Sucesso, Score > 75, Tendência Alta, Ícones |
+| **Neon Red** | `#FF0055` | Risco, Score < 40, AlertTriangle, Erro |
+| **Electric Cyan**| `#00A3FF` | Acentos, Gráficos, Botões Primários, Subtítulos |
+| **Cyber Purple** | `#9945FF` | Baseline, Entropia, Elementos Secundários |
+| **Slate Gray** | `#64748B` | Textos de apoio, Eixos de gráficos, Bordas sutis |
+
 ---
 *Gerado por Antigravity para Astra - ALGOR BRASIL*
