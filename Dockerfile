@@ -34,6 +34,11 @@ FROM python:3.10-slim
 RUN addgroup --system --gid 1001 appgroup && \
     adduser --system --uid 1001 --gid 1001 appuser
 
+# [SECURITY HARDENING] Install system dependencies required for 'python-magic' (libmagic)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends libmagic1 && \
+    rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # Copy virtual environment from builder stage
