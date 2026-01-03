@@ -127,6 +127,18 @@ export default function Navbar() {
                                 <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#00A3FF]/20 rounded-full blur-[30px]" />
 
                                 <div className="p-2 space-y-1 relative z-10">
+                                    <Link href="/lab" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
+                                        <div className="w-8 h-8 rounded-lg bg-[#FF0055]/10 flex items-center justify-center text-[#FF0055] group-hover/item:scale-110 transition-transform">
+                                            <ShieldCheck className="w-4 h-4" />
+                                        </div>
+                                        <div>
+                                            <p className="text-white text-sm font-medium">Health AI Lab</p>
+                                            <p className="text-gray-500 text-xs text-[10px]">Auditoria & Compliance</p>
+                                        </div>
+                                    </Link>
+
+                                    <div className="h-[1px] bg-white/5 my-1 mx-2" />
+
                                     <Link href="/scanner" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
                                         <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF] group-hover/item:scale-110 transition-transform">
                                             <Search className="w-4 h-4" />
@@ -271,6 +283,12 @@ export default function Navbar() {
                         <div className="space-y-6">
                             <div className="space-y-2">
                                 <p className="text-xs text-gray-500 uppercase tracking-widest px-2 mb-2">Ferramentas</p>
+                                <Link href="/lab" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <div className="w-8 h-8 rounded-lg bg-[#FF0055]/10 flex items-center justify-center text-[#FF0055]">
+                                        <ShieldCheck className="w-4 h-4" />
+                                    </div>
+                                    <span className="text-white text-sm font-medium">Health AI Lab</span>
+                                </Link>
                                 <Link href="/scanner" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
                                     <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
                                         <Search className="w-4 h-4" />
@@ -337,6 +355,6 @@ export default function Navbar() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.nav >
+        </motion.nav>
     );
 }
