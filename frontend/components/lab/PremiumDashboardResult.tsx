@@ -172,31 +172,67 @@ export default function PremiumDashboardResult({
                 // Action if exists
                 if (action) {
                     pdf.setFontSize(10);
-                    pdf.setFont('helvetica', 'bolditalic');
-                    pdf.setTextColor(isGood ? 0 : 220, isGood ? 150 : 50, isGood ? 100 : 50);
+                    pdf.setFont('helvetica', 'bold');
+                    pdf.setTextColor(isGood ? 0 : 255, isGood ? 163 : 0, isGood ? 255 : 85); // #00A3FF or #FF0055
                     pdf.text('→ Ação Recomendada: ', margin, y);
-                    pdf.setFont('helvetica', 'italic');
-                    const actionLines = pdf.splitTextToSize(action, pageWidth - margin * 2 - 35);
-                    pdf.text(actionLines, margin + 35, y);
+                    pdf.setFont('helvetica', 'normal');
+                    pdf.setTextColor(71, 85, 105);
+                    const actionLines = pdf.splitTextToSize(action, pageWidth - margin * 2 - 38);
+                    pdf.text(actionLines, margin + 38, y);
                     y += actionLines.length * 4 + 6;
                 }
                 y += 4;
             };
 
-            // ========== HEADER ==========
-            pdf.setFillColor(13, 17, 23);
-            pdf.rect(0, 0, pageWidth, 40, 'F');
+            // ========== LOAD LOGO ==========
+            // Fetch logo and convert to base64
+            let logoBase64 = '';
+            try {
+                const logoResponse = await fetch('/logo-symbol.png');
+                const logoBlob = await logoResponse.blob();
+                logoBase64 = await new Promise<string>((resolve) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result as string);
+                    reader.readAsDataURL(logoBlob);
+                });
+            } catch (e) {
+                console.warn('Logo não encontrada, continuando sem ela.');
+            }
 
-            pdf.setFontSize(22);
+            // ========== HEADER - CORES OFICIAIS ==========
+            // Background: #0A1A2F (Deep Navy)
+            pdf.setFillColor(10, 26, 47);
+            pdf.rect(0, 0, pageWidth, 45, 'F');
+
+            // Accent line: #00A3FF (Cyan)
+            pdf.setFillColor(0, 163, 255);
+            pdf.rect(0, 45, pageWidth, 2, 'F');
+
+            // Logo
+            if (logoBase64) {
+                try {
+                    pdf.addImage(logoBase64, 'PNG', margin, 8, 28, 28);
+                } catch (e) {
+                    console.warn('Erro ao adicionar logo');
+                }
+            }
+
+            // Title - ALGOR BRASIL
+            pdf.setFontSize(24);
             pdf.setFont('helvetica', 'bold');
-            pdf.setTextColor(255, 255, 255);
-            pdf.text('ALGOR BRASIL', margin, 18);
+            pdf.setTextColor(0, 255, 148); // #00FF94 (Neon Green)
+            pdf.text('ALGOR BRASIL', logoBase64 ? margin + 35 : margin, 20);
 
-            pdf.setFontSize(10);
+            // Subtitle
+            pdf.setFontSize(11);
             pdf.setFont('helvetica', 'normal');
+            pdf.setTextColor(0, 163, 255); // #00A3FF (Cyan)
+            pdf.text('RELATÓRIO DE AUDITORIA DE INTELIGÊNCIA ARTIFICIAL', logoBase64 ? margin + 35 : margin, 28);
+
+            // Date
+            pdf.setFontSize(9);
             pdf.setTextColor(148, 163, 184);
-            pdf.text('RELATÓRIO DE AUDITORIA DE INTELIGÊNCIA ARTIFICIAL', margin, 26);
-            pdf.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, margin, 32);
+            pdf.text(`Gerado em: ${new Date().toLocaleDateString('pt-BR')} às ${new Date().toLocaleTimeString('pt-BR')}`, logoBase64 ? margin + 35 : margin, 36);
 
             y = 55;
 
@@ -204,25 +240,37 @@ export default function PremiumDashboardResult({
             addTitle('RESUMO EXECUTIVO', 18);
             y += 5;
 
-            // Score Box
-            pdf.setFillColor(isGood ? 220 : 255, isGood ? 252 : 230, isGood ? 231 : 230);
+            // Score Box - CORES OFICIAIS
+            // Good: #00FF94 background tint, Bad: #FF0055 background tint
+            pdf.setFillColor(isGood ? 10 : 30, isGood ? 40 : 15, isGood ? 35 : 25);
             pdf.roundedRect(margin, y, pageWidth - margin * 2, 35, 3, 3, 'F');
 
+            // Border accent
+            pdf.setDrawColor(isGood ? 0 : 255, isGood ? 255 : 0, isGood ? 148 : 85);
+            pdf.setLineWidth(0.5);
+            pdf.roundedRect(margin, y, pageWidth - margin * 2, 35, 3, 3, 'S');
+
+            // Score number
             pdf.setFontSize(40);
             pdf.setFont('helvetica', 'bold');
-            pdf.setTextColor(isGood ? 0 : 220, isGood ? 150 : 50, isGood ? 100 : 50);
+            pdf.setTextColor(isGood ? 0 : 255, isGood ? 255 : 0, isGood ? 148 : 85); // #00FF94 or #FF0055
             pdf.text(`${score}`, margin + 10, y + 25);
 
             pdf.setFontSize(12);
             pdf.text('/100', margin + 35, y + 25);
 
+            // Status text
             pdf.setFontSize(14);
-            pdf.setTextColor(30, 41, 59);
+            pdf.setFont('helvetica', 'bold');
+            pdf.setTextColor(isGood ? 0 : 255, isGood ? 255 : 0, isGood ? 148 : 85);
             pdf.text(isGood ? 'MODELO AUDITÁVEL' : 'CAIXA-PRETA DETECTADA', margin + 60, y + 18);
 
+            // Verdict description
             pdf.setFontSize(10);
-            pdf.setTextColor(71, 85, 105);
-            pdf.text(verdict, margin + 60, y + 28);
+            pdf.setFont('helvetica', 'normal');
+            pdf.setTextColor(148, 163, 184);
+            const verdictLines = pdf.splitTextToSize(verdict, pageWidth - margin * 2 - 60);
+            pdf.text(verdictLines, margin + 60, y + 26);
 
             y += 50;
 
