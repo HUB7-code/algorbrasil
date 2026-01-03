@@ -1,72 +1,82 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
-    BarChart, Bar, Cell, PieChart, Pie
+    AreaChart, Area, XAxis, YAxis, Tooltip as RechartsTooltip, ResponsiveContainer,
+    BarChart, Bar, Cell, PieChart, Pie, RadialBarChart, RadialBar, LineChart, Line
 } from 'recharts';
-import { Activity, ShieldAlert, Lock, Zap, Download, HelpCircle, Brain, Eye, Puzzle, Gauge, TrendingUp, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Download, HelpCircle, TrendingUp, TrendingDown, Shield, AlertTriangle, CheckCircle, Activity, Brain, Eye, Lock, Zap, Target, Layers } from 'lucide-react';
 
 interface PremiumDashboardProps {
     title: string;
     score: number;
     riskLevel: string;
     verdict: string;
-    metrics: { label: string; value: string | number; sub?: string; trend?: 'up' | 'down'; tooltip?: string }[];
+    metrics: { label: string; value: string | number; sub?: string; trend?: 'up' | 'down' }[];
     chartData: any[];
     barData: any[];
     type: 'xai' | 'shadow' | 'iso';
 }
 
-// Componente de Tooltip Educativo
+// Tooltip Component
 const InfoTooltip = ({ text }: { text: string }) => {
     const [show, setShow] = useState(false);
     return (
         <div className="relative inline-block">
-            <button
-                onMouseEnter={() => setShow(true)}
-                onMouseLeave={() => setShow(false)}
-                className="w-5 h-5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
-            >
+            <button onMouseEnter={() => setShow(true)} onMouseLeave={() => setShow(false)}
+                className="w-5 h-5 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
                 <HelpCircle className="w-3 h-3 text-gray-400" />
             </button>
             {show && (
-                <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-[#1a1f2e] border border-white/20 rounded-xl shadow-2xl text-xs text-gray-300 leading-relaxed"
-                >
+                <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }}
+                    className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-56 p-3 bg-[#1a1f2e] border border-white/20 rounded-xl shadow-2xl text-xs text-gray-300 leading-relaxed">
                     {text}
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-3 h-3 bg-[#1a1f2e] border-b border-r border-white/20 rotate-45 -mt-1.5" />
                 </motion.div>
             )}
         </div>
     );
 };
 
-// Ícones por tipo de métrica
-const getMetricIcon = (label: string) => {
-    const iconMap: Record<string, React.ReactNode> = {
-        'Variáveis Analisadas': <Puzzle className="w-5 h-5" />,
-        'Métodos de Explicabilidade': <Brain className="w-5 h-5" />,
-        'Entropia': <Activity className="w-5 h-5" />,
-        'Entidades': <Eye className="w-5 h-5" />,
-        'Caracteres': <Gauge className="w-5 h-5" />,
-        'Ofuscação': <Lock className="w-5 h-5" />,
-    };
-    return iconMap[label] || <Zap className="w-5 h-5" />;
+// Mini Sparkline Component
+const Sparkline = ({ data, color }: { data: number[], color: string }) => (
+    <ResponsiveContainer width="100%" height={40}>
+        <LineChart data={data.map((v, i) => ({ v }))}>
+            <Line type="monotone" dataKey="v" stroke={color} strokeWidth={2} dot={false} />
+        </LineChart>
+    </ResponsiveContainer>
+);
+
+// Animated Counter
+const AnimatedNumber = ({ value, suffix = '' }: { value: number, suffix?: string }) => {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        const duration = 1500;
+        const steps = 60;
+        const increment = value / steps;
+        let current = 0;
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= value) {
+                setCount(value);
+                clearInterval(timer);
+            } else {
+                setCount(Math.floor(current));
+            }
+        }, duration / steps);
+        return () => clearInterval(timer);
+    }, [value]);
+    return <>{count}{suffix}</>;
 };
 
-// Descrições educativas para os indicadores
-const METRIC_TOOLTIPS: Record<string, string> = {
-    'Variáveis Analisadas': 'Quantidade de colunas de dados que o modelo de IA utiliza para tomar decisões. Quanto mais variáveis, mais complexo o modelo.',
-    'Métodos de Explicabilidade': 'Técnicas como SHAP ou LIME que explicam POR QUE a IA tomou determinada decisão. Modelos sem isso são "caixas-pretas".',
-    'Entropia': 'Mede a complexidade e aleatoriedade interna do modelo. Alta entropia pode indicar overfitting ou dados ruidosos.',
-    'Índice de Confiança': 'Pontuação de 0-100 que indica o quão transparente e auditável é o modelo. Acima de 70 é considerado seguro.',
-    'Entidades': 'Dados pessoais identificáveis (CPF, nome, CRM, CID) encontrados no texto que representam risco de vazamento.',
-    'Caracteres': 'Volume total de texto processado pelo scanner de privacidade.',
-    'Ofuscação': 'Sistema de mascaramento automático que substitui dados sensíveis por tokens seguros ([REDACTED]).',
+// Metric Tooltips
+const TOOLTIPS: Record<string, string> = {
+    'Variáveis Analisadas': 'Total de colunas de dados processadas pelo algoritmo de auditoria.',
+    'Métodos de Explicabilidade': 'Técnicas de XAI (SHAP/LIME) detectadas que tornam o modelo auditável.',
+    'Entropia': 'Nível de complexidade interna do modelo. Alta entropia pode indicar problemas.',
+    'Entidades': 'Quantidade de dados pessoais (CPF, nome, CID) detectados no texto.',
+    'Caracteres': 'Volume total de texto processado.',
+    'Ofuscação': 'Sistema de mascaramento de dados sensíveis ativo.',
 };
 
 export default function PremiumDashboardResult({
@@ -75,250 +85,228 @@ export default function PremiumDashboardResult({
     const dashboardRef = useRef<HTMLDivElement>(null);
     const [exporting, setExporting] = useState(false);
 
-    // Cores Dinâmicas baseadas no risco
-    const mainColor = riskLevel === 'LOW' ? '#00FF94' : (riskLevel === 'MODERATE' ? '#F59E0B' : '#FF0055');
-    const bgGlow = riskLevel === 'LOW' ? 'from-[#00FF94]/10' : (riskLevel === 'MODERATE' ? 'from-[#F59E0B]/10' : 'from-[#FF0055]/10');
+    // Dynamic Colors
+    const isGood = riskLevel === 'LOW';
+    const primaryColor = isGood ? '#00FF94' : '#FF0055';
+    const secondaryColor = '#00A3FF';
 
-    // Gauge Data (Score)
-    const gaugeData = [
-        { name: 'Score', value: score },
-        { name: 'Rest', value: 100 - score }
-    ];
+    // Score Gauge Data
+    const scoreGauge = [{ name: 'score', value: score, fill: primaryColor }];
 
-    // Função de Exportar PDF
+    // Trend sparkline data
+    const sparkData = [30, 45, 28, 80, 75, 90, score];
+
+    // PDF Export
     const handleExportPDF = async () => {
         if (!dashboardRef.current) return;
         setExporting(true);
-
         try {
             const html2canvas = (await import('html2canvas')).default;
             const jsPDF = (await import('jspdf')).default;
-
-            const canvas = await html2canvas(dashboardRef.current, {
-                scale: 2,
-                backgroundColor: '#05070A',
-                logging: false,
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF({
-                orientation: 'landscape',
-                unit: 'px',
-                format: [canvas.width, canvas.height]
-            });
-
-            pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-            pdf.save(`Relatorio_Auditoria_ALGOR_${new Date().toISOString().split('T')[0]}.pdf`);
-        } catch (error) {
-            console.error('Erro ao exportar PDF:', error);
-            alert('Erro ao gerar PDF. Verifique se as bibliotecas estão instaladas.');
-        } finally {
-            setExporting(false);
-        }
+            const canvas = await html2canvas(dashboardRef.current, { scale: 2, backgroundColor: '#0A0E14' });
+            const pdf = new jsPDF({ orientation: 'landscape', unit: 'px', format: [canvas.width, canvas.height] });
+            pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, canvas.width, canvas.height);
+            pdf.save(`ALGOR_Auditoria_${new Date().toISOString().split('T')[0]}.pdf`);
+        } catch (e) { console.error(e); }
+        finally { setExporting(false); }
     };
 
     return (
         <motion.div
             ref={dashboardRef}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full bg-gradient-to-br from-[#05070A] via-[#0A0E1A] to-[#05070A] border border-white/10 rounded-[30px] p-6 md:p-8 shadow-2xl relative overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full bg-[#0A0E14] rounded-3xl p-6 relative overflow-hidden"
         >
-            {/* Ambient Background Effects */}
-            <div className={`absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-b ${bgGlow} to-transparent rounded-full blur-[150px] pointer-events-none opacity-50`} />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-t from-[#00A3FF]/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
+            {/* BACKGROUND EFFECTS */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#00A3FF]/10 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FF0055]/5 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHBhdGggZD0iTSAwIDEwIEwgNDAgMTAgTSAxMCAwIEwgMTAgNDAgTSAwIDIwIEwgNDAgMjAgTSAyMCAwIEwgMjAgNDAgTSAwIDMwIEwgNDAgMzAgTSAzMCAwIEwgMzAgNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzIwMjUzMCIgb3BhY2l0eT0iMC4zIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-30 pointer-events-none" />
 
-            {/* Scan Lines Effect */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
-
-            {/* HEADER */}
-            <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-8 relative z-10">
-                <div>
-                    <div className="flex items-center gap-3 mb-3">
-                        <span className="px-4 py-1.5 bg-gradient-to-r from-white/10 to-white/5 border border-white/10 rounded-full text-[10px] font-orbitron text-gray-300 tracking-widest uppercase backdrop-blur-sm">
-                            UNIDADE DE INTELIGÊNCIA ALGOR
-                        </span>
-                        <span className="px-4 py-1.5 bg-gradient-to-r from-[#00A3FF]/20 to-[#00A3FF]/5 border border-[#00A3FF]/30 rounded-full text-[10px] font-orbitron text-[#00A3FF] tracking-widest uppercase">
-                            MÓDULO {type.toUpperCase()}
-                        </span>
+            {/* HEADER ROW */}
+            <div className="flex items-center justify-between mb-6 relative z-10">
+                <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${isGood ? 'from-[#00FF94]/20 to-[#00A3FF]/10' : 'from-[#FF0055]/20 to-[#FF6B00]/10'} flex items-center justify-center`}>
+                        {isGood ? <Shield className="w-6 h-6 text-[#00FF94]" /> : <AlertTriangle className="w-6 h-6 text-[#FF0055]" />}
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-orbitron font-bold text-white tracking-tight">{title}</h2>
-                    <p className="text-gray-400 mt-2 max-w-2xl flex items-center gap-2">
-                        {riskLevel !== 'LOW' ? <AlertTriangle className="w-4 h-4 text-red-500" /> : <CheckCircle className="w-4 h-4 text-green-500" />}
-                        {verdict}
-                    </p>
+                    <div>
+                        <h1 className="text-2xl font-bold text-white font-orbitron tracking-tight">{title}</h1>
+                        <p className="text-sm text-gray-500 flex items-center gap-2">
+                            MÓDULO {type.toUpperCase()} • <span className={isGood ? 'text-[#00FF94]' : 'text-[#FF0055]'}>{isGood ? 'COMPLIANCE OK' : 'AÇÃO REQUERIDA'}</span>
+                        </p>
+                    </div>
                 </div>
-
-                <button
-                    onClick={handleExportPDF}
-                    disabled={exporting}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00A3FF]/20 to-[#00FF94]/10 border border-[#00A3FF]/30 cursor-pointer hover:border-[#00A3FF]/60 hover:shadow-[0_0_20px_rgba(0,163,255,0.3)] transition-all disabled:opacity-50"
-                >
+                <button onClick={handleExportPDF} disabled={exporting}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all">
                     <Download className="w-4 h-4 text-[#00A3FF]" />
-                    <span className="text-sm font-semibold text-white">{exporting ? 'Gerando...' : 'Exportar PDF'}</span>
+                    <span className="text-sm text-white font-medium">{exporting ? 'Gerando...' : 'Exportar PDF'}</span>
                 </button>
             </div>
 
-            {/* KPI GRID - REDESIGN ULTRA PREMIUM */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+            {/* BENTO GRID LAYOUT */}
+            <div className="grid grid-cols-12 grid-rows-3 gap-4 relative z-10" style={{ height: '500px' }}>
 
-                {/* Score Card (Gauge) - HERO CARD */}
+                {/* HERO SCORE CARD - Large */}
                 <motion.div
-                    whileHover={{ scale: 1.02, borderColor: mainColor }}
-                    className="md:col-span-1 bg-gradient-to-br from-[#0A0E1A] to-[#0F1420] border border-white/10 rounded-2xl p-5 relative flex flex-col items-center justify-center overflow-hidden group"
+                    whileHover={{ scale: 1.01 }}
+                    className="col-span-4 row-span-2 bg-gradient-to-br from-[#12161F] to-[#0D1117] border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden"
                 >
-                    {/* Glow Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/[0.02]" />
+                    <p className="text-xs text-gray-500 uppercase tracking-widest mb-4">Índice de Conformidade</p>
 
-                    <div className="flex items-center justify-between w-full mb-2">
-                        <h3 className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Índice de Confiança</h3>
-                        <InfoTooltip text={METRIC_TOOLTIPS['Índice de Confiança']} />
-                    </div>
-
-                    <div className="relative w-full h-[130px] flex items-center justify-center">
+                    {/* Radial Progress */}
+                    <div className="relative w-48 h-48">
                         <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={gaugeData}
-                                    cx="50%" cy="55%"
-                                    startAngle={180} endAngle={0}
-                                    innerRadius={45} outerRadius={60}
-                                    paddingAngle={0}
-                                    dataKey="value"
-                                    stroke="none"
-                                >
-                                    <Cell key="score" fill={mainColor} />
-                                    <Cell key="rest" fill="#1e293b" />
-                                </Pie>
-                            </PieChart>
+                            <RadialBarChart cx="50%" cy="50%" innerRadius="70%" outerRadius="100%" startAngle={90} endAngle={-270} data={scoreGauge}>
+                                <RadialBar background={{ fill: '#1a1f2e' }} dataKey="value" cornerRadius={10} />
+                            </RadialBarChart>
                         </ResponsiveContainer>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center pt-6">
-                            <span className="text-4xl font-bold text-white font-orbitron" style={{ textShadow: `0 0 20px ${mainColor}40` }}>{score}</span>
-                            <span className="text-[10px] text-gray-500 uppercase">/100 pts</span>
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <span className="text-6xl font-black text-white font-orbitron" style={{ textShadow: `0 0 40px ${primaryColor}50` }}>
+                                <AnimatedNumber value={score} />
+                            </span>
+                            <span className="text-sm text-gray-500">de 100 pontos</span>
                         </div>
                     </div>
 
-                    <div
-                        className="text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mt-2"
-                        style={{
-                            color: mainColor,
-                            backgroundColor: `${mainColor}15`,
-                            border: `1px solid ${mainColor}30`
-                        }}
-                    >
-                        {riskLevel === 'LOW' ? '✓ MODELO SEGURO' : riskLevel === 'MODERATE' ? '⚠ ATENÇÃO RECOMENDADA' : '✕ RISCO CRÍTICO'}
+                    {/* Status Badge */}
+                    <div className={`mt-6 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider ${isGood ? 'bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/30' : 'bg-[#FF0055]/10 text-[#FF0055] border border-[#FF0055]/30'}`}>
+                        {isGood ? '✓ Modelo Auditável' : '✕ Caixa-Preta Detectada'}
                     </div>
                 </motion.div>
 
-                {/* Dynamic Metric Cards */}
-                {metrics.map((m, i) => (
+                {/* METRIC CARDS - Row 1 */}
+                {metrics.slice(0, 2).map((m, i) => (
                     <motion.div
                         key={i}
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        className="bg-gradient-to-br from-[#0A0E1A] to-[#0F1420] border border-white/10 rounded-2xl p-5 flex flex-col justify-between hover:border-[#00A3FF]/30 transition-all group relative overflow-hidden"
+                        whileHover={{ y: -2 }}
+                        className="col-span-4 row-span-1 bg-gradient-to-br from-[#12161F] to-[#0D1117] border border-white/5 rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group"
                     >
-                        {/* Decorative Corner */}
-                        <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-[#00A3FF]/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute top-0 right-0 w-24 h-24 bg-[#00A3FF]/5 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity" />
 
-                        <div className="flex justify-between items-start relative z-10">
-                            <div className="flex items-center gap-2">
-                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00A3FF]/20 to-[#00A3FF]/5 flex items-center justify-center text-[#00A3FF]">
-                                    {getMetricIcon(m.label)}
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${i === 0 ? 'from-[#00A3FF]/20 to-[#8B5CF6]/10' : 'from-[#00FF94]/20 to-[#00A3FF]/10'} flex items-center justify-center`}>
+                                    {i === 0 ? <Layers className="w-5 h-5 text-[#00A3FF]" /> : <Brain className="w-5 h-5 text-[#00FF94]" />}
                                 </div>
-                                <span className="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">{m.label}</span>
+                                <span className="text-xs text-gray-400 uppercase tracking-wider">{m.label}</span>
                             </div>
-                            <InfoTooltip text={METRIC_TOOLTIPS[m.label] || 'Indicador de auditoria algorítmica.'} />
+                            <InfoTooltip text={TOOLTIPS[m.label] || 'Indicador de auditoria.'} />
                         </div>
 
-                        <div className="mt-4">
-                            <span className="text-3xl font-bold text-white font-orbitron block">{m.value}</span>
-                            {m.sub && <span className="text-xs text-gray-500 mt-1 block">{m.sub}</span>}
+                        <div className="flex items-end justify-between mt-3">
+                            <div>
+                                <span className="text-4xl font-black text-white font-orbitron">{m.value}</span>
+                                {m.sub && <p className="text-xs text-gray-500 mt-1">{m.sub}</p>}
+                            </div>
+                            <div className={`flex items-center gap-1 text-xs ${m.trend === 'up' ? 'text-[#00FF94]' : 'text-[#FF0055]'}`}>
+                                {m.trend === 'up' ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+                                {m.trend === 'up' ? '+12%' : '-8%'}
+                            </div>
                         </div>
 
-                        {/* Animated Progress Bar */}
-                        <motion.div
-                            className="w-full h-1.5 bg-white/5 mt-4 rounded-full overflow-hidden"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                        >
-                            <motion.div
-                                className={`h-full rounded-full ${m.trend === 'up' ? 'bg-gradient-to-r from-[#00FF94] to-[#00A3FF]' : 'bg-gradient-to-r from-[#FF0055] to-[#F59E0B]'}`}
-                                initial={{ width: 0 }}
-                                animate={{ width: m.trend === 'up' ? '85%' : '30%' }}
-                                transition={{ duration: 1, ease: 'easeOut', delay: i * 0.1 }}
-                            />
-                        </motion.div>
+                        {/* Sparkline */}
+                        <div className="mt-3 h-10">
+                            <Sparkline data={sparkData} color={m.trend === 'up' ? '#00FF94' : '#FF0055'} />
+                        </div>
                     </motion.div>
                 ))}
-            </div>
 
-            {/* CHARTS ROW */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Main Area Chart */}
-                <div className="md:col-span-2 bg-gradient-to-br from-[#0A0E1A] to-[#0F1420] border border-white/10 rounded-2xl p-6 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00A3FF]/50 to-transparent" />
+                {/* ENTROPY / THIRD METRIC - Smaller */}
+                {metrics.slice(2).map((m, i) => (
+                    <motion.div
+                        key={i + 2}
+                        whileHover={{ y: -2 }}
+                        className="col-span-4 row-span-1 bg-gradient-to-br from-[#12161F] to-[#0D1117] border border-white/5 rounded-2xl p-5 flex items-center justify-between relative overflow-hidden"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#8B5CF6]/20 to-[#FF0055]/10 flex items-center justify-center">
+                                <Activity className="w-6 h-6 text-[#8B5CF6]" />
+                            </div>
+                            <div>
+                                <p className="text-xs text-gray-400 uppercase tracking-wider">{m.label}</p>
+                                <p className="text-3xl font-black text-white font-orbitron">{m.value}</p>
+                            </div>
+                        </div>
+                        <div className="text-right">
+                            <p className="text-xs text-gray-500">{m.sub}</p>
+                            <div className="w-24 h-2 bg-white/5 rounded-full mt-2 overflow-hidden">
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    animate={{ width: m.value === 'ALTA' ? '90%' : '30%' }}
+                                    className={`h-full rounded-full ${m.value === 'ALTA' ? 'bg-[#FF0055]' : 'bg-[#00FF94]'}`}
+                                    transition={{ duration: 1 }}
+                                />
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
 
+                {/* MAIN AREA CHART */}
+                <motion.div
+                    className="col-span-8 row-span-2 bg-gradient-to-br from-[#12161F] to-[#0D1117] border border-white/5 rounded-2xl p-6 relative overflow-hidden"
+                >
                     <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xs text-gray-400 uppercase tracking-widest font-semibold">
-                            {type === 'xai' ? 'Estabilidade da Transparência' : 'Densidade de Detecção'}
-                        </h3>
-                        <InfoTooltip text="Gráfico de evolução temporal mostrando como o score de transparência varia ao longo das análises." />
+                        <div>
+                            <h3 className="text-sm font-semibold text-white">Evolução da Transparência</h3>
+                            <p className="text-xs text-gray-500">Histórico de análises recentes</p>
+                        </div>
+                        <div className="flex items-center gap-4 text-xs">
+                            <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#00A3FF]" /> Score</span>
+                            <span className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-[#8B5CF6]" /> Benchmark</span>
+                        </div>
                     </div>
 
-                    <ResponsiveContainer width="100%" height={220}>
+                    <ResponsiveContainer width="100%" height="85%">
                         <AreaChart data={chartData}>
                             <defs>
-                                <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="5%" stopColor={mainColor} stopOpacity={0.4} />
-                                    <stop offset="95%" stopColor={mainColor} stopOpacity={0} />
+                                <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
+                                    <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
                                 </linearGradient>
                             </defs>
-                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.15} vertical={false} />
                             <XAxis dataKey="name" stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
-                            <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} />
-                            <RechartsTooltip
-                                contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '12px' }}
-                                itemStyle={{ color: mainColor }}
-                            />
-                            <Area
-                                type="monotone"
-                                dataKey="value"
-                                stroke={mainColor}
-                                strokeWidth={3}
-                                fillOpacity={1}
-                                fill="url(#colorValue)"
-                            />
+                            <YAxis stroke="#475569" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
+                            <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }} />
+                            <Area type="monotone" dataKey="value" stroke="#00A3FF" strokeWidth={3} fill="url(#colorScore)" />
                         </AreaChart>
                     </ResponsiveContainer>
-                </div>
+                </motion.div>
 
-                {/* Side Bar Chart */}
-                <div className="md:col-span-1 bg-gradient-to-br from-[#0A0E1A] to-[#0F1420] border border-white/10 rounded-2xl p-6 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#8B5CF6]/50 to-transparent" />
-
-                    <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-xs text-gray-400 uppercase tracking-widest font-semibold">
-                            {type === 'xai' ? 'Peso das Variáveis' : 'Tipos de Violação'}
-                        </h3>
-                        <InfoTooltip text={type === 'xai' ? 'Mostra quais variáveis têm maior impacto na decisão da IA. Se aparecer "BlackBox", significa que não há transparência.' : 'Categorias de dados sensíveis encontrados no texto.'} />
-                    </div>
-
-                    <ResponsiveContainer width="100%" height={200}>
-                        <BarChart layout="vertical" data={barData} barSize={12}>
-                            <CartesianGrid stroke="#334155" horizontal={false} opacity={0.1} />
+                {/* SIDEBAR - BAR CHART */}
+                <motion.div
+                    className="col-span-4 row-span-1 bg-gradient-to-br from-[#12161F] to-[#0D1117] border border-white/5 rounded-2xl p-5 relative overflow-hidden"
+                >
+                    <h3 className="text-xs text-gray-400 uppercase tracking-wider mb-3">
+                        {type === 'xai' ? 'Distribuição de Variáveis' : 'Tipos de Dados'}
+                    </h3>
+                    <ResponsiveContainer width="100%" height={100}>
+                        <BarChart layout="vertical" data={barData} barSize={16}>
                             <XAxis type="number" hide />
-                            <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={11} width={70} tickLine={false} axisLine={false} />
-                            <RechartsTooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px' }} />
-                            <Bar dataKey="value" radius={[0, 6, 6, 0]}>
-                                {barData.map((entry, index) => (
+                            <YAxis dataKey="name" type="category" stroke="#64748b" fontSize={10} width={60} tickLine={false} axisLine={false} />
+                            <Bar dataKey="value" radius={[0, 8, 8, 0]}>
+                                {barData.map((_, index) => (
                                     <Cell key={`cell-${index}`} fill={index % 2 === 0 ? '#00A3FF' : '#8B5CF6'} />
                                 ))}
                             </Bar>
                         </BarChart>
                     </ResponsiveContainer>
-                </div>
+                </motion.div>
+
             </div>
 
+            {/* VERDICT FOOTER */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className={`mt-6 p-4 rounded-xl border ${isGood ? 'bg-[#00FF94]/5 border-[#00FF94]/20' : 'bg-[#FF0055]/5 border-[#FF0055]/20'} relative z-10`}
+            >
+                <div className="flex items-center gap-3">
+                    {isGood ? <CheckCircle className="w-5 h-5 text-[#00FF94]" /> : <AlertTriangle className="w-5 h-5 text-[#FF0055]" />}
+                    <p className={`text-sm font-medium ${isGood ? 'text-[#00FF94]' : 'text-[#FF0055]'}`}>{verdict}</p>
+                </div>
+            </motion.div>
         </motion.div>
     );
 }
