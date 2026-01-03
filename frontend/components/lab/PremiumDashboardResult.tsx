@@ -264,7 +264,7 @@ export default function PremiumDashboardResult({
                 <div className="col-span-12 lg:col-span-8 space-y-4">
 
                     {/* KPI CARDS */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4" style={{ overflow: 'visible' }}>
                         {metrics.map((m, i) => {
                             const colors = ['#00F0FF', '#9945FF', '#00FF87'];
                             const icons = [<Layers key={0} className="w-5 h-5" />, <Brain key={1} className="w-5 h-5" />, <Activity key={2} className="w-5 h-5" />];
@@ -272,7 +272,7 @@ export default function PremiumDashboardResult({
                             const config = CONFIG[m.label as keyof typeof CONFIG];
 
                             return (
-                                <div key={i} className="bg-[#161B26] rounded-xl p-4 border border-[#21262D] relative overflow-hidden group">
+                                <div key={i} className="bg-[#161B26] rounded-xl p-4 border border-[#21262D] relative group" style={{ overflow: 'visible' }}>
                                     {/* Tooltip */}
                                     {config && <CardTooltip text={config.meaning} action={config.action} />}
 
