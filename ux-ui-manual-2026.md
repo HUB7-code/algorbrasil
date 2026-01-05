@@ -313,10 +313,20 @@ button:active {
 - Progress indicators claros
 - Animações brandas (não chamar muita atenção)
 
-**3. Status e Confirmação**
+### 3. Status e Confirmação
 - Checkmark animado em sucesso
 - Shake em erro (sutil)
 - Ícones que mudam: "Save" → "Saved ✓"
+
+### 4. Data Storytelling Motion (Novo V17.9.5)
+
+**Filosofia:** Dados estáticos são chatos. Dados animados contam uma história de progresso e precisão.
+
+**Técnicas:**
+- **CountUp:** Números nunca aparecem "secos". Eles crescem de 0 até o valor final (`0` -> `98%`). Isso dá peso ao resultado.
+- **Staggered Entrance:** Cards não carregam em bloco. Eles entram em "escadinha" (delay de 0.1s entre cada), guiando o olhar do usuário do mais importante (topo esquerdo) para o detalhe (fundo direito).
+- **Self-Drawing Charts:** Gráficos de linha e pizza desenham seus caminhos (`stroke-dashoffset`), simulando a análise acontecendo em tempo real.
+- **Alive State:** Elementos críticos (como alertas de risco) devem ter um pulso constante ("breathing"), indicando que o sistema está monitorando ativamente.
 
 ### Parallax Scrolling
 
@@ -814,7 +824,33 @@ Pessoas conseguem manter 7±2 itens na memória de trabalho.
 
 ---
 
-## 🛠️ Ferramentas e Recursos {#ferramentas}
+### 11. Printing & Reports (Digital PDF) {#printing}
+
+O padrão de relatórios da Algor Brasil segue a filosofia **"Dark Mode on Paper"**, desafiando o convencional (fundo branco) para manter a identidade visual mesmo em documentos exportados.
+
+#### Header V5.1 (Titan Layout)
+- **Altura Total:** 40mm (Barra de Marca) + 35mm (Dados e Metadados).
+- **Background:** Preto Puro (`#000000`) no top bar, Dark Navy (`#0A1628`) no corpo.
+- **Tipografia de Marca:**
+  - Fonte: **Orbitron Bold** (Custom Injection).
+  - Tamanho: 32pt.
+  - Tracking (Letter-spacing): 1.5.
+
+#### Paleta de Impressão Digital
+Apesar de ser digital, o PDF deve usar cores seguras para leitura em tela:
+- **Neon Green:** `#00FF94` (Aprovações, "Brasil", Sucesso).
+- **Neon Red:** `#FF3366` (Risco Crítico, Reprovas).
+- **Electric Blue:** `#00A3FF` (Bordas, Links, Elementos Neutros).
+- **Text:** Branco (`#FFFFFF`) para títulos, Slate-300 (`#CBD5E1`) para corpo.
+
+#### Regras de Layout
+1.  **Imagens:** Sempre sanitizar via Canvas API antes de injetar (remove artefatos WebP/Alpha).
+2.  **Margens:** Mínimo de 15mm nas laterais.
+3.  **Footer:** Deve haver um "respiro" de 6mm entre a linha separadora e o texto legal.
+
+---
+
+### 12. Ferramentas e Recursos {#ferramentas}
 
 ### Design Tools
 
@@ -1610,6 +1646,41 @@ Utilizada em páginas transacionais críticas e dashboards de alta segurança.
 
 ---
 
+## 12. Alive Interface (V17.9)
+
+A "Alive Interface" é o novo padrão para interações de alta fidelidade na plataforma ALGOR. Ela transforma telas estáticas em ambientes reativos que simulam vida e inteligência.
+
+### 12.1 Princípios
+1.  **Biomimética:** O sistema "respira". Elementos vitais (logos, status críticos) nunca estão 100% parados; eles pulsam, orbitam ou flutuam.
+2.  **Foco Laser (Scanner Effect):** Onde o usuário olha (ou clica), o sistema ilumina. Inputs não apenas mudam de cor, eles emitem luz.
+3.  **Transição de Estado Líquida:** Mudanças de página ou contexto não são cortes secos. Usamos "Wipes" diagonais, expansões circulares ou morphing para manter a continuidade da narrativa visual.
+
+### 12.2 Componentes "Alive"
+#### Scanner Input
+Campos de texto que simulam a leitura biométrica ou conexão de dados.
+```css
+.input-scanner:focus {
+  border-color: #00FF94;
+  box-shadow: 0 0 20px rgba(0, 255, 148, 0.3), inset 0 0 10px rgba(0, 255, 148, 0.1);
+  background: radial-gradient(circle at center, rgba(0,255,148,0.05) 0%, transparent 70%);
+}
+```
+
+#### Diagonal Transition (The Curtain)
+Utilizada em fluxos de onboarding e login para transições dramáticas.
+- **Trigger:** Clique em CTA primário/secundário.
+- **Animação:** `clip-path: polygon(...)` movendo-se de 0% para 100% da tela.
+- **Duração:** 0.8s (rápido, mas perceptível).
+- **Conteúdo:** Deve conter o Branding (ALGOR BRASIL) para reforçar a identidade durante o "blink".
+
+#### Holographic Buttons (ISO Wizard)
+Botões que reagem à proximidade e intenção.
+- **Idle:** Vidro translúcido (`backdrop-blur`).
+- **Hover:** Preenchimento total com cor neon + Glow externo.
+- **Active:** Feedback de clique "Pressão" (`scale: 0.98`).
+
+---
+
 *Manual atualizado com pesquisa extensiva sobre tendências UX/UI 2025-2026*
-*Foco especial em: Dashboards Enterprise, KPI Visualization, Data Storytelling, Brand Identity Unification*
-*Última atualização: 30/12/2025 - **V17.1.0 Compatible***
+*Foco especial em: Dashboards Enterprise, KPI Visualization, Data Storytelling, Brand Identity Unification, Alive Interface*
+*Última atualização: 04/01/2026 - **V17.9.7 Compatible***

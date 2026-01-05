@@ -11,23 +11,50 @@ export default function ResetPasswordPage() {
     const [status, setStatus] = useState<"idle" | "success">("idle");
     const [passwords, setPasswords] = useState({ new: "", confirm: "" });
 
+    // Get Token
+    const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const token = searchParams?.get('token');
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (passwords.new !== passwords.confirm) {
             alert("As senhas não coincidem.");
             return;
         }
 
+        if (!token) {
+            alert("Token inválido ou expirado. Solicite uma nova recuperação.");
+            return;
+        }
+
         setIsLoading(true);
 
-        // MOCK RESET
-        setTimeout(() => {
-            setIsLoading(false);
+        try {
+            const res = await fetch("/api/v1/auth/reset-password", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    token: token,
+                    new_password: passwords.new
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) throw new Error(data.detail || "Erro ao redefinir a senha.");
+
             setStatus("success");
             setTimeout(() => {
                 router.push("/login");
-            }, 2000);
-        }, 1500);
+            }, 3000);
+
+        } catch (error: any) {
+            console.error(error);
+            alert(error.message || "Ocorreu um erro. Tente novamente.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     return (

@@ -1,11 +1,131 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 03/01/2026
-**Versão:** V17.9.0 (Health Lab Ultimate)
-**Objetivo:** Validar 100% das funcionalidades, incluindo Auditoria Premium, Relatórios PDF, Segurança e Compliance.
+**Data:** 05/01/2026
+**Versão:** V17.9.8 (Auth Harmony)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Autenticação (Frontend <-> Backend) e Interfaces Premium.
 
 ---
 
-## 🎯 JORNADA 4: SEGURANÇA & COMPLIANCE (V17.5 - NOVO)
+## 🎯 JORNADA 8: AUTH HARMONY (V17.9.8)
+
+### Objetivo: Validar Correções Críticas de Login e Recuperação de Senha
+
+#### 8.1 Recuperação de Senha (`/forgot-password`)
+- [ ] Acesse `/forgot-password`.
+- [ ] Digite um e-mail válido (ex: `admin@algor.com`).
+- [ ] **Network Check:** Abra o Network Tab (F12).
+- [ ] Clique em "Recuperar Senha".
+- [ ] **Validação:**
+  - [ ] A requisição deve ir para `/api/v1/auth/forgot-password` (e NÃO `/api/v1/forgot-password`).
+  - [ ] Status deve ser 200 OK.
+  - [ ] Mensagem de sucesso deve aparecer na interface.
+
+#### 8.2 Redefinição de Senha (`/reset-password`)
+- [ ] Simule o acesso via link (ex: `/reset-password?token=TEST_TOKEN`).
+- [ ] Digite a nova senha.
+- [ ] **Validação:**
+  - [ ] A requisição deve ir para `/api/v1/auth/reset-password`.
+  - [ ] Se o token for inválido, deve mostrar erro claro (não "Erro de conexão").
+  - [ ] Se sucesso, redirecionar para Login após delay.
+
+#### 8.3 Login Flow (`/login`)
+- [ ] Tente logar.
+- [ ] **Validação:** Requisição para `/api/v1/auth/login`.
+
+---
+
+## 🎯 JORNADA 7: ALIVE INTERFACE (V17.9.7)
+
+### Objetivo: Validar Micro-interações e Fluidez
+
+#### 7.1 "The Gateway" Login (`/login`)
+- [ ] **Ambiente Vivo:**
+  - [ ] Observe o fundo. Deve haver formas de luz ("blobs") se movendo lentamente.
+  - [ ] **Logo Aura:** O logo da Algor deve pulsar suavemente (glow aumenta e diminui).
+- [ ] **Scanner Inputs:**
+  - [ ] Clique no campo "Email".
+  - [ ] **Validação:** Uma borda de luz intensa deve preencher o campo, e o fundo deve ganhar um brilho sutil (Efeito Scanner).
+- [ ] **Diagonal Wipe Transition:**
+  - [ ] Clique em "Solicitar conta Enterprise".
+  - [ ] **Validação:** Uma cortina verde neon corta a tela diagonalmente.
+  - [ ] Texto "ALGOR BRASIL" deve aparecer gigante durante a transição.
+
+#### 7.2 ISO Radar Remastered (`/lab` -> ISO Tab)
+- [ ] **Holographic Buttons:**
+  - [ ] Inicie o wizard.
+  - [ ] Passe o mouse nas opções "Sim / Não / Parcial".
+  - [ ] **Validação:** O botão deve preencher com cor neon (Vermelho, Amarelo ou Verde) e brilhar.
+- [ ] **Circular Score:**
+  - [ ] Chegue ao final do wizard.
+  - [ ] **Validação:** O score final não é mais texto simples, mas um medidor circular duplo animado.
+- [ ] **PDF Instantâneo:**
+  - [ ] Clique em "BAIXAR RELATÓRIO PDF".
+  - [ ] O download deve ser **imediato** (sem esperar o servidor).
+  - [ ] Abra o PDF e verifique se o fundo é escuro (`#0A1A2F`) e o texto é selecionável.
+
+---
+
+## 🎯 JORNADA 6: ALGOR ALIVE (V17.9.6 - NEON FUTURE)
+
+### Objetivo: Validar nova interface Futurista e Interatividade (/lab)
+
+#### 6.1 Shadow Simulator Interactivity (`/lab` -> Shadow Tab)
+- [ ] **Teste de Entrada (Entrance):**
+  - [ ] Cole um texto de teste na caixa de input.
+  - [ ] Clique em "SCAN".
+  - [ ] **Validação:** Os cards de resultado devem aparecer em sequência (escadinha/staggered), não todos de uma vez.
+- [ ] **Teste de Dados (CountUp):**
+  - [ ] Observe o número "Violações Detectadas" e a %.
+  - [ ] **Validação:** O número deve subir rapidamente de 0 até o valor final (e.g., 0 -> 1 -> 2 -> 3).
+- [ ] **Teste de Anéis (Circular Metrics):**
+  - [ ] Observe os anéis de progresso.
+  - [ ] **Validação:** A linha colorida deve se desenhar ao redor do círculo (0% -> X%).
+- [ ] **Teste de Alerta Crítico:**
+  - [ ] Se houver violações (texto com CPF/CRM): O ícone de alerta deve PULSAR (aumentar e diminuir suavemente).
+  - [ ] O fundo deve ter um brilho vermelho sutil.
+
+#### 6.2 Premium Dashboard V2 (`/lab` -> Audit Tab)
+- [ ] **Visual "Neon Glass":**
+  - [ ] Carregue um resultado de auditoria.
+  - [ ] **Background:** Verifique se o fundo tem um grid animado ("Cyber Grid") e partículas flutuantes.
+  - [ ] **Cards:** Devem ser translúcidos (`backdrop-blur`) com bordas iluminadas.
+- [ ] **3D Gauge Check:**
+  - [ ] Observe o "Trust Integrity Score" (Donut Chart).
+  - [ ] **Validação:** Deve haver ANÉIS ROTATIVOS em volta do gráfico (efeito 3D orbital).
+- [ ] **Floating Widgets:**
+  - [ ] Observe os cards de "Security", "Privacy", "Fairness".
+  - [ ] **Validação:** Eles devem ter uma animação de flutuação suave (`y: [0, -6, 0]`).
+- [ ] **Hover Effects:**
+  - [ ] Passe o mouse sobre os cards KPI.
+  - [ ] **Validação:** Card eleva e emite um "spotlight" colorido no fundo.
+
+---
+
+## 🎯 JORNADA 5: PDF ENGINE "TITAN" (V17.9.2)
+
+### Objetivo: Validar a geração e estética do Relatório de Auditoria
+
+#### 5.1 Header & Branding (Visual Check)
+- [ ] Gere um relatório de teste (clique em "Exportar PDF").
+- [ ] **Logo V5.1:**
+  - [ ] O logo "ALGOR" deve estar GIGANTE (aprox. 3cm de altura).
+  - [ ] Deve estar nítido (sem "manchas" brancas ou artefatos ao redor).
+- [ ] **Tipografia do Título:**
+  - [ ] "ALGOR" deve ser BRANCO.
+  - [ ] "BRASIL" deve ser VERDE NEON (#00FF94).
+  - [ ] Deve haver um espaçamento claro entre as duas palavras.
+- [ ] **Status Box:**
+  - [ ] Texto "STATUS: APROVADO" (Verde) ou "ALTO RISCO" (Vermelho) deve estar GRANDE (14pt+).
+  - [ ] Caixa alinhada à direita, sem sobrepor o título "Certificação...".
+
+#### 5.2 Layout & Footer
+- [ ] Role até o final da página 1.
+- [ ] **Footer:**
+  - [ ] O texto "Documento Confidencial..." deve ter um espaço (respiro) de ~5mm em relação à linha cinza acima dele.
+  - [ ] Não deve passar por cima de nenhum conteúdo.
+
+---
+
+## 🎯 JORNADA 4: SEGURANÇA & COMPLIANCE (V17.5)
 
 ### Objetivo: Validar Auditoria de Segurança e LGPD
 
@@ -257,4 +377,3 @@ npm run dev
 - [ ] ✅ **PERFORMANCE:** Build Prod Otimizado
 
 **Tempo estimado:** 60 minutos (Regressão Completa)
-

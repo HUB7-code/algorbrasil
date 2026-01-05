@@ -46,7 +46,8 @@ export default function TwoFactorPage() {
 
         // Real Backend Verification
         try {
-            const res = await fetch("/api/v1/verify-2fa", {
+            // Updated endpoint to match backend prefix /api/v1/auth
+            const res = await fetch("/api/v1/auth/verify-2fa", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -2,8 +2,9 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldAlert, Search, Lock, EyeOff, FileWarning } from 'lucide-react';
+import { ShieldAlert, Search, Lock, EyeOff, FileWarning, Upload } from 'lucide-react';
 import PremiumDashboardResult from './PremiumDashboardResult';
+import ShadowDashboard from './ShadowDashboard';
 
 interface ScanEntity {
     type: string;
@@ -24,26 +25,79 @@ export default function ShadowScanner() {
     const [status, setStatus] = useState<'idle' | 'scanning' | 'result'>('idle');
     const [result, setResult] = useState<ScanResult | null>(null);
 
+    // --- CLIENT-SIDE SIMULATION ENGINE (DEMO MODE) ---
+    const simulateScan = async (inputText: string): Promise<ScanResult> => {
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                const detected: ScanEntity[] = [];
+                let sanitized = inputText;
+                let riskScore = 15; // Base risk
+
+                // 1. CRM Pattern (CRM/SP 123456)
+                const crmRegex = /CRM\/?[A-Z]{2}\s?\d{4,8}/gi;
+                let match;
+                while ((match = crmRegex.exec(inputText)) !== null) {
+                    detected.push({ type: 'CRM_MEDICO', value: match[0], start: match.index, end: match.index + match[0].length });
+                    riskScore += 25;
+                }
+
+                // 2. CID-10 (A00, J12.9)
+                const cidRegex = /[A-Z]\d{2}(\.\d)?/g;
+                while ((match = cidRegex.exec(inputText)) !== null) {
+                    detected.push({ type: 'CID_10', value: match[0], start: match.index, end: match.index + match[0].length });
+                    riskScore += 20;
+                }
+
+                // 3. CPF Patterns
+                const cpfRegex = /\d{3}\.\d{3}\.\d{3}-\d{2}/g;
+                while ((match = cpfRegex.exec(inputText)) !== null) {
+                    detected.push({ type: 'CPF', value: match[0], start: match.index, end: match.index + match[0].length });
+                    riskScore += 30;
+                }
+
+                // 4. Keywords (Sensitive)
+                const keywords = ["HIV", "CÂNCER", "DEPRESSÃO", "PSIQUE", "SIGILOSO", "CONFIDENCIAL", "PRONTUÁRIO"];
+                keywords.forEach(kw => {
+                    const kwRegex = new RegExp(kw, 'gi');
+                    while ((match = kwRegex.exec(inputText)) !== null) {
+                        detected.push({ type: 'SENSIBILIDADE', value: match[0], start: match.index, end: match.index + match[0].length });
+                        riskScore += 15;
+                    }
+                });
+
+                // Sanitize Text (Redact detected entities)
+                detected.sort((a, b) => b.start - a.start); // Replace from end to start to allow multiple replacements
+                detected.forEach(entity => {
+                    const mask = '█'.repeat(entity.value.length);
+                    sanitized = sanitized.substring(0, entity.start) + mask + sanitized.substring(entity.end);
+                });
+
+                // Cap Score
+                riskScore = Math.min(riskScore, 98);
+
+                resolve({
+                    risk_score: riskScore,
+                    entities_detected: detected,
+                    sanitized_text: sanitized,
+                    risk_level: riskScore > 60 ? 'CRITICAL' : (riskScore > 30 ? 'HIGH' : 'LOW')
+                });
+            }, 2000); // 2s scanning effect
+        });
+    };
+
     const handleScan = async () => {
         if (!text.trim()) return;
         setStatus('scanning');
 
-        // Simula delay de scanning
-        setTimeout(async () => {
-            try {
-                const res = await fetch('http://localhost:8000/api/v1/lab/shadow/scan', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text })
-                });
-                const data = await res.json();
-                setResult(data);
-                setStatus('result');
-            } catch (e) {
-                console.error(e);
-                setStatus('idle');
-            }
-        }, 1500);
+        try {
+            // Using Client-Side Simulation for flawless Demo
+            const data = await simulateScan(text);
+            setResult(data);
+            setStatus('result');
+        } catch (e) {
+            console.error(e);
+            setStatus('idle');
+        }
     };
 
     return (
@@ -66,19 +120,55 @@ export default function ShadowScanner() {
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                         className="flex-1 flex flex-col gap-4"
                     >
-                        <textarea
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            placeholder="Cole um prontuário ou texto clínico aqui para testar a sanitização..."
-                            className="w-full h-64 bg-black/30 border border-white/10 rounded-xl p-4 text-gray-300 font-mono focus:border-red-500/50 outline-none resize-none transition-all"
-                        />
-                        <button
-                            onClick={handleScan}
-                            disabled={!text}
-                            className="self-end px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            <Search className="w-5 h-5" /> ESCANEAR EXPOSIÇÃO
-                        </button>
+                        <div className="relative group">
+                            <textarea
+                                value={text}
+                                onChange={(e) => setText(e.target.value)}
+                                placeholder="Cole um prontuário, log de chat ou texto clínico aqui..."
+                                className="w-full h-64 bg-black/30 border border-white/10 rounded-xl p-4 text-gray-300 font-mono focus:border-red-500/50 outline-none resize-none transition-all"
+                            />
+
+                            {/* File Upload Overlay / Drop Zone Hint */}
+                            {!text && (
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+                                    <div className="flex flex-col items-center gap-2">
+                                        <FileWarning className="w-8 h-8 text-gray-500" />
+                                        <span className="text-sm text-gray-500">Cole texto ou Arraste arquivos aqui</span>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <div className="flex gap-2">
+                                <label className="cursor-pointer px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-semibold text-gray-300 flex items-center gap-2 transition-all">
+                                    <Upload className="w-3 h-3" />
+                                    Importar Arquivo
+                                    <input
+                                        type="file"
+                                        accept=".txt,.csv,.json,.md,.log"
+                                        className="hidden"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onload = (ev) => setText(ev.target?.result as string);
+                                                reader.readAsText(file);
+                                            }
+                                        }}
+                                    />
+                                </label>
+                                <span className="text-[10px] text-gray-600 self-center">(.txt, .csv, .json, .log)</span>
+                            </div>
+
+                            <button
+                                onClick={handleScan}
+                                disabled={!text}
+                                className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg flex items-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <Search className="w-5 h-5" /> ESCANEAR EXPOSIÇÃO
+                            </button>
+                        </div>
                     </motion.div>
                 )}
 
@@ -107,41 +197,16 @@ export default function ShadowScanner() {
                             </button>
                         </div>
 
-                        <PremiumDashboardResult
-                            type="shadow"
-                            title="Relatório de Exposição de Dados"
+                        <ShadowDashboard
                             score={result.risk_score}
                             riskLevel={result.risk_level}
-                            verdict={result.risk_score > 50 ? "VAZAMENTO CRÍTICO DE DADOS SENSÍVEIS (LGPD/PL 2338)" : "Texto Sanitizado com Sucesso."}
-                            metrics={[
-                                { label: 'Entidades', value: result.entities_detected.length, sub: 'PII/PHI Encontrados', trend: result.entities_detected.length > 0 ? 'down' : 'up' },
-                                { label: 'Caracteres', value: result.sanitized_text.length, sub: 'Volume Processado' },
-                                { label: 'Ofuscação', value: 'ATIVADA', sub: 'Máscara de Privacidade' }
-                            ]}
-                            chartData={[
-                                { name: 'Part 1', value: Math.random() * 20 },
-                                { name: 'Part 2', value: Math.random() * 50 },
-                                { name: 'Part 3', value: result.risk_score },
-                                { name: 'Part 4', value: Math.max(0, result.risk_score - 10) },
-                                { name: 'Part 5', value: result.risk_score }
-                            ]}
-                            barData={
-                                result.entities_detected.length > 0
-                                    ? Array.from(new Set(result.entities_detected.map(e => e.type))).map(type => ({
-                                        name: type,
-                                        value: result.entities_detected.filter(e => e.type === type).length * 10
-                                    }))
-                                    : [{ name: 'Seguro', value: 100 }]
-                            }
+                            entities={result.entities_detected}
+                            originalText={text}
+                            sanitizedText={result.sanitized_text}
                         />
 
                         {/* Texto Sanitizado (Extra - Abaixo do Dashboard) */}
-                        <div className="mt-8 bg-black/40 border border-white/5 rounded-xl p-6 font-mono text-sm text-gray-400">
-                            <h3 className="text-xs text-gray-500 uppercase mb-4 flex items-center gap-2">
-                                <Lock className="w-3 h-3" /> Visualização Sanitizada (Preview)
-                            </h3>
-                            <p className="whitespace-pre-wrap leading-relaxed opacity-80">{result.sanitized_text}</p>
-                        </div>
+
                     </div>
                 )}
             </AnimatePresence>

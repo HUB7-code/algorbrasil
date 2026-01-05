@@ -66,7 +66,22 @@ Plataforma de Diagnóstico Operacional para o setor de Saúde, focada em auditar
 **Engenharia:**
 - **Banco de Dados:** PostgreSQL (JSONB).
 - **Modelo:** `Assessment` com campo `answers` dinâmico.
-- **Output:** PDF (ReportLab) com identidade visual "Quantum Prestige".
+- **Modelo:** `Assessment` com campo `answers` dinâmico.
+- **Output:** PDF Report Engine V5.1 ("Titan Edition").
+
+**Especificações do Relatório PDF (Titan):**
+1.  **Header V5.1:**
+    - Altura: 40mm (Barra Preta) + 35mm (Dados).
+    - Logo: Renderização Sanitizada (Canvas) com altura 32mm (2X Size).
+    - Branding: "ALGOR" (White Orbitron) + "BRASIL" (Green Orbitron #00FF94).
+2.  **Status Digital:**
+    - Box flutuante com feedback semântico ("APROVADO" Verde / "ALTO RISCO" Vermelho).
+    - Timestamp de milissegundos para prova de autoria.
+3.  **Layout:**
+    - "Bento Grid" para métricas técnicas.
+    - Gauge Chart vetorial (desenhado via código) para Score Geral.
+    - Seção de Contexto Clínico com fundo colorido condicional.
+    - Footer com "Respiro" visual (6mm padding).
 
 **Questionário Base (Pesos Calibrados):**
 

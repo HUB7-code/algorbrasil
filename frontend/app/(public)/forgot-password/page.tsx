@@ -19,22 +19,33 @@ export default function ForgotPasswordPage() {
         setMessage("");
 
         try {
-            const res = await fetch("/api/v1/forgot-password", {
+            // Updated endpoint to match backend prefix /api/v1/auth
+            const res = await fetch("/api/v1/auth/forgot-password", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
             });
 
-            if (!res.ok) throw new Error("Erro ao processar solicitação");
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                console.error("Server Error:", res.status, errorData);
+
+                if (res.status === 404) throw new Error("Serviço de recuperação indisponível (404).");
+                if (res.status === 429) throw new Error("Muitas tentativas. Aguarde um momento.");
+                if (res.status >= 500) throw new Error("Erro interno do servidor. Tente novamente mais tarde.");
+
+                throw new Error(errorData.detail || "Erro ao processar solicitação.");
+            }
 
             setStatus("success");
             // Security Best Practice: Always show generic success message
             setMessage("Se este e-mail estiver cadastrado, você receberá as instruções em breve.");
 
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            console.error("Submission Error:", error);
             setStatus("error");
-            setMessage("Ocorreu um erro ao conectar ao servidor. Tente novamente.");
+            // Use the specific error message if available, otherwise generic
+            setMessage(error.message || "Ocorreu um erro ao conectar ao servidor. Tente novamente.");
         } finally {
             setIsLoading(false);
         }
