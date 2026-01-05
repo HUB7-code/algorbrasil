@@ -1,35 +1,12 @@
-from typing import Any, List
+from typing import Any, List, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend.app.api import deps
 from backend.app.models.ai_asset import AIAsset
 from backend.app.models.organization import Organization
-from pydantic import BaseModel
-from typing import Optional
-from datetime import datetime
+from backend.app.schemas.ai_asset import AIAssetBase, AIAssetCreate, AIAssetOut
 
 router = APIRouter()
-
-# Schema (Pydantic) - Could be moved to schemas/
-class AIAssetBase(BaseModel):
-    name: str
-    department: Optional[str] = None
-    type: str # SaaS, Model, etc.
-    risk_level: str # Low, Medium, High, Critical
-    data_types: Optional[str] = None
-    description: Optional[str] = None
-
-class AIAssetCreate(AIAssetBase):
-    pass
-
-class AIAssetOut(AIAssetBase):
-    id: int
-    owner_id: int
-    status: str
-    created_at: datetime
-    
-    class Config:
-        from_attributes = True
 
 # Read All (With Organization Filter)
 @router.get("/", response_model=List[AIAssetOut])
