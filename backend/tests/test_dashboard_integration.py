@@ -8,10 +8,30 @@ sys.path.append(os.getcwd())
 from fastapi.testclient import TestClient
 from backend.main import app
 from backend.app.core.config import settings
-from backend.app.db.session import SessionLocal
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from backend.app.db.session import Base, get_db
 from backend.app.models.user import User
 from backend.app.core.security import get_password_hash
 from backend.app.models.ai_asset import AIAsset
+
+# Configuração de banco de teste
+SQLALCHEMY_DATABASE_URL = "sqlite:///./test_dashboard.db"
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
+TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Criar tabelas
+Base.metadata.create_all(bind=engine)
+
+# Override da dependência
+def override_get_db():
+    try:
+        db = TestingSessionLocal()
+        yield db
+    finally:
+        db.close()
+
+app.dependency_overrides[get_db] = override_get_db
 
 client = TestClient(app)
 
@@ -21,7 +41,7 @@ TEST_PASS = "testpass123"
 
 @pytest.fixture(scope="module")
 def db_session():
-    db = SessionLocal()
+    db = TestingSessionLocal()
     try:
         yield db
     finally:
@@ -63,10 +83,10 @@ def test_dashboard_flow_robust(setup_data):
     """
     print("\n🔐 1. Testing Login...")
     login_data = {
-        "username": TEST_EMAIL,
+        "email": TEST_EMAIL,
         "password": TEST_PASS
     }
-    r = client.post(f"{settings.API_V1_STR}/login/access-token", data=login_data)
+    r = client.post(f"{settings.API_V1_STR}/auth/login", json=login_data)
     
     # Debug
     if r.status_code != 200:
@@ -100,3 +120,14 @@ def test_dashboard_flow_robust(setup_data):
     print("✅ Inventory Validated.")
 
     print("\n🚀 TEST SUCCESS: Backend Integration Verified.")
+
+@pytest.fixture(scope="module", autouse=True)
+def cleanup_database():
+    yield
+    # Cleanup após todos os testes
+    engine.dispose()
+    if os.path.exists("./test_dashboard.db"):
+        try:
+            os.remove("./test_dashboard.db")
+        except (OSError, PermissionError):
+            pass

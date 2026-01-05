@@ -52,7 +52,7 @@ def test_user_creation_security():
         "phone": "5511999998888"
     }
     
-    response = client.post("/api/v1/signup", json=user_data)
+    response = client.post("/api/v1/auth/signup", json=user_data)
     assert response.status_code == 201
     
     # Verificação Direta no Banco
@@ -88,7 +88,7 @@ def test_sql_injection_attempt():
         "password": "any"
     }
     
-    response = client.post("/api/v1/login", json=injection_payload)
+    response = client.post("/api/v1/auth/login", json=injection_payload)
     
     # Deve falhar com 401 ou 422 (validação), nunca 200 ou 500 (erro de sql)
     assert response.status_code in [401, 422], f"Vulnerabilidade Potencial: Respondeu {response.status_code}"
