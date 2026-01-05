@@ -129,5 +129,5 @@ def cleanup_database():
     if os.path.exists("./test_dashboard.db"):
         try:
             os.remove("./test_dashboard.db")
-        except:
+        except (OSError, PermissionError):
             pass

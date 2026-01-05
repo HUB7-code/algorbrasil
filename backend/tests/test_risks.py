@@ -43,7 +43,7 @@ def setup_database_fixture():
     if os.path.exists("./test_risks.db"):
         try:
             os.remove("./test_risks.db")
-        except:
+        except (OSError, PermissionError):
             pass
 
 class TestRiskModule:
