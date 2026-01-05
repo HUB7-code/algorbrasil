@@ -10,26 +10,10 @@ from datetime import datetime
 
 router = APIRouter()
 
-# Schema (Pydantic) - Could be moved to schemas/
-class AIAssetBase(BaseModel):
-    name: str
-    department: Optional[str] = None
-    type: str # SaaS, Model, etc.
-    risk_level: str # Low, Medium, High, Critical
-    data_types: Optional[str] = None
-    description: Optional[str] = None
+from backend.app.schemas.ai_asset import AIAssetBase, AIAssetCreate, AIAssetOut
 
-class AIAssetCreate(AIAssetBase):
-    pass
-
-class AIAssetOut(AIAssetBase):
-    id: int
-    owner_id: int
-    status: str
-    created_at: datetime
-    
-    class Config:
-        from_attributes = True
+# Schema (Pydantic) - Moved to schemas/ai_asset.py
+# Imported above
 
 # Read All (With Organization Filter)
 @router.get("/", response_model=List[AIAssetOut])
