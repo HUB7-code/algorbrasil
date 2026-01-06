@@ -110,10 +110,7 @@ def client(db_session):
     usem a mesma sessão de banco de dados do teste.
     """
     def override_get_db():
-        try:
-            yield db_session
-        finally:
-            pass
+        yield db_session
     
     app.dependency_overrides[get_db] = override_get_db
     
@@ -148,3 +145,34 @@ def admin_user(db_session):
         return admin_user
     else:
         return existing_admin
+
+
+@pytest.fixture(scope="function")
+def authenticated_client(client):
+    """
+    Fixture que cria um usuário de teste e retorna um dict com client e headers autenticados.
+    Útil para testes que precisam fazer requisições autenticadas.
+    """
+    # Create User for Auth
+    user_data = {
+        "email": "test_user@algor.com",
+        "password": "TestPassword123!",
+        "full_name": "Test User",
+        "phone": "11999999999"
+    }
+    # Try to create user
+    res_signup = client.post("/api/v1/auth/signup", json=user_data)
+    if res_signup.status_code != 201:
+        print(f"User might already exist: {res_signup.status_code}")
+    
+    # Login
+    login_data = {"email": user_data["email"], "password": user_data["password"]}
+    response = client.post("/api/v1/auth/login", json=login_data)
+    if response.status_code != 200:
+        print(f"Login failed: {response.text}")
+        raise Exception("Login failed")
+        
+    token = response.json()["access_token"]
+    auth_headers = {"Authorization": f"Bearer {token}"}
+    
+    return {"client": client, "headers": auth_headers}
