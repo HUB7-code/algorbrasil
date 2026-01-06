@@ -76,7 +76,8 @@ async def set_secure_headers(request: Request, call_next):
 # Rotas
 # Rotas - Correção de Imports baseada na estrutura real
 from backend.app.api import auth
-from backend.app.api.endpoints import admin, lab, organizations, risks
+from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard
+from backend.app.api.endpoints.inventory import assets
 
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
 # app.include_router(users.router, prefix="/api/v1/users", tags=["users"]) # Desativado: Módulo não encontrado
@@ -84,6 +85,8 @@ app.include_router(organizations.router, prefix="/api/v1/enterprise", tags=["ent
 app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
 app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab (Audit)"])
 app.include_router(risks.router, prefix="/api/v1/risks", tags=["risks"])
+app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["dashboard"])
+app.include_router(assets.router, prefix="/api/v1/inventory", tags=["inventory"])
 
 @app.get("/")
 def read_root():
