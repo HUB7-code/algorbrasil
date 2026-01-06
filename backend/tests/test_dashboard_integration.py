@@ -9,7 +9,7 @@ from backend.app.core.security import get_password_hash
 from backend.app.models.ai_asset import AIAsset
 from backend.app.core.config import settings
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def setup_data(db_session):
     # 1. Create User
     user = db_session.query(User).filter(User.email == TEST_EMAIL).first()
