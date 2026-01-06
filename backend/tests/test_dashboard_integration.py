@@ -1,33 +1,15 @@
 import pytest
-import sys
-import os
-
-# Ensure backend module is found
-sys.path.append(os.getcwd())
-
-from fastapi.testclient import TestClient
-from backend.main import app
-from backend.app.core.config import settings
-from backend.app.db.session import SessionLocal
-from backend.app.models.user import User
-from backend.app.core.security import get_password_hash
-from backend.app.models.ai_asset import AIAsset
-
-client = TestClient(app)
 
 # Use unique credentials for test to avoid collision
 TEST_EMAIL = "test_dashboard@algor.brasil"
 TEST_PASS = "testpass123"
 
-@pytest.fixture(scope="module")
-def db_session():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+from backend.app.models.user import User
+from backend.app.core.security import get_password_hash
+from backend.app.models.ai_asset import AIAsset
+from backend.app.core.config import settings
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def setup_data(db_session):
     # 1. Create User
     user = db_session.query(User).filter(User.email == TEST_EMAIL).first()
@@ -57,7 +39,7 @@ def setup_data(db_session):
 
     return user
 
-def test_dashboard_flow_robust(setup_data):
+def test_dashboard_flow_robust(setup_data, client):
     """
     Robust Integration Test with Self-Contained Data Setup
     """
