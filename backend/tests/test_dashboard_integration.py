@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from backend.app.main import app
 from backend.app.core.config import settings
 
-def test_dashboard_flow_robust(client):
+def test_dashboard_flow_robust(client, admin_user):
     """
     Test de integração do Dashboard: Login → Fetch User Data → List Risks
     """

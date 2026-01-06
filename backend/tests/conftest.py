@@ -88,20 +88,16 @@ def setup_test_database():
 @pytest.fixture(scope="function")
 def db_session():
     """
-    Fixture que fornece uma sessão de banco de dados isolada para cada teste.
+    Fixture que fornece uma sessão de banco de dados para cada teste.
     
-    Usa transações com rollback para garantir que cada teste comece
-    com um estado limpo do banco de dados.
+    Nota: Os dados NÃO são revertidos após cada teste. Use o scope="session"
+    do setup_test_database para limpar tudo ao final da sessão de testes.
     """
-    connection = test_engine.connect()
-    transaction = connection.begin()
-    session = TestingSessionLocal(bind=connection)
+    session = TestingSessionLocal()
     
     yield session
     
     session.close()
-    transaction.rollback()
-    connection.close()
 
 
 @pytest.fixture(scope="function")
@@ -125,3 +121,30 @@ def client(db_session):
         yield test_client
     
     app.dependency_overrides.clear()
+
+
+@pytest.fixture(scope="function")
+def admin_user(db_session):
+    """
+    Fixture que cria um usuário administrador para testes que precisam.
+    """
+    from backend.app.models.user import User
+    from backend.app.core.security import get_password_hash
+    
+    admin_email = "admin@algorbrasil.com.br"
+    existing_admin = db_session.query(User).filter(User.email == admin_email).first()
+    
+    if not existing_admin:
+        admin_user = User(
+            email=admin_email,
+            hashed_password=get_password_hash("admin123"),
+            full_name="Administrador Algor",
+            role="admin",
+            is_superuser=True
+        )
+        db_session.add(admin_user)
+        db_session.commit()
+        db_session.refresh(admin_user)
+        return admin_user
+    else:
+        return existing_admin
