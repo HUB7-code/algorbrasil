@@ -1,10 +1,30 @@
 import pytest
 from fastapi.testclient import TestClient
 
+# Test data for creating risks
+SAMPLE_RISK_DATA = {
+    "category": "Viés Algorítmico",
+    "description": "Risk of bias in training data",
+    "affected_system": "Credit Scorer",
+    "probability": 4,
+    "impact": 5,
+    "strategy": "Mitigar",
+    "mitigation_plan": "Re-sampling"
+}
+
 # Fixture to create and authenticate a user for the tests
 @pytest.fixture(scope="function")
 def auth_headers(client):
-    """Create a user and return authentication headers"""
+    """
+    Create a test user and authenticate, returning authorization headers.
+    
+    This fixture creates a user via the signup endpoint, then logs in
+    and returns the authentication headers with Bearer token that can
+    be used for protected API endpoints.
+    
+    Returns:
+        dict: Dictionary with 'Authorization' header containing Bearer token
+    """
     user_data = {
         "email": "risk_tester@algor.com",
         "password": "TestPassword123!",
@@ -31,19 +51,10 @@ def auth_headers(client):
 
 def test_create_risk(client, auth_headers):
     print("Testing Create Risk...")
-    risk_data = {
-        "category": "Viés Algorítmico",
-        "description": "Risk of bias in training data",
-        "affected_system": "Credit Scorer",
-        "probability": 4,
-        "impact": 5,
-        "strategy": "Mitigar",
-        "mitigation_plan": "Re-sampling"
-    }
-    response = client.post("/api/v1/risks/", json=risk_data, headers=auth_headers)
+    response = client.post("/api/v1/risks/", json=SAMPLE_RISK_DATA, headers=auth_headers)
     assert response.status_code == 200, f"Create failed: {response.text}"
     data = response.json()
-    assert data["category"] == risk_data["category"]
+    assert data["category"] == SAMPLE_RISK_DATA["category"]
     assert data["risk_level"] == 20 # 4 * 5
     assert data["status"] == "Aberto"
     print("Create Risk PASSED")
@@ -52,16 +63,7 @@ def test_create_risk(client, auth_headers):
 def test_list_risks(client, auth_headers):
     print("Testing List Risks...")
     # First create a risk to ensure we have at least one
-    risk_data = {
-        "category": "Viés Algorítmico",
-        "description": "Risk of bias in training data",
-        "affected_system": "Credit Scorer",
-        "probability": 4,
-        "impact": 5,
-        "strategy": "Mitigar",
-        "mitigation_plan": "Re-sampling"
-    }
-    client.post("/api/v1/risks/", json=risk_data, headers=auth_headers)
+    client.post("/api/v1/risks/", json=SAMPLE_RISK_DATA, headers=auth_headers)
     
     response = client.get("/api/v1/risks/", headers=auth_headers)
     assert response.status_code == 200
@@ -74,16 +76,7 @@ def test_list_risks(client, auth_headers):
 def test_update_risk(client, auth_headers):
     print("Testing Update Risk...")
     # First create a risk
-    risk_data = {
-        "category": "Viés Algorítmico",
-        "description": "Risk of bias in training data",
-        "affected_system": "Credit Scorer",
-        "probability": 4,
-        "impact": 5,
-        "strategy": "Mitigar",
-        "mitigation_plan": "Re-sampling"
-    }
-    create_response = client.post("/api/v1/risks/", json=risk_data, headers=auth_headers)
+    create_response = client.post("/api/v1/risks/", json=SAMPLE_RISK_DATA, headers=auth_headers)
     created_risk = create_response.json()
     risk_id = created_risk["id"]
     
