@@ -86,6 +86,23 @@ async def create_user(request: Request, user_in: UserCreate, db: Session = Depen
         db.commit()
         db.refresh(new_user)
         logger.info(f"✅ Usuário salvo no DB (ID: {new_user.id})")
+        
+        # === [LGPD AUDIT] ===
+        # Registrar ação de criação de usuário para compliance
+        try:
+            from backend.app.models.audit import AuditLog
+            audit_log = AuditLog(
+                user_id=new_user.id,
+                action="USER_SIGNUP",
+                resource_type="user",
+                resource_id=str(new_user.id),
+                details={"email": new_user.email}
+            )
+            db.add(audit_log)
+            db.commit()
+            logger.info(f"📝 Audit Log criado para signup (User ID: {new_user.id})")
+        except Exception as e_audit:
+            logger.warning(f"⚠️ Erro não-fatal ao criar AuditLog: {e_audit}")
 
         # === [FIX PERSONA A] ===
         # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos

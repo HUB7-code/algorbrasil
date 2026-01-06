@@ -32,7 +32,7 @@ async def get_dashboard_overview(
     if organization_id:
         assets_query = assets_query.filter(AIAsset.organization_id == organization_id)
     else:
-        assets_query = assets_query.filter(AIAsset.user_id == current_user.id)
+        assets_query = assets_query.filter(AIAsset.owner_id == current_user.id)
     total_assets = assets_query.count()
     
     # 2. Riscos Ativos

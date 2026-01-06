@@ -27,8 +27,6 @@ def override_get_db():
     finally:
         db.close()
 
-app.dependency_overrides[get_db] = override_get_db
-
 client = TestClient(app)
 
 # ✅ ADICIONE DECORATOR PYTEST PARA SETUP/TEARDOWN
@@ -36,8 +34,10 @@ client = TestClient(app)
 def setup_database_fixture():
     print("Setting up database...")
     Base.metadata.create_all(bind=engine)
+    app.dependency_overrides[get_db] = override_get_db
     yield
     print("Tearing down database...")
+    del app.dependency_overrides[get_db]  # Remove apenas o override que configuramos
     Base.metadata.drop_all(bind=engine)
     engine.dispose()
     if os.path.exists("./test_risks.db"):
@@ -58,13 +58,13 @@ class TestRiskModule:
             "phone": "11999999999"
         }
         # Try to create user
-        res_signup = client.post("/api/v1/signup", json=user_data)
+        res_signup = client.post("/api/v1/auth/signup", json=user_data)
         if res_signup.status_code != 201:
             print(f"Signup info (might exist): {res_signup.status_code} - {res_signup.text}")
         
         # Login
         login_data = {"email": user_data["email"], "password": user_data["password"]}
-        response = client.post("/api/v1/login", json=login_data)
+        response = client.post("/api/v1/auth/login", json=login_data)
         if response.status_code != 200:
             print(f"Login failed: {response.text}")
             raise Exception("Login failed")
