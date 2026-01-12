@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# Adiciona o diretório raiz ao path para imports absolutos
+# Add root directory to path for absolute imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from backend.app.main import app
@@ -53,8 +53,8 @@ TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_
 @pytest.fixture(scope="session", autouse=True)
 def setup_test_database():
     """
-    Fixture de escopo 'session' que cria TODAS as tabelas uma vez
-    antes de TODOS os testes e remove depois.
+    Session-scoped fixture that creates ALL tables once
+    before ALL tests and removes them afterwards.
     """
     print(f"\n🔧 [SETUP] Criando {len(Base.metadata.tables)} tabelas no banco de teste...")
     Base.metadata.create_all(bind=test_engine)
@@ -77,8 +77,8 @@ def setup_test_database():
 @pytest.fixture(scope="function")
 def db_session():
     """
-    Fixture que fornece uma sessão de banco de dados para cada teste.
-    Usa transações com rollback para manter isolamento entre testes.
+    Fixture that provides a database session for each test.
+    Uses transactions with rollback to maintain isolation between tests.
     """
     connection = test_engine.connect()
     transaction = connection.begin()
@@ -94,8 +94,8 @@ def db_session():
 @pytest.fixture(scope="function")
 def client(db_session):
     """
-    Fixture que fornece um TestClient do FastAPI com
-    override de dependência para usar o banco de teste.
+    Fixture that provides a FastAPI TestClient with
+    dependency override to use the test database.
     """
     def override_get_db():
         try:
@@ -114,7 +114,7 @@ def client(db_session):
 @pytest.fixture(scope="function")
 def admin_user(db_session):
     """
-    Fixture que cria um usuário admin para testes de autenticação.
+    Fixture that creates an admin user for authentication tests.
     """
     from backend.app.core.security import get_password_hash
     
@@ -135,7 +135,7 @@ def admin_user(db_session):
 @pytest.fixture(scope="function")
 def authenticated_client(client, admin_user):
     """
-    Fixture que fornece um TestClient com autenticação configurada.
+    Fixture that provides a TestClient with authentication configured.
     """
     login_data = {"email": "admin@test.com", "password": "testpass123"}
     response = client.post("/api/v1/auth/login", json=login_data)
