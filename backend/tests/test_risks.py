@@ -92,6 +92,9 @@ class TestRiskModule:
         db = TestingSessionLocal()
         user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
         if user:
+            # Deletar riscos associados ao usuário primeiro (evita FK constraint error)
+            from backend.app.models.risk import RiskRegister
+            db.query(RiskRegister).filter(RiskRegister.user_id == user.id).delete()
             db.delete(user)
             db.commit()
         db.close()
