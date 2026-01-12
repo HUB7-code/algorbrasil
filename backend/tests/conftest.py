@@ -84,7 +84,7 @@ def setup_test_database():
     if os.path.exists("./test.db"):
         try:
             os.remove("./test.db")
-        except Exception as e:
+        except (PermissionError, FileNotFoundError) as e:
             print(f"Warning: Could not remove test.db: {e}")
 
 
