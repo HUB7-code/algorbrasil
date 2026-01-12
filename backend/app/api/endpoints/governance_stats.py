@@ -4,7 +4,7 @@ from sqlalchemy import func
 from typing import Dict
 
 from backend.app.db.session import get_db
-from backend.app.models.governance import GovernanceTrace
+from backend.app.models.governance import GovernanceRecord
 
 router = APIRouter()
 
@@ -18,23 +18,23 @@ def get_growth_hub_stats(
     """
     
     # 1. Total de Sessões Seguras (Total de Logs)
-    total_sessions = db.query(func.count(GovernanceTrace.id))\
-        .filter(GovernanceTrace.organization_id == organization_id)\
+    total_sessions = db.query(func.count(GovernanceRecord.id))\
+        .filter(GovernanceRecord.organization_id == organization_id)\
         .scalar() or 0
         
     # 2. Bloqueios Éticos (Risk Mitigation)
-    blocked_count = db.query(func.count(GovernanceTrace.id))\
-        .filter(GovernanceTrace.organization_id == organization_id)\
-        .filter(GovernanceTrace.verdict == "BLOCKED")\
+    blocked_count = db.query(func.count(GovernanceRecord.id))\
+        .filter(GovernanceRecord.organization_id == organization_id)\
+        .filter(GovernanceRecord.verdict == "BLOCKED")\
         .scalar() or 0
         
     # 3. Cálculo de CICR (Simulado base de logs)
     # Na v2.0, isso virá de integração com CRM. Por enquanto, assumimos 
     # que sessões "ALLOWED" com risk < 0.1 convertem melhor.
-    high_quality_interactions = db.query(func.count(GovernanceTrace.id))\
-        .filter(GovernanceTrace.organization_id == organization_id)\
-        .filter(GovernanceTrace.verdict == "ALLOWED")\
-        .filter(GovernanceTrace.risk_score < 0.1)\
+    high_quality_interactions = db.query(func.count(GovernanceRecord.id))\
+        .filter(GovernanceRecord.organization_id == organization_id)\
+        .filter(GovernanceRecord.verdict == "ALLOWED")\
+        .filter(GovernanceRecord.risk_score < 0.1)\
         .scalar() or 0
     
     conversion_rate = 0.0
@@ -79,9 +79,9 @@ def get_recent_logs(
     """
     Retorna os últimos logs para a tabela 'Live Trace'.
     """
-    logs = db.query(GovernanceTrace)\
-        .filter(GovernanceTrace.organization_id == organization_id)\
-        .order_by(GovernanceTrace.created_at.desc())\
+    logs = db.query(GovernanceRecord)\
+        .filter(GovernanceRecord.organization_id == organization_id)\
+        .order_by(GovernanceRecord.created_at.desc())\
         .limit(limit)\
         .all()
         

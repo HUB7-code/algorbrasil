@@ -5,7 +5,7 @@ import uuid
 import hashlib
 
 from backend.app.db.session import get_db
-from backend.app.models.governance import GovernanceTrace
+from backend.app.models.governance import GovernanceRecord
 from backend.app.schemas.governance import GuardrailRequest, GuardrailResponse
 from backend.app.models.user import User as UserModel
 from backend.app.api.auth import get_current_user
@@ -110,9 +110,9 @@ def check_compliance_guardrail(
     # 3. Registrar no Evidence Vault (Imutabilidade) - TRUST HUB LOGIC
     
     # 3.a Fetch Previous Block for Hash Chaining
-    previous_trace = db.query(GovernanceTrace).filter(
-        GovernanceTrace.organization_id == request.organization_id
-    ).order_by(GovernanceTrace.created_at.desc()).first()
+    previous_trace = db.query(GovernanceRecord).filter(
+        GovernanceRecord.organization_id == request.organization_id
+    ).order_by(GovernanceRecord.created_at.desc()).first()
     
     previous_hash_val = previous_trace.block_hash if previous_trace else "GENESIS_ALGOR_TRUST_HUB_v1"
     
@@ -121,7 +121,7 @@ def check_compliance_guardrail(
     block_payload = f"{trace_uuid}{generate_hash(request.prompt_text)}{verdict}{risk_score}{previous_hash_val}"
     current_block_hash = generate_hash(block_payload)
 
-    trace_entry = GovernanceTrace(
+    trace_entry = GovernanceRecord(
         trace_id=trace_uuid,
         organization_id=request.organization_id,
         project_id=request.project_id,
@@ -167,7 +167,7 @@ def complete_trace_audit(
     TRUST HUB: Fecha o ciclo de auditoria registrando o hash da saída.
     Apenas o dono da organização original pode atualizar.
     """
-    trace = db.query(GovernanceTrace).filter(GovernanceTrace.trace_id == trace_id).first()
+    trace = db.query(GovernanceRecord).filter(GovernanceRecord.trace_id == trace_id).first()
     if not trace:
         raise HTTPException(status_code=404, detail="Trace not found")
         

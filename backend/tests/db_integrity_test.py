@@ -6,7 +6,7 @@ from backend.app.db.session import engine, Base, SessionLocal
 from backend.app.models.user import User
 from backend.app.models.organization import Organization
 from backend.app.models.ai_asset import AIAsset
-from backend.app.models.governance import GovernanceTrace
+from backend.app.models.governance import GovernanceRecord
 from backend.app.models.project import Project
 from sqlalchemy.orm import Session
 import uuid
@@ -74,7 +74,7 @@ def test_full_db_integrity():
         # 6. Generate Governance Trace (The "Glue")
         print("[6] Gerando Trace de Auditoria (Trust Hub)...")
         trace_id = str(uuid.uuid4())
-        trace = GovernanceTrace(
+        trace = GovernanceRecord(
             trace_id=trace_id,
             organization_id=org.id,
             project_id=proj.id,
@@ -92,7 +92,7 @@ def test_full_db_integrity():
         
         # 7. Validation / Navigation Check
         print("[7] Validando Relacionamentos ORM...")
-        retrieved_trace = db.query(GovernanceTrace).filter(GovernanceTrace.id == trace.id).first()
+        retrieved_trace = db.query(GovernanceRecord).filter(GovernanceRecord.id == trace.id).first()
         
         assert retrieved_trace.organization.name == "Acme Corp Test", "Falha relacao Trace->Org"
         assert retrieved_trace.ai_asset.name == "GPT-4 Customer Service", "Falha relacao Trace->Asset"

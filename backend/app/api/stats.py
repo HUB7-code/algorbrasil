@@ -18,7 +18,7 @@ async def get_public_stats(db: Session = Depends(get_db)):
     }
 from backend.app.models.ai_asset import AIAsset
 from backend.app.models.risk import RiskRegister, RiskStatus
-from backend.app.models.governance import GovernanceTrace
+from backend.app.models.governance import GovernanceRecord
 
 @router.get("/dashboard/overview")
 async def get_dashboard_overview(db: Session = Depends(get_db)):
@@ -35,7 +35,7 @@ async def get_dashboard_overview(db: Session = Depends(get_db)):
     high_risks = db.query(RiskRegister).filter(RiskRegister.risk_level >= 9, RiskRegister.risk_level < 15).count()
     
     # 3. Governance Activity (Traces today/total)
-    # total_traces = db.query(GovernanceTrace).count()
+    # total_traces = db.query(GovernanceRecord).count()
     
     # 4. Mock Trust Score Algorithm (based on inverse of critical risks)
     # 100 - (Critical * 20) - (High * 5)
