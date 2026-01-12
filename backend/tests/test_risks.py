@@ -50,28 +50,43 @@ class TestRiskModule:
     auth_headers = {}
 
     def setup_class(self):
-        # Create User for Auth
-        user_data = {
-            "email": "risk_tester@algor.com",
-            "password": "TestPassword123!",
-            "full_name": "Risk Tester",
-            "phone": "11999999999"
-        }
-        # Try to create user
-        res_signup = client.post("/api/v1/auth/signup", json=user_data)
-        if res_signup.status_code != 201:
-            print(f"Signup info (might exist): {res_signup.status_code} - {res_signup.text}")
+        """Criar usuário verificado diretamente no banco para testes"""
+        from backend.app.core.security import get_password_hash
+        from backend.app.models.user import User
         
-        # Login
-        login_data = {"email": user_data["email"], "password": user_data["password"]}
+        # Criar usuário diretamente no banco (já verificado)
+        db = TestingSessionLocal()
+        
+        # Verificar se usuário já existe
+        existing_user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
+        if existing_user:
+            db.delete(existing_user)
+            db.commit()
+        
+        # Criar novo usuário com email verificado
+        user = User(
+            email="risk_tester@algor.com",
+            hashed_password=get_password_hash("TestPassword123!"),
+            full_name="Risk Tester",
+            phone="11999999999",
+            is_active=True,  # ✅ CHAVE: Email já verificado
+            role="user"
+        )
+        db.add(user)
+        db.commit()
+        db.close()
+        
+        # Agora fazer login deve funcionar
+        login_data = {"email": "risk_tester@algor.com", "password": "TestPassword123!"}
         response = client.post("/api/v1/auth/login", json=login_data)
+        
         if response.status_code != 200:
             print(f"Login failed: {response.text}")
             raise Exception("Login failed")
-            
+        
         token = response.json()["access_token"]
         self.auth_headers = {"Authorization": f"Bearer {token}"}
-        print("Login successful, token acquired.")
+        print("✅ Login successful, token acquired.")
 
     def test_create_risk(self):
         print("Testing Create Risk...")
@@ -117,6 +132,22 @@ class TestRiskModule:
         response = client.get("/api/v1/risks/")
         assert response.status_code == 401
         print("Unauthorized Access PASSED")
+    
+    def teardown_class(self):
+        """Limpar dados de teste após execução"""
+        from backend.app.models.user import User
+        from backend.app.models.risk import RiskRegister
+        db = TestingSessionLocal()
+        
+        # Deletar riscos associados ao usuário primeiro
+        user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
+        if user:
+            # Deletar todos os riscos do usuário
+            db.query(RiskRegister).filter(RiskRegister.user_id == user.id).delete()
+            # Agora deletar o usuário
+            db.delete(user)
+            db.commit()
+        db.close()
 
 import logging
 
