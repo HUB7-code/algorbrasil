@@ -69,7 +69,6 @@ class TestRiskModule:
             full_name="Risk Tester",
             phone="11999999999",
             is_active=True,
-            is_email_verified=True,  # ✅ Email já verificado para testes
             role="user"
         )
         db.add(user)

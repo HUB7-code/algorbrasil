@@ -8,6 +8,7 @@ from backend.app.main import app
 from backend.app.db.session import get_db, engine, Base
 from backend.app.models.profiles import CorporateProfile, ProfessionalProfile
 from backend.app.models.user import User
+from backend.app.core.security import create_access_token
 
 # Create test client
 client = TestClient(app)
@@ -54,6 +55,14 @@ def create_test_user(db: Session, email: str = "test@example.com"):
     db.refresh(user)
     return user
 
+def get_test_token(user_email: str) -> str:
+    """Gera um token JWT para testes"""
+    from datetime import timedelta
+    access_token_expires = timedelta(minutes=30)
+    return create_access_token(
+        data={"sub": user_email}, expires_delta=access_token_expires
+    )
+
 def create_test_corporate_profile(db: Session, user_id: int):
     profile = CorporateProfile(
         user_id=user_id,
@@ -83,6 +92,7 @@ def create_test_professional_profile(db: Session, user_id: int):
 # Tests
 def test_create_corporate_profile(db_session, override_get_db):
     user = create_test_user(db_session)
+    token = get_test_token(user.email)
     
     response = client.post(
         "/api/v1/profiles/corporate",
@@ -92,7 +102,8 @@ def test_create_corporate_profile(db_session, override_get_db):
             "size_range": "201-1000",
             "sector": "finance",
             "website": "https://newcompany.com"
-        }
+        },
+        headers={"Authorization": f"Bearer {token}"}
     )
     
     # Assert 404 because Endpoint is disabled, but if enabled it would be 201
@@ -105,6 +116,7 @@ def test_create_corporate_profile(db_session, override_get_db):
 
 def test_create_professional_profile(db_session, override_get_db):
     user = create_test_user(db_session, email="professional@example.com")
+    token = get_test_token(user.email)
     
     response = client.post(
         "/api/v1/profiles/professional",
@@ -115,7 +127,8 @@ def test_create_professional_profile(db_session, override_get_db):
             "state": "RJ",
             "primary_expertise": "Ethics",
             "linkedin_url": "https://linkedin.com/in/new"
-        }
+        },
+        headers={"Authorization": f"Bearer {token}"}
     )
     
     assert response.status_code in [201, 404]
