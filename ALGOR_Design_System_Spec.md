@@ -145,10 +145,12 @@ const itemVariants = {
 ```
 
 ### 5.2 Hover Effects
+{% raw %}
 ```typescript
 whileHover={{ scale: 1.02, borderColor: "#00FF9450" }}
 whileTap={{ scale: 0.98 }}
 ```
+{% endraw %}
 
 ### 5.3 LED Status Indicator
 ```tsx
@@ -172,6 +174,7 @@ whileTap={{ scale: 0.98 }}
 ```
 
 ### 6.2 Primary Button
+{% raw %}
 ```tsx
 <motion.button
     whileHover={{ scale: 1.01, boxShadow: "0 0 40px rgba(0,255,148,0.3)" }}
@@ -181,8 +184,10 @@ whileTap={{ scale: 0.98 }}
                shadow-[0_0_30px_rgba(0,255,148,0.2)]"
 >
 ```
+{% endraw %}
 
 ### 6.3 Navigation Item (Sidebar)
+{% raw %}
 ```tsx
 <motion.div
     className={`flex items-center gap-3 px-3 py-2.5 mx-2 rounded-xl text-sm font-medium 
@@ -191,8 +196,10 @@ whileTap={{ scale: 0.98 }}
     whileHover={{ x: 4 }}
 >
 ```
+{% endraw %}
 
 ### 6.4 Quick Stat Card
+{% raw %}
 ```tsx
 <motion.div
     className="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#131825] to-[#0A0E1A] 
@@ -200,6 +207,7 @@ whileTap={{ scale: 0.98 }}
     whileHover={{ scale: 1.02, borderColor: "#00FF9430" }}
 >
 ```
+{% endraw %}
 
 ---
 
@@ -215,6 +223,7 @@ whileTap={{ scale: 0.98 }}
 ```
 
 ### 7.2 Card Glow Effect (On Hover)
+{% raw %}
 ```tsx
 <div 
     className="absolute top-0 right-0 w-[300px] h-[300px] rounded-full blur-[100px] 
@@ -222,6 +231,7 @@ whileTap={{ scale: 0.98 }}
     style={{ backgroundColor: "#00FF9410" }}
 />
 ```
+{% endraw %}
 
 ---
 
@@ -235,6 +245,7 @@ import { ShieldCheck, Activity, ArrowRight } from "lucide-react";
 ```
 
 ### 8.2 Material Symbols (Secondary)
+{% raw %}
 ```tsx
 <span 
     className="material-symbols-rounded text-[20px]"
@@ -246,6 +257,7 @@ import { ShieldCheck, Activity, ArrowRight } from "lucide-react";
     fact_check
 </span>
 ```
+{% endraw %}
 
 ---
 
