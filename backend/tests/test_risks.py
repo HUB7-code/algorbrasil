@@ -92,8 +92,10 @@ class TestRiskModule:
         db = TestingSessionLocal()
         user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
         if user:
-            # Delete associated risks first to avoid foreign key constraint violation
+            # Delete associated records first to avoid foreign key constraint violation
+            # and ensure complete test isolation
             db.query(RiskRegister).filter(RiskRegister.user_id == user.id).delete()
+            db.query(AuditLog).filter(AuditLog.user_id == user.id).delete()
             db.delete(user)
             db.commit()
         db.close()
