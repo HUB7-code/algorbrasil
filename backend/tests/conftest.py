@@ -28,7 +28,7 @@ from backend.app.models.ai_asset import AIAsset
 from backend.app.models.organization import Organization, organization_members
 from backend.app.models.project import Project, ProjectStatus, RiskLevel
 from backend.app.models.lms import Course, CourseModule, CourseLesson, Enrollment
-from backend.app.models.governance import GovernanceTrace, GovernancePolicy
+from backend.app.models.governance import GovernanceRecord, GovernancePolicy, GovernanceRule
 from backend.app.models.partner import PartnerApplication, PartnerApplicationStatus
 from backend.app.models.lead import Lead, LeadStatus, LeadPriority, FunnelStage
 from backend.app.models.payment import Payment, PaymentStatus
