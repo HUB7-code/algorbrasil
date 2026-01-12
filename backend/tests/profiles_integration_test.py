@@ -56,7 +56,7 @@ def create_test_user(db: Session, email: str = "test@example.com"):
     return user
 
 def get_test_token(user_email: str) -> str:
-    """Gera um token JWT para testes"""
+    """Generates a JWT token for testing"""
     from datetime import timedelta
     access_token_expires = timedelta(minutes=30)
     return create_access_token(

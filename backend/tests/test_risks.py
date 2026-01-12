@@ -62,7 +62,7 @@ class TestRiskModule:
             db.delete(existing_user)
             db.commit()
         
-        # Criar novo usuário com email verificado
+        # Create test user (is_active=True serves as email verification for testing)
         user = User(
             email="risk_tester@algor.com",
             hashed_password=get_password_hash("TestPassword123!"),
