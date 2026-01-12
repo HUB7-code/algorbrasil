@@ -62,6 +62,15 @@ class TestRiskModule:
         if res_signup.status_code != 201:
             print(f"Signup info (might exist): {res_signup.status_code} - {res_signup.text}")
         
+        # ✅ ATIVAR USUÁRIO DIRETAMENTE NO BANCO (Simula clique no link de verificação)
+        db = TestingSessionLocal()
+        user = db.query(User).filter(User.email == user_data["email"]).first()
+        if user:
+            user.is_active = True
+            db.commit()
+            print(f"User {user.email} activated for testing.")
+        db.close()
+        
         # Login
         login_data = {"email": user_data["email"], "password": user_data["password"]}
         response = client.post("/api/v1/auth/login", json=login_data)
