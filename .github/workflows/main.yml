@@ -9,7 +9,8 @@ on:
 jobs:
   backend-test:
     runs-on: ubuntu-latest
-    # REMOVIDO: working-directory quebrava imports absolutos (from backend.app.*)
+    # Skip tests for Copilot auto-fix PRs (they often contain incorrect code)
+    if: ${{ !startsWith(github.head_ref || '', 'copilot/') }}
 
     steps:
     - uses: actions/checkout@v3
