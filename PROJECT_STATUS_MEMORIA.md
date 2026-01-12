@@ -1,13 +1,24 @@
-**Versão Atual:** V17.9.8
-**Data da Última Atualização:** 05/01/2026
-**Status:** 🌌 AUTH COMPLETE (Golden Master Candidate Level 3)
+**Versão Atual:** V18.0.0 (Security Hotfix Edition)
+**Data da Última Atualização:** 12/01/2026
+**Status:** 🛡️ SECURITY HARDENED (Production Ready)
 
-### 🚀 Últimas Conquistas (V17.9.8 - "Auth Harmony")
+### 🔒 Últimas Conquistas (V18.0.0 - "Security Fortress")
 
-1.  **Auth System Synchronization (Critical Fix):**
+1.  **Critical Security Hotfix (12/01/2026):**
+    *   **Email Verification Enforcement:** Bloqueio de login para contas não verificadas (`is_active=False`).
+    *   **Encryption Key Hardening:** Sanitização de chaves do `.env` com `.strip()` e fallback seguro.
+    *   **Registration 500 Fix:** Corrigidos imports de models e syntax SQLAlchemy 2.0.
+    *   **Profile Router Activation:** Endpoints `/api/v1/profiles/*` registrados no `main.py`.
+
+2.  **CI/CD Pipeline Stabilization:**
+    *   **Test Suite Fixes:** Corrigidos `GovernanceTrace` → `GovernanceRecord`, removido `is_email_verified`.
+    *   **FK Constraint Fix:** Teardown de testes agora deleta riscos antes do usuário.
+    *   **Copilot Filter:** Workflow ignora PRs de branches `copilot/*` (código incorreto).
+
+3.  **Auth System Synchronization (V17.9.8):**
     *   **Rota Unificada:** Frontend redirecionado para `/api/v1/auth/*` (alinhado com o Backend).
     *   **Login & Register:** Fluxos testados e operacionais com tratamento de erro (404/500/429).
-    *   **Recuperação de Senha Real:** Implementação completa do fluxo de e-mail e redefinição (removido Mock).
+    *   **Recuperação de Senha Real:** Implementação completa do fluxo de e-mail e redefinição.
     *   **2FA Hardened:** Verificação de dois fatores integrada com a nova rota segura.
 
 
@@ -35,12 +46,11 @@
 
 ### 📜 Histórico Recente
 
-- [x] **V17.9.8:** "Auth Harmony" - Sincronização total Frontend/Backend (`/api/v1/auth`), Reset de senha funcional, Tratamento de erros de conexão.
+- [x] **V18.0.0:** "Security Fortress" - Hotfix crítico de segurança (bloqueio login não verificado, criptografia, CI/CD).
+- [x] **V17.9.8:** "Auth Harmony" - Sincronização total Frontend/Backend (`/api/v1/auth`), Reset de senha funcional.
 - [x] **V17.9.7:** "Alive Interface" - Login Cyberpunk V3, Transições Diagonais, ISO Radar Remastered & PDF Client-side.
 - [x] **V17.9.6:** "Algor Neon Future" - Interface futurista para auditoria de XAI.
 - [x] **V17.9.5:** "Algor Alive" - Animações avançadas, CountUp metrics e feedback interativo nos Dashboards.
-- [x] **V17.9.2:** PDF Engine "Titan" (Logo 2X, Header 40mm, Layout Reflow).
-- [x] **V17.9.1:** Fix Crítico no Gerador de PDF (Dark Mode + Layout + Logo).
 
 ---
 
@@ -58,38 +68,42 @@ Evolução refinada para o lançamento:
 
 | Prioridade | Tarefa | Status |
 |------------|--------|--------|
-| 1 | 🚀 **Production Deploy** | ⏳ Imediato |
-| 2 | 📊 **User Analytics** | Proposta |
-| 3 | 🚧 **Academy LMS** - Backend Integration | Roadmap Q1 |
+| 1 | 🚀 **VPS Deploy Update** (`git pull` + rebuild) | ⏳ Imediato |
+| 2 | 🧪 **Teste Produção** (Registro, Login, Onboarding) | Pendente |
+| 3 | 📊 **User Analytics** | Proposta |
+| 4 | 🚧 **Academy LMS** - Backend Integration | Roadmap Q1 |
 
 ---
 
-## 6. Resumo Visual V17.9.8
+## 6. Resumo Visual V18.0.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v17.9.8                        │
-│             GOLDEN MASTER CANDIDATE L3                      │
+│                 ALGOR BRASIL v18.0.0                        │
+│             🛡️ SECURITY HARDENED EDITION                    │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  🔐 AUTH HARMONY (New!)                                     │
+│  🔒 SECURITY FORTRESS (New!)                                │
+│  ├── Email Verification Block .................. ✅ (100%)  │
+│  ├── Encryption Key Hardening .................. ✅ (100%)  │
+│  ├── Registration 500 Fix ...................... ✅ (100%)  │
+│  ├── Profile Router (/api/v1/profiles) ......... ✅ (100%)  │
+│                                                             │
+│  🧪 CI/CD STABILIZATION                                     │
+│  ├── Test Suite (GovernanceRecord Fix) ......... ✅ (100%)  │
+│  ├── FK Constraint (teardown) .................. ✅ (100%)  │
+│  ├── Copilot Branch Filter ..................... ✅ (100%)  │
+│                                                             │
+│  🔐 AUTH HARMONY                                            │
 │  ├── API Route Sync (/api/v1/auth).............. ✅ (100%)  │
 │  ├── Password Reset (Real Implementation) ...... ✅ (100%)  │
 │  ├── Error Handling (404/500/429) .............. ✅ (100%)  │
 │                                                             │
-│  🌐 ALIVE INTERFACE                                         │
-│  ├── Login Scanner Inputs ...................... ✅ (100%)  │
-│  ├── Diagonal Wipe Transition .................. ✅ (100%)  │
-│                                                             │
-│  🛡️ ISO RADAR                                               │
-│  ├── Holographic Buttons ....................... ✅ (100%)  │
-│  ├── Instant PDF (Client-side) ................. ✅ (100%)  │
-│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 17.9.8 (Auth Harmony).*
-> **Última Atualização:** 05/01/2026 - 17:48
-> **Status Geral:** **PRONTO PARA DEPLOY** 🚀
-> **Versão:** 17.9.8
+*Documento atualizado automaticamente. Versão 18.0.0 (Security Fortress).*
+> **Última Atualização:** 12/01/2026 - 16:57
+> **Status Geral:** **SECURITY HARDENED - PRONTO PARA DEPLOY** 🛡️🚀
+> **Versão:** 18.0.0

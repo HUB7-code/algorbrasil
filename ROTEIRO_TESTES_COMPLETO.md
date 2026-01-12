@@ -1,7 +1,49 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 05/01/2026
-**Versão:** V17.9.8 (Auth Harmony)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Autenticação (Frontend <-> Backend) e Interfaces Premium.
+**Data:** 12/01/2026
+**Versão:** V18.0.0 (Security Fortress)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Segurança, Autenticação e Estabilidade.
+
+---
+
+## 🛡️ JORNADA 9: SECURITY FORTRESS (V18.0.0)
+
+### Objetivo: Validar Hotfixes Críticos de Segurança
+
+#### 9.1 Bloqueio de Login para Contas Não Verificadas
+- [ ] Crie uma nova conta via `/register`.
+- [ ] **NÃO clique no link de verificação do e-mail.**
+- [ ] Tente fazer login com as credenciais criadas.
+- [ ] **Validação:**
+  - [ ] O login deve ser **BLOQUEADO**.
+  - [ ] Mensagem deve ser: "E-mail não verificado. Por favor, ative sua conta."
+  - [ ] Status HTTP: `400 Bad Request`.
+
+#### 9.2 Verificação de E-mail Funcional
+- [ ] Crie uma nova conta via `/register`.
+- [ ] Verifique o terminal do backend (dev) ou a caixa de entrada (prod) para o link de ativação.
+- [ ] Clique no link de verificação.
+- [ ] Tente fazer login novamente.
+- [ ] **Validação:**
+  - [ ] O login deve funcionar com sucesso.
+  - [ ] Deve redirecionar para o Dashboard ou Onboarding.
+
+#### 9.3 Onboarding Profissional (`/onboarding`)
+- [ ] Após login, acesse a página de Onboarding.
+- [ ] Selecione "Perfil Profissional".
+- [ ] Preencha o formulário (LinkedIn, Expertise, Cidade, UF).
+- [ ] Clique em "Salvar".
+- [ ] **Validação:**
+  - [ ] Requisição para `/api/v1/profiles/professional`.
+  - [ ] Status: `201 Created`.
+  - [ ] Redirecionamento para o Dashboard.
+
+#### 9.4 Onboarding Corporativo (`/onboarding`)
+- [ ] Crie uma nova conta e ative-a.
+- [ ] Selecione "Perfil Corporativo".
+- [ ] Preencha o formulário (Empresa, Setor, Porte).
+- [ ] **Validação:**
+  - [ ] Requisição para `/api/v1/profiles/corporate`.
+  - [ ] Status: `201 Created`.
 
 ---
 
@@ -32,6 +74,7 @@
 - [ ] **Validação:** Requisição para `/api/v1/auth/login`.
 
 ---
+
 
 ## 🎯 JORNADA 7: ALIVE INTERFACE (V17.9.7)
 
