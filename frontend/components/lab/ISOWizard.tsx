@@ -2,8 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { jsPDF } from 'jspdf';
-import { Check, X, AlertCircle, Award, Zap, ChevronRight, FileText, RefreshCw } from 'lucide-react';
+import { Check, X, AlertCircle, Award, Zap, ChevronRight, FileText, RefreshCw, Loader2 } from 'lucide-react';
 
 const QUESTIONS = [
     { id: 'q1', text: "Existe um responsável (humano) nomeado pela supervisão das decisões da IA?", category: "Governança" },
@@ -18,6 +17,7 @@ export default function ISOWizard() {
     const [answers, setAnswers] = useState<Record<string, string>>({});
     const [result, setResult] = useState<any>(null);
     const [loading, setLoading] = useState(false);
+    const [exporting, setExporting] = useState(false);
 
     const handleAnswer = async (val: string) => {
         const newAnswers = { ...answers, [QUESTIONS[step].id]: val };
@@ -34,7 +34,7 @@ export default function ISOWizard() {
         setLoading(true);
         setStep(5);
         try {
-            const res = await fetch('http://localhost:8000/api/v1/lab/iso/assess', {
+            const res = await fetch('/api/v1/lab/iso/assess', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ answers: finalAnswers })
@@ -50,67 +50,236 @@ export default function ISOWizard() {
         }
     };
 
-    const handleExportPDF = () => {
-        const doc = new jsPDF();
+    // --- TITAN PDF ENGINE (ISO 42001 EDITION) ---
+    const handleExportPDF = async () => {
+        if (!result) return;
+        setExporting(true);
 
-        // Background
-        doc.setFillColor(15, 23, 42); // #0F172A
-        doc.rect(0, 0, 210, 297, 'F');
+        try {
+            const jsPDF = (await import('jspdf')).default;
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-        // Header
-        doc.setTextColor(255, 255, 255);
-        doc.setFontSize(22);
-        doc.setFont("helvetica", "bold");
-        doc.text("RELATÓRIO DE CONFORMIDADE", 20, 30);
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 20;
 
-        doc.setFontSize(10);
-        doc.setTextColor(0, 240, 255); // Cyan
-        doc.text("ISO/IEC 42001:2023 - AI MANAGEMENT SYSTEM", 20, 40);
+            // HELPER: Auto-page break
+            let y = 0;
+            const checkPageBreak = (spaceNeeded: number) => {
+                if (y + spaceNeeded > pageHeight - margin) {
+                    pdf.addPage();
+                    y = margin;
+                    return true;
+                }
+                return false;
+            };
 
-        // Score Section
-        doc.setDrawColor(255, 255, 255);
-        doc.setLineWidth(0.5);
-        doc.line(20, 50, 190, 50);
+            // HELPER: Load & Sanitize Image
+            const loadImage = async (url: string): Promise<{ data: string; w: number; h: number } | null> => {
+                try {
+                    return new Promise((resolve) => {
+                        const img = new Image();
+                        img.crossOrigin = 'Anonymous';
+                        img.src = url;
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width;
+                            canvas.height = img.height;
+                            const ctx = canvas.getContext('2d');
+                            if (ctx) {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                ctx.drawImage(img, 0, 0);
+                                resolve({ data: canvas.toDataURL('image/png'), w: img.width, h: img.height });
+                            } else resolve(null);
+                        };
+                        img.onerror = () => resolve(null);
+                    });
+                } catch { return null; }
+            };
 
-        doc.setFontSize(14);
-        doc.setTextColor(200, 200, 200);
-        doc.text("RESULTADO DA AVALIAÇÃO", 20, 70);
+            // HELPER: Load Font
+            const loadFont = async (url: string): Promise<string> => {
+                try {
+                    const res = await fetch(url);
+                    const blob = await res.blob();
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve((reader.result as string).split(',')[1]);
+                        reader.readAsDataURL(blob);
+                    });
+                } catch { return ''; }
+            };
 
-        doc.setFontSize(40);
-        doc.setTextColor(result.score >= 70 ? 0 : 255, result.score >= 70 ? 255 : 190, result.score >= 70 ? 148 : 0); // Green or Amber
-        doc.text(result.score + "/100", 20, 90);
+            // --- DRAW HEADER V5.1 ---
+            const drawHeader = async () => {
+                // Load Orbitron
+                const orbitronBase64 = await loadFont('/fonts/Orbitron-Bold.ttf');
+                let fontReady = false;
+                if (orbitronBase64) {
+                    pdf.addFileToVFS('Orbitron.ttf', orbitronBase64);
+                    pdf.addFont('Orbitron.ttf', 'Orbitron', 'bold');
+                    fontReady = true;
+                }
 
-        doc.setFontSize(16);
-        doc.setTextColor(255, 255, 255);
-        doc.text(`Nível de Maturidade: ${result.maturity_level}`, 20, 105);
+                const topBarHeight = 40;
+                pdf.setFillColor(0, 0, 0);
+                pdf.rect(0, 0, pageWidth, topBarHeight, 'F');
 
-        // Recommendations
-        doc.setFontSize(14);
-        doc.setTextColor(200, 200, 200);
-        doc.text("RECOMENDAÇÕES PRIORITÁRIAS", 20, 130);
+                // Logo
+                let logoObj = await loadImage('/logo-algor.webp');
+                if (logoObj) {
+                    const maxH = 32;
+                    const ratio = logoObj.w / logoObj.h;
+                    pdf.addImage(logoObj.data, 'PNG', margin, 4, maxH * ratio, maxH);
+                }
 
-        let yPos = 145;
-        result.recommendations.forEach((rec: string, i: number) => {
-            doc.setFillColor(30, 41, 59);
-            doc.roundedRect(20, yPos - 5, 170, 20, 2, 2, 'F');
+                // Title
+                if (fontReady) pdf.setFont('Orbitron', 'bold');
+                else pdf.setFont('helvetica', 'bold');
+                pdf.setFontSize(32);
+                pdf.setTextColor(255, 255, 255);
+                pdf.text('ALGOR', margin + 45, 26);
+                pdf.setTextColor(0, 255, 148);
+                pdf.text('BRASIL', margin + 45 + pdf.getTextWidth('ALGOR') + 4, 26);
 
-            doc.setFontSize(10);
-            doc.setTextColor(0, 240, 255);
-            doc.text(`AÇÃO 0${i + 1}`, 25, yPos + 8);
+                // Separator
+                pdf.setFillColor(0, 255, 148);
+                pdf.rect(0, topBarHeight, pageWidth, 0.8, 'F');
 
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(11);
-            doc.text(rec, 50, yPos + 8, { maxWidth: 130 });
+                // Sub-Header
+                const headerHeight = 35;
+                const headerY = topBarHeight + 0.8;
+                pdf.setFillColor(10, 22, 40);
+                pdf.rect(0, headerY, pageWidth, headerHeight, 'F');
 
-            yPos += 25;
-        });
+                // Report Type
+                pdf.setFontSize(14);
+                pdf.setTextColor(255, 255, 255);
+                pdf.text('AUDITORIA DE CONFORMIDADE', margin, headerY + 12);
 
-        // Footer
-        doc.setFontSize(8);
-        doc.setTextColor(100, 100, 100);
-        doc.text(`Gerado automaticamente por ALGOR HEALTH - ${new Date().toLocaleDateString()}`, 20, 280);
+                pdf.setFontSize(10);
+                pdf.setTextColor(0, 240, 255);
+                pdf.text('ISO/IEC 42001:2023 - AI MANAGEMENT SYSTEM', margin, headerY + 20);
 
-        doc.save('CERTIFICADO_ISO42001.pdf');
+                // Status Box
+                const isPassing = result.score >= 70;
+                pdf.setDrawColor(isPassing ? 0 : 255, isPassing ? 255 : 50, isPassing ? 148 : 50);
+                pdf.setFillColor(13, 25, 48);
+                pdf.roundedRect(pageWidth - margin - 60, headerY + 6, 60, 22, 1, 1, 'FD');
+
+                pdf.setFontSize(12);
+                pdf.setTextColor(isPassing ? 0 : 255, isPassing ? 255 : 50, isPassing ? 148 : 50);
+                pdf.text(isPassing ? 'STATUS: CONFORME' : 'STATUS: CRÍTICO', pageWidth - margin - 55, headerY + 14);
+
+                pdf.setFontSize(8);
+                pdf.setTextColor(200, 220, 240);
+                pdf.text(`REF: ${Math.random().toString(36).substr(2, 6).toUpperCase()}`, pageWidth - margin - 55, headerY + 22);
+
+                return headerY + headerHeight + 10; // New Y
+            };
+
+            y = await drawHeader();
+
+            // --- SECTION 1: EXECUTIVE SUMMARY (Score & Maturity) ---
+            pdf.setFontSize(14);
+            if (pdf.getFontList().Orbitron) pdf.setFont('Orbitron', 'bold');
+            pdf.setTextColor(10, 26, 47);
+            pdf.text('RESUMO EXECUTIVO', margin, y);
+            y += 10;
+
+            // Score Card
+            const isPassing = result.score >= 70;
+            const cardHeight = 60;
+            pdf.setFillColor(248, 250, 252); // Light bg for printability
+            pdf.setDrawColor(226, 232, 240);
+            pdf.roundedRect(margin, y, pageWidth - margin * 2, cardHeight, 3, 3, 'FD');
+
+            // Gauge (Simulated)
+            const cx = margin + 30;
+            const cy = y + 30;
+            pdf.setLineWidth(3);
+            pdf.setDrawColor(220, 220, 220);
+            pdf.circle(cx, cy, 20, 'S');
+
+            pdf.setDrawColor(isPassing ? 0 : 255, isPassing ? 255 : 0, isPassing ? 148 : 0);
+            // Partial Arc (approx)
+            const angle = 2 * Math.PI * (result.score / 100);
+            pdf.circle(cx, cy, 20, 'S'); // Simplified for this implementation, ideally construct path
+
+            pdf.setFontSize(24);
+            pdf.setTextColor(15, 23, 42);
+            pdf.text(result.score.toString(), cx - 8, cy + 3);
+
+            // Maturity Details
+            pdf.setFontSize(16);
+            pdf.text(result.maturity_level, margin + 60, y + 15);
+
+            pdf.setFontSize(10);
+            pdf.setFont('helvetica', 'normal');
+            pdf.setTextColor(71, 85, 105);
+            const summaryText = isPassing
+                ? "A organização demonstra controles sólidos de governança de IA, alinhados com as melhores práticas da ISO 42001. Recomenda-se a manutenção contínua e monitoramento de novos riscos."
+                : "Foram identificadas lacunas significativas na estrutura de governança. A organização está exposta a riscos regulatórios e operacionais que exigem remediação imediata.";
+            pdf.text(pdf.splitTextToSize(summaryText, pageWidth - margin * 2 - 80), margin + 60, y + 25);
+
+            y += cardHeight + 15;
+
+            // --- SECTION 2: RECOMMENDATIONS ---
+            checkPageBreak(20);
+            pdf.setFontSize(14);
+            if (pdf.getFontList().Orbitron) pdf.setFont('Orbitron', 'bold');
+            pdf.setTextColor(10, 26, 47);
+            pdf.text('PLANO DE AÇÃO PRIORITÁRIO', margin, y);
+            y += 10;
+
+            if (result.recommendations && result.recommendations.length > 0) {
+                result.recommendations.forEach((rec: string, i: number) => {
+                    checkPageBreak(25);
+
+                    pdf.setFillColor(248, 250, 252);
+                    pdf.setDrawColor(226, 232, 240);
+                    pdf.setLineWidth(0.5);
+                    pdf.roundedRect(margin, y, pageWidth - margin * 2, 20, 2, 2, 'FD');
+
+                    // Badge
+                    pdf.setFillColor(10, 26, 47);
+                    pdf.roundedRect(margin + 5, y + 5, 10, 10, 2, 2, 'F');
+                    pdf.setTextColor(0, 255, 148);
+                    pdf.setFontSize(8);
+                    pdf.text((i + 1).toString(), margin + 7.5, y + 11);
+
+                    // Text
+                    pdf.setTextColor(51, 65, 85);
+                    pdf.setFontSize(10);
+                    pdf.setFont('helvetica', 'normal');
+                    const textLines = pdf.splitTextToSize(rec, pageWidth - margin * 2 - 25);
+                    pdf.text(textLines, margin + 20, y + 9);
+
+                    y += 25;
+                });
+            } else {
+                pdf.setFontSize(10);
+                pdf.setTextColor(100, 100, 100);
+                pdf.text("Nenhuma recomendação crítica identificada.", margin, y + 5);
+            }
+
+            // --- FOOTER ---
+            const pageCount = (pdf.internal as any).getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                pdf.setPage(i);
+                pdf.setFontSize(8);
+                pdf.setTextColor(150, 150, 150);
+                pdf.text(`Gerado por ALGOR HEALTH LAB • Página ${i} de ${pageCount}`, margin, pageHeight - 10);
+            }
+
+            pdf.save(`ALGOR_ISO42001_Audit_${new Date().toISOString().split('T')[0]}.pdf`);
+
+        } catch (error) {
+            console.error(error);
+            alert("Erro ao gerar PDF. Tente novamente.");
+        } finally {
+            setExporting(false);
+        }
     };
 
     return (
@@ -393,11 +562,12 @@ export default function ISOWizard() {
 
                                     <button
                                         onClick={handleExportPDF}
-                                        className="relative group w-full px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold font-orbitron text-white tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-transform hover:scale-105 active:scale-95 mb-4"
+                                        disabled={exporting}
+                                        className="relative group w-full px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl font-bold font-orbitron text-white tracking-wider overflow-hidden shadow-[0_0_30px_rgba(37,99,235,0.4)] transition-transform hover:scale-105 active:scale-95 mb-4 disabled:opacity-70 disabled:cursor-not-allowed"
                                     >
                                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 blur-md" />
                                         <span className="relative z-10 flex items-center justify-center gap-2">
-                                            BAIXAR PDF <ChevronRight className="w-4 h-4" />
+                                            BAIXAR PDF {exporting && <Loader2 className="w-4 h-4 animate-spin ml-2" />} {!exporting && <ChevronRight className="w-4 h-4 ml-2" />}
                                         </span>
                                     </button>
 
@@ -414,6 +584,6 @@ export default function ISOWizard() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }

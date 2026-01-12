@@ -42,8 +42,8 @@ export default function ISO42001ReportPage() {
         async function fetchReport() {
             try {
                 // Obter token do localStorage se necessário ou confiar no cookie/header
-                const token = localStorage.getItem('token');
-                const res = await fetch(`http://localhost:8000/api/v1/reports/iso42001/${orgId}`, {
+                const token = localStorage.getItem('algor_token');
+                const res = await fetch(`/api/v1/reports/iso42001/${orgId}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 

@@ -8,17 +8,26 @@ load_dotenv()
 
 # Recupera a chave de encriptação do ambiente ou gera uma temporária ( inseguro, apenas para dev)
 # Em produção, isso DEVE vir de uma variável de ambiente segura.
+# Recupera a chave de encriptação do ambiente
 ENCRYPTION_KEY_ENV = os.getenv("DATA_ENCRYPTION_KEY")
 
 if not ENCRYPTION_KEY_ENV:
-    # Fallback para desenvolvimento apenas - Nunca usar em prod
-    # Gera uma chave válida para Fernet (32 url-safe base64-encoded bytes)
-    print("WARNING: DATA_ENCRYPTION_KEY not found. Using temporary insecure key.")
+    # Se não houver chave no .env, avisa e gera uma.
+    # Em produção isso deveria parar a aplicação, mas em dev facilitamos.
+    print("⚠️ WARNING: DATA_ENCRYPTION_KEY not found in .env. Using temporary key.")
     _key = Fernet.generate_key()
 else:
-    _key = ENCRYPTION_KEY_ENV.encode()
+    # IMPORTANTE: .strip() remove quebras de linha ou espaços acidentais do .env
+    _key = ENCRYPTION_KEY_ENV.strip().encode()
 
-cipher_suite = Fernet(_key)
+try:
+    cipher_suite = Fernet(_key)
+except ValueError as e:
+    print(f"❌ CRITICAL SECURITY ERROR: Invalid DATA_ENCRYPTION_KEY format. Details: {e}")
+    # Se a chave do .env for inválida, é melhor gerar uma nova para não travar o server em dev
+    print("🔄 Generating valid temporary key to keep server running...")
+    _key = Fernet.generate_key()
+    cipher_suite = Fernet(_key)
 
 def encrypt_field(plaintext: str) -> str:
     """

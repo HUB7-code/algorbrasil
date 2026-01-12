@@ -61,11 +61,13 @@ def send_verification_email(name: str, email: str, token: str):
     """
     Envia e-mail com link de ativacao (Double Opt-in) - Design Premium v2 com LOGO REAL.
     """
+    verification_link = f"{settings.FRONTEND_URL}/verify-email?token={token}"
+
     # Debug para confirmar URL em produção
     print(f"🔗 [V16.4.1-FIX] Configuração de Frontend URL: {settings.FRONTEND_URL}")
-    print(f"🔗 [V16.4.1-FIX] Token: {token[:10]}...")
-    
-    verification_link = f"{settings.FRONTEND_URL}/verify-email?token={token}"
+    # DEV: Imprimir URL completa para facilitar ativação sem email real
+    print(f"✅ [DEV ONLY] LINK DE ATIVAÇÃO: {verification_link}")
+    print(f"🔒 [DEBUG] Token parcial: {token[:10]}...")
     
     subject = f"Confirme seu cadastro - Algor Brasil"
 

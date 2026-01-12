@@ -8,6 +8,12 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 10, 26, 47;
   --background-end-rgb: 10, 26, 47;
+
+  /* Font Variables for Tailwind (Bypassing next/font for Proxy Compatibility) */
+  --font-manrope: 'Manrope', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
 }
 
 body {

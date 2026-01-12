@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Manrope, Playfair_Display, JetBrains_Mono, Orbitron } from "next/font/google";
+// import { Manrope, Playfair_Display, JetBrains_Mono, Orbitron } from "next/font/google"; // Disabled due to SSL Proxy Issues
 import "./globals.css";
 import Footer from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
 
-// Fontes Elite Design
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono", display: "swap" });
-const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", display: "swap" });
+// Fontes Elite Design (Disabled next/font/google to fix "self-signed certificate" error)
+// All fonts are now loaded via <link> in <head> and mapped in global.css
+// const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
+// const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
+// const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono", display: "swap" });
+// const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", display: "swap" });
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.algorbrasil.com.br'),
@@ -71,10 +72,11 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
                 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
                 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
             </head>
-            <body className={`${manrope.variable} ${playfair.variable} ${jetbrainsMono.variable} ${orbitron.variable} font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
+            <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
                 {children}
                 <CookieBanner />
                 {/* <Footer /> Footer is now included in page components for custom layout control */}

@@ -51,7 +51,7 @@ export default function AssessmentLab() {
             formData.append('file', file);
 
             // 2. Chamar Backend (Real)
-            const response = await fetch('http://localhost:8000/api/v1/lab/xai/audit', {
+            const response = await fetch('/api/v1/lab/xai/audit', {
                 method: 'POST',
                 body: formData,
             });

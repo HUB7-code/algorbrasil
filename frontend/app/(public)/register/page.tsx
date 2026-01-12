@@ -120,7 +120,8 @@ function RegisterContent() {
                 data = JSON.parse(responseText);
             } catch (parseError) {
                 // Silently fails parsing logs in production
-                throw new Error(`Erro ao processar resposta do servidor.`);
+                console.error("CRITICAL PARSE ERROR. Response text:", responseText);
+                throw new Error(`Erro ao processar resposta do servidor: ${responseText.slice(0, 100)}...`);
             }
 
             if (!res.ok) throw new Error(data.detail || "Erro ao criar conta.");

@@ -4,7 +4,7 @@ from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from backend.app.db.session import Base
 
-class GovernanceTrace(Base):
+class GovernanceRecord(Base):
     """
     EVIDENCE VAULT: Armazena logs imutáveis de interações de IA.
     Esta tabela é o coração da auditoria ISO 42001 (A.6.2.7 - Logging).

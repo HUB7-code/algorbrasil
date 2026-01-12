@@ -121,8 +121,9 @@ async def create_user(request: Request, user_in: UserCreate, db: Session = Depen
             db.commit()
             db.refresh(new_org)
             
-            # Linkar como Owner
-            stmt = organization_members.insert().values(
+            # Linkar como Owner (SQLAlchemy 2.0 compatible)
+            from sqlalchemy import insert
+            stmt = insert(organization_members).values(
                 user_id=new_user.id,
                 organization_id=new_org.id,
                 role="owner"
@@ -292,6 +293,9 @@ async def login_for_access_token(request: Request, user_data: UserLogin, db: Ses
     
     if not user or not verify_password(user_data.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
+
+    if not user.is_active:
+        raise HTTPException(status_code=400, detail="E-mail não verificado. Por favor, ative sua conta.")
     
     # === VERIFICACAO 2FA ===
     if user.is_totp_enabled:

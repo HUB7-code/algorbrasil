@@ -11,7 +11,10 @@ from fastapi.staticfiles import StaticFiles
 
 from backend.app.db.session import engine, Base
 # Import all models to register tables
-from backend.app.models import user, assessment, profiles, audit, risk, lms, payment, project, organization, ai_asset, governance, partner, lead 
+# Import all models explicitly to avoid circular dependency crashes
+from backend.app.models import user, assessment, profiles, audit, risk, lms, payment, project, organization, ai_asset, governance, partner, lead
+# Certificar que a tabela de associação foi carregada
+from backend.app.models.organization import organization_members 
 
 # Configuração de Segurança (Headers)
 secure_headers = Secure.with_default_headers()
