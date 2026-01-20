@@ -84,21 +84,21 @@ export default function Navbar() {
 
                 {/* Logo Area */}
                 <Link href="/" className="flex items-center gap-4 group relative z-50">
-                    <div className="relative w-12 h-12 md:w-14 md:h-14">
-                        <div className="absolute inset-0 bg-[#00FF94]/20 rounded-full blur-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="relative w-full h-full rounded-full border border-[#00FF94]/30 overflow-hidden transition-transform group-hover:scale-105">
+                    <div className="relative w-28 h-28">
+                        <div className="absolute inset-0 bg-[#00FF94]/20 rounded-full blur-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative w-28 h-28 rounded-full border border-[#00FF94]/30 shadow-[0_0_25px_rgba(0,255,148,0.25)] overflow-hidden transition-transform group-hover:scale-105">
                             <Image
                                 src="/logo-algor.webp"
                                 alt="Algor Brasil Logo"
                                 fill
-                                sizes="(max-width: 768px) 48px, 56px"
+                                sizes="112px"
                                 className="object-cover"
                                 priority
                             />
                         </div>
                     </div>
                     <div className="flex flex-col gap-0.5">
-                        <span className="font-orbitron text-xl md:text-2xl tracking-wide font-bold text-white leading-none">
+                        <span className="font-orbitron text-2xl tracking-wide font-bold text-white leading-none">
                             ALGOR <span className="text-[#00FF94]">BRASIL</span>
                         </span>
                         <span className="hidden md:block text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em] ml-0.5">

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, BackgroundTasks
 from sqlalchemy.orm import Session
 from sqlalchemy import func, and_
 from typing import Optional, List
@@ -81,6 +81,7 @@ def determine_priority(score: int) -> str:
 async def create_diagnostic_lead(
     lead_data: LeadCreateDiagnostic,
     request: Request,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
@@ -101,6 +102,24 @@ async def create_diagnostic_lead(
         existing.updated_at = datetime.utcnow()
         db.commit()
         db.refresh(existing)
+        
+        # [EMAIL] Notificar Admin + Confirmação Usuário (Mesmo atualizando, é bom avisar)
+        try:
+            from backend.app.services.email_service import send_admin_alert, send_new_lead_confirmation
+            background_tasks.add_task(
+                send_admin_alert,
+                f"Lead Atualizado (Diagnóstico): {existing.email}",
+                lead_data.model_dump()
+            )
+            background_tasks.add_task(
+                send_new_lead_confirmation,
+                existing.name,
+                existing.email,
+                "Diagnostic"
+            )
+        except Exception as e:
+            print(f"Erro ao agendar emails: {e}")
+
         return existing
     
     # Criar novo lead
@@ -122,12 +141,30 @@ async def create_diagnostic_lead(
     db.commit()
     db.refresh(new_lead)
     
+    # [EMAIL] Notificar Admin + Confirmação Usuário
+    try:
+        from backend.app.services.email_service import send_admin_alert, send_new_lead_confirmation
+        background_tasks.add_task(
+            send_admin_alert,
+            f"Novo Lead (Diagnóstico): {new_lead.email}",
+            lead_data.model_dump()
+        )
+        background_tasks.add_task(
+            send_new_lead_confirmation,
+            new_lead.name,
+            new_lead.email,
+            "Diagnostic"
+        )
+    except Exception as e:
+        print(f"Erro ao agendar emails: {e}")
+    
     return new_lead
 
 @router.post("/specialist", response_model=LeadResponse, status_code=201)
 async def create_specialist_lead(
     lead_data: LeadCreateSpecialist,
     request: Request,
+    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
@@ -165,6 +202,24 @@ async def create_specialist_lead(
         existing.updated_at = datetime.utcnow()
         db.commit()
         db.refresh(existing)
+        
+        # [EMAIL]
+        try:
+            from backend.app.services.email_service import send_admin_alert, send_new_lead_confirmation
+            background_tasks.add_task(
+                send_admin_alert,
+                f"Lead UPGRADE (Especialista): {existing.email}",
+                lead_data.model_dump()
+            )
+            background_tasks.add_task(
+                send_new_lead_confirmation,
+                existing.name,
+                existing.email,
+                "Specialist"
+            )
+        except Exception as e:
+            print(f"Erro ao agendar emails: {e}")
+
         return existing
     
     # Criar novo lead
@@ -190,6 +245,23 @@ async def create_specialist_lead(
     db.add(new_lead)
     db.commit()
     db.refresh(new_lead)
+    
+    # [EMAIL]
+    try:
+        from backend.app.services.email_service import send_admin_alert, send_new_lead_confirmation
+        background_tasks.add_task(
+            send_admin_alert,
+            f"Novo Lead (Especialista): {new_lead.email}",
+            lead_data.model_dump()
+        )
+        background_tasks.add_task(
+            send_new_lead_confirmation,
+            new_lead.name,
+            new_lead.email,
+            "Specialist"
+        )
+    except Exception as e:
+        print(f"Erro ao agendar emails: {e}")
     
     return new_lead
 

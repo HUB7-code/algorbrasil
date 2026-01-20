@@ -1,11 +1,48 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 12/01/2026
-**Versão:** V18.0.0 (Security Fortress)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Segurança, Autenticação e Estabilidade.
+**Data:** 20/01/2026
+**Versão:** V18.1.0 (Enterprise Prestige)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Captura de Leads, Email System e Design Premium.
 
 ---
 
-## 🛡️ JORNADA 9: SECURITY FORTRESS (V18.0.0)
+## 🛡️ JORNADA 10: ENTERPRISE PRESTIGE (V18.1.0)
+
+### Objetivo: Validar Fluxos de Conversão e Estética Premium
+
+#### 10.1 Fluxo de Lead Diagnóstico (`/solutions/enterprise`)
+- [ ] Abra o modal "Diagnóstico Técnico Gratuito".
+- [ ] Preencha com email corporativo e selecione 2 dores + 1 IA.
+- [ ] Envie o formulário.
+- [ ] **Validação:**
+  - [ ] Tela de Sucesso deve aparecer (sem refresh total).
+  - [ ] **Email Usuário:** Verifique Inbox. Título: "Recebemos sua solicitação - ALGOR Brasil". Template black/green.
+  - [ ] **Email Admin:** Verifique Inbox do Admin. Título: "Novo Lead (Diagnóstico)...".
+  - [ ] Backend Log: Não deve haver erro 404/500 no terminal.
+
+#### 10.2 Fluxo Falar com Especialista (`/solutions/enterprise`)
+- [ ] Abra o modal "Falar com Especialista" (botão Hero ou Footer).
+- [ ] **UI Check:**
+  - [ ] Verifique se os seletores (Cargo, Tamanho, etc) mudam de cor ao serem selecionados.
+  - [ ] Verifique se o fundo tem "glows" ambientais azul/roxo.
+- [ ] Tente enviar com email pessoal (@gmail). Deve bloquear.
+- [ ] Envie corretamente.
+- [ ] **Validação:**
+  - [ ] Animação de sucesso com "SLA 24h" e estatísticas em cards.
+  - [ ] Email de confirmação recebido "Contato com Especialista Solicitado".
+
+#### 10.3 Visual Enterprise Check
+- [ ] Role a página `/solutions/enterprise`.
+- [ ] **Typography Harmony:**
+  - [ ] Títulos grandes devem ser `Orbitron`. Corpo de texto `Manrope`.
+  - [ ] Não deve haver fontes serifadas.
+- [ ] **Premium Aesthetics:**
+  - [ ] Fundo do Hero deve ter elementos flutuantes/glow.
+  - [ ] Seção "Stats Bar" deve ser vidro fosco (`backdrop-blur`).
+  - [ ] Seção "Visualização Arquitetura" deve parecer um monitor holográfico.
+
+---
+
+## 🛡️ JORNADA 9: SECURITY FORTRESS (V18.1.0)
 
 ### Objetivo: Validar Hotfixes Críticos de Segurança
 

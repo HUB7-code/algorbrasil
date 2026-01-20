@@ -78,7 +78,7 @@ async def set_secure_headers(request: Request, call_next):
 
 # Rotas
 # Rotas - Correção de Imports baseada na estrutura real
-from backend.app.api import auth, profiles
+from backend.app.api import auth, profiles, leads
 from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard
 from backend.app.api.endpoints.inventory import assets as inventory_assets
 
@@ -91,6 +91,7 @@ app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab (Audit)"]
 app.include_router(risks.router, prefix="/api/v1/risks", tags=["Risk Register (ISO 42001)"])
 app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["Dashboard CoE"])
 app.include_router(inventory_assets.router, prefix="/api/v1/inventory", tags=["AI Asset Inventory"])
+app.include_router(leads.router, prefix="/api/v1") # Leads Router (Diagnostic & Contact)
 
 @app.get("/")
 def read_root():
