@@ -84,177 +84,70 @@ export default function Navbar() {
 
                 {/* Logo Area */}
                 <Link href="/" className="flex items-center gap-4 group relative z-50">
-                    <div className="relative w-28 h-28">
-                        <div className="absolute inset-0 bg-[#00FF94]/20 rounded-full blur-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        <div className="relative w-28 h-28 rounded-full border border-[#00FF94]/30 shadow-[0_0_25px_rgba(0,255,148,0.25)] overflow-hidden transition-transform group-hover:scale-105">
+                    <div className="relative w-12 h-12 md:w-14 md:h-14">
+                        <div className="absolute inset-0 bg-[#00FF94]/20 rounded-full blur-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative w-full h-full rounded-full border border-[#00FF94]/30 overflow-hidden transition-transform group-hover:scale-105">
                             <Image
                                 src="/logo-algor.webp"
                                 alt="Algor Brasil Logo"
                                 fill
-                                sizes="112px"
+                                sizes="(max-width: 768px) 48px, 56px"
                                 className="object-cover"
                                 priority
                             />
                         </div>
                     </div>
                     <div className="flex flex-col gap-0.5">
-                        <span className="font-orbitron text-2xl tracking-wide font-bold text-white leading-none">
+                        <span className="font-orbitron text-xl md:text-2xl tracking-wide font-bold text-white leading-none">
                             ALGOR <span className="text-[#00FF94]">BRASIL</span>
                         </span>
-                        <span className="text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em] ml-0.5">
-                            AI Governance
+                        <span className="hidden md:block text-[10px] text-gray-400 font-mono uppercase tracking-[0.2em] ml-0.5">
+                            Association
                         </span>
                     </div>
                 </Link>
 
-                {/* Desktop Menu */}
+                {/* Desktop Menu - Institutional Focus */}
                 <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400 items-center">
 
-                    {/* Ferramentas Dropdown (Premium) */}
-                    <div className="relative group">
-                        <button className="flex items-center gap-1.5 hover:text-white transition-colors py-2">
-                            Ferramentas
-                            <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-300" />
-                        </button>
+                    <Link href="/solutions/enterprise" className="hover:text-white transition-colors py-2 relative group">
+                        Soluções
+                        <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-[#00FF94] group-hover:w-full transition-all duration-300" />
+                    </Link>
 
-                        {/* Dropdown Panel */}
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                            {/* Arrow */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-1 w-3 h-3 bg-[#131825] border-t border-l border-white/10 rotate-45" />
+                    <Link href="/academy" className="hover:text-white transition-colors py-2 relative group">
+                        Academy
+                        <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-[#8B5CF6] group-hover:w-full transition-all duration-300" />
+                    </Link>
 
-                            <div className="relative bg-[#131825]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-                                {/* Ambient Glow */}
-                                <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#00A3FF]/20 rounded-full blur-[30px]" />
+                    <Link href="/institute" className="hover:text-white transition-colors py-2 relative group">
+                        Instituto
+                        <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-[#00A3FF] group-hover:w-full transition-all duration-300" />
+                    </Link>
 
-                                <div className="p-2 space-y-1 relative z-10">
-                                    <Link href="/lab" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#FF0055]/10 flex items-center justify-center text-[#FF0055] group-hover/item:scale-110 transition-transform">
-                                            <ShieldCheck className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Health AI Lab</p>
-                                            <p className="text-gray-500 text-xs text-[10px]">Auditoria & Compliance</p>
-                                        </div>
-                                    </Link>
-
-                                    <div className="h-[1px] bg-white/5 my-1 mx-2" />
-
-                                    <Link href="/scanner" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF] group-hover/item:scale-110 transition-transform">
-                                            <Search className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Scanner de IA</p>
-                                            <p className="text-gray-500 text-xs">Analise logs gratuitamente</p>
-                                        </div>
-                                    </Link>
-
-                                    <Link href="/calculadora" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#FFB000]/10 flex items-center justify-center text-[#FFB000] group-hover/item:scale-110 transition-transform">
-                                            <Calculator className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Calculadora LGPD</p>
-                                            <p className="text-gray-500 text-xs">Calcule sua exposição</p>
-                                        </div>
-                                    </Link>
-
-                                    <div className="h-[1px] bg-white/5 my-1 mx-2" />
-
-                                    <Link href="/associates" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item" prefetch={true}>
-                                        <div className="w-8 h-8 rounded-lg bg-[#00FF94]/10 flex items-center justify-center text-[#00FF94] group-hover/item:scale-110 transition-transform">
-                                            <Users className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Especialistas</p>
-                                            <p className="text-gray-500 text-xs">Rede credenciada Algor</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Institucional Dropdown */}
-                    <div className="relative group">
-                        <button className="flex items-center gap-1.5 hover:text-white transition-colors py-2">
-                            Institucional
-                            <ChevronDown className="w-3 h-3 group-hover:rotate-180 transition-transform duration-300" />
-                        </button>
-
-                        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-1 w-3 h-3 bg-[#131825] border-t border-l border-white/10 rotate-45" />
-
-                            <div className="relative bg-[#131825]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
-                                <div className="absolute -top-10 -left-10 w-20 h-20 bg-[#8B5CF6]/20 rounded-full blur-[30px]" />
-
-                                <div className="p-2 space-y-1 relative z-10">
-                                    <Link href="/institute" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#00FF94]/10 flex items-center justify-center text-[#00FF94] group-hover/item:scale-110 transition-transform">
-                                            <Building2 className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Instituto ALGOR</p>
-                                            <p className="text-gray-500 text-xs">Pesquisa & Regulação de IA</p>
-                                        </div>
-                                    </Link>
-
-                                    <Link href="/academy" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center text-[#8B5CF6] group-hover/item:scale-110 transition-transform">
-                                            <GraduationCap className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Academy</p>
-                                            <p className="text-gray-500 text-xs">Formação em ISO 42001</p>
-                                        </div>
-                                    </Link>
-
-                                    <div className="h-[1px] bg-white/5 my-1 mx-2" />
-
-                                    <Link href="/solutions/enterprise" className="flex items-start gap-4 p-3 rounded-xl hover:bg-white/5 transition-all group/item">
-                                        <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF] group-hover/item:scale-110 transition-transform">
-                                            <Briefcase className="w-4 h-4" />
-                                        </div>
-                                        <div>
-                                            <p className="text-white text-sm font-medium">Enterprise</p>
-                                            <p className="text-gray-500 text-xs">Soluções corporativas</p>
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Navigation Links */}
-                    {navLinks.map((link) => (
-                        <button
-                            key={link.id}
-                            onClick={() => handleNavigation(link.id)}
-                            className="relative hover:text-white transition-colors py-2 group"
-                        >
-                            {link.label}
-                            <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-[#00FF94] group-hover:w-full transition-all duration-300" />
-                        </button>
-                    ))}
+                    <Link href="/associates" className="hover:text-white transition-colors py-2 relative group">
+                        Associação
+                        <span className="absolute bottom-1 left-0 w-0 h-[1px] bg-[#FFD700] group-hover:w-full transition-all duration-300" />
+                    </Link>
 
                     <div className="w-[1px] h-6 bg-white/10 mx-2" />
 
-                    {/* Member Area Button */}
-                    <Link href="/login">
-                        <motion.button
-                            className="relative group px-5 py-2 overflow-hidden rounded-lg bg-[#0A1A2F] border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.1)] hover:shadow-[0_0_25px_rgba(0,255,148,0.3)] hover:border-[#00FF94]/50 transition-all"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                        >
-                            {/* Background Shimmer */}
-                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF94]/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
+                    {/* Member Area / Login */}
+                    <Link href="/login" className="hover:text-white transition-colors font-medium">
+                        Login
+                    </Link>
 
-                            <div className="relative flex items-center gap-2">
-                                <Lock className="w-3 h-3 text-[#00FF94] transition-transform group-hover:rotate-12" />
-                                <span className="font-mono text-xs uppercase tracking-widest text-[#00FF94] group-hover:text-white transition-colors font-bold">
-                                    Login
-                                </span>
-                            </div>
+                    {/* CTA Principal - Conversion Focus */}
+                    <Link href="/register">
+                        <motion.button
+                            className="relative group px-6 py-2.5 overflow-hidden rounded-xl bg-[#00FF94] text-[#0A1A2F] font-bold tracking-wide shadow-[0_0_20px_rgba(0,255,148,0.3)] hover:shadow-[0_0_30px_rgba(0,255,148,0.5)] transition-all"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <span className="relative z-10 flex items-center gap-2">
+                                Seja Membro
+                                <Users className="w-4 h-4" />
+                            </span>
                         </motion.button>
                     </Link>
                 </div>
@@ -280,77 +173,45 @@ export default function Navbar() {
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
                     >
                         {/* Mobile Links */}
-                        <div className="space-y-6">
-                            <div className="space-y-2">
-                                <p className="text-xs text-gray-500 uppercase tracking-widest px-2 mb-2">Ferramentas</p>
-                                <Link href="/lab" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#FF0055]/10 flex items-center justify-center text-[#FF0055]">
-                                        <ShieldCheck className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Health AI Lab</span>
-                                </Link>
-                                <Link href="/scanner" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
-                                        <Search className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Scanner de IA</span>
-                                </Link>
-                                <Link href="/calculadora" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#FFB000]/10 flex items-center justify-center text-[#FFB000]">
-                                        <Calculator className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Calculadora LGPD</span>
-                                </Link>
-                            </div>
+                        <div className="space-y-8">
 
                             <div className="space-y-4">
-                                <p className="text-xs text-gray-500 uppercase tracking-widest px-2">Menu Principal</p>
-                                {navLinks.map((link) => (
-                                    <button
-                                        key={link.id}
-                                        onClick={() => handleNavigation(link.id)}
-                                        className="w-full text-left p-2 text-xl font-sans text-white hover:text-[#00FF94] transition-colors"
-                                    >
-                                        {link.label}
+                                <p className="text-xs text-gray-500 uppercase tracking-widest px-2 font-mono">Navegação</p>
+
+                                <Link href="/solutions/enterprise" className="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <Briefcase className="w-5 h-5 text-[#00A3FF]" />
+                                    <span className="text-white text-lg font-medium">Soluções Enterprise</span>
+                                </Link>
+
+                                <Link href="/academy" className="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <GraduationCap className="w-5 h-5 text-[#8B5CF6]" />
+                                    <span className="text-white text-lg font-medium">Academy</span>
+                                </Link>
+
+                                <Link href="/institute" className="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <Building2 className="w-5 h-5 text-[#00FF94]" />
+                                    <span className="text-white text-lg font-medium">Instituto ALGOR</span>
+                                </Link>
+
+                                <Link href="/associates" className="flex items-center gap-4 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
+                                    <Users className="w-5 h-5 text-[#FFD700]" />
+                                    <span className="text-white text-lg font-medium">Associação</span>
+                                </Link>
+                            </div>
+
+                            <div className="pt-8 border-t border-white/10 space-y-4">
+                                <Link href="/register" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                    <button className="w-full py-4 rounded-xl bg-[#00FF94] text-[#050810] font-bold text-lg uppercase tracking-widest shadow-lg shadow-[#00FF94]/20">
+                                        Seja Membro
                                     </button>
-                                ))}
-                                <Link
-                                    href="/associates"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                    className="block p-2 text-xl font-sans text-white hover:text-[#00FF94] transition-colors"
-                                    prefetch={true}
-                                >
-                                    Especialistas
+                                </Link>
+
+                                <Link href="/login" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                    <button className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors">
+                                        Fazer Login
+                                    </button>
                                 </Link>
                             </div>
-
-                            <div className="space-y-2">
-                                <p className="text-xs text-gray-500 uppercase tracking-widest px-2 mb-2">Institucional</p>
-                                <Link href="/institute" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#00FF94]/10 flex items-center justify-center text-[#00FF94]">
-                                        <Building2 className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Instituto ALGOR</span>
-                                </Link>
-                                <Link href="/academy" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#8B5CF6]/10 flex items-center justify-center text-[#8B5CF6]">
-                                        <GraduationCap className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Academy</span>
-                                </Link>
-                                <Link href="/solutions/enterprise" className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5" onClick={() => setMobileMenuOpen(false)}>
-                                    <div className="w-8 h-8 rounded-lg bg-[#00A3FF]/10 flex items-center justify-center text-[#00A3FF]">
-                                        <Briefcase className="w-4 h-4" />
-                                    </div>
-                                    <span className="text-white text-sm font-medium">Enterprise</span>
-                                </Link>
-                            </div>
-
-                            <Link href="/login" className="block w-full pt-8">
-                                <button className="w-full py-4 rounded-xl bg-gradient-to-r from-[#00FF94] to-[#00A3FF] text-[#050810] font-bold uppercase tracking-widest shadow-lg shadow-[#00FF94]/20">
-                                    Acessar Portal
-                                </button>
-                            </Link>
                         </div>
                     </motion.div>
                 )}

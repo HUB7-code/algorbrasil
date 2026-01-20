@@ -156,33 +156,7 @@ export default function Home() {
             {/* WhatsApp Button - Always Visible */}
             <MemoizedWhatsApp />
 
-            {/* Health AI Lab Teaser - [NOVA SEÇÃO] */}
-            <section className="py-24 relative overflow-hidden bg-[#0A1A2F]/50 border-t border-white/5">
-                <div className="container mx-auto px-4 relative z-10 text-center">
-                    <div className="inline-block px-4 py-1 rounded-full bg-[#00FF94]/10 border border-[#00FF94]/20 text-[#00FF94] text-xs font-orbitron tracking-widest mb-6">
-                        DEMONSTRAÇÃO AO VIVO
-                    </div>
-                    <h2 className="text-4xl md:text-5xl font-orbitron font-bold mb-6 text-white">
-                        Health <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#00FF94] to-[#0094FF]">AI Lab</span>
-                    </h2>
-                    <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
-                        Acesse nosso ambiente de simulação e teste as capacidades de auditoria algorítmica (XAI),
-                        detecção de vazamento de dados (Shadow AI) e conformidade regulatória (ISO 42001).
-                    </p>
 
-                    <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                        <Link href="/lab" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-[#00FF94] hover:bg-[#00CC76] text-[#0A1A2F] px-8 py-4 rounded-xl transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] group">
-                            <span className="font-orbitron font-bold tracking-wider">ACESSAR LABORATÓRIO</span>
-                            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <Link href="/manuals" className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-transparent hover:bg-white/5 border border-white/20 text-white px-8 py-4 rounded-xl transition-all group">
-                            <span className="font-orbitron font-medium tracking-wider">LER DOCUMENTAÇÃO</span>
-                        </Link>
-                    </div>
-                </div>
-                {/* Background Glow Effect */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[400px] bg-gradient-to-r from-[#00FF94]/5 to-[#0094FF]/5 blur-[120px] rounded-full pointer-events-none" />
-            </section>
 
             <MemoizedFooter />
         </div >
