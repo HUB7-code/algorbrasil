@@ -18,6 +18,7 @@ class AIAssetOut(AIAssetBase):
     owner_id: int
     status: str
     created_at: datetime
+    organization_id: Optional[int] = None
     
     class Config:
         from_attributes = True
