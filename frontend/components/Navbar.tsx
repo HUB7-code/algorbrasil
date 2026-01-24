@@ -74,9 +74,9 @@ export default function Navbar() {
 
                 <div className={`px-6 md:px-8 flex justify-between items-center relative transition-all duration-500 ${scrolled ? 'py-3' : 'py-6'}`}>
 
-                    {/* Logo Area - ADJUSTED SIZES */}
+                    {/* Logo Area */}
                     <Link href="/" className="flex items-center gap-4 group relative z-50">
-                        <div className="relative w-20 h-20 md:w-24 md:h-24"> {/* Logo MAIOR */}
+                        <div className="relative w-20 h-20 md:w-24 md:h-24">
                             {/* Logo Glow */}
                             <div className="absolute inset-0 bg-[#00FF94] rounded-full blur-[25px] opacity-10 group-hover:opacity-30 transition-opacity duration-500" />
 
@@ -91,18 +91,16 @@ export default function Navbar() {
                                 />
                             </div>
                         </div>
-                        <div className="flex flex-col gap-0.5">
-                            <span className="font-orbitron text-lg md:text-xl tracking-widest font-bold leading-none transition-all"> {/* Texto MENOR */}
+                        {/* Texto limpo e centralizado verticalmente */}
+                        <div className="flex flex-col justify-center h-full">
+                            <span className="font-orbitron text-lg md:text-xl tracking-widest font-bold leading-none transition-all">
                                 <span className="text-white">ALGOR</span> <span className="text-[#00FF94]">BRASIL</span>
-                            </span>
-                            <span className="hidden md:block text-[8px] text-gray-400 font-mono uppercase tracking-[0.3em] ml-0.5 group-hover:text-white transition-colors duration-300">
-                                Association
                             </span>
                         </div>
                     </Link>
 
-                    {/* Desktop Menu - Institutional Focus */}
-                    <div className="hidden md:flex gap-1 text-sm font-medium text-gray-400 items-center">
+                    {/* Desktop Menu - UI Refinada (Semibold + Contraste) */}
+                    <div className="hidden md:flex gap-1 text-sm font-semibold text-gray-300 items-center">
 
                         {[
                             { href: '/association', label: 'A Associação', color: '#00FF94' },
@@ -127,7 +125,7 @@ export default function Navbar() {
                         <div className="w-[1px] h-6 bg-white/10 mx-4" />
 
                         {/* Member Area / Login */}
-                        <Link href="/login" className="hover:text-white transition-colors font-medium text-white/70 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">
+                        <Link href="/login" className="hover:text-white transition-colors font-semibold text-white/80 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">
                             <div className="p-1.5 rounded-lg bg-white/5 border border-white/5 group-hover:border-[#00A3FF]/30 group-hover:bg-[#00A3FF]/10 transition-all">
                                 <Lock className="w-3.5 h-3.5" />
                             </div>

@@ -50,8 +50,8 @@ export default function HeroDual() {
     return (
         <section data-testid="hero-section" className="relative min-h-screen flex flex-col items-center justify-start overflow-hidden bg-[#0A1A2F]">
 
-            {/* 3D Neural Background - BIGGER GLOBE */}
-            <div className="absolute top-[80px] left-0 right-0 h-[62vh] z-[1]">
+            {/* 3D Neural Background - GLOBE SLIGHTLY REDUCED FOR BALANCE */}
+            <div className="absolute top-[80px] left-0 right-0 h-[55vh] z-[1]">
                 <HeroScene />
             </div>
 
@@ -59,8 +59,8 @@ export default function HeroDual() {
             <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-[#00A3FF]/10 rounded-full blur-[150px] pointer-events-none" />
             <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#00FF94]/8 rounded-full blur-[150px] pointer-events-none" />
 
-            {/* Spacer - Adjusted to bring text closer to globe */}
-            <div className="h-[65vh] w-full pointer-events-none" />
+            {/* Spacer - Adjusted for new globe size */}
+            <div className="h-[58vh] w-full pointer-events-none" />
 
             {/* Main Headline - BOTTOM SECTION */}
             <motion.div
@@ -69,9 +69,9 @@ export default function HeroDual() {
                 initial="hidden"
                 animate="visible"
             >
-                {/* Institutional Full Name - Globe Caption */}
+                {/* Institutional Full Name - Globe Caption (BOLD & CLEARER) */}
                 <motion.div variants={itemVariants} className="mb-8">
-                    <h2 className="text-[10px] md:text-sm font-mono text-gray-400 uppercase tracking-[0.15em] leading-relaxed max-w-4xl mx-auto">
+                    <h2 className="text-[11px] md:text-sm font-mono text-gray-300 font-semibold uppercase tracking-[0.15em] leading-relaxed max-w-4xl mx-auto drop-shadow-md">
                         Association for Algorithmization <br className="hidden md:block" /> and Logic Governance Organization
                     </h2>
                 </motion.div>
@@ -80,7 +80,7 @@ export default function HeroDual() {
                 <motion.h1
                     data-testid="hero-title"
                     variants={itemVariants}
-                    className="font-orbitron text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6"
+                    className="font-orbitron text-4xl md:text-6xl lg:text-7xl leading-tight text-white mb-6 drop-shadow-[0_0_15px_rgba(0,0,0,0.5)]"
                 >
                     Liderando a Era da <br />
                     <span className="relative">
@@ -92,10 +92,10 @@ export default function HeroDual() {
                     </span>
                 </motion.h1>
 
-                {/* Subheadline */}
+                {/* Subheadline (HIGHER CONTRAST) */}
                 <motion.p
                     variants={itemVariants}
-                    className="font-light text-gray-300 max-w-3xl mx-auto text-sm md:text-xl leading-relaxed"
+                    className="font-light text-gray-100 max-w-3xl mx-auto text-sm md:text-xl leading-relaxed"
                 >
                     Transforme a Inteligência Artificial em um ativo seguro e confiável. <br />
                     Adote práticas de <span className="text-[#00FF94] font-medium">Governança Ética</span> que protegem sua reputação, garantem <span className="text-[#00A3FF] font-medium">Segurança Jurídica</span> e impulsionam a inovação com <span className="text-white font-medium">Responsabilidade</span>.
