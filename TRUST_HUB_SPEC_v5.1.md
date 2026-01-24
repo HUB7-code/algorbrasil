@@ -25,7 +25,11 @@ We are building the "SWIFT Network" for AI Governance: a secure, immutable messa
 *   **Data Isolation:** Strict tenant separation (Organization ID) enforced at API level.
 
 ### 2.2 Components
-1.  **Regulatory AI Co-pilot (CI/CD Scanner):**
+1.  **Discovery Scanner (Phase 1 Engine):**
+    *   *Input:* Cloud Accounts (AWS/Azure), Code Repos, Network Logs.
+    *   *Function:* Detects "Shadow AI" (undeclared usage of OpenAI keys, PyTorch libs).
+    *   *Output:* "Shadow AI Inventory" & Initial Risk Map.
+2.  **Regulatory AI Co-pilot (CI/CD Scanner):**
     *   *Input:* GitHub/GitLab Repositories.
     *   *Function:* Scans specific files (`prompts.py`, `model_cards.md`) for compliance anti-patterns.
     *   *Output:* "Build Pass/Fail" signal based on ISO 42001 rules.
@@ -53,14 +57,14 @@ To guarantee that a company didn't delete "bad logs" to look safer:
 ### 4.1 Corporate User (The Client)
 *   **Goal:** "Show me I'm safe to deploy."
 *   **Dashboard:**
-    *   *Health Score:* Real-time risk index.
-    *   *Alerts:* "Bias detected in Module X".
-    *   *Actions:* "Download AIA Report (PDF)".
+    *   *Health Score:* Real-time risk index (aligned with ISO 42001).
+    *   *Discovery:* "Found 3 new undeclared AI models in Marketing Dept".
+    *   *Actions:* "Trigger AIA (Avaliação de Impacto Algorítmico)".
 
 ### 4.2 Consultant (The Partner)
 *   **Goal:** "Manage 10 clients efficiently."
 *   **Feature:** Multi-tenant Switcher.
-*   **Task:** "Human Ratification" (ISO 42001: 9.3). The consultant reviews flagged interactions and confirms/rejects the AI verdict. This "Human-in-the-loop" data reinforces the model.
+*   **Task:** "Human Ratification" (ISO 42001: 9.3). The consultant reviews flagged interactions and confirms/rejects the AI verdict. This supports the **Step 5 (Monitoring & Improvement)** of the methodology.
 
 ---
 
@@ -68,8 +72,8 @@ To guarantee that a company didn't delete "bad logs" to look safer:
 
 ### PHASE 1: MVP (Trust Hub Alpha)
 *   [ ] **Secure Auth:** JWT + Organization Isolation.
-*   [ ] **Co-pilot Scanner (Alpha):** Simple script to scan codebase for hardcoded keys/prompts.
-*   [ ] **Auto AIA Report:** Generate a simple PDF from existing traces.
+*   [ ] **Discovery Scanner (MVP):** Script to scan codebase/logs for "Shadow AI" signatures (Step 1).
+*   [ ] **Governance Policies:** Templates for Step 2 (Strategy & Structure).
 
 ### PHASE 2: OPERATIONALIZATION
 *   [ ] **Edge Agent:** Async queue for trace submission.

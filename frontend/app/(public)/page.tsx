@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { ChevronRight, X, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/Footer';
-import PersonaGrid from '@/components/PersonaGrid';
+// import PersonaGrid from '@/components/PersonaGrid'; // Removed for cleaner institutional look
 import MethodologySection from '@/components/MethodologySection';
 import Image from 'next/image';
 import HeroDual from '@/components/HeroDual';
@@ -13,15 +13,14 @@ import AboutSection from '@/components/AboutSection';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import TechnologySection from '@/components/TechnologySection';
 
-// Memoize heavy static components to prevent re-renders on scroll state changes
-const MemoizedHero = React.memo(HeroDual);
-const MemoizedPersonaGrid = React.memo(PersonaGrid);
-const MemoizedAbout = React.memo(AboutSection);
-const MemoizedMethodology = React.memo(MethodologySection);
-const MemoizedOfferings = React.memo(OfferingsShowcase);
-const MemoizedFooter = React.memo(Footer);
-const MemoizedWhatsApp = React.memo(WhatsAppButton);
-const MemoizedTechnology = React.memo(TechnologySection);
+// Direct imports to prevent stale HMR in dev
+// const MemoizedHero = React.memo(HeroDual);
+// const MemoizedAbout = React.memo(AboutSection);
+// const MemoizedMethodology = React.memo(MethodologySection);
+// const MemoizedOfferings = React.memo(OfferingsShowcase);
+// const MemoizedFooter = React.memo(Footer);
+// const MemoizedWhatsApp = React.memo(WhatsAppButton);
+// const MemoizedTechnology = React.memo(TechnologySection);
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -53,24 +52,24 @@ export default function Home() {
         <div className="min-h-screen bg-transparent text-white overflow-x-hidden font-sans selection:bg-[#00FF94] selection:text-[#0A1A2F]">
 
             {/* Hero Section - Memoized */}
-            <MemoizedHero />
+            {/* Hero Section */}
+            <HeroDual />
 
-            {/* Persona Grid - Memoized */}
-            <div id="personas">
-                <MemoizedPersonaGrid />
+            {/* Institutional / Mission Section (Was AboutSection) */}
+            <div id="institutional">
+                <AboutSection />
             </div>
 
-            {/* Benefits Section - Nossa Tecnologia (Premium) */}
-            <MemoizedTechnology />
-
-            {/* Offerings Showcase - Governança sob Medida */}
-            <div id="governance" className="scroll-mt-24">
-                <MemoizedAbout />
-                <MemoizedOfferings />
+            {/* Pillars / Services Section - (Converted Offerings) */}
+            <div id="services" className="scroll-mt-24">
+                <OfferingsShowcase />
             </div>
 
-            {/* Methodology Section - Memoized */}
-            <MemoizedMethodology />
+            {/* Methodology Section - The "How" */}
+            <MethodologySection />
+
+            {/* Technology Section - The "Toolbox" for Members */}
+            <TechnologySection />
 
             {/* Manifesto Modal - Conditional */}
             {
@@ -154,11 +153,9 @@ export default function Home() {
             }
 
             {/* WhatsApp Button - Always Visible */}
-            <MemoizedWhatsApp />
+            <WhatsAppButton />
 
-
-
-            <MemoizedFooter />
+            <Footer />
         </div >
     );
 }

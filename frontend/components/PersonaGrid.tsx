@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Building2, ShieldCheck, Cpu, Scale, ArrowRight, Sparkles, Users } from 'lucide-react';
+import { Building2, ShieldCheck, Cpu, Scale, ArrowRight, Sparkles, Users, GraduationCap, Crown } from 'lucide-react';
 
 // ========================================
 // PERSONA GRID - Power BI Premium Dark Mode
@@ -30,52 +30,52 @@ const cardVariants = {
 
 const personas = [
     {
-        id: 'strategist',
-        title: 'O Estrategista',
-        role: 'C-Suite & Board',
-        icon: Building2,
-        color: '#00FF94',
-        gradient: 'from-emerald-500 to-cyan-500',
-        description: 'Foco em ROI, Reputação e Estratégia de Negócios.',
-        solutions: ['Dashboard Executivo', 'Análise de Impacto Econômico', 'Briefing de Riscos'],
-        path: '/solutions/board',
-        badge: 'Executive'
-    },
-    {
-        id: 'guardian',
-        title: 'O Auditor',
-        role: 'Consultores & Risk',
-        icon: ShieldCheck,
-        color: '#FFB000',
-        gradient: 'from-amber-500 to-orange-500',
-        description: 'Gerencie múltiplos clientes em um único painel.',
-        solutions: ['Portfólio Multi-Tenant', 'Matriz de Risco ISO 42001', 'Gerador de Relatórios'],
-        path: '/dashboard/clients', // Link direto
-        badge: 'Consultant'
-    },
-    {
-        id: 'builder',
-        title: 'O Engenheiro',
-        role: 'CTO & Tech Lead',
-        icon: Cpu,
+        id: 'student',
+        title: 'Membro Estudante',
+        role: 'Iniciantes & Acadêmicos',
+        icon: GraduationCap,
         color: '#00A3FF',
-        gradient: 'from-blue-500 to-purple-500',
-        description: 'Integre governança ao CI/CD com nossa API (curl).',
-        solutions: ['API Scanner (cURL)', 'Regulation-as-Code', 'Monitoramento de Drift'],
-        path: '/scanner?mode=api', // Link direto
-        badge: 'Technical'
+        gradient: 'from-blue-500 to-cyan-500',
+        description: 'Dê o primeiro passo. Acesse o Sandbox de Auditoria e conteúdos introdutórios.',
+        solutions: ['Acesso ao Sandbox (1 Projeto)', 'Cursos Introdutórios', 'Newsletter Exclusiva'],
+        path: '/register?tier=student',
+        badge: 'Gratuito'
     },
     {
-        id: 'protector',
-        title: 'O Especialista',
-        role: 'Jurídico & DPO',
-        icon: Scale,
+        id: 'professional',
+        title: 'Membro Profissional',
+        role: 'Consultores & Auditores',
+        icon: ShieldCheck,
+        color: '#00FF94',
+        gradient: 'from-emerald-500 to-teal-500',
+        description: 'Torne-se uma autoridade. Software de auditoria ilimitado e selo de certificação.',
+        solutions: ['Licença ALGOR Pro (SaaS)', 'Registro Profissional', 'Selo de Auditor Certificado'],
+        path: '/register?tier=professional',
+        badge: 'Recomendado'
+    },
+    {
+        id: 'corporate',
+        title: 'Membro Corporativo',
+        role: 'Empresas & Startups',
+        icon: Building2,
         color: '#8B5CF6',
-        gradient: 'from-purple-500 to-pink-500',
-        description: 'Acesse a base de conhecimento e leis atualizadas.',
-        solutions: ['Knowledge Hub', 'Modelos de Contrato', 'Diagnóstico Legal'],
-        path: '/hub', // Futuro Hub
-        badge: 'Knowledge'
+        gradient: 'from-purple-500 to-indigo-500',
+        description: 'Blinde sua operação. Certificação ISO 42001 e monitoramento contínuo.',
+        solutions: ['Auditoria ISO 42001', 'Seguro de Responsabilidade', 'Gestão de Riscos (SaaS)'],
+        path: '/register?tier=corporate',
+        badge: 'Enterprise'
+    },
+    {
+        id: 'fellow',
+        title: 'Fellow ALGOR',
+        role: 'Líderes de Pensamento',
+        icon: Crown,
+        color: '#FFD700',
+        gradient: 'from-amber-400 to-yellow-600',
+        description: 'A elite da governança. Acesso direto ao Board e participação na definição de padrões.',
+        solutions: ['Cadeira no Conselho Consultivo', 'Eventos VIP', 'Publicação de Artigos'],
+        path: '/register?tier=fellow',
+        badge: 'Convite'
     }
 ];
 
@@ -109,14 +109,14 @@ export default function PersonaGrid() {
                     </motion.span>
 
                     <h2 className="font-orbitron text-3xl md:text-5xl text-white mb-4">
-                        Quem Lidera a{' '}
+                        Qual é o seu Nível de{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">
-                            Governança?
+                            Envolvimento?
                         </span>
                     </h2>
                     <p className="text-gray-400 max-w-2xl mx-auto text-lg font-light">
-                        A metodologia da ALGOR se adapta ao seu papel na organização.
-                        Identifique seu perfil para acessar ferramentas e insights específicos.
+                        A ALGOR oferece uma jornada completa de desenvolvimento profissional e empresarial.
+                        Escolha como você deseja participar do ecossistema de governança.
                     </p>
                 </motion.div>
 

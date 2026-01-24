@@ -27,21 +27,21 @@ const itemVariants = {
 
 const footerLinks = {
     platform: {
-        title: 'Plataforma',
+        title: 'Portal do Associado',
         links: [
-            { label: 'Console do Membro', href: '/login' },
-            { label: 'API & Webhooks', href: '/register?persona=tech' },
-            { label: 'Relatório de Transparência', href: '#' },
-            { label: 'Status da Plataforma', href: '#', badge: 'Online' },
+            { label: 'Acesso Exclusivo', href: '/login' },
+            { label: 'Ferramentas de Auditoria', href: '/register?tier=professional' },
+            { label: 'Relatórios de Impacto', href: '#' },
+            { label: 'Rede de Membros', href: '#', badge: 'Novo' },
         ]
     },
     solutions: {
-        title: 'Soluções',
+        title: 'Programas',
         links: [
-            { label: 'Fortress Assessment', href: '/register' },
-            { label: 'Data Clean Rooms', href: '#' },
-            { label: 'Auditoria de Viés', href: '#' },
-            { label: 'Scanner LGPD', href: '/scanner' },
+            { label: 'Certificação ISO 42001', href: '/register' },
+            { label: 'Mentoria Executiva', href: '#' },
+            { label: 'Grupos de Trabalho', href: '#' },
+            { label: 'Selos de Conformidade', href: '/scanner' },
         ]
     },
     governance: {

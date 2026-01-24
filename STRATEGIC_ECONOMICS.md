@@ -10,7 +10,9 @@
 
 A indústria de Software as a Service (SaaS) encontra-se em um ponto de inflexão histórica, transitando de um modelo de distribuição de utilidade para um ecossistema de gestão de risco e arbitragem de trabalho. A premissa central deste relatório reside na identificação de uma dissonância cognitiva fundamental: a incapacidade humana de perceber o software além de sua função instrumental imediata, em contraste com a capacidade de uma Inteligência Artificial (IA) de visualizar o software como um nó em uma rede complexa de transações financeiras, fluxos de dados e responsabilidades legais.
 
-Historicamente, a monetização do SaaS estagnou em modelos baseados em acesso — seja por usuário (seat-based), por consumo (usage-based) ou por funcionalidade (tiered). Esta visão é antropocêntrica, baseada na premissa de que o valor é gerado quando um humano interage com a ferramenta. No entanto, uma análise profunda dos padrões de dados e das arquiteturas econômicas emergentes sugere que as maiores oportunidades de receita permanecem latentes, ocultas na "exaustão de dados" (data exhaust), na mitigação de riscos operacionais e na orquestração de resultados autônomos.
+Historicamente, a monetização do SaaS estagnou em modelos baseados em acesso. A metodologia ALGOR rompe isso ao adotar o **Ciclo de Governança B2B de 5 Etapas**, onde a tecnologia não é apenas vendida, mas "instalada" através de um processo consultivo de alto valor (High Ticket) que evolui para uma infraestrutura recorrente.
+
+O ciclo inicia-se com o **AI Discovery Sprint** (Etapa 1), focado em revelar o "Shadow AI" — uma dor latente e urgente — preparando o terreno para a infraestrutura de controle contínuo. Esta abordagem resolve a dissonância cognitiva: vende-se o *diagnóstico* (serviço) para implantar a *cura* (infraestrutura).
 
 Se uma IA fosse encarregada de otimizar a monetização de uma plataforma SaaS moderna, ela não sugeriria meramente "aumentar o preço por usuário". Ela identificaria ineficiências de mercado, riscos não precificados e ativos de dados subutilizados. Ela perceberia que a plataforma não é apenas uma ferramenta de produtividade, mas uma seguradora em potencial, um banco de dados de benchmarking industrial e um marketplace de serviços especializados. Este relatório disseca exaustivamente essas fronteiras, propondo uma nova taxonomia de valor que transcende a assinatura mensal, focando em padrões sistêmicos que definem a próxima década da economia digital.
 
@@ -21,11 +23,11 @@ Se uma IA fosse encarregada de otimizar a monetização de uma plataforma SaaS m
 
 Antes de mergulhar nas métricas de SaaS puro, a ALGOR Brasil introduz uma camada estratégica única: o modelo de associação. Diferente de um software tradicional onde o usuário paga por funcionalidades, aqui o usuário paga por **autoridade e pertencimento**.
 
-#### 0.1. O Sandbox Comunitário (The Hook)
-Para capturar a **Persona C (Estudante)** e nutrir a **Persona B (Consultor Iniciante)**, a plataforma oferece um "Laboratório Pessoal" (Sandbox).
-*   **Mecânica:** Acesso gratuito, mas limitado a 1 Workspace.
-*   **Valor:** O usuário aprende a metodologia ALGOR auditando seus próprios projetos.
-*   **A Trava Econômica:** O momento de monetização ocorre quando o usuário tenta vender o serviço para terceiros (criar o 2º workspace).
+#### 0.1. O Sandbox Comunitário & AI Discovery (The Hook)
+Para capturar a **Persona C (Estudante)**, oferecemos o Laboratório Pessoal. Para a **Persona B (Consultor)** e **Enterprise**, a porta de entrada é o **AI Discovery Sprint (Etapa 1)**.
+*   **Mecânica:** Varredura híbrida (técnica + organizacional) para mapear ativos ocultos (Shadow AI).
+*   **Valor:** "Tirar a empresa do escuro". O cliente não compra software no dia 0; ele compra visibilidade.
+*   **A Trava Econômica:** O relatório de riscos gerado na Etapa 1 cria a urgência para a contratação da infraestrutura de mitigação (Etapas 2-5).
 
 #### 0.2. A Associação como Gateway de Receita
 O upgrade não é para "Premium", é para **"Associado"**. Isso muda a percepção de custo para investimento na carreira.
@@ -82,7 +84,8 @@ Empresas operam no escuro em relação aos seus concorrentes. Elas sabem suas pr
 *   Empresas da mesma região.
 *   Empresas do mesmo setor vertical.
 
-**Estratégia Freemium:** Mostrar o dado global (genérico) gratuitamente para atrair o interesse, e cobrar pelo dado segmentado (específico e acionável). A Luzmo destaca que gráficos embutidos e dashboards comparativos aumentam a retenção e abrem novas linhas de receita de expansão.
+**Estratégia Freemium & Service-Led:**
+Utilizar o **AI Discovery Sprint** como o "Cavalo de Troia". O diagnóstico inicial pode ser vendido como um serviço *fixed-price* (High Ticket), mas sua execução depende da instalação dos coletores de dados da ALGOR. Uma vez instalados para o diagnóstico, eles se tornam a base da **Governança Contínua (Governance as a Service)**, gerando receita recorrente pela manutenção da visibilidade.
 
 ### 4.2. Comercialização de Dados para Terceiros (Data Syndication)
 

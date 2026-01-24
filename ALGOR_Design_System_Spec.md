@@ -247,6 +247,27 @@ import { ShieldCheck, Activity, ArrowRight } from "lucide-react";
 </span>
 ```
 
+### 8.3 Hyper-Realistic 3D (Premium)
+For high-impact areas (Landing Page Stats, Hero Sections), use 3D glass renders with the "Neon/Black" technique.
+
+**Implementation Standard:**
+1.  **Source:** 3D Renders (Glass/Neon material) on **Pure Black (#000000)** background.
+2.  **Blend Mode:** Apply `mix-blend-mode: screen` via CSS to transparentize the black background.
+3.  **Masking:** Apply `radial-gradient` mask to eliminate bounding box edges.
+
+```tsx
+<div className="relative w-32 h-32">
+    <Image 
+        src="/assets/3d-icon-black.png" 
+        fill 
+        style={{ 
+            mixBlendMode: 'screen',
+            maskImage: 'radial-gradient(circle, black 50%, transparent 80%)'
+        }} 
+    />
+</div>
+```
+
 ---
 
 ## 9. Responsive Breakpoints

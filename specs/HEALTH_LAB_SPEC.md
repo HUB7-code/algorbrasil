@@ -41,6 +41,7 @@ Plataforma de Diagnóstico Operacional para o setor de Saúde, focada em auditar
 ---
 
 ## 3. Módulo Shadow AI: "Simulador de Exposição"
+**(Alinhamento com Metodologia B2B: Step 1 - Discovery Sprint)**
 
 **Engenharia:**
 - **Engine:** Microsoft Presidio (NLP) + RegEx Customizada.
