@@ -68,48 +68,86 @@ export default function InstitutePage() {
 
                     {/* Hero Stats / Interactive Holograms */}
                     <div className="lg:col-span-5 space-y-6 perspective-1000">
-                        {/* Card 1: PL 2338 */}
-                        <div className="relative group transistion-all duration-500 hover:transform hover:-translate-y-2">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#00FF94]/20 to-[#00A3FF]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative bg-[#0A111A]/90 backdrop-blur-xl border border-white/10 p-8 rounded-2xl hover:border-[#00FF94]/50 transition-all shadow-2xl overflow-hidden group-hover:shadow-[0_0_30px_rgba(0,255,148,0.15)]">
-                                <div className="absolute top-0 right-0 p-4 opacity-10">
-                                    <FileCheck className="w-24 h-24 text-white" />
-                                </div>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
-                                    <span className="text-xs font-mono text-[#00FF94] uppercase tracking-widest">Status: Ativo no Senado</span>
-                                </div>
-                                <div className="text-4xl font-bold text-white font-orbitron mb-2 tabular-nums tracking-tight">PL 2338</div>
-                                <div className="text-sm text-gray-400 leading-snug font-manrope">
-                                    Contribuição técnica direta para o Marco Legal da IA no Brasil.
+                        {/* Card 1: PL 2338 - 3D UPGRADE */}
+                        <div className="relative group perspective-1000 cursor-default">
+                            {/* Ambient Glow */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#00FF94]/30 to-[#0A1A2F] rounded-2xl blur-xl opacity-20 group-hover:opacity-60 transition-opacity duration-700" />
+
+                            <div className="relative bg-white/[0.02] backdrop-blur-2xl border border-white/10 p-8 rounded-2xl group-hover:border-[#00FF94]/50 transition-all duration-500 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] hover:shadow-[0_8px_32px_0_rgba(0,255,148,0.1)]">
+                                {/* Decorative Grid Background */}
+                                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05] bg-[length:20px_20px]" />
+
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="flex items-center gap-3">
+                                            <span className="relative flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00FF94] opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00FF94]"></span>
+                                            </span>
+                                            <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em] font-bold">
+                                                Tramitação Prioritária
+                                            </span>
+                                        </div>
+                                        {/* 3D Icon Placeholder - Transparent Asset (Alpha) */}
+                                        <img src="/icon_audit_shield_alpha_1769190142041.png" alt="Docto" className="w-16 h-20 object-contain opacity-90 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_0_25px_rgba(0,255,148,0.4)] mix-blend-screen" />
+                                    </div>
+
+                                    <h2 className="text-5xl font-orbitron font-bold text-white mb-2 tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#00FF94] transition-all">
+                                        PL 2338
+                                    </h2>
+
+                                    <div className="h-0.5 w-12 bg-[#00FF94]/30 mb-4 group-hover:w-full transition-all duration-700" />
+
+                                    <p className="text-sm text-gray-400 font-manrope leading-relaxed">
+                                        Monitoramento legislativo em tempo real e <span className="text-white font-medium">contribuição técnica direta</span> para o Marco Legal da IA no Senado.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Card 2: ISO 42001 */}
-                        <div className="relative group transistion-all duration-500 delay-100 hover:transform hover:-translate-y-2">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#00A3FF]/20 to-[#8B5CF6]/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                            <div className="relative bg-[#0A111A]/90 backdrop-blur-xl border border-white/10 p-8 rounded-2xl hover:border-[#00A3FF]/50 transition-all shadow-2xl overflow-hidden group-hover:shadow-[0_0_30px_rgba(0,163,255,0.15)]">
-                                <div className="absolute top-0 right-0 p-4 opacity-10">
-                                    <ShieldCheck className="w-24 h-24 text-white" />
-                                </div>
-                                <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-2 h-2 rounded-full bg-[#00A3FF] animate-pulse" />
-                                    <span className="text-xs font-mono text-[#00A3FF] uppercase tracking-widest">Padrão Global</span>
-                                </div>
-                                <div className="text-4xl font-bold text-white font-orbitron mb-2 tabular-nums tracking-tight">ISO 42001</div>
-                                <div className="text-sm text-gray-400 leading-snug font-manrope">
-                                    Pioneiros na auditoria de conformidade algorítmica ISO.
+                        {/* Card 2: ISO 42001 - 3D UPGRADE */}
+                        <div className="relative group perspective-1000 cursor-default">
+                            {/* Ambient Glow */}
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#00A3FF]/30 to-[#0A1A2F] rounded-2xl blur-xl opacity-20 group-hover:opacity-60 transition-opacity duration-700" />
+
+                            <div className="relative bg-white/[0.02] backdrop-blur-2xl border border-white/10 p-8 rounded-2xl group-hover:border-[#00A3FF]/50 transition-all duration-500 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] hover:shadow-[0_8px_32px_0_rgba(0,163,255,0.1)]">
+                                {/* Decorative Grid Background */}
+                                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05] bg-[length:20px_20px]" />
+
+                                <div className="relative z-10">
+                                    <div className="flex justify-between items-start mb-6">
+                                        <div className="flex items-center gap-3">
+                                            <span className="relative flex h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00A3FF] opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#00A3FF]"></span>
+                                            </span>
+                                            <span className="text-[10px] font-mono text-[#00A3FF] uppercase tracking-[0.2em] font-bold">
+                                                Standard Global
+                                            </span>
+                                        </div>
+                                        {/* 3D Icon Placeholder - Transparent Asset (Alpha) */}
+                                        <img src="/icon_iso_badge_alpha_1769190154805.png" alt="ISO" className="w-16 h-20 object-contain opacity-90 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_0_25px_rgba(0,163,255,0.4)] mix-blend-screen" />
+                                    </div>
+
+                                    <h2 className="text-5xl font-orbitron font-bold text-white mb-2 tracking-tighter group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-[#00A3FF] transition-all">
+                                        ISO 42001
+                                    </h2>
+
+                                    <div className="h-0.5 w-12 bg-[#00A3FF]/30 mb-4 group-hover:w-full transition-all duration-700" />
+
+                                    <p className="text-sm text-gray-400 font-manrope leading-relaxed">
+                                        A primeira metodologia brasileira para <span className="text-white font-medium">auditoria de conformidade algorítmica</span> baseada no padrão internacional.
+                                    </p>
                                 </div>
                             </div>
                         </div>
 
                         {/* Card 3: Elite Council */}
                         <div className="relative group transistion-all duration-500 delay-200 hover:transform hover:-translate-y-2">
-                            <div className="relative bg-gradient-to-r from-[#131B2A] to-[#0A111A] border border-white/10 p-6 rounded-2xl group-hover:border-white/30 transition-all flex items-center gap-6 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]">
+                            <div className="relative bg-white/[0.02] backdrop-blur-xl border border-white/10 p-6 rounded-2xl group-hover:border-white/30 transition-all flex items-center gap-6 shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]">
                                 <div className="flex -space-x-4">
                                     {[1, 2, 3].map((i) => (
-                                        <div key={i} className="w-12 h-12 rounded-full bg-gray-800 border-2 border-[#0A111A] flex items-center justify-center text-xs text-gray-500 font-mono">
+                                        <div key={i} className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/10 flex items-center justify-center text-xs text-gray-500 font-mono">
                                             PhD
                                         </div>
                                     ))}
@@ -132,7 +170,7 @@ export default function InstitutePage() {
                 {/* Section: Pilares de Atuação - Floating Cards */}
                 <section className="grid md:grid-cols-3 gap-8 mb-40">
                     <div className="group relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-[#00FF94]/50 hover:to-[#00FF94]/5 transition-all duration-500">
-                        <div className="relative h-full bg-[#0B121C] rounded-[23px] p-10 overflow-hidden">
+                        <div className="relative h-full bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[23px] p-10 overflow-hidden shadow-lg">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/5 rounded-full blur-2xl group-hover:bg-[#00FF94]/10 transition-all" />
                             <ScaleIcon className="w-10 h-10 text-[#00FF94] mb-8 group-hover:scale-110 transition-transform duration-500" />
                             <h3 className="font-orbitron text-2xl font-bold mb-4 text-white group-hover:text-[#00FF94] transition-colors tracking-wide">Regulação</h3>
@@ -146,7 +184,7 @@ export default function InstitutePage() {
                     </div>
 
                     <div className="group relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-[#00A3FF]/50 hover:to-[#00A3FF]/5 transition-all duration-500">
-                        <div className="relative h-full bg-[#0B121C] rounded-[23px] p-10 overflow-hidden">
+                        <div className="relative h-full bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[23px] p-10 overflow-hidden shadow-lg">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#00A3FF]/5 rounded-full blur-2xl group-hover:bg-[#00A3FF]/10 transition-all" />
                             <BookOpen className="w-10 h-10 text-[#00A3FF] mb-8 group-hover:scale-110 transition-transform duration-500" />
                             <h3 className="font-orbitron text-2xl font-bold mb-4 text-white group-hover:text-[#00A3FF] transition-colors tracking-wide">Pesquisa</h3>
@@ -160,7 +198,7 @@ export default function InstitutePage() {
                     </div>
 
                     <div className="group relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-[#8B5CF6]/50 hover:to-[#8B5CF6]/5 transition-all duration-500">
-                        <div className="relative h-full bg-[#0B121C] rounded-[23px] p-10 overflow-hidden">
+                        <div className="relative h-full bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[23px] p-10 overflow-hidden shadow-lg">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#8B5CF6]/5 rounded-full blur-2xl group-hover:bg-[#8B5CF6]/10 transition-all" />
                             <GraduationCap className="w-10 h-10 text-[#8B5CF6] mb-8 group-hover:scale-110 transition-transform duration-500" />
                             <h3 className="font-orbitron text-2xl font-bold mb-4 text-white group-hover:text-[#8B5CF6] transition-colors tracking-wide">Educação</h3>
@@ -175,7 +213,7 @@ export default function InstitutePage() {
                 </section>
 
                 {/* Section: Manifesto Acadêmico/Citação - TECH STYLE REFINED */}
-                <section className="relative rounded-[40px] overflow-hidden mb-32 border border-white/5 bg-[#080E17]">
+                <section className="relative rounded-[40px] overflow-hidden mb-32 border border-white/10 bg-white/[0.01] backdrop-blur-md shadow-2xl">
                     <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05]" />
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF94]/50 to-transparent" />
                     <div className="absolute bottom-0 right-0 w-full h-[1px] bg-gradient-to-l from-transparent via-[#00A3FF]/30 to-transparent" />

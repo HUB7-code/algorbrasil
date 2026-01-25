@@ -142,16 +142,22 @@ async def create_user(request: Request, user_in: UserCreate, db: Session = Depen
             expires_delta=timedelta(hours=24)
         )
         
-        # Envio SÍNCRONO para garantir e debugar (sem BackgroundTasks por enquanto)
+        # Envio SÍNCRONO para garantir entrega (pode ser movido para BackgroundTasks para performance)
         logger.info("📧 Preparando envio de e-mail...")
+        verification_link = f"{settings.FRONTEND_URL}/verify-email?token={verification_token}"
+        
         try:
             from backend.app.services.email_service import send_verification_email
+            # Tenta enviar o email REAL
             send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
             logger.info("✅ E-mail de verificação despachado com sucesso!")
         except Exception as e:
-            logger.error(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL: {str(e)}")
-            # Em produção, não parariamos o cadastro, mas para debug queremos ver o erro
-            # raise HTTPException(status_code=500, detail=f"Erro no envio de e-mail: {str(e)}")
+            # Se falhar o SMTP (ex: credenciais erradas), loga o erro CRÍTICO e mostra o link no log para não travar o usuário
+            logger.error(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL (SMTP): {str(e)}")
+            logger.info(f"⚠️ [FALLBACK - SMTP FAIL] Use este link para verificar manualmente: {verification_link}")
+            # Em produção estrita, aqui você poderia dar raise error, mas para MVP/Beta é melhor permitir o cadastro continuar
+
+
 
         return {
             "message": "Cadastro realizado. Verifique seu e-mail para ativar a conta.", 

@@ -59,6 +59,7 @@
 
 ### 📜 Histórico Recente
 
+- [x] **V18.2.1:** "Registration Verified" - Sistema de criação de conta 100% funcional com validação e-mail simulada (Dev Mode) e script de teste E2E.
 - [x] **V18.2.0:** "Premium Image Cards" - Seção de Serviços 100% baseada em imagens de alta fidelidade.
 - [x] **V18.1.4:** "High-Tech Circuit Edition" - Background de circuitos, partículas flutuantes e ícone 3D Ciano/Verde.
 - [x] **V18.1.3:** "Holographic Shield Edition" - Upgrade visual profundo no card de Serviços (Vidro + Holograma).

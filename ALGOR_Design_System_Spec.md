@@ -1,9 +1,9 @@
 # TECHNICAL SPECIFICATION: ALGOR DESIGN SYSTEM
-> **Version:** 2.0 (Power BI Premium Dark Mode)
-> **Last Updated:** 26/12/2025
-> **Target Agent:** Google Antigravity Agent (Gemini 3 Pro)
+> **Version:** 3.0 (Premium Glassmorphism + Power BI Dark)
+> **Last Updated:** 24/01/2026
+> **Target Agent:** Google Antigravity Agent (Gemini 3 Pro / Claude 4.5 Sonnet)
 > **Context:** Frontend Architecture & UI Implementation
-> **Style Guide:** Power BI Premium Dark Mode + Material 3 Expressive
+> **Style Guide:** Apple Vision Pro UI + Power BI Premium Dark Mode
 
 ---
 
@@ -44,15 +44,15 @@ The agent must enforce the following technology stack:
 
 | Token | Hex Code | Usage |
 |-------|----------|-------|
-| **Deep Navy (Background)** | `#0A0E1A` | Primary background |
-| **Navy Dark** | `#0A1A2F` | Alternative dark |
-| **Panel Background** | `#131825` | Card/panel surfaces |
-| **Electric Blue** | `#00A3FF` | Secondary accent, links |
-| **Neon Green** | `#00FF94` | Primary accent, success, CTAs |
-| **Amber Warning** | `#F59E0B` | Warnings, caution states |
-| **Purple Accent** | `#8B5CF6` | Tertiary, knowledge section |
+| **Deep Navy (Background)** | `#050A10` | Primary background (Updated v3.0) |
+| **Navy Dark** | `#0A1A2F` | Alternative dark, ambient glows |
+| **Panel Background** | `rgba(255,255,255,0.02)` | Glass card surfaces (Translucent) |
+| **Electric Blue** | `#00A3FF` | Secondary accent, links, ISO badge |
+| **Neon Green** | `#00FF94` | Primary accent, success, CTAs, PL 2338 |
+| **Amber Warning** | `#FFB000` | Warnings, premium features |
+| **Purple Accent** | `#8B5CF6` | Tertiary, Academy/Education |
 | **Error Red** | `#EF4444` | Errors, critical alerts |
-| **Gold Premium** | `#FFD700` | PRO badges, premium features |
+| **Gold Premium** | `#FFD700` | Board members, elite badges |
 
 ### 2.2 Text Colors
 
@@ -75,50 +75,113 @@ The agent must enforce the following technology stack:
 
 ---
 
-## 3. Glassmorphism System
+## 3. Glassmorphism System (v3.0)
 
-### 3.1 Glass Panel Class
+### 3.1 Philosophy
+**"Frosted Glass Transparency"** - Inspired by Apple Vision Pro UI
+- Translucent backgrounds that reveal underlying layers
+- Heavy blur effects for depth perception
+- Subtle borders for definition
+- Colored shadows instead of black drop-shadows
+
+### 3.2 Glass Panel Classes
+
+**Standard Glass Panel:**
 ```css
 .glass-panel {
-  background: linear-gradient(135deg, rgba(19, 24, 37, 0.9) 0%, rgba(10, 14, 26, 0.9) 100%);
+  background: rgba(255, 255, 255, 0.02); /* Ultra-subtle white tint */
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
 }
 ```
 
-### 3.2 Card Variants
+**Tailwind Implementation:**
+```tsx
+className="bg-white/[0.02] backdrop-blur-2xl border border-white/10 rounded-2xl shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]"
+```
 
-| Variant | Background | Border | Usage |
-|---------|------------|--------|-------|
-| **Default Glass** | `bg-[#131825]/90` | `border-white/[0.06]` | Standard panels |
-| **Hover Glass** | Same | `border-[#00FF94]/30` | Interactive cards |
-| **Active Glass** | `bg-white/[0.06]` | `border-white/[0.08]` | Selected states |
-| **Gradient Glass** | `from-[#131825] to-[#0A0E1A]` | `border-white/10` | Hero cards |
+### 3.3 Card Variants
+
+| Variant | Background | Border | Shadow | Usage |
+|---------|------------|--------|--------|-------|
+| **Default Glass** | `bg-white/[0.02]` | `border-white/10` | `shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]` | Standard panels |
+| **Hover Glass** | Same | `border-[#00FF94]/50` | `shadow-[0_8px_32px_0_rgba(0,255,148,0.1)]` | Interactive cards |
+| **Active Glass** | `bg-white/[0.06]` | `border-white/20` | Enhanced glow | Selected states |
+| **Deep Glass** | `bg-[#0A111A]/90` | `border-white/10` | Standard | Legacy/Fallback |
+
+### 3.4 Production Patterns
+
+**Hero Card (Institute Page Style):**
+```tsx
+<div className="relative group perspective-1000 cursor-default">
+  {/* Ambient Glow */}
+  <div className="absolute -inset-1 bg-gradient-to-r from-[#00FF94]/30 to-[#0A1A2F] rounded-2xl blur-xl opacity-20 group-hover:opacity-60 transition-opacity duration-700" />
+  
+  {/* Glass Container */}
+  <div className="relative bg-white/[0.02] backdrop-blur-2xl border border-white/10 p-8 rounded-2xl group-hover:border-[#00FF94]/50 transition-all duration-500 overflow-hidden shadow-[0_8px_32px_0_rgba(0,0,0,0.36)] hover:shadow-[0_8px_32px_0_rgba(0,255,148,0.1)]">
+    {/* Decorative Grid Background */}
+    <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.05] bg-[length:20px_20px]" />
+    
+    {/* Content */}
+    <div className="relative z-10">
+      {/* Your content here */}
+    </div>
+  </div>
+</div>
+```
+
+**Pillar Card (Offerings Style):**
+```tsx
+<div className="group relative p-[1px] rounded-3xl bg-gradient-to-b from-white/10 to-transparent hover:from-[#00FF94]/50 hover:to-[#00FF94]/5 transition-all duration-500">
+  <div className="relative h-full bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-[23px] p-10 overflow-hidden shadow-lg">
+    {/* Ambient Glow */}
+    <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FF94]/5 rounded-full blur-2xl group-hover:bg-[#00FF94]/10 transition-all" />
+    
+    {/* Content */}
+  </div>
+</div>
+```
+
+### 3.5 Avatar/Badge Glass
+```tsx
+<div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/10 flex items-center justify-center">
+  PhD
+</div>
+```
 
 ---
 
 ## 4. Typography System
 
-### 4.1 Font Stack
+### 4.1 Font Stack (v3.0)
 ```css
---font-display: 'Google Sans', system-ui, sans-serif;
---font-serif: 'Playfair Display', Georgia, serif;
---font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+--font-orbitron: 'Orbitron', sans-serif; /* Display, Headlines, Tech */
+--font-body: 'Inter', 'Manrope', system-ui, sans-serif; /* Body text */
+--font-mono: 'JetBrains Mono', 'Fira Code', monospace; /* Code, Data */
+```
+
+**Next.js Implementation:**
+```tsx
+import { Orbitron, Inter } from 'next/font/google';
+
+const orbitron = Orbitron({ subsets: ['latin'], variable: '--font-orbitron' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 ```
 
 ### 4.2 Scale
 
-| Token | Size | Weight | Usage |
-|-------|------|--------|-------|
-| **Display** | `text-5xl` (3rem) | 500 (font-serif) | Page titles |
-| **Headline** | `text-2xl-3xl` | 500 (font-serif) | Section headings |
-| **Title** | `text-lg-xl` | 600 | Card titles |
-| **Body** | `text-sm-base` | 400 | Paragraphs |
-| **Caption** | `text-xs` | 500 | Labels, hints |
-| **Mono** | `text-sm font-mono` | 400 | Data, codes |
-| **Status** | `text-[10px] font-mono uppercase tracking-[0.2em]` | 700 | Status badges |
+| Token | Size | Weight | Font | Usage |
+|-------|------|--------|------|-------|
+| **Display** | `text-5xl-7xl` | 700 | Orbitron | Hero titles |
+| **Headline** | `text-3xl-5xl` | 700 | Orbitron | Section headings |
+| **Title** | `text-xl-2xl` | 600 | Orbitron | Card titles |
+| **Body** | `text-sm-base` | 400 | Inter/Manrope | Paragraphs |
+| **Caption** | `text-xs` | 500 | Inter | Labels, hints |
+| **Mono** | `text-sm font-mono` | 400 | JetBrains Mono | Data, codes |
+| **Status** | `text-[10px] font-mono uppercase tracking-[0.2em]` | 700 | JetBrains Mono | Status badges |
 
 ---
 
@@ -270,7 +333,97 @@ For high-impact areas (Landing Page Stats, Hero Sections), use 3D glass renders 
 
 ---
 
-## 9. Responsive Breakpoints
+## 9. Transparent 3D Assets (v3.0)
+
+### 9.1 Asset Naming Convention
+All 3D icons follow this pattern in `/public`:
+- `icon_[name]_transparent.png` - Standard transparent PNG
+- `icon_[name]_alpha_[timestamp].png` - Alpha channel optimized
+- `icon_[name]_glass_[timestamp].png` - Glass material variant
+
+### 9.2 Implementation Pattern
+```tsx
+<img 
+  src="/icon_audit_shield_alpha_1769190142041.png" 
+  alt="Shield" 
+  className="w-16 h-20 object-contain opacity-90 group-hover:scale-110 transition-transform duration-700 drop-shadow-[0_0_25px_rgba(0,255,148,0.4)] mix-blend-screen" 
+/>
+```
+
+**Key Properties:**
+- `mix-blend-screen` - Removes any residual black background
+- `drop-shadow-[0_0_25px_rgba(...)]` - Colored glow instead of black shadow
+- `object-contain` - Preserves aspect ratio
+- `opacity-90` - Slight transparency for glass integration
+
+### 9.3 Available Assets
+| Asset | Path | Color Theme | Usage |
+|-------|------|-------------|-------|
+| **Audit Shield** | `/icon_audit_shield_alpha_*.png` | Green | PL 2338, Regulation |
+| **ISO Badge** | `/icon_iso_badge_alpha_*.png` | Blue | ISO 42001, Standards |
+| **Global Network** | `/icon_global_network_alpha_*.png` | Multi | Networking, Members |
+| **Audit Docs** | `/icon_audit_docs_3d_navy.png` | Navy | Documentation |
+
+---
+
+## 10. AI Prompt Template (For Future Development)
+
+When requesting new pages/features from AI, use this structure:
+
+```markdown
+# CONTEXT
+Create a [page/component] for ALGOR BRASIL - the first Brazilian AI Governance Association.
+
+**Brand Identity:**
+- Positioning: "The Science of Artificial Trust"
+- Audience: C-Level, CTOs, DPOs, Corporate Legal
+- Tone: Premium institutional, scientific but accessible
+
+## DESIGN SYSTEM (MANDATORY)
+
+### Colors
+- Background: Deep Navy (#050A10, #0A1A2F)
+- Primary Accent: Neon Green (#00FF94) - Trust/Certification
+- Secondary: Electric Blue (#00A3FF) - Technology/Standards
+- Tertiary: Purple (#8B5CF6) - Education/Academy
+
+### Visual Style
+**Reference:** Apple Vision Pro UI + Power BI Premium Dark Mode
+
+**Required Elements:**
+1. Glassmorphism: `bg-white/[0.02]` + `backdrop-blur-2xl`
+2. Luminous Borders: `border-white/10` → `hover:border-[#00FF94]/50`
+3. Deep Shadows: `shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]`
+4. Grid Overlay: `bg-[url('/grid.svg')] opacity-[0.05]`
+5. Ambient Glows: Blurred circles (`blur-[120px]`) with neon colors
+6. Micro-animations: Hover `scale-110`, `translate-y-[-5px]`, 500ms transitions
+7. Live Indicators: Pulsing dots (`animate-ping`) for active status
+
+### Typography
+- Display/Headlines: **Orbitron** (Bold, 700)
+- Body: **Inter/Manrope** (Light, 400)
+- Mono: **JetBrains Mono** (Code/Data)
+
+## STRUCTURE
+[Detailed wireframe here]
+
+## TECHNICAL REQUIREMENTS
+- Framework: Next.js 14+ (App Router)
+- Animation: Framer Motion
+- Styling: Tailwind CSS
+- TypeScript: Strict mode
+
+## CRITICAL DIFFERENTIATORS
+1. No generic placeholders - use real assets from `/public`
+2. Avoid flat UI - always add depth (shadows, glows, layers)
+3. Micro-animations are mandatory - hover states must "wow"
+4. Orbitron for impact, Inter for readability
+5. Consistent spacing - 4px scale (gap-4, p-8, mb-12)
+```
+
+---
+
+## 11. Responsive Breakpoints
 
 | Breakpoint | Width | Columns | Margins |
 |------------|-------|---------|---------|
@@ -281,21 +434,32 @@ For high-impact areas (Landing Page Stats, Hero Sections), use 3D glass renders 
 
 ---
 
-## 10. Implementation Checklist
+## 12. Implementation Checklist (v3.0)
 
 Before finalizing any component, verify:
 
-- [ ] **Colors:** Using Power BI Premium palette (no Aurora violet/pink)
-- [ ] **Animation:** Using Framer Motion (not CSS animations for complex states)
-- [ ] **Glassmorphism:** Cards have `backdrop-blur` and translucent backgrounds
-- [ ] **Hover States:** Neon glow effects on interactive elements
-- [ ] **Typography:** Display text uses serif font, data uses monospace
-- [ ] **LED Indicators:** Status badges have ping animation
-- [ ] **Borders:** Using thin white/[0.06] borders, neon on hover
-- [ ] **Shadows:** Using colored glow shadows, not black drop-shadows
-- [ ] **Accessibility:** Focus rings visible (double ring pattern)
-- [ ] **Responsive:** Tested on mobile, tablet, desktop
+- [ ] **Colors:** Using refined palette (#050A10 background, not #0A0E1A)
+- [ ] **Glassmorphism:** Cards use `bg-white/[0.02]` + `backdrop-blur-2xl` (not solid backgrounds)
+- [ ] **Borders:** Subtle `border-white/10`, neon on hover (`border-[#00FF94]/50`)
+- [ ] **Shadows:** Colored glows `shadow-[0_8px_32px_0_rgba(0,0,0,0.36)]`, not black drop-shadows
+- [ ] **Typography:** Orbitron for display/headlines, Inter for body text
+- [ ] **Animation:** Using Framer Motion with spring physics
+- [ ] **Hover States:** Neon glow effects + scale transformations (1.02-1.1)
+- [ ] **LED Indicators:** Status badges have `animate-ping` effect
+- [ ] **3D Assets:** Using `_alpha` versions with `mix-blend-screen`
+- [ ] **Grid Overlay:** Decorative grid at `opacity-[0.05]` on glass panels
+- [ ] **Ambient Glows:** Background blur circles for depth
+- [ ] **Accessibility:** Focus rings visible, ARIA labels present
+- [ ] **Responsive:** Tested on mobile (1 col), tablet (2 col), desktop (3-4 col)
+- [ ] **Performance:** Lazy loading for heavy assets, dynamic imports for 3D
 
 ---
 
-*Document maintained by ALGOR Design System. Version 2.0*
+**Document Version:** 3.0 (Premium Glassmorphism Era)  
+**Maintained by:** ALGOR Design System Team  
+**Last Major Update:** 24/01/2026  
+**Breaking Changes from v2.0:**
+- Glassmorphism backgrounds changed from `bg-[#131825]/90` to `bg-white/[0.02]`
+- Typography shifted from Google Sans/Playfair to Orbitron/Inter
+- Shadow system now uses colored glows instead of black shadows
+- 3D assets require `mix-blend-screen` for proper transparency

@@ -1,0 +1,50 @@
+# Page snapshot
+
+```yaml
+- generic [active]:
+  - alert [ref=e1]
+  - dialog [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - heading "Build Error" [level=1] [ref=e7]
+        - paragraph [ref=e8]: Failed to compile
+        - generic [ref=e9]:
+          - text: Next.js (14.2.1) is outdated
+          - link "(learn more)" [ref=e11] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+      - generic [ref=e12]:
+        - generic [ref=e13]:
+          - link "./app/(public)/login/page.tsx" [ref=e14] [cursor=pointer]:
+            - text: ./app/(public)/login/page.tsx
+            - img [ref=e15]
+          - generic [ref=e19]:
+            - generic [ref=e20]: "Error:"
+            - text: ×
+            - generic [ref=e21]:
+              - text: "You are attempting to export \"metadata\" from a component marked with \"use client\", which is disallowed. Either remove the export, or the \"use client\" directive. Read more:"
+              - link "https://nextjs.org/" [ref=e22] [cursor=pointer]:
+                - /url: https://nextjs.org/
+            - text: │
+            - generic [ref=e23]: docs/getting-started/react-essentials#the-use-client-directive
+            - text: │ │
+            - generic [ref=e24]: ╭─[
+            - text: C:\Users\edisi\.gemini\antigravity\playground\chrono-aldrin\frontend\app\(public)\login\page.tsx
+            - generic [ref=e25]: :11:1]
+            - text: "11"
+            - generic [ref=e26]: │ // LOGIN PAGE - Power BI Premium Dark Mode
+            - text: "12"
+            - generic [ref=e27]: │ // ========================================
+            - text: "13"
+            - generic [ref=e28]: │
+            - text: "14"
+            - generic [ref=e29]: "│ export const metadata = { ·"
+            - generic [ref=e30]: ────────
+            - text: "15"
+            - generic [ref=e31]: "│ title: 'Login | Algor Brasil',"
+            - text: "16"
+            - generic [ref=e32]: "│ description: 'Acesse seu console de governança de IA',"
+            - text: "16"
+            - generic [ref=e33]: "│ }; ╰────"
+        - contentinfo [ref=e34]:
+          - paragraph [ref=e35]: This error occurred during the build process and can only be dismissed by fixing the error.
+```

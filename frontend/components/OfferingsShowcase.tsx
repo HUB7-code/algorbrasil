@@ -114,7 +114,7 @@ export default function OfferingsShowcase() {
                         viewport={{ once: true }}
                     >
                         <Layers className="w-3 h-3" />
-                        Nossa Atuação
+                        Nossas Soluções
                     </motion.span>
 
                     <h2 className="font-orbitron text-4xl md:text-5xl text-white mb-4">

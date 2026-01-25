@@ -69,7 +69,8 @@ export default function Home() {
             <MethodologySection />
 
             {/* Technology Section - The "Toolbox" for Members */}
-            <TechnologySection />
+            {/* Technology Section Removed - Redundant with OfferingsShowcase */}
+            {/* <TechnologySection /> */}
 
             {/* Manifesto Modal - Conditional */}
             {

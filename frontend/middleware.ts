@@ -22,6 +22,9 @@ const publicPaths = [
 const protectedPaths = [
     '/dashboard',
     '/onboarding',
+    '/dashboard/create-article',  // Apenas membros associados
+    '/dashboard/my-articles',     // Apenas membros associados
+    '/dashboard/edit-article',    // Apenas membros associados
 ];
 
 export function middleware(request: NextRequest) {
