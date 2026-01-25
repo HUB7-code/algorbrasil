@@ -94,6 +94,33 @@ MaxAge: 7 days
 }
 ```
 
+### **4. Social Login (OAuth2)**
+
+Implementado login com **Google** e **LinkedIn** para reduzir atrito no cadastro corporativo.
+
+#### **Endpoints:**
+*   `GET /api/v1/auth/google/login`: Retorna URL de redirecionamento para o Google.
+*   `GET /api/v1/auth/google/callback`: Recebe o `code` do Google, troca por token e cria/loga usuário.
+*   `GET /api/v1/auth/linkedin/login`: Retorna URL de redirecionamento para o LinkedIn.
+*   `GET /api/v1/auth/linkedin/callback`: Callback do LinkedIn.
+
+#### **Fluxo de Usuário:**
+1.  Usuário clica em "Entrar com Google".
+2.  Redirecionado para contas do Google.
+3.  Google retorna para o callback do Backend.
+4.  Backend verifica se e-mail existe:
+    *   **Sim:** Loga e retorna Token JWT.
+    *   **Não:** Cria conta automaticamente, ativa, cria Organização Default e loga.
+5.  Backend redireciona navegador para Frontend (`/login/callback`) com o token.
+
+#### **Requisitos de Configuração (.env):**
+```ini
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+LINKEDIN_CLIENT_ID=...
+LINKEDIN_CLIENT_SECRET=...
+```
+
 #### **POST /api/auth/logout**
 
 **Response:**
