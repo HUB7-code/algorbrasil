@@ -59,6 +59,15 @@ class Settings(BaseSettings):
     STRIPE_WEBHOOK_SECRET: str = ""
 
     # ========================================
+    # OAuth (Social Login)
+    # ========================================
+    GOOGLE_CLIENT_ID: str = ""
+    GOOGLE_CLIENT_SECRET: str = ""
+    LINKEDIN_CLIENT_ID: str = ""
+    LINKEDIN_CLIENT_SECRET: str = ""
+
+
+    # ========================================
     # Frontend
     # ========================================
     FRONTEND_URL: str = "http://localhost:3000"
