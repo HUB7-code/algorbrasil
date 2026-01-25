@@ -136,7 +136,7 @@ export default function ArticleViewer({ post, relatedPosts }: ArticleViewerProps
                                 table: ({ node, ...props }) => <table {...props} />,
                                 th: ({ node, ...props }) => <th {...props} />,
                                 td: ({ node, ...props }) => <td {...props} />,
-                                code: ({ node, inline, ...props }) =>
+                                code: ({ node, inline, ...props }: any) =>
                                     inline ? <code {...props} /> : <code {...props} />,
                                 a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" />,
                             }}
