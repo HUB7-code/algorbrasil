@@ -447,6 +447,7 @@ async def linkedin_login():
     return {"url": url}
 
 
+@router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
 async def login_for_access_token(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
     """
