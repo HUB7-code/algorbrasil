@@ -1,8 +1,10 @@
+"use client";
+
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowLeft } from 'lucide-react';
-import { getPostWithContent, getAllPostSlugs, getRelatedPosts, formatDate } from '@/lib/blog';
+import { getPostWithContent, getRelatedPosts, formatDate } from '@/lib/blog';
 import { notFound } from 'next/navigation';
 import ShareButtons from '@/components/blog/ShareButtons';
 import ReactMarkdown from 'react-markdown';
@@ -11,34 +13,6 @@ import remarkGfm from 'remark-gfm';
 // ========================================
 // ARTICLE PAGE - React Markdown Rendering
 // ========================================
-
-export async function generateStaticParams() {
-    const slugs = getAllPostSlugs();
-    return slugs.map((slug) => ({ slug }));
-}
-
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const post = getPostWithContent(params.slug);
-
-    if (!post) {
-        return {
-            title: 'Artigo não encontrado | ALGOR Brasil'
-        };
-    }
-
-    return {
-        title: `${post.title} | ALGOR Insights`,
-        description: post.excerpt,
-        openGraph: {
-            title: post.title,
-            description: post.excerpt,
-            type: 'article',
-            publishedTime: post.publishedAt,
-            authors: [post.author.name],
-            images: [post.coverImage]
-        }
-    };
-}
 
 export default function ArticlePage({ params }: { params: { slug: string } }) {
     const post = getPostWithContent(params.slug);
