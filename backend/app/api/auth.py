@@ -668,3 +668,260 @@ async def upload_avatar(
     db.commit()
     
     return {"message": "Avatar atualizado", "url": relative_url}
+
+# ==========================================
+# OAUTH2 - GOOGLE LOGIN
+# ==========================================
+
+@router.get("/google/login")
+async def google_login():
+    """
+    Inicia o fluxo OAuth2 com Google.
+    Retorna a URL de autorização do Google.
+    """
+    # Verificar se as credenciais do Google estão configuradas
+    if not settings.GOOGLE_CLIENT_ID or not settings.GOOGLE_CLIENT_SECRET:
+        raise HTTPException(
+            status_code=status.HTTP_501_NOT_IMPLEMENTED,
+            detail="Google Login não configurado no servidor (Faltam credenciais)."
+        )
+    
+    # URL de callback (deve estar registrada no Google Console)
+    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/google/callback"
+    
+    # Parâmetros da URL de autorização
+    params = {
+        "client_id": settings.GOOGLE_CLIENT_ID,
+        "redirect_uri": redirect_uri,
+        "response_type": "code",
+        "scope": "openid email profile",
+        "access_type": "offline",
+        "prompt": "consent"
+    }
+    
+    # Construir URL de autorização
+    auth_url = f"https://accounts.google.com/o/oauth2/v2/auth?{urlencode(params)}"
+    
+    return {"url": auth_url}
+
+
+@router.get("/google/callback")
+async def google_callback(code: str, db: Session = Depends(get_db)):
+    """
+    Callback do Google OAuth2.
+    Recebe o código de autorização e troca por access_token.
+    """
+    if not code:
+        raise HTTPException(status_code=400, detail="Código de autorização não fornecido")
+    
+    # Trocar código por access_token
+    token_url = "https://oauth2.googleapis.com/token"
+    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/google/callback"
+    
+    token_data = {
+        "code": code,
+        "client_id": settings.GOOGLE_CLIENT_ID,
+        "client_secret": settings.GOOGLE_CLIENT_SECRET,
+        "redirect_uri": redirect_uri,
+        "grant_type": "authorization_code"
+    }
+    
+    async with httpx.AsyncClient() as client:
+        token_response = await client.post(token_url, data=token_data)
+        
+        if token_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Erro ao obter access_token do Google")
+        
+        tokens = token_response.json()
+        access_token = tokens.get("access_token")
+        
+        # Buscar informações do usuário
+        user_info_url = "https://www.googleapis.com/oauth2/v2/userinfo"
+        headers = {"Authorization": f"Bearer {access_token}"}
+        
+        user_response = await client.get(user_info_url, headers=headers)
+        
+        if user_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Erro ao obter informações do usuário")
+        
+        user_data = user_response.json()
+    
+    # Verificar se usuário já existe
+    email = user_data.get("email")
+    user = db.query(User).filter(User.email == email).first()
+    
+    if not user:
+        # Criar novo usuário
+        user = User(
+            email=email,
+            full_name=user_data.get("name", ""),
+            hashed_password=get_password_hash(os.urandom(32).hex()),  # Senha aleatória
+            role="subscriber",
+            is_active=True,  # Já ativado pois e-mail foi verificado pelo Google
+            is_totp_enabled=False,
+            oauth_provider="google",
+            oauth_id=user_data.get("id")
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        
+        # Criar organização default
+        from backend.app.models.organization import Organization
+        org = Organization(
+            name=f"Organização de {user.full_name}",
+            credits=3,
+            owner_id=user.id
+        )
+        db.add(org)
+        db.commit()
+        
+        # Audit log
+        try:
+            from backend.app.models.audit import AuditLog
+            audit_log = AuditLog(
+                user_id=user.id,
+                action="USER_SIGNUP_GOOGLE",
+                resource_type="user",
+                resource_id=str(user.id),
+                ip_address="oauth"
+            )
+            db.add(audit_log)
+            db.commit()
+        except Exception as e:
+            logger.warning(f"Falha ao registrar audit log: {e}")
+    
+    # Gerar JWT
+    access_token_jwt = create_access_token(data={"sub": user.email})
+    
+    # Redirecionar para frontend com token
+    frontend_redirect = f"{settings.FRONTEND_URL}/login/callback?token={access_token_jwt}&role={user.role}"
+    return RedirectResponse(url=frontend_redirect)
+
+
+# ==========================================
+# OAUTH2 - LINKEDIN LOGIN
+# ==========================================
+
+@router.get("/linkedin/login")
+async def linkedin_login():
+    """
+    Inicia o fluxo OAuth2 com LinkedIn.
+    Retorna a URL de autorização do LinkedIn.
+    """
+    # Verificar se as credenciais do LinkedIn estão configuradas
+    if not settings.LINKEDIN_CLIENT_ID or not settings.LINKEDIN_CLIENT_SECRET:
+        raise HTTPException(
+            status_code=status.HTTP_501_NOT_IMPLEMENTED,
+            detail="LinkedIn Login não configurado no servidor (Faltam credenciais)."
+        )
+    
+    # URL de callback
+    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/linkedin/callback"
+    
+    # Parâmetros da URL de autorização
+    params = {
+        "response_type": "code",
+        "client_id": settings.LINKEDIN_CLIENT_ID,
+        "redirect_uri": redirect_uri,
+        "scope": "openid profile email"
+    }
+    
+    # Construir URL de autorização
+    auth_url = f"https://www.linkedin.com/oauth/v2/authorization?{urlencode(params)}"
+    
+    return {"url": auth_url}
+
+
+@router.get("/linkedin/callback")
+async def linkedin_callback(code: str, db: Session = Depends(get_db)):
+    """
+    Callback do LinkedIn OAuth2.
+    Recebe o código de autorização e troca por access_token.
+    """
+    if not code:
+        raise HTTPException(status_code=400, detail="Código de autorização não fornecido")
+    
+    # Trocar código por access_token
+    token_url = "https://www.linkedin.com/oauth/v2/accessToken"
+    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/linkedin/callback"
+    
+    token_data = {
+        "grant_type": "authorization_code",
+        "code": code,
+        "client_id": settings.LINKEDIN_CLIENT_ID,
+        "client_secret": settings.LINKEDIN_CLIENT_SECRET,
+        "redirect_uri": redirect_uri
+    }
+    
+    async with httpx.AsyncClient() as client:
+        token_response = await client.post(token_url, data=token_data)
+        
+        if token_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Erro ao obter access_token do LinkedIn")
+        
+        tokens = token_response.json()
+        access_token = tokens.get("access_token")
+        
+        # Buscar informações do usuário
+        user_info_url = "https://api.linkedin.com/v2/userinfo"
+        headers = {"Authorization": f"Bearer {access_token}"}
+        
+        user_response = await client.get(user_info_url, headers=headers)
+        
+        if user_response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Erro ao obter informações do usuário")
+        
+        user_data = user_response.json()
+    
+    # Verificar se usuário já existe
+    email = user_data.get("email")
+    user = db.query(User).filter(User.email == email).first()
+    
+    if not user:
+        # Criar novo usuário
+        user = User(
+            email=email,
+            full_name=user_data.get("name", ""),
+            hashed_password=get_password_hash(os.urandom(32).hex()),  # Senha aleatória
+            role="subscriber",
+            is_active=True,  # Já ativado pois e-mail foi verificado pelo LinkedIn
+            is_totp_enabled=False,
+            oauth_provider="linkedin",
+            oauth_id=user_data.get("sub")
+        )
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+        
+        # Criar organização default
+        from backend.app.models.organization import Organization
+        org = Organization(
+            name=f"Organização de {user.full_name}",
+            credits=3,
+            owner_id=user.id
+        )
+        db.add(org)
+        db.commit()
+        
+        # Audit log
+        try:
+            from backend.app.models.audit import AuditLog
+            audit_log = AuditLog(
+                user_id=user.id,
+                action="USER_SIGNUP_LINKEDIN",
+                resource_type="user",
+                resource_id=str(user.id),
+                ip_address="oauth"
+            )
+            db.add(audit_log)
+            db.commit()
+        except Exception as e:
+            logger.warning(f"Falha ao registrar audit log: {e}")
+    
+    # Gerar JWT
+    access_token_jwt = create_access_token(data={"sub": user.email})
+    
+    # Redirecionar para frontend com token
+    frontend_redirect = f"{settings.FRONTEND_URL}/login/callback?token={access_token_jwt}&role={user.role}"
+    return RedirectResponse(url=frontend_redirect)
