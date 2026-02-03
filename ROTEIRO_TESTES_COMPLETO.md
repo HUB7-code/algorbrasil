@@ -1,9 +1,234 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 20/01/2026
-**Versão:** V18.1.0 (Enterprise Prestige)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Captura de Leads, Email System e Design Premium.
+**Data:** 03/02/2026
+**Versão:** V18.3.0 (Authentication Audit)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Autenticação, E-mail System e Segurança.
 
 ---
+
+## 🔒 JORNADA 11: AUTHENTICATION \u0026 EMAIL SYSTEM (V18.3.0)
+
+### Objetivo: Validar Sistema de Autenticação Completo e Envio de E-mails
+
+#### 11.1 Teste Automatizado do Sistema
+- [ ] Execute o script de teste automatizado:
+  ```bash
+  cd c:\Users\edisi\.gemini\antigravity\playground\chrono-aldrin
+  python backend\test_auth_system.py
+  ```
+- [ ] **Validação:**
+  - [ ] Teste 1 (Configurações): ✅ PASSOU
+  - [ ] Teste 2 (Logo): ✅ PASSOU
+  - [ ] Teste 3 (Banco de Dados): ✅ PASSOU
+  - [ ] Teste 4 (Envio de E-mail): ✅ PASSOU
+  - [ ] Resultado Final: 4/4 testes (100%)
+
+#### 11.2 Fluxo de Cadastro (Signup)
+- [ ] Acesse `/register`
+- [ ] Preencha o formulário com:
+  - Email: `teste@empresa.com.br`
+  - Nome: `João Teste`
+  - Senha: `SenhaForte123!`
+  - Telefone: `+5511999999999`
+- [ ] Clique em "Criar Conta"
+- [ ] **Validação Backend:**
+  - [ ] Status 201 Created
+  - [ ] Mensagem: "Cadastro realizado. Verifique seu e-mail para ativar a conta."
+  - [ ] Usuário criado com `is_active=False`
+  - [ ] Organização default criada com 3 créditos
+  - [ ] Audit log registrado
+- [ ] **Validação E-mail:**
+  - [ ] E-mail recebido com título "Confirme seu cadastro - Algor Brasil"
+  - [ ] Design Dark Mode com logo ALGOR
+  - [ ] Botão "Confirmar Acesso" com gradient neon green
+  - [ ] Link de verificação válido (24h)
+
+#### 11.3 Verificação de E-mail
+- [ ] Abra o e-mail de verificação
+- [ ] Clique no botão "Confirmar Acesso"
+- [ ] **Validação:**
+  - [ ] Redirecionamento para `/verify-email?token=...`
+  - [ ] Mensagem de sucesso: "E-mail confirmado com sucesso!"
+  - [ ] Usuário ativado (`is_active=True`)
+  - [ ] Pode fazer login agora
+
+#### 11.4 Fluxo de Login (Sem 2FA)
+- [ ] Acesse `/login`
+- [ ] **UI Check:**
+  - [ ] Neural Mesh Background animado
+  - [ ] Logo com aura pulsante
+  - [ ] Inputs com floating labels
+  - [ ] Neon glow on focus (verde para email, azul para senha)
+- [ ] Preencha:
+  - Email: `teste@empresa.com.br`
+  - Senha: `SenhaForte123!`
+- [ ] **Validação Formulário:**
+  - [ ] Botão pulsa quando formulário válido
+  - [ ] Ícone de olho funciona (mostrar/ocultar senha)
+- [ ] Clique em "Acessar Sistema"
+- [ ] **Validação:**
+  - [ ] Loading state com padrão diagonal animado
+  - [ ] Status 200 OK
+  - [ ] Token JWT recebido
+  - [ ] Redirecionamento para `/onboarding` (subscriber) ou `/dashboard/admin` (admin)
+  - [ ] Token salvo em localStorage e cookie
+
+#### 11.5 Fluxo de Esqueci Senha
+- [ ] Acesse `/login`
+- [ ] Clique em "Esqueceu a senha?"
+- [ ] Redirecionamento para `/forgot-password`
+- [ ] Preencha email: `teste@empresa.com.br`
+- [ ] Clique em "Enviar Link de Recuperação"
+- [ ] **Validação:**
+  - [ ] Mensagem genérica (anti-enumeration): "Se este e-mail estiver cadastrado, você receberá as instruções em breve."
+- [ ] **Validação E-mail:**
+  - [ ] E-mail recebido com título "Redefinição de Senha - Algor Brasil"
+  - [ ] Botão com gradient red
+  - [ ] Link válido por 1 hora
+
+#### 11.6 Redefinição de Senha
+- [ ] Abra o e-mail de reset
+- [ ] Clique no botão "Redefinir Senha"
+- [ ] Redirecionamento para `/reset-password?token=...`
+- [ ] Digite nova senha: `NovaSenha456!`
+- [ ] Confirme nova senha: `NovaSenha456!`
+- [ ] Clique em "Redefinir Senha"
+- [ ] **Validação:**
+  - [ ] Mensagem: "Senha redefinida com sucesso! Você já pode fazer login."
+  - [ ] Redirecionamento para `/login`
+  - [ ] Login funciona com nova senha
+
+#### 11.7 Configuração de 2FA (TOTP)
+- [ ] Faça login
+- [ ] Acesse `/dashboard/settings` ou `/profile/security`
+- [ ] Clique em "Ativar Autenticação de Dois Fatores"
+- [ ] **Validação:**
+  - [ ] QR Code exibido
+  - [ ] Segredo Base32 exibido
+  - [ ] Instruções claras
+- [ ] Escaneie QR Code com Google Authenticator ou Authy
+- [ ] Digite código de 6 dígitos
+- [ ] Clique em "Ativar 2FA"
+- [ ] **Validação:**
+  - [ ] Mensagem: "Autenticação de Dois Fatores ativada com sucesso!"
+  - [ ] `is_totp_enabled=True` no banco
+  - [ ] Badge "2FA Ativo" exibido no perfil
+
+#### 11.8 Login com 2FA
+- [ ] Faça logout
+- [ ] Acesse `/login`
+- [ ] Preencha email e senha
+- [ ] Clique em "Acessar Sistema"
+- [ ] **Validação:**
+  - [ ] Redirecionamento para `/2fa?flow=login`
+  - [ ] Token temporário salvo (role: PRE_2FA)
+- [ ] Digite código do app (6 dígitos)
+- [ ] Clique em "Verificar Código"
+- [ ] **Validação:**
+  - [ ] Token real recebido
+  - [ ] Redirecionamento para dashboard
+  - [ ] Sessão autenticada
+
+#### 11.9 OAuth2 - Google Login
+- [ ] Acesse `/login`
+- [ ] Clique no botão "Continuar com Google"
+- [ ] **Validação:**
+  - [ ] Redirecionamento para Google Consent Screen
+  - [ ] Scopes solicitados: `openid email profile`
+- [ ] Autorize no Google
+- [ ] **Validação:**
+  - [ ] Callback para `/api/v1/auth/google/callback?code=...`
+  - [ ] Usuário criado/atualizado no DB
+  - [ ] Organização default criada (se novo usuário)
+  - [ ] JWT gerado
+  - [ ] Redirecionamento para `/login/callback?token=...`
+  - [ ] Login automático
+
+#### 11.10 Rate Limiting
+- [ ] Acesse `/login`
+- [ ] Tente fazer login 6 vezes em 1 minuto com senha errada
+- [ ] **Validação:**
+  - [ ] Primeiras 5 tentativas: Status 401 (credenciais incorretas)
+  - [ ] 6ª tentativa: Status 429 (Too Many Requests)
+  - [ ] Mensagem: "Muitas tentativas. Aguarde 1 minuto."
+
+#### 11.11 Segurança - SQL Injection
+- [ ] Acesse `/login`
+- [ ] Tente injetar SQL no campo email:
+  ```
+  ' OR '1'='1
+  admin'--
+  ' UNION SELECT * FROM users--
+  ```
+- [ ] **Validação:**
+  - [ ] Nenhuma tentativa deve funcionar
+  - [ ] Status 401 (credenciais incorretas)
+  - [ ] Prepared statements protegem contra injeção
+
+#### 11.12 Auditoria LGPD
+- [ ] Faça login como admin
+- [ ] Acesse `/dashboard/admin/audit-logs`
+- [ ] **Validação:**
+  - [ ] Logs de `USER_SIGNUP` visíveis
+  - [ ] Logs de `USER_LOGIN` visíveis
+  - [ ] Campos: user_id, action, resource_type, timestamp, ip_address
+  - [ ] Dados sensíveis NÃO aparecem em plain text
+
+#### 11.13 Templates de E-mail - Visual Check
+- [ ] Verifique os 6 templates de e-mail recebidos:
+  1. **Verificação de Cadastro:**
+     - [ ] Background: Deep Navy (#0A0E1A)
+     - [ ] Logo ALGOR (120px)
+     - [ ] Botão gradient neon green (#00FF94)
+     - [ ] Border top: Neon green
+  2. **Reset de Senha:**
+     - [ ] Botão gradient red (#FF5F5F)
+     - [ ] Mensagem de segurança clara
+  3. **Boas-vindas:**
+     - [ ] Link para console
+     - [ ] Mensagem personalizada com nome
+  4. **2FA Code:**
+     - [ ] Código de 6 dígitos destacado
+     - [ ] Validade: 5 minutos
+  5. **Lead Confirmation:**
+     - [ ] Design institucional
+     - [ ] Link para soluções enterprise
+  6. **Admin Alert:**
+     - [ ] Dados formatados em tabela
+     - [ ] Informações do lead completas
+
+#### 11.14 Criptografia de Dados Sensíveis
+- [ ] Faça login como admin
+- [ ] Acesse o banco de dados diretamente (SQLite Browser ou psql)
+- [ ] Abra a tabela `users`
+- [ ] **Validação:**
+  - [ ] Campo `phone` está criptografado (formato: `iv:ciphertext`)
+  - [ ] Campo `hashed_password` é hash Argon2 (começa com `$argon2id$`)
+  - [ ] Campo `email` está em plain text (necessário para busca)
+
+#### 11.15 Teste de Performance - Envio de E-mail
+- [ ] Execute o teste de carga:
+  ```python
+  # Criar 10 usuários simultâneos
+  import concurrent.futures
+  import requests
+  
+  def create_user(i):
+      requests.post("http://localhost:8000/api/v1/auth/signup", json={
+          "email": f"teste{i}@empresa.com",
+          "password": "Senha123!",
+          "full_name": f"Teste {i}"
+      })
+  
+  with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+      executor.map(create_user, range(10))
+  ```
+- [ ] **Validação:**
+  - [ ] Todos os 10 e-mails devem ser enviados
+  - [ ] Tempo médio de envio < 3 segundos por e-mail
+  - [ ] Nenhum erro de SMTP
+
+---
+
 
 ## 🛡️ JORNADA 10: ENTERPRISE PRESTIGE (V18.1.0)
 

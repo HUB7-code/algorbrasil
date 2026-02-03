@@ -1,8 +1,42 @@
-**Versão Atual:** V18.2.0 "Premium Image Cards"
-**Data da Última Atualização:** 23/01/2026
-**Status:** 💎 PREMIUM POLISHED (Production Ready)
+**Versão Atual:** V18.3.0 "Authentication Audit"
+**Data da Última Atualização:** 03/02/2026
+**Status:** 🔒 SECURITY VALIDATED (Production Ready)
 
-### 💎 Últimas Conquistas (V18.2.0 - "Premium Image Cards")
+### 🔒 Últimas Conquistas (V18.3.0 - "Authentication Audit")
+
+1.  **Sistema de Autenticação - Auditoria Completa:**
+    *   **100% Funcional:** Todos os componentes de login e e-mail validados e testados.
+    *   **SMTP Fix:** Corrigida configuração de e-mail no `/backend/.env` (SMTP_USER completo com @gmail.com).
+    *   **Route Cleanup:** Removida rota mock duplicada `/frontend/app/api/auth/login/route.ts`.
+    *   **Test Suite:** Criado script automatizado de testes (`backend/test_auth_system.py`) com 100% de sucesso.
+    *   **Documentation:** Relatório completo de auditoria (`AUTHENTICATION_AUDIT_REPORT.md`) com 20+ páginas.
+
+2.  **Sistema de E-mail - Validação Completa:**
+    *   **6 Templates Premium:** Verificação, Reset de Senha, Boas-vindas, 2FA, Lead Confirmation, Admin Alerts.
+    *   **Design Dark Mode:** Glassmorphism + Neon accents (#00FF94, #00A3FF).
+    *   **Logo Embutida:** Implementação via CID (Content-ID) para compatibilidade com clientes de e-mail.
+    *   **Real Test:** E-mail de teste enviado e recebido com sucesso.
+
+3.  **Segurança - Múltiplas Camadas:**
+    *   **JWT:** PyJWT com HS256, expiração 30min.
+    *   **Passwords:** Argon2id (custo 12+).
+    *   **Data Encryption:** AES-256-CBC para campos sensíveis.
+    *   **Rate Limiting:** 5 req/min via SlowAPI.
+    *   **LGPD Audit:** Tabela `audit_logs` com retenção de 6 meses.
+
+4.  **OAuth2 Social Login:**
+    *   **Google OAuth:** Fluxo completo implementado.
+    *   **LinkedIn OAuth:** Fluxo completo implementado.
+    *   **Auto-provisioning:** Criação automática de usuário + organização default (3 créditos).
+
+5.  **2FA (Two-Factor Authentication):**
+    *   **TOTP:** Implementação via `pyotp` (RFC 6238).
+    *   **QR Code:** Geração automática para apps (Google Authenticator, Authy).
+    *   **Backup Codes:** TODO (recomendado para V18.4.0).
+
+---
+
+### 💎 Conquistas Anteriores (V18.2.0 - "Premium Image Cards")
 
 1.  **Services Section Complete Redesign:**
     *   **Image-Based Cards:** Todos os 3 cards de serviços agora usam assets de imagem de alta fidelidade, criados com design profissional incluindo ícones 3D, glassmorphism e tipografia premium.
