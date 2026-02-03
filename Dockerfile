@@ -54,6 +54,9 @@ ENV PYTHONUNBUFFERED=1
 # This avoids copying frontend/, docs/, .git/, etc. into the container
 COPY backend /app/backend
 
+# [CRITICAL] Copy Frontend Assets for System Emails (Logo)
+COPY frontend/public/logo-algor.webp /app/frontend/public/logo-algor.webp
+
 # Change ownership of the application code to the non-root user
 RUN chown -R appuser:appgroup /app
 
