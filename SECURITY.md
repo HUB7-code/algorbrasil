@@ -63,6 +63,25 @@ Este projeto lida com dados de governança de IA e compliance. Seguimos:
 - Valores padrão apenas para desenvolvimento
 - Alertas de segurança quando usando configurações inseguras
 
+## Credential Management
+
+### Never Commit Secrets
+- **NEVER** commit API keys, client secrets, or passwords to the repository
+- Use environment variables for all sensitive data
+- Review the `.gitignore` file to ensure credential files are excluded
+
+### If Credentials Are Accidentally Committed
+1. **IMMEDIATELY** revoke/regenerate the exposed credentials
+2. Contact the repository maintainers
+3. The credentials MUST be rotated even if removed from Git (they exist in history)
+
+### Recommended Practices
+- Use `.env` files for local development (already in `.gitignore`)
+- Use environment variables in production
+- Use secret management services (AWS Secrets Manager, Azure Key Vault, etc.) for production
+- Enable GitHub secret scanning alerts
+- Review commits before pushing
+
 ## Auditorias Realizadas
 
 | Data | Tipo | Resultado |
