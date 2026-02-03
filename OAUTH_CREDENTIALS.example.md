@@ -31,10 +31,14 @@ Set these as environment variables in your deployment platform.
 
 ## Setup Instructions
 
-1. Copy this file to `OAUTH_CREDENTIALS.md` (git-ignored)
+1. Copy this file to `OAUTH_CREDENTIALS.md` (which will be git-ignored):
+   ```bash
+   cp OAUTH_CREDENTIALS.example.md OAUTH_CREDENTIALS.md
+   ```
+
 2. Replace placeholder values with your actual credentials
 3. **NEVER** commit the file with real credentials
-4. For production, use environment variables instead
+4. For production, use environment variables instead of a credentials file
 
 ## How to get credentials
 

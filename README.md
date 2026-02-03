@@ -71,14 +71,16 @@ For OAuth authentication (LinkedIn, Google), you need to configure credentials:
 2. Edit `OAUTH_CREDENTIALS.md` with your actual credentials
    - **This file is git-ignored and will NOT be committed**
 
-3. For production, set environment variables instead:
+3. For production, set environment variables in your deployment platform:
    ```bash
+   # Example for shell-based systems:
    export LINKEDIN_CLIENT_ID=your_id
    export LINKEDIN_CLIENT_SECRET=your_secret
    export GOOGLE_CLIENT_ID=your_id
    export GOOGLE_CLIENT_SECRET=your_secret
-   # ... etc
    ```
+   
+   Note: Syntax varies by platform. Many cloud providers use a web UI or configuration files.
 
 ⚠️ **NEVER commit real credentials to Git!**
 
