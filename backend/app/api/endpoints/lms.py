@@ -37,6 +37,8 @@ class ProgressUpdate(BaseModel):
     lesson_id: str
     status: str # 'completed', 'in_progress'
     seek_time: int = 0
+    score: int = None
+    attempts: int = 1
 
 # --- Endpoints ---
 
@@ -131,10 +133,16 @@ def update_progress(
         
     # Update JSON safely
     current_data = dict(enrollment.progress_data or {})
+    
+    # Preserve existing data if partial update
+    existing_lesson_data = current_data.get(update.lesson_id, {})
+    
     current_data[update.lesson_id] = {
         "status": update.status,
         "timestamp": update.seek_time,
-        "updated_at": "now"
+        "score": update.score if update.score is not None else existing_lesson_data.get("score"),
+        "attempts": update.attempts,
+        "updated_at": str(datetime.now())
     }
     
     # Reassign to trigger update
