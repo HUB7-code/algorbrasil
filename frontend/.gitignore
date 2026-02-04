@@ -42,3 +42,9 @@ errors.txt
 lint_log.txt
 lint_output.txt
 tsc_output.txt
+
+# PWA Generated Files
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/worker-*.js
