@@ -103,7 +103,7 @@ export default function Navbar() {
                     <div className="hidden md:flex gap-1 text-sm font-semibold text-gray-300 items-center">
 
                         {[
-                            { href: '/academy', label: 'Academy', color: '#8B5CF6' },
+                            { href: '/academy', label: 'Algor Lab', color: '#8B5CF6' },
                             { href: '/blog', label: 'Blog', color: '#F59E0B' },
                             { href: '/board', label: 'Board', color: '#00FF94' },
                         ].map((link) => (
@@ -179,7 +179,7 @@ export default function Navbar() {
                                 <p className="text-xs text-[#00FF94] uppercase tracking-widest px-2 font-mono mb-4 border-b border-white/10 pb-2">Menu Principal</p>
 
                                 {[
-                                    { href: '/academy', label: 'Academy', icon: GraduationCap },
+                                    { href: '/academy', label: 'Algor Lab', icon: GraduationCap },
                                     { href: '/blog', label: 'Blog', icon: BookOpen },
                                     { href: '/board', label: 'Board', icon: Building2 },
                                 ].map((link) => (
