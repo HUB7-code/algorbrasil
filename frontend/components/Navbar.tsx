@@ -20,7 +20,7 @@ export default function Navbar() {
 
     const isHome = pathname === '/';
     const normalizedPath = pathname?.replace(/\/$/, '') || '';
-    const isAuthPage = ['/login', '/register', '/2fa', '/onboarding', '/partners/apply'].includes(normalizedPath);
+    const isAuthPage = ['/login', '/register', '/2fa'].includes(normalizedPath);
 
     useEffect(() => {
         let ticking = false;
@@ -103,10 +103,9 @@ export default function Navbar() {
                     <div className="hidden md:flex gap-1 text-sm font-semibold text-gray-300 items-center">
 
                         {[
-                            { href: '/institute', label: 'A Associação', color: '#00FF94' },
                             { href: '/academy', label: 'Academy', color: '#8B5CF6' },
                             { href: '/blog', label: 'Blog', color: '#F59E0B' },
-                            { href: '/board', label: 'Quem Somos', color: '#FFD700' },
+                            { href: '/board', label: 'Board', color: '#00FF94' },
                         ].map((link) => (
                             <Link key={link.href} href={link.href} className="relative group px-4 py-2 hover:text-white transition-colors">
                                 {link.label}
@@ -180,10 +179,9 @@ export default function Navbar() {
                                 <p className="text-xs text-[#00FF94] uppercase tracking-widest px-2 font-mono mb-4 border-b border-white/10 pb-2">Menu Principal</p>
 
                                 {[
-                                    { href: '/institute', label: 'A Associação', icon: Users },
                                     { href: '/academy', label: 'Academy', icon: GraduationCap },
                                     { href: '/blog', label: 'Blog', icon: BookOpen },
-                                    { href: '/board', label: 'Quem Somos', icon: Building2 },
+                                    { href: '/board', label: 'Board', icon: Building2 },
                                 ].map((link) => (
                                     <Link key={link.href} href={link.href} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#00FF94]/30 active:scale-95 transition-all" onClick={() => setMobileMenuOpen(false)}>
                                         <link.icon className="w-5 h-5 text-gray-400" />

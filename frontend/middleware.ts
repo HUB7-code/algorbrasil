@@ -8,20 +8,16 @@ const publicPaths = [
     '/register',
     '/forgot-password',
     '/reset-password',
-    '/scanner',      // Scanner Freemium
-    '/members',
-    '/associates',
-    '/partners',
-    '/policies',
-    '/solutions',
+    '/academy',
     '/blog',
+    '/board',
+    '/policies',
     '/2fa',
 ];
 
 // Rotas que requerem autenticação
 const protectedPaths = [
     '/dashboard',
-    '/onboarding',
     '/dashboard/create-article',  // Apenas membros associados
     '/dashboard/my-articles',     // Apenas membros associados
     '/dashboard/edit-article',    // Apenas membros associados
