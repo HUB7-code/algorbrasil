@@ -88,8 +88,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
 
             <main className="pt-24 pb-20">
                 {/* Navigation */}
-                <div className="max-w-[1600px] mx-auto px-6 mb-6">
-                    <Link href="/academy/lab" className="inline-flex items-center text-gray-400 hover:text-[#00FF94] transition-colors gap-2 text-sm font-manrope">
+                <div className="max-w-[1600px] mx-auto px-6 mb-6 relative z-10">
+                    <Link href="/academy/lab" className="inline-flex items-center text-gray-400 hover:text-[#00FF94] transition-colors gap-2 text-sm font-manrope cursor-pointer relative z-20">
                         <ArrowLeft className="w-4 h-4" />
                         Voltar para o Lab
                     </Link>
