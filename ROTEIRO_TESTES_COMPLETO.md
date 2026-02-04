@@ -1,72 +1,60 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
 **Data:** 04/02/2026
-**Versão:** V21.0.0 (Hardcore Assessment)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação Hardcore e Gamification.
+**Versão:** V21.1.0 (Leadership & Hardcore Update)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação Ultra Hardcore (100%) e Novos Conteúdos.
 
 ---
 
-## 🎓 JORNADA 12: ACADEMY REVOLUTION (V21.0.0)
+## 🎓 JORNADA 12: ACADEMY REVOLUTION (V21.1.0)
 
-### Objetivo: Validar Player de Ensino, Quiz One-Shot e Conteúdo ISO 42001
+### Objetivo: Validar Etapa 02, Quiz Hardcore (100%) e Correções de Navegação
 
-#### 12.1 Navegação do Curso (`/academy/lab/content/42001_context`)
-- [ ] Acesse a aula "42.001 - Contextualização".
+#### 12.1 Navegação do Curso (`/academy/lab/content/[id]`)
+- [ ] Acesse a aula "42.001 - Liderança" (Etapa 02).
 - [ ] **Player Check:**
   - [ ] Vídeo do YouTube carrega (iframe).
-  - [ ] Título e botões de ação visíveis.
+  - [ ] Descrição rica com "Objetivos da Aula" e "Temas Abordados" visível.
 - [ ] **Playlist Lateral:**
-  - [ ] Clique no cabeçalho "Etapa 01" para expandir/colapsar.
-  - [ ] Verifique se a lista de aulas aparece.
-  - [ ] Ícone de "Play" deve estar ativo na aula atual.
-- [ ] **Descrição Rica:**
-  - [ ] Verifique se o texto está formatado (HTML) com listas e boxes coloridos.
-  - [ ] Não deve haver tags quebradas ou texto cru.
+  - [ ] Clique no cabeçalho "Etapa 02" para expandir.
+  - [ ] Verifique se as aulas "Liderança", "IA 2030" e "Auto Avaliação" aparecem.
+- [ ] **Botão Voltar (Cache Fix):**
+  - [ ] Clique em "Voltar para o Lab".
+  - [ ] A navegação deve ser fluida e atualizar o estado do Lab corretamente (sem usar cache estagnado).
 
-#### 12.2 Downloads de Materiais (V21.0)
+#### 12.2 Downloads de Materiais (Etapa 02)
 - [ ] Localize a seção "Materiais da Aula" na lateral direita.
-- [ ] Verifique os 5 itens listados (PDFs, Excel, Doc).
+- [ ] **Validação de Arquivos:**
+  - [ ] "Manual da Governança de IA (PDF)"
+  - [ ] "Modelo de Política de IA (DOCX)"
+  - [ ] "Paper Indice de Transparencia (PDF)"
 - [ ] **Teste de Download:**
-  - [ ] Clique em "Checklist Prático (.xlsx)".
-  - [ ] O download deve iniciar imediatamente.
-  - [ ] Repita para o "Manual do Auditor (.pdf)".
+  - [ ] Clique em um dos PDFs. O navegador deve abrir ou baixar o arquivo corretamente.
 
-#### 12.3 Quiz Engine 2.0 (Hardcore & One-Shot) - CRÍTICO!
-- [ ] Na playlist, clique em "Testes de Auto Avaliação".
+#### 12.3 Quiz Engine 2.1 (Ultra Hardcore - 100%) - CRÍTICO!
+- [ ] Na playlist da Etapa 02, clique em "Testes de Auto Avaliação".
 - [ ] **Interface Check:**
-  - [ ] O player de vídeo deve ser substituído pelo Quiz.
-  - [ ] Aviso "UMA tentativa" deve estar visível.
-- [ ] **Validação de Respostas:**
-  - [ ] Responda apenas 3 questões. Botão "Enviar" deve estar **BLOQUEADO**.
-  - [ ] Responda todas. Botão "Enviar Diagnóstico" deve liberar com animação.
-- [ ] **Simulação de Reprovação (<80%):**
-  - [ ] Erre propositalmente mais de 2 questões (são 6 total, 2 erros = 66%).
+  - [ ] Aviso "Nota mínima para aprovação: **100%**" deve estar amarelo/verde.
+- [ ] **Simulação de Reprovação (99% não basta):**
+  - [ ] Responda 7 questoes corretas e 1 errada (87.5% de acerto).
   - [ ] Envie.
   - [ ] **Resultado:**
     - [ ] Card Vermelho "Reprovado".
+    - [ ] Mensagem: "A auto-avaliação exige 100% de acerto."
     - [ ] Toast de Erro.
-    - [ ] Questões devem mostrar gabarito (Verde/Vermelho).
-    - [ ] **NÃO** deve haver botão "Refazer Teste".
-- [ ] **Teste de Persistência (One-Shot):**
-  - [ ] Saia da página (volte para `/academy/lab`).
-  - [ ] Entre novamente na aula do Quiz.
-  - [ ] O resultado "Reprovado" deve aparecer **imediatamente**. O teste não reseta.
-- [ ] **Simulação de Aprovação (Limpar Storage):**
-  - [ ] (Manual Dev) Limpe `localStorage` no console (`localStorage.clear()`).
-  - [ ] Recarregue.
-  - [ ] Responda 100% correto.
+- [ ] **Simulação de Aprovação (Perfeição):**
+  - [ ] (Manual Dev) Limpe `localStorage.clear()` para resetar a tentativa única.
+  - [ ] Responda todas as 8 questões corretamente.
   - [ ] **Resultado:**
     - [ ] Card Verde "Aprovado" (Neon Glow).
-    - [ ] Botão "Retornar ao Lab" aparece.
-    - [ ] Redirecionamento automático ou via botão deve levar ao Lab.
+    - [ ] Toast: "Perfeito! Desempenho máximo: 100%".
+    - [ ] Confetes ou feedback visual de sucesso.
 
-#### 12.4 Gamification & Dashboard V2
-- [ ] Complete uma aula de vídeo.
-- [ ] **Feedback:**
-  - [ ] Toast Premium: "Você ganhou +150 XP!".
-  - [ ] Verifique se a barra de XP no topo (Navbar) aumentou.
-- [ ] **Visual:**
-  - [ ] Verifique as animações de "Orbes" no fundo do Dashboard.
-  - [ ] Verifique se os cards têm glassmorphism correto.
+#### 12.4 Persistência & Gamification
+- [ ] **One-Shot:**
+  - [ ] Após reprovar, atualize a página. O estado de reprovação deve persistir.
+- [ ] **XP Gain:**
+  - [ ] Ao completar a aula de vídeo, verifique o toast "Você ganhou +150 XP!".
+  - [ ] A barra de XP no topo deve incrementar.
 
 ## 🔒 JORNADA 11: AUTHENTICATION \u0026 EMAIL SYSTEM (V18.3.0)
 
