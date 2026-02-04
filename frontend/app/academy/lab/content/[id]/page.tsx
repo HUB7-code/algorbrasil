@@ -72,8 +72,7 @@ const mockContent = {
         { id: '1.5', title: 'Mensagem Final', duration: 10, completed: false, type: 'video' },
     ],
     materials: [
-        { id: 'm1', title: 'Slides Aula Magna.pdf', type: 'pdf', downloadUrl: '/materials/aula-magna.pdf' },
-        { id: 'm2', title: 'Ementa Completa ISO 42001.pdf', type: 'pdf', downloadUrl: '/materials/ementa.pdf' }
+        { id: 'm1', title: 'Slides Aula Magna.pdf', type: 'pdf', downloadUrl: '/materials/aula-magna.pdf' }
     ],
     nextContent: {
         id: '2',
