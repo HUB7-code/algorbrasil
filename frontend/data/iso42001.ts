@@ -280,33 +280,50 @@ export const iso42001Content: CourseModule[] = [
             {
                 id: '42001_leadership',
                 title: '42.001 - Liderança',
-                videoUrl: '', // A definir
+                videoUrl: 'https://www.youtube.com/embed/xY2S7nbRsxw',
                 duration: 90,
                 description: `
                     <div class="space-y-6 text-gray-300 font-manrope">
+                        <div class="flex items-center gap-4 text-sm font-mono text-[#00FF94] bg-[#00FF94]/5 p-3 rounded-lg border border-[#00FF94]/20 w-fit mb-4">
+                            <span>📅 23 de Abril, 2025</span>
+                            <span>📚 AULA 02</span>
+                        </div>
+                        
                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
                             <strong class="text-[#00FF94] block mb-2 text-lg">Objetivos da Aula</strong>
                             <p>Esta aula foca na Cláusula 5 da ISO/IEC 42001, detalhando o papel crucial da Alta Direção e a estrutura de governança necessária para o sucesso do SGIA.</p>
                         </div>
+
                         <div class="space-y-4">
-                            <h3 class="text-xl font-bold text-white font-orbitron">1. Liderança e Comprometimento</h3>
+                            <h3 class="text-xl font-bold text-white font-orbitron">Temas Abordados</h3>
                             <ul class="list-disc pl-5 space-y-2 text-gray-400">
-                                <li>Responsabilidades da Alta Direção.</li>
-                                <li>Integração dos requisitos do SGIA nos processos de negócio.</li>
-                                <li>Promoção da melhoria contínua.</li>
+                                <li>Liderança e comprometimento</li>
+                                <li>Contexto de Política de IA</li>
+                                <li>Papéis, responsabilidades e autoridades</li>
                             </ul>
-                        </div>
-                        <div class="space-y-4">
-                            <h3 class="text-xl font-bold text-white font-orbitron">2. Política de IA</h3>
-                            <p>Estabelecimento de uma política de IA apropriada, comprometida com requisitos legais e gestão de riscos.</p>
-                        </div>
-                        <div class="space-y-4">
-                            <h3 class="text-xl font-bold text-white font-orbitron">3. Papéis e Responsabilidades</h3>
-                            <p>Definição clara de autoridades e responsabilidades dentro da organização para a gestão de IA.</p>
                         </div>
                     </div>
                 `,
-                materials: []
+                materials: [
+                    {
+                        id: 'mat_lideranca_pdf',
+                        title: 'MATERIAL DE APOIO - Liderança ISO 42001',
+                        type: 'pdf',
+                        downloadUrl: '/materials/ALGOR - AULA 2.1_LIDERANÇA_ISO 42001.pdf'
+                    },
+                    {
+                        id: 'mat_modelo_politica',
+                        title: 'MODELO - Política de IA',
+                        type: 'doc',
+                        downloadUrl: '/materials/ALGOR - MODELO DE POLITICA DE IA.docx'
+                    },
+                    {
+                        id: 'mat_manual_gov',
+                        title: 'LIVRO - Manual da Governança de IA',
+                        type: 'pdf',
+                        downloadUrl: '/materials/LIVRO - Manual da governança de IA.pdf'
+                    }
+                ]
             },
             {
                 id: 'ia_2030_security',
