@@ -165,9 +165,9 @@ export default function AlgorLabPage() {
                         <div
                             key={course.id}
                             onClick={() => handleCardClick(course.id)}
-                            className="group relative cursor-pointer"
+                            className="group relative cursor-pointer flex flex-col gap-5"
                         >
-                            {/* Card Container */}
+                            {/* Image Container */}
                             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_0_50px_rgba(0,255,148,0.2)] group-hover:border-[#00FF94]/50">
 
                                 {/* Background Image */}
@@ -176,28 +176,10 @@ export default function AlgorLabPage() {
                                     style={{ backgroundImage: `url(${course.thumbnail})` }}
                                 />
 
-                                {/* Overlay Gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E14] via-[#0A0E14]/60 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
+                                {/* Overlay Gradient (Subtle) */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0E14]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                                {/* Content Overlay */}
-                                <div className="absolute bottom-0 left-0 p-8 w-full">
-                                    <h2 className="text-2xl md:text-3xl font-bold font-orbitron text-white leading-tight mb-3 drop-shadow-md">
-                                        {course.title}
-                                    </h2>
-                                    <p className="text-gray-300 text-sm md:text-base line-clamp-2 mb-4 font-manrope max-w-xl group-hover:text-white transition-colors">
-                                        {course.description}
-                                    </p>
-
-                                    {/* CTA Button */}
-                                    <div className="flex items-center gap-2 text-[#00FF94] font-bold uppercase tracking-wider text-sm opacity-0 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                                        <span>Acessar Portal</span>
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                        </svg>
-                                    </div>
-                                </div>
-
-                                {/* Status Badge */}
+                                {/* Status Badge (Keep inside image) */}
                                 {course.id.includes('locked') && (
                                     <div className="absolute top-4 right-4 bg-black/80 backdrop-blur border border-white/10 text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5">
                                         <div className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
@@ -205,11 +187,29 @@ export default function AlgorLabPage() {
                                     </div>
                                 )}
                                 {!course.id.includes('locked') && (
-                                    <div className="absolute top-4 right-4 bg-[#00FF94]/20 backdrop-blur border border-[#00FF94]/50 text-[#00FF94] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,255,148,0.3)]">
+                                    <div className="absolute top-4 right-4 bg-[#0A0E14]/80 backdrop-blur border border-[#00FF94]/50 text-[#00FF94] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,255,148,0.3)]">
                                         <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
                                         DISPONÍVEL
                                     </div>
                                 )}
+                            </div>
+
+                            {/* Text Content (Below Image) */}
+                            <div className="flex flex-col gap-2 px-2">
+                                <h2 className="text-xl md:text-2xl font-bold font-orbitron text-white leading-tight group-hover:text-[#00FF94] transition-colors">
+                                    {course.title}
+                                </h2>
+                                <p className="text-gray-400 text-sm md:text-base font-manrope line-clamp-2">
+                                    {course.description}
+                                </p>
+
+                                {/* Call to Action Text */}
+                                <div className="flex items-center gap-2 text-[#00FF94] font-bold text-sm uppercase tracking-wider mt-2 opacity-50 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0">
+                                    <span>Acessar Conteúdo</span>
+                                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                     ))}
