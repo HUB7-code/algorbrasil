@@ -253,7 +253,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
 
                             <div
                                 className="description-content prose prose-invert max-w-none prose-p:text-gray-300 prose-headings:text-white prose-strong:text-white prose-a:text-[#00FF94]"
-                                dangerouslySetInnerHTML={{ __html: currentLesson.description }}
+                                dangerouslySetInnerHTML={{ __html: currentLesson.description || '' }}
                             />
                         </div>
                     </div>
