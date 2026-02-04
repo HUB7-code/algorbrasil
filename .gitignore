@@ -1,15 +1,81 @@
-.env
-node_modules
-__pycache__
-*.db
-.venv
+# Build outputs
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+.next/
+out/
+build/
+dist/
 
-# OAuth and sensitive credentials
-OAUTH_CREDENTIALS.md
-GOOGLE_OAUTH_CREDENTIALS.md
-*_CREDENTIALS.md
-*_credentials.md
-*.credentials
-secrets.md
-.secrets
-credentials/
+# Dependencies
+node_modules/
+frontend/node_modules/
+backend/venv/
+backend/node_modules/
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+sql_app.db
+backend/sql_app.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.swn
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Testing
+.coverage
+.pytest_cache/
+coverage/
+*.cover
+.hypothesis/
+
+# Temporary files
+*.tmp
+*.temp
+site_algor_brasil.zip
+backend-temp/
+
+# Docker
+docker-compose.override.yml
+
+# Certbot (SSL certificates - sensitive)
+certbot/
+
+# Uploads (user data - should be in volumes)
+backend/app/static/uploads/

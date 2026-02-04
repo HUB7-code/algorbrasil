@@ -1,10 +1,19 @@
-__pycache__
+# Python cache and bytecode
+__pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
 *.pyd
 .Python
+*.so
+
+# Virtual environments
 env/
 venv/
+backend/venv/
+backend-temp/
+
+# Python testing and coverage
 pip-log.txt
 pip-delete-this-directory.txt
 .tox/
@@ -14,16 +23,71 @@ pip-delete-this-directory.txt
 nosetests.xml
 coverage.xml
 *.cover
-*.log
-.git
-.gitignore
-.dockerignore
+.pytest_cache/
+
+# Build artifacts - Next.js
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+.next/
+out/
+build/
+dist/
+
+# Dependencies
 node_modules/
-backend/venv/
-backend-temp/
-site_algor_brasil.zip
-test_results.txt
-PROJECT_STATUS_MEMORIA.md
-*.md
+frontend/node_modules/
+backend/node_modules/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# IDE and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.DS_Store
+Thumbs.db
+
+# Environment variables
 .env
 .env.*
+!.env.example
+
+# Documentation (not needed in container)
+*.md
+!README.md
+docs/
+
+# Test files
+test_results.txt
+*.test.js
+*.spec.js
+__tests__/
+
+# Temporary files
+*.tmp
+*.temp
+site_algor_brasil.zip
+
+# Database files (should use volumes)
+*.db
+*.sqlite
+*.sqlite3
+sql_app.db
