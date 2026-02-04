@@ -30,7 +30,7 @@ const mockContents = {
             duration: 120, // Aula Magna
             level: 'advanced' as const,
             instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/iso_auditor_cover.png',
+            thumbnail: '/images/content/iso_auditor_cover_v2.png',
             isNew: true,
         },
     ],
