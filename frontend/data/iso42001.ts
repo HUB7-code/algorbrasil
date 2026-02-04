@@ -232,6 +232,42 @@ export const iso42001Content: CourseModule[] = [
                             'Centralizar todas as decisões em um único algoritmo'
                         ],
                         correctAnswer: 2
+                    },
+                    {
+                        id: 'q4',
+                        question: 'O que a ISO 42001 propõe como essencial ao observar o contexto de uso de IA em uma organização?',
+                        options: [
+                            'Contratação de especialistas externos como única forma de garantir segurança',
+                            'Observação apenas do impacto financeiro da IA',
+                            'Foco exclusivo na performance do algoritmo',
+                            'Atenção a tudo que possa afetar o funcionamento do sistema de gestão de IA',
+                            'Padronização global do software utilizado'
+                        ],
+                        correctAnswer: 3
+                    },
+                    {
+                        id: 'q5',
+                        question: 'O que caracteriza a técnica de Mistura de Especialistas (MoE) em modelos de Inteligência Artificial?',
+                        options: [
+                            'Um único modelo tenta resolver todas as tarefas usando raciocínio em cadeia.',
+                            'Um modelo pré-treinado é ajustado com dados específicos de um setor.',
+                            'Vários submodelos especializados resolvem tarefas específicas sob a coordenação de um roteador.',
+                            'A IA decide sozinha se deve responder ou não a determinada entrada.',
+                            'A IA é treinada apenas com dados sintéticos para tarefas complexas.'
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        id: 'q6',
+                        question: 'Qual é a principal vantagem dos Pequenos Modelos de Linguagem (SLMs) em relação aos grandes modelos como o GPT-4?',
+                        options: [
+                            'Eles são treinados apenas com dados sintéticos para maior segurança.',
+                            'São mais poderosos que os modelos grandes em qualquer tarefa.',
+                            'Oferecem alta performance com menor custo, podendo rodar localmente com mais privacidade.',
+                            'Não requerem dados de treinamento, pois aprendem com interações humanas em tempo real.',
+                            'Utilizam apenas processamento em nuvem, o que reduz o uso de dispositivos locais.'
+                        ],
+                        correctAnswer: 2
                     }
                 ]
             }
