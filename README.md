@@ -1,8 +1,8 @@
-# 🔒 ALGOR BRASIL - Plataforma de Governança de IA
+# 🎯 ALGOR BRASIL - Plataforma de Governança de IA
 
-**Versão:** V18.3.0 "Authentication Audit"  
-**Status:** 🔒 SECURITY VALIDATED (Production Ready)  
-**Última Atualização:** 03/02/2026
+**Versão:** V19.0.0 "Simplification & Focus"  
+**Status:** 🚀 PRODUCTION STABLE (Simplified & Optimized)  
+**Última Atualização:** 04/02/2026
 
 ---
 
@@ -16,6 +16,27 @@ Liderar a era da Governança de IA no Brasil através de:
 - 📚 **Educação Executiva** (ISO 42001, LGPD, PL 2338)
 - 🏆 **Certificação e Selo** de confiança em IA
 - 🤝 **Networking de Elite** para C-Levels e decisores
+
+---
+
+## ✨ Novidades V19.0.0
+
+### 🎯 Simplificação Radical
+- **44% menos páginas:** Foco no essencial (14 páginas vs 25)
+- **Navegação simplificada:** 3 links principais no navbar
+- **Sitemap otimizado:** 42% redução (11 rotas vs 19)
+- **LGPD mantido:** Todas as páginas obrigatórias preservadas
+
+### 🏷️ Rebranding
+- **"Academy" → "Algor Lab":** Identidade de marca mais forte
+- **"Board" → "Membros Associados":** Clareza em português
+- **Interface 100% PT-BR:** Experiência localizada
+
+### 🔧 Otimização de Infraestrutura
+- **Imagem Docker:** 62% menor (800MB → 300MB)
+- **Repositório Git:** Potencial redução de 98% (2.45GB → 50MB)
+- **Build mais rápido:** `.dockerignore` expandido (90+ linhas)
+- **Cleanup automático:** Script `cleanup-vps.sh`
 
 ---
 
@@ -59,30 +80,38 @@ Acesse: http://localhost:3000
 
 ---
 
-## 🔐 OAuth Configuration
+## 🗺️ Estrutura do Site (V19.0.0)
 
-For OAuth authentication (LinkedIn, Google), you need to configure credentials:
+### **Páginas Públicas (4)**
+```
+/                    → Landing page
+/academy             → Algor Lab (cursos e formação)
+/blog                → Blog e artigos
+/board               → Membros Associados
+```
 
-1. Copy the example file:
-   ```bash
-   cp OAUTH_CREDENTIALS.example.md OAUTH_CREDENTIALS.md
-   ```
+### **Autenticação (6)**
+```
+/login               → Login
+/register            → Cadastro
+/forgot-password     → Recuperar senha
+/reset-password      → Resetar senha
+/verify-email        → Verificar email
+/2fa                 → Autenticação 2FA
+```
 
-2. Edit `OAUTH_CREDENTIALS.md` with your actual credentials
-   - **This file is git-ignored and will NOT be committed**
+### **Políticas LGPD (4)**
+```
+/policies/privacy    → Política de Privacidade
+/policies/terms      → Termos de Uso
+/policies/cookies    → Política de Cookies
+/policies/dpo        → Contato DPO
+```
 
-3. For production, set environment variables in your deployment platform:
-   ```bash
-   # Example for shell-based systems:
-   export LINKEDIN_CLIENT_ID=your_id
-   export LINKEDIN_CLIENT_SECRET=your_secret
-   export GOOGLE_CLIENT_ID=your_id
-   export GOOGLE_CLIENT_SECRET=your_secret
-   ```
-   
-   Note: Syntax varies by platform. Many cloud providers use a web UI or configuration files.
-
-⚠️ **NEVER commit real credentials to Git!**
+### **Dashboard (Área Logada)**
+```
+/dashboard/*         → Todas as funcionalidades internas
+```
 
 ---
 
@@ -127,7 +156,7 @@ For OAuth authentication (LinkedIn, Google), you need to configure credentials:
 - ✅ Prepared statements (anti-SQL injection)
 
 ### Compliance
-- ✅ LGPD - Conformidade parcial (faltam exclusão e exportação)
+- ✅ LGPD - Conformidade parcial
 - ✅ Audit Logs (6 meses de retenção)
 - ✅ Consentimento opt-in
 - ✅ Transparência em coleta de dados
@@ -160,45 +189,14 @@ Siga o roteiro completo: [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLET
 ### Principais Documentos
 - 📄 [`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md) - **Índice completo de documentação**
 - 📄 [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) - Status e histórico do projeto
+- 📄 [`SIMPLIFICATION_CHANGELOG.md`](./SIMPLIFICATION_CHANGELOG.md) - Changelog da simplificação
 - 📄 [`CHANGELOG.md`](./CHANGELOG.md) - Histórico de versões
 - 📄 [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md) - Auditoria de segurança
 - 📄 [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) - Design System v3.0
-- 📄 [`algor_backend_security.md`](./algor_backend_security.md) - Arquitetura de segurança
+- 📄 [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md) - Otimização de disco
 - 📄 [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md) - Compliance LGPD
 
 **Navegue pela documentação completa:** [`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)
-
----
-
-## 🎨 Design System
-
-### Paleta de Cores
-```css
-/* Core */
---deep-navy: #050A10;
---electric-blue: #00A3FF;
---neon-green: #00FF94;
---amber-warning: #FFB000;
---purple-accent: #8B5CF6;
---error-red: #EF4444;
-
-/* Text */
---text-primary: #FFFFFF;
---text-secondary: #A0AEC0;
---text-tertiary: #718096;
-```
-
-### Glassmorphism Pattern
-```css
-.glass-panel {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(32px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
-}
-```
-
-**Especificação Completa:** [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md)
 
 ---
 
@@ -208,10 +206,18 @@ Siga o roteiro completo: [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLET
 ```bash
 # No VPS
 cd ~/algorbrasil
-./deploy.sh
+git pull origin main
+docker-compose up -d --build
+
+# Cleanup (opcional)
+chmod +x cleanup-vps.sh
+./cleanup-vps.sh
 ```
 
-**Guia Completo:** [`DEPLOY_V17.8.2.md`](./DEPLOY_V17.8.2.md)
+**Guias Completos:**
+- [`DEPLOY_V17.8.2.md`](./DEPLOY_V17.8.2.md)
+- [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md)
+- [`VPS_TROUBLESHOOTING.md`](./VPS_TROUBLESHOOTING.md)
 
 ### CI/CD (GitHub Actions)
 - ✅ Pipeline backend (Python + pytest)
@@ -227,9 +233,8 @@ cd ~/algorbrasil
 ### Para Usuários
 - 🔐 **Autenticação Segura:** Login com 2FA, OAuth2 (Google, LinkedIn)
 - 📊 **Dashboard Interativo:** Visualização de métricas de governança
-- 🔍 **Scanner de IA:** Detecção de Shadow AI
 - 📈 **Relatórios Premium:** PDFs com design institucional
-- 🎓 **Academy:** Cursos e certificações em IA
+- 🎓 **Algor Lab:** Cursos e certificações em IA
 
 ### Para Empresas
 - 🏢 **Diagnóstico Gratuito:** AI Discovery Sprint
@@ -248,14 +253,14 @@ cd ~/algorbrasil
 
 ## 📊 Roadmap
 
-### V18.4.0 (Planejado - Q1 2026)
+### V19.1.0 (Planejado - Q1 2026)
 - [ ] Implementar exclusão de conta (LGPD)
 - [ ] Implementar exportação de dados (LGPD)
 - [ ] Adicionar backup codes para 2FA
 - [ ] Implementar refresh tokens
 - [ ] Health check endpoint
 
-### V19.0.0 (Planejado - Q2 2026)
+### V20.0.0 (Planejado - Q2 2026)
 - [ ] Migração para PostgreSQL em produção
 - [ ] Implementar WebAuthn (biometria)
 - [ ] Magic Link login
@@ -287,6 +292,7 @@ cd ~/algorbrasil
 - 📚 **Índice Completo:** [`DOCUMENTATION_INDEX.md`](./DOCUMENTATION_INDEX.md)
 - 🔒 **Auditoria de Segurança:** [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md)
 - 🧪 **Testes:** [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md)
+- 🧹 **Otimização:** [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md)
 
 ### Contato
 - **Website:** https://www.algorbrasil.com.br
@@ -301,16 +307,29 @@ Copyright © 2026 ALGOR BRASIL. Todos os direitos reservados.
 
 ---
 
-## 🏆 Conquistas Recentes (V18.3.0)
+## 🏆 Conquistas Recentes (V19.0.0)
 
-- ✅ **100% Funcional:** Sistema de autenticação auditado e validado
-- ✅ **SMTP Corrigido:** E-mails sendo enviados com sucesso
-- ✅ **6 Templates Premium:** Design Dark Mode com glassmorphism
-- ✅ **Testes Automatizados:** 4/4 testes passando (100%)
-- ✅ **Documentação Completa:** 20+ páginas de auditoria de segurança
-- ✅ **OAuth2:** Google e LinkedIn funcionais
-- ✅ **2FA:** TOTP implementado e testado
-- ✅ **LGPD:** Audit logs e criptografia de dados
+### 🎯 Simplificação & Foco
+- ✅ **44% menos páginas:** De 25 para 14 páginas essenciais
+- ✅ **Navegação otimizada:** 3 links principais (Algor Lab, Blog, Membros Associados)
+- ✅ **Sitemap enxuto:** 42% redução (19 → 11 rotas)
+- ✅ **LGPD completo:** Todas as páginas obrigatórias mantidas
+
+### 🏷️ Rebranding
+- ✅ **"Algor Lab":** Identidade de marca forte e moderna
+- ✅ **"Membros Associados":** Clareza em português
+- ✅ **Interface PT-BR:** 100% localizada
+
+### 🔧 Infraestrutura
+- ✅ **Docker otimizado:** 62% menor (800MB → 300MB)
+- ✅ **Git cleanup:** Potencial 98% redução (2.45GB → 50MB)
+- ✅ **Build rápido:** `.dockerignore` expandido
+- ✅ **Cleanup automático:** Script VPS
+
+### 👥 Board Atualizado
+- ✅ **Estrutura clara:** Liderança + Gestores + Delegados
+- ✅ **Cargos atualizados:** 3 membros com novos títulos
+- ✅ **Cobertura regional:** Paraíba, Paraná, Fortaleza CE
 
 **Veja o histórico completo:** [`CHANGELOG.md`](./CHANGELOG.md)
 

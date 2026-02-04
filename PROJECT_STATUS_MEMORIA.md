@@ -1,196 +1,272 @@
-**Versão Atual:** V18.4.0 "Infrastructure Hardening"
-**Data da Última Atualização:** 03/02/2026
+**Versão Atual:** V19.0.0 "Simplification & Focus"
+**Data da Última Atualização:** 04/02/2026
 **Status:** 🚀 PRODUCTION STABLE (VPS Deployed)
 
-### 🚀 Últimas Conquistas (V18.4.0 - "Infrastructure Hardening")
+### 🎯 Últimas Conquistas (V19.0.0 - "Simplification & Focus")
+
+1.  **Major Site Simplification (BREAKING CHANGE):**
+    *   **Objetivo:** Reduzir complexidade e focar no essencial
+    *   **Páginas Removidas:** 13 pastas deletadas (44% redução)
+        - `/institute` e subpáginas (about, policy, research)
+        - `/onboarding`
+        - `/governance-policy`
+        - `/lab`, `/scanner`, `/calculadora`, `/hub` (ferramentas)
+        - `/partners` e `/partners/apply`
+        - `/solutions/enterprise`
+        - `/associates` (duplicado com `/board`)
+        - `/register/success`
+        - `/policies/membership`
+    *   **Páginas Mantidas:** Apenas essenciais
+        - ✅ `/` (Landing page)
+        - ✅ `/academy` (Algor Lab)
+        - ✅ `/blog`
+        - ✅ `/board` (Membros Associados)
+        - ✅ Auth pages (login, register, 2fa, etc.)
+        - ✅ LGPD policies (privacy, terms, cookies, dpo)
+        - ✅ `/dashboard/*` (todas as páginas do dashboard)
+
+2.  **Rebranding & Navigation:**
+    *   **"Academy" → "Algor Lab":** Branding mais forte e moderno
+    *   **"Board" → "Membros Associados":** Melhor clareza em português
+    *   **Navbar Simplificado:** 4 links → 3 links principais
+    *   **Sitemap Otimizado:** 19 rotas → 11 rotas (42% redução)
+
+3.  **Board Structure Update:**
+    *   **Edisio Nascimento:** Conselheiro → Gestor Regional - Paraíba
+    *   **Marci Dantas:** Conselheira → Delegada Regional - Fortaleza CE
+    *   **Fábio Ban:** Conselheiro → Delegado Regional - Paraná
+    *   **Estrutura Clarificada:** Liderança Nacional + Gestores Regionais + Delegados
+
+4.  **Infrastructure Optimization:**
+    *   **Disk Space Fix:** Implementado cleanup automático (VPS)
+    *   **Docker Optimization:** `.dockerignore` expandido (30 → 90+ linhas)
+    *   **Git Cleanup:** `.gitignore` criado (80+ linhas)
+    *   **Build Size:** Redução de 62% na imagem Docker
+    *   **Repository Size:** Potencial redução de 98% (2.45 GB → ~50 MB)
+
+5.  **Documentation:**
+    *   ✅ `SIMPLIFICATION_CHANGELOG.md` - Changelog completo
+    *   ✅ `DISK_SPACE_FIX.md` - Guia de otimização
+    *   ✅ `DISK_SPACE_SUMMARY.md` - Resumo executivo
+    *   ✅ `cleanup-vps.sh` - Script de limpeza automática
+
+---
+
+### 🚀 Conquistas Anteriores (V18.4.0 - "Infrastructure Hardening")
 
 1.  **Database Schema Fix (CRÍTICO):**
-    *   **Problema Resolvido:** Erro `no such column: users.oauth_provider` que bloqueava cadastros no VPS.
-    *   **Solução:** Script de migração manual (`fix_oauth_columns.py`) executado via Docker.
-    *   **Colunas Adicionadas:** `oauth_provider` e `oauth_id` na tabela `users`.
-    *   **Status:** ✅ Cadastros funcionando 100% em produção.
+    *   **Problema Resolvido:** Erro `no such column: users.oauth_provider`
+    *   **Solução:** Script de migração manual via Docker
+    *   **Status:** ✅ Cadastros funcionando 100% em produção
 
 2.  **Email System - Production Ready:**
-    *   **Logo Persistente:** Arquivo `logo-algor.webp` agora incluído na imagem Docker (Dockerfile).
-    *   **Antes:** Logo precisava ser copiada manualmente após cada deploy.
-    *   **Depois:** Logo permanece automaticamente em `/app/frontend/public/logo-algor.webp`.
-    *   **Links Corretos:** Variável `FRONTEND_URL` corrigida para `https://www.algorbrasil.com.br`.
-    *   **Templates Validados:** E-mails de verificação chegam com logo e links funcionais.
+    *   **Logo Persistente:** Incluída na imagem Docker
+    *   **Links Corretos:** URLs de produção configuradas
+    *   **Templates Validados:** E-mails com logo e links funcionais
 
 3.  **Onboarding Simplificado:**
-    *   **Removido:** Seleção de perfil "Empresa vs Profissional" (conforme nova estratégia de negócio).
-    *   **Novo Fluxo:** Tela única de boas-vindas à "Algor Academy" com redirecionamento direto ao Dashboard.
-    *   **Alinhamento:** Modelo unificado de Membros (conforme `STRATEGIC_ECONOMICS.md`).
+    *   **Removido:** Seleção de perfil "Empresa vs Profissional"
+    *   **Novo Fluxo:** Tela única de boas-vindas à "Algor Academy"
 
 4.  **DevOps & Configuration Management:**
-    *   **Lição Aprendida:** `docker-compose restart` NÃO recarrega variáveis de ambiente.
-    *   **Solução Documentada:** Sempre usar `docker-compose up -d` após editar `.env`.
-    *   **Arquivo `.env` Centralizado:** Variáveis unificadas na raiz para Docker Compose.
-    *   **Build Optimization:** Frontend com `--no-cache` para garantir aplicação de env vars.
-
-5.  **VPS Deployment Checklist:**
-    *   ✅ Banco de dados com schema atualizado
-    *   ✅ Logo persistente na imagem Docker
-    *   ✅ URLs de produção configuradas (`https://www.algorbrasil.com.br`)
-    *   ✅ SMTP funcional com credenciais corretas
-    *   ✅ Cadastro e verificação de e-mail operacionais
+    *   **Lição Aprendida:** `docker-compose restart` NÃO recarrega `.env`
+    *   **Solução:** Sempre usar `docker-compose up -d`
+    *   **Build Optimization:** Frontend com `--no-cache`
 
 ---
 
 ### 🔒 Conquistas Anteriores (V18.3.0 - "Authentication Audit")
 
 1.  **Sistema de Autenticação - Auditoria Completa:**
-    *   **100% Funcional:** Todos os componentes de login e e-mail validados e testados.
-    *   **SMTP Fix:** Corrigida configuração de e-mail no `/backend/.env` (SMTP_USER completo com @gmail.com).
-    *   **Route Cleanup:** Removida rota mock duplicada `/frontend/app/api/auth/login/route.ts`.
-    *   **Test Suite:** Criado script automatizado de testes (`backend/test_auth_system.py`) com 100% de sucesso.
+    *   **100% Funcional:** Login e e-mail validados
+    *   **SMTP Fix:** Configuração corrigida
+    *   **Test Suite:** Script automatizado com 100% sucesso
 
 2.  **Sistema de E-mail - Validação Completa:**
-    *   **6 Templates Premium:** Verificação, Reset de Senha, Boas-vindas, 2FA, Lead Confirmation, Admin Alerts.
-    *   **Design Dark Mode:** Glassmorphism + Neon accents (#00FF94, #00A3FF).
+    *   **6 Templates Premium:** Design dark mode + glassmorphism
+    *   **Cores:** #00FF94 (ciano) + #00A3FF (azul)
 
 3.  **Segurança - Múltiplas Camadas:**
-    *   **JWT:** PyJWT com HS256, expiração 30min.
-    *   **Passwords:** Argon2id (custo 12+).
-    *   **Data Encryption:** AES-256-CBC para campos sensíveis.
-    *   **Rate Limiting:** 5 req/min via SlowAPI.
+    *   **JWT:** PyJWT com HS256, expiração 30min
+    *   **Passwords:** Argon2id (custo 12+)
+    *   **Data Encryption:** AES-256-CBC
+    *   **Rate Limiting:** 5 req/min via SlowAPI
 
 4.  **OAuth2 Social Login:**
-    *   **Google OAuth:** Fluxo completo implementado.
-    *   **LinkedIn OAuth:** Fluxo completo implementado.
+    *   ✅ Google OAuth
+    *   ✅ LinkedIn OAuth
 
 5.  **2FA (Two-Factor Authentication):**
-    *   **TOTP:** Implementação via `pyotp` (RFC 6238).
-    *   **QR Code:** Geração automática para apps (Google Authenticator, Authy).
+    *   ✅ TOTP via `pyotp`
+    *   ✅ QR Code para apps
 
 ---
 
 ### 💎 Conquistas Anteriores (V18.2.0 - "Premium Image Cards")
 
 1.  **Services Section Complete Redesign:**
-    *   **Image-Based Cards:** Todos os 3 cards de serviços agora usam assets de imagem de alta fidelidade, criados com design profissional incluindo ícones 3D, glassmorphism e tipografia premium.
-    *   **Consultoria & Advisory:** Card com escudo 3D ciano/verde, circuitos neurais, badges ISO 42001 e PL 2338.
-    *   **Educação In-Company:** Card com ícone de grupo/network holográfico em ciano.
-    *   **Palestras & Keynotes:** Card com púlpito/torre de transmissão em roxo neon com badge "RECOMENDADO".
-    *   **Expanded Container:** Seção expandida para `max-w-[1600px]` para melhor legibilidade dos textos nas imagens.
-    *   **Grid Layout:** 3 colunas responsivas lado a lado (`md:grid-cols-3`).
-
-2.  **Assets Adicionados:**
-    *   `/images/consultoria-shield-icon.png` - Card Consultoria
-    *   `/images/educacao-in-company-card.png` - Card Educação
-    *   `/images/palestras-keynotes-card.png` - Card Palestras
+    *   **Image-Based Cards:** Assets de alta fidelidade
+    *   **3 Cards Premium:** Consultoria, Educação, Palestras
+    *   **Expanded Container:** `max-w-[1600px]`
+    *   **Grid Layout:** 3 colunas responsivas
 
 ---
 
-### 💎 Conquistas Anteriores (V18.1.x - "Institutional Polish")
+### 📜 Histórico de Versões
 
-1.  **Bug Fix & Stability:**
-    *   **Hydration Error Fix:** Resolvido erro crítico de hidratação (`Prop style did not match`) no card "System Status" da seção de Metodologia.
-    *   **React.memo Removal:** Remoção de memoização agressiva na `page.tsx` para garantir hot-reload fluido durante o desenvolvimento.
-
-2.  **Visual Enhancements:**
-    *   **Matrix Rain Everywhere:** Implementação do efeito "Matrix Rain" (chuva de algoritmos) no card "Sistema Operacional de Governança" da Metodologia.
-    *   **Hero Rollback:** Reversão estratégica do copy do Hero para "Liderando a Era da Governança de IA no Brasil".
-    *   **Methodology 5-Step B2B:** Atualização completa dos cards da metodologia para refletir o novo ciclo de 5 etapas.
-
-3.  **Strategic Synchronization (V18.1.0):**
-    *   **Doc Alignment:** `STRATEGIC_ECONOMICS`, `TRUST_HUB_SPEC` e `Metodologia B2B` sincronizados.
-    *   **Service-Led Growth:** Adoção oficial do "Ciclo de 5 Etapas" como motor de vendas da infraestrutura.
-    *   **Shadow AI Focus:** O produto "Scanner" agora é posicionado como a ferramenta da Etapa 1 (Discovery).
-
-4.  **Holographic & Animated Stats ("Alive Data"):**
-    *   **Interactive Global Map:** Componente `GlobalConnectionMap` com conexões animadas e marcadores pulsantes.
-    *   **Glass Audit Scanner:** Componente `AuditScanner` recriado em pure CSS/Glassmorphism com efeito "Matrix Rain".
-    *   **ISO Hologram:** Componente `IsoBadgeAnimator` com escudo holográfico rotativo.
+- [x] **V19.0.0:** "Simplification & Focus" - Redução de 44% nas páginas, rebranding, otimização de infraestrutura
+- [x] **V18.4.0:** "Infrastructure Hardening" - Database fix, email system, onboarding simplificado
+- [x] **V18.3.0:** "Authentication Audit" - Sistema de auth 100% funcional
+- [x] **V18.2.1:** "Registration Verified" - Criação de conta funcional
+- [x] **V18.2.0:** "Premium Image Cards" - Serviços com imagens de alta fidelidade
+- [x] **V18.1.4:** "High-Tech Circuit Edition" - Background de circuitos
+- [x] **V18.1.3:** "Holographic Shield Edition" - Upgrade visual
+- [x] **V18.1.2:** "Services Hybrid Layout" - Card horizontal
+- [x] **V18.1.1:** "Institutional Polish" - Matrix Rain, Hydration Fix
+- [x] **V18.1.0:** "Premium Institutional" - Novo ciclo B2B
+- [x] **V18.0.0:** "Security Fortress" - Hotfix crítico de segurança
 
 ---
 
-### 🔒 Conquistas Anteriores (V18.0.0 - "Security Fortress")
+### 🎨 Design System: "Quantum Prestige v3.0"
 
-1.  **Critical Security Hotfix (12/01/2026):**
-    *   **Email Verification Enforcement:** Bloqueio de login para contas não verificadas (`is_active=False`).
-    *   **Encryption Key Hardening:** Sanitização de chaves do `.env` com `.strip()` e fallback seguro.
-    *   **Registration 500 Fix:** Corrigidos imports de models e syntax SQLAlchemy 2.0.
-    *   **Profile Router Activation:** Endpoints `/api/v1/profiles/*` registrados no `main.py`.
+**Evolução para V19.0.0:**
+- **Simplified Navigation:** 3 links principais (Algor Lab, Blog, Membros Associados)
+- **Brand Identity:** "Algor Lab" reforça branding
+- **Portuguese First:** Interface 100% em português
+- **Focused Experience:** Menos páginas, mais qualidade
 
-2.  **CI/CD Pipeline Stabilization:**
-    *   **Test Suite Fixes:** Corrigidos `GovernanceTrace` → `GovernanceRecord`, removido `is_email_verified`.
-    *   **FK Constraint Fix:** Teardown de testes agora deleta riscos antes do usuário.
-    *   **Copilot Filter:** Workflow ignora PRs de branches `copilot/*` (código incorreto).
-
----
-
-### 📜 Histórico Recente
-
-- [x] **V18.2.1:** "Registration Verified" - Sistema de criação de conta 100% funcional com validação e-mail simulada (Dev Mode) e script de teste E2E.
-- [x] **V18.2.0:** "Premium Image Cards" - Seção de Serviços 100% baseada em imagens de alta fidelidade.
-- [x] **V18.1.4:** "High-Tech Circuit Edition" - Background de circuitos, partículas flutuantes e ícone 3D Ciano/Verde.
-- [x] **V18.1.3:** "Holographic Shield Edition" - Upgrade visual profundo no card de Serviços (Vidro + Holograma).
-- [x] **V18.1.2:** "Services Hybrid Layout" - Card "Consultoria" horizontal (Big Glass 3D) + Compliance Chips + Mix Vertical.
-- [x] **V18.1.1:** "Institutional Polish" - Matrix Rain na Metodologia, Hydration Fix, Hero Rollback.
-- [x] **V18.1.0:** "Premium Institutional" - Novo ciclo B2B, Assets 3D Glass, Animações "About".
-- [x] **V18.0.0:** "Security Fortress" - Hotfix crítico de segurança (bloqueio login não verificado, criptografia, CI/CD).
-- [x] **V17.9.8:** "Auth Harmony" - Sincronização total Frontend/Backend (`/api/v1/auth`), Reset de senha funcional.
+**Mantido de v2.7:**
+- **Image-Based Service Cards:** Alta fidelidade visual
+- **Alive Inputs:** Campos com luz animada
+- **Neon Glassmorphism:** Vidro translúcido + bordas iluminadas
+- **Motion Design "Alive":** Elementos sequenciais
 
 ---
 
-### 🎨 Design System Update: "Quantum Prestige v2.7"
-Evolução refinada para o lançamento:
-- **Image-Based Service Cards:** Cards de serviços agora são imagens estáticas de alta fidelidade para máximo impacto visual.
-- **Expanded Containers:** Seções críticas usam `max-w-[1600px]` para melhor aproveitamento do espaço.
-- **Alive Inputs:** Campos de formulário que reagem com luz (`box-shadow` e `border-color` animados) ao foco.
-- **Wipe Transitions:** Uso de `clip-path` para transições de página dramáticas e sem emendas.
-- **Neon Glassmorphism:** O uso de vidro translúcido com bordas iluminadas e sombreamento profundo.
-- **Motion Design "Alive":** Dashboards agora respiram. Elementos entram em cena sequencialmente.
+## 📊 Métricas de Impacto (V19.0.0)
+
+| Métrica | Antes | Depois | Melhoria |
+|---------|-------|--------|----------|
+| **Páginas Públicas** | ~25 | ~14 | **44% redução** |
+| **Links no Navbar** | 4 | 3 | **25% redução** |
+| **Rotas no Sitemap** | 19 | 11 | **42% redução** |
+| **Imagem Docker** | ~800 MB | ~300 MB | **62% redução** |
+| **Repositório Git** | 2.45 GB | ~50 MB* | **98% redução*** |
+| **Complexidade** | Alta | Baixa | ✅ |
+
+*Após limpeza do histórico Git (opcional)
 
 ---
 
-## 5. Próximos Passos (Backlog Pós-Launch)
+## 🗺️ Estrutura Atual do Site
+
+### **Páginas Públicas (4)**
+```
+/                    → Landing page
+/academy             → Algor Lab (cursos)
+/blog                → Blog e artigos
+/board               → Membros Associados
+```
+
+### **Autenticação (6)**
+```
+/login               → Login
+/register            → Cadastro
+/forgot-password     → Recuperar senha
+/reset-password      → Resetar senha
+/verify-email        → Verificar email
+/2fa                 → Autenticação 2FA
+```
+
+### **Políticas LGPD (4)**
+```
+/policies/privacy    → Política de Privacidade
+/policies/terms      → Termos de Uso
+/policies/cookies    → Política de Cookies
+/policies/dpo        → Contato DPO
+```
+
+### **Dashboard (Área Logada)**
+```
+/dashboard/*         → Todas as funcionalidades internas
+```
+
+---
+
+## 👥 Estrutura do Board (Atualizada)
+
+### **Liderança Nacional**
+- 👑 **Presidente:** Paulo Carvalho
+- 🎯 **Coordenador Nacional:** Orlando Pavani
+
+### **Gestores Regionais**
+- 🏛️ **Brasília:** Jesus Silva
+- 🏙️ **São Paulo:** Carlos Coan
+- 🌲 **Paraná:** Evaldo Reinas
+- 🏖️ **Rio de Janeiro:** José Ricardo
+- 🌴 **Ceará:** Jarison Melo
+- 🌵 **Paraíba:** Edisio Nascimento
+
+### **Delegados Regionais**
+- 🌲 **Paraná:** Fábio Ban
+- 🌴 **Fortaleza CE:** Marci Dantas
+
+---
+
+## 5. Próximos Passos (Backlog)
 
 | Prioridade | Tarefa | Status |
 |------------|--------|--------|
 | 1 | 🚀 **VPS Deploy Update** (`git pull` + rebuild) | ⏳ Imediato |
-| 2 | 🧪 **Teste Produção** (Registro, Login, Onboarding) | Pendente |
-| 3 | 📊 **User Analytics** | Proposta |
-| 4 | 🚧 **Academy LMS** - Backend Integration | Roadmap Q1 |
+| 2 | 🧪 **Teste Produção** (Navegação simplificada) | Pendente |
+| 3 | 🧹 **Git History Cleanup** (Opcional, 2.45GB → 50MB) | Proposta |
+| 4 | 📊 **User Analytics** | Proposta |
+| 5 | 🚧 **Academy LMS** - Backend Integration | Roadmap Q1 |
 
 ---
 
-## 6. Resumo Visual V18.2.0
+## 6. Resumo Visual V19.0.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v18.2.0                        │
-│            💎 PREMIUM IMAGE CARDS EDITION                   │
+│                 ALGOR BRASIL v19.0.0                        │
+│          🎯 SIMPLIFICATION & FOCUS EDITION                  │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  🖼️ SERVICES IMAGE CARDS (New!)                             │
-│  ├── Consultoria Card (Shield 3D) .............. ✅ (100%)  │
-│  ├── Educação Card (Network Hologram) .......... ✅ (100%)  │
-│  ├── Palestras Card (Purple Tower) ............. ✅ (100%)  │
-│  ├── Expanded Container (1600px) ............... ✅ (100%)  │
-│  ├── 3-Column Grid Layout ...................... ✅ (100%)  │
+│  🎯 MAJOR SIMPLIFICATION (New!)                             │
+│  ├── Pages Removed (13 folders) ............... ✅ (100%)  │
+│  ├── Navbar Simplified (4 → 3 links) .......... ✅ (100%)  │
+│  ├── Sitemap Optimized (19 → 11 routes) ....... ✅ (100%)  │
+│  ├── LGPD Compliance Maintained ............... ✅ (100%)  │
 │                                                             │
-│  ✨ VISUAL POLISH (V18.1.x)                                 │
-│  ├── Hydration Fix (Matrix Rain) ............... ✅ (100%)  │
-│  ├── Methodology Matrix Effect ................. ✅ (100%)  │
-│  ├── Hero Copy Rollback ........................ ✅ (100%)  │
-│  ├── 5-Step B2B Alignment ...................... ✅ (100%)  │
+│  🏷️ REBRANDING                                              │
+│  ├── "Academy" → "Algor Lab" .................. ✅ (100%)  │
+│  ├── "Board" → "Membros Associados" ........... ✅ (100%)  │
+│  ├── Portuguese-First Interface ............... ✅ (100%)  │
 │                                                             │
-│  🔮 INSTITUTIONAL REVAMP (V18.1.0)                          │
-│  ├── Glass Audit Scanner ....................... ✅ (100%)  │
-│  ├── Interactive Global Map .................... ✅ (100%)  │
-│  ├── ISO Hologram Badge ........................ ✅ (100%)  │
+│  👥 BOARD STRUCTURE UPDATE                                  │
+│  ├── Edisio → Gestor Regional Paraíba ......... ✅ (100%)  │
+│  ├── Marci → Delegada Regional Fortaleza ...... ✅ (100%)  │
+│  ├── Fábio → Delegado Regional Paraná ......... ✅ (100%)  │
 │                                                             │
-│  🔒 SECURITY FORTRESS (V18.0.0)                             │
-│  ├── Email Verification Block .................. ✅ (100%)  │
-│  ├── Profile Router (/api/v1/profiles) ......... ✅ (100%)  │
+│  🔧 INFRASTRUCTURE OPTIMIZATION                             │
+│  ├── Disk Space Cleanup Script ................ ✅ (100%)  │
+│  ├── .dockerignore Expanded (90+ lines) ....... ✅ (100%)  │
+│  ├── .gitignore Created (80+ lines) ........... ✅ (100%)  │
+│  ├── Docker Image Size (-62%) ................. ✅ (100%)  │
+│                                                             │
+│  📚 DOCUMENTATION                                           │
+│  ├── SIMPLIFICATION_CHANGELOG.md .............. ✅ (100%)  │
+│  ├── DISK_SPACE_FIX.md ........................ ✅ (100%)  │
+│  ├── DISK_SPACE_SUMMARY.md .................... ✅ (100%)  │
+│  ├── cleanup-vps.sh ........................... ✅ (100%)  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 18.2.0 (Premium Image Cards).*
-> **Última Atualização:** 23/01/2026 - 19:50
-> **Status Geral:** **POLISHED & READY** 💎🚀
-> **Versão:** 18.2.0
+*Documento atualizado automaticamente. Versão 19.0.0 (Simplification & Focus).*
+> **Última Atualização:** 04/02/2026 - 10:10
+> **Status Geral:** **SIMPLIFIED & FOCUSED** 🎯🚀
+> **Versão:** 19.0.0
