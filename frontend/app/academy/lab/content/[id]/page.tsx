@@ -123,7 +123,16 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
         }
     };
 
-    if (!currentLesson) return <div>Carregando...</div>;
+    if (!currentLesson) {
+        return (
+            <div className="min-h-screen bg-[#0A0E14] text-white flex items-center justify-center">
+                <div className="flex flex-col items-center gap-4 animate-pulse">
+                    <div className="w-12 h-12 rounded-full border-2 border-[#00FF94] border-t-transparent animate-spin" />
+                    <p className="font-orbitron tracking-widest text-[#00FF94] text-sm">CARREGANDO SISTEMA...</p>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-[#0A0E14] text-white">
@@ -171,8 +180,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                     </h2>
                                                     <div className="mt-8 mb-8 flex justify-center">
                                                         <div className={`relative w-48 h-48 rounded-full flex flex-col items-center justify-center border-[6px] shadow-2xl backdrop-blur-xl transition-all duration-1000 ${quizScore >= 80
-                                                                ? 'bg-[#00FF94]/10 border-[#00FF94] text-[#00FF94] shadow-[0_0_50px_rgba(0,255,148,0.2)]'
-                                                                : 'bg-red-500/10 border-red-500 text-red-500 shadow-[0_0_50px_rgba(239,68,68,0.2)]'
+                                                            ? 'bg-[#00FF94]/10 border-[#00FF94] text-[#00FF94] shadow-[0_0_50px_rgba(0,255,148,0.2)]'
+                                                            : 'bg-red-500/10 border-red-500 text-red-500 shadow-[0_0_50px_rgba(239,68,68,0.2)]'
                                                             }`}>
                                                             <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse-slow ${quizScore >= 80 ? 'bg-green-500/20' : 'bg-red-500/20'}`} />
                                                             <span className="text-6xl font-bold font-orbitron tracking-tighter relative z-10">{quizScore}%</span>
@@ -229,18 +238,18 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                     <div
                                                         key={q.id}
                                                         className={`relative group transition-all duration-300 ${quizSubmitted
-                                                                ? (isCorrectAnswer ? 'opacity-100' : isWrongAnswer ? 'opacity-100' : 'opacity-60')
-                                                                : (quizAnswers[q.id] !== undefined ? 'opacity-100' : 'opacity-90 hover:opacity-100')
+                                                            ? (isCorrectAnswer ? 'opacity-100' : isWrongAnswer ? 'opacity-100' : 'opacity-60')
+                                                            : (quizAnswers[q.id] !== undefined ? 'opacity-100' : 'opacity-90 hover:opacity-100')
                                                             }`}
                                                     >
                                                         {/* Question Card */}
                                                         <div className={`p-6 rounded-2xl border transition-all duration-500 backdrop-blur-sm relative overflow-hidden ${quizSubmitted
-                                                                ? (isCorrectAnswer
-                                                                    ? 'bg-[#00FF94]/5 border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.1)]'
-                                                                    : (isWrongAnswer ? 'bg-red-500/5 border-red-500/50' : 'bg-[#0A1A2F]/80 border-white/5'))
-                                                                : (quizAnswers[q.id] !== undefined
-                                                                    ? 'bg-[#0A1A2F]/80 border-[#00FF94]/30 shadow-[0_0_30px_rgba(0,255,148,0.05)]'
-                                                                    : 'bg-[#141922]/60 border-white/5 hover:border-white/10')
+                                                            ? (isCorrectAnswer
+                                                                ? 'bg-[#00FF94]/5 border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.1)]'
+                                                                : (isWrongAnswer ? 'bg-red-500/5 border-red-500/50' : 'bg-[#0A1A2F]/80 border-white/5'))
+                                                            : (quizAnswers[q.id] !== undefined
+                                                                ? 'bg-[#0A1A2F]/80 border-[#00FF94]/30 shadow-[0_0_30px_rgba(0,255,148,0.05)]'
+                                                                : 'bg-[#141922]/60 border-white/5 hover:border-white/10')
                                                             }`}>
                                                             {/* Result Icon Badge */}
                                                             {quizSubmitted && (
@@ -251,8 +260,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
 
                                                             <h3 className="text-lg font-bold text-white mb-6 flex gap-4 leading-relaxed pr-8">
                                                                 <span className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center font-mono text-sm border ${quizSubmitted
-                                                                        ? (isCorrectAnswer ? 'bg-[#00FF94] text-black border-[#00FF94]' : (isWrongAnswer ? 'bg-red-500 text-white border-red-500' : 'bg-white/5 text-gray-400 border-white/10'))
-                                                                        : (quizAnswers[q.id] !== undefined ? 'bg-[#00FF94] text-black border-[#00FF94] font-bold shadow-[0_0_10px_#00FF94]' : 'bg-white/5 text-gray-400 border-white/10')
+                                                                    ? (isCorrectAnswer ? 'bg-[#00FF94] text-black border-[#00FF94]' : (isWrongAnswer ? 'bg-red-500 text-white border-red-500' : 'bg-white/5 text-gray-400 border-white/10'))
+                                                                    : (quizAnswers[q.id] !== undefined ? 'bg-[#00FF94] text-black border-[#00FF94] font-bold shadow-[0_0_10px_#00FF94]' : 'bg-white/5 text-gray-400 border-white/10')
                                                                     }`}>
                                                                     {qIndex + 1}
                                                                 </span>
@@ -293,8 +302,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
 
                                                                             {/* Radio Circle Indicator */}
                                                                             <div className={`relative z-10 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${quizSubmitted
-                                                                                    ? (optIndex === q.correctAnswer ? 'border-[#00FF94] bg-[#00FF94]' : (quizAnswers[q.id] === optIndex ? 'border-red-500 bg-red-500' : 'border-gray-700'))
-                                                                                    : (quizAnswers[q.id] === optIndex ? 'border-[#00FF94]' : 'border-gray-600 group-hover/opt:border-gray-400')
+                                                                                ? (optIndex === q.correctAnswer ? 'border-[#00FF94] bg-[#00FF94]' : (quizAnswers[q.id] === optIndex ? 'border-red-500 bg-red-500' : 'border-gray-700'))
+                                                                                : (quizAnswers[q.id] === optIndex ? 'border-[#00FF94]' : 'border-gray-600 group-hover/opt:border-gray-400')
                                                                                 }`}>
                                                                                 {/* Inner Dot Logic */}
                                                                                 {quizSubmitted
@@ -330,6 +339,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                             </div>
                                         )}
                                     </div>
+                                </div>
                             ) : (
 
                                 /* VIDEO PLAYER MODE */
