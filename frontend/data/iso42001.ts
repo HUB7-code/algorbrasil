@@ -102,20 +102,32 @@ export const iso42001Content: CourseModule[] = [
                 `,
                 materials: [
                     {
+                        id: 'mat_slide_1.1',
+                        title: 'MATERIAL DE APOIO - Aula 1.1 Contexto ISO 42001',
+                        type: 'pdf',
+                        downloadUrl: '/materials/AULA 1.1_CONTEXTO_ISO_42001.pdf'
+                    },
+                    {
+                        id: 'mat_manual_auditor',
+                        title: 'LIVRO - Manual do Auditor de IA',
+                        type: 'pdf',
+                        downloadUrl: '/materials/Manual do Auditor de IA.pdf'
+                    },
+                    {
                         id: 'mat_checklist_contexto',
-                        title: 'Checklist Prático – Análise do Contexto de IA',
+                        title: 'FERRAMENTA - Checklist Prático: Análise do Contexto',
                         type: 'xlsx',
                         downloadUrl: '/materials/PLANILHA - Checklist Prático – Análise do Contexto de IA.xlsx'
                     },
                     {
                         id: 'mat_gestao_contexto',
-                        title: 'Planilha de Gestão de Contexto',
+                        title: 'FERRAMENTA - Planilha de Gestão de Contexto',
                         type: 'xlsx',
                         downloadUrl: '/materials/PLANILHA - GESTÃO DE CONTEXTO.xlsx'
                     },
                     {
                         id: 'mat_escopo_model',
-                        title: 'Modelo de Escopo - Sistema de Gestão de IA',
+                        title: 'MODELO - Declaração de Escopo de IA',
                         type: 'doc',
                         downloadUrl: '/materials/ALGOR  - MODELO DE ESCOPO DE IA .docx'
                     }
