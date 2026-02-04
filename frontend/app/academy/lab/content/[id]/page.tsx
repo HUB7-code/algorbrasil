@@ -14,25 +14,66 @@ import { useGamification } from '@/hooks/useGamification';
 const mockContent = {
     id: '1',
     title: 'Aula Magna: Governança de IA',
-    description: 'A primeira formação técnica e estratégica do Brasil focada na implementação prática da ISO/IEC 42001 e conformidade com o PL 2338/2023.',
+    description: `
+        <div class="space-y-6 text-gray-300 font-manrope">
+            <div class="flex items-center gap-4 text-sm font-mono text-[#00FF94] bg-[#00FF94]/5 p-3 rounded-lg border border-[#00FF94]/20 w-fit">
+                <span>📅 26 de Março, 2025</span>
+                <span>⏰ 19h às 21h</span>
+                <span>🎓 ALGOR ASSOCIATION</span>
+            </div>
+
+            <p>
+                <strong class="text-white block mb-2">🟢 Abertura Institucional – 1 ano de ALGOR</strong>
+                O evento foi aberto com a celebração do primeiro ano da ALGOR ASSOCIATION, destacando sua missão de promover a transformação digital orientada por inteligência artificial, com ênfase em governança, ética, maturidade digital e metodologias de auditoria baseadas na norma ISO/IEC 42001:2024.
+            </p>
+
+            <p>
+                <strong class="text-white block mb-2">📚 Apresentação do Curso</strong>
+                O facilitador apresentou o objetivo da formação: capacitar auditores e líderes organizacionais para atuarem com responsabilidade na implementação e auditoria de Sistemas de Gestão de Inteligência Artificial (SGIA).
+            </p>
+
+            <ul class="list-disc pl-5 space-y-1 text-gray-400">
+                <li>Estrutura da norma ISO/IEC 42001</li>
+                <li>Requisitos de um SGIA</li>
+                <li>Princípios de risco e conformidade em IA</li>
+                <li>Categorização de sistemas de IA</li>
+                <li>Ciclo de vida da IA e governança lógica</li>
+            </ul>
+
+            <p>
+                <strong class="text-white block mb-2">🌐 Demonstração da Plataforma EAD ALGOR</strong>
+                Foi apresentada a plataforma de E-learning da ALGOR com trilhas de aprendizagem, simulados e certificação digital.
+            </p>
+
+            <div class="bg-white/5 p-4 rounded-xl border-l-4 border-[#00FF94]">
+                <strong class="text-white block mb-2">💡 Inteligência Viva</strong>
+                "A capacidade das organizações de aprender, adaptar-se e agir em rede, de forma autônoma e ética, usando a inteligência artificial como um recurso de transformação consciente."
+            </div>
+
+            <p class="italic text-gray-400">
+                “A nova governança não é feita apenas de algoritmos. Ela é feita de decisões humanas mediadas por sistemas éticos e transparentes.”
+            </p>
+        </div>
+    `,
     type: 'video' as const,
     url: 'https://www.youtube.com/embed/WiVpqOKW6j0',
-    duration: 55,
-    level: 'Iniciante',
+    duration: 120,
+    level: 'Advanced',
     instructor: {
-        name: 'Paulo Carvalho',
-        role: 'Especialista em Governança de IA',
+        name: 'Algor Association',
+        role: 'Corpo Docente',
         avatar: '/images/team/paulo.jpg'
     },
     microModules: [
-        { id: '1.1', title: 'O que é a ISO 42001?', duration: 5, completed: true, type: 'video' },
-        { id: '1.2', title: 'Por que certificar?', duration: 7, completed: true, type: 'video' },
-        { id: '1.3', title: 'Estrutura de Alto Nível (HLS)', duration: 8, completed: false, type: 'video' },
-        { id: '1.4', title: 'Quiz Rápido: Fundamentos', duration: 2, completed: false, type: 'quiz' },
+        { id: '1.1', title: 'Abertura Institucional', duration: 15, completed: true, type: 'video' },
+        { id: '1.2', title: 'Apresentação da Formação', duration: 25, completed: true, type: 'video' },
+        { id: '1.3', title: 'Demonstração da Plataforma', duration: 20, completed: false, type: 'video' },
+        { id: '1.4', title: 'Conceito Inteligência Viva', duration: 30, completed: false, type: 'video' },
+        { id: '1.5', title: 'Mensagem Final', duration: 10, completed: false, type: 'video' },
     ],
     materials: [
-        { id: 'm1', title: 'Checklist de Controles.pdf', type: 'pdf' },
-        { id: 'm2', title: 'Matriz de Rastreabilidade.xlsx', type: 'excel' }
+        { id: 'm1', title: 'Slides Aula Magna.pdf', type: 'pdf', downloadUrl: '/materials/aula-magna.pdf' },
+        { id: 'm2', title: 'Ementa Completa ISO 42001.pdf', type: 'pdf', downloadUrl: '/materials/ementa.pdf' }
     ],
     nextContent: {
         id: '2',
@@ -55,11 +96,11 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
     const handleComplete = () => {
         if (!isCompleted) {
             setIsCompleted(true);
-            addXp(50); // Adiciona 50 XP
+            addXp(150); // XP maior para Aula Magna
 
             // Show Premium Toast
             toast.success('Módulo Concluído!', {
-                description: 'Você ganhou +50 XP',
+                description: 'Você ganhou +150 XP. Parabéns!',
                 duration: 4000,
                 style: {
                     background: '#0A1A2F',
@@ -104,35 +145,33 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                             <Play className="w-10 h-10 text-[#00FF94] ml-1" fill="currentColor" />
                                         </div>
                                     </div>
+                                    {/* Overlay Title on Thumbnail */}
+                                    <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black via-black/80 to-transparent">
+                                        <h2 className="text-2xl font-bold text-white font-orbitron">{content.title}</h2>
+                                    </div>
                                 </div>
                             )}
                         </div>
 
                         {/* Content Info */}
-                        <div className="mb-8">
-                            <div className="flex items-center gap-4 mb-4">
-                                <span className="px-3 py-1 bg-[#00A3FF]/10 text-[#00A3FF] text-xs font-bold uppercase rounded border border-[#00A3FF]/20">
-                                    {content.level}
-                                </span>
-                                <span className="flex items-center gap-2 text-gray-400 text-sm">
-                                    <Clock className="w-4 h-4" /> {content.duration} min
-                                </span>
-                            </div>
-
-                            <h1 className="text-3xl md:text-3xl font-bold font-orbitron mb-4 leading-tight">
+                        <div className="mb-8 p-6 bg-[#141922]/50 rounded-2xl border border-white/5">
+                            <h1 className="text-3xl font-bold font-orbitron mb-6 text-white border-b border-white/10 pb-4">
                                 {content.title}
                             </h1>
 
-                            <p className="text-gray-300 text-lg leading-relaxed font-manrope mb-6">
-                                {content.description}
-                            </p>
+                            {/* Rich Text Description */}
+                            <div
+                                className="description-content"
+                                dangerouslySetInnerHTML={{ __html: content.description }}
+                            />
 
                             {/* Instructor */}
-                            <div className="flex items-center gap-4 p-4 bg-white/5 rounded-xl border border-white/5 mb-6">
+                            <div className="flex items-center gap-4 mt-8 pt-6 border-t border-white/10">
                                 <div className="w-12 h-12 bg-gray-700 rounded-full overflow-hidden shrink-0 flex items-center justify-center font-bold text-gray-400 bg-white/10">
                                     {content.instructor.name.substring(0, 2)}
                                 </div>
                                 <div>
+                                    <div className="text-xs text-[#00FF94] font-bold uppercase tracking-wider mb-0.5">Instrutor</div>
                                     <div className="font-bold text-white">{content.instructor.name}</div>
                                     <div className="text-sm text-gray-400">{content.instructor.role}</div>
                                 </div>
@@ -147,9 +186,9 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                             <div className="bg-[#141922] rounded-xl border border-white/5 overflow-hidden">
                                 <div className="p-4 border-b border-white/5 bg-[#0A0E14] flex justify-between items-center">
                                     <h3 className="font-orbitron font-bold text-sm uppercase tracking-wider text-gray-400 flex items-center gap-2">
-                                        <List className="w-4 h-4" /> Conteúdo do Módulo
+                                        <List className="w-4 h-4" /> Tópicos da Aula
                                     </h3>
-                                    <span className="text-xs text-[#00FF94]">2/4 Concluído</span>
+                                    <span className="text-xs text-[#00FF94]">2/5 Concluído</span>
                                 </div>
                                 <div className="max-h-[400px] overflow-y-auto scrollbar-hide">
                                     {content.microModules.map((module, index) => (
@@ -189,22 +228,30 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                         <div className="bg-[#141922] rounded-xl p-6 border border-white/5">
                             <h3 className="font-orbitron font-bold text-lg mb-4 flex items-center gap-2">
                                 <FileText className="w-5 h-5 text-[#00FF94]" />
-                                Materiais
+                                Materiais Complementares
                             </h3>
                             <div className="space-y-3">
                                 {content.materials.map((material) => (
-                                    <div key={material.id} className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/40 transition-colors group cursor-pointer">
+                                    <a
+                                        key={material.id}
+                                        href={(material as any).downloadUrl || '#'}
+                                        target="_blank"
+                                        className="flex items-center justify-between p-3 bg-black/20 rounded-lg hover:bg-black/40 transition-colors group cursor-pointer border border-transparent hover:border-[#00FF94]/30"
+                                    >
                                         <div className="flex items-center gap-3">
                                             <div className={`w-8 h-8 rounded flex items-center justify-center text-xs font-bold ${material.type === 'pdf' ? 'bg-red-500/20 text-red-500' : 'bg-green-500/20 text-green-500'
                                                 }`}>
                                                 {material.type.toUpperCase()}
                                             </div>
-                                            <span className="text-sm text-gray-300 group-hover:text-white transition-colors line-clamp-1">
-                                                {material.title}
-                                            </span>
+                                            <div className="flex flex-col">
+                                                <span className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors line-clamp-1">
+                                                    {material.title}
+                                                </span>
+                                                <span className="text-[10px] text-gray-500 group-hover:text-[#00FF94]">Clique para baixar</span>
+                                            </div>
                                         </div>
                                         <Download className="w-4 h-4 text-gray-500 group-hover:text-[#00FF94] transition-colors" />
-                                    </div>
+                                    </a>
                                 ))}
                             </div>
                         </div>
@@ -213,12 +260,12 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                         <button
                             onClick={handleComplete}
                             className={`w-full px-6 py-4 rounded-xl font-bold flex items-center justify-center gap-2 transition-all ${isCompleted
-                                ? 'bg-[#10B981] text-white'
-                                : 'bg-[#00FF94] text-[#0A0E14] hover:bg-[#00CC76]'
+                                ? 'bg-[#10B981] text-white cursor-default'
+                                : 'bg-[#00FF94] text-[#0A0E14] hover:bg-[#00CC76] shadow-[0_0_20px_rgba(0,255,148,0.2)] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)]'
                                 }`}
                         >
                             {isCompleted ? <CheckCircle className="w-5 h-5" /> : <div className="w-5 h-5" />}
-                            {isCompleted ? 'Módulo Concluído' : 'Marcar Módulo como Concluído'}
+                            {isCompleted ? 'Aula Concluída' : 'Marcar Aula como Concluída'}
                         </button>
                     </div>
                 </div>
