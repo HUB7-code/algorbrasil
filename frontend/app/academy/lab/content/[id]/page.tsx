@@ -105,97 +105,160 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
 
                             {/* QUIZ MODE */}
                             {currentLesson.quiz ? (
-                                <div className="flex-1 p-8 bg-[#0A1A2F] flex flex-col items-center justify-center">
+                                <div className="flex-1 relative bg-[#0A1A2F] flex flex-col items-center justify-center overflow-hidden min-h-[600px]">
+                                    {/* Ambient Background Effects */}
+                                    <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                                        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] animate-pulse" />
+                                        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[100px] animate-pulse delay-1000" />
+                                    </div>
+
                                     {!quizSubmitted ? (
-                                        <div className="w-full max-w-3xl space-y-8">
-                                            <div className="text-center mb-8">
-                                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 mb-4">
-                                                    <Award className="w-5 h-5" />
-                                                    <span className="font-bold tracking-wider">QUIZ DE AUTO AVALIAÇÃO</span>
+                                        <div className="w-full max-w-4xl space-y-8 relative z-10 p-8">
+
+                                            {/* Header & Progress */}
+                                            <div className="text-center mb-10">
+                                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00FF94]/5 text-[#00FF94] border border-[#00FF94]/20 mb-6 backdrop-blur-md shadow-[0_0_15px_rgba(0,255,148,0.1)]">
+                                                    <Award className="w-4 h-4" />
+                                                    <span className="font-bold tracking-widest text-xs uppercase">Avaliação de Competência</span>
                                                 </div>
-                                                <h2 className="text-3xl font-bold font-orbitron text-white">Teste seus Conhecimentos</h2>
-                                                <p className="text-gray-400 mt-2">Responda as {currentLesson.quiz.length} questões abaixo para completar esta etapa.</p>
+                                                <h2 className="text-4xl font-bold font-orbitron text-white mb-2 tracking-tight">
+                                                    Teste de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-blue-500">Conhecimento</span>
+                                                </h2>
+                                                <p className="text-gray-400">Complete as questões para validar esta etapa.</p>
+
+                                                {/* Progress Bar */}
+                                                <div className="mt-8 w-full max-w-md mx-auto h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                                                    <div
+                                                        className="h-full bg-gradient-to-r from-[#00FF94] to-blue-500 transition-all duration-500 ease-out shadow-[0_0_10px_#00FF94]"
+                                                        style={{ width: `${(Object.keys(quizAnswers).length / currentLesson.quiz.length) * 100}%` }}
+                                                    />
+                                                </div>
+                                                <p className="text-xs text-gray-500 mt-2 font-mono">
+                                                    {Object.keys(quizAnswers).length} / {currentLesson.quiz.length} RESPONDIDAS
+                                                </p>
                                             </div>
 
+                                            {/* Questions List */}
                                             <div className="space-y-6">
                                                 {currentLesson.quiz.map((q, qIndex) => (
-                                                    <div key={q.id} className="bg-[#141922] p-6 rounded-xl border border-white/5">
-                                                        <h3 className="text-lg font-bold text-white mb-4 flex gap-3">
-                                                            <span className="text-[#00FF94]">{qIndex + 1}.</span>
-                                                            {q.question}
-                                                        </h3>
-                                                        <div className="space-y-3 pl-6">
-                                                            {q.options.map((option, optIndex) => (
-                                                                <label
-                                                                    key={optIndex}
-                                                                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${quizAnswers[q.id] === optIndex
-                                                                        ? 'bg-[#00FF94]/10 border-[#00FF94] text-white'
-                                                                        : 'bg-black/20 border-white/10 text-gray-400 hover:bg-white/5'
-                                                                        }`}
-                                                                >
-                                                                    <input
-                                                                        type="radio"
-                                                                        name={q.id}
-                                                                        className="hidden"
-                                                                        checked={quizAnswers[q.id] === optIndex}
-                                                                        onChange={() => setQuizAnswers(prev => ({ ...prev, [q.id]: optIndex }))}
-                                                                    />
-                                                                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${quizAnswers[q.id] === optIndex ? 'border-[#00FF94]' : 'border-gray-500'
-                                                                        }`}>
-                                                                        {quizAnswers[q.id] === optIndex && <div className="w-2 h-2 rounded-full bg-[#00FF94]" />}
-                                                                    </div>
-                                                                    <span>{option}</span>
-                                                                </label>
-                                                            ))}
+                                                    <div
+                                                        key={q.id}
+                                                        className={`relative group transition-all duration-300 ${quizAnswers[q.id] !== undefined
+                                                            ? 'opacity-100'
+                                                            : 'opacity-90 hover:opacity-100'
+                                                            }`}
+                                                    >
+                                                        {/* Question Card */}
+                                                        <div className={`p-6 rounded-2xl border transition-all duration-500 backdrop-blur-sm ${quizAnswers[q.id] !== undefined
+                                                            ? 'bg-[#0A1A2F]/80 border-[#00FF94]/30 shadow-[0_0_30px_rgba(0,255,148,0.05)]'
+                                                            : 'bg-[#141922]/60 border-white/5 hover:border-white/10'
+                                                            }`}>
+                                                            <h3 className="text-lg font-bold text-white mb-6 flex gap-4 leading-relaxed">
+                                                                <span className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center font-mono text-sm border ${quizAnswers[q.id] !== undefined
+                                                                    ? 'bg-[#00FF94] text-black border-[#00FF94] font-bold shadow-[0_0_10px_#00FF94]'
+                                                                    : 'bg-white/5 text-gray-400 border-white/10'
+                                                                    }`}>
+                                                                    {qIndex + 1}
+                                                                </span>
+                                                                {q.question}
+                                                            </h3>
+
+                                                            <div className="space-y-3 pl-12">
+                                                                {q.options.map((option, optIndex) => (
+                                                                    <label
+                                                                        key={optIndex}
+                                                                        className={`relative flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all duration-200 group/opt overflow-hidden ${quizAnswers[q.id] === optIndex
+                                                                            ? 'bg-[#00FF94]/10 border-[#00FF94] text-white shadow-[0_0_20px_rgba(0,255,148,0.15)]'
+                                                                            : 'bg-black/20 border-white/5 text-gray-400 hover:bg-white/5 hover:border-white/20 hover:text-gray-200'
+                                                                            }`}
+                                                                    >
+                                                                        {/* Active Glow Background */}
+                                                                        {quizAnswers[q.id] === optIndex && (
+                                                                            <div className="absolute inset-0 bg-gradient-to-r from-[#00FF94]/10 to-transparent opacity-50" />
+                                                                        )}
+
+                                                                        <input
+                                                                            type="radio"
+                                                                            name={q.id}
+                                                                            className="hidden"
+                                                                            checked={quizAnswers[q.id] === optIndex}
+                                                                            onChange={() => setQuizAnswers(prev => ({ ...prev, [q.id]: optIndex }))}
+                                                                        />
+
+                                                                        {/* Custom Radio Circle */}
+                                                                        <div className={`relative z-10 w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors ${quizAnswers[q.id] === optIndex ? 'border-[#00FF94]' : 'border-gray-600 group-hover/opt:border-gray-400'
+                                                                            }`}>
+                                                                            <div className={`w-2.5 h-2.5 rounded-full bg-[#00FF94] transition-transform duration-300 ${quizAnswers[q.id] === optIndex ? 'scale-100' : 'scale-0'
+                                                                                }`} />
+                                                                        </div>
+
+                                                                        <span className="relative z-10 text-sm md:text-base font-medium">{option}</span>
+                                                                    </label>
+                                                                ))}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </div>
 
-                                            <button
-                                                onClick={handleSubmitQuiz}
-                                                disabled={Object.keys(quizAnswers).length < currentLesson.quiz.length}
-                                                className="w-full py-4 bg-[#00FF94] text-black font-bold font-orbitron rounded-xl hover:bg-[#00CC76] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] mt-8"
-                                            >
-                                                ENVIAR RESPOSTAS
-                                            </button>
+                                            <div className="flex justify-end pt-8 pb-4">
+                                                <button
+                                                    onClick={handleSubmitQuiz}
+                                                    disabled={Object.keys(quizAnswers).length < currentLesson.quiz.length}
+                                                    className="relative group overflow-hidden px-10 py-4 bg-[#00FF94] text-black font-bold font-orbitron rounded-xl hover:bg-[#00CC76] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-[0_0_30px_rgba(0,255,148,0.3)] hover:shadow-[0_0_50px_rgba(0,255,148,0.5)] active:scale-95"
+                                                >
+                                                    <span className="relative z-10 flex items-center gap-2">
+                                                        ENVIAR DIAGNÓSTICO
+                                                        <ChevronRight className={`w-5 h-5 transition-transform duration-300 ${Object.keys(quizAnswers).length === currentLesson.quiz.length ? 'translate-x-1' : ''}`} />
+                                                    </span>
+                                                    {/* Shine Effect */}
+                                                    <div className="absolute inset-0 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                                                </button>
+                                            </div>
                                         </div>
                                     ) : (
-                                        <div className="text-center w-full max-w-2xl animate-in fade-in zoom-in duration-500">
-                                            <div className="mb-6 inline-flex justify-center">
-                                                <div className={`w-24 h-24 rounded-full flex items-center justify-center text-4xl border-4 ${quizScore >= 70 ? 'bg-green-500/20 border-green-500 text-green-500' : 'bg-red-500/20 border-red-500 text-red-500'
+                                        <div className="text-center w-full max-w-2xl animate-in fade-in zoom-in duration-700 p-8">
+                                            {/* Result Circle */}
+                                            <div className="mb-10 inline-flex justify-center relative">
+                                                {/* Pulsing Glow */}
+                                                <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse ${quizScore >= 70 ? 'bg-green-500/30' : 'bg-red-500/30'
+                                                    }`} />
+
+                                                <div className={`relative z-10 w-40 h-40 rounded-full flex flex-col items-center justify-center border-[6px] shadow-2xl backdrop-blur-xl ${quizScore >= 70 ? 'bg-[#00FF94]/10 border-[#00FF94] text-[#00FF94] shadow-[0_0_50px_rgba(0,255,148,0.2)]' : 'bg-red-500/10 border-red-500 text-red-500 shadow-[0_0_50px_rgba(239,68,68,0.2)]'
                                                     }`}>
-                                                    {quizScore}%
+                                                    <span className="text-5xl font-bold font-orbitron tracking-tighter">{quizScore}%</span>
+                                                    <span className="text-xs font-bold uppercase tracking-widest mt-1 opacity-70">Desempenho</span>
                                                 </div>
                                             </div>
 
-                                            <h2 className="text-4xl font-bold text-white font-orbitron mb-4">
-                                                {quizScore >= 70 ? 'Excelente!' : 'Bom esforço!'}
+                                            <h2 className="text-5xl font-bold text-white font-orbitron mb-4 tracking-tight">
+                                                {quizScore >= 70 ? 'Excelente!' : 'Atenção Requerida'}
                                             </h2>
-                                            <p className="text-xl text-gray-400 mb-8">
-                                                Você acertou {Object.keys(quizAnswers).filter(qid => {
-                                                    const q = currentLesson?.quiz?.find(qz => qz.id === qid);
-                                                    return q && quizAnswers[qid] === q.correctAnswer;
-                                                }).length} de {currentLesson.quiz.length} questões.
+
+                                            <p className="text-xl text-gray-300 mb-10 leading-relaxed max-w-lg mx-auto">
+                                                {quizScore >= 70
+                                                    ? 'Você demonstrou domínio sólido sobre os conceitos desta etapa. Seu progresso foi registrado.'
+                                                    : 'Recomendamos revisar o material de apoio e a videoaula antes de prosseguir.'}
                                             </p>
 
-                                            <div className="flex gap-4 justify-center">
+                                            <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
                                                 <button
                                                     onClick={() => {
                                                         setQuizSubmitted(false);
                                                         setQuizAnswers({});
                                                         setQuizScore(0);
                                                     }}
-                                                    className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-bold transition-colors"
+                                                    className="px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold transition-all hover:scale-[1.02]"
                                                 >
-                                                    Tentar Novamente
+                                                    Refazer Teste
                                                 </button>
                                                 {quizScore >= 70 && (
                                                     <button
                                                         onClick={handleLessonComplete}
-                                                        className="px-8 py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-lg font-bold transition-colors shadow-[0_0_20px_rgba(0,255,148,0.3)]"
+                                                        className="px-6 py-4 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-xl font-bold transition-all shadow-[0_0_30px_rgba(0,255,148,0.3)] hover:shadow-[0_0_50px_rgba(0,255,148,0.4)] hover:scale-[1.02] flex items-center justify-center gap-2"
                                                     >
-                                                        Concluir Etapa
+                                                        <Check className="w-5 h-5" />
+                                                        Concluir
                                                     </button>
                                                 )}
                                             </div>
@@ -203,6 +266,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                     )}
                                 </div>
                             ) : (
+
                                 /* VIDEO PLAYER MODE */
                                 isPlaying ? (
                                     <iframe
