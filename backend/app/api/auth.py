@@ -297,155 +297,6 @@ async def reset_password(data: PasswordReset, db: Session = Depends(get_db)):
 # SOCIAL LOGIN - OAUTH2 (Google & LinkedIn)
 # ==========================================
 
-import os
-import secrets
-import string
-
-def generate_strong_password(length=16):
-    alphabet = string.ascii_letters + string.digits + "!@#$%^&*"
-    return ''.join(secrets.choice(alphabet) for i in range(length))
-
-@router.get("/google/login")
-async def google_login():
-    """Redireciona para o Google OAuth Consent Screen"""
-    client_id = os.getenv("GOOGLE_CLIENT_ID")
-    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/google/callback" # Ajuste conforme Nginx proxy pass
-    # Nota: Em produção, o redirect_uri deve bater exatamente com o configurado no Google Cloud
-    # Como o frontend conversa com backend via /api/v1/..., o callback deve ser tratado aqui.
-    
-    if not client_id:
-        raise HTTPException(status_code=501, detail="Google Login não configurado no servidor (Faltam credenciais).")
-
-    params = {
-        "client_id": client_id,
-        "response_type": "code",
-        "redirect_uri": redirect_uri,
-        "scope": "openid email profile",
-        "access_type": "offline",
-        "prompt": "consent"
-    }
-    url = f"https://accounts.google.com/o/oauth2/v2/auth?{urlencode(params)}"
-    return {"url": url} # Retorna URL para o frontend redirecionar (melhor que 302 direto em AJAX/Fetch)
-
-@router.get("/google/callback")
-async def google_callback(code: str, db: Session = Depends(get_db)):
-    """Recebe o code do Google, troca por token e loga o usuário"""
-    client_id = os.getenv("GOOGLE_CLIENT_ID")
-    client_secret = os.getenv("GOOGLE_CLIENT_SECRET")
-    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/google/callback" 
-
-    if not client_id or not client_secret:
-        raise HTTPException(status_code=500, detail="Credenciais do Google não encontradas.")
-
-    async with httpx.AsyncClient() as client:
-        # 1. Trocar Code por Token
-        token_res = await client.post("https://oauth2.googleapis.com/token", data={
-            "client_id": client_id,
-            "client_secret": client_secret,
-            "code": code,
-            "grant_type": "authorization_code",
-            "redirect_uri": redirect_uri,
-        })
-        
-        if token_res.status_code != 200:
-             logger.error(f"Google Token Error: {token_res.text}")
-             raise HTTPException(status_code=400, detail="Falha ao autenticar com Google.")
-        
-        token_data = token_res.json()
-        access_token = token_data.get("access_token")
-        
-        # 2. Obter User Info
-        user_res = await client.get("https://www.googleapis.com/oauth2/v2/userinfo", headers={
-            "Authorization": f"Bearer {access_token}"
-        })
-        user_info = user_res.json()
-        
-    email = user_info.get("email")
-    if not email:
-        raise HTTPException(status_code=400, detail="Google não retornou o e-mail.")
-        
-    # 3. Verificar/Criar Usuário no DB
-    user = db.query(User).filter(User.email == email).first()
-    
-    if not user:
-        # Criar novo usuário
-        password = generate_strong_password()
-        new_user = User(
-            email=email,
-            hashed_password=get_password_hash(password), # Senha aleatória, ele entra via Google
-            full_name=user_info.get("name", "Google User"),
-            role="subscriber",
-            is_active=True, # Google emails are verified by default? Yes for simple login.
-            is_totp_enabled=False 
-        )
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
-        
-        # Criar Org Default (Reuso da lógica do Signup)
-        try:
-            from backend.app.models.organization import Organization, organization_members
-            from sqlalchemy import insert
-            
-            new_org = Organization(
-                name=f"Org de {new_user.full_name.split()[0]}",
-                owner_id=new_user.id,
-                plan_tier="free",
-                credits_balance=3
-            )
-            db.add(new_org)
-            db.commit()
-            db.refresh(new_org)
-            
-            stmt = insert(organization_members).values(
-                user_id=new_user.id,
-                organization_id=new_org.id,
-                role="owner"
-            )
-            db.execute(stmt)
-            db.commit()
-        except:
-            pass # Org create failed, non-fatal
-            
-        user = new_user
-    else:
-        # Se já existe, apenas garante que está ativo (opcional)
-        if not user.is_active:
-             user.is_active = True # Reativa se entrou via Google confiável
-             db.commit()
-
-    # 4. Gerar JWT
-    access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
-    token = create_access_token(
-        data={"sub": user.email, "role": user.role, "type": "access"},
-        expires_delta=access_token_expires
-    )
-    
-    # IMPORTANTE: Como isso é um redirect do browser via callback, não podemos retornar JSON simples.
-    # Temos que redirecionar o browser para o Frontend com o token na URL ou setar cookie.
-    # Vamos redirecionar para uma página de "processando login" no frontend que pega o token do Query Param.
-    
-    frontend_callback_url = f"{settings.FRONTEND_URL}/login/callback?token={token}&role={user.role}&username={user.first_name}"
-    return RedirectResponse(url=frontend_callback_url)
-
-@router.get("/linkedin/login")
-async def linkedin_login():
-    """Redireciona para LinkedIn OAuth"""
-    client_id = os.getenv("LINKEDIN_CLIENT_ID")
-    redirect_uri = f"{settings.FRONTEND_URL}/api/v1/auth/linkedin/callback"
-    
-    if not client_id:
-        raise HTTPException(status_code=501, detail="LinkedIn Login não configurado.")
-
-    params = {
-        "response_type": "code",
-        "client_id": client_id,
-        "redirect_uri": redirect_uri,
-        "scope": "openid profile email",
-    }
-    url = f"https://www.linkedin.com/oauth/v2/authorization?{urlencode(params)}"
-    return {"url": url}
-
 
 @router.post("/login", response_model=Token)
 @limiter.limit("5/minute")
@@ -453,42 +304,62 @@ async def login_for_access_token(request: Request, user_data: UserLogin, db: Ses
     """
     Autentica o usuario. Se tiver 2FA ativado, retorna token temporario.
     """
-    user = db.query(User).filter(User.email == user_data.email).first()
-    
-    if not user or not verify_password(user_data.password, user.hashed_password):
-        raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
+    try:
+        logger.info(f"🔑 Tentativa de Login: {user_data.email}")
+        user = db.query(User).filter(User.email == user_data.email).first()
+        
+        if not user:
+            logger.warning(f"❌ Login falhou: Usuário não encontrado ({user_data.email})")
+            raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
+        
+        if not verify_password(user_data.password, user.hashed_password):
+            logger.warning(f"❌ Login falhou: Senha incorreta ({user_data.email})")
+            raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
 
-    if not user.is_active:
-        raise HTTPException(status_code=400, detail="E-mail não verificado. Por favor, ative sua conta.")
-    
-    # === VERIFICACAO 2FA ===
-    if user.is_totp_enabled:
-        # Gerar Token Temporario (Scope: PRE_2FA)
-        temp_token = create_access_token(
-            data={"sub": user.email, "role": "PRE_2FA"},
-            expires_delta=timedelta(minutes=5)
+        if not user.is_active:
+             logger.warning(f"⚠️ Login bloqueado: Conta inativa ({user_data.email})")
+             raise HTTPException(status_code=400, detail="E-mail não verificado. Por favor, ative sua conta.")
+        
+        # === VERIFICACAO 2FA ===
+        if user.is_totp_enabled:
+            logger.info(f"🔐 Redirecionando para 2FA: {user.email}")
+            # Gerar Token Temporario (Scope: PRE_2FA)
+            temp_token = create_access_token(
+                data={"sub": user.email, "role": "PRE_2FA"},
+                expires_delta=timedelta(minutes=5)
+            )
+            
+            return {
+                "access_token": temp_token,
+                "token_type": "bearer",
+                "role": "pre_auth",
+                "username": user.full_name,
+                "requires_2fa": True
+            }
+
+        # Login Direto (Sem 2FA)
+        access_token = create_access_token(
+            data={"sub": user.email, "role": user.role}
         )
         
+        logger.info(f"✅ Login com sucesso: {user.email}")
         return {
-            "access_token": temp_token,
-            "token_type": "bearer",
-            "role": "pre_auth",
+            "access_token": access_token, 
+            "token_type": "bearer", 
+            "role": user.role, 
             "username": user.full_name,
-            "requires_2fa": True
+            "requires_2fa": False
         }
 
-    # Login Direto (Sem 2FA)
-    access_token = create_access_token(
-        data={"sub": user.email, "role": user.role}
-    )
-    
-    return {
-        "access_token": access_token, 
-        "token_type": "bearer", 
-        "role": user.role, 
-        "username": user.full_name,
-        "requires_2fa": False
-    }
+    except HTTPException:
+        raise # Re-raise known errors
+    except Exception as e:
+        logger.error(f"💥 ERRO CRÍTICO NO LOGIN: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail=f"Erro interno de login: {str(e)}"
+        )
+
 
 # ==========================================
 # 2FA (TOTP)

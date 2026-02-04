@@ -73,7 +73,7 @@ export default function LoginPage() {
 
             const urlParams = new URLSearchParams(window.location.search);
             const redirectParam = urlParams.get('redirect');
-            const targetUrl = redirectParam || (data.role === "admin" ? "/dashboard/admin" : data.role === "subscriber" ? "/onboarding" : "/dashboard");
+            const targetUrl = redirectParam || (data.role === "admin" ? "/dashboard/admin" : "/academy/lab");
 
             router.push(targetUrl);
             router.refresh();
