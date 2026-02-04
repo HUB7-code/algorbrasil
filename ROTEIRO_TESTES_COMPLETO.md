@@ -1,7 +1,57 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 03/02/2026
-**Versão:** V18.3.0 (Authentication Audit)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Autenticação, E-mail System e Segurança.
+**Data:** 04/02/2026
+**Versão:** V20.1.0 (ISO 42001 Assessment)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação e Gamification.
+
+---
+
+## 🎓 JORNADA 12: ACADEMY REVOLUTION (V20.1.0)
+
+### Objetivo: Validar Player de Ensino, Quiz e Conteúdo ISO 42001
+
+#### 12.1 Navegação do Curso (`/academy/lab/content/42001_context`)
+- [ ] Acesse a aula "42.001 - Contextualização".
+- [ ] **Player Check:**
+  - [ ] Vídeo do YouTube carrega (iframe).
+  - [ ] Título e botões de ação visíveis.
+- [ ] **Playlist Lateral:**
+  - [ ] Clique no cabeçalho "Etapa 01" para expandir/colapsar.
+  - [ ] Verifique se a lista de aulas aparece.
+  - [ ] Ícone de "Play" deve estar ativo na aula atual.
+- [ ] **Descrição Rica:**
+  - [ ] Verifique se o texto está formatado (HTML) com listas e boxes coloridos.
+  - [ ] Não deve haver tags quebradas ou texto cru.
+
+#### 12.2 Downloads de Materiais
+- [ ] Localize a seção "Materiais da Aula" na lateral direita.
+- [ ] Verifique os 5 itens listados (PDFs, Excel, Doc).
+- [ ] **Teste de Download:**
+  - [ ] Clique em "Checklist Prático (.xlsx)".
+  - [ ] O download deve iniciar imediatamente.
+  - [ ] Repita para o "Manual do Auditor (.pdf)".
+
+#### 12.3 Quiz Interativo (Auto Avaliação)
+- [ ] Na playlist, clique em "Testes de Auto Avaliação".
+- [ ] **Interface Check:**
+  - [ ] O player de vídeo deve sumir.
+  - [ ] O Quiz deve aparecer com título "Teste seus Conhecimentos".
+  - [ ] 6 Questões devem estar listadas.
+- [ ] **Validação de Respostas:**
+  - [ ] Responda apenas 3 questões. Botão "Enviar" deve estar **BLOQUEADO**.
+  - [ ] Responda todas. Botão "Enviar" deve liberar.
+  - [ ] Envie com respostas erradas (propositalmente).
+  - [ ] Feedback visual deve mostrar erros em vermelho.
+  - [ ] Score deve ser baixo (<70%). Toast de erro deve aparecer.
+- [ ] **Sucesso:**
+  - [ ] Tente novamente e acerte >70%.
+  - [ ] Feedback visual verde "Excelente!".
+  - [ ] Botão "Concluir Etapa" desbloqueia.
+
+#### 12.4 Gamification (XP)
+- [ ] Complete uma aula de vídeo (clique "Marcar como Concluída").
+- [ ] **Feedback:**
+  - [ ] Toast Premium: "Você ganhou +150 XP!".
+  - [ ] Verifique se a barra de XP no topo (Navbar) aumentou.
 
 ---
 

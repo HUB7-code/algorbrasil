@@ -1,35 +1,38 @@
-**Versão Atual:** V20.0.0 "Algor Lab Revolution"
+**Versão Atual:** V20.1.0 "ISO 42001 Content & Assessment"
 **Data da Última Atualização:** 04/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed)
 
-### 🎯 Últimas Conquistas (V20.0.0 - "Algor Lab Revolution")
+### 🎯 Últimas Conquistas (V20.1.0 - "ISO 42001 Assessment")
 
-1.  **Algor Lab V2.0 (Netflix Style):**
+1.  **Engine de Ensino & Avaliação:**
+    *   **Quiz Interativo:** Sistema nativo de avaliação múltipla escolha integrado ao player.
+    *   **Feedback em Tempo Real:** Correção imediata com cálculo de score.
+    *   **Gate de Aprovação:** Liberação de conclusão condicionada a nota mínima (70%).
+    *   **Conteúdo Dinâmico:** Estrutura JSON/TS escalável para módulos e aulas (`iso42001.ts`).
+
+2.  **Conteúdo ISO 42001 - Etapa 01 (Completa):**
+    *   ✅ **Aula 1.1:** Contextualização e Escopo (Vídeo + 5 Materiais).
+    *   ✅ **Aula 1.2:** IA 2030 - Tendências e Modelos (Texto Rico + 2 Reports).
+    *   ✅ **Avaliação:** Quiz com 6 questões técnicas sobre a etapa.
+
+3.  **Algor Lab V2.0 (Netflix Style):**
     *   **Interface Imersiva:** Design escuro, hero section dinâmica, carrosséis de conteúdo e categorização.
     *   **Player de Vídeo:** Detalhes ricos, lista de micro-aulas e materiais de apoio.
-    *   **Organização de Conteúdo:** Vitrine com "Destaques" sepadando cursos ativos de avisos "Em Breve".
     *   **Assets Visuais:** Capas hiper-realistas (SGIA e Auditor ISO 42001) para alto impacto visual.
 
-2.  **Gamification Engine (MVP):**
+4.  **Gamification Engine (MVP):**
     *   **XP System:** Sistema de experiência integrado no frontend.
-    *   **Componentes:** Barra de progresso, emblema de nível na Navbar.
-    *   **Feedback:** Animações e Toasts "Premium" ao completar lições.
-    *   **Conquista:** Recompensa de XP ao finalizar aulas.
+    *   **Visual:** Barra de progresso e emblema de nível.
+    *   **Recompensas:** XP ao assistir aulas e bônus ao passar nos Quizzes.
 
-3.  **Progressive Web App (PWA):**
+5.  **Progressive Web App (PWA):**
     *   **Instalação:** App habilitado para instalação em Desktop e Mobile.
-    *   **Mobile-First:** Experiência otimizada para toque e telas pequenas.
-    *   **Configuração:** Manifesto e Service Workers configurados.
+    *   **Mobile-First:** Experiência otimizada para toque.
 
-4.  **Backend & Security Fixes:**
-    *   **Login Reliability:** Correção definitiva do erro 500 no endpoint de login.
-    *   **YouTube Integration:** Suporte a vídeos "Unlisted" para streaming eficiente e seguro.
-    *   **Material Download:** Hospedagem direta de PDFs (e.g., `aula-magna.pdf`) no VPS.
+6.  **Assets & Materials:**
+    *   ✅ Biblioteca de 7 arquivos (PDFs/Excel/Doc) hospedada e linkada.
+    *   ✅ Ícones e Indicadores visuais de tipo de arquivo.
 
-5.  **Documentation & Assets:**
-    *   ✅ `aula-magna.pdf` - Slides integrados.
-    *   ✅ Capas Hiper-realistas - Artes exclusivas para os cursos.
-    *   ✅ `PROJECT_STATUS_MEMORIA.md` - Atualizado para V20.
 
 ---
 
@@ -47,6 +50,7 @@
 
 ### 📜 Histórico de Versões
 
+- [x] **V20.1.0:** "ISO 42001 Assessment" - Quiz Engine, Etapa 1 Completa, Novos Materiais.
 - [x] **V20.0.0:** "Algor Lab Revolution" - Netflix UI, Gamification, PWA, Assets Premium.
 - [x] **V19.0.0:** "Simplification & Focus" - Redução de 44% nas páginas, rebranding.
 - [x] **V18.4.0:** "Infrastructure Hardening" - Database fix, email system, onboarding simplificado.

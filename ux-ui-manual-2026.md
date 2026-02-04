@@ -744,6 +744,38 @@ Usuários devem poder aumentar:
 
 ---
 
+## 🧩 Componentes Proprietários (Algor Design) {#componentes-proprietarios}
+
+### ISO 42001 Assessment UI (Quiz Engine)
+**Introduzido em:** V20.1.0
+
+**Conceito:**
+Interface de avaliação imersiva que substitui o player de vídeo padrão. Foca na concentração do usuário e feedback instantâneo.
+
+**Estrutura Visual:**
+1.  **Container:**
+    *   Substitui o iframe de vídeo (`aspect-video` ou altura mínima de 500px).
+    *   Background: `bg-[#0A1A2F]` (Deep Navy).
+    *   Border: `border-white/10`.
+
+2.  **Questões:**
+    *   **Card da Pergunta:** `bg-[#141922]` com `rounded-xl`.
+    *   **Seleção:** Radio buttons customizados com highlight verde neon (`#00FF94`) ao selecionar.
+    *   **Estado:**
+        *   *Normal:* Texto cinza, borda transparente.
+        *   *Selecionado:* Borda verde, texto branco, fundo verde/10.
+
+3.  **Feedback (Pós-envio):**
+    *   **Score Circular:** Anel colorido (Verde >70%, Vermelho <70%) com a nota no centro.
+    *   **Mensagem de Sucesso:** Animação `fade-in-zoom` com confetes (opcional) ou toast premium.
+    *   **Gatekeeper:** Botão "Concluir Etapa" só aparece se Score >= 70%.
+
+4.  **Botão de Ação (Quantum Action):**
+    *   Estilo largo (`w-full`), Gradiente Neon, Fonte Orbitron Bold.
+    *   `disabled`: Opacidade 50%, cursor bloqueado até todas as questões serem respondidas.
+
+---
+
 ## 📚 Melhores Práticas {#melhores-praticas}
 
 ### Performance Web
