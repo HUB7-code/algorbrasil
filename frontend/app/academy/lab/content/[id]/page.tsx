@@ -109,15 +109,15 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
             timestamp: new Date().toISOString()
         }));
 
-        if (score >= 80) {
+        if (score >= 100) {
             toast.success('Aprovado!', {
-                description: `Excelente desempenho: ${score}%`,
+                description: `Perfeito! Desempenho máximo: ${score}%`,
                 style: { background: '#0A1A2F', border: '1px solid #00FF94', color: '#fff' }
             });
             handleLessonComplete();
         } else {
             toast.error('Reprovado.', {
-                description: 'Você não atingiu o mínimo de 80%.',
+                description: 'A auto-avaliação exige 100% de acerto.',
                 style: { background: '#0A1A2F', border: '1px solid red', color: '#fff' }
             });
         }
@@ -179,23 +179,23 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                         Resultado do <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-blue-500">Diagnóstico</span>
                                                     </h2>
                                                     <div className="mt-8 mb-8 flex justify-center">
-                                                        <div className={`relative w-48 h-48 rounded-full flex flex-col items-center justify-center border-[6px] shadow-2xl backdrop-blur-xl transition-all duration-1000 ${quizScore >= 80
+                                                        <div className={`relative w-48 h-48 rounded-full flex flex-col items-center justify-center border-[6px] shadow-2xl backdrop-blur-xl transition-all duration-1000 ${quizScore >= 100
                                                             ? 'bg-[#00FF94]/10 border-[#00FF94] text-[#00FF94] shadow-[0_0_50px_rgba(0,255,148,0.2)]'
                                                             : 'bg-red-500/10 border-red-500 text-red-500 shadow-[0_0_50px_rgba(239,68,68,0.2)]'
                                                             }`}>
-                                                            <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse-slow ${quizScore >= 80 ? 'bg-green-500/20' : 'bg-red-500/20'}`} />
+                                                            <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse-slow ${quizScore >= 100 ? 'bg-green-500/20' : 'bg-red-500/20'}`} />
                                                             <span className="text-6xl font-bold font-orbitron tracking-tighter relative z-10">{quizScore}%</span>
                                                             <span className="text-xs font-bold uppercase tracking-widest mt-2 opacity-70 relative z-10">
-                                                                {quizScore >= 80 ? 'APROVADO' : 'REPROVADO'}
+                                                                {quizScore >= 100 ? 'APROVADO' : 'REPROVADO'}
                                                             </span>
                                                         </div>
                                                     </div>
                                                     <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed border-b border-white/10 pb-8 mb-8">
-                                                        {quizScore >= 80
-                                                            ? 'Excelente. Você demonstrou proficiência técnica alinhada aos padrões ISO 42001.'
-                                                            : 'Sua pontuação não atingiu o critério mínimo de 80%. Esta tentativa única foi registrada. Recomendamos revisitar o material.'}
+                                                        {quizScore >= 100
+                                                            ? 'Excelente. Você demonstrou domínio total do conteúdo alinhado aos padrões ISO 42001.'
+                                                            : 'Sua pontuação não atingiu o critério de excelência (100%). Esta tentativa única foi registrada.'}
                                                     </p>
-                                                    {quizScore >= 80 && (
+                                                    {quizScore >= 100 && (
                                                         <button
                                                             onClick={handleQuizFinish}
                                                             className="px-10 py-4 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-xl font-bold transition-all shadow-[0_0_30px_rgba(0,255,148,0.3)] hover:shadow-[0_0_50px_rgba(0,255,148,0.4)] hover:scale-[1.02] flex items-center justify-center gap-2 mx-auto mb-12"
@@ -212,7 +212,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                     </h2>
                                                     <p className="text-gray-400 max-w-lg mx-auto">
                                                         Atenção: Você tem apenas <strong className="text-white">UMA tentativa</strong>.
-                                                        Nota mínima para aprovação: <strong className="text-[#00FF94]">80%</strong>.
+                                                        Nota mínima para aprovação: <strong className="text-[#00FF94]">100%</strong>.
                                                     </p>
                                                     {/* Progress Bar */}
                                                     <div className="mt-8 w-full max-w-md mx-auto h-1.5 bg-gray-800 rounded-full overflow-hidden">
