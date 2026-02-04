@@ -19,7 +19,7 @@ const mockContents = {
             duration: 0,
             level: 'advanced' as const,
             instructor: 'Em Breve',
-            thumbnail: '/AI_Gov.png',
+            thumbnail: '/images/content/sgia_cover.png',
             isNew: false,
         },
         {
