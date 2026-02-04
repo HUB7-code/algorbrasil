@@ -105,7 +105,7 @@ export default function Navbar() {
                         {[
                             { href: '/academy', label: 'Algor Lab', color: '#8B5CF6' },
                             { href: '/blog', label: 'Blog', color: '#F59E0B' },
-                            { href: '/board', label: 'Board', color: '#00FF94' },
+                            { href: '/board', label: 'Membros Associados', color: '#00FF94' },
                         ].map((link) => (
                             <Link key={link.href} href={link.href} className="relative group px-4 py-2 hover:text-white transition-colors">
                                 {link.label}
@@ -181,7 +181,7 @@ export default function Navbar() {
                                 {[
                                     { href: '/academy', label: 'Algor Lab', icon: GraduationCap },
                                     { href: '/blog', label: 'Blog', icon: BookOpen },
-                                    { href: '/board', label: 'Board', icon: Building2 },
+                                    { href: '/board', label: 'Membros Associados', icon: Building2 },
                                 ].map((link) => (
                                     <Link key={link.href} href={link.href} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#00FF94]/30 active:scale-95 transition-all" onClick={() => setMobileMenuOpen(false)}>
                                         <link.icon className="w-5 h-5 text-gray-400" />
