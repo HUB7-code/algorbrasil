@@ -62,7 +62,7 @@ const boardMembers = [
     },
     {
         name: 'Marci Dantas',
-        role: 'Conselheira',
+        role: 'Delegada Regional - Fortaleza CE',
         image: '/images/membro_10_marci_dantas.webp',
         linkedin: 'https://www.linkedin.com/in/marcidantas-ia-governanca/'
     },
