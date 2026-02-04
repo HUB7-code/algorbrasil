@@ -10,65 +10,27 @@ import ContentCarousel from '@/components/lab/ContentCarousel';
 
 // Mock Data (será substituído por API)
 const mockContents = {
-    new: [
+    featured: [
+        {
+            id: 'sgia-locked',
+            title: 'FORMAÇÃO DE GESTOR DE SISTEMAS DE GESTÃO DE INTELIGÊNCIA ARTIFICIAL (SGIA)',
+            description: 'Torne-se um gestor completo de IA. Em breve disponível para membros ALGOR.',
+            type: 'video' as const,
+            duration: 0,
+            level: 'advanced' as const,
+            instructor: 'Em Breve',
+            thumbnail: '/images/content/sgia-cover.webp',
+            isNew: false,
+        },
         {
             id: '1',
-            title: 'ISO 42001 - Módulo 1: Introdução',
-            description: 'Entenda os fundamentos da norma ISO 42001. Dividido em micro-aulas para facilitar seu aprendizado.',
+            title: 'Formação de Advisor/Auditor de Inteligência Artificial - Management System (ISO/IEC 42001:2024)',
+            description: 'Formação completa com certificação. Aulas gravadas, material de apoio e simulados.',
             type: 'video' as const,
-            duration: 45,
-            level: 'beginner' as const,
-            instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/iso-42001-intro.webp',
-            isNew: true,
-            microModules: [
-                { id: '1.1', title: 'O que é a ISO 42001?', duration: 5, completed: true },
-                { id: '1.2', title: 'Por que certificar?', duration: 7, completed: true },
-                { id: '1.3', title: 'Estrutura de Alto Nível (HLS)', duration: 8, completed: false },
-                { id: '1.4', title: 'Quiz Rápido: Fundamentos', duration: 2, type: 'quiz', completed: false },
-            ]
-        },
-        {
-            id: '2',
-            title: 'Checklist de Implementação ISO 42001',
-            description: 'Guia completo para implementação',
-            type: 'pdf' as const,
-            duration: 15,
-            level: 'intermediate' as const,
-            instructor: 'Edisio Nascimento',
-            thumbnail: '/images/content/checklist-iso.webp',
-            isNew: true,
-        },
-        {
-            id: '3',
-            title: 'LGPD e IA: Compliance Prático',
-            description: 'Como adequar sistemas de IA à LGPD',
-            type: 'video' as const,
-            duration: 60,
-            level: 'intermediate' as const,
-            instructor: 'Marci Dantas',
-            thumbnail: '/images/content/lgpd-ia.webp',
-            isNew: true,
-        },
-        {
-            id: '4',
-            title: 'Template de Política de IA',
-            description: 'Modelo editável de política organizacional',
-            type: 'doc' as const,
-            level: 'intermediate' as const,
-            instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/template-politica.webp',
-            isNew: true,
-        },
-        {
-            id: '5',
-            title: 'PL 2338 - Análise Completa',
-            description: 'Entenda o projeto de lei brasileiro sobre IA',
-            type: 'video' as const,
-            duration: 90,
+            duration: 120, // Aula Magna
             level: 'advanced' as const,
             instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/pl-2338.webp',
+            thumbnail: '/images/content/iso-42001-intro.webp',
             isNew: true,
         },
     ],
@@ -106,16 +68,6 @@ const mockContents = {
             thumbnail: '/images/content/trilha-iso.webp',
         },
         {
-            id: '9',
-            title: 'Trilha LGPD para IA',
-            description: '8 módulos sobre compliance',
-            type: 'video' as const,
-            duration: 360,
-            level: 'intermediate' as const,
-            instructor: 'Marci Dantas',
-            thumbnail: '/images/content/trilha-lgpd.webp',
-        },
-        {
             id: '10',
             title: 'Trilha PL 2338',
             description: '6 módulos sobre legislação brasileira',
@@ -136,16 +88,6 @@ const mockContents = {
             thumbnail: '/images/content/matriz-riscos.webp',
         },
         {
-            id: '12',
-            title: 'Guia de Auditoria Interna',
-            description: 'PDF com checklist completo',
-            type: 'pdf' as const,
-            duration: 20,
-            level: 'advanced' as const,
-            instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/guia-auditoria.webp',
-        },
-        {
             id: '13',
             title: 'Política de Governança - Template',
             description: 'Documento Word editável',
@@ -164,16 +106,6 @@ const mockContents = {
             level: 'advanced' as const,
             instructor: 'Paulo Carvalho',
             thumbnail: '/images/content/certificacao.webp',
-        },
-        {
-            id: '15',
-            title: 'IA Responsável na Prática',
-            description: 'Cases reais de implementação',
-            type: 'video' as const,
-            duration: 90,
-            level: 'intermediate' as const,
-            instructor: 'Marci Dantas',
-            thumbnail: '/images/content/ia-responsavel.webp',
         },
     ],
     webinars: [
@@ -200,6 +132,10 @@ export default function AlgorLabPage() {
     const router = useRouter();
 
     const handleCardClick = (id: string) => {
+        if (id.includes('locked')) {
+            alert('⚠️ Em breve!\n\nEsta formação será liberada nas próximas semanas. Fique atento às notificações.');
+            return;
+        }
         router.push(`/academy/lab/content/${id}`);
     };
 
@@ -217,25 +153,26 @@ export default function AlgorLabPage() {
                 title="ALGOR LAB"
                 subtitle="Laboratório de Excelência em Governança de IA"
                 continueWatching={{
-                    title: 'ISO 42001 - Módulo 3: Controles',
-                    progress: 40,
-                    thumbnail: '/images/content/iso-controles.webp',
+                    title: 'Formação Advisor ISO 42001',
+                    progress: 10,
+                    thumbnail: '/images/content/iso-42001-intro.webp',
                 }}
-                overallProgress={67}
+                overallProgress={15}
             />
 
             {/* Main Content */}
             <div className="pb-20">
-                {/* New Content */}
+                {/* Featured Formations - THE MAIN REQUEST */}
                 <ContentCarousel
-                    title="Novos Conteúdos"
-                    icon={<Flame className="w-6 h-6" />}
-                    contents={mockContents.new}
+                    title="Formações em Destaque"
+                    icon={<Star className="w-6 h-6 text-[#00FF94]" />}
+                    contents={mockContents.featured}
                     onCardClick={handleCardClick}
                     onDownload={handleDownload}
                 />
 
                 {/* Continue Watching */}
+
                 <ContentCarousel
                     title="Continuar Assistindo"
                     icon={<BookOpen className="w-6 h-6" />}
