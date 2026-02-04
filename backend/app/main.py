@@ -76,22 +76,30 @@ async def set_secure_headers(request: Request, call_next):
         pass
     return response
 
-# Rotas
-# Rotas - Correção de Imports baseada na estrutura real
+# Rotas - Imports baseados na estrutura real
 from backend.app.api import auth, profiles, leads
-from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard
+from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard, lms
 from backend.app.api.endpoints.inventory import assets as inventory_assets
 
-app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
-app.include_router(profiles.router, prefix="/api/v1", tags=["User Profiles (Onboarding)"])
-# app.include_router(users.router, prefix="/api/v1/users", tags=["users"]) # Desativado: Módulo não encontrado
-app.include_router(organizations.router, prefix="/api/v1/enterprise", tags=["enterprise"]) # Assumindo organizations=enterprise
-app.include_router(admin.router, prefix="/api/v1/admin", tags=["admin"])
-app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab (Audit)"])
-app.include_router(risks.router, prefix="/api/v1/risks", tags=["Risk Register (ISO 42001)"])
-app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["Dashboard CoE"])
-app.include_router(inventory_assets.router, prefix="/api/v1/inventory", tags=["AI Asset Inventory"])
-app.include_router(leads.router, prefix="/api/v1") # Leads Router (Diagnostic & Contact)
+# Autenticação e Perfis
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
+app.include_router(profiles.router, prefix="/api/v1", tags=["User Profiles"])
+
+# Enterprise e Admin
+app.include_router(organizations.router, prefix="/api/v1/enterprise", tags=["Enterprise"])
+app.include_router(admin.router, prefix="/api/v1/admin", tags=["Admin Panel"])
+
+# Ferramentas de Governança
+app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab"])
+app.include_router(risks.router, prefix="/api/v1/risks", tags=["Risk Register"])
+app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["Dashboard"])
+app.include_router(inventory_assets.router, prefix="/api/v1/inventory", tags=["AI Inventory"])
+
+# LMS (Learning Management System)
+app.include_router(lms.router, prefix="/api/lms", tags=["LMS - Academy"])
+
+# Leads e Formulários
+app.include_router(leads.router, prefix="/api/v1", tags=["Leads"])
 
 @app.get("/")
 def read_root():

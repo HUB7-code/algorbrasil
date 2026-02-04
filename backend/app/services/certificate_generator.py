@@ -40,14 +40,28 @@ class CertificateGeneratorV2:
         c.setLineWidth(1)
         c.rect(25*mm, 25*mm, page_width - 50*mm, page_height - 50*mm, fill=0, stroke=1)
         
-        # === LOGO ALGOR (Placeholder - substituir por imagem real) ===
-        # Verificar se logo existe
-        logo_path = "frontend/public/logo-algor-white.png"
-        if os.path.exists(logo_path):
-            c.drawImage(logo_path, page_width/2 - 30*mm, page_height - 60*mm, 
-                       width=60*mm, height=15*mm, preserveAspectRatio=True, mask='auto')
-        else:
-            # Fallback: Texto
+        # === LOGO ALGOR ===
+        # Tentar carregar logo do frontend/public
+        logo_paths = [
+            os.path.join(os.path.dirname(__file__), "../../../frontend/public/images/algor_association_logo_light.png"),
+            os.path.join(os.path.dirname(__file__), "../../../frontend/public/logo-symbol.png"),
+            "frontend/public/images/algor_association_logo_light.png",
+            "frontend/public/logo-symbol.png"
+        ]
+        
+        logo_loaded = False
+        for logo_path in logo_paths:
+            if os.path.exists(logo_path):
+                try:
+                    c.drawImage(logo_path, page_width/2 - 30*mm, page_height - 60*mm, 
+                               width=60*mm, height=15*mm, preserveAspectRatio=True, mask='auto')
+                    logo_loaded = True
+                    break
+                except Exception as e:
+                    continue
+        
+        if not logo_loaded:
+            # Fallback: Texto estilizado
             c.setFont("Helvetica-Bold", 32)
             c.setFillColor(colors.white)
             c.drawCentredString(page_width/2, page_height - 50*mm, "ALGOR")
