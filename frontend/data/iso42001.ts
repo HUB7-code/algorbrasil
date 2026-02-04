@@ -6,14 +6,22 @@ export interface CourseMaterial {
     downloadUrl: string;
 }
 
+export interface QuizQuestion {
+    id: string;
+    question: string;
+    options: string[];
+    correctAnswer: number; // Index of the correct option (0-based)
+}
+
 export interface CourseLesson {
     id: string;
     title: string;
-    videoUrl: string; // YouTube Embed URL or similar
+    videoUrl?: string; // Optional now
     duration: number; // minutes
-    description: string; // HTML allowed
+    description?: string; // Optional now
     completed?: boolean;
     materials?: CourseMaterial[];
+    quiz?: QuizQuestion[]; // New field for Quizzes
 }
 
 export interface CourseModule {
@@ -70,7 +78,6 @@ export const iso42001Content: CourseModule[] = [
                             <strong class="text-[#00FF94] block mb-2 text-lg">Objetivos da Aula</strong>
                             <p>Nesta aula, abordaremos a Cláusula 4 da ISO/IEC 42001, fundamental para estabelecer as bases do Sistema de Gestão de IA, incluindo o entendimento do contexto organizacional e a definição do escopo.</p>
                         </div>
-
                         <div class="space-y-4">
                             <h3 class="text-xl font-bold text-white font-orbitron">1. Entendendo o Contexto da IA na Prática</h3>
                             <ul class="list-disc pl-5 space-y-2 text-gray-400">
@@ -78,7 +85,6 @@ export const iso42001Content: CourseModule[] = [
                                 <li><strong>Diagnóstico Externo:</strong> Análise de mercado, regulamentações e tendências tecnológicas.</li>
                             </ul>
                         </div>
-
                         <div class="space-y-4">
                             <h3 class="text-xl font-bold text-white font-orbitron">2. Expectativas das Partes Interessadas</h3>
                             <ul class="list-disc pl-5 space-y-2 text-gray-400">
@@ -88,7 +94,6 @@ export const iso42001Content: CourseModule[] = [
                                 <li>Plano de Atendimento e Acompanhamento.</li>
                             </ul>
                         </div>
-
                         <div class="space-y-4">
                             <h3 class="text-xl font-bold text-white font-orbitron">3. Definição do Escopo de IA</h3>
                             <p>Delimitação das fronteiras do SGIA, considerando os produtos, serviços e departamentos envolvidos.</p>
@@ -127,7 +132,6 @@ export const iso42001Content: CourseModule[] = [
                             <strong class="text-[#00FF94] block mb-2 text-lg">Visão Geral</strong>
                             <p>Esta aula explora as tendências tecnológicas que definirão a próxima década da Inteligência Artificial, fundamentada no relatório "2025 Tech Trends" e pesquisas de ponta.</p>
                         </div>
-
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="space-y-4">
                                 <h3 class="text-xl font-bold text-white font-orbitron border-b border-white/10 pb-2">Evolução dos Modelos</h3>
@@ -140,7 +144,6 @@ export const iso42001Content: CourseModule[] = [
                                     <li>Autonomia dos Especialistas</li>
                                 </ul>
                             </div>
-
                             <div class="space-y-4">
                                 <h3 class="text-xl font-bold text-white font-orbitron border-b border-white/10 pb-2">Arquitetura e Escala</h3>
                                 <ul class="list-disc pl-5 space-y-2 text-gray-400">
@@ -151,8 +154,7 @@ export const iso42001Content: CourseModule[] = [
                                 </ul>
                             </div>
                         </div>
-
-                        <div class="bg-indigo-900/10 p-5 rounded-xl border border-indigo-500/20 mt-4">
+                         <div class="bg-indigo-900/10 p-5 rounded-xl border border-indigo-500/20 mt-4">
                             <h3 class="text-indigo-400 font-bold font-orbitron mb-3">Fronteiras da Inovação</h3>
                             <ul class="list-disc pl-5 space-y-2 text-gray-300">
                                 <li><strong>Superando a escassez de dados:</strong> O papel dos dados sintéticos.</li>
@@ -181,9 +183,45 @@ export const iso42001Content: CourseModule[] = [
             {
                 id: 'auto_avaliacao_01',
                 title: 'Testes de Auto Avaliação - Etapa 01',
-                videoUrl: '',
-                duration: 30,
-                description: '<p class="text-gray-400">Quiz de validação de conhecimento.</p>'
+                duration: 15,
+                quiz: [
+                    {
+                        id: 'q1',
+                        question: 'Qual das alternativas NÃO é um papel reconhecido em relação ao uso de IA dentro das organizações?',
+                        options: [
+                            'Desenvolvedor',
+                            'Usuário final',
+                            'Parceiro de dados',
+                            'Sujeito de IA',
+                            'Regulador externo'
+                        ],
+                        correctAnswer: 4
+                    },
+                    {
+                        id: 'q2',
+                        question: 'No diagnóstico interno proposto na aula, qual é um dos aspectos analisados?',
+                        options: [
+                            'Nível de concorrência global',
+                            'Existência de metas SMART para IA',
+                            'Clareza sobre objetivos com o uso de IA',
+                            'Frequência de atualizações dos servidores',
+                            'Compatibilidade com normas da ISO 9001'
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        id: 'q3',
+                        question: 'Qual das afirmações abaixo representa uma expectativa correta do sistema de gestão de IA, segundo a ISO 42001?',
+                        options: [
+                            'Automatizar todos os processos de uma organização, sem exceções',
+                            'Eliminar qualquer tipo de supervisão humana nos sistemas de IA',
+                            'Garantir valor com a IA, evitando riscos inesperados',
+                            'Substituir a gestão de riscos tradicionais por IA autônoma',
+                            'Centralizar todas as decisões em um único algoritmo'
+                        ],
+                        correctAnswer: 2
+                    }
+                ]
             }
         ]
     }

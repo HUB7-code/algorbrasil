@@ -17,6 +17,11 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
     const [completedLessons, setCompletedLessons] = useState<string[]>([]);
     const [expandedModules, setExpandedModules] = useState<string[]>(['mod_intro']);
 
+    // Quiz State
+    const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
+    const [quizSubmitted, setQuizSubmitted] = useState(false);
+    const [quizScore, setQuizScore] = useState(0);
+
     const { addXp } = useGamification();
 
     // Find current active lesson data layout
@@ -47,6 +52,34 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
         }
     };
 
+    const handleSubmitQuiz = () => {
+        if (!currentLesson?.quiz) return;
+
+        let correctCount = 0;
+        currentLesson.quiz.forEach(q => {
+            if (quizAnswers[q.id] === q.correctAnswer) {
+                correctCount++;
+            }
+        });
+
+        const score = Math.round((correctCount / currentLesson.quiz.length) * 100);
+        setQuizScore(score);
+        setQuizSubmitted(true);
+
+        if (score >= 70) {
+            toast.success('Parabéns! Você passou no teste.', {
+                description: `Você acertou ${correctCount} de ${currentLesson.quiz.length} questões.`,
+                style: { background: '#0A1A2F', border: '1px solid #00FF94', color: '#fff' }
+            });
+            handleLessonComplete();
+        } else {
+            toast.error('Tente novamente.', {
+                description: 'Você precisa de pelo menos 70% de acerto.',
+                style: { background: '#0A1A2F', border: '1px solid red', color: '#fff' }
+            });
+        }
+    };
+
     if (!currentLesson) return <div>Carregando...</div>;
 
     return (
@@ -67,28 +100,132 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                     {/* LEFT COLUMN: Player (3 cols) */}
                     <div className="lg:col-span-3">
                         {/* Video Player Container */}
-                        <div className="relative aspect-video w-full bg-black rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group mb-8">
-                            {isPlaying ? (
-                                <iframe
-                                    src={`${currentLesson.videoUrl}?autoplay=1&modestbranding=1&rel=0`}
-                                    className="w-full h-full"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                />
+                        {/* Media Player or Quiz Interface */}
+                        <div className={`relative w-full bg-black rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group mb-8 ${currentLesson.quiz ? 'min-h-[500px] flex flex-col' : 'aspect-video'}`}>
+
+                            {/* QUIZ MODE */}
+                            {currentLesson.quiz ? (
+                                <div className="flex-1 p-8 bg-[#0A1A2F] flex flex-col items-center justify-center">
+                                    {!quizSubmitted ? (
+                                        <div className="w-full max-w-3xl space-y-8">
+                                            <div className="text-center mb-8">
+                                                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00FF94]/10 text-[#00FF94] border border-[#00FF94]/20 mb-4">
+                                                    <Award className="w-5 h-5" />
+                                                    <span className="font-bold tracking-wider">QUIZ DE AUTO AVALIAÇÃO</span>
+                                                </div>
+                                                <h2 className="text-3xl font-bold font-orbitron text-white">Teste seus Conhecimentos</h2>
+                                                <p className="text-gray-400 mt-2">Responda as {currentLesson.quiz.length} questões abaixo para completar esta etapa.</p>
+                                            </div>
+
+                                            <div className="space-y-6">
+                                                {currentLesson.quiz.map((q, qIndex) => (
+                                                    <div key={q.id} className="bg-[#141922] p-6 rounded-xl border border-white/5">
+                                                        <h3 className="text-lg font-bold text-white mb-4 flex gap-3">
+                                                            <span className="text-[#00FF94]">{qIndex + 1}.</span>
+                                                            {q.question}
+                                                        </h3>
+                                                        <div className="space-y-3 pl-6">
+                                                            {q.options.map((option, optIndex) => (
+                                                                <label
+                                                                    key={optIndex}
+                                                                    className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-all ${quizAnswers[q.id] === optIndex
+                                                                        ? 'bg-[#00FF94]/10 border-[#00FF94] text-white'
+                                                                        : 'bg-black/20 border-white/10 text-gray-400 hover:bg-white/5'
+                                                                        }`}
+                                                                >
+                                                                    <input
+                                                                        type="radio"
+                                                                        name={q.id}
+                                                                        className="hidden"
+                                                                        checked={quizAnswers[q.id] === optIndex}
+                                                                        onChange={() => setQuizAnswers(prev => ({ ...prev, [q.id]: optIndex }))}
+                                                                    />
+                                                                    <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${quizAnswers[q.id] === optIndex ? 'border-[#00FF94]' : 'border-gray-500'
+                                                                        }`}>
+                                                                        {quizAnswers[q.id] === optIndex && <div className="w-2 h-2 rounded-full bg-[#00FF94]" />}
+                                                                    </div>
+                                                                    <span>{option}</span>
+                                                                </label>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <button
+                                                onClick={handleSubmitQuiz}
+                                                disabled={Object.keys(quizAnswers).length < currentLesson.quiz.length}
+                                                className="w-full py-4 bg-[#00FF94] text-black font-bold font-orbitron rounded-xl hover:bg-[#00CC76] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] mt-8"
+                                            >
+                                                ENVIAR RESPOSTAS
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="text-center w-full max-w-2xl animate-in fade-in zoom-in duration-500">
+                                            <div className="mb-6 inline-flex justify-center">
+                                                <div className={`w-24 h-24 rounded-full flex items-center justify-center text-4xl border-4 ${quizScore >= 70 ? 'bg-green-500/20 border-green-500 text-green-500' : 'bg-red-500/20 border-red-500 text-red-500'
+                                                    }`}>
+                                                    {quizScore}%
+                                                </div>
+                                            </div>
+
+                                            <h2 className="text-4xl font-bold text-white font-orbitron mb-4">
+                                                {quizScore >= 70 ? 'Excelente!' : 'Bom esforço!'}
+                                            </h2>
+                                            <p className="text-xl text-gray-400 mb-8">
+                                                Você acertou {Object.keys(quizAnswers).filter(qid => {
+                                                    const q = currentLesson?.quiz?.find(qz => qz.id === qid);
+                                                    return q && quizAnswers[qid] === q.correctAnswer;
+                                                }).length} de {currentLesson.quiz.length} questões.
+                                            </p>
+
+                                            <div className="flex gap-4 justify-center">
+                                                <button
+                                                    onClick={() => {
+                                                        setQuizSubmitted(false);
+                                                        setQuizAnswers({});
+                                                        setQuizScore(0);
+                                                    }}
+                                                    className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-bold transition-colors"
+                                                >
+                                                    Tentar Novamente
+                                                </button>
+                                                {quizScore >= 70 && (
+                                                    <button
+                                                        onClick={handleLessonComplete}
+                                                        className="px-8 py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-lg font-bold transition-colors shadow-[0_0_20px_rgba(0,255,148,0.3)]"
+                                                    >
+                                                        Concluir Etapa
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             ) : (
-                                <div className="absolute inset-0 bg-gray-900 cursor-pointer" onClick={() => setIsPlaying(true)}>
-                                    <div className="absolute inset-0 opacity-50">
-                                        <ContentPlaceholder type="video" title={currentLesson.title} />
-                                    </div>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="w-24 h-24 bg-[#00FF94]/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.3)]">
-                                            <Play className="w-10 h-10 text-[#00FF94] ml-1" fill="currentColor" />
+                                /* VIDEO PLAYER MODE */
+                                isPlaying ? (
+                                    <iframe
+                                        src={`${currentLesson.videoUrl}?autoplay=1&modestbranding=1&rel=0`}
+                                        className="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                ) : (
+                                    <div className="absolute inset-0 bg-gray-900 cursor-pointer" onClick={() => setIsPlaying(true)}>
+                                        <div className="absolute inset-0 opacity-50">
+                                            <ContentPlaceholder type="video" title={currentLesson.title} />
+                                        </div>
+                                        <div className="absolute inset-0 flex items-center justify-center">
+                                            <div className="w-24 h-24 bg-[#00FF94]/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-[#00FF94]/50 shadow-[0_0_30px_rgba(0,255,148,0.3)]">
+                                                <Play className="w-10 h-10 text-[#00FF94] ml-1" fill="currentColor" />
+                                            </div>
+                                        </div>
+                                        <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black via-black/80 to-transparent">
+                                            <h2 className="text-3xl font-bold text-white font-orbitron">{currentLesson.title}</h2>
                                         </div>
                                     </div>
-                                    <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black via-black/80 to-transparent">
-                                        <h2 className="text-3xl font-bold text-white font-orbitron">{currentLesson.title}</h2>
-                                    </div>
-                                </div>
+                                )
                             )}
                         </div>
 
