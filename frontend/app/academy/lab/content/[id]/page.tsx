@@ -13,11 +13,11 @@ import { useGamification } from '@/hooks/useGamification';
 // Mock Data (simulando fetch do backend)
 const mockContent = {
     id: '1',
-    title: 'ISO 42001 - Módulo 1: Introdução',
-    description: 'Entenda os fundamentos da norma ISO 42001. Este módulo cobre os conceitos básicos, terminologia e a importância da certificação para organizações modernas.',
+    title: 'Aula Magna: Governança de IA',
+    description: 'A primeira formação técnica e estratégica do Brasil focada na implementação prática da ISO/IEC 42001 e conformidade com o PL 2338/2023.',
     type: 'video' as const,
-    url: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-    duration: 45,
+    url: 'https://www.youtube.com/embed/WiVpqOKW6j0',
+    duration: 55,
     level: 'Iniciante',
     instructor: {
         name: 'Paulo Carvalho',
@@ -157,8 +157,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                             key={module.id}
                                             onClick={() => setActiveModule(module.id)}
                                             className={`p-4 border-b border-white/5 cursor-pointer flex items-start gap-3 transition-colors ${activeModule === module.id
-                                                    ? 'bg-[#00FF94]/10 border-l-2 border-l-[#00FF94]'
-                                                    : 'hover:bg-white/5 border-l-2 border-l-transparent'
+                                                ? 'bg-[#00FF94]/10 border-l-2 border-l-[#00FF94]'
+                                                : 'hover:bg-white/5 border-l-2 border-l-transparent'
                                                 }`}
                                         >
                                             <div className="mt-1">
