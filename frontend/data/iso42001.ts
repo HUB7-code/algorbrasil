@@ -272,5 +272,108 @@ export const iso42001Content: CourseModule[] = [
                 ]
             }
         ]
+    },
+    {
+        id: 'etapa_02',
+        title: 'Etapa 02: Liderança e Segurança (Cláusula 5)',
+        lessons: [
+            {
+                id: '42001_leadership',
+                title: '42.001 - Liderança',
+                videoUrl: '', // A definir
+                duration: 90,
+                description: `
+                    <div class="space-y-6 text-gray-300 font-manrope">
+                        <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
+                            <strong class="text-[#00FF94] block mb-2 text-lg">Objetivos da Aula</strong>
+                            <p>Esta aula foca na Cláusula 5 da ISO/IEC 42001, detalhando o papel crucial da Alta Direção e a estrutura de governança necessária para o sucesso do SGIA.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-orbitron">1. Liderança e Comprometimento</h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-400">
+                                <li>Responsabilidades da Alta Direção.</li>
+                                <li>Integração dos requisitos do SGIA nos processos de negócio.</li>
+                                <li>Promoção da melhoria contínua.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-orbitron">2. Política de IA</h3>
+                            <p>Estabelecimento de uma política de IA apropriada, comprometida com requisitos legais e gestão de riscos.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-orbitron">3. Papéis e Responsabilidades</h3>
+                            <p>Definição clara de autoridades e responsabilidades dentro da organização para a gestão de IA.</p>
+                        </div>
+                    </div>
+                `,
+                materials: []
+            },
+            {
+                id: 'ia_2030_security',
+                title: 'IA 2030 - Segurança, Ética e Sociedade',
+                videoUrl: '', // A definir
+                duration: 60,
+                description: `
+                    <div class="space-y-6 text-gray-300 font-manrope">
+                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
+                            <strong class="text-[#00FF94] block mb-2 text-lg">Visão Geral</strong>
+                            <p>Exploração dos desafios de confiança, riscos e impacto social da IA, baseada nas tendências para 2030.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-orbitron">Tópicos Abordados</h3>
+                            <ul class="list-disc pl-5 space-y-2 text-gray-400">
+                                <li><strong>Trust Gap:</strong> A lacuna de confiança na IA.</li>
+                                <li><strong>Riscos Emergentes:</strong> Alucinações, vazamento de dados e viés.</li>
+                                <li><strong>Impacto Social:</strong> O futuro do trabalho e a interação humano-máquina.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `,
+                materials: []
+            },
+            {
+                id: 'auto_avaliacao_02',
+                title: 'Testes de Auto Avaliação - Etapa 02',
+                duration: 15,
+                quiz: [
+                    {
+                        id: 'q1',
+                        question: 'Qual é o papel principal da Alta Direção segundo a Cláusula 5 da ISO 42001?',
+                        options: [
+                            'Desenvolver os algoritmos de IA pessoalmente.',
+                            'Demonstrar liderança e comprometimento com o SGIA.',
+                            'Realizar a manutenção dos servidores.',
+                            'Monitorar as redes sociais da empresa.',
+                            'Nenhuma das anteriores.'
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        id: 'q2',
+                        question: 'O que a Política de IA deve incluir obrigatoriamente?',
+                        options: [
+                            'A lista de todos os funcionários.',
+                            'O orçamento de marketing.',
+                            'Um comprometimento com a satisfação de requisitos aplicáveis e gestão de riscos.',
+                            'A marca do computador usado pelo CEO.',
+                            'Previsão de lucros para 2030.'
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        id: 'q3',
+                        question: 'Em relação à confiança na IA (Trust Gap), qual é um dos principais desafios mencionados?',
+                        options: [
+                            'A IA ser muito lenta.',
+                            'A falta de eletricidade.',
+                            'A opacidade dos modelos ("caixa preta") e alucinações.',
+                            'O custo dos teclados.',
+                            'O excesso de confiança cega dos usuários.'
+                        ],
+                        correctAnswer: 2
+                    }
+                ]
+            }
+        ]
     }
 ];
