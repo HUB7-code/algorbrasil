@@ -44,7 +44,7 @@ const boardMembers = [
     },
     {
         name: 'Fábio Ban',
-        role: 'Conselheiro',
+        role: 'Delegado Regional - Paraná',
         image: '/images/membro_07_fabio_ban.webp',
         linkedin: 'https://www.linkedin.com/in/fabioban/'
     },
