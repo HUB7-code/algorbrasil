@@ -108,8 +108,8 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                 <div className="flex-1 relative bg-[#0A1A2F] flex flex-col items-center justify-center overflow-hidden min-h-[600px]">
                                     {/* Ambient Background Effects */}
                                     <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-                                        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] animate-pulse" />
-                                        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[100px] animate-pulse delay-1000" />
+                                        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[100px] animate-pulse-slow" />
+                                        <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] bg-green-500/5 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
                                     </div>
 
                                     {!quizSubmitted ? (
@@ -217,11 +217,11 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="text-center w-full max-w-2xl animate-in fade-in zoom-in duration-700 p-8">
+                                        <div className="text-center w-full max-w-2xl p-8 animate-pulse-slow">
                                             {/* Result Circle */}
                                             <div className="mb-10 inline-flex justify-center relative">
                                                 {/* Pulsing Glow */}
-                                                <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse ${quizScore >= 70 ? 'bg-green-500/30' : 'bg-red-500/30'
+                                                <div className={`absolute inset-0 rounded-full blur-[50px] animate-pulse-slow ${quizScore >= 70 ? 'bg-green-500/30' : 'bg-red-500/30'
                                                     }`} />
 
                                                 <div className={`relative z-10 w-40 h-40 rounded-full flex flex-col items-center justify-center border-[6px] shadow-2xl backdrop-blur-xl ${quizScore >= 70 ? 'bg-[#00FF94]/10 border-[#00FF94] text-[#00FF94] shadow-[0_0_50px_rgba(0,255,148,0.2)]' : 'bg-red-500/10 border-red-500 text-red-500 shadow-[0_0_50px_rgba(239,68,68,0.2)]'
