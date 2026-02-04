@@ -1,7 +1,68 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
 **Data:** 04/02/2026
-**Versão:** V21.1.0 (Leadership & Hardcore Update)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação Ultra Hardcore (100%) e Novos Conteúdos.
+**Versão:** V21.2.0 (Code Audit & Quality + Certificados)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Certificados PDF, Segurança Hardened e Qualidade de Código.
+
+---
+
+## 🔐 JORNADA 13: CODE AUDIT & CERTIFICATES (V21.2.0)
+
+### Objetivo: Validar Certificados PDF, Segurança Hardened e Qualidade de Código
+
+#### 13.1 Testes de Segurança
+- [ ] **Chave de Encriptação Obrigatória:**
+  - [ ] Remover `DATA_ENCRYPTION_KEY` do `.env`
+  - [ ] Definir `ENVIRONMENT=production`
+  - [ ] Tentar iniciar backend
+  - [ ] **Esperado:** Erro crítico e falha ao iniciar
+  
+- [ ] **URLs Centralizadas:**
+  - [ ] Executar: `grep -r "http://localhost" frontend/app --include="*.tsx"`
+  - [ ] **Esperado:** Apenas em `api-config.ts` como fallback
+
+#### 13.2 Testes de Certificados PDF
+- [ ] **Geração Local:**
+  - [ ] Executar: `python backend/scripts/dev/test_certificate.py`
+  - [ ] Abrir `certificate_test_premium.pdf`
+  - [ ] Verificar:
+    - [ ] Design dark mode com bordas neon green
+    - [ ] QR Code visível e escaneável
+    - [ ] Logo ALGOR (ou fallback texto estilizado)
+    - [ ] Dados corretos (nome, curso, data, ID)
+
+- [ ] **Download via Frontend:**
+  - [ ] Fazer login no sistema
+  - [ ] Completar quiz "Etapa 02" com 100%
+  - [ ] Verificar botão "Baixar Certificado" aparece
+  - [ ] Clicar no botão
+  - [ ] **Esperado:** Download automático de `Certificado_ALGOR_ISO42001_Etapa02.pdf`
+  - [ ] **Esperado:** Toast de sucesso
+
+#### 13.3 Testes de Persistência Backend
+- [ ] **Score e Attempts no Banco:**
+  - [ ] Completar quiz com 100%
+  - [ ] Verificar no banco: `SELECT progress_data FROM lms_enrollments WHERE user_id = X`
+  - [ ] **Esperado:**
+    ```json
+    {
+      "auto_avaliacao_02": {
+        "status": "completed",
+        "score": 100,
+        "attempts": 1,
+        "timestamp": 0,
+        "updated_at": "2026-02-04 19:30:00"
+      }
+    }
+    ```
+
+#### 13.4 Testes de Qualidade de Código
+- [ ] **Sem Console.log:**
+  - [ ] Executar: `grep -r "console.log" frontend/app --include="*.tsx"`
+  - [ ] **Esperado:** Nenhum resultado (ou apenas comentários)
+
+- [ ] **Sem Alert():**
+  - [ ] Buscar por `alert(` no código
+  - [ ] **Esperado:** Apenas toast notifications
 
 ---
 
