@@ -1,38 +1,67 @@
-**Versão Atual:** V18.3.0 "Authentication Audit"
+**Versão Atual:** V18.4.0 "Infrastructure Hardening"
 **Data da Última Atualização:** 03/02/2026
-**Status:** 🔒 SECURITY VALIDATED (Production Ready)
+**Status:** 🚀 PRODUCTION STABLE (VPS Deployed)
 
-### 🔒 Últimas Conquistas (V18.3.0 - "Authentication Audit")
+### 🚀 Últimas Conquistas (V18.4.0 - "Infrastructure Hardening")
+
+1.  **Database Schema Fix (CRÍTICO):**
+    *   **Problema Resolvido:** Erro `no such column: users.oauth_provider` que bloqueava cadastros no VPS.
+    *   **Solução:** Script de migração manual (`fix_oauth_columns.py`) executado via Docker.
+    *   **Colunas Adicionadas:** `oauth_provider` e `oauth_id` na tabela `users`.
+    *   **Status:** ✅ Cadastros funcionando 100% em produção.
+
+2.  **Email System - Production Ready:**
+    *   **Logo Persistente:** Arquivo `logo-algor.webp` agora incluído na imagem Docker (Dockerfile).
+    *   **Antes:** Logo precisava ser copiada manualmente após cada deploy.
+    *   **Depois:** Logo permanece automaticamente em `/app/frontend/public/logo-algor.webp`.
+    *   **Links Corretos:** Variável `FRONTEND_URL` corrigida para `https://www.algorbrasil.com.br`.
+    *   **Templates Validados:** E-mails de verificação chegam com logo e links funcionais.
+
+3.  **Onboarding Simplificado:**
+    *   **Removido:** Seleção de perfil "Empresa vs Profissional" (conforme nova estratégia de negócio).
+    *   **Novo Fluxo:** Tela única de boas-vindas à "Algor Academy" com redirecionamento direto ao Dashboard.
+    *   **Alinhamento:** Modelo unificado de Membros (conforme `STRATEGIC_ECONOMICS.md`).
+
+4.  **DevOps & Configuration Management:**
+    *   **Lição Aprendida:** `docker-compose restart` NÃO recarrega variáveis de ambiente.
+    *   **Solução Documentada:** Sempre usar `docker-compose up -d` após editar `.env`.
+    *   **Arquivo `.env` Centralizado:** Variáveis unificadas na raiz para Docker Compose.
+    *   **Build Optimization:** Frontend com `--no-cache` para garantir aplicação de env vars.
+
+5.  **VPS Deployment Checklist:**
+    *   ✅ Banco de dados com schema atualizado
+    *   ✅ Logo persistente na imagem Docker
+    *   ✅ URLs de produção configuradas (`https://www.algorbrasil.com.br`)
+    *   ✅ SMTP funcional com credenciais corretas
+    *   ✅ Cadastro e verificação de e-mail operacionais
+
+---
+
+### 🔒 Conquistas Anteriores (V18.3.0 - "Authentication Audit")
 
 1.  **Sistema de Autenticação - Auditoria Completa:**
     *   **100% Funcional:** Todos os componentes de login e e-mail validados e testados.
     *   **SMTP Fix:** Corrigida configuração de e-mail no `/backend/.env` (SMTP_USER completo com @gmail.com).
     *   **Route Cleanup:** Removida rota mock duplicada `/frontend/app/api/auth/login/route.ts`.
     *   **Test Suite:** Criado script automatizado de testes (`backend/test_auth_system.py`) com 100% de sucesso.
-    *   **Documentation:** Relatório completo de auditoria (`AUTHENTICATION_AUDIT_REPORT.md`) com 20+ páginas.
 
 2.  **Sistema de E-mail - Validação Completa:**
     *   **6 Templates Premium:** Verificação, Reset de Senha, Boas-vindas, 2FA, Lead Confirmation, Admin Alerts.
     *   **Design Dark Mode:** Glassmorphism + Neon accents (#00FF94, #00A3FF).
-    *   **Logo Embutida:** Implementação via CID (Content-ID) para compatibilidade com clientes de e-mail.
-    *   **Real Test:** E-mail de teste enviado e recebido com sucesso.
 
 3.  **Segurança - Múltiplas Camadas:**
     *   **JWT:** PyJWT com HS256, expiração 30min.
     *   **Passwords:** Argon2id (custo 12+).
     *   **Data Encryption:** AES-256-CBC para campos sensíveis.
     *   **Rate Limiting:** 5 req/min via SlowAPI.
-    *   **LGPD Audit:** Tabela `audit_logs` com retenção de 6 meses.
 
 4.  **OAuth2 Social Login:**
     *   **Google OAuth:** Fluxo completo implementado.
     *   **LinkedIn OAuth:** Fluxo completo implementado.
-    *   **Auto-provisioning:** Criação automática de usuário + organização default (3 créditos).
 
 5.  **2FA (Two-Factor Authentication):**
     *   **TOTP:** Implementação via `pyotp` (RFC 6238).
     *   **QR Code:** Geração automática para apps (Google Authenticator, Authy).
-    *   **Backup Codes:** TODO (recomendado para V18.4.0).
 
 ---
 
