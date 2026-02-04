@@ -19,7 +19,7 @@ const mockContents = {
             duration: 0,
             level: 'advanced' as const,
             instructor: 'Em Breve',
-            thumbnail: '/images/content/sgia-cover.webp',
+            thumbnail: '/AI_Gov.png',
             isNew: false,
         },
         {
@@ -30,7 +30,7 @@ const mockContents = {
             duration: 120, // Aula Magna
             level: 'advanced' as const,
             instructor: 'Paulo Carvalho',
-            thumbnail: '/images/content/iso-42001-intro.webp',
+            thumbnail: '/images/content/iso_auditor_cover.png',
             isNew: true,
         },
     ],
