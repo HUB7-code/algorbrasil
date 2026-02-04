@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, Play, Download, CheckCircle, List, Check, FileText, ChevronDown, ChevronRight, Award } from 'lucide-react';
 import { toast } from 'sonner';
 import Navbar from '@/components/Navbar';
@@ -12,6 +13,7 @@ import { useGamification } from '@/hooks/useGamification';
 import { iso42001Content, CourseLesson } from '@/data/iso42001';
 
 export default function ContentDetailPage({ params }: { params: { id: string } }) {
+    const router = useRouter();
     const [isPlaying, setIsPlaying] = useState(false);
     const [activeLessonId, setActiveLessonId] = useState<string>('aula_magna');
     const [completedLessons, setCompletedLessons] = useState<string[]>([]);
@@ -50,6 +52,22 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                 style: { background: '#0A1A2F', border: '1px solid #00FF94', color: '#fff' }
             });
         }
+    };
+
+    const handleToggleComplete = () => {
+        if (completedLessons.includes(activeLessonId)) {
+            setCompletedLessons(prev => prev.filter(id => id !== activeLessonId));
+            toast.info('Aula marcada como pendente.', {
+                style: { background: '#0A1A2F', border: '1px solid #333', color: '#fff' }
+            });
+        } else {
+            handleLessonComplete();
+        }
+    };
+
+    const handleQuizFinish = () => {
+        handleLessonComplete();
+        router.push('/academy/lab?concluded=true');
     };
 
     const handleSubmitQuiz = () => {
@@ -254,11 +272,10 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                 </button>
                                                 {quizScore >= 70 && (
                                                     <button
-                                                        onClick={handleLessonComplete}
-                                                        className="px-6 py-4 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-xl font-bold transition-all shadow-[0_0_30px_rgba(0,255,148,0.3)] hover:shadow-[0_0_50px_rgba(0,255,148,0.4)] hover:scale-[1.02] flex items-center justify-center gap-2"
+                                                        onClick={handleQuizFinish}
+                                                        className="px-8 py-3 bg-[#00FF94] hover:bg-[#00CC76] text-black rounded-lg font-bold transition-colors shadow-[0_0_20px_rgba(0,255,148,0.3)]"
                                                     >
-                                                        <Check className="w-5 h-5" />
-                                                        Concluir
+                                                        Concluir Etapa
                                                     </button>
                                                 )}
                                             </div>
@@ -304,9 +321,9 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                     </div>
                                 </div>
                                 <button
-                                    onClick={handleLessonComplete}
+                                    onClick={handleToggleComplete}
                                     className={`px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all ${completedLessons.includes(activeLessonId)
-                                        ? 'bg-[#10B981]/20 text-[#10B981] cursor-default border border-[#10B981]/50'
+                                        ? 'bg-[#10B981]/10 text-[#10B981] border border-[#10B981]/50 hover:bg-[#10B981]/20'
                                         : 'bg-[#00FF94] text-[#0A0E14] hover:bg-[#00CC76]'
                                         }`}
                                 >
