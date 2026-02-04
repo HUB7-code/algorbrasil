@@ -1681,6 +1681,48 @@ Botões que reagem à proximidade e intenção.
 
 ---
 
+## 🎬 Algor Lab V2.0 (Netflix-Style) - Padrão Implementado (Fev/2026)
+
+Esta seção documenta o padrão de design específico implementado para a área de membros ("Algor Lab").
+
+### 1. Filosofia Visual
+- **Imersão Total:** Interface 100% Dark Mode (`#0A0E14` como base).
+- **Cinematográfico:** Uso extensivo de *Heroes* de largura total e *thumbnails* 16:9.
+- **Glassmorphism Funcional:** Painéis de informação sobrepostos a vídeos/imagens com `backdrop-filter: blur`.
+
+### 2. Componentes Principais
+
+#### **Hero Section Dinâmico**
+- **Imagem de Fundo:** Cobre 85% do viewport inicial.
+- **Gradiente de Fusão:** `bg-gradient-to-t from-[#0A0E14] via-[#0A0E14]/80 to-transparent` para mesclar a imagem com o conteúdo abaixo.
+- **Metadata:** Título em `Orbitron`, subtítulo em `Manrope`, com botões de ação (Play/Info) em destaque.
+
+#### **Carrosséis de Conteúdo (Netflix Rows)**
+- **Título de Seção:** Ícone (Lucide) + Texto (Inter, Bold, 1.25rem).
+- **Cards:**
+  - **Estado Normal:** Imagem, Título, Progresso (se iniciado).
+  - **Hover (Microinteração):** O card expande (`scale: 1.05`), levita (`z-index: 10`) e exibe detalhes extras (descrição, botões de ação rápida).
+  - **Feedback Visual:** Glow colorido baseado no tipo de conteúdo (Vídeo: Azul, PDF: Vermelho, Excel: Verde).
+
+#### **Player de Aula (Imersivo)**
+- **Layout:** Coluna Esquerda (Vídeo + Descrição Rica) | Coluna Direita (Playlist de Módulos + Widget de Materiais).
+- **Descrições Ricas:** HTML renderizado para permitir formatação complexa (negrito, listas, destaques coloridos).
+- **Gamification:** Feedback visual (oast) ao concluir aulas.
+
+### 3. Gamification UI
+- **XP Bar:** Fina linha de progresso no topo ou integrada ao perfil.
+- **Badges:** Ícones vetoriais coloridos para Níveis (Bronze, Prata, Ouro).
+- **Toasts:** Notificações flutuantes no canto inferior direito com borda neon (`border-[#00FF94]`) e fundo escuro.
+
+### 4. Assets Premium
+- **Capas:** Hiper-realistas, resolução 4K, mix de fotografia e elementos digitais 3D.
+- **Cores de Destaque:**
+  - **Neon Green:** `#00FF94` (Sucesso, Ação Principal, XP)
+  - **Electric Blue:** `#00A3FF` (Informativo, Vídeo)
+  - **Deep Dark:** `#0A0E14` (Fundo Base)
+
+---
+
 *Manual atualizado com pesquisa extensiva sobre tendências UX/UI 2025-2026*
 *Foco especial em: Dashboards Enterprise, KPI Visualization, Data Storytelling, Brand Identity Unification, Alive Interface*
-*Última atualização: 04/01/2026 - **V17.9.7 Compatible***
+*Última atualização: 04/02/2026 - **V20.0.0 Compatible (Algor Lab Revolution)***

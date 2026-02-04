@@ -1,224 +1,67 @@
-**Versão Atual:** V19.0.0 "Simplification & Focus"
+**Versão Atual:** V20.0.0 "Algor Lab Revolution"
 **Data da Última Atualização:** 04/02/2026
-**Status:** 🚀 PRODUCTION STABLE (VPS Deployed)
+**Status:** 🚀 PRODUCTION LIVE (VPS Deployed)
 
-### 🎯 Últimas Conquistas (V19.0.0 - "Simplification & Focus")
+### 🎯 Últimas Conquistas (V20.0.0 - "Algor Lab Revolution")
+
+1.  **Algor Lab V2.0 (Netflix Style):**
+    *   **Interface Imersiva:** Design escuro, hero section dinâmica, carrosséis de conteúdo e categorização.
+    *   **Player de Vídeo:** Detalhes ricos, lista de micro-aulas e materiais de apoio.
+    *   **Organização de Conteúdo:** Vitrine com "Destaques" sepadando cursos ativos de avisos "Em Breve".
+    *   **Assets Visuais:** Capas hiper-realistas (SGIA e Auditor ISO 42001) para alto impacto visual.
+
+2.  **Gamification Engine (MVP):**
+    *   **XP System:** Sistema de experiência integrado no frontend.
+    *   **Componentes:** Barra de progresso, emblema de nível na Navbar.
+    *   **Feedback:** Animações e Toasts "Premium" ao completar lições.
+    *   **Conquista:** Recompensa de XP ao finalizar aulas.
+
+3.  **Progressive Web App (PWA):**
+    *   **Instalação:** App habilitado para instalação em Desktop e Mobile.
+    *   **Mobile-First:** Experiência otimizada para toque e telas pequenas.
+    *   **Configuração:** Manifesto e Service Workers configurados.
+
+4.  **Backend & Security Fixes:**
+    *   **Login Reliability:** Correção definitiva do erro 500 no endpoint de login.
+    *   **YouTube Integration:** Suporte a vídeos "Unlisted" para streaming eficiente e seguro.
+    *   **Material Download:** Hospedagem direta de PDFs (e.g., `aula-magna.pdf`) no VPS.
+
+5.  **Documentation & Assets:**
+    *   ✅ `aula-magna.pdf` - Slides integrados.
+    *   ✅ Capas Hiper-realistas - Artes exclusivas para os cursos.
+    *   ✅ `PROJECT_STATUS_MEMORIA.md` - Atualizado para V20.
+
+---
+
+### 🚀 Conquistas Anteriores (V19.0.0 - "Simplification & Focus")
 
 1.  **Major Site Simplification (BREAKING CHANGE):**
-    *   **Objetivo:** Reduzir complexidade e focar no essencial
-    *   **Páginas Removidas:** 13 pastas deletadas (44% redução)
-        - `/institute` e subpáginas (about, policy, research)
-        - `/onboarding`
-        - `/governance-policy`
-        - `/lab`, `/scanner`, `/calculadora`, `/hub` (ferramentas)
-        - `/partners` e `/partners/apply`
-        - `/solutions/enterprise`
-        - `/associates` (duplicado com `/board`)
-        - `/register/success`
-        - `/policies/membership`
-    *   **Páginas Mantidas:** Apenas essenciais
-        - ✅ `/` (Landing page)
-        - ✅ `/academy` (Algor Lab)
-        - ✅ `/blog`
-        - ✅ `/board` (Membros Associados)
-        - ✅ Auth pages (login, register, 2fa, etc.)
-        - ✅ LGPD policies (privacy, terms, cookies, dpo)
-        - ✅ `/dashboard/*` (todas as páginas do dashboard)
+    *   Redução de 44% nas páginas (13 pastas deletadas).
+    *   Foco em `/academy` (Algor Lab), `/blog` e `/board`.
 
-2.  **Rebranding & Navigation:**
-    *   **"Academy" → "Algor Lab":** Branding mais forte e moderno
-    *   **"Board" → "Membros Associados":** Melhor clareza em português
-    *   **Navbar Simplificado:** 4 links → 3 links principais
-    *   **Sitemap Otimizado:** 19 rotas → 11 rotas (42% redução)
-
-3.  **Board Structure Update:**
-    *   **Edisio Nascimento:** Conselheiro → Gestor Regional - Paraíba
-    *   **Marci Dantas:** Conselheira → Delegada Regional - Fortaleza CE
-    *   **Fábio Ban:** Conselheiro → Delegado Regional - Paraná
-    *   **Estrutura Clarificada:** Liderança Nacional + Gestores Regionais + Delegados
-
-4.  **Infrastructure Optimization:**
-    *   **Disk Space Fix:** Implementado cleanup automático (VPS)
-    *   **Docker Optimization:** `.dockerignore` expandido (30 → 90+ linhas)
-    *   **Git Cleanup:** `.gitignore` criado (80+ linhas)
-    *   **Build Size:** Redução de 62% na imagem Docker
-    *   **Repository Size:** Potencial redução de 98% (2.45 GB → ~50 MB)
-
-5.  **Documentation:**
-    *   ✅ `SIMPLIFICATION_CHANGELOG.md` - Changelog completo
-    *   ✅ `DISK_SPACE_FIX.md` - Guia de otimização
-    *   ✅ `DISK_SPACE_SUMMARY.md` - Resumo executivo
-    *   ✅ `cleanup-vps.sh` - Script de limpeza automática
-
-6.  **Algor Lab - Planning Complete (V2.0):**
-    *   **Objetivo:** Transformar /academy em experiência Netflix-style
-    *   **Pesquisa:** Tendências LMS 2026 (microlearning, gamificação, AI)
-    *   **Documento:** `ALGOR_LAB_COMPLETE_PLAN_V2.md` (completo)
-    *   **Roadmap:** 4 fases (MVP, Quick Wins, Enhancements, Advanced)
-    *   **Prioridades:** Microlearning (80% completion), PWA, Streak system
-    *   **Status:** 📋 Pronto para implementação
-
----
-
-### 🚀 Conquistas Anteriores (V18.4.0 - "Infrastructure Hardening")
-
-1.  **Database Schema Fix (CRÍTICO):**
-    *   **Problema Resolvido:** Erro `no such column: users.oauth_provider`
-    *   **Solução:** Script de migração manual via Docker
-    *   **Status:** ✅ Cadastros funcionando 100% em produção
-
-2.  **Email System - Production Ready:**
-    *   **Logo Persistente:** Incluída na imagem Docker
-    *   **Links Corretos:** URLs de produção configuradas
-    *   **Templates Validados:** E-mails com logo e links funcionais
-
-3.  **Onboarding Simplificado:**
-    *   **Removido:** Seleção de perfil "Empresa vs Profissional"
-    *   **Novo Fluxo:** Tela única de boas-vindas à "Algor Academy"
-
-4.  **DevOps & Configuration Management:**
-    *   **Lição Aprendida:** `docker-compose restart` NÃO recarrega `.env`
-    *   **Solução:** Sempre usar `docker-compose up -d`
-    *   **Build Optimization:** Frontend com `--no-cache`
-
----
-
-### 🔒 Conquistas Anteriores (V18.3.0 - "Authentication Audit")
-
-1.  **Sistema de Autenticação - Auditoria Completa:**
-    *   **100% Funcional:** Login e e-mail validados
-    *   **SMTP Fix:** Configuração corrigida
-    *   **Test Suite:** Script automatizado com 100% sucesso
-
-2.  **Sistema de E-mail - Validação Completa:**
-    *   **6 Templates Premium:** Design dark mode + glassmorphism
-    *   **Cores:** #00FF94 (ciano) + #00A3FF (azul)
-
-3.  **Segurança - Múltiplas Camadas:**
-    *   **JWT:** PyJWT com HS256, expiração 30min
-    *   **Passwords:** Argon2id (custo 12+)
-    *   **Data Encryption:** AES-256-CBC
-    *   **Rate Limiting:** 5 req/min via SlowAPI
-
-4.  **OAuth2 Social Login:**
-    *   ✅ Google OAuth
-    *   ✅ LinkedIn OAuth
-
-5.  **2FA (Two-Factor Authentication):**
-    *   ✅ TOTP via `pyotp`
-    *   ✅ QR Code para apps
-
----
-
-### 💎 Conquistas Anteriores (V18.2.0 - "Premium Image Cards")
-
-1.  **Services Section Complete Redesign:**
-    *   **Image-Based Cards:** Assets de alta fidelidade
-    *   **3 Cards Premium:** Consultoria, Educação, Palestras
-    *   **Expanded Container:** `max-w-[1600px]`
-    *   **Grid Layout:** 3 colunas responsivas
+2.  **Infrastructure Optimization:**
+    *   Scripts de limpeza automática de disco no VPS.
+    *   Otimização massiva de imagens Docker e repositório Git.
 
 ---
 
 ### 📜 Histórico de Versões
 
-- [x] **V19.0.0:** "Simplification & Focus" - Redução de 44% nas páginas, rebranding, otimização de infraestrutura
-- [x] **V18.4.0:** "Infrastructure Hardening" - Database fix, email system, onboarding simplificado
-- [x] **V18.3.0:** "Authentication Audit" - Sistema de auth 100% funcional
-- [x] **V18.2.1:** "Registration Verified" - Criação de conta funcional
-- [x] **V18.2.0:** "Premium Image Cards" - Serviços com imagens de alta fidelidade
-- [x] **V18.1.4:** "High-Tech Circuit Edition" - Background de circuitos
-- [x] **V18.1.3:** "Holographic Shield Edition" - Upgrade visual
-- [x] **V18.1.2:** "Services Hybrid Layout" - Card horizontal
-- [x] **V18.1.1:** "Institutional Polish" - Matrix Rain, Hydration Fix
-- [x] **V18.1.0:** "Premium Institutional" - Novo ciclo B2B
-- [x] **V18.0.0:** "Security Fortress" - Hotfix crítico de segurança
+- [x] **V20.0.0:** "Algor Lab Revolution" - Netflix UI, Gamification, PWA, Assets Premium.
+- [x] **V19.0.0:** "Simplification & Focus" - Redução de 44% nas páginas, rebranding.
+- [x] **V18.4.0:** "Infrastructure Hardening" - Database fix, email system, onboarding simplificado.
+- [x] **V18.3.0:** "Authentication Audit" - Sistema de auth 100% funcional.
 
 ---
 
-### 🎨 Design System: "Quantum Prestige v3.0"
-
-**Evolução para V19.0.0:**
-- **Simplified Navigation:** 3 links principais (Algor Lab, Blog, Membros Associados)
-- **Brand Identity:** "Algor Lab" reforça branding
-- **Portuguese First:** Interface 100% em português
-- **Focused Experience:** Menos páginas, mais qualidade
-
-**Mantido de v2.7:**
-- **Image-Based Service Cards:** Alta fidelidade visual
-- **Alive Inputs:** Campos com luz animada
-- **Neon Glassmorphism:** Vidro translúcido + bordas iluminadas
-- **Motion Design "Alive":** Elementos sequenciais
-
----
-
-## 📊 Métricas de Impacto (V19.0.0)
+## 📊 Métricas de Impacto (V20.0.0)
 
 | Métrica | Antes | Depois | Melhoria |
 |---------|-------|--------|----------|
-| **Páginas Públicas** | ~25 | ~14 | **44% redução** |
-| **Links no Navbar** | 4 | 3 | **25% redução** |
-| **Rotas no Sitemap** | 19 | 11 | **42% redução** |
-| **Imagem Docker** | ~800 MB | ~300 MB | **62% redução** |
-| **Repositório Git** | 2.45 GB | ~50 MB* | **98% redução*** |
-| **Complexidade** | Alta | Baixa | ✅ |
-
-*Após limpeza do histórico Git (opcional)
-
----
-
-## 🗺️ Estrutura Atual do Site
-
-### **Páginas Públicas (4)**
-```
-/                    → Landing page
-/academy             → Algor Lab (cursos)
-/blog                → Blog e artigos
-/board               → Membros Associados
-```
-
-### **Autenticação (6)**
-```
-/login               → Login
-/register            → Cadastro
-/forgot-password     → Recuperar senha
-/reset-password      → Resetar senha
-/verify-email        → Verificar email
-/2fa                 → Autenticação 2FA
-```
-
-### **Políticas LGPD (4)**
-```
-/policies/privacy    → Política de Privacidade
-/policies/terms      → Termos de Uso
-/policies/cookies    → Política de Cookies
-/policies/dpo        → Contato DPO
-```
-
-### **Dashboard (Área Logada)**
-```
-/dashboard/*         → Todas as funcionalidades internas
-```
-
----
-
-## 👥 Estrutura do Board (Atualizada)
-
-### **Liderança Nacional**
-- 👑 **Presidente:** Paulo Carvalho
-- 🎯 **Coordenador Nacional:** Orlando Pavani
-
-### **Gestores Regionais**
-- 🏛️ **Brasília:** Jesus Silva
-- 🏙️ **São Paulo:** Carlos Coan
-- 🌲 **Paraná:** Evaldo Reinas
-- 🏖️ **Rio de Janeiro:** José Ricardo
-- 🌴 **Ceará:** Jarison Melo
-- 🌵 **Paraíba:** Edisio Nascimento
-
-### **Delegados Regionais**
-- 🌲 **Paraná:** Fábio Ban
-- 🌴 **Fortaleza CE:** Marci Dantas
+| **Engajamento Visual** | Básico | **Netflix-Style** | ⭐⭐⭐⭐⭐ |
+| **Retenção (Gamification)** | 0% | **MVP Ativo** | **Nova Feature** |
+| **Acessibilidade** | Web | **PWA (App)** | **Instalável** |
+| **Visual Assets** | Stock/Genérico | **Hiper-Realista** | **Premium** |
 
 ---
 
@@ -226,55 +69,46 @@
 
 | Prioridade | Tarefa | Status |
 |------------|--------|--------|
-| 1 | 🚀 **VPS Deploy Update** (`git pull` + rebuild) | ⏳ Imediato |
-| 2 | 🧪 **Teste Produção** (Navegação simplificada) | Pendente |
-| 3 | 🧹 **Git History Cleanup** (Opcional, 2.45GB → 50MB) | Proposta |
-| 4 | 📊 **User Analytics** | Proposta |
-| 5 | 🚧 **Academy LMS** - Backend Integration | Roadmap Q1 |
+| 1 | 💾 **Persistência de XP** (Salvar no Banco) | Roadmap Q1 |
+| 2 | 📝 **Módulo de Quiz** (Avaliação Interativa) | Roadmap Q1 |
+| 3 | 👮 **Painel Admin** (Gestão de Conteúdo) | Roadmap Q2 |
 
 ---
 
-## 6. Resumo Visual V19.0.0
+## 6. Resumo Visual V20.0.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v19.0.0                        │
-│          🎯 SIMPLIFICATION & FOCUS EDITION                  │
+│                 ALGOR BRASIL v20.0.0                        │
+│          🎬 ALGOR LAB REVOLUTION EDITION                    │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  🎯 MAJOR SIMPLIFICATION (New!)                             │
-│  ├── Pages Removed (13 folders) ............... ✅ (100%)  │
-│  ├── Navbar Simplified (4 → 3 links) .......... ✅ (100%)  │
-│  ├── Sitemap Optimized (19 → 11 routes) ....... ✅ (100%)  │
-│  ├── LGPD Compliance Maintained ............... ✅ (100%)  │
+│  🎬 ALGOR LAB V2.0 (New!)                                   │
+│  ├── Netflix UI Interface ..................... ✅ (100%)  │
+│  ├── Featured Courses Showcase ................ ✅ (100%)  │
+│  ├── Content Player with PDF .................. ✅ (100%)  │
 │                                                             │
-│  🏷️ REBRANDING                                              │
-│  ├── "Academy" → "Algor Lab" .................. ✅ (100%)  │
-│  ├── "Board" → "Membros Associados" ........... ✅ (100%)  │
-│  ├── Portuguese-First Interface ............... ✅ (100%)  │
+│  🎮 GAMIFICATION MVP                                        │
+│  ├── XP System & Progress Bar ................. ✅ (100%)  │
+│  ├── Animations & Toasts ...................... ✅ (100%)  │
+│  ├── Level Badges ............................. ✅ (100%)  │
 │                                                             │
-│  👥 BOARD STRUCTURE UPDATE                                  │
-│  ├── Edisio → Gestor Regional Paraíba ......... ✅ (100%)  │
-│  ├── Marci → Delegada Regional Fortaleza ...... ✅ (100%)  │
-│  ├── Fábio → Delegado Regional Paraná ......... ✅ (100%)  │
+│  📱 PWA & MOBILE                                            │
+│  ├── Installable App .......................... ✅ (100%)  │
+│  ├── Mobile Optimization ...................... ✅ (100%)  │
 │                                                             │
-│  🔧 INFRASTRUCTURE OPTIMIZATION                             │
-│  ├── Disk Space Cleanup Script ................ ✅ (100%)  │
-│  ├── .dockerignore Expanded (90+ lines) ....... ✅ (100%)  │
-│  ├── .gitignore Created (80+ lines) ........... ✅ (100%)  │
-│  ├── Docker Image Size (-62%) ................. ✅ (100%)  │
+│  🎨 PREMIUM ASSETS                                          │
+│  ├── Hyper-realistic Covers ................... ✅ (100%)  │
+│  ├── Integrated Course Materials .............. ✅ (100%)  │
 │                                                             │
-│  📚 DOCUMENTATION                                           │
-│  ├── SIMPLIFICATION_CHANGELOG.md .............. ✅ (100%)  │
-│  ├── DISK_SPACE_FIX.md ........................ ✅ (100%)  │
-│  ├── DISK_SPACE_SUMMARY.md .................... ✅ (100%)  │
-│  ├── cleanup-vps.sh ........................... ✅ (100%)  │
+│  🔧 CORE FIXES                                              │
+│  ├── Login 500 Fix ............................ ✅ (100%)  │
+│  ├── Redirect Logic Updated ................... ✅ (100%)  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 19.0.0 (Simplification & Focus).*
-> **Última Atualização:** 04/02/2026 - 10:10
-> **Status Geral:** **SIMPLIFIED & FOCUSED** 🎯🚀
-> **Versão:** 19.0.0
+*Documento atualizado automaticamente. Versão 20.0.0 (Algor Lab Revolution).*
+> **Última Atualização:** 04/02/2026
+> **Status Geral:** **PRODUCTION LIVE** 🚀🎬
