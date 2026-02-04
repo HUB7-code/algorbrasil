@@ -21,6 +21,7 @@ const protectedPaths = [
     '/dashboard/create-article',  // Apenas membros associados
     '/dashboard/my-articles',     // Apenas membros associados
     '/dashboard/edit-article',    // Apenas membros associados
+    '/academy/lab',               // Algor Lab (Netflix-style) - Apenas membros
 ];
 
 export function middleware(request: NextRequest) {

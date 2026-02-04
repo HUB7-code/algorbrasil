@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import UserLevelBadge from './lab/UserLevelBadge';
 
 // ========================================
 // NAVBAR - Holographic Command Center
@@ -21,6 +22,7 @@ export default function Navbar() {
     const isHome = pathname === '/';
     const normalizedPath = pathname?.replace(/\/$/, '') || '';
     const isAuthPage = ['/login', '/register', '/2fa'].includes(normalizedPath);
+    const isLabPage = pathname?.startsWith('/academy/lab');
 
     useEffect(() => {
         let ticking = false;
@@ -122,6 +124,14 @@ export default function Navbar() {
                         ))}
 
                         <div className="w-[1px] h-6 bg-white/10 mx-4" />
+
+                        {/* Gamification Badge (Only in Lab) */}
+                        {isLabPage && (
+                            <>
+                                <UserLevelBadge />
+                                <div className="w-[1px] h-6 bg-white/10 mx-4" />
+                            </>
+                        )}
 
                         {/* Member Area / Login */}
                         <Link href="/login" className="hover:text-white transition-colors font-semibold text-white/80 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">

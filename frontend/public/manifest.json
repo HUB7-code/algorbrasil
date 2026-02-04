@@ -1,0 +1,30 @@
+{
+    "name": "Algor Lab",
+    "short_name": "Algor",
+    "description": "Laboratório de Excelência em Governança de IA",
+    "start_url": "/academy/lab",
+    "display": "standalone",
+    "background_color": "#0A0E14",
+    "theme_color": "#00FF94",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/og-academy.jpg",
+            "sizes": "1200x630",
+            "type": "image/jpeg",
+            "form_factor": "wide"
+        }
+    ]
+}
