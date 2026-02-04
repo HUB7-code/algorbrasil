@@ -187,6 +187,62 @@ docker-compose up -d frontend
 
 ---
 
+### 5. Disco Crescendo Mesmo Removendo Código
+
+**Sintoma:** A cada deploy, o VPS ocupa mais espaço em disco, mesmo após remover código
+
+**Causas:**
+1. Histórico Git com arquivos grandes (`.next/cache/`, `node_modules/`)
+2. `.dockerignore` incompleto permitindo build artifacts no Docker
+3. Nginx montando todo o repositório (incluindo `.git/`)
+4. Docker acumulando imagens e containers antigos
+
+**Diagnóstico:**
+```bash
+# No VPS, verificar tamanho do repositório Git
+du -sh .git/
+# Se > 500MB, há problema no histórico
+
+# Verificar uso do Docker
+docker system df
+# Se "Build Cache" > 1GB, precisa limpar
+
+# Verificar arquivos grandes no Git
+git rev-list --objects --all | \
+  git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | \
+  awk '/^blob/ {print $3, $4}' | \
+  sort -n -r | \
+  head -20
+```
+
+**Solução Imediata:**
+```bash
+# 1. Executar script de limpeza
+chmod +x cleanup-vps.sh
+./cleanup-vps.sh
+
+# 2. Verificar espaço liberado
+df -h
+docker system df
+```
+
+**Solução Permanente:**
+Consulte o arquivo `DISK_SPACE_FIX.md` para:
+- Limpar histórico Git de arquivos grandes
+- Atualizar `.dockerignore` e `.gitignore`
+- Otimizar `docker-compose.yml`
+
+---
+
+## 🔧 Scripts de Manutenção
+
+### Script de Limpeza Automática
+
+Execute regularmente no VPS:
+```bash
+./cleanup-vps.sh
+
+
 ## 📊 Verificação de Saúde do Sistema
 
 ### Checklist Pós-Deploy
