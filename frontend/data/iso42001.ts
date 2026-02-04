@@ -424,37 +424,97 @@ export const iso42001Content: CourseModule[] = [
                 quiz: [
                     {
                         id: 'q1',
-                        question: 'Qual é o papel principal da Alta Direção segundo a Cláusula 5 da ISO 42001?',
+                        question: 'Qual é o ponto de partida essencial para o sucesso de uma iniciativa de IA em uma organização?',
                         options: [
-                            'Desenvolver os algoritmos de IA pessoalmente.',
-                            'Demonstrar liderança e comprometimento com o SGIA.',
-                            'Realizar a manutenção dos servidores.',
-                            'Monitorar as redes sociais da empresa.',
-                            'Nenhuma das anteriores.'
+                            'Adoção de ferramentas de mercado',
+                            'Contratação de especialistas externos',
+                            'Investimento em infraestrutura de dados',
+                            'Apoio genuíno e contínuo da liderança',
+                            'Aquisição de modelos prontos de IA'
                         ],
-                        correctAnswer: 1
+                        correctAnswer: 3
                     },
                     {
                         id: 'q2',
-                        question: 'O que a Política de IA deve incluir obrigatoriamente?',
+                        question: 'Segundo o manual, qual ação fortalece a confiança dos colaboradores na Governança de IA?',
                         options: [
-                            'A lista de todos os funcionários.',
-                            'O orçamento de marketing.',
-                            'Um comprometimento com a satisfação de requisitos aplicáveis e gestão de riscos.',
-                            'A marca do computador usado pelo CEO.',
-                            'Previsão de lucros para 2030.'
+                            'Redução do número de reuniões técnicas',
+                            'Substituição do RH por bots de atendimento',
+                            'Inclusão da IA apenas no planejamento estratégico',
+                            'Comunicação clara e constante da liderança sobre a importância da IA',
+                            'Centralização total da decisão em TI'
+                        ],
+                        correctAnswer: 3
+                    },
+                    {
+                        id: 'q3',
+                        question: 'O que é essencial na criação de uma Política de IA dentro da organização?',
+                        options: [
+                            'Guardar o documento apenas no setor jurídico',
+                            'Utilizar linguagem exclusivamente técnica',
+                            'Garantir que ela seja prática, acessível e alinhada aos valores da organização',
+                            'Limitar seu uso apenas à equipe de tecnologia',
+                            'Publicá-la apenas para investidores'
                         ],
                         correctAnswer: 2
                     },
                     {
-                        id: 'q3',
-                        question: 'Em relação à confiança na IA (Trust Gap), qual é um dos principais desafios mencionados?',
+                        id: 'q4',
+                        question: 'Qual dos seguintes princípios éticos NÃO é destacado no manual como fundamental na IA?',
                         options: [
-                            'A IA ser muito lenta.',
-                            'A falta de eletricidade.',
-                            'A opacidade dos modelos ("caixa preta") e alucinações.',
-                            'O custo dos teclados.',
-                            'O excesso de confiança cega dos usuários.'
+                            'Supervisão humana significativa',
+                            'Transparência e explicabilidade',
+                            'Benefício social',
+                            'Automação total sem intervenção humana',
+                            'Privacidade e proteção de dados'
+                        ],
+                        correctAnswer: 3
+                    },
+                    {
+                        id: 'q5',
+                        question: 'De acordo com a ISO/IEC 42001 e o manual, o que deve ser feito com a Política de Governança de IA ao longo do tempo?',
+                        options: [
+                            'Usada uma única vez durante a implantação',
+                            'Revisada apenas quando há mudança de diretoria',
+                            'Mantida como documento confidencial',
+                            'Atualizada continuamente com base em riscos e mudanças tecnológicas',
+                            'Ignorada após o primeiro ciclo de auditoria'
+                        ],
+                        correctAnswer: 3
+                    },
+                    {
+                        id: 'q6',
+                        question: 'O que a IA Explicável (XAI) busca proporcionar?',
+                        options: [
+                            'Substituir totalmente médicos e analistas financeiros.',
+                            'Garantir maior velocidade nas respostas da IA.',
+                            'Tornar compreensível como a IA toma decisões.',
+                            'Reduzir o custo do desenvolvimento de IA.',
+                            'Aumentar o número de dados usados pela IA.'
+                        ],
+                        correctAnswer: 2
+                    },
+                    {
+                        id: 'q7',
+                        question: 'Qual é a principal função do Foundation Model Transparency Index (FMTI)?',
+                        options: [
+                            'Monitorar crimes digitais em tempo real.',
+                            'Avaliar o nível de transparência dos modelos de IA.',
+                            'Classificar modelos pela quantidade de dados usados.',
+                            'Indicar a performance de IA em jogos.',
+                            'Verificar se uma IA pode substituir humanos.'
+                        ],
+                        correctAnswer: 1
+                    },
+                    {
+                        id: 'q8',
+                        question: 'Para que serve o envenenamento de dados com ferramentas como Glaze?',
+                        options: [
+                            'Deixar os dados mais claros para IA.',
+                            'Corrigir erros na base de dados usada por IA.',
+                            'Proteger obras artísticas contra cópia por sistemas de IA.',
+                            'Melhorar a performance da IA no reconhecimento facial.',
+                            'Otimizar o uso de deepfakes em marketing.'
                         ],
                         correctAnswer: 2
                     }
