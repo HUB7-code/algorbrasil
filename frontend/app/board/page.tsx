@@ -68,7 +68,7 @@ const boardMembers = [
     },
     {
         name: 'Edisio Nascimento',
-        role: 'Conselheiro',
+        role: 'Gestor Regional - Paraíba',
         image: '/images/membro_11_edisio_nascimento.webp',
         linkedin: 'https://www.linkedin.com/in/edisio-consultor/'
     }
