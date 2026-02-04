@@ -1,192 +1,228 @@
 # 📚 ÍNDICE DE DOCUMENTAÇÃO - ALGOR BRASIL
 
-**Versão:** V18.3.0  
-**Última Atualização:** 03/02/2026
-
-Este documento serve como guia de navegação para toda a documentação do projeto ALGOR BRASIL.
+**Última Atualização:** 04/02/2026  
+**Versão do Projeto:** V19.0.0 "Simplification & Focus"
 
 ---
 
 ## 🎯 DOCUMENTOS PRINCIPAIS
 
-### 1. **Status e Planejamento**
+### **Status do Projeto**
+- 📄 [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) - **Status atual e histórico completo**
+- 📄 [`README.md`](./README.md) - Guia principal do projeto
+- 📄 [`CHANGELOG.md`](./CHANGELOG.md) - Histórico de versões
 
-| Documento | Descrição | Última Atualização |
-|-----------|-----------|-------------------|
-| [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) | Status atual do projeto, histórico de versões e conquistas | 03/02/2026 |
-| [`CHANGELOG.md`](./CHANGELOG.md) | Histórico detalhado de mudanças por versão | 03/02/2026 |
-| [`DEPLOY_V17.8.2.md`](./DEPLOY_V17.8.2.md) | Guia de deploy para VPS | 01/01/2026 |
-
-### 2. **Arquitetura e Design**
-
-| Documento | Descrição | Última Atualização |
-|-----------|-----------|-------------------|
-| [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) | Especificação completa do Design System v3.0 | 23/01/2026 |
-| [`ux-ui-manual-2026.md`](./ux-ui-manual-2026.md) | Manual de UX/UI com tendências e best practices | 20/01/2026 |
-| [`STRATEGIC_ECONOMICS.md`](./STRATEGIC_ECONOMICS.md) | Tese econômica e modelo de negócio | 20/01/2026 |
-| [`Metodologia de Serviço B2B – Governança de IA ALGO.md`](./Metodologia%20de%20Serviço%20B2B%20–%20Governança%20de%20IA%20ALGO.md) | Metodologia de 5 etapas B2B | 20/01/2026 |
-
-### 3. **Segurança e Compliance**
-
-| Documento | Descrição | Última Atualização |
-|-----------|-----------|-------------------|
-| [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md) | 🆕 Relatório completo de auditoria de autenticação | 03/02/2026 |
-| [`AUTHENTICATION_SYSTEM.md`](./AUTHENTICATION_SYSTEM.md) | Sistema de autenticação para membros | 03/02/2026 |
-| [`algor_backend_security.md`](./algor_backend_security.md) | Arquitetura de segurança backend (Zero Trust) | 20/01/2026 |
-| [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md) | Manual operacional de conformidade LGPD | 20/01/2026 |
-| [`GOOGLE_AUTH_SETUP.md`](./GOOGLE_AUTH_SETUP.md) | Setup de OAuth Google | 25/01/2026 |
-
-### 4. **Testes e QA**
-
-| Documento | Descrição | Última Atualização |
-|-----------|-----------|-------------------|
-| [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md) | Roteiro completo de testes (11 jornadas) | 03/02/2026 |
-| [`backend/test_auth_system.py`](./backend/test_auth_system.py) | 🆕 Script automatizado de testes de autenticação | 03/02/2026 |
-
-### 5. **CI/CD e Deploy**
-
-| Documento | Descrição | Última Atualização |
-|-----------|-----------|-------------------|
-| [`CI_CD_DOCUMENTATION.md`](./CI_CD_DOCUMENTATION.md) | Documentação de CI/CD (GitHub Actions) | 12/01/2026 |
-| [`docker-compose.yml`](./docker-compose.yml) | Configuração Docker Compose | 12/01/2026 |
-| [`.env.example`](./.env.example) | Template de variáveis de ambiente | 20/01/2026 |
+### **Simplificação V19.0.0**
+- 📄 [`SIMPLIFICATION_CHANGELOG.md`](./SIMPLIFICATION_CHANGELOG.md) - Changelog da simplificação (44% redução)
+- 📄 [`V19_COMPLETE_SUMMARY.md`](./V19_COMPLETE_SUMMARY.md) - Resumo executivo completo
 
 ---
 
-## 🔍 GUIAS RÁPIDOS
+## 🎬 ALGOR LAB (NOVO!)
 
-### Para Desenvolvedores
+### **Planejamento Completo**
+- 📄 [`ALGOR_LAB_COMPLETE_PLAN_V2.md`](./ALGOR_LAB_COMPLETE_PLAN_V2.md) - **Plano completo V2.0** ⭐
+  - Pesquisa de tendências LMS 2026
+  - 8 oportunidades de melhoria
+  - Design system Netflix-style
+  - Roadmap em 4 fases
+  - Métricas de sucesso
+  - Stack técnico
+  - Checklist de implementação
 
-**Começando:**
-1. Leia [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) para entender o estado atual
-2. Configure o ambiente seguindo [`.env.example`](./.env.example)
-3. Consulte [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) para padrões de UI
-
-**Desenvolvendo:**
-1. Siga os padrões do [`ux-ui-manual-2026.md`](./ux-ui-manual-2026.md)
-2. Implemente segurança conforme [`algor_backend_security.md`](./algor_backend_security.md)
-3. Garanta conformidade LGPD usando [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md)
-
-**Testando:**
-1. Execute [`backend/test_auth_system.py`](./backend/test_auth_system.py) para validar autenticação
-2. Siga [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md) para testes manuais
-
-**Deploy:**
-1. Revise [`DEPLOY_V17.8.2.md`](./DEPLOY_V17.8.2.md)
-2. Configure CI/CD conforme [`CI_CD_DOCUMENTATION.md`](./CI_CD_DOCUMENTATION.md)
-
-### Para Product Managers
-
-**Estratégia:**
-1. [`STRATEGIC_ECONOMICS.md`](./STRATEGIC_ECONOMICS.md) - Modelo de negócio
-2. [`Metodologia de Serviço B2B – Governança de IA ALGO.md`](./Metodologia%20de%20Serviço%20B2B%20–%20Governança%20de%20IA%20ALGO.md) - Ciclo de vendas
-
-**Design:**
-1. [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) - Padrões visuais
-2. [`ux-ui-manual-2026.md`](./ux-ui-manual-2026.md) - Tendências e best practices
-
-**QA:**
-1. [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md) - Validação de funcionalidades
-
-### Para Auditores de Segurança
-
-**Segurança:**
-1. [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md) - Auditoria completa
-2. [`algor_backend_security.md`](./algor_backend_security.md) - Arquitetura de segurança
-3. [`AUTHENTICATION_SYSTEM.md`](./AUTHENTICATION_SYSTEM.md) - Sistema de autenticação
-
-**Compliance:**
-1. [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md) - Conformidade LGPD
+### **Proposta Original**
+- 📄 [`ALGOR_LAB_NETFLIX_PROPOSAL.md`](./ALGOR_LAB_NETFLIX_PROPOSAL.md) - Proposta inicial (V1.0)
 
 ---
 
-## 📊 ESTRUTURA DO PROJETO
+## 🔒 SEGURANÇA E AUTENTICAÇÃO
 
-```
-chrono-aldrin/
-├── 📁 backend/                    # Backend FastAPI (Python)
-│   ├── app/
-│   │   ├── api/                   # Endpoints da API
-│   │   │   └── auth.py           # Autenticação (14 endpoints)
-│   │   ├── core/                  # Configurações e segurança
-│   │   │   ├── config.py         # Settings (SMTP, JWT, etc)
-│   │   │   └── security.py       # Argon2, AES-256, JWT
-│   │   ├── db/                    # Modelos e sessões
-│   │   ├── models/                # SQLAlchemy models
-│   │   └── services/
-│   │       └── email_service.py  # 6 templates de e-mail
-│   ├── test_auth_system.py       # 🆕 Script de teste automatizado
-│   └── requirements.txt           # Dependências Python
-│
-├── 📁 frontend/                   # Frontend Next.js 15 (React 19)
-│   ├── app/
-│   │   ├── (public)/
-│   │   │   └── login/
-│   │   │       └── page.tsx      # Login page (Cyberpunk UI)
-│   │   ├── dashboard/             # Área autenticada
-│   │   └── api/                   # API Routes (Next.js)
-│   ├── components/                # Componentes React
-│   ├── public/
-│   │   └── logo-algor.webp       # Logo para e-mails
-│   └── middleware.ts              # Proteção de rotas
-│
-├── 📄 AUTHENTICATION_AUDIT_REPORT.md  # 🆕 Relatório de auditoria
-├── 📄 AUTHENTICATION_SYSTEM.md        # Sistema de autenticação
-├── 📄 PROJECT_STATUS_MEMORIA.md       # Status do projeto
-├── 📄 CHANGELOG.md                    # 🆕 Histórico de versões
-├── 📄 ROTEIRO_TESTES_COMPLETO.md      # Roteiro de testes
-├── 📄 ALGOR_Design_System_Spec.md     # Design System v3.0
-├── 📄 algor_backend_security.md       # Segurança backend
-├── 📄 LGPD-Manual-Operacional.md      # Compliance LGPD
-└── 📄 .env.example                    # Template de configuração
-```
+### **Auditoria e Compliance**
+- 📄 [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md) - Auditoria completa de segurança
+- 📄 [`AUTHENTICATION_SYSTEM.md`](./AUTHENTICATION_SYSTEM.md) - Sistema de autenticação
+- 📄 [`algor_backend_security.md`](./algor_backend_security.md) - Arquitetura de segurança
+
+### **LGPD**
+- 📄 [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md) - Manual operacional
+- 📄 [`LGPD-Checklist-5min.md`](./LGPD-Checklist-5min.md) - Checklist rápido
+- 📄 [`LGPD-Guia-Agent.md`](./LGPD-Guia-Agent.md) - Guia para agentes
 
 ---
 
-## 🆕 NOVIDADES V18.3.0
+## 🎨 DESIGN E UX
 
-### Documentos Criados
-1. **`AUTHENTICATION_AUDIT_REPORT.md`** - Relatório completo de auditoria (20+ páginas)
-2. **`backend/test_auth_system.py`** - Script de teste automatizado
-3. **`CHANGELOG.md`** - Histórico de versões consolidado
-4. **`DOCUMENTATION_INDEX.md`** - Este documento (índice de navegação)
+### **Design System**
+- 📄 [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) - Design System v3.0
+- 📄 [`ux-ui-manual-2026.md`](./ux-ui-manual-2026.md) - Manual UX/UI 2026
 
-### Documentos Atualizados
-1. **`PROJECT_STATUS_MEMORIA.md`** - Versão V18.3.0 adicionada
-2. **`ROTEIRO_TESTES_COMPLETO.md`** - JORNADA 11 adicionada (15 testes)
-3. **`AUTHENTICATION_SYSTEM.md`** - Status atualizado para "100% Funcional (Auditado)"
-
-### Correções Aplicadas
-1. **`backend/.env`** - SMTP_USER corrigido (adicionado @gmail.com)
-2. **Rota mock removida** - `/frontend/app/api/auth/login/route.ts` deletado
+### **Especificações de Páginas**
+- 📄 [`BLOG_SPECIFICATION.md`](./BLOG_SPECIFICATION.md) - Especificação do blog
+- 📄 [`BLOG_MDX_IMPLEMENTATION.md`](./BLOG_MDX_IMPLEMENTATION.md) - Implementação MDX
+- 📄 [`HEALTH_LAB_SPEC.md`](./specs/HEALTH_LAB_SPEC.md) - Especificação Health Lab
 
 ---
 
-## 🔗 LINKS ÚTEIS
+## 🚀 DEPLOY E INFRAESTRUTURA
 
-### Repositório
-- **GitHub:** https://github.com/HUB7-code/algorbrasil
+### **Deploy**
+- 📄 [`DEPLOY_V17.8.2.md`](./DEPLOY_V17.8.2.md) - Guia de deploy V17.8.2
+- 📄 [`DEPLOY_V18.3.0.md`](./DEPLOY_V18.3.0.md) - Guia de deploy V18.3.0
+- 📄 [`MANUAL_DEPLOY_VPS.md`](./MANUAL_DEPLOY_VPS.md) - Deploy manual VPS
+- 📄 [`MANUAL_DEPLOY_VPS_V2.md`](./MANUAL_DEPLOY_VPS_V2.md) - Deploy manual VPS V2
 
-### Produção
-- **Website:** https://www.algorbrasil.com.br
-- **API:** https://www.algorbrasil.com.br/api/v1
+### **Otimização**
+- 📄 [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md) - **Guia de otimização de disco** ⭐
+- 📄 [`DISK_SPACE_SUMMARY.md`](./DISK_SPACE_SUMMARY.md) - Resumo executivo
+- 📄 [`cleanup-vps.sh`](./cleanup-vps.sh) - Script de limpeza automática
 
-### Desenvolvimento
-- **Frontend:** http://localhost:3000
-- **Backend:** http://localhost:8000
-- **API Docs:** http://localhost:8000/docs
-
----
-
-## 📞 SUPORTE
-
-Para dúvidas sobre a documentação:
-1. Consulte o documento específico no índice acima
-2. Verifique o [`CHANGELOG.md`](./CHANGELOG.md) para mudanças recentes
-3. Execute [`backend/test_auth_system.py`](./backend/test_auth_system.py) para validar configurações
+### **Troubleshooting**
+- 📄 [`VPS_TROUBLESHOOTING.md`](./VPS_TROUBLESHOOTING.md) - Troubleshooting VPS
+- 📄 [`GITHUB_SECRET_BLOCK.md`](./GITHUB_SECRET_BLOCK.md) - Bloqueio de secrets
 
 ---
 
-**Última atualização:** 03/02/2026  
-**Versão:** V18.3.0  
-**Mantido por:** Equipe ALGOR BRASIL
+## 🧪 TESTES
+
+### **Roteiros de Teste**
+- 📄 [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md) - Roteiro completo
+- 📄 [`QUICK_START_TESTS.md`](./QUICK_START_TESTS.md) - Testes rápidos
+- 📄 [`QA_MANUAL_TESTING_GUIDE.md`](./QA_MANUAL_TESTING_GUIDE.md) - Guia de testes manuais
+
+### **Relatórios**
+- 📄 [`FINAL_TEST_REPORT.md`](./FINAL_TEST_REPORT.md) - Relatório final
+- 📄 [`AUDIT_REPORT_PRE_COMMIT.md`](./AUDIT_REPORT_PRE_COMMIT.md) - Auditoria pré-commit
+
+---
+
+## 📊 ESPECIFICAÇÕES TÉCNICAS
+
+### **Módulos e Features**
+- 📄 [`ALGOR_ISO42001_Module_Spec.md`](./ALGOR_ISO42001_Module_Spec.md) - Módulo ISO 42001
+- 📄 [`GUARDRAIL_API_INTEGRATION_SPEC.md`](./GUARDRAIL_API_INTEGRATION_SPEC.md) - Integração Guardrail API
+- 📄 [`TRUST_HUB_SPEC.md`](./specs/TRUST_HUB_SPEC.md) - Especificação Trust Hub
+
+### **Artigos e Conteúdo**
+- 📄 [`ARTICLE_CREATION_SYSTEM.md`](./ARTICLE_CREATION_SYSTEM.md) - Sistema de criação de artigos
+- 📄 [`AI_PROMPT_TEMPLATE.md`](./AI_PROMPT_TEMPLATE.md) - Templates de prompts
+
+---
+
+## 💼 ESTRATÉGIA E NEGÓCIOS
+
+### **Metodologia**
+- 📄 [`Metodologia de Serviço B2B – Governança de IA ALGO.md`](./Metodologia%20de%20Serviço%20B2B%20–%20Governança%20de%20IA%20ALGO.md) - Metodologia B2B
+- 📄 [`Modelagem de Site para Consultoria de IA.md`](./Modelagem%20de%20Site%20para%20Consultoria%20de%20IA.md) - Modelagem do site
+
+### **Planos de Execução**
+- 📄 [`EXECUTION_PLAN_REGULATION_AS_CODE.md`](./EXECUTION_PLAN_REGULATION_AS_CODE.md) - Regulation as Code
+- 📄 [`IMPLEMENTATION_PLAN_GROWTH_HUB.md`](./IMPLEMENTATION_PLAN_GROWTH_HUB.md) - Growth Hub
+
+---
+
+## 🔧 CI/CD E DESENVOLVIMENTO
+
+### **CI/CD**
+- 📄 [`CI_CD_DOCUMENTATION.md`](./CI_CD_DOCUMENTATION.md) - Documentação CI/CD
+- 📄 [`CONTRIBUTING.md`](./CONTRIBUTING.md) - Guia de contribuição
+
+### **OAuth e Configuração**
+- 📄 [`GOOGLE_AUTH_SETUP.md`](./GOOGLE_AUTH_SETUP.md) - Setup Google Auth
+- 📄 [`OAUTH_FIX_DOCUMENTATION.md`](./OAUTH_FIX_DOCUMENTATION.md) - Fix OAuth
+- 📄 [`OAUTH_CREDENTIALS.example.md`](./OAUTH_CREDENTIALS.example.md) - Exemplo de credenciais
+
+---
+
+## 📝 RELATÓRIOS E SUMMARIES
+
+### **Sessões de Desenvolvimento**
+- 📄 [`SESSAO_27_12_2025.md`](./SESSAO_27_12_2025.md) - Sessão 27/12/2025
+- 📄 [`FINAL_SUMMARY.md`](./FINAL_SUMMARY.md) - Resumo final
+- 📄 [`BLOG_FINAL_SUMMARY.md`](./BLOG_FINAL_SUMMARY.md) - Resumo final do blog
+
+### **Implementações**
+- 📄 [`IMPLEMENTATION_COMPLETE.md`](./IMPLEMENTATION_COMPLETE.md) - Implementação completa
+- 📄 [`PRIORITY_FIXES_IMPLEMENTED.md`](./PRIORITY_FIXES_IMPLEMENTED.md) - Fixes prioritários
+
+### **Hotfixes**
+- 📄 [`HOTFIX_PROFILE_IMAGE.md`](./HOTFIX_PROFILE_IMAGE.md) - Hotfix imagem de perfil
+- 📄 [`ONBOARDING_401_FIX.md`](./ONBOARDING_401_FIX.md) - Fix onboarding 401
+- 📄 [`ENTERPRISE_PAGE_FIX.md`](./ENTERPRISE_PAGE_FIX.md) - Fix página enterprise
+
+---
+
+## 📖 MANUAIS E GUIAS
+
+### **Manuais Operacionais**
+- 📄 [`Manual_Auditor_IA_Completo.md`](./Manual_Auditor_IA_Completo.md) - Manual do auditor
+- 📄 [`AUDIT_PROVIDER_OPERATIONAL_GUIDE.md`](./AUDIT_PROVIDER_OPERATIONAL_GUIDE.md) - Guia operacional
+
+### **Políticas**
+- 📄 [`ISO42001_Politica_Guia_Visual.md`](./ISO42001_Politica_Guia_Visual.md) - Guia visual ISO 42001
+
+---
+
+## 🗂️ ORGANIZAÇÃO POR CATEGORIA
+
+### **🎬 Algor Lab (Prioridade Atual)**
+1. [`ALGOR_LAB_COMPLETE_PLAN_V2.md`](./ALGOR_LAB_COMPLETE_PLAN_V2.md) - **COMEÇAR AQUI**
+2. [`ALGOR_LAB_NETFLIX_PROPOSAL.md`](./ALGOR_LAB_NETFLIX_PROPOSAL.md)
+
+### **📊 Status e Planejamento**
+1. [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) - **STATUS ATUAL**
+2. [`V19_COMPLETE_SUMMARY.md`](./V19_COMPLETE_SUMMARY.md)
+3. [`SIMPLIFICATION_CHANGELOG.md`](./SIMPLIFICATION_CHANGELOG.md)
+4. [`README.md`](./README.md)
+
+### **🔒 Segurança**
+1. [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md)
+2. [`algor_backend_security.md`](./algor_backend_security.md)
+3. [`LGPD-Manual-Operacional.md`](./LGPD-Manual-Operacional.md)
+
+### **🚀 Deploy**
+1. [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md) - **OTIMIZAÇÃO**
+2. [`DEPLOY_V18.3.0.md`](./DEPLOY_V18.3.0.md)
+3. [`VPS_TROUBLESHOOTING.md`](./VPS_TROUBLESHOOTING.md)
+
+### **🎨 Design**
+1. [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md)
+2. [`ux-ui-manual-2026.md`](./ux-ui-manual-2026.md)
+
+---
+
+## 🔍 COMO USAR ESTE ÍNDICE
+
+### **Para Começar um Novo Chat:**
+1. Leia [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) - Status atual
+2. Leia [`ALGOR_LAB_COMPLETE_PLAN_V2.md`](./ALGOR_LAB_COMPLETE_PLAN_V2.md) - Próximo projeto
+
+### **Para Implementar Algor Lab:**
+1. [`ALGOR_LAB_COMPLETE_PLAN_V2.md`](./ALGOR_LAB_COMPLETE_PLAN_V2.md) - Plano completo
+2. [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md) - Design system
+3. [`AUTHENTICATION_SYSTEM.md`](./AUTHENTICATION_SYSTEM.md) - Controle de acesso
+
+### **Para Deploy:**
+1. [`DEPLOY_V18.3.0.md`](./DEPLOY_V18.3.0.md) - Guia de deploy
+2. [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md) - Otimização
+3. [`VPS_TROUBLESHOOTING.md`](./VPS_TROUBLESHOOTING.md) - Troubleshooting
+
+---
+
+## 📌 DOCUMENTOS MAIS IMPORTANTES
+
+### **Top 10 (Por Prioridade):**
+1. 🎬 [`ALGOR_LAB_COMPLETE_PLAN_V2.md`](./ALGOR_LAB_COMPLETE_PLAN_V2.md) - **PRÓXIMO PROJETO**
+2. 📊 [`PROJECT_STATUS_MEMORIA.md`](./PROJECT_STATUS_MEMORIA.md) - **STATUS ATUAL**
+3. 📝 [`V19_COMPLETE_SUMMARY.md`](./V19_COMPLETE_SUMMARY.md) - **ÚLTIMA ATUALIZAÇÃO**
+4. 🔒 [`AUTHENTICATION_AUDIT_REPORT.md`](./AUTHENTICATION_AUDIT_REPORT.md)
+5. 🎨 [`ALGOR_Design_System_Spec.md`](./ALGOR_Design_System_Spec.md)
+6. 🚀 [`DISK_SPACE_FIX.md`](./DISK_SPACE_FIX.md)
+7. 📖 [`README.md`](./README.md)
+8. 🧪 [`ROTEIRO_TESTES_COMPLETO.md`](./ROTEIRO_TESTES_COMPLETO.md)
+9. 🔧 [`CI_CD_DOCUMENTATION.md`](./CI_CD_DOCUMENTATION.md)
+10. 📄 [`SIMPLIFICATION_CHANGELOG.md`](./SIMPLIFICATION_CHANGELOG.md)
+
+---
+
+**Total de Documentos:** 76+  
+**Última Atualização:** 04/02/2026  
+**Versão:** V19.0.0

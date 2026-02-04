@@ -50,6 +50,14 @@
     *   ✅ `DISK_SPACE_SUMMARY.md` - Resumo executivo
     *   ✅ `cleanup-vps.sh` - Script de limpeza automática
 
+6.  **Algor Lab - Planning Complete (V2.0):**
+    *   **Objetivo:** Transformar /academy em experiência Netflix-style
+    *   **Pesquisa:** Tendências LMS 2026 (microlearning, gamificação, AI)
+    *   **Documento:** `ALGOR_LAB_COMPLETE_PLAN_V2.md` (completo)
+    *   **Roadmap:** 4 fases (MVP, Quick Wins, Enhancements, Advanced)
+    *   **Prioridades:** Microlearning (80% completion), PWA, Streak system
+    *   **Status:** 📋 Pronto para implementação
+
 ---
 
 ### 🚀 Conquistas Anteriores (V18.4.0 - "Infrastructure Hardening")
