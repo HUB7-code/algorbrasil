@@ -125,7 +125,7 @@ export default function AssessmentsPage() {
             router.push("/dashboard/growth?tab=policy");
         } else if (!protocol.isAvailable) {
             // Toast or specific UI for locked
-            console.log("Feature locked");
+            // Feature locked - silent fail
         }
     };
 

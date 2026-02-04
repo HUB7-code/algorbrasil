@@ -221,7 +221,7 @@ export default function ContentDetailPage({ params }: { params: { id: string } }
                                                                         document.body.removeChild(a);
                                                                     } catch (error) {
                                                                         console.error('Erro:', error);
-                                                                        alert('Erro ao baixar certificado. Tente novamente.');
+                                                                        toast.error('Erro ao baixar certificado. Tente novamente.');
                                                                     }
                                                                 }}
                                                                 className="px-10 py-4 bg-gradient-to-r from-[#00FF94] to-[#00CC76] hover:from-[#00CC76] hover:to-[#00FF94] text-black rounded-xl font-bold transition-all shadow-[0_0_30px_rgba(0,255,148,0.3)] hover:shadow-[0_0_50px_rgba(0,255,148,0.5)] hover:scale-[1.02] flex items-center justify-center gap-2"

@@ -140,7 +140,7 @@ export default function AlgorLabPage() {
     };
 
     const handleDownload = (id: string) => {
-        console.log('Downloading content:', id);
+        // Download content - implement later
         alert('Download iniciado! (Simulação)');
     };
 

@@ -3,6 +3,7 @@
 import { PlayCircle, BookOpen, Star, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { API_ENDPOINTS } from "@/lib/api-config";
 
 interface Course {
     id: string;
@@ -19,7 +20,7 @@ export default function CoursesPage() {
     useEffect(() => {
         async function fetchCourses() {
             try {
-                const res = await fetch('http://localhost:8000/api/v1/lms/courses');
+                const res = await fetch(API_ENDPOINTS.lms.courses);
                 if (res.ok) {
                     const data = await res.json();
                     setCourses(data);
