@@ -1,13 +1,13 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
 **Data:** 04/02/2026
-**Versão:** V20.1.0 (ISO 42001 Assessment)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação e Gamification.
+**Versão:** V21.0.0 (Hardcore Assessment)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Ensino, Avaliação Hardcore e Gamification.
 
 ---
 
-## 🎓 JORNADA 12: ACADEMY REVOLUTION (V20.1.0)
+## 🎓 JORNADA 12: ACADEMY REVOLUTION (V21.0.0)
 
-### Objetivo: Validar Player de Ensino, Quiz e Conteúdo ISO 42001
+### Objetivo: Validar Player de Ensino, Quiz One-Shot e Conteúdo ISO 42001
 
 #### 12.1 Navegação do Curso (`/academy/lab/content/42001_context`)
 - [ ] Acesse a aula "42.001 - Contextualização".
@@ -22,7 +22,7 @@
   - [ ] Verifique se o texto está formatado (HTML) com listas e boxes coloridos.
   - [ ] Não deve haver tags quebradas ou texto cru.
 
-#### 12.2 Downloads de Materiais
+#### 12.2 Downloads de Materiais (V21.0)
 - [ ] Localize a seção "Materiais da Aula" na lateral direita.
 - [ ] Verifique os 5 itens listados (PDFs, Excel, Doc).
 - [ ] **Teste de Download:**
@@ -30,30 +30,43 @@
   - [ ] O download deve iniciar imediatamente.
   - [ ] Repita para o "Manual do Auditor (.pdf)".
 
-#### 12.3 Quiz Interativo (Auto Avaliação)
+#### 12.3 Quiz Engine 2.0 (Hardcore & One-Shot) - CRÍTICO!
 - [ ] Na playlist, clique em "Testes de Auto Avaliação".
 - [ ] **Interface Check:**
-  - [ ] O player de vídeo deve sumir.
-  - [ ] O Quiz deve aparecer com título "Teste seus Conhecimentos".
-  - [ ] 6 Questões devem estar listadas.
+  - [ ] O player de vídeo deve ser substituído pelo Quiz.
+  - [ ] Aviso "UMA tentativa" deve estar visível.
 - [ ] **Validação de Respostas:**
   - [ ] Responda apenas 3 questões. Botão "Enviar" deve estar **BLOQUEADO**.
-  - [ ] Responda todas. Botão "Enviar" deve liberar.
-  - [ ] Envie com respostas erradas (propositalmente).
-  - [ ] Feedback visual deve mostrar erros em vermelho.
-  - [ ] Score deve ser baixo (<70%). Toast de erro deve aparecer.
-- [ ] **Sucesso:**
-  - [ ] Tente novamente e acerte >70%.
-  - [ ] Feedback visual verde "Excelente!".
-  - [ ] Botão "Concluir Etapa" desbloqueia.
+  - [ ] Responda todas. Botão "Enviar Diagnóstico" deve liberar com animação.
+- [ ] **Simulação de Reprovação (<80%):**
+  - [ ] Erre propositalmente mais de 2 questões (são 6 total, 2 erros = 66%).
+  - [ ] Envie.
+  - [ ] **Resultado:**
+    - [ ] Card Vermelho "Reprovado".
+    - [ ] Toast de Erro.
+    - [ ] Questões devem mostrar gabarito (Verde/Vermelho).
+    - [ ] **NÃO** deve haver botão "Refazer Teste".
+- [ ] **Teste de Persistência (One-Shot):**
+  - [ ] Saia da página (volte para `/academy/lab`).
+  - [ ] Entre novamente na aula do Quiz.
+  - [ ] O resultado "Reprovado" deve aparecer **imediatamente**. O teste não reseta.
+- [ ] **Simulação de Aprovação (Limpar Storage):**
+  - [ ] (Manual Dev) Limpe `localStorage` no console (`localStorage.clear()`).
+  - [ ] Recarregue.
+  - [ ] Responda 100% correto.
+  - [ ] **Resultado:**
+    - [ ] Card Verde "Aprovado" (Neon Glow).
+    - [ ] Botão "Retornar ao Lab" aparece.
+    - [ ] Redirecionamento automático ou via botão deve levar ao Lab.
 
-#### 12.4 Gamification (XP)
-- [ ] Complete uma aula de vídeo (clique "Marcar como Concluída").
+#### 12.4 Gamification & Dashboard V2
+- [ ] Complete uma aula de vídeo.
 - [ ] **Feedback:**
   - [ ] Toast Premium: "Você ganhou +150 XP!".
   - [ ] Verifique se a barra de XP no topo (Navbar) aumentou.
-
----
+- [ ] **Visual:**
+  - [ ] Verifique as animações de "Orbes" no fundo do Dashboard.
+  - [ ] Verifique se os cards têm glassmorphism correto.
 
 ## 🔒 JORNADA 11: AUTHENTICATION \u0026 EMAIL SYSTEM (V18.3.0)
 
