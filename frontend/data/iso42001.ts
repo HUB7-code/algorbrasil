@@ -328,25 +328,94 @@ export const iso42001Content: CourseModule[] = [
             {
                 id: 'ia_2030_security',
                 title: 'IA 2030 - Segurança, Ética e Sociedade',
-                videoUrl: '', // A definir
+                videoUrl: 'https://www.youtube.com/embed/GDSOszhcIdI',
                 duration: 60,
                 description: `
-                    <div class="space-y-6 text-gray-300 font-manrope">
-                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
-                            <strong class="text-[#00FF94] block mb-2 text-lg">Visão Geral</strong>
-                            <p>Exploração dos desafios de confiança, riscos e impacto social da IA, baseada nas tendências para 2030.</p>
+                    <div class="space-y-8 text-gray-300 font-manrope">
+                        
+                        <div class="bg-[#0A1A2F]/50 p-6 rounded-xl border border-white/5">
+                            <h3 class="text-[#00FF94] font-orbitron font-bold text-lg mb-4 flex items-center gap-2">
+                                <span className="p-1 rounded bg-[#00FF94]/10">🔐</span> Pontos-Chave
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <strong class="text-white block mb-1">✅ IA Explicável (XAI)</strong>
+                                    <p class="text-sm opacity-80">Essencial para confiança e ética em setores críticos.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-white block mb-1">✅ Transparência (FMTI)</strong>
+                                    <p class="text-sm opacity-80">Índices ajudam na escolha de modelos éticos.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-white block mb-1">✅ Detecção de Deepfakes</strong>
+                                    <p class="text-sm opacity-80">Proteção contra fraudes digitais hiper-realistas.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-white block mb-1">✅ Envenenamento de Dados</strong>
+                                    <p class="text-sm opacity-80">Técnicas como Glaze protegem obras autorais.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-white block mb-1">✅ Vigilância</strong>
+                                    <p class="text-sm opacity-80">Preocupações sobre privacidade e repressão.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-white block mb-1">✅ Viés Algorítmico</strong>
+                                    <p class="text-sm opacity-80">Ferramentas para corrigir discriminação de gênero/raça.</p>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="space-y-4">
-                            <h3 class="text-xl font-bold text-white font-orbitron">Tópicos Abordados</h3>
+                            <h3 class="text-xl font-bold text-white font-orbitron border-b border-white/10 pb-2">⚠️ Tendências Preocupantes</h3>
                             <ul class="list-disc pl-5 space-y-2 text-gray-400">
-                                <li><strong>Trust Gap:</strong> A lacuna de confiança na IA.</li>
-                                <li><strong>Riscos Emergentes:</strong> Alucinações, vazamento de dados e viés.</li>
-                                <li><strong>Impacto Social:</strong> O futuro do trabalho e a interação humano-máquina.</li>
+                                <li><strong>IA Póstuma:</strong> Recriação digital de pessoas falecidas.</li>
+                                <li><strong>Biometria Comportamental:</strong> Monitoramento de padrões sutis.</li>
+                                <li><strong>AIO (Otimização de Respostas):</strong> Manipulação ideológica ou comercial.</li>
                             </ul>
+                        </div>
+
+                        <div class="space-y-4">
+                            <h3 class="text-xl font-bold text-white font-orbitron border-b border-white/10 pb-2">👶 IA para Crianças</h3>
+                            <p>Iniciativas como <strong>MIT CoCo</strong> buscam garantir uso seguro no desenvolvimento infantil.</p>
+                        </div>
+
+                        <div class="bg-indigo-900/20 p-5 rounded-xl border border-indigo-500/30">
+                            <strong class="block text-indigo-400 mb-2 font-orbitron">📌 Conclusão</strong>
+                            <p>A segurança da IA exige governança, ética e responsabilidade. Profissionais precisam atuar de forma crítica diante desses desafios.</p>
+                        </div>
+
+                        <div class="text-sm text-gray-500 italic border-l-2 border-[#00FF94] pl-4 py-1">
+                            📅 <strong>Próxima aula:</strong> Planejamento com base na ISO/IEC 42001 e aplicação da IA na área de energia até 2030.
+                        </div>
+
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-[#00FF94]">
+                            <span>#AlgorDigital</span>
+                            <span>#IA2030</span>
+                            <span>#GovernançaIA</span>
+                            <span>#ÉticaDigital</span>
                         </div>
                     </div>
                 `,
-                materials: []
+                materials: [
+                    {
+                        id: 'mat_paper_transparencia',
+                        title: 'PAPER - Índice de Transparência',
+                        type: 'pdf',
+                        downloadUrl: '/materials/Paper - Indice de Transparencia.pdf'
+                    },
+                    {
+                        id: 'mat_aula_2.2',
+                        title: 'SLIDES - Segurança, Ética e Sociedade',
+                        type: 'pdf',
+                        downloadUrl: '/materials/AULA 2.2_SEGURANÇA. ÉTICA E SOCIEDADE - IA 2030.pdf'
+                    },
+                    {
+                        id: 'mat_tech_trends_2025_ref',
+                        title: 'RELATÓRIO - 2025 Tech Trends Report',
+                        type: 'pdf',
+                        downloadUrl: '/materials/INTELIGENCIA ARTIFICIAL - 2025 TECH TRENDS REPORT.pdf'
+                    }
+                ]
             },
             {
                 id: 'auto_avaliacao_02',
