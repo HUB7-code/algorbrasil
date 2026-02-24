@@ -12,14 +12,12 @@ export async function POST(request: NextRequest) {
         // ========================================
         // AUTHENTICATION CHECK
         // ========================================
-        const { requireMember } = await import('@/lib/auth');
+        const { auth } = await import('@clerk/nextjs/server');
+        const { userId } = await auth();
 
-        let user;
-        try {
-            user = await requireMember();
-        } catch (error) {
+        if (!userId) {
             return NextResponse.json(
-                { error: 'Acesso restrito a Membros Associados. Faça login para continuar.' },
+                { error: 'Acesso restrito. Faça login para continuar.' },
                 { status: 401 }
             );
         }

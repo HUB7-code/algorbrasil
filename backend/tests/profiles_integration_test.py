@@ -8,6 +8,7 @@ from backend.app.main import app
 from backend.app.db.session import get_db, engine, Base
 from backend.app.models.profiles import CorporateProfile, ProfessionalProfile
 from backend.app.models.user import User
+from backend.app.api.auth import get_current_user
 
 # Create test client
 client = TestClient(app)
@@ -38,7 +39,19 @@ def override_get_db(db_session):
             yield db_session
         finally:
             pass
+            
+    async def _mock_get_current_user():
+        # Retorna um usuário default validado para as rotas autenticadas
+        user = db_session.query(User).first()
+        if not user:
+            user = User(email="mock_clerk_auth@algor.com", hashed_password="pw", is_active=True, role="user")
+            db_session.add(user)
+            db_session.commit()
+            db_session.refresh(user)
+        return user
+        
     app.dependency_overrides[get_db] = _override_get_db
+    app.dependency_overrides[get_current_user] = _mock_get_current_user
     yield
     app.dependency_overrides.clear()
 

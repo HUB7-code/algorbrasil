@@ -1,7 +1,36 @@
 # 🧪 ROTEIRO COMPLETO DE TESTES - ALGOR BRASIL
-**Data:** 04/02/2026
-**Versão:** V21.2.0 (Code Audit & Quality + Certificados)
-**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Certificados PDF, Segurança Hardened e Qualidade de Código.
+**Data:** 24/02/2026
+**Versão:** V21.3.0 (Clerk B2B Auth Integration)
+**Objetivo:** Validar 100% das funcionalidades, com foco crítico em Autenticação B2B Clerk, Webhooks e Auth Guards.
+
+---
+
+## 🔐 JORNADA 14: CLERK B2B AUTHENTICATION (V21.3.0)
+
+### Objetivo: Validar Frontend Clerk, Backend Auth Guard e Webhook Sync (Svix)
+
+#### 14.1 Segurança e Injeção de Identidade (Frontend)
+- [ ] **Rotas Protegidas:**
+  - [ ] Acesse `/dashboard` anônimo.
+  - [ ] **Esperado:** Redirecionamento forçado para `/sign-in`.
+- [ ] **Autenticação Padrão (SSO / Magic Link):**
+  - [ ] Cadastre-se em `/sign-up` usando o B2B Login Component.
+  - [ ] **Esperado:** JWT em cookie e armazenamento da Sessão ativa. Redirecionamento para dashboard.
+
+#### 14.2 Webhook Engine (Identity Sync)
+- [ ] **Criação de Conta no Banco (user.created):**
+  - [ ] Dispare o evento (via cadastro ou dashboard do Clerk).
+  - [ ] Verifique no banco de dados (`test_risks.db` ou `sql_app.db`):
+  - [ ] **Esperado:** `clerk_id` populado na tabela `users`.
+  - [ ] **Esperado:** Criação de `Organization` Default com 3 créditos demo atribuídos ao novo `User`.
+- [ ] **Proteção Svix (Anti-Spoofing):**
+  - [ ] Tente enviar um POST fake para `/api/v1/webhooks/clerk`.
+  - [ ] **Esperado:** HTTP 400 Bad Request (Assinatura Inválida - WebhookVerificationError).
+
+#### 14.3 FastAPI Auth Guard Integration
+- [ ] **Testes de Integração do JWT:**
+  - [ ] Valide os Endpoints Críticos (Testados via `pytest backend/tests/*`).
+  - [ ] O JWT assinado do Clerk deve passar pelos Guard do `clerk_backend_api` no Backend.
 
 ---
 

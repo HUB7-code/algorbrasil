@@ -1,8 +1,18 @@
-**Versão Atual:** V21.2.0 "Code Audit & Quality Hardening"
-**Data da Última Atualização:** 04/02/2026
+**Versão Atual:** V21.3.0 "Clerk B2B Auth Integration"
+**Data da Última Atualização:** 24/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Audited)
 
-### 🎯 Últimas Conquistas (V21.2.0 - "Code Audit Edition")
+### 🎯 Últimas Conquistas (V21.3.0 - "Clerk B2B Auth Integration")
+
+1.  **Migração Completa para o Clerk (Identity Provider):**
+    *   **Frontend B2B:** Substituída autenticação local legada (JWT) pelo Provider do Clerk no Next.js.
+    *   **Backend Auth Guard:** Integrada SDK do Clerk (`clerk_backend_api`) para validar remotamente as chaves assimétricas do Token.
+    *   **Webhooks de Sincronização:** Lógica de Listener no FastAPI blindada via `svix` para espelhar usuários na base SQL.
+    *   **Limpeza & Segurança:** `/login`, `/signup`, `/forgot-password` extintos. Adoção total do painel de Sign-in B2B Corporativo da Clerk.
+
+---
+
+### 🚀 Conquistas Anteriores (V21.2.0 - "Code Audit Edition")
 
 1.  **Auditoria Completa de Código:**
     *   **Segurança Hardened:** Chave de encriptação obrigatória em produção (fail-fast).
@@ -28,13 +38,14 @@
 
 ### 🚀 Conquistas Anteriores (V21.1.0 - "Leadership Content")
 
-1.  **Etapa 02 Completa:** Liderança, Segurança e Quiz com 8 questões validadas.
-2.  **Quiz 100%:** Nota de corte elevada para excelência total.
+3.  **Etapa 02 Completa:** Liderança, Segurança e Quiz com 8 questões validadas.
+4.  **Quiz 100%:** Nota de corte elevada para excelência total.
 
 ---
 
 ### 📜 Histórico de Versões
 
+- [x] **V21.3.0:** "Clerk B2B Auth Integration" - Identidade delegada ao Clerk, Webhooks com Svix, Backend Auth Guard.
 - [x] **V21.2.0:** "Code Audit" - Segurança hardened, URLs centralizadas, Certificados premium.
 - [x] **V21.1.0:** "Leadership Content" - Etapa 02, Hardcore Quiz 100%, Materiais de Apoio.
 - [x] **V21.0.0:** "Hardcore Assessment" - Quiz One-Shot, Review Mode, Dashboard Premium.
@@ -54,12 +65,12 @@
 
 ---
 
-## 6. Resumo Visual V21.2.0
+## 6. Resumo Visual V21.3.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v21.2.0                        │
-│          ✅ CODE AUDIT & QUALITY EDITION                    │
+│                 ALGOR BRASIL v21.3.0                        │
+│          ✅ CLERK B2B AUTH INTEGRATION                      │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
@@ -87,9 +98,14 @@
 │  ├── Etapa 01 + 02 ............................ ✅ (100%)  │
 │  ├── Materials Integration .................... ✅ (100%)  │
 │                                                             │
+│  🔐 B2B AUTHENTICATION (CLERK)                              │
+│  ├── Identity Externalization ................. ✅ (100%)  │
+│  ├── Backend Guard & SDK Validation ........... ✅ (100%)  │
+│  ├── Svix Webhooks Sync ....................... ✅ (100%)  │
+│                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-*Documento atualizado automaticamente. Versão 21.2.0.*
-> **Última Atualização:** 04/02/2026
-> **Status Geral:** **PRODUCTION LIVE + AUDITED** 🚀✅
+*Documento atualizado automaticamente. Versão 21.3.0.*
+> **Última Atualização:** 24/02/2026
+> **Status Geral:** **PRODUCTION LIVE + B2B AUTH MIGRATION** 🚀✅

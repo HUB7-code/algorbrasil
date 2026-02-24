@@ -21,7 +21,7 @@ export default function Navbar() {
 
     const isHome = pathname === '/';
     const normalizedPath = pathname?.replace(/\/$/, '') || '';
-    const isAuthPage = ['/login', '/register', '/2fa'].includes(normalizedPath);
+    const isAuthPage = ['/login', '/register', '/2fa', '/sign-in', '/sign-up'].includes(normalizedPath);
     const isLabPage = pathname?.startsWith('/academy/lab');
 
     useEffect(() => {
@@ -134,7 +134,7 @@ export default function Navbar() {
                         )}
 
                         {/* Member Area / Login */}
-                        <Link href="/login" className="hover:text-white transition-colors font-semibold text-white/80 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">
+                        <Link href="/sign-in" className="hover:text-white transition-colors font-semibold text-white/80 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">
                             <div className="p-1.5 rounded-lg bg-white/5 border border-white/5 group-hover:border-[#00A3FF]/30 group-hover:bg-[#00A3FF]/10 transition-all">
                                 <Lock className="w-3.5 h-3.5" />
                             </div>
@@ -142,7 +142,7 @@ export default function Navbar() {
                         </Link>
 
                         {/* CTA Principal - Mini Holographic Button */}
-                        <Link href="/register">
+                        <Link href="/sign-up">
                             <motion.button
                                 className="relative group"
                                 whileHover={{ scale: 1.05 }}
@@ -201,13 +201,13 @@ export default function Navbar() {
                             </div>
 
                             <div className="pt-6 mt-auto mb-10 space-y-4">
-                                <Link href="/register" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                <Link href="/sign-up" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
                                     <button className="w-full py-4 rounded-xl bg-[#00FF94] text-[#050810] font-bold text-lg uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,148,0.3)]">
                                         Quero me Associar
                                     </button>
                                 </Link>
 
-                                <Link href="/login" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                <Link href="/sign-in" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
                                     <button className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
                                         Área do Membro

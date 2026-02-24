@@ -14,6 +14,7 @@ from backend.app.db.session import Base, get_db
 from backend.app.models.user import User
 from backend.app.models.risk import RiskRegister
 from backend.app.models.audit import AuditLog
+from backend.app.api.auth import get_current_user
 
 # Setup Database for Testing
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_risks.db"
@@ -29,15 +30,23 @@ def override_get_db():
 
 client = TestClient(app)
 
+# Mock do Auth Guard (Clerk bypass)
+async def mock_get_current_user():
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
+    db.close()
+    return user
+
 # ✅ ADICIONE DECORATOR PYTEST PARA SETUP/TEARDOWN
 @pytest.fixture(scope="class", autouse=True)
 def setup_database_fixture():
     print("Setting up database...")
     Base.metadata.create_all(bind=engine)
     app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = mock_get_current_user
     yield
     print("Tearing down database...")
-    del app.dependency_overrides[get_db]  # Remove apenas o override que configuramos
+    app.dependency_overrides.clear()
     Base.metadata.drop_all(bind=engine)
     engine.dispose()
     if os.path.exists("./test_risks.db"):
@@ -65,27 +74,20 @@ class TestRiskModule:
         # Criar novo usuário com email verificado (is_active=True simula verificação)
         user = User(
             email="risk_tester@algor.com",
+            # senha e roles nao importam muito na validacao Clerk se esta mockado, mas preenchemos
             hashed_password=get_password_hash("TestPassword123!"),
             full_name="Risk Tester",
             phone="11999999999",
-            is_active=True,  # ✅ Simula email verificado
+            is_active=True,  
             role="user"
         )
         db.add(user)
         db.commit()
         db.close()
         
-        # Agora fazer login deve funcionar
-        login_data = {"email": "risk_tester@algor.com", "password": "TestPassword123!"}
-        response = client.post("/api/v1/auth/login", json=login_data)
-        
-        if response.status_code != 200:
-            print(f"Login failed: {response.text}")
-            raise Exception("Login failed")
-        
-        token = response.json()["access_token"]
-        self.auth_headers = {"Authorization": f"Bearer {token}"}
-        print("✅ Login successful, token acquired.")
+        # Como substituimos via dependência no FastApi, injetamos Header falso
+        self.auth_headers = {"Authorization": "Bearer mock"}
+        print("✅ Dados criados no banco e User Mockado.")
 
     def teardown_class(self):
         """Limpar dados de teste após execução"""
@@ -140,7 +142,12 @@ class TestRiskModule:
 
     def test_unauthorized_access(self):
         print("Testing Unauthorized Access...")
+        # Desliga temporariamente o override para testar rotas fechadas
+        app.dependency_overrides.pop(get_current_user, None)
         response = client.get("/api/v1/risks/")
+        # Restaura override
+        app.dependency_overrides[get_current_user] = mock_get_current_user
+        
         assert response.status_code == 401
         print("Unauthorized Access PASSED")
 

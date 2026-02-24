@@ -101,6 +101,10 @@ app.include_router(lms.router, prefix="/api/lms", tags=["LMS - Academy"])
 # Leads e Formulários
 app.include_router(leads.router, prefix="/api/v1", tags=["Leads"])
 
+# Webhooks (Clerk, etc)
+from backend.app.api.webhooks import clerk as clerk_webhooks
+app.include_router(clerk_webhooks.router, prefix="/api/v1/webhooks", tags=["Webhooks"])
+
 @app.get("/")
 def read_root():
     return {"message": "Algor AI Governance API is running", "version": "v17.4.0 (Health Lab)"}

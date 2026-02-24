@@ -31,334 +31,61 @@ router = APIRouter()
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/login")
 
+import clerk_backend_api
+from clerk_backend_api import Clerk
+
+# Iniciar Cliente do Clerk (singleton global recomendado para as rotas auth)
+# Evita inicializar a class Clerk a cada request.
+clerk_client = Clerk(bearer_auth=settings.CLERK_SECRET_KEY)
+
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     """
-    Decodifica o Token JWT e recupera o usuario atual.
+    Decodifica o Token JWT recebido do Clerk via Authorization Header (Bearer).
+    Busca o usuário no banco local através do seu `clerk_id` (sub do token).
     """
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Nao foi possivel validar as credenciais",
+        detail="Nao foi possivel validar as credenciais do Clerk. Sessão inválida ou expirada.",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    
     try:
-        # PyJWT decode does not require algorithms list as strictly but good practice
-        payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        if email is None:
+        # A SDK Clerk verifica assinatura criptográfica remotamente (via JWKS em cache interno).
+        # Retorna um dict se for válido ou lança exception
+        # OBS: verify_token usa a secret key fornecida na inicialização do cliente
+        payload = clerk_client.verify_token(token)
+        
+        # O ID do clerk fica no campo 'sub' (subject) retornado
+        clerk_id: str = payload.get("sub")
+        
+        if clerk_id is None:
             raise credentials_exception
-    except PyJWTError: # Catch generic PyJWT error
+            
+    except Exception as e:
+        logger.warning(f"Clerk JWT Verification falhou: {e}")
         raise credentials_exception
     
-    user = db.query(User).filter(User.email == email).first()
+    # 2. Buscar o usuário relacional associado a este ID único do Clerk
+    user = db.query(User).filter(User.clerk_id == clerk_id).first()
+    
+    # OBS Especial: Caso o Webhook ainda não tenha terminado de processar (race condition),
+    # nós também tentamos buscar por email caso ele esteja no token claims, caso tenha sido registrado manualmente
     if user is None:
-        raise credentials_exception
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Usuário logado no Clerk, mas perfil não foi sincronizado com ALGOR. Contate o suporte.",
+        )
+        
     return user
 
 # ==========================================
-# ROTAS DE AUTENTICACAO
+# ROTAS DE AUTENTICACAO DEMOVIDAS P/ CLERK
 # ==========================================
-
-@router.post("/signup", status_code=status.HTTP_201_CREATED)
-@limiter.limit("5/minute")
-async def create_user(request: Request, user_in: UserCreate, db: Session = Depends(get_db)):
-    """
-    Cadastra um novo usuario (Status: Pendente de Verificacao).
-    """
-    try:
-        logger.info(f"🚀 INICIANDO CADASTRO PARA: {user_in.email}")
-        user = db.query(User).filter(User.email == user_in.email).first()
-        if user:
-            raise HTTPException(
-                status_code=400,
-                detail="Este e-mail ja esta cadastrado no sistema."
-            )
-        
-        # Criptografar phone apenas se não for None
-        encrypted_phone = encrypt_field(user_in.phone) if user_in.phone else None
-        
-        new_user = User(
-            email=user_in.email,
-            hashed_password=get_password_hash(user_in.password),
-            full_name=user_in.full_name,
-            phone=encrypted_phone,
-            role="subscriber",
-            is_active=False, # BLOQUEADO ATE CONFIRMAR EMAIL
-            is_totp_enabled=False 
-        )
-        
-        db.add(new_user)
-        db.commit()
-        db.refresh(new_user)
-        logger.info(f"✅ Usuário salvo no DB (ID: {new_user.id})")
-        
-        # === [LGPD AUDIT] ===
-        # Registrar ação de criação de usuário para compliance
-        try:
-            from backend.app.models.audit import AuditLog
-            audit_log = AuditLog(
-                user_id=new_user.id,
-                action="USER_SIGNUP",
-                resource_type="user",
-                resource_id=str(new_user.id),
-                details={"email": new_user.email}
-            )
-            db.add(audit_log)
-            db.commit()
-            logger.info(f"📝 Audit Log criado para signup (User ID: {new_user.id})")
-        except Exception as e_audit:
-            logger.warning(f"⚠️ Erro não-fatal ao criar AuditLog: {e_audit}")
-
-        # === [FIX PERSONA A] ===
-        # Criar Organização Pessoal Default IMEDIATAMENTE para que ele tenha onde gastar os créditos
-        # Isso evita o erro "Nenhuma organizacao owner encontrada" no primeiro login
-        try:
-            from backend.app.models.organization import Organization, organization_members
-            
-            default_org_name = f"Org de {user_in.full_name.split()[0]}" if user_in.full_name else "Minha Organização"
-            new_org = Organization(
-                name=default_org_name,
-                owner_id=new_user.id,
-                plan_tier="free",
-                credits_balance=3 # <--- O OURO ESTÁ AQUI (3 Créditos de Demo)
-            )
-            db.add(new_org)
-            db.commit()
-            db.refresh(new_org)
-            
-            # Linkar como Owner (SQLAlchemy 2.0 compatible)
-            from sqlalchemy import insert
-            stmt = insert(organization_members).values(
-                user_id=new_user.id,
-                organization_id=new_org.id,
-                role="owner"
-            )
-            db.execute(stmt)
-            db.commit()
-            logger.info(f"✅ Organização Default Criada: {new_org.name} (ID: {new_org.id})")
-            
-        except Exception as e_org:
-            logger.warning(f"⚠️ ERRO NÃO-FATAL AO CRIAR ORG DEFAULT: {e_org}")
-            # Não abortamos o cadastro por isso, mas logamos
-        
-        # Gerar Token de Verificacao (Validade: 24h)
-        verification_token = create_access_token(
-            data={"sub": new_user.email, "type": "email_verification"},
-            expires_delta=timedelta(hours=24)
-        )
-        
-        # Envio SÍNCRONO para garantir entrega (pode ser movido para BackgroundTasks para performance)
-        logger.info("📧 Preparando envio de e-mail...")
-        verification_link = f"{settings.FRONTEND_URL}/verify-email?token={verification_token}"
-        
-        try:
-            from backend.app.services.email_service import send_verification_email
-            # Tenta enviar o email REAL
-            send_verification_email(new_user.full_name or "Usuario", new_user.email, verification_token)
-            logger.info("✅ E-mail de verificação despachado com sucesso!")
-        except Exception as e:
-            # Se falhar o SMTP (ex: credenciais erradas), loga o erro CRÍTICO e mostra o link no log para não travar o usuário
-            logger.error(f"❌ ERRO CRÍTICO AO ENVIAR E-MAIL (SMTP): {str(e)}")
-            logger.info(f"⚠️ [FALLBACK - SMTP FAIL] Use este link para verificar manualmente: {verification_link}")
-            # Em produção estrita, aqui você poderia dar raise error, mas para MVP/Beta é melhor permitir o cadastro continuar
-
-
-
-        return {
-            "message": "Cadastro realizado. Verifique seu e-mail para ativar a conta.", 
-            "email": new_user.email,
-            "status": "pending_verification"
-        }
-    
-    except HTTPException:
-        # Re-raise HTTPExceptions (já são JSON válidos)
-        raise
-    except Exception as e:
-        # Capturar qualquer outro erro e retornar JSON válido
-        logger.error(f"❌ ERRO INTERNO NO SIGNUP: {str(e)}")
-        import traceback
-        traceback.print_exc() # Manter traceback é ok em dev, mas idealmente usar logger.exception
-        raise HTTPException(
-            status_code=500,
-            detail=f"Erro interno ao processar cadastro: {str(e)}"
-        )
-
-class EmailVerification(BaseModel):
-    token: str
-
-@router.post("/verify-email")
-async def verify_email_token(data: EmailVerification, db: Session = Depends(get_db)):
-    """
-    Valida o token de e-mail e ativa a conta.
-    """
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_400_BAD_REQUEST,
-        detail="Token de verificação inválido ou expirado."
-    )
-    
-    try:
-        payload = jwt.decode(data.token, settings.SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        token_type: str = payload.get("type")
-        
-        if email is None or token_type != "email_verification":
-            raise credentials_exception
-            
-    except PyJWTError:
-        raise credentials_exception
-    
-    user = db.query(User).filter(User.email == email).first()
-    if not user:
-         raise HTTPException(status_code=404, detail="Usuário não encontrado.")
-         
-    if user.is_active:
-        return {"message": "Conta já está ativa. Pode fazer login."}
-        
-    user.is_active = True
-    db.commit()
-    
-    # Opcional: Enviar boas vindas agora
-    # send_welcome_email...
-    
-    return {"message": "E-mail confirmado com sucesso! Sua conta foi ativada."}
-
-    
-    return {"message": "E-mail confirmado com sucesso! Sua conta foi ativada."}
+# As rotas de Cadastro (Signup), Confirmação de Email,
+# e Login foram removidas. A identidade é agora gerenciada pelo Clerk.
+# Sincronização é feita via Webhooks em /api/v1/webhooks/clerk
 
 # ==========================================
-# RESET DE SENHA
-# ==========================================
-
-class ForgotPasswordRequest(BaseModel):
-    email: str
-
-class PasswordReset(BaseModel):
-    token: str
-    new_password: str
-
-@router.post("/forgot-password")
-async def forgot_password(request: ForgotPasswordRequest, background_tasks: BackgroundTasks, db: Session = Depends(get_db)):
-    """
-    Solicita redefinicao de senha por e-mail.
-    """
-    user = db.query(User).filter(User.email == request.email).first()
-    
-    # Security: Always return success to prevent email enumeration
-    if user:
-        # Generate Reset Token (Valid for 1 hour)
-        reset_token = create_access_token(
-            data={"sub": user.email, "type": "password_reset"},
-            expires_delta=timedelta(hours=1)
-        )
-        
-        # Enviar Email (Sincrono ou Async conforme necessidade)
-        # Vamos usar Sincrono agora para garantir que o cliente veja erros de SMTP se houver
-        # background_tasks.add_task(send_password_reset_email, user.full_name, user.email, reset_token)
-        try:
-             from backend.app.services.email_service import send_password_reset_email
-             send_password_reset_email(user.full_name, user.email, reset_token)
-             logger.info(f"📧 Reset email sent to {user.email}")
-        except Exception as e:
-            logger.error(f"❌ Failed to send reset email: {e}")
-    
-    return {"message": "Se este e-mail estiver cadastrado, você receberá as instruções em breve."}
-
-@router.post("/reset-password")
-async def reset_password(data: PasswordReset, db: Session = Depends(get_db)):
-    """
-    Redefine a senha usando o token recebido por e-mail.
-    """
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_400_BAD_REQUEST,
-        detail="Token inválido ou expirado."
-    )
-    
-    try:
-        payload = jwt.decode(data.token, settings.SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub")
-        token_type: str = payload.get("type")
-        
-        if email is None or token_type != "password_reset":
-             raise credentials_exception
-             
-    except PyJWTError:
-        raise credentials_exception
-    
-    user = db.query(User).filter(User.email == email).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="Usuário não encontrado.")
-    
-    # Update Password
-    user.hashed_password = get_password_hash(data.new_password)
-    db.commit()
-    
-    return {"message": "Senha redefinida com sucesso! Você já pode fazer login."}
-
-# ==========================================
-# SOCIAL LOGIN - OAUTH2 (Google & LinkedIn)
-# ==========================================
-
-
-@router.post("/login", response_model=Token)
-@limiter.limit("5/minute")
-async def login_for_access_token(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
-    """
-    Autentica o usuario. Se tiver 2FA ativado, retorna token temporario.
-    """
-    try:
-        logger.info(f"🔑 Tentativa de Login: {user_data.email}")
-        user = db.query(User).filter(User.email == user_data.email).first()
-        
-        if not user:
-            logger.warning(f"❌ Login falhou: Usuário não encontrado ({user_data.email})")
-            raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
-        
-        if not verify_password(user_data.password, user.hashed_password):
-            logger.warning(f"❌ Login falhou: Senha incorreta ({user_data.email})")
-            raise HTTPException(status_code=401, detail="Credenciais incorretas", headers={"WWW-Authenticate": "Bearer"})
-
-        if not user.is_active:
-             logger.warning(f"⚠️ Login bloqueado: Conta inativa ({user_data.email})")
-             raise HTTPException(status_code=400, detail="E-mail não verificado. Por favor, ative sua conta.")
-        
-        # === VERIFICACAO 2FA ===
-        if user.is_totp_enabled:
-            logger.info(f"🔐 Redirecionando para 2FA: {user.email}")
-            # Gerar Token Temporario (Scope: PRE_2FA)
-            temp_token = create_access_token(
-                data={"sub": user.email, "role": "PRE_2FA"},
-                expires_delta=timedelta(minutes=5)
-            )
-            
-            return {
-                "access_token": temp_token,
-                "token_type": "bearer",
-                "role": "pre_auth",
-                "username": user.full_name,
-                "requires_2fa": True
-            }
-
-        # Login Direto (Sem 2FA)
-        access_token = create_access_token(
-            data={"sub": user.email, "role": user.role}
-        )
-        
-        logger.info(f"✅ Login com sucesso: {user.email}")
-        return {
-            "access_token": access_token, 
-            "token_type": "bearer", 
-            "role": user.role, 
-            "username": user.full_name,
-            "requires_2fa": False
-        }
-
-    except HTTPException:
-        raise # Re-raise known errors
-    except Exception as e:
-        logger.error(f"💥 ERRO CRÍTICO NO LOGIN: {str(e)}", exc_info=True)
-        raise HTTPException(
-            status_code=500,
-            detail=f"Erro interno de login: {str(e)}"
-        )
 
 
 # ==========================================

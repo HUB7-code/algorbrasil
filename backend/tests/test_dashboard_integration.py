@@ -12,6 +12,7 @@ from backend.app.db.session import Base, get_db
 from backend.app.main import app
 from backend.app.core.config import settings
 from backend.app.models.user import User
+from backend.app.api.auth import get_current_user
 from backend.app.core.security import get_password_hash
 from backend.app.models.ai_asset import AIAsset
 
@@ -20,13 +21,20 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./test_dashboard.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Override da dependência
+# Override da dependência get_db
 def override_get_db():
     try:
         db = TestingSessionLocal()
         yield db
     finally:
         db.close()
+
+# Mock do Auth Guard (Clerk bypass para testes)
+async def mock_get_current_user():
+    db = TestingSessionLocal()
+    user = db.query(User).filter(User.email == TEST_EMAIL).first()
+    db.close()
+    return user
 
 client = TestClient(app)
 
@@ -39,6 +47,7 @@ def setup_and_cleanup_database():
     # Setup: Criar tabelas e override
     Base.metadata.create_all(bind=engine)
     app.dependency_overrides[get_db] = override_get_db
+    app.dependency_overrides[get_current_user] = mock_get_current_user
     
     # Create test data
     db = TestingSessionLocal()
@@ -75,7 +84,7 @@ def setup_and_cleanup_database():
     yield
     
     # Cleanup após todos os testes
-    del app.dependency_overrides[get_db]  # Remove apenas o override que configuramos
+    app.dependency_overrides.clear()
     Base.metadata.drop_all(bind=engine)
     engine.dispose()
     if os.path.exists("./test_dashboard.db"):
@@ -86,36 +95,12 @@ def setup_and_cleanup_database():
 
 def test_dashboard_flow_robust():
     """
-    Robust Integration Test with Self-Contained Data Setup
+    Robust Integration Test with Self-Contained Data Setup (Mocked Clerk Auth)
     """
-    print("\n[INFO] 1. Testing Login...")
-    login_data = {
-        "email": TEST_EMAIL,
-        "password": TEST_PASS
-    }
-    # Using the standard OAuth2 form endpoint if available, or the one requested
-    # The prompt explicitly asked for: /api/v1/auth/login
-    # But usually that is for JSON. Let's check if the user meant that.
-    # The previous code had /api/v1/login/access-token
-    # I will stick to /api/v1/auth/login per instruction, but keep data=login_data (form) if that's what the endpoint expects, or json if it expects json.
-    # NOTE: In test_risks.py I changed to /api/v1/auth/login with JSON.
-    # If the endpoint assumes OAuth2 password flow, it needs form data.
-    # Let's try to match the prompt exactly: r = client.post("/api/v1/auth/login", data=login_data)
-    # AND import OS.
-    # CORRECTION: auth.py expects UserLogin Pydantic model for /login (which corresponds to JSON body usually)
-    # The signature is: async def login_for_access_token(request: Request, user_data: UserLogin, db: Session = Depends(get_db)):
-    # So we must use json parameter with email/password schema.
+    # Não há mais /api/v1/auth/login. O 'mock_get_current_user' já será injetado
+    # diretamente nas rotas testadas.
     
-    r = client.post("/api/v1/auth/login", json=login_data)
-    
-    # Debug
-    if r.status_code != 200:
-        print(f"[ERROR] Login Failed: {r.text}")
-    
-    assert r.status_code == 200
-    tokens = r.json()
-    token = tokens["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
+    headers = {"Authorization": "Bearer mocked_token_para_nao_falhar_bearer_check"}
 
     # 2. Test Dashboard
     print("\n[INFO] 2. Testing Dashboard API...")

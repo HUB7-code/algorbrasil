@@ -66,6 +66,12 @@ class Settings(BaseSettings):
     LINKEDIN_CLIENT_ID: str = ""
     LINKEDIN_CLIENT_SECRET: str = ""
 
+    # ========================================
+    # Clerk Authentication
+    # ========================================
+    CLERK_SECRET_KEY: str = ""
+    CLERK_WEBHOOK_SECRET: str = ""
+
 
     # ========================================
     # Frontend

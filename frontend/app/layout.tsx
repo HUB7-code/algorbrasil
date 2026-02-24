@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from '@clerk/nextjs';
+import { ptBR } from "@clerk/localizations";
+
 // import { Manrope, Playfair_Display, JetBrains_Mono, Orbitron } from "next/font/google"; // Disabled due to SSL Proxy Issues
 import "./globals.css";
 import Footer from "@/components/Footer";
@@ -68,19 +71,21 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="pt-BR">
-            <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
-                <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-            </head>
-            <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
-                {children}
-                <CookieBanner />
-                {/* <Footer /> Footer is now included in page components for custom layout control */}
-            </body>
-        </html>
+        <ClerkProvider localization={ptBR}>
+            <html lang="pt-BR">
+                <head>
+                    <link rel="preconnect" href="https://fonts.googleapis.com" />
+                    <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet" />
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
+                    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+                </head>
+                <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
+                    {children}
+                    <CookieBanner />
+                    {/* <Footer /> Footer is now included in page components for custom layout control */}
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }

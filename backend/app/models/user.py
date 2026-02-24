@@ -6,13 +6,14 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
+    clerk_id = Column(String, unique=True, index=True, nullable=True) # Novo vínculo com o Clerk
     email = Column(String, unique=True, index=True, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    hashed_password = Column(String, nullable=True) # Agora é nullable para usuários Clerk
     full_name = Column(String, index=True)
     phone = Column(String)
     is_active = Column(Boolean, default=True)
     is_superuser = Column(Boolean, default=False)
-    role = Column(String, default="user") # 'admin', 'auditor', 'user'
+    role = Column(String, default="user") # 'admin', 'auditor', 'user', 'subscriber'
     profile_image = Column(String, nullable=True)
 
     # Relacionamento com Avaliações
