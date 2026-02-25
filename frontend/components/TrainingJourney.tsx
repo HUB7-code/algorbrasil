@@ -8,11 +8,11 @@ import Link from 'next/link';
 const steps = [
     {
         icon: BookOpen,
-        title: 'E-book',
+        title: 'Whitepaper Executivo',
         duration: 'Gratuito',
         tag: 'Conteúdo',
         color: '#4F7EFF',
-        description: 'Governança de IA para Instituições Públicas — o ponto de entrada para compliance e legislação.',
+        description: 'Guia Estratégico de Governança de IA para Lideranças — análise de cenário regulatório, riscos, e o caminho para compliance em organizações brasileiras.',
     },
     {
         icon: Mic,
@@ -135,56 +135,82 @@ export default function TrainingJourney() {
                 {/* ── STEPS CARDS ── */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
 
-                    {steps.map((step, i) => (
-                        <motion.div
-                            key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1, duration: 0.5 }}
-                            whileHover={{ y: -6, scale: 1.02 }}
-                            className="relative rounded-2xl border bg-[#0A1222] hover:bg-[#0d1630] transition-all duration-300 group overflow-hidden z-10"
-                            style={{
-                                borderColor: `${step.color}30`,
-                                background: `radial-gradient(120% 120% at 50% 0%, ${step.color}08 0%, rgba(10,18,34,0.9) 100%)`
-                            }}
-                        >
-                            {/* Hover inner glow */}
-                            <div
-                                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                style={{ boxShadow: `inset 0 0 40px ${step.color}08` }}
-                            />
+                    {steps.map((step, i) => {
+                        const isElite = step.tag === 'Elite';
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                                whileHover={{ y: -6, scale: 1.02 }}
+                                className="relative rounded-2xl border bg-[#0A1222] hover:bg-[#0d1630] transition-all duration-300 group overflow-visible z-10"
+                                style={{
+                                    borderColor: isElite ? '#F59E0B60' : `${step.color}30`,
+                                    background: isElite
+                                        ? `radial-gradient(120% 120% at 50% 0%, #F59E0B12 0%, rgba(10,18,34,0.95) 100%)`
+                                        : `radial-gradient(120% 120% at 50% 0%, ${step.color}08 0%, rgba(10,18,34,0.9) 100%)`,
+                                    boxShadow: isElite ? '0 0 0 1px rgba(245,158,11,0.2)' : undefined,
+                                }}
+                            >
+                                {/* Elite: pulsing outer aura */}
+                                {isElite && (
+                                    <>
+                                        <motion.div
+                                            className="absolute -inset-[2px] rounded-2xl pointer-events-none"
+                                            animate={{
+                                                boxShadow: [
+                                                    '0 0 20px rgba(245,158,11,0.2), 0 0 40px rgba(245,158,11,0.08)',
+                                                    '0 0 35px rgba(245,158,11,0.35), 0 0 70px rgba(245,158,11,0.15)',
+                                                    '0 0 20px rgba(245,158,11,0.2), 0 0 40px rgba(245,158,11,0.08)',
+                                                ],
+                                            }}
+                                            transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+                                        />
+                                        {/* Gold shimmer top edge */}
+                                        <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent opacity-70" />
+                                        {/* Elite badge */}
+                                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[#F59E0B] text-black text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#F59E0B]/40 whitespace-nowrap z-20">
+                                            ★ Elite
+                                        </div>
+                                    </>
+                                )}
 
-                            {/* Top accent line */}
-                            <div
-                                className="absolute top-0 left-0 right-0 h-[2px]"
-                                style={{ background: `linear-gradient(to right, transparent, ${step.color}, transparent)` }}
-                            />
+                                {/* Hover inner glow */}
+                                <div
+                                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                    style={{ boxShadow: `inset 0 0 40px ${step.color}08` }}
+                                />
 
-                            <div
-                                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                                style={{ boxShadow: `inset 0 0 40px ${step.color}08` }}
-                            />
+                                {/* Top accent line (non-Elite) */}
+                                {!isElite && (
+                                    <div
+                                        className="absolute top-0 left-0 right-0 h-[2px]"
+                                        style={{ background: `linear-gradient(to right, transparent, ${step.color}, transparent)` }}
+                                    />
+                                )}
 
-                            <div className="p-6">
-                                {/* Icon */}
-                                <div className="mb-4">
-                                    <GlowIcon icon={step.icon} color={step.color} size="sm" pulse={false} />
+                                <div className="p-6">
+                                    {/* Icon */}
+                                    <div className="mb-4">
+                                        <GlowIcon icon={step.icon} color={step.color} size="sm" pulse={isElite} />
+                                    </div>
+
+                                    {/* Title + Duration */}
+                                    <h3 className="font-inter text-white font-bold text-lg mb-1">{step.title}</h3>
+                                    <p className="text-xs font-bold mb-3" style={{ color: step.color }}>
+                                        {step.duration}
+                                    </p>
+
+                                    {/* Description */}
+                                    <p className="text-slate-400 text-xs leading-relaxed">
+                                        {step.description}
+                                    </p>
                                 </div>
-
-                                {/* Title + Duration */}
-                                <h3 className="font-inter text-white font-bold text-lg mb-1">{step.title}</h3>
-                                <p className="text-xs font-bold mb-3" style={{ color: step.color }}>
-                                    {step.duration}
-                                </p>
-
-                                {/* Description */}
-                                <p className="text-slate-400 text-xs leading-relaxed">
-                                    {step.description}
-                                </p>
-                            </div>
-                        </motion.div>
-                    ))}
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
                 {/* Mobile connector arrows */}

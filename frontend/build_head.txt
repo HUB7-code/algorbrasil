@@ -1,0 +1,50 @@
+﻿
+> algor-frontend@0.1.0 build
+> next build
+
+  Ôû▓ Next.js 14.2.1
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Ô£ô (pwa) Compiling for server...
+ Ô£ô (pwa) Compiling for server...
+ Ô£ô (pwa) Compiling for client (static)...
+ Ôùï (pwa) Service worker: C:\Users\edisi\.gemini\antigravity\playground\chrono-aldrin\frontend\public\sw.js
+ Ôùï (pwa)   URL: /sw.js
+ Ôùï (pwa)   Scope: /
+ Ô£ô Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+node.exe : Failed to 
+compile.
+No linha:1 caractere:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Failed to com   
+ pile.:String) [],     
+RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+
+./app/blog/[slug]/page.
+tsx:48:27
+Type error: Type '{ 
+post: 
+BlogPostWithContent; 
+relatedPosts: 
+BlogPost[]; }' is not 
+assignable to type 
+'IntrinsicAttributes'.
+  Property 'post' does 
+not exist on type 

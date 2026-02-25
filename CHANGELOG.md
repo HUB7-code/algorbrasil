@@ -4,6 +4,42 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V21.6.0] - 2026-02-25 - "Cinematic UI/UX & B2B Conversion Overhaul"
+
+### 🎬 UI/UX — Experiência Cinematográfica Premium
+
+#### 🌟 Novo
+- **Vídeo Slow-Motion no Hero (`HeroCinematic`):**
+  - Imagem corporativa estática substituída por vídeo de data center em slow-motion (tech abstract).
+  - Filtro integrado (`brightness`, `saturate`) mais *color grading* azul/violeta (`mix-blend-screen`).
+  - Overlay de degradê horizontal (`.video-hero-overlay`) para legibilidade absoluta do texto.
+  - Fallback automático para imagem caso o vídeo falhe.
+- **Pain Point Banner (`PainPointBanner`):**
+  - Nova seção ancorada antes das soluções para criar senso de urgência B2B.
+  - Headline de alta conversão: "Não espere a multa chegar. Transforme o risco da IA em vantagem competitiva auditável."
+  - 3 cards narrativos detalhando dores de mercado: Multas (LGPD/IA Act), Shadow AI e Confiança.
+
+#### ✅ Adicionado
+- **Animações "Data-Live" no Dashboard (`SaasPreview`):**
+  - `LiveLogTicker`: Componente injetado no overlay do dashboard mostrando stream de logs simulados atuando de forma responsiva.
+  - Barras animadas para cada módulo de conformidade, carregando a partir de 0% via `useInView`.
+  - Contador animado "Trust Score" (`useCounter`) carregando progressivamente até 92%.
+- **Sistema de Corners e Typography Premium (`globals.css`):**
+  - Adicionado suporte a `.card-premium` (24px) e `.card-modern` (20px).
+  - Textos de apoio atualizados com utilitários de contraste dinâmico (`.text-body`, `.text-label`).
+- **Glows Dinâmicos e Parallax Avançado:**
+  - Parallax independente via scroll nos "ambient blobs" e "floating cards" do Hero.
+  - `boxShadow` pulsante ("Aura Dourada") e gradiente reativo no card ★ Elite do `TrainingJourney`.
+  - Expansão de scale (`1.015`) e `translateY(-8px)` no hover do `CinematicSolutions`.
+  - Efeito `.icon-glow` animado isoladamente sobre os ícones no hover.
+
+#### 🔄 Modificado
+- `TrainingJourney`: Copy do "E-book" atualizado para "Whitepaper Executivo" — "Guia Estratégico de Governança de IA para Lideranças".
+- `HeroCinematic`: CTA refatorado de "Quero saber mais" para "Agendar Diagnóstico Gratuito" (ação de alto valor).
+- CSS do Glassmorphism (`blur(32px)`) dos floating cards agora utiliza opacidade dupla para maior separação de fundo.
+
+---
+
 ## [V21.5.0] - 2026-02-24 - "Board Page Elite — Client-Side Interactivity"
 
 ### 🎨 UI/UX — Página de Especialistas Refatorada

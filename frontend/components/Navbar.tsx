@@ -30,9 +30,10 @@ export default function Navbar() {
         const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    setScrolled(window.scrollY > 20); // Trigger earlier for floating effect
+                    const currentScrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+                    setScrolled(currentScrollY > 20); // Trigger earlier for floating effect
                     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-                    const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
+                    const progress = totalHeight > 0 ? (currentScrollY / totalHeight) * 100 : 0;
                     setScrollProgress(progress);
                     ticking = false;
                 });
@@ -41,7 +42,12 @@ export default function Navbar() {
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        // Also listen on document just in case
+        document.addEventListener('scroll', handleScroll, { passive: true, capture: true });
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            document.removeEventListener('scroll', handleScroll, { capture: true });
+        }
     }, []);
 
     useEffect(() => {

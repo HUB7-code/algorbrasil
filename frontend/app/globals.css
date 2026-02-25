@@ -206,3 +206,57 @@ html {
 .animate-gradient-text {
   animation: gradient-text 3s ease infinite;
 }
+
+/* ── Cenário Conservador: Tipografia & Cantos ── */
+
+/* 
+ * Supporting text with better readability on very dark backgrounds.
+ * Use .text-body instead of text-slate-400 for body paragraphs.
+ * Use .text-label instead of text-slate-500 for meta/labels.
+ */
+.text-body {
+  color: rgba(203, 213, 225, 0.9); /* ~slate-300 + slight opacity for depth */
+}
+
+.text-label {
+  color: rgba(148, 163, 184, 0.85); /* ~slate-400 — more readable on #0B0F1E */
+}
+
+/* 
+ * Premium card corners — rounder and softer than default rounded-2xl (16px).
+ * Use .card-premium for main feature cards.
+ */
+.card-premium {
+  border-radius: 24px;
+}
+
+.card-modern {
+  border-radius: 20px;
+}
+
+/* 
+ * Icon glow animation — used on hover to make icons pulse/glow in their theme color.
+ * Apply with: style="--glow-color: #4F7EFF" class="icon-glow"
+ */
+@keyframes icon-glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px var(--glow-color, #4F7EFF));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px var(--glow-color, #4F7EFF)) brightness(1.4);
+  }
+}
+
+.icon-glow {
+  animation: icon-glow-pulse 1.8s ease-in-out infinite;
+}
+
+/* Video hero overlay — ensures text readability over slow-motion video */
+.video-hero-overlay {
+  background: linear-gradient(
+    to right,
+    rgba(11, 15, 30, 0.92) 0%,
+    rgba(11, 15, 30, 0.72) 50%,
+    rgba(11, 15, 30, 0.45) 100%
+  );
+}

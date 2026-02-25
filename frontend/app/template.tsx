@@ -6,6 +6,12 @@ import { usePathname } from 'next/navigation';
 
 export default function Template({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
+    const isAuthPage = pathname?.startsWith('/sign-in') || pathname?.startsWith('/sign-up') || pathname?.startsWith('/2fa');
+
+    // Bypass animations for Clerk pages to prevent strict Hydration Mismatches
+    if (isAuthPage) {
+        return <>{children}</>;
+    }
 
     return (
         <motion.div
@@ -24,7 +30,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
             }}
             transition={{
                 duration: 0.8,
-                ease: [0.22, 1, 0.36, 1] // Custom refined spring-like curve
+                ease: [0.16, 1, 0.3, 1], // Custom bouncy ease for cinematic feel
+                delay: 0.1
             }}
         >
             {children}

@@ -1,0 +1,50 @@
+﻿    + CategoryInfo     
+         : NotSpecifi  
+  ed: (Failed to com   
+ pile.:String) [],     
+RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+
+./app/blog/[slug]/page.
+tsx:48:27
+Type error: Type '{ 
+post: 
+BlogPostWithContent; 
+relatedPosts: 
+BlogPost[]; }' is not 
+assignable to type 
+'IntrinsicAttributes'.
+  Property 'post' does 
+not exist on type 
+'IntrinsicAttributes'.
+
+[0m [90m 46 
+|[39m[0m
+[0m [90m 47 |[39m   
+  [90m// Pass data to 
+Client Component for 
+rendering (styled-jsx 
+support)[39m[0m
+[0m[31m[1m>[22m[39
+m[90m 48 |[39m     
+[36mreturn[39m [33m<
+[39m[33mArticleViewer
+[39m 
+post[33m=[39m{post} r
+elatedPosts[33m=[39m{
+relatedPosts} [33m/[3
+9m[33m>[39m[33m;[39
+m[0m
+[0m [90m    |[39m   
+                       
+ [31m[1m^[22m[39m[
+0m
+[0m [90m 49 |[39m 
+}[0m
+[0m [90m 50 
+|[39m[0m
+[0m [90m 51 
+|[39m[0m

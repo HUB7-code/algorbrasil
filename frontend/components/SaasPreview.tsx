@@ -1,18 +1,18 @@
-'use client';
+﻿'use client';
 
-import { useState } from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { motion, useMotionValue, useTransform, useSpring, useInView } from 'framer-motion';
+import { ArrowRight, CheckCircle, Activity, Lock } from 'lucide-react';
 import Link from 'next/link';
 
 const features = [
     'Monitoramento 24/7',
     'Alertas de Desvio de Modelo',
-    'Relatórios Automatizados para Auditoria',
+    'RelatÃ³rios Automatizados para Auditoria',
 ];
 
 const mockModules = [
-    { label: 'Diagnóstico', value: 94, color: '#4F7EFF' },
+    { label: 'DiagnÃ³stico', value: 94, color: '#4F7EFF' },
     { label: 'Conformidade', value: 87, color: '#818CF8' },
     { label: 'Riscos', value: 72, color: '#60a5fa' },
     { label: 'Maturidade', value: 91, color: '#a78bfa' },
@@ -21,9 +21,58 @@ const mockModules = [
 const liveLogs = [
     { time: '23:41:02', event: 'Modelo LGPD-v2 validado', status: 'ok' },
     { time: '23:41:08', event: 'Alerta: desvio >3% em model-007', status: 'warn' },
-    { time: '23:41:15', event: 'Relatório ISO 42001 gerado', status: 'ok' },
-    { time: '23:41:22', event: 'Auditoria agendada — 08:00', status: 'info' },
+    { time: '23:41:15', event: 'RelatÃ³rio ISO 42001 gerado', status: 'ok' },
+    { time: '23:41:22', event: 'Auditoria agendada â€” 08:00', status: 'info' },
 ];
+
+// Animated counter hook
+function useCounter(target: number, delay = 0) {
+    const [count, setCount] = useState(0);
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref, { once: true });
+
+    useEffect(() => {
+        if (!isInView) return;
+        let start: number | null = null;
+        const timeout = setTimeout(() => {
+            const step = (ts: number) => {
+                if (!start) start = ts;
+                const pct = Math.min((ts - start) / 1200, 1);
+                setCount(Math.round(pct * target));
+                if (pct < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }, delay * 1000);
+        return () => clearTimeout(timeout);
+    }, [isInView, target, delay]);
+
+    return { ref, count };
+}
+
+// Live log ticker
+function LiveLogTicker() {
+    const [idx, setIdx] = useState(0);
+    useEffect(() => {
+        const t = setInterval(() => setIdx(i => (i + 1) % liveLogs.length), 2200);
+        return () => clearInterval(t);
+    }, []);
+    const log = liveLogs[idx];
+    const dot = log.status === 'ok' ? '#00FF94' : log.status === 'warn' ? '#F59E0B' : '#818CF8';
+    return (
+        <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.35 }}
+            className="flex items-center gap-2 text-[9px] font-mono"
+        >
+            <span style={{ color: dot }}>â—</span>
+            <span className="text-slate-500">{log.time}</span>
+            <span className="text-slate-300">{log.event}</span>
+        </motion.div>
+    );
+}
 
 export default function SaasPreview() {
     const x = useMotionValue(0);
@@ -39,6 +88,10 @@ export default function SaasPreview() {
         y.set((e.clientY - rect.top) / rect.height - 0.5);
     };
 
+    const dashboardRef = useRef<HTMLDivElement>(null);
+    const isDashboardInView = useInView(dashboardRef, { once: true, margin: '-100px' });
+    const trustCounter = useCounter(92, 0.4);
+
     return (
         <section className="py-28 bg-[#0B0F1E] relative overflow-hidden">
             <div className="absolute inset-0 pointer-events-none">
@@ -50,7 +103,7 @@ export default function SaasPreview() {
             <div className="relative z-10 max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
-                    {/* ── LEFT — Text ── */}
+                    {/* â”€â”€ LEFT â€” Text â”€â”€ */}
                     <div>
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
@@ -58,7 +111,8 @@ export default function SaasPreview() {
                             viewport={{ once: true }}
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#4F7EFF]/30 bg-[#4F7EFF]/10 text-[#4F7EFF] text-xs font-bold tracking-widest uppercase mb-6"
                         >
-                            Plataforma SaaS
+                            <Activity className="w-3.5 h-3.5 animate-pulse" />
+                            Plataforma SaaS â€¢ Live
                         </motion.div>
 
                         <motion.h2
@@ -81,7 +135,7 @@ export default function SaasPreview() {
                             transition={{ delay: 0.2 }}
                             className="text-slate-400 text-lg leading-relaxed mb-8"
                         >
-                            Visualize o status de conformidade de todos os seus modelos de IA em um único dashboard. Métricas de viés, alucinação e privacidade de dados em tempo real.
+                            Visualize o status de conformidade de todos os seus modelos de IA em um Ãºnico dashboard. MÃ©tricas de viÃ©s, alucinaÃ§Ã£o e privacidade de dados em tempo real.
                         </motion.p>
 
                         <motion.ul
@@ -121,13 +175,14 @@ export default function SaasPreview() {
                         </motion.div>
                     </div>
 
-                    {/* ── RIGHT — Mock Dashboard ── */}
+                    {/* â”€â”€ RIGHT â€” Animated Dashboard â”€â”€ */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
                         className="relative"
+                        ref={dashboardRef}
                     >
                         <div className="absolute -inset-4 bg-[#4F7EFF]/10 rounded-3xl blur-2xl" />
 
@@ -135,86 +190,74 @@ export default function SaasPreview() {
                             style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
                             onMouseMove={handleMouseMove}
                             onMouseLeave={() => { x.set(0); y.set(0); }}
-                            className="relative rounded-2xl border border-slate-700/50 bg-[#0A1A2F]/90 backdrop-blur-sm overflow-hidden shadow-2xl group"
+                            className="relative rounded-[2rem] border border-[#4F7EFF]/30 bg-[#0A1A2F]/90 backdrop-blur-sm overflow-hidden shadow-[0_0_50px_rgba(79,126,255,0.15)] group"
                         >
                             {/* Glare */}
-                            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20" />
 
-                            {/* Top bar */}
-                            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-700/30">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-2 h-2 rounded-full bg-[#EF4444]" />
-                                    <div className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-                                    <div className="w-2 h-2 rounded-full bg-[#4F7EFF]" />
-                                </div>
-                                <span className="font-mono text-xs text-slate-500">AI GOV — Risco de Modelo</span>
-                                <div className="flex items-center gap-1.5">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
-                                    <span className="text-[10px] text-[#00FF94] font-mono">Live</span>
-                                </div>
-                            </div>
+                            {/* Base image */}
+                            <img
+                                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+                                alt="Dashboard AI Governance"
+                                className="object-cover w-full aspect-[4/3] transform group-hover:scale-105 transition-transform duration-700 z-10 relative"
+                                style={{ filter: 'saturate(0.7) brightness(0.6)' }}
+                            />
 
-                            <div className="p-6 space-y-4">
-                                {/* KPI row */}
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                                        <p className="text-slate-500 text-[10px] uppercase tracking-widest mb-1">Trust Score</p>
-                                        <p className="font-orbitron text-2xl font-bold text-white">92<span className="text-sm text-slate-500">%</span></p>
-                                        <div className="w-full h-1 bg-white/5 rounded-full mt-2 overflow-hidden">
-                                            <motion.div initial={{ width: 0 }} whileInView={{ width: '92%' }} viewport={{ once: true }} transition={{ delay: 0.5, duration: 1 }} className="h-full bg-gradient-to-r from-[#4F7EFF] to-[#818CF8] rounded-full" />
-                                        </div>
-                                    </div>
-                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-                                        <p className="text-slate-500 text-[10px] uppercase tracking-widest mb-1">Modelos Ativos</p>
-                                        <p className="font-orbitron text-2xl font-bold text-white">14</p>
-                                        <p className="text-[10px] text-[#4F7EFF] mt-2">Monitorados</p>
-                                    </div>
-                                </div>
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F1E]/20 via-transparent to-[#0B0F1E]/80 pointer-events-none z-10" />
 
-                                {/* Modules */}
-                                <div className="space-y-3">
+                            {/* â”€â”€ Module Score Bars (animated) â”€â”€ */}
+                            <div className="absolute top-5 left-5 right-5 z-30 bg-[#0A1A2F]/80 backdrop-blur-lg rounded-xl border border-white/10 p-4">
+                                <div className="flex items-center justify-between mb-3">
+                                    <p className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest">MÃ³dulos de Conformidade</p>
+                                    <Lock className="w-3 h-3 text-[#00FF94]" />
+                                </div>
+                                <div className="space-y-2.5">
                                     {mockModules.map((m, i) => (
                                         <div key={i} className="flex items-center gap-3">
-                                            <span className="text-xs text-slate-400 w-24 flex-shrink-0">{m.label}</span>
-                                            <div className="flex-1 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                            <span className="text-[9px] text-slate-400 w-20 flex-shrink-0">{m.label}</span>
+                                            <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
                                                 <motion.div
-                                                    initial={{ width: 0 }}
-                                                    whileInView={{ width: `${m.value}%` }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: 0.4 + i * 0.1, duration: 0.8 }}
                                                     className="h-full rounded-full"
-                                                    style={{ backgroundColor: m.color }}
+                                                    style={{ background: `linear-gradient(to right, ${m.color}80, ${m.color})` }}
+                                                    initial={{ width: 0 }}
+                                                    animate={isDashboardInView ? { width: `${m.value}%` } : {}}
+                                                    transition={{ delay: 0.3 + i * 0.15, duration: 1, ease: [0.22, 1, 0.36, 1] }}
                                                 />
                                             </div>
-                                            <span className="text-xs font-bold text-white w-8 text-right">{m.value}%</span>
+                                            <span className="text-[9px] font-bold w-7 text-right" style={{ color: m.color }}>{m.value}%</span>
                                         </div>
                                     ))}
                                 </div>
+                            </div>
 
-                                {/* Live Logs */}
-                                <div className="rounded-xl border border-slate-700/30 bg-black/30 overflow-hidden">
-                                    <div className="px-4 py-2 border-b border-slate-700/30 flex items-center gap-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
-                                        <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">Live Logs</span>
-                                    </div>
-                                    <div className="p-3 space-y-1.5 font-mono text-[10px]">
-                                        {liveLogs.map((log, i) => (
-                                            <div key={i} className="flex items-center gap-2">
-                                                <span className="text-slate-600">{log.time}</span>
-                                                <span className={
-                                                    log.status === 'ok' ? 'text-[#00FF94]' :
-                                                        log.status === 'warn' ? 'text-[#F59E0B]' :
-                                                            'text-slate-400'
-                                                }>{log.event}</span>
-                                            </div>
-                                        ))}
+                            {/* â”€â”€ Bottom overlay: Trust Score + Live log â”€â”€ */}
+                            <div className="absolute bottom-4 left-4 right-4 z-30 flex gap-3">
+                                {/* Trust Score animated counter */}
+                                <div
+                                    ref={trustCounter.ref as React.RefObject<HTMLDivElement>}
+                                    className="bg-black/70 backdrop-blur-md border border-white/10 rounded-xl p-3.5 flex-1"
+                                >
+                                    <p className="text-slate-400 text-[9px] uppercase tracking-widest mb-0.5">Trust Score</p>
+                                    <p className="font-orbitron text-xl font-bold text-white">
+                                        {trustCounter.count}<span className="text-sm text-slate-500">%</span>
+                                    </p>
+                                    <div className="w-full h-1 bg-white/10 rounded-full mt-2 overflow-hidden">
+                                        <motion.div
+                                            className="bg-gradient-to-r from-[#4F7EFF] to-[#00FF94] h-full rounded-full"
+                                            initial={{ width: 0 }}
+                                            animate={isDashboardInView ? { width: '92%' } : {}}
+                                            transition={{ delay: 0.5, duration: 1.5, ease: 'easeOut' }}
+                                        />
                                     </div>
                                 </div>
-
-                                {/* ISO Badge */}
-                                <div className="flex items-center gap-2 p-3 rounded-xl border border-[#4F7EFF]/20 bg-[#4F7EFF]/5">
-                                    <CheckCircle className="w-4 h-4 text-[#4F7EFF]" />
-                                    <span className="text-xs font-bold text-[#4F7EFF]">ISO 42001 Compliance Ativa — Nenhuma não-conformidade</span>
+                                {/* Live log ticker */}
+                                <div className="bg-black/70 backdrop-blur-md border border-[#4F7EFF]/30 rounded-xl p-3.5 flex-1 flex flex-col justify-between overflow-hidden">
+                                    <div className="flex items-center gap-1.5 mb-2">
+                                        <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
+                                        <p className="text-[8px] font-bold text-[#00FF94] uppercase tracking-widest">Live Log</p>
+                                    </div>
+                                    <LiveLogTicker />
                                 </div>
                             </div>
                         </motion.div>
@@ -224,3 +267,4 @@ export default function SaasPreview() {
         </section>
     );
 }
+

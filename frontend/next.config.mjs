@@ -17,7 +17,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
     reactStrictMode: true,
     transpilePackages: ['three'],
-    optimizeFonts: false,
+    optimizeFonts: true,       // ← habilitado: reduz Web Font FOIT/FOUT
     compiler: {
         removeConsole: process.env.NODE_ENV === "production",
     },
@@ -25,15 +25,38 @@ const nextConfig = {
         ignoreDuringBuilds: true,
     },
     images: {
+        formats: ['image/avif', 'image/webp'], // ← prioriza AVIF (menor)
         remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: 'api.dicebear.com',
-            },
+            { protocol: 'https', hostname: 'api.dicebear.com' },
+            { protocol: 'https', hostname: 'images.unsplash.com' },
         ],
         dangerouslyAllowSVG: true,
         contentDispositionType: 'attachment',
         contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    },
+    async headers() {
+        return [
+            {
+                // Cache agressivo para o vídeo hero (imutável até ser renomeado)
+                source: '/videos/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable',
+                    },
+                ],
+            },
+            {
+                // Cache de imagens estáticas geradas pelo Next.js
+                source: '/_next/static/:path*',
+                headers: [
+                    {
+                        key: 'Cache-Control',
+                        value: 'public, max-age=31536000, immutable',
+                    },
+                ],
+            },
+        ];
     },
     async rewrites() {
         return [

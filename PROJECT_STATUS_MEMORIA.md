@@ -1,20 +1,21 @@
-**Versão Atual:** V21.5.0 "Board Page Elite — Filtros Interativos"
-**Data da Última Atualização:** 24/02/2026
+**Versão Atual:** V21.6.0 "Cinematic UI/UX & B2B Conversion Overhaul"
+**Data da Última Atualização:** 25/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Audited)
 
-### 🎯 Últimas Conquistas (V21.5.0 - "Board Page Elite")
+### 🎯 Últimas Conquistas (V21.6.0 - "Cinematic UI/UX & B2B Conversion")
 
-1.  **Página `/board` Completamente Refatorada:**
-    *   **Filtros interativos por especialidade:** Categorias `Todos`, `Estratégia`, `Risco`, `Compliance`, `Segurança`, `Gestão` — implementados com `useState` sem dependências externas.
-    *   **Labels coloridos e centralizados:** Cada consultor tem cor exclusiva sobreposta à base da foto (verde-neon, azul, âmbar, violeta, vermelho, ciano, rosa, etc.).
-    *   **Hover cromático:** O overlay de hover da foto usa a cor da especialidade do membro.
-    *   **Botão de agendamento:** CTA outline verde com ícone `Calendar` ao final da página, linkado ao Calendly.
-    *   **Convertido para Client Component** (`'use client'`) para suportar estado React interativo.
+1.  **Experiência Cinematográfica Premium na Home:**
+    *   **Hero com Vídeo e Parallax Avançado:** Implementado vídeo em slow-motion de tech abstrata com overlay de *color grading*, além de cards flutuantes ("ISO 42001", "+600 organizações") com parallax reativo ao scroll.
+    *   **Data-Live Dashboard:** Adicionado componente `SaasPreview` reativo — barras que carregam metricas animadas, contador "Trust Score" real-time (até 92%) e um `LiveLogTicker` dinâmico lateral, simulando operação SaaS real.
+    *   **Glows e Microinterações:** Sistema de glow reativo com a cor de cada tema (`.icon-glow`). "Aura Dourada" pulsante aplicada no card ★ Elite (`TrainingJourney`).
 
-2.  **Estabilização do Build (V21.4.1):**
-    *   **15+ módulos ausentes criados** como placeholders para eliminar erros de `404` e falhas de compilação Webpack.
-    *   **ESLint zerado:** Corrigidos `react/no-unescaped-entities` e `react/no-children-prop`.
-    *   **Build Next.js 14.2.1 aprovado com Exit Code 0.**
+2.  **Otimização de Conversão B2B:**
+    *   **Pain Point Banner:** Injeção de nova métrica pré-venda evidenciando urgência ("Não espere a multa chegar...") ancorada com dores reais de governança (Multas, Shadow AI, Confiança).
+    *   **Upgrade de Linguagem:** Atualizados os *CTAs* ("Agendar Diagnóstico" ao invés de "Saber Mais") e transição estrutural do produto de entrada ("E-book" promovido a "Whitepaper Executivo").
+
+---
+
+### 🚀 Conquistas Anteriores (V21.5.0 - "Board Page Elite")
 
 ---
 

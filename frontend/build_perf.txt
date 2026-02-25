@@ -1,0 +1,82 @@
+﻿
+> algor-frontend@0.1.0 build
+> next build
+
+  Ôû▓ Next.js 14.2.1
+  - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ Ô£ô (pwa) Compiling for server...
+ Ô£ô (pwa) Compiling for server...
+ Ô£ô (pwa) Compiling for client (static)...
+ Ôùï (pwa) Service worker: C:\Users\edisi\.gemini\antigravity\playground\chrono-aldrin\frontend\public\sw.js
+ Ôùï (pwa)   URL: /sw.js
+ Ôùï (pwa)   Scope: /
+ Ô£ô Compiled successfully
+   Skipping linting
+   Checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/38) ...
+   Generating static pages (9/38) 
+   Generating static pages (18/38) 
+   Generating static pages (28/38) 
+ Ô£ô Generating static pages (38/38)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                   Size     First Load JS
+Ôöî Ôùï /                                         7.46 kB         142 kB
+Ôö£ Ôùï /_not-found                               880 B          90.8 kB
+Ôö£ Ôùï /2fa                                      2.65 kB        99.3 kB
+Ôö£ Ôùï /academy                                  1.22 kB         145 kB
+Ôö£ Ôùï /academy/lab                              2.9 kB          147 kB
+Ôö£ ãÆ /academy/lab/content/[id]                 16.9 kB         161 kB
+Ôö£ ãÆ /api/blog/articles                        0 B                0 B
+Ôö£ Ôùï /blog                                     163 B          90.1 kB
+Ôö£ ÔùÅ /blog/[slug]                              163 B          90.1 kB
+Ôö£   Ôöö /blog/shadow-ai-risco-invisivel
+Ôö£ Ôùï /board                                    4.52 kB         154 kB
+Ôö£ Ôùï /dashboard                                6.61 kB         261 kB
+Ôö£ Ôùï /dashboard/admin                          7.43 kB         217 kB
+Ôö£ Ôùï /dashboard/assessments                    11.3 kB         252 kB
+Ôö£ ãÆ /dashboard/assessments/[id]               11.8 kB         146 kB
+Ôö£ Ôùï /dashboard/assessments/new                163 B          90.1 kB
+Ôö£ ãÆ /dashboard/classroom/[courseId]           4.95 kB        94.9 kB
+Ôö£ Ôùï /dashboard/clients                        5.3 kB          252 kB
+Ôö£ Ôùï /dashboard/compliance-scanner             3.59 kB         131 kB
+Ôö£ Ôùï /dashboard/compliance-scanner/compliance  4.66 kB         132 kB
+Ôö£ Ôùï /dashboard/compliance-scanner/technical   4.38 kB         257 kB
+Ôö£ Ôùï /dashboard/courses                        2.83 kB        92.7 kB
+Ôö£ Ôùï /dashboard/create-article                 20.3 kB         122 kB
+Ôö£ Ôùï /dashboard/exclusive                      2.55 kB        92.5 kB
+Ôö£ Ôùï /dashboard/growth                         7.33 kB         245 kB
+Ôö£ Ôùï /dashboard/inventory                      4.33 kB         132 kB
+Ôö£ Ôùï /dashboard/leads                          7.67 kB         136 kB
+Ôö£ Ôùï /dashboard/membership                     2.89 kB         131 kB
+Ôö£ Ôùï /dashboard/projects                       2.58 kB         130 kB
+Ôö£ ãÆ /dashboard/report-iso42001/[orgId]        3.33 kB        93.2 kB
+Ôö£ Ôùï /dashboard/risks                          5 kB            262 kB
+Ôö£ Ôùï /dashboard/roadmap                        4.71 kB         139 kB
+Ôö£ Ôùï /dashboard/settings                       4.78 kB        94.7 kB
+Ôö£ Ôùï /dashboard/settings/security              1.63 kB        91.5 kB
+Ôö£ Ôùï /icon.png                                 0 B                0 B
+Ôö£ Ôùï /policies/cookies                         163 B          90.1 kB
+Ôö£ Ôùï /policies/dpo                             2.99 kB        92.9 kB
+Ôö£ Ôùï /policies/privacy                         178 B          96.8 kB
+Ôö£ Ôùï /policies/terms                           163 B          90.1 kB
+Ôö£ Ôùï /robots.txt                               0 B                0 B
+Ôö£ ãÆ /sign-in/[[...sign-in]]                   597 B           131 kB
+Ôö£ ãÆ /sign-up/[[...sign-up]]                   597 B           131 kB
+Ôöö Ôùï /sitemap.xml                              0 B                0 B
++ First Load JS shared by all                 89.9 kB
+  Ôö£ chunks/5190-af6d1f22f95f1923.js           33.7 kB
+  Ôö£ chunks/fd9d1056-50d66f47f078e313.js       53.6 kB
+  Ôöö other shared chunks (total)               2.57 kB
+
+
+ãÆ Middleware                                  79 kB
+
+Ôùï  (Static)   prerendered as static content
+ÔùÅ  (SSG)      prerendered as static HTML (uses getStaticProps)
+ãÆ  (Dynamic)  server-rendered on demand
+

@@ -1,14 +1,22 @@
 ﻿'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { ChevronRight } from 'lucide-react';
-import Footer from '@/components/Footer';
-import HeroCinematic from '@/components/HeroCinematic';
-import TrainingJourney from '@/components/TrainingJourney';
-import CinematicSolutions from '@/components/CinematicSolutions';
-import SaasPreview from '@/components/SaasPreview';
-import GlobalTeam from '@/components/GlobalTeam';
-import WhatsAppButton from '@/components/WhatsAppButton';
+import HeroCinematic from '@/components/HeroCinematic'; // above-the-fold: import síncrono
+
+// ── Below-the-fold: carregados dinamicamente (split de bundle) ──
+const TrainingJourney = lazy(() => import('@/components/TrainingJourney'));
+const PainPointBanner = lazy(() => import('@/components/PainPointBanner'));
+const CinematicSolutions = lazy(() => import('@/components/CinematicSolutions'));
+const SaasPreview = lazy(() => import('@/components/SaasPreview'));
+const GlobalTeam = lazy(() => import('@/components/GlobalTeam'));
+const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
+const Footer = lazy(() => import('@/components/Footer'));
+
+// Skeleton minimal para o placeholder enquanto carrega
+function SectionSkeleton() {
+    return <div className="w-full py-24 bg-[#0B0F1E]" aria-hidden="true" />;
+}
 
 export default function Home() {
     const [scrolled, setScrolled] = useState(false);
@@ -18,7 +26,8 @@ export default function Home() {
         const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    setScrolled(window.scrollY > 50);
+                    const currentScrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+                    setScrolled(currentScrollY > 50);
                     ticking = false;
                 });
                 ticking = true;
@@ -29,22 +38,31 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="min-h-screen bg-[#0B0F1E] text-white overflow-x-hidden font-sans selection:bg-[#4F7EFF] selection:text-white">
+        <div className="min-h-screen bg-[#0B0F1E] text-white font-sans selection:bg-[#4F7EFF] selection:text-white">
 
-            {/* Hero */}
+            {/* ── ABOVE THE FOLD: carregado imediatamente ── */}
             <HeroCinematic />
 
-            {/* 1. Nossos Treinamentos */}
-            <TrainingJourney />
+            {/* ── BELOW THE FOLD: carregamento diferido ── */}
+            <Suspense fallback={<SectionSkeleton />}>
+                <TrainingJourney />
+            </Suspense>
 
-            {/* 2. Nossas Consultorias */}
-            <CinematicSolutions />
+            <Suspense fallback={<SectionSkeleton />}>
+                <PainPointBanner />
+            </Suspense>
 
-            {/* 3. Nossos Sistemas SaaS */}
-            <SaasPreview />
+            <Suspense fallback={<SectionSkeleton />}>
+                <CinematicSolutions />
+            </Suspense>
 
-            {/* 4. Nossa Equipe Global */}
-            <GlobalTeam />
+            <Suspense fallback={<SectionSkeleton />}>
+                <SaasPreview />
+            </Suspense>
+
+            <Suspense fallback={<SectionSkeleton />}>
+                <GlobalTeam />
+            </Suspense>
 
             {/* Scroll to Top */}
             {scrolled && (
@@ -57,8 +75,12 @@ export default function Home() {
                 </button>
             )}
 
-            <WhatsAppButton />
-            <Footer />
+            <Suspense fallback={null}>
+                <WhatsAppButton />
+            </Suspense>
+            <Suspense fallback={null}>
+                <Footer />
+            </Suspense>
         </div>
     );
 }

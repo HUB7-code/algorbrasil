@@ -7,11 +7,11 @@ const isProtectedRoute = createRouteMatcher([
     '/academy/lab(.*)'
 ]);
 
-export default clerkMiddleware((auth, req) => {
+export default clerkMiddleware(async (auth, req) => {
     // Se a rota for protegida e o usuário não estiver logado,
     // o clerkMiddleware enviará para a URL de sign-in definida nas envs
     if (isProtectedRoute(req)) {
-        auth().protect();
+        await auth.protect();
     }
 
     return NextResponse.next();
