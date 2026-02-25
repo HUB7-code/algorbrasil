@@ -55,7 +55,7 @@ ENV PYTHONUNBUFFERED=1
 COPY backend /app/backend
 
 # [CRITICAL] Copy Frontend Assets for System Emails (Logo)
-COPY frontend/public/logo-algor.webp /app/frontend/public/logo-algor.webp
+COPY frontend/public/logo-algor.png /app/frontend/public/logo-algor.png
 
 # Change ownership of the application code to the non-root user
 RUN chown -R appuser:appgroup /app

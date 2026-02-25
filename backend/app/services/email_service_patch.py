@@ -12,7 +12,7 @@ def send_new_lead_confirmation(name: str, email: str, lead_type: str = "Diagnost
         base_dir = os.path.abspath(os.path.join(current_dir, ".."))
     else:
         base_dir = current_dir
-    logo_path = os.path.join(base_dir, "frontend", "public", "logo-algor.webp")
+    logo_path = os.path.join(base_dir, "frontend", "public", "logo-algor.png")
 
     subject = f"Recebemos sua solicitação - ALGOR Brasil"
     
