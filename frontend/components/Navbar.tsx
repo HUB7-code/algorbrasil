@@ -133,12 +133,12 @@ export default function Navbar() {
                         {/* Member Area / Login — Dynamic based on auth state */}
                         <SignedOut>
                             <SignInButton mode="redirect">
-                                <button className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
+                                <div className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
                                     <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
                                         <Lock className="w-3.5 h-3.5" />
                                     </div>
                                     <span className="text-xs uppercase tracking-wider font-bold">Entrar</span>
-                                </button>
+                                </div>
                             </SignInButton>
                         </SignedOut>
                         <SignedIn>
@@ -211,18 +211,20 @@ export default function Navbar() {
 
                                 <SignedOut>
                                     <SignInButton mode="redirect">
-                                        <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                                        <div className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
                                             <Lock className="w-4 h-4" />
                                             Entrar
-                                        </button>
+                                        </div>
                                     </SignInButton>
                                 </SignedOut>
                                 <SignedIn>
-                                    <Link href="/dashboard" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
-                                        <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
-                                            <LayoutDashboard className="w-4 h-4" />
-                                            Minha Conta
-                                        </button>
+                                    <Link
+                                        href="/dashboard"
+                                        className="w-full px-4 py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 block"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                        <LayoutDashboard className="w-4 h-4" />
+                                        Minha Conta
                                     </Link>
                                 </SignedIn>
                             </div>
