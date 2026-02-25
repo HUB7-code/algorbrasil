@@ -134,9 +134,9 @@ export default function Navbar() {
                         <SignedOut>
                             <SignInButton mode="redirect">
                                 <span className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group cursor-pointer">
-                                    <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
+                                    <span className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all block">
                                         <Lock className="w-3.5 h-3.5" />
-                                    </div>
+                                    </span>
                                     <span className="text-xs uppercase tracking-wider font-bold">Entrar</span>
                                 </span>
                             </SignInButton>
