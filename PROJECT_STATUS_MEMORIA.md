@@ -1,8 +1,18 @@
-**Versão Atual:** V21.6.0 "Cinematic UI/UX & B2B Conversion Overhaul"
+**Versão Atual:** V21.6.1 "VPS & CI/CD Stabilization"
 **Data da Última Atualização:** 25/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Audited)
 
-### 🎯 Últimas Conquistas (V21.6.0 - "Cinematic UI/UX & B2B Conversion")
+### 🎯 Últimas Conquistas (V21.6.1 - "VPS & CI/CD Stabilization")
+
+1.  **Estabilização Crítica de Infraestrutura (VPS & Docker):**
+    *   **Resolução do 502 Bad Gateway:** Identificado e corrigido OOM (Out Of Memory) silencioso do Next.js durante o build no Docker causado por injeção de fallbacks do Clerk (`pk_test_disabled`).
+    *   **Blindagem de Variáveis de Produção:** Criação do `.env.production` no frontend forçando o repasse correto das chaves do Clerk no build do Next.js pelo docker-compose.
+    *   **Backend Recovery:** Restauração preventiva do `requirements.txt` corrompido no git history e re-adição de pacotes vitais para testes e Clerk (`clerk-backend-api`, `pyotp`, `qrcode`, `reportlab`, `requests`).
+    *   **Limpeza de dependências:** Remoção definitiva de pacotes legados do NextAuth (`next-auth`, `@auth/prisma-adapter`), otimizando o bundle size.
+
+---
+
+### 🚀 Conquistas Anteriores (V21.6.0 - "Cinematic UI/UX & B2B Conversion")
 
 1.  **Experiência Cinematográfica Premium na Home:**
     *   **Hero com Vídeo e Parallax Avançado:** Implementado vídeo em slow-motion de tech abstrata com overlay de *color grading*, além de cards flutuantes ("ISO 42001", "+600 organizações") com parallax reativo ao scroll.
@@ -75,6 +85,8 @@
 
 ### 📜 Histórico de Versões
 
+- [x] **V21.6.1:** "VPS & CI/CD Stabilization" - Precedência de .env ajustada, Build OOM fixado, requirements recuperado.
+- [x] **V21.6.0:** "Cinematic UI/UX" - Vídeo no hero, componentes data-live (SaasPreview) e reestruturação de CTA.
 - [x] **V21.4.0:** "B2B Cinematic Pivot" - Foco em Governança Corporativa B2B, UI Cinematic Enterprise, Novo Board MVP.
 - [x] **V21.3.0:** "Clerk B2B Auth Integration" - Identidade delegada ao Clerk, Webhooks com Svix, Backend Auth Guard.
 - [x] **V21.2.0:** "Code Audit" - Segurança hardened, URLs centralizadas, Certificados premium.

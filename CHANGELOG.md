@@ -4,6 +4,26 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V21.6.1] - 2026-02-25 - "VPS & CI/CD Stabilization"
+
+### 🛠️ Infraestrutura e DevOps
+
+#### 🔧 Corrigido
+- **VPS 502 Bad Gateway (Next.js Build Crash):**
+  - Resolvido travamento do container frontend durante o processo de `npm run build` no Docker.
+  - Evitada falha de build (*Exit 1*) causada pelo uso do fallback `pk_test_disabled` no docker-compose.
+  - Implementado `.env.production` diretamente no diretório `/frontend` no servidor de produção para forçar a precedência correta das **Clerk Environment Variables** em tempo de build.
+- **Backend `requirements.txt` Corruption & Missing Dependencies:**
+  - Recuperado arquivo original de requisitos via git history que havia sido sobrescrito em merge conflicts.
+  - Resolvidas quebras de container do backend reacoplando `clerk-backend-api` e `pyotp`.
+  - Corrigido pipeline de CI/CD (Github Actions pytest) injetando pacotes ausentes de teste (`reportlab`, `qrcode`, `requests`).
+
+#### 🗑️ Removido
+- **Legacy Auth Packages:**
+  - `next-auth` e `@auth/prisma-adapter` foram completamente expurgados do `package.json` após migração total para a Clerk.
+
+---
+
 ## [V21.6.0] - 2026-02-25 - "Cinematic UI/UX & B2B Conversion Overhaul"
 
 ### 🎬 UI/UX — Experiência Cinematográfica Premium
