@@ -1,12 +1,13 @@
 ﻿'use client';
 
 import React, { useState, useEffect, Suspense, lazy } from 'react';
+import dynamic from 'next/dynamic';
 import { ChevronRight } from 'lucide-react';
 import HeroCinematic from '@/components/HeroCinematic'; // above-the-fold: import síncrono
 
 // ── Below-the-fold: carregados dinamicamente (split de bundle) ──
 const TrainingJourney = lazy(() => import('@/components/TrainingJourney'));
-const PainPointBanner = lazy(() => import('@/components/PainPointBanner'));
+const PainPointBanner = dynamic(() => import('@/components/PainPointBanner'), { ssr: false });
 const CinematicSolutions = lazy(() => import('@/components/CinematicSolutions'));
 const SaasPreview = lazy(() => import('@/components/SaasPreview'));
 const GlobalTeam = lazy(() => import('@/components/GlobalTeam'));
