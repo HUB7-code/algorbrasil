@@ -17,3 +17,5 @@ pyotp
 reportlab>=4.1.0
 qrcode>=7.4.2
 requests>=2.31.0
+pandas>=2.0.0
+stripe>=8.0.0
