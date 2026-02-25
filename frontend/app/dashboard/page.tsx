@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from "react";
 import {
@@ -137,12 +137,12 @@ export default function Dashboard() {
     const userName = data?.user_status?.name || "Visitante";
 
     return (
-        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#050A14]">
+        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#0B0F1E]">
 
             {/* Deep Ambient Background - "Space/Cyber" Theme */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] left-[0%] w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] left-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 <div className="absolute top-[30%] left-[30%] w-[400px] h-[400px] bg-[#8B5CF6]/5 rounded-full blur-[150px]" />
 
                 {/* Grid Overlay */}
@@ -160,13 +160,13 @@ export default function Dashboard() {
                 <div className="flex flex-col xl:flex-row justify-between items-end gap-6 pb-6 border-b border-white/5">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <span className={`text-[10px] font-mono font-bold flex items-center gap-2 px-2 py-1 rounded border uppercase tracking-widest ${isCommunityUser ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-[#00FF94]/10 text-[#00FF94] border-[#00FF94]/20'}`}>
+                            <span className={`text-[10px] font-mono font-bold flex items-center gap-2 px-2 py-1 rounded border uppercase tracking-widest ${isCommunityUser ? 'bg-amber-500/10 text-amber-500 border-amber-500/20' : 'bg-[#4F7EFF]/10 text-[#4F7EFF] border-[#4F7EFF]/20'}`}>
                                 <Activity className="w-3 h-3 animate-pulse" />
                                 {isCommunityUser ? "Acesso Restrito" : "Sistema Operacional: Online"}
                             </span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-orbitron font-bold text-white mb-2 tracking-tight">
-                            {isCommunityUser ? "Portal do" : "Centro de"} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">{isCommunityUser ? "Membro" : "Excelência"}</span>
+                            {isCommunityUser ? "Portal do" : "Centro de"} <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-[#4F7EFF]">{isCommunityUser ? "Membro" : "Excelência"}</span>
                         </h1>
                         <p className="text-gray-400 font-light text-sm max-w-xl">
                             {isCommunityUser
@@ -181,7 +181,7 @@ export default function Dashboard() {
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab.toLowerCase())}
-                                    className={`px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.toLowerCase() ? 'bg-[#00A3FF] text-[#050A14] shadow-lg shadow-blue-500/20' : 'text-gray-400 hover:text-white'}`}
+                                    className={`px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.toLowerCase() ? 'bg-[#818CF8] text-[#0B0F1E] shadow-lg shadow-blue-500/20' : 'text-gray-400 hover:text-white'}`}
                                 >
                                     {tab}
                                 </button>
@@ -198,7 +198,7 @@ export default function Dashboard() {
                             </button>
                         ) : (
                             <Link href="/dashboard/assessments">
-                                <button className="px-6 py-3 rounded-xl bg-[#00FF94] text-[#050A14] font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,255,148,0.4)]">
+                                <button className="px-6 py-3 rounded-xl bg-[#4F7EFF] text-[#0B0F1E] font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(79,126,255,0.4)]">
                                     <Play className="w-4 h-4" />
                                     Scanner IA
                                 </button>
@@ -212,13 +212,13 @@ export default function Dashboard() {
                     {/* KPI 1: Trust Score */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
                         <div className="absolute top-0 right-0 p-4 opacity-50">
-                            {isCommunityUser ? <Lock className="w-12 h-12 text-gray-700" /> : <ShieldCheck className="w-12 h-12 text-[#00FF94]" />}
+                            {isCommunityUser ? <Lock className="w-12 h-12 text-gray-700" /> : <ShieldCheck className="w-12 h-12 text-[#4F7EFF]" />}
                         </div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Trust Score</h3>
                         <div className="flex items-end gap-3">
                             <span className="text-5xl font-orbitron font-bold text-white">{isCommunityUser ? "--" : complianceScore}<span className="text-2xl text-gray-500">%</span></span>
                             {!isCommunityUser && (
-                                <span className="text-[#00FF94] text-xs font-bold bg-[#00FF94]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
+                                <span className="text-[#4F7EFF] text-xs font-bold bg-[#4F7EFF]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
                                     <TrendingUp className="w-3 h-3" /> +1.2%
                                 </span>
                             )}
@@ -230,31 +230,31 @@ export default function Dashboard() {
                             </div>
                         ) : (
                             <div className="w-full h-1.5 bg-white/5 rounded-full mt-6 overflow-hidden">
-                                <motion.div initial={{ width: 0 }} animate={{ width: `${complianceScore}%` }} className="h-full bg-gradient-to-r from-[#00FF94] to-[#00A3FF]" />
+                                <motion.div initial={{ width: 0 }} animate={{ width: `${complianceScore}%` }} className="h-full bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]" />
                             </div>
                         )}
                     </div>
 
                     {/* KPI 2: Active Models */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><Cpu className="w-12 h-12 text-[#00A3FF]" /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><Cpu className="w-12 h-12 text-[#818CF8]" /></div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Modelos Ativos</h3>
                         <div className="flex items-end gap-3">
                             <span className="text-5xl font-orbitron font-bold text-white">{activeModels}</span>
-                            <span className="text-[#00A3FF] text-xs font-bold bg-[#00A3FF]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
+                            <span className="text-[#818CF8] text-xs font-bold bg-[#818CF8]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
                                 Monitorados
                             </span>
                         </div>
                         <div className="flex items-end gap-1 h-6 mt-6 opacity-30">
                             {[40, 60, 50, 80, 70, 90, 85, 100].map((h, i) => (
-                                <div key={i} className="flex-1 bg-[#00A3FF] rounded-t-sm" style={{ height: `${h}%` }} />
+                                <div key={i} className="flex-1 bg-[#818CF8] rounded-t-sm" style={{ height: `${h}%` }} />
                             ))}
                         </div>
                     </div>
 
                     {/* KPI 3: Critical Risks */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><AlertTriangle className={`w-12 h-12 ${criticalRisks > 0 ? 'text-[#EF4444]' : 'text-[#00FF94]'}`} /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><AlertTriangle className={`w-12 h-12 ${criticalRisks > 0 ? 'text-[#EF4444]' : 'text-[#4F7EFF]'}`} /></div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Riscos Críticos</h3>
                         <div className="flex items-end gap-3">
                             <span className="text-5xl font-orbitron font-bold text-white">{criticalRisks}</span>
@@ -263,7 +263,7 @@ export default function Dashboard() {
                                     Atenção
                                 </span>
                             ) : (
-                                <span className="text-[#00FF94] text-xs font-bold bg-[#00FF94]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
+                                <span className="text-[#4F7EFF] text-xs font-bold bg-[#4F7EFF]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
                                     Seguro
                                 </span>
                             )}
@@ -317,7 +317,7 @@ export default function Dashboard() {
 
                         <div className="flex-1 w-full min-h-0">
                             {isCommunityUser ? (
-                                <div className="h-full w-full flex flex-col items-center justify-center bg-[#050A14] rounded-xl border border-white/5 border-dashed">
+                                <div className="h-full w-full flex flex-col items-center justify-center bg-[#0B0F1E] rounded-xl border border-white/5 border-dashed">
                                     <Lock className="w-10 h-10 text-gray-600 mb-4" />
                                     <h4 className="text-white font-bold mb-2">Visualização Avançada Bloqueada</h4>
                                     <p className="text-gray-500 text-sm mb-4 max-w-xs text-center">Faça um upgrade para visualizar o histórico detalhado de conformidade.</p>
@@ -328,23 +328,23 @@ export default function Dashboard() {
                                     <AreaChart data={trendData}>
                                         <defs>
                                             <linearGradient id="colorTrust" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#00FF94" stopOpacity={0.3} />
-                                                <stop offset="95%" stopColor="#00FF94" stopOpacity={0} />
+                                                <stop offset="5%" stopColor="#4F7EFF" stopOpacity={0.3} />
+                                                <stop offset="95%" stopColor="#4F7EFF" stopOpacity={0} />
                                             </linearGradient>
                                             <linearGradient id="colorAct" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
-                                                <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                                <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3} />
+                                                <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
                                             </linearGradient>
                                         </defs>
                                         <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
                                         <XAxis dataKey="name" stroke="#475569" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
                                         <YAxis stroke="#475569" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
                                         <Tooltip
-                                            contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }}
+                                            contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#ffffff10', borderRadius: '12px' }}
                                             itemStyle={{ color: '#fff' }}
                                         />
-                                        <Area type="monotone" dataKey="trust" stroke="#00FF94" strokeWidth={3} fillOpacity={1} fill="url(#colorTrust)" />
-                                        <Area type="monotone" dataKey="activity" stroke="#00A3FF" strokeWidth={3} fillOpacity={1} fill="url(#colorAct)" />
+                                        <Area type="monotone" dataKey="trust" stroke="#4F7EFF" strokeWidth={3} fillOpacity={1} fill="url(#colorTrust)" />
+                                        <Area type="monotone" dataKey="activity" stroke="#818CF8" strokeWidth={3} fillOpacity={1} fill="url(#colorAct)" />
                                     </AreaChart>
                                 </ResponsiveContainer>
                             )}
@@ -401,14 +401,14 @@ export default function Dashboard() {
                     <div className="xl:col-span-2 rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-8 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-lg font-orbitron font-bold text-white">Atividade Recente do Sistema</h3>
-                            <button className="text-xs font-bold text-[#00A3FF] uppercase tracking-wider">Ver Audit Log</button>
+                            <button className="text-xs font-bold text-[#818CF8] uppercase tracking-wider">Ver Audit Log</button>
                         </div>
 
                         <div className="space-y-4">
                             {/* Mock Activity Items */}
                             {[
-                                { action: "Novo Modelo Registrado", target: "Credit_Scoring_V2", user: "Admin", time: "2 min atrás", icon: Database, color: "#00A3FF" },
-                                { action: "Auditoria Completada", target: "Relatório Mensal ISO", user: "System", time: "1h atrás", icon: CheckCircle2, color: "#00FF94" },
+                                { action: "Novo Modelo Registrado", target: "Credit_Scoring_V2", user: "Admin", time: "2 min atrás", icon: Database, color: "#818CF8" },
+                                { action: "Auditoria Completada", target: "Relatório Mensal ISO", user: "System", time: "1h atrás", icon: CheckCircle2, color: "#4F7EFF" },
                                 { action: "Alerta de Viés", target: "Reconhecimento Facial", user: "Watchdog", time: "3h atrás", icon: AlertTriangle, color: "#F59E0B" },
                             ].map((item, i) => (
                                 <div key={i} className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors">
@@ -465,15 +465,15 @@ export default function Dashboard() {
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-xl p-4">
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
-                            className="bg-[#0A1A2F] border border-[#00FF94]/40 rounded-[24px] p-10 max-w-md w-full relative shadow-[0_0_80px_rgba(0,255,148,0.2)] text-center"
+                            className="bg-[#0A1A2F] border border-[#4F7EFF]/40 rounded-[24px] p-10 max-w-md w-full relative shadow-[0_0_80px_rgba(79,126,255,0.2)] text-center"
                         >
                             <button onClick={() => setShowSuccessModal(false)} className="absolute top-6 right-6 text-gray-400 hover:text-white"><X className="w-6 h-6" /></button>
-                            <div className="w-20 h-20 rounded-full bg-[#00FF94]/10 flex items-center justify-center mb-8 mx-auto border border-[#00FF94]/30 shadow-[0_0_40px_rgba(0,255,148,0.2)]">
-                                <CheckCircle2 className="w-10 h-10 text-[#00FF94]" />
+                            <div className="w-20 h-20 rounded-full bg-[#4F7EFF]/10 flex items-center justify-center mb-8 mx-auto border border-[#4F7EFF]/30 shadow-[0_0_40px_rgba(79,126,255,0.2)]">
+                                <CheckCircle2 className="w-10 h-10 text-[#4F7EFF]" />
                             </div>
                             <h3 className="text-2xl font-orbitron font-bold text-white mb-2">Pagamento Confirmado!</h3>
                             <p className="text-gray-400 mb-8">Seu Relatório de Viabilidade foi desbloqueado e enviado para seu e-mail.</p>
-                            <button onClick={() => setShowSuccessModal(false)} className="w-full py-4 bg-[#00FF94] text-[#050A14] font-bold rounded-xl uppercase tracking-widest text-sm hover:brightness-110">Confirmar</button>
+                            <button onClick={() => setShowSuccessModal(false)} className="w-full py-4 bg-[#4F7EFF] text-[#0B0F1E] font-bold rounded-xl uppercase tracking-widest text-sm hover:brightness-110">Confirmar</button>
                         </motion.div>
                     </motion.div>
                 )}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -36,7 +36,7 @@ const protocols = [
         description: "Diagnóstico completo de governança para certificação internacional.",
         rationale: "Obrigatório para contratos Enterprise.",
         icon: ShieldCheck,
-        color: "#00FF94",
+        color: "#4F7EFF",
         cost: 2,
         duration: "45 min",
         accuracy: 98,
@@ -49,7 +49,7 @@ const protocols = [
         description: "Avaliação de Impacto Algorítmico (LIA) expressa.",
         rationale: "Art. 38 LGPD: Alto risco detectado.",
         icon: Zap,
-        color: "#00A3FF",
+        color: "#818CF8",
         cost: 1,
         duration: "15 min",
         accuracy: 92,
@@ -85,8 +85,8 @@ const protocols = [
 
 // Mock Data for Charts
 const complianceData = [
-    { name: 'Segurança', uv: 90, fill: '#00FF94' },
-    { name: 'Privacidade', uv: 80, fill: '#00A3FF' },
+    { name: 'Segurança', uv: 90, fill: '#4F7EFF' },
+    { name: 'Privacidade', uv: 80, fill: '#818CF8' },
     { name: 'Ética', uv: 65, fill: '#F59E0B' },
     { name: 'Robustez', uv: 50, fill: '#8B5CF6' },
 ];
@@ -137,10 +137,10 @@ export default function AssessmentsPage() {
     }
 
     return (
-        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#050A14]">
+        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#0B0F1E]">
 
             {/* Grid Background */}
-            <div className="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(0,163,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(0,163,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
+            <div className="fixed inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(129,140,248,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(129,140,248,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
 
             <motion.div
                 variants={containerVariants}
@@ -154,13 +154,13 @@ export default function AssessmentsPage() {
                     {/* Header */}
                     <div className="mb-8">
                         <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-mono font-bold text-[#00FF94] uppercase tracking-widest px-2 py-1 bg-[#00FF94]/10 rounded border border-[#00FF94]/20 flex w-fit items-center gap-2">
+                            <span className="text-[10px] font-mono font-bold text-[#4F7EFF] uppercase tracking-widest px-2 py-1 bg-[#4F7EFF]/10 rounded border border-[#4F7EFF]/20 flex w-fit items-center gap-2">
                                 <Activity className="w-3 h-3 animate-pulse" />
                                 Sistema de Diagnóstico
                             </span>
                         </div>
                         <h1 className="text-4xl font-orbitron font-bold text-white tracking-wide">
-                            Tactical <span className="text-[#00A3FF]">Audit</span>
+                            Tactical <span className="text-[#818CF8]">Audit</span>
                         </h1>
                         <p className="text-gray-400 text-sm mt-2 font-light">
                             Selecione um protocolo para iniciar a varredura profunda da sua infraestrutura.
@@ -169,7 +169,7 @@ export default function AssessmentsPage() {
 
                     {/* Main Compliance Gauge */}
                     <motion.div variants={itemVariants} className="rounded-[24px] bg-[#0A111F]/80 backdrop-blur-xl border border-white/5 p-6 relative overflow-hidden group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><ShieldCheck className="w-6 h-6 text-[#00FF94]" /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><ShieldCheck className="w-6 h-6 text-[#4F7EFF]" /></div>
 
                         <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-6">Status de Conformidade</h3>
 
@@ -188,7 +188,7 @@ export default function AssessmentsPage() {
                                         dataKey="uv"
                                         cornerRadius={10}
                                     />
-                                    <Tooltip contentStyle={{ backgroundColor: '#050A14', borderRadius: '12px', border: '1px solid #333' }} itemStyle={{ color: '#fff' }} />
+                                    <Tooltip contentStyle={{ backgroundColor: '#0B0F1E', borderRadius: '12px', border: '1px solid #333' }} itemStyle={{ color: '#fff' }} />
                                 </RadialBarChart>
                             </ResponsiveContainer>
                             <div className="absolute bottom-10 text-center">
@@ -214,23 +214,23 @@ export default function AssessmentsPage() {
                         <div className="h-[150px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <LineChart data={historyTrace}>
-                                    <Line type="monotone" dataKey="score" stroke="#00A3FF" strokeWidth={3} dot={{ r: 4, fill: '#050A14', strokeWidth: 2 }} />
+                                    <Line type="monotone" dataKey="score" stroke="#818CF8" strokeWidth={3} dot={{ r: 4, fill: '#0B0F1E', strokeWidth: 2 }} />
                                     <CartesianGrid stroke="#ffffff05" vertical={false} />
                                     <XAxis hide />
                                     <YAxis hide domain={['dataMin - 10', 'dataMax + 10']} />
-                                    <Tooltip contentStyle={{ backgroundColor: '#050A14', borderRadius: '8px', border: '1px solid #333' }} itemStyle={{ color: '#fff' }} />
+                                    <Tooltip contentStyle={{ backgroundColor: '#0B0F1E', borderRadius: '8px', border: '1px solid #333' }} itemStyle={{ color: '#fff' }} />
                                 </LineChart>
                             </ResponsiveContainer>
                         </div>
                     </motion.div>
 
                     {/* Credits Widget */}
-                    <motion.div variants={itemVariants} className="rounded-[24px] bg-gradient-to-r from-[#00A3FF]/10 to-[#00A3FF]/5 border border-[#00A3FF]/20 p-6 flex justify-between items-center">
+                    <motion.div variants={itemVariants} className="rounded-[24px] bg-gradient-to-r from-[#818CF8]/10 to-[#818CF8]/5 border border-[#818CF8]/20 p-6 flex justify-between items-center">
                         <div>
-                            <p className="text-[10px] font-bold text-[#00A3FF] uppercase tracking-widest mb-1">Créditos de Auditoria</p>
+                            <p className="text-[10px] font-bold text-[#818CF8] uppercase tracking-widest mb-1">Créditos de Auditoria</p>
                             <p className="text-3xl font-orbitron font-bold text-white">{userCredits}</p>
                         </div>
-                        <button className="px-4 py-2 bg-[#00A3FF] hover:bg-[#0090E0] text-white text-xs font-bold rounded-lg transition-colors">
+                        <button className="px-4 py-2 bg-[#818CF8] hover:bg-[#0090E0] text-white text-xs font-bold rounded-lg transition-colors">
                             RECARREGAR
                         </button>
                     </motion.div>
@@ -249,8 +249,8 @@ export default function AssessmentsPage() {
                             ))}
                         </div>
                         <div className="relative group">
-                            <Search className="w-4 h-4 text-gray-500 absolute left-3 top-2.5 group-focus-within:text-[#00FF94]" />
-                            <input type="text" placeholder="Buscar protocolo..." className="bg-[#0A111F] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white focus:border-[#00FF94] focus:outline-none w-64 transition-all" />
+                            <Search className="w-4 h-4 text-gray-500 absolute left-3 top-2.5 group-focus-within:text-[#4F7EFF]" />
+                            <input type="text" placeholder="Buscar protocolo..." className="bg-[#0A111F] border border-white/10 rounded-lg pl-9 pr-4 py-2 text-sm text-white focus:border-[#4F7EFF] focus:outline-none w-64 transition-all" />
                         </div>
                     </div>
 
@@ -302,7 +302,7 @@ export default function AssessmentsPage() {
                                         <span className={`text-lg font-bold ${userCredits >= protocol.cost ? 'text-white' : 'text-red-400'}`}>
                                             {protocol.cost === 0 ? 'FREE' : `${protocol.cost} CR`}
                                         </span>
-                                        <button className="px-6 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 text-xs font-bold uppercase tracking-widest text-[#00FF94] transition-all flex items-center gap-2 group-hover:bg-[#00FF94] group-hover:text-black">
+                                        <button className="px-6 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 text-xs font-bold uppercase tracking-widest text-[#4F7EFF] transition-all flex items-center gap-2 group-hover:bg-[#4F7EFF] group-hover:text-black">
                                             Iniciar <Play className="w-3 h-3 fill-current" />
                                         </button>
                                     </div>
@@ -313,14 +313,14 @@ export default function AssessmentsPage() {
 
                     {/* Recent Logic Terminal Section */}
                     <motion.div variants={itemVariants} className="mt-8 rounded-[24px] bg-black/40 border border-white/10 p-6 font-mono text-sm relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00FF94]/50 to-transparent" />
-                        <div className="flex items-center gap-2 mb-4 text-[#00FF94]">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#4F7EFF]/50 to-transparent" />
+                        <div className="flex items-center gap-2 mb-4 text-[#4F7EFF]">
                             <Terminal className="w-4 h-4" />
                             <span className="font-bold uppercase tracking-widest text-xs">Terminal de Auditoria</span>
                         </div>
                         <div className="space-y-2 text-gray-400 h-32 overflow-y-auto custom-scrollbar">
                             <p><span className="text-gray-600">[14:00:23]</span> System ready. Waiting for input protocol...</p>
-                            <p><span className="text-gray-600">[13:45:12]</span> <span className="text-[#00A3FF]">L.I.A. Flash</span> completed for <span className="text-white">Model_X_Credits</span>. Score: 88%.</p>
+                            <p><span className="text-gray-600">[13:45:12]</span> <span className="text-[#818CF8]">L.I.A. Flash</span> completed for <span className="text-white">Model_X_Credits</span>. Score: 88%.</p>
                             <p><span className="text-gray-600">[12:10:05]</span> Policy Generator executed. 2 documents created.</p>
                             <p><span className="text-gray-600">[10:00:00]</span> User credentials verified. Access granted.</p>
                         </div>

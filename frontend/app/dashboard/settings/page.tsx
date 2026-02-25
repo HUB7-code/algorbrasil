@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { User, Lock, Bell, CreditCard, Save, Camera, CheckCircle, Shield, AlertTriangle, Eye, EyeOff } from "lucide-react";
@@ -194,7 +194,7 @@ export default function SettingsPage() {
                                             type="text"
                                             value={fullName}
                                             onChange={(e) => setFullName(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all"
+                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#4F7EFF]/50 transition-all"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -203,7 +203,7 @@ export default function SettingsPage() {
                                             type="email"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
-                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all"
+                                            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#4F7EFF]/50 transition-all"
                                         />
                                     </div>
                                     <div className="space-y-2 relative">
@@ -214,7 +214,7 @@ export default function SettingsPage() {
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
                                                 placeholder="Deixe em branco para manter"
-                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all pr-10"
+                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#4F7EFF]/50 transition-all pr-10"
                                             />
                                             <button
                                                 type="button"
@@ -233,7 +233,7 @@ export default function SettingsPage() {
                                                 value={confirmPassword}
                                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                                 placeholder="Repita a nova senha"
-                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-all pr-10"
+                                                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#4F7EFF]/50 transition-all pr-10"
                                             />
                                             <button
                                                 type="button"
@@ -250,11 +250,11 @@ export default function SettingsPage() {
                             <div className="glass-panel p-8 rounded-2xl">
                                 <div className="flex justify-between items-center mb-6">
                                     <h3 className="text-xl font-sans font-medium text-white">API Keys</h3>
-                                    <button className="text-xs font-bold text-[#00FF94] uppercase tracking-wider hover:underline" onClick={() => alert("Gerar nova chave: Recurso Enterprise.")}>Gerar Nova Chave</button>
+                                    <button className="text-xs font-bold text-[#4F7EFF] uppercase tracking-wider hover:underline" onClick={() => alert("Gerar nova chave: Recurso Enterprise.")}>Gerar Nova Chave</button>
                                 </div>
                                 <div className="p-4 bg-black/20 rounded-xl border border-white/5 flex items-center justify-between font-mono text-sm text-gray-400">
                                     <span>algor_live_****************829x</span>
-                                    <button className="text-white hover:text-[#00A3FF]" onClick={() => navigator.clipboard.writeText("algor_live_xxxxxxxx")}>Copiar</button>
+                                    <button className="text-white hover:text-[#818CF8]" onClick={() => navigator.clipboard.writeText("algor_live_xxxxxxxx")}>Copiar</button>
                                 </div>
                             </div>
 
@@ -262,7 +262,7 @@ export default function SettingsPage() {
                                 <button
                                     onClick={handleSaveProfile}
                                     disabled={loading}
-                                    className="px-8 py-3 bg-[#00FF94] text-[#0A1A2F] font-bold rounded-xl hover:bg-white transition-colors flex items-center gap-2 shadow-lg disabled:opacity-50"
+                                    className="px-8 py-3 bg-[#4F7EFF] text-[#0A1A2F] font-bold rounded-xl hover:bg-white transition-colors flex items-center gap-2 shadow-lg disabled:opacity-50"
                                 >
                                     {loading ? "Salvando..." : <><Save className="w-4 h-4" /> Salvar Alterações</>}
                                 </button>
@@ -274,17 +274,17 @@ export default function SettingsPage() {
                     {activeTab === 'security' && (
                         <div className="glass-panel p-8 rounded-2xl space-y-8">
                             <h3 className="text-xl font-sans font-medium text-white flex items-center gap-2">
-                                <Shield className="w-5 h-5 text-[#00FF94]" /> Segurança da Conta
+                                <Shield className="w-5 h-5 text-[#4F7EFF]" /> Segurança da Conta
                             </h3>
 
-                            <div className="p-6 bg-[#00FF94]/5 border border-[#00FF94]/20 rounded-xl flex items-start gap-4">
-                                <div className="p-2 bg-[#00FF94]/10 rounded-lg">
-                                    <Lock className="w-5 h-5 text-[#00FF94]" />
+                            <div className="p-6 bg-[#4F7EFF]/5 border border-[#4F7EFF]/20 rounded-xl flex items-start gap-4">
+                                <div className="p-2 bg-[#4F7EFF]/10 rounded-lg">
+                                    <Lock className="w-5 h-5 text-[#4F7EFF]" />
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-sm mb-1">Dois Fatores (2FA)</h4>
                                     <p className="text-xs text-gray-400 mb-4">Adicione uma camada extra de segurança usando Google Authenticator.</p>
-                                    <button className="text-xs bg-[#00FF94] text-[#0A1A2F] px-4 py-2 rounded-lg font-bold hover:bg-white transition-colors">
+                                    <button className="text-xs bg-[#4F7EFF] text-[#0A1A2F] px-4 py-2 rounded-lg font-bold hover:bg-white transition-colors">
                                         ATIVAR 2FA
                                     </button>
                                 </div>
@@ -362,7 +362,7 @@ function ToggleRow({ label, description, checked }: any) {
             </div>
             <button
                 onClick={() => setIsOn(!isOn)}
-                className={`w-10 h-6 rounded-full p-1 transition-colors ${isOn ? 'bg-[#00FF94]' : 'bg-gray-700'}`}
+                className={`w-10 h-6 rounded-full p-1 transition-colors ${isOn ? 'bg-[#4F7EFF]' : 'bg-gray-700'}`}
             >
                 <div className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${isOn ? 'translate-x-4' : 'translate-x-0'}`} />
             </button>

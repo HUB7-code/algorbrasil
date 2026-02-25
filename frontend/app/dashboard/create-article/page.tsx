@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -154,7 +154,7 @@ export default function CreateArticlePage() {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={() => setIsPreview(!isPreview)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-[#00A3FF]/30 text-gray-400 hover:text-white transition-all"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-[#818CF8]/30 text-gray-400 hover:text-white transition-all"
                         >
                             <Eye className="w-4 h-4" />
                             <span className="text-sm font-medium">{isPreview ? 'Editar' : 'Visualizar'}</span>
@@ -163,7 +163,7 @@ export default function CreateArticlePage() {
                         <button
                             onClick={handleSaveDraft}
                             disabled={isSaving}
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-[#00FF94]/30 text-gray-400 hover:text-white transition-all disabled:opacity-50"
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:border-[#4F7EFF]/30 text-gray-400 hover:text-white transition-all disabled:opacity-50"
                         >
                             <Save className="w-4 h-4" />
                             <span className="text-sm font-medium">Salvar Rascunho</span>
@@ -172,7 +172,7 @@ export default function CreateArticlePage() {
                         <button
                             onClick={handlePublish}
                             disabled={isSaving}
-                            className="flex items-center gap-2 px-6 py-2 rounded-lg bg-[#00FF94] text-black font-bold hover:bg-[#00FF94]/90 transition-all shadow-[0_0_20px_rgba(0,255,148,0.3)] disabled:opacity-50"
+                            className="flex items-center gap-2 px-6 py-2 rounded-lg bg-[#4F7EFF] text-black font-bold hover:bg-[#4F7EFF]/90 transition-all shadow-[0_0_20px_rgba(79,126,255,0.3)] disabled:opacity-50"
                         >
                             <Send className="w-4 h-4" />
                             <span className="text-sm">Publicar</span>
@@ -213,8 +213,8 @@ export default function CreateArticlePage() {
                                 <div
                                     {...getRootProps()}
                                     className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all ${isDragActive
-                                        ? 'border-[#00FF94] bg-[#00FF94]/5'
-                                        : 'border-white/10 hover:border-[#00FF94]/30 bg-white/[0.02]'
+                                        ? 'border-[#4F7EFF] bg-[#4F7EFF]/5'
+                                        : 'border-white/10 hover:border-[#4F7EFF]/30 bg-white/[0.02]'
                                         }`}
                                 >
                                     <input {...getInputProps()} />
@@ -248,7 +248,7 @@ export default function CreateArticlePage() {
                                 <select
                                     value={category}
                                     onChange={(e) => setCategory(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#00FF94]/50 transition-colors"
+                                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-[#4F7EFF]/50 transition-colors"
                                 >
                                     {categories.map((cat) => (
                                         <option key={cat} value={cat} className="bg-[#0A1A2F]">
@@ -270,11 +270,11 @@ export default function CreateArticlePage() {
                                         onChange={(e) => setTagInput(e.target.value)}
                                         onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddTag())}
                                         placeholder="Adicionar tag..."
-                                        className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#00FF94]/50 transition-colors"
+                                        className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-600 focus:outline-none focus:border-[#4F7EFF]/50 transition-colors"
                                     />
                                     <button
                                         onClick={handleAddTag}
-                                        className="px-4 py-3 rounded-xl bg-[#00FF94]/10 border border-[#00FF94]/30 text-[#00FF94] hover:bg-[#00FF94]/20 transition-all"
+                                        className="px-4 py-3 rounded-xl bg-[#4F7EFF]/10 border border-[#4F7EFF]/30 text-[#4F7EFF] hover:bg-[#4F7EFF]/20 transition-all"
                                     >
                                         +
                                     </button>
@@ -284,7 +284,7 @@ export default function CreateArticlePage() {
                                         {tags.map((tag) => (
                                             <span
                                                 key={tag}
-                                                className="px-3 py-1 rounded-lg bg-[#00FF94]/10 border border-[#00FF94]/30 text-[#00FF94] text-sm flex items-center gap-2"
+                                                className="px-3 py-1 rounded-lg bg-[#4F7EFF]/10 border border-[#4F7EFF]/30 text-[#4F7EFF] text-sm flex items-center gap-2"
                                             >
                                                 #{tag}
                                                 <button
@@ -310,7 +310,7 @@ export default function CreateArticlePage() {
                                 onChange={(e) => setContent(e.target.value)}
                                 placeholder="Escreva seu artigo aqui... Você pode usar Markdown para formatação."
                                 rows={20}
-                                className="w-full px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/10 text-white text-lg leading-relaxed placeholder:text-gray-600 focus:outline-none focus:border-[#00FF94]/50 transition-colors resize-none font-light"
+                                className="w-full px-6 py-4 rounded-2xl bg-white/[0.02] border border-white/10 text-white text-lg leading-relaxed placeholder:text-gray-600 focus:outline-none focus:border-[#4F7EFF]/50 transition-colors resize-none font-light"
                             />
                             <p className="text-gray-600 text-sm mt-2">
                                 Dica: Use **negrito**, *itálico*, ## Títulos, - listas, e &gt; citações
@@ -333,7 +333,7 @@ export default function CreateArticlePage() {
                         )}
 
                         {/* Category Badge */}
-                        <div className="inline-block px-4 py-2 rounded-lg bg-[#00FF94]/10 border border-[#00FF94]/30 text-[#00FF94] text-xs font-bold uppercase tracking-wider">
+                        <div className="inline-block px-4 py-2 rounded-lg bg-[#4F7EFF]/10 border border-[#4F7EFF]/30 text-[#4F7EFF] text-xs font-bold uppercase tracking-wider">
                             {category}
                         </div>
 
@@ -370,7 +370,7 @@ export default function CreateArticlePage() {
 
             {/* Floating Help */}
             <div className="fixed bottom-6 right-6 z-40">
-                <button className="p-4 rounded-full bg-[#00FF94] text-black shadow-[0_0_30px_rgba(0,255,148,0.4)] hover:shadow-[0_0_40px_rgba(0,255,148,0.6)] transition-all">
+                <button className="p-4 rounded-full bg-[#4F7EFF] text-black shadow-[0_0_30px_rgba(79,126,255,0.4)] hover:shadow-[0_0_40px_rgba(79,126,255,0.6)] transition-all">
                     <Sparkles className="w-6 h-6" />
                 </button>
             </div>

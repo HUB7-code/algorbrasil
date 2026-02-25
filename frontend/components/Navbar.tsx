@@ -1,12 +1,12 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Lock, Building2, Users, Briefcase, GraduationCap, ArrowRight, BookOpen } from 'lucide-react';
+import { Menu, X, Lock, Building2, Briefcase, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import UserLevelBadge from './lab/UserLevelBadge';
+import NeuralGlobe from './NeuralGlobe';
 
 // ========================================
 // NAVBAR - Holographic Command Center
@@ -63,13 +63,13 @@ export default function Navbar() {
             {/* FLOATING GLASS POD */}
             <div
                 className={`transform transition-all duration-500 w-full ${scrolled
-                    ? 'max-w-6xl mx-4 rounded-2xl bg-[#0A1A2F]/70 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
+                    ? 'max-w-6xl mx-4 rounded-2xl bg-[#0B0F1E]/80 backdrop-blur-xl border border-slate-700/50 shadow-[0_8px_32px_rgba(0,0,0,0.5)]'
                     : 'bg-transparent border-transparent'}`}
             >
-                {/* Scroll Progress (Integrated into pod border or subtle bottom line) */}
+                {/* Scroll Progress */}
                 {scrolled && (
                     <div
-                        className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-[#00FF94] to-transparent will-change-[width] opacity-50 transition-all"
+                        className="absolute bottom-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-[#4F7EFF] to-transparent will-change-[width] opacity-50 transition-all"
                         style={{ width: `${scrollProgress}%`, left: '50%', transform: 'translateX(-50%)' }}
                     />
                 )}
@@ -77,47 +77,37 @@ export default function Navbar() {
                 <div className={`px-6 md:px-8 flex justify-between items-center relative transition-all duration-500 ${scrolled ? 'py-3' : 'py-6'}`}>
 
                     {/* Logo Area */}
-                    <Link href="/" className="flex items-center gap-4 group relative z-50">
-                        <div className="relative w-20 h-20 md:w-24 md:h-24">
-                            {/* Logo Glow */}
-                            <div className="absolute inset-0 bg-[#00FF94] rounded-full blur-[25px] opacity-10 group-hover:opacity-30 transition-opacity duration-500" />
-
-                            <div className="relative w-full h-full rounded-full border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.1)] overflow-hidden transition-transform group-hover:scale-105 bg-black/20 backdrop-blur-sm">
-                                <Image
-                                    src="/logo-algor.webp"
-                                    alt="Algor Brasil Logo"
-                                    fill
-                                    sizes="96px"
-                                    className="object-cover"
-                                    priority
-                                />
-                            </div>
+                    <Link href="/" className="flex items-center gap-3 group relative z-50">
+                        <div className="flex-shrink-0 transition-transform group-hover:scale-105 duration-300">
+                            <NeuralGlobe size={52} intensity="medium" />
                         </div>
-                        {/* Texto limpo e centralizado verticalmente */}
-                        <div className="flex flex-col justify-center h-full">
-                            <span className="font-orbitron text-lg md:text-xl tracking-widest font-bold leading-none transition-all">
-                                <span className="text-white">ALGOR</span> <span className="text-[#00FF94]">BRASIL</span>
+                        <div className="flex flex-col leading-none">
+                            <span className="font-orbitron text-base md:text-lg font-bold tracking-widest uppercase text-white">
+                                ALGOR BRASIL
+                            </span>
+                            <span className="text-[9px] text-[#4F7EFF] tracking-[0.2em] uppercase font-medium mt-0.5 hidden md:block">
+                                AI Governance
                             </span>
                         </div>
                     </Link>
 
-                    {/* Desktop Menu - UI Refinada (Semibold + Contraste) */}
+
+                    {/* Desktop Menu - UI Refinada */}
                     <div className="hidden md:flex gap-1 text-sm font-semibold text-gray-300 items-center">
 
                         {[
-                            { href: '/academy', label: 'Algor Lab', color: '#8B5CF6' },
-                            { href: '/blog', label: 'Blog', color: '#F59E0B' },
-                            { href: '/board', label: 'Membros Associados', color: '#00FF94' },
+                            { href: '/#pillars', label: 'Consultoria B2B', color: '#4F7EFF' },
+                            { href: '/board', label: 'Especialistas', color: '#4F7EFF' },
                         ].map((link) => (
                             <Link key={link.href} href={link.href} className="relative group px-4 py-2 hover:text-white transition-colors">
                                 {link.label}
                                 {/* Hover Glow Dot */}
                                 <span
-                                    className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 blur-[2px]"
+                                    className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 blur-[1px]"
                                     style={{ backgroundColor: link.color }}
                                 />
                                 <span
-                                    className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[1px] group-hover:w-1/2 transition-all duration-300"
+                                    className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-[2px] group-hover:w-1/2 transition-all duration-300"
                                     style={{ backgroundColor: link.color }}
                                 />
                             </Link>
@@ -134,37 +124,25 @@ export default function Navbar() {
                         )}
 
                         {/* Member Area / Login */}
-                        <Link href="/sign-in" className="hover:text-white transition-colors font-semibold text-white/80 hover:text-[#00A3FF] flex items-center gap-2 mr-4 group">
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-white/5 group-hover:border-[#00A3FF]/30 group-hover:bg-[#00A3FF]/10 transition-all">
+                        <Link href="/sign-in" className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
+                            <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
                                 <Lock className="w-3.5 h-3.5" />
                             </div>
-                            <span className="text-xs uppercase tracking-wider font-bold">Membro</span>
+                            <span className="text-xs uppercase tracking-wider font-bold">Portal</span>
                         </Link>
 
-                        {/* CTA Principal - Mini Holographic Button */}
-                        <Link href="/sign-up">
-                            <motion.button
-                                className="relative group"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                            >
-                                <div className="absolute inset-0 bg-[#00FF94] blur-md opacity-20 group-hover:opacity-40 transition-opacity" />
-                                <div className="relative px-6 py-2 rounded-lg bg-[#00FF94]/10 border border-[#00FF94]/50 hover:bg-[#00FF94]/20 transition-all overflow-hidden">
-                                    {/* Scanline */}
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00FF94]/40 to-transparent translate-x-[-150%] group-hover:translate-x-[150%] transition-transform duration-[1s] ease-in-out" />
-
-                                    <span className="relative z-10 flex items-center gap-2 uppercase text-[10px] font-bold tracking-[0.15em] text-white">
-                                        Associar-se
-                                        <ArrowRight className="w-3 h-3 text-[#00FF94]" />
-                                    </span>
-                                </div>
-                            </motion.button>
+                        {/* CTA Principal */}
+                        <Link href="/contato">
+                            <button className="px-6 py-2.5 bg-[#4F7EFF] text-white rounded-lg text-xs font-bold tracking-widest uppercase hover:bg-[#3D6AE8] hover:shadow-[0_0_20px_rgba(79,126,255,0.4)] transition-all flex items-center gap-2">
+                                Diagnóstico
+                                <ArrowRight className="w-4 h-4" />
+                            </button>
                         </Link>
                     </div>
 
                     {/* Mobile Menu Toggle */}
                     <button
-                        className="md:hidden text-white p-2 relative z-50 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-white/10"
+                        className="md:hidden text-white p-2 relative z-50 rounded-lg hover:bg-white/5 transition-colors border border-transparent hover:border-slate-700/50"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Menu"
                     >
@@ -177,7 +155,7 @@ export default function Navbar() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        className="fixed inset-0 bg-[#050810]/98 backdrop-blur-2xl z-40 flex flex-col pt-32 px-6 md:hidden"
+                        className="fixed inset-0 bg-[#0C1020]/98 backdrop-blur-2xl z-40 flex flex-col pt-32 px-6 md:hidden"
                         initial={{ opacity: 0, y: '-100%' }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: '-100%' }}
@@ -186,31 +164,30 @@ export default function Navbar() {
                         {/* Mobile Links */}
                         <div className="space-y-6">
                             <div className="space-y-2">
-                                <p className="text-xs text-[#00FF94] uppercase tracking-widest px-2 font-mono mb-4 border-b border-white/10 pb-2">Menu Principal</p>
+                                <p className="text-xs text-[#4F7EFF] uppercase tracking-widest px-2 font-semibold mb-4 border-b border-gray-100 pb-2">Menu Principal</p>
 
                                 {[
-                                    { href: '/academy', label: 'Algor Lab', icon: GraduationCap },
-                                    { href: '/blog', label: 'Blog', icon: BookOpen },
-                                    { href: '/board', label: 'Membros Associados', icon: Building2 },
+                                    { href: '/#pillars', label: 'Consultoria B2B', icon: Briefcase },
+                                    { href: '/board', label: 'Especialistas Associados', icon: Building2 },
                                 ].map((link) => (
-                                    <Link key={link.href} href={link.href} className="flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-[#00FF94]/30 active:scale-95 transition-all" onClick={() => setMobileMenuOpen(false)}>
-                                        <link.icon className="w-5 h-5 text-gray-400" />
-                                        <span className="text-white text-lg font-medium">{link.label}</span>
+                                    <Link key={link.href} href={link.href} className="flex items-center gap-4 p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#4F7EFF]/30 active:scale-95 transition-all" onClick={() => setMobileMenuOpen(false)}>
+                                        <link.icon className="w-5 h-5 text-[#4F7EFF]" />
+                                        <span className="text-[#0F172A] text-lg font-medium">{link.label}</span>
                                     </Link>
                                 ))}
                             </div>
 
                             <div className="pt-6 mt-auto mb-10 space-y-4">
-                                <Link href="/sign-up" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
-                                    <button className="w-full py-4 rounded-xl bg-[#00FF94] text-[#050810] font-bold text-lg uppercase tracking-widest shadow-[0_0_20px_rgba(0,255,148,0.3)]">
-                                        Quero me Associar
+                                <Link href="/contato" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                    <button className="w-full py-4 rounded-xl bg-[#0F172A] text-white font-bold text-lg tracking-wide shadow-md">
+                                        Solicitar Diagnóstico
                                     </button>
                                 </Link>
 
                                 <Link href="/sign-in" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
-                                    <button className="w-full py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                                    <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
                                         <Lock className="w-4 h-4" />
-                                        Área do Membro
+                                        Portal do Cliente
                                     </button>
                                 </Link>
                             </div>

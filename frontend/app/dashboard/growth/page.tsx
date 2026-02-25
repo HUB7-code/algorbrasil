@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -62,12 +62,12 @@ export default function GrowthHubPage() {
     const currentStep = steps.find(s => s.id === activeTab) || steps[0];
 
     return (
-        <div className="flex w-full min-h-screen bg-[#050A14] text-white font-sans overflow-hidden">
+        <div className="flex w-full min-h-screen bg-[#0B0F1E] text-white font-sans overflow-hidden">
 
             {/* BACKGROUND EFFECTS */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-[#00A3FF]/5 rounded-full blur-[200px]" />
-                <div className="absolute bottom-0 left-0 w-[800px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-[#818CF8]/5 rounded-full blur-[200px]" />
+                <div className="absolute bottom-0 left-0 w-[800px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:40px_40px]" />
             </div>
 
@@ -79,7 +79,7 @@ export default function GrowthHubPage() {
             >
                 {/* Brand / Header */}
                 <div className="p-6 border-b border-white/5">
-                    <div className="flex items-center gap-3 text-[#00FF94] mb-2">
+                    <div className="flex items-center gap-3 text-[#4F7EFF] mb-2">
                         <Terminal className="w-6 h-6" />
                         <span className="font-orbitron font-bold text-lg tracking-wider">ALGOR.AI</span>
                     </div>
@@ -97,18 +97,18 @@ export default function GrowthHubPage() {
                                 key={step.id}
                                 onClick={() => setActiveTab(step.id)}
                                 className={`w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group relative overflow-hidden ${isActive
-                                        ? 'bg-[#00A3FF]/10 text-white shadow-[0_0_20px_rgba(0,163,255,0.1)]'
+                                        ? 'bg-[#818CF8]/10 text-white shadow-[0_0_20px_rgba(129,140,248,0.1)]'
                                         : 'text-gray-400 hover:bg-white/5 hover:text-white'
                                     }`}
                             >
-                                {isActive && <div className="absolute inset-y-0 left-0 w-1 bg-[#00A3FF] rounded-full" />}
+                                {isActive && <div className="absolute inset-y-0 left-0 w-1 bg-[#818CF8] rounded-full" />}
 
-                                <step.icon className={`w-5 h-5 ${isActive ? 'text-[#00A3FF]' : 'text-gray-500 group-hover:text-white'}`} />
+                                <step.icon className={`w-5 h-5 ${isActive ? 'text-[#818CF8]' : 'text-gray-500 group-hover:text-white'}`} />
                                 <div className="text-left">
                                     <div className={`text-sm font-bold ${isActive ? 'text-white' : ''}`}>{step.label}</div>
                                     <div className="text-[10px] text-gray-500 font-medium opacity-80">{step.desc}</div>
                                 </div>
-                                {isActive && <ChevronRight className="w-4 h-4 ml-auto text-[#00A3FF]" />}
+                                {isActive && <ChevronRight className="w-4 h-4 ml-auto text-[#818CF8]" />}
                             </button>
                         );
                     })}
@@ -117,7 +117,7 @@ export default function GrowthHubPage() {
                 {/* Footer User Info */}
                 <div className="p-4 border-t border-white/5 bg-black/20">
                     <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5">
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00A3FF] to-[#00FF94]" />
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#818CF8] to-[#4F7EFF]" />
                         <div className="overflow-hidden">
                             <p className="text-sm font-bold truncate text-white">{currentOrganization?.name || 'Algor Demo'}</p>
                             <p className="text-[10px] text-gray-400">Enterprise Plan</p>
@@ -131,11 +131,11 @@ export default function GrowthHubPage() {
             <div className="flex-1 flex flex-col min-w-0 relative z-10 h-screen overflow-hidden">
 
                 {/* Top Breadcrumb Bar */}
-                <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#050A14]/80 backdrop-blur-md">
+                <header className="h-20 border-b border-white/5 flex items-center justify-between px-8 bg-[#0B0F1E]/80 backdrop-blur-md">
                     <div className="flex items-center gap-4">
                         <span className="text-gray-500 text-sm">Dashboard</span>
                         <ChevronRight className="w-4 h-4 text-gray-600" />
-                        <span className="text-[#00FF94] text-sm font-bold uppercase tracking-wider bg-[#00FF94]/10 px-3 py-1 rounded-full border border-[#00FF94]/20 flex items-center gap-2">
+                        <span className="text-[#4F7EFF] text-sm font-bold uppercase tracking-wider bg-[#4F7EFF]/10 px-3 py-1 rounded-full border border-[#4F7EFF]/20 flex items-center gap-2">
                             <currentStep.icon className="w-3 h-3" />
                             {currentStep.label}
                         </span>
@@ -187,14 +187,14 @@ function OverviewDashboard() {
     return (
         <div className="space-y-8 max-w-[1600px] mx-auto">
             {/* Header Hero */}
-            <div className="relative rounded-[32px] overflow-hidden bg-gradient-to-r from-[#00A3FF]/10 to-[#00FF94]/5 border border-white/5 p-10">
+            <div className="relative rounded-[32px] overflow-hidden bg-gradient-to-r from-[#818CF8]/10 to-[#4F7EFF]/5 border border-white/5 p-10">
                 <div className="relative z-10 max-w-2xl">
                     <h2 className="text-4xl font-bold font-orbitron text-white mb-4">Central de Governança</h2>
                     <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                        Visão consolidada de todos os vetores de IA. Seu ecossistema está <span className="text-[#00FF94] font-bold">94% conforme</span> com a ISO 42001.
+                        Visão consolidada de todos os vetores de IA. Seu ecossistema está <span className="text-[#4F7EFF] font-bold">94% conforme</span> com a ISO 42001.
                     </p>
                     <div className="flex gap-4">
-                        <button className="px-6 py-3 bg-[#00FF94] text-[#050A14] font-bold rounded-xl shadow-lg shadow-[#00FF94]/30 hover:shadow-[#00FF94]/50 transition-all flex items-center gap-2 uppercase tracking-wide text-xs">
+                        <button className="px-6 py-3 bg-[#4F7EFF] text-[#0B0F1E] font-bold rounded-xl shadow-lg shadow-[#4F7EFF]/30 hover:shadow-[#4F7EFF]/50 transition-all flex items-center gap-2 uppercase tracking-wide text-xs">
                             <Zap className="w-4 h-4" /> Relatório Executivo
                         </button>
                         <button className="px-6 py-3 bg-white/5 text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-all flex items-center gap-2 uppercase tracking-wide text-xs">
@@ -209,8 +209,8 @@ function OverviewDashboard() {
             {/* KPIs Row */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 {[
-                    { label: "Modelos Auditados", val: "12", sub: "+2 essa semana", color: "#00A3FF", icon: CheckCircle2 },
-                    { label: "Riscos Mitigados", val: "847", sub: "99.9% Taxa de Sucesso", color: "#00FF94", icon: ShieldCheck },
+                    { label: "Modelos Auditados", val: "12", sub: "+2 essa semana", color: "#818CF8", icon: CheckCircle2 },
+                    { label: "Riscos Mitigados", val: "847", sub: "99.9% Taxa de Sucesso", color: "#4F7EFF", icon: ShieldCheck },
                     { label: "Incidentes Críticos", val: "0", sub: "Sistema Seguro", color: "#F59E0B", icon: AlertTriangle },
                     { label: "Tempo Médio (Review)", val: "4h", sub: "-20% vs média", color: "#8B5CF6", icon: Activity },
                 ].map((kpi, i) => (
@@ -238,15 +238,15 @@ function OverviewDashboard() {
                             <AreaChart data={auditHistory}>
                                 <defs>
                                     <linearGradient id="colorEvents" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                        <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
                                 <XAxis dataKey="name" hide />
                                 <YAxis stroke="#475569" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-                                <Tooltip contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
-                                <Area type="monotone" dataKey="events" stroke="#00A3FF" strokeWidth={2} fillOpacity={1} fill="url(#colorEvents)" />
+                                <Tooltip contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
+                                <Area type="monotone" dataKey="events" stroke="#818CF8" strokeWidth={2} fillOpacity={1} fill="url(#colorEvents)" />
                                 <Area type="monotone" dataKey="blocked" stroke="#EF4444" strokeWidth={2} fillOpacity={1} fill="transparent" strokeDasharray="5 5" />
                             </AreaChart>
                         </ResponsiveContainer>
@@ -262,7 +262,7 @@ function OverviewDashboard() {
                         {[1, 2, 3, 4, 5, 6].map((_, i) => (
                             <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-colors cursor-pointer group">
                                 <div className="flex justify-between mb-1">
-                                    <span className="text-[10px] font-mono text-[#00A3FF] font-bold">TRACE-839{i}</span>
+                                    <span className="text-[10px] font-mono text-[#818CF8] font-bold">TRACE-839{i}</span>
                                     <span className="text-[10px] text-gray-500">14:02:{i}0</span>
                                 </div>
                                 <p className="text-sm font-bold text-white mb-1">PII Detectado (CPF)</p>

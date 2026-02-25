@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -171,7 +171,7 @@ export default function ComplianceDashboard() {
     );
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white p-6">
+        <div className="min-h-screen bg-[#0B0F1E] text-white p-6">
             <div className="max-w-[1600px] mx-auto">
 
                 {/* Header */}
@@ -200,7 +200,7 @@ export default function ComplianceDashboard() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.1 }}
-                            className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors cursor-pointer"
+                            className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6 hover:border-gray-700 transition-colors cursor-pointer"
                         >
                             <div className="flex justify-between items-start mb-4">
                                 <div>
@@ -250,7 +250,7 @@ export default function ComplianceDashboard() {
                 <div className="grid grid-cols-12 gap-6">
 
                     {/* Audit Trail */}
-                    <div className="col-span-8 bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl overflow-hidden">
+                    <div className="col-span-8 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl overflow-hidden">
                         <div className="p-4 border-b border-gray-800 bg-black/20">
                             <div className="flex justify-between items-center">
                                 <div className="flex items-center gap-3">
@@ -335,7 +335,7 @@ export default function ComplianceDashboard() {
                     <div className="col-span-4 space-y-6">
 
                         {/* Available Reports */}
-                        <div className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                        <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                             <div className="flex items-center gap-3 mb-4">
                                 <FileText className="w-5 h-5 text-purple-400" />
                                 <h3 className="text-white font-semibold">Relatórios Disponíveis</h3>
@@ -365,7 +365,7 @@ export default function ComplianceDashboard() {
                         </div>
 
                         {/* Pending Compliance Items */}
-                        <div className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                        <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                             <div className="flex items-center gap-3 mb-4">
                                 <Clock className="w-5 h-5 text-amber-400" />
                                 <h3 className="text-white font-semibold">Pendências</h3>

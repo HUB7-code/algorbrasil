@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
@@ -211,10 +211,10 @@ export default function AdminDashboard() {
     };
 
     return (
-        <div className="p-8 w-full min-h-screen space-y-8 relative text-white font-sans bg-[#0A0E1A] overflow-x-hidden">
+        <div className="p-8 w-full min-h-screen space-y-8 relative text-white font-sans bg-[#0B0F1E] overflow-x-hidden">
             {/* Ambient Background Glow */}
-            <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-[#00A3FF]/10 rounded-full blur-[128px] pointer-events-none" />
-            <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-[#00FF94]/5 rounded-full blur-[128px] pointer-events-none" />
+            <div className="fixed top-0 left-0 w-[500px] h-[500px] bg-[#818CF8]/10 rounded-full blur-[128px] pointer-events-none" />
+            <div className="fixed bottom-0 right-0 w-[500px] h-[500px] bg-[#4F7EFF]/5 rounded-full blur-[128px] pointer-events-none" />
 
             {/* Header */}
             <div className="relative z-10 flex flex-col md:flex-row justify-between items-end gap-6 mb-8">
@@ -224,14 +224,14 @@ export default function AdminDashboard() {
                         <span className="px-2 py-0.5 bg-[#EF4444]/10 border border-[#EF4444]/30 text-[#EF4444] text-[10px] font-bold uppercase rounded tracking-widest">Super Admin</span>
                     </h1>
                     <p className="text-gray-400 font-mono text-xs tracking-widest uppercase">
-                        Status do Sistema: <span className="text-[#00FF94]">Operacional</span> | Nó: São Paulo (BR-1)
+                        Status do Sistema: <span className="text-[#4F7EFF]">Operacional</span> | Nó: São Paulo (BR-1)
                     </p>
                 </div>
                 <div className="flex gap-3">
                     <button onClick={fetchAllData} className="px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2">
                         <span className="material-symbols-rounded text-sm">refresh</span> Atualizar
                     </button>
-                    <button className="px-4 py-2 bg-[#00FF94]/10 hover:bg-[#00FF94]/20 border border-[#00FF94]/30 text-[#00FF94] rounded-lg text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(0,255,148,0.15)]">
+                    <button className="px-4 py-2 bg-[#4F7EFF]/10 hover:bg-[#4F7EFF]/20 border border-[#4F7EFF]/30 text-[#4F7EFF] rounded-lg text-xs font-bold uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(79,126,255,0.15)]">
                         Gerar Relatório
                     </button>
                 </div>
@@ -249,7 +249,7 @@ export default function AdminDashboard() {
                             subValue="+12% vs semana anterior"
                             icon="group"
                             chartData={revenueData}
-                            color="#00A3FF"
+                            color="#818CF8"
                         />
                         <StatCard
                             title="Assinaturas Ativas"
@@ -257,7 +257,7 @@ export default function AdminDashboard() {
                             subValue="MRR: R$ 12.450"
                             icon="payments"
                             chartData={revenueData}
-                            color="#00FF94"
+                            color="#4F7EFF"
                         />
                         <StatCard
                             title="Parceiros Pendentes"
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
                             <div className="flex justify-between items-center mb-6">
                                 <h3 className="text-sm font-bold text-gray-300 uppercase tracking-widest">Crescimento da Plataforma</h3>
                                 <div className="flex gap-2">
-                                    <span className="w-2 h-2 rounded-full bg-[#00A3FF]" />
+                                    <span className="w-2 h-2 rounded-full bg-[#818CF8]" />
                                     <span className="text-[10px] text-gray-500">Novos Usuários</span>
                                 </div>
                             </div>
@@ -295,18 +295,18 @@ export default function AdminDashboard() {
                                     <AreaChart data={revenueData}>
                                         <defs>
                                             <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
-                                                <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                                <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3} />
+                                                <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
                                             </linearGradient>
                                         </defs>
                                         <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                                         <XAxis dataKey="name" stroke="#4B5563" fontSize={10} axisLine={false} tickLine={false} />
                                         <YAxis stroke="#4B5563" fontSize={10} axisLine={false} tickLine={false} />
                                         <Tooltip
-                                            contentStyle={{ backgroundColor: '#0A0E1A', borderColor: '#374151', borderRadius: '8px' }}
+                                            contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#374151', borderRadius: '8px' }}
                                             itemStyle={{ color: '#fff' }}
                                         />
-                                        <Area type="monotone" dataKey="value" stroke="#00A3FF" strokeWidth={3} fillOpacity={1} fill="url(#colorRev)" />
+                                        <Area type="monotone" dataKey="value" stroke="#818CF8" strokeWidth={3} fillOpacity={1} fill="url(#colorRev)" />
                                     </AreaChart>
                                 </ResponsiveContainer>
                             </div>
@@ -320,20 +320,20 @@ export default function AdminDashboard() {
                                     <BarChart data={userActivityData}>
                                         <Bar dataKey="active" radius={[4, 4, 0, 0]}>
                                             {userActivityData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={index === 4 ? '#00FF94' : '#1F2937'} />
+                                                <Cell key={`cell-${index}`} fill={index === 4 ? '#4F7EFF' : '#1F2937'} />
                                             ))}
                                         </Bar>
-                                        <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#0A0E1A', border: 'none', borderRadius: '8px' }} />
+                                        <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#0B0F1E', border: 'none', borderRadius: '8px' }} />
                                     </BarChart>
                                 </ResponsiveContainer>
                             </div>
                             <div className="mt-4 p-3 rounded-lg bg-white/5 border border-white/5">
                                 <div className="flex items-center justify-between mb-1">
                                     <span className="text-xs text-gray-400">Pico de Tráfego</span>
-                                    <span className="text-xs text-[#00FF94] font-bold">Sexta, 14:00</span>
+                                    <span className="text-xs text-[#4F7EFF] font-bold">Sexta, 14:00</span>
                                 </div>
                                 <div className="w-full bg-gray-800 h-1 rounded-full overflow-hidden">
-                                    <div className="bg-[#00FF94] w-[75%] h-full" />
+                                    <div className="bg-[#4F7EFF] w-[75%] h-full" />
                                 </div>
                             </div>
                         </div>
@@ -350,17 +350,17 @@ export default function AdminDashboard() {
                     {/* Render Active Tab */}
                     {activeTab === 'users' && (
                         <div className="rounded-2xl border border-white/10 overflow-hidden bg-[#0D1117]/60 backdrop-blur-md">
-                            <div className="p-4 border-b border-white/5 flex justify-between items-center bg-[#0A0E1A]/50">
+                            <div className="p-4 border-b border-white/5 flex justify-between items-center bg-[#0B0F1E]/50">
                                 <h3 className="font-bold text-white text-sm uppercase tracking-wider">Base de Usuários</h3>
                                 <div className="flex gap-2">
                                     <div className="relative">
                                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-500" />
-                                        <input type="text" placeholder="Buscar usuários..." className="pl-8 pr-4 py-1.5 bg-[#0A0E1A] border border-white/10 rounded-lg text-xs text-white focus:border-[#00FF94] outline-none" />
+                                        <input type="text" placeholder="Buscar usuários..." className="pl-8 pr-4 py-1.5 bg-[#0B0F1E] border border-white/10 rounded-lg text-xs text-white focus:border-[#4F7EFF] outline-none" />
                                     </div>
                                 </div>
                             </div>
                             <table className="w-full text-left">
-                                <thead className="bg-[#0A0E1A] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
+                                <thead className="bg-[#0B0F1E] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4">Identidade</th>
                                         <th className="px-6 py-4">Função</th>
@@ -373,7 +373,7 @@ export default function AdminDashboard() {
                                         <tr key={u.id} className="hover:bg-white/[0.02] transition-colors group">
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00FF94]/20 to-[#00A3FF]/20 flex items-center justify-center text-[10px] font-bold text-white border border-white/5">
+                                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4F7EFF]/20 to-[#818CF8]/20 flex items-center justify-center text-[10px] font-bold text-white border border-white/5">
                                                         {u.full_name?.charAt(0) || u.email.charAt(0)}
                                                     </div>
                                                     <div>
@@ -386,7 +386,7 @@ export default function AdminDashboard() {
                                                 <select
                                                     value={u.role}
                                                     onChange={(e) => handleUpdateRole(u.id, e.target.value)}
-                                                    className="bg-[#0A0E1A] border border-white/10 rounded px-2 py-1 text-[11px] font-bold text-white focus:border-[#00FF94] outline-none cursor-pointer hover:border-white/30 transition-colors uppercase tracking-wide"
+                                                    className="bg-[#0B0F1E] border border-white/10 rounded px-2 py-1 text-[11px] font-bold text-white focus:border-[#4F7EFF] outline-none cursor-pointer hover:border-white/30 transition-colors uppercase tracking-wide"
                                                 >
                                                     <option value="user">USER</option>
                                                     <option value="auditor">AUDITOR</option>
@@ -395,7 +395,7 @@ export default function AdminDashboard() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 {u.payment_status === 'Paid' ? (
-                                                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#00FF94]/10 border border-[#00FF94]/20 text-[#00FF94] text-[10px] font-bold uppercase tracking-wider">
+                                                    <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#4F7EFF]/10 border border-[#4F7EFF]/20 text-[#4F7EFF] text-[10px] font-bold uppercase tracking-wider">
                                                         <CheckCircle className="w-3 h-3" /> Plano Pro
                                                     </span>
                                                 ) : (
@@ -419,7 +419,7 @@ export default function AdminDashboard() {
                     {activeTab === 'partners' && (
                         <div className="glass-panel rounded-2xl overflow-hidden bg-[#0D1117]/60 backdrop-blur-md border border-white/10">
                             <table className="w-full text-left">
-                                <thead className="bg-[#0A0E1A] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
+                                <thead className="bg-[#0B0F1E] text-[10px] uppercase font-bold text-gray-500 tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4">Candidato</th>
                                         <th className="px-6 py-4">Perfil</th>
@@ -439,7 +439,7 @@ export default function AdminDashboard() {
                                                 <div className="text-[10px] text-gray-600 truncate max-w-[150px]">{req.motivation}</div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${req.status === 'approved' ? 'bg-[#00FF94]/10 text-[#00FF94]' :
+                                                <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${req.status === 'approved' ? 'bg-[#4F7EFF]/10 text-[#4F7EFF]' :
                                                     req.status === 'rejected' ? 'bg-red-500/10 text-red-500' :
                                                         'bg-[#F59E0B]/10 text-[#F59E0B]'
                                                     }`}>
@@ -449,7 +449,7 @@ export default function AdminDashboard() {
                                             <td className="px-6 py-4 text-right">
                                                 {req.status === 'pending' && (
                                                     <div className="flex justify-end gap-2">
-                                                        <button onClick={() => handleUpdatePartnerStatus(req.id, 'approved')} className="p-1.5 rounded-md bg-[#00FF94]/10 text-[#00FF94] hover:bg-[#00FF94]/20 border border-[#00FF94]/20"><CheckCircle className="w-4 h-4" /></button>
+                                                        <button onClick={() => handleUpdatePartnerStatus(req.id, 'approved')} className="p-1.5 rounded-md bg-[#4F7EFF]/10 text-[#4F7EFF] hover:bg-[#4F7EFF]/20 border border-[#4F7EFF]/20"><CheckCircle className="w-4 h-4" /></button>
                                                         <button onClick={() => handleUpdatePartnerStatus(req.id, 'rejected')} className="p-1.5 rounded-md bg-red-500/10 text-red-500 hover:bg-red-500/20 border border-red-500/20"><Trash2 className="w-4 h-4" /></button>
                                                     </div>
                                                 )}
@@ -464,20 +464,20 @@ export default function AdminDashboard() {
                     {activeTab === 'lms' && (
                         <div className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <button onClick={handleCreateCourse} className="h-[240px] border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center hover:bg-white/5 transition-colors group bg-[#0A0E1A]/50">
-                                    <div className="w-14 h-14 rounded-full bg-[#00FF94]/10 text-[#00FF94] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(0,255,148,0.1)]">
+                                <button onClick={handleCreateCourse} className="h-[240px] border border-dashed border-white/10 rounded-2xl flex flex-col items-center justify-center hover:bg-white/5 transition-colors group bg-[#0B0F1E]/50">
+                                    <div className="w-14 h-14 rounded-full bg-[#4F7EFF]/10 text-[#4F7EFF] flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(79,126,255,0.1)]">
                                         <Plus className="w-6 h-6" />
                                     </div>
                                     <span className="font-bold text-sm text-white uppercase tracking-wider">Criar Curso</span>
                                 </button>
                                 {courses.map(course => (
-                                    <div key={course.id} className="p-6 rounded-2xl bg-[#0D1117]/80 border border-white/5 hover:border-[#00FF94]/30 transition-all group relative overflow-hidden">
+                                    <div key={course.id} className="p-6 rounded-2xl bg-[#0D1117]/80 border border-white/5 hover:border-[#4F7EFF]/30 transition-all group relative overflow-hidden">
                                         <div className="absolute top-0 left-0 w-1 h-full bg-[#8B5CF6]" />
                                         <h3 className="text-lg font-bold text-white mb-2">{course.title}</h3>
                                         <p className="text-xs text-gray-500 mb-6 line-clamp-2">{course.description || "Sem descrição."}</p>
                                         <div className="flex justify-between items-center mt-auto">
                                             <span className="text-[10px] font-mono text-gray-600">ID: {course.id}</span>
-                                            <button onClick={() => handleEditCourse(course.id)} className="text-xs font-bold text-[#00A3FF] hover:text-white uppercase tracking-wider flex items-center gap-1">Editar <ArrowRight className="w-3 h-3" /></button>
+                                            <button onClick={() => handleEditCourse(course.id)} className="text-xs font-bold text-[#818CF8] hover:text-white uppercase tracking-wider flex items-center gap-1">Editar <ArrowRight className="w-3 h-3" /></button>
                                         </div>
                                     </div>
                                 ))}
@@ -487,8 +487,8 @@ export default function AdminDashboard() {
 
                     {activeTab === 'invites' && (
                         <div className="max-w-2xl mx-auto p-10 rounded-3xl bg-[#0D1117]/80 backdrop-blur-xl border border-white/10 text-center">
-                            <div className="w-20 h-20 mx-auto bg-[#00FF94]/10 rounded-full flex items-center justify-center mb-6 border border-[#00FF94]/20 shadow-[0_0_30px_rgba(0,255,148,0.15)]">
-                                <UserPlus className="w-8 h-8 text-[#00FF94]" />
+                            <div className="w-20 h-20 mx-auto bg-[#4F7EFF]/10 rounded-full flex items-center justify-center mb-6 border border-[#4F7EFF]/20 shadow-[0_0_30px_rgba(79,126,255,0.15)]">
+                                <UserPlus className="w-8 h-8 text-[#4F7EFF]" />
                             </div>
                             <h2 className="text-3xl font-bold font-orbitron text-white mb-2">Gerar Acesso Enterprise</h2>
                             <p className="text-gray-400 mb-8 max-w-md mx-auto">Crie links de convite para clientes exclusivos. Ignora lista de espera.</p>
@@ -498,18 +498,18 @@ export default function AdminDashboard() {
                                     type="email"
                                     value={inviteEmail}
                                     onChange={(e) => setInviteEmail(e.target.value)}
-                                    className="w-full bg-[#0A0E1A] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#00FF94] outline-none text-center font-mono placeholder-gray-600"
+                                    className="w-full bg-[#0B0F1E] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#4F7EFF] outline-none text-center font-mono placeholder-gray-600"
                                     placeholder="cliente@enterprise.com"
                                     required
                                 />
-                                <button type="submit" className="w-full bg-[#00FF94] hover:bg-[#00cc76] text-[#0A0E1A] font-bold py-3 rounded-lg shadow-lg hover:shadow-[#00FF94]/20 transition-all uppercase tracking-widest text-xs">
+                                <button type="submit" className="w-full bg-[#4F7EFF] hover:bg-[#00cc76] text-[#0B0F1E] font-bold py-3 rounded-lg shadow-lg hover:shadow-[#4F7EFF]/20 transition-all uppercase tracking-widest text-xs">
                                     Gerar Link Seguro
                                 </button>
                             </form>
                             {inviteLink && (
-                                <div className="mt-8 p-4 bg-[#0A0E1A] border border-[#00FF94]/30 rounded-lg flex items-center gap-3 animate-in slide-in-from-top-2">
-                                    <code className="text-xs text-[#00FF94] font-mono flex-1 break-all">{inviteLink}</code>
-                                    <button onClick={() => navigator.clipboard.writeText(inviteLink)}><CheckCircle className="w-4 h-4 text-[#00FF94]" /></button>
+                                <div className="mt-8 p-4 bg-[#0B0F1E] border border-[#4F7EFF]/30 rounded-lg flex items-center gap-3 animate-in slide-in-from-top-2">
+                                    <code className="text-xs text-[#4F7EFF] font-mono flex-1 break-all">{inviteLink}</code>
+                                    <button onClick={() => navigator.clipboard.writeText(inviteLink)}><CheckCircle className="w-4 h-4 text-[#4F7EFF]" /></button>
                                 </div>
                             )}
                         </div>

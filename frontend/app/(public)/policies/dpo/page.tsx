@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Send, CheckCircle2, AlertTriangle } from "lucide-react";
@@ -26,7 +26,7 @@ export default function DpoChannelPage() {
             </p>
 
             <div className="bg-[#0A0A15] border border-slate-800 rounded-2xl p-8 mb-12">
-                <h3 className="flex items-center gap-2 text-[#00A3FF] mt-0">
+                <h3 className="flex items-center gap-2 text-[#818CF8] mt-0">
                     <span className="material-symbols-rounded">support_agent</span>
                     Encarregado (DPO)
                 </h3>
@@ -34,7 +34,7 @@ export default function DpoChannelPage() {
                     O responsável atual pela supervisão da proteção de dados na Algor Brasil é:
                 </p>
                 <div className="flex items-center gap-4 text-slate-200 bg-slate-900/50 p-4 rounded-lg border border-slate-800/50">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00A3FF] to-blue-800 flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#818CF8] to-blue-800 flex items-center justify-center font-bold text-lg">
                         L
                     </div>
                     <div>
@@ -50,15 +50,15 @@ export default function DpoChannelPage() {
             </p>
 
             {status === "success" ? (
-                <div className="bg-[#00FF94]/10 border border-[#00FF94]/30 rounded-xl p-8 text-center animate-in zoom-in-95 duration-500">
-                    <CheckCircle2 className="w-16 h-16 text-[#00FF94] mx-auto mb-4" />
-                    <h3 className="text-[#00FF94] text-xl font-medium mb-2 mt-0">Solicitação Recebida!</h3>
+                <div className="bg-[#4F7EFF]/10 border border-[#4F7EFF]/30 rounded-xl p-8 text-center animate-in zoom-in-95 duration-500">
+                    <CheckCircle2 className="w-16 h-16 text-[#4F7EFF] mx-auto mb-4" />
+                    <h3 className="text-[#4F7EFF] text-xl font-medium mb-2 mt-0">Solicitação Recebida!</h3>
                     <p className="text-slate-300">
                         Um protocolo foi enviado para seu e-mail. Nossa equipe de privacidade analisará sua requisição e entrará em contato em breve.
                     </p>
                     <button
                         onClick={() => setStatus("idle")}
-                        className="mt-6 px-6 py-2 bg-[#00FF94]/20 hover:bg-[#00FF94]/30 text-[#00FF94] rounded-lg text-sm font-medium transition-colors"
+                        className="mt-6 px-6 py-2 bg-[#4F7EFF]/20 hover:bg-[#4F7EFF]/30 text-[#4F7EFF] rounded-lg text-sm font-medium transition-colors"
                     >
                         Nova Solicitação
                     </button>
@@ -68,18 +68,18 @@ export default function DpoChannelPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="space-y-2">
                             <label className="text-sm text-slate-300 font-medium">Nome Completo</label>
-                            <input type="text" required className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#00A3FF] rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#00A3FF]/50 transition-all font-sans" placeholder="Ex: João da Silva" />
+                            <input type="text" required className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#818CF8] rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#818CF8]/50 transition-all font-sans" placeholder="Ex: João da Silva" />
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm text-slate-300 font-medium">E-mail Corporativo</label>
-                            <input type="email" required className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#00A3FF] rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#00A3FF]/50 transition-all font-sans" placeholder="nome@empresa.com.br" />
+                            <input type="email" required className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#818CF8] rounded-xl px-4 py-3.5 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#818CF8]/50 transition-all font-sans" placeholder="nome@empresa.com.br" />
                         </div>
                     </div>
 
                     <div className="space-y-2">
                         <label className="text-sm text-slate-300 font-medium">Tipo de Solicitação</label>
                         <div className="relative">
-                            <select className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#00A3FF] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-1 focus:ring-[#00A3FF]/50 transition-all appearance-none font-sans">
+                            <select className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#818CF8] rounded-xl px-4 py-3.5 text-white focus:outline-none focus:ring-1 focus:ring-[#818CF8]/50 transition-all appearance-none font-sans">
                                 <option>Quero acessar meus dados (Art. 18, II)</option>
                                 <option>Quero excluir meus dados (Art. 18, VI)</option>
                                 <option>Quero corrigir dados incompletos (Art. 18, III)</option>
@@ -94,7 +94,7 @@ export default function DpoChannelPage() {
 
                     <div className="space-y-2">
                         <label className="text-sm text-slate-300 font-medium">Detalhes da Solicitação</label>
-                        <textarea className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#00A3FF] rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#00A3FF]/50 transition-all min-h-[140px] font-sans" placeholder="Por favor, descreva sua solicitação com detalhes para agilizarmos o atendimento..."></textarea>
+                        <textarea className="w-full bg-[#0E121F] border border-slate-800 focus:border-[#818CF8] rounded-xl px-4 py-3 text-white placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-[#818CF8]/50 transition-all min-h-[140px] font-sans" placeholder="Por favor, descreva sua solicitação com detalhes para agilizarmos o atendimento..."></textarea>
                     </div>
 
                     <div className="bg-slate-900/50 p-4 rounded-lg flex gap-3 items-start border border-slate-800">
@@ -107,7 +107,7 @@ export default function DpoChannelPage() {
                     <button
                         type="submit"
                         disabled={status === "submitting"}
-                        className="w-full bg-[#00A3FF] hover:bg-[#0088D4] text-white font-medium py-3 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_14px_rgba(0,163,255,0.3)]"
+                        className="w-full bg-[#818CF8] hover:bg-[#0088D4] text-white font-medium py-3 rounded-lg flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_14px_rgba(129,140,248,0.3)]"
                     >
                         {status === "submitting" ? (
                             <span className="animate-pulse">Enviando...</span>

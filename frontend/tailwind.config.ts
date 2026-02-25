@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+﻿import type { Config } from "tailwindcss";
 
 const config: Config = {
     content: [
@@ -11,9 +11,9 @@ const config: Config = {
             colors: {
                 brand: {
                     navy: "#0A1A2F", // Deep Navy (Fundo)
-                    green: "#00FF94", // Bio-Luminescent Green (CTA)
+                    green: "#4F7EFF", // Bio-Luminescent Green (CTA)
                     amber: "#FFB000", // Sensor Amber (Alertas)
-                    blue: "#00A3FF", // Electric Blue (Tech)
+                    blue: "#818CF8", // Electric Blue (Tech)
                     copper: "#E67E22", // Treinamentos (Laranja/Cobre)
                     silver: "#BDC3C7", // Estrutura/Metálico
                     glass: "rgba(10, 26, 47, 0.7)", // Vidro Base
@@ -34,7 +34,7 @@ const config: Config = {
                     cyan: "#06B6D4", // Cyan Elétrico (Inovação)
                     pink: "#EC4899", // Rosa Neon (Energia)
                     amber: "#F59E0B", // Âmbar Suave (Alerta)
-                    green: "#00FF94", // Neon Green (Marca - ALGOR Life)
+                    green: "#4F7EFF", // Neon Green (Marca - ALGOR Life)
                     border: "rgba(148, 163, 184, 0.1)", // Bordas sutis
                     "card-bg": "rgba(15, 23, 42, 0.6)", // Glassmorphism escuro e translúcido
                 },
@@ -50,7 +50,7 @@ const config: Config = {
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "grid-pattern": "linear-gradient(to right, #0A1A2F 1px, transparent 1px), linear-gradient(to bottom, #0A1A2F 1px, transparent 1px)",
-                "neon-flow": "linear-gradient(90deg, transparent, #00FF94, transparent)",
+                "neon-flow": "linear-gradient(90deg, transparent, #4F7EFF, transparent)",
             },
             animation: {
                 "pulse-slow": "pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite",

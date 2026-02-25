@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs';
 import { ptBR } from "@clerk/localizations";
 
@@ -80,7 +80,7 @@ export default function RootLayout({
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
                     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 </head>
-                <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#00FF94] selection:text-[#0A1A2F]`}>
+                <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#4F7EFF] selection:text-[#0A1A2F]`}>
                     {children}
                     <CookieBanner />
                     {/* <Footer /> Footer is now included in page components for custom layout control */}

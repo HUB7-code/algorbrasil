@@ -1,4 +1,4 @@
-// Algor Lab - Main Platform Page (Netflix-style)
+﻿// Algor Lab - Main Platform Page (Netflix-style)
 'use client';
 
 import { Flame, BookOpen, Target, FileText, Star, Video } from 'lucide-react';
@@ -168,7 +168,7 @@ export default function AlgorLabPage() {
                             className="group relative cursor-pointer flex flex-col gap-5"
                         >
                             {/* Image Container */}
-                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_0_50px_rgba(0,255,148,0.2)] group-hover:border-[#00FF94]/50">
+                            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_0_50px_rgba(79,126,255,0.2)] group-hover:border-[#4F7EFF]/50">
 
                                 {/* Background Image */}
                                 <div
@@ -187,8 +187,8 @@ export default function AlgorLabPage() {
                                     </div>
                                 )}
                                 {!course.id.includes('locked') && (
-                                    <div className="absolute top-4 right-4 bg-[#0A0E14]/80 backdrop-blur border border-[#00FF94]/50 text-[#00FF94] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_15px_rgba(0,255,148,0.3)]">
-                                        <div className="w-2 h-2 rounded-full bg-[#00FF94] animate-pulse" />
+                                    <div className="absolute top-4 right-4 bg-[#0A0E14]/80 backdrop-blur border border-[#4F7EFF]/50 text-[#4F7EFF] text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-[0_0_15px_rgba(79,126,255,0.3)]">
+                                        <div className="w-2 h-2 rounded-full bg-[#4F7EFF] animate-pulse" />
                                         DISPONÍVEL
                                     </div>
                                 )}
@@ -196,7 +196,7 @@ export default function AlgorLabPage() {
 
                             {/* Text Content (Below Image) */}
                             <div className="flex flex-col gap-2 px-2">
-                                <h2 className="text-xl md:text-2xl font-bold font-orbitron text-white leading-tight group-hover:text-[#00FF94] transition-colors">
+                                <h2 className="text-xl md:text-2xl font-bold font-orbitron text-white leading-tight group-hover:text-[#4F7EFF] transition-colors">
                                     {course.title}
                                 </h2>
                                 <p className="text-gray-400 text-sm md:text-base font-manrope line-clamp-2">
@@ -204,7 +204,7 @@ export default function AlgorLabPage() {
                                 </p>
 
                                 {/* Call to Action Text */}
-                                <div className="flex items-center gap-2 text-[#00FF94] font-bold text-sm uppercase tracking-wider mt-2 opacity-50 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0">
+                                <div className="flex items-center gap-2 text-[#4F7EFF] font-bold text-sm uppercase tracking-wider mt-2 opacity-50 group-hover:opacity-100 transition-all transform -translate-x-2 group-hover:translate-x-0">
                                     <span>Acessar Conteúdo</span>
                                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

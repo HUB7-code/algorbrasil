@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -37,8 +37,8 @@ const growthData = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 const sectorData = [
-    { name: 'Fintech', value: 45, color: '#00A3FF' },
-    { name: 'Healthtech', value: 30, color: '#00FF94' },
+    { name: 'Fintech', value: 45, color: '#818CF8' },
+    { name: 'Healthtech', value: 30, color: '#4F7EFF' },
     { name: 'Retail', value: 15, color: '#F59E0B' },
     { name: 'Outros', value: 10, color: '#8B5CF6' },
 ];
@@ -65,12 +65,12 @@ export default function ClientsPage() {
     const avgHealth = 92;
 
     return (
-        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#050A14]">
+        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#0B0F1E]">
 
             {/* Deep Ambient Background */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[20%] w-[800px] h-[800px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[-20%] left-[20%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 {/* Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
             </div>
@@ -91,13 +91,13 @@ export default function ClientsPage() {
                 <div className="flex flex-col xl:flex-row justify-between items-end gap-6 pb-6 border-b border-white/5">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-mono font-bold text-[#00A3FF] flex items-center gap-2 px-2 py-1 bg-[#00A3FF]/10 rounded border border-[#00A3FF]/20 uppercase tracking-widest">
+                            <span className="text-[10px] font-mono font-bold text-[#818CF8] flex items-center gap-2 px-2 py-1 bg-[#818CF8]/10 rounded border border-[#818CF8]/20 uppercase tracking-widest">
                                 <Globe className="w-3 h-3" />
                                 Gestão Global
                             </span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-orbitron font-bold text-white mb-2 tracking-tight">
-                            Portfólio de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">Clientes</span>
+                            Portfólio de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-[#4F7EFF]">Clientes</span>
                         </h1>
                         <p className="text-gray-400 font-light text-sm max-w-xl">
                             Gerencie workspaces, monitore riscos agregados e acompanhe a saúde do seu ecossistema de IA.
@@ -107,9 +107,9 @@ export default function ClientsPage() {
                     <div className="flex items-center gap-4">
                         {/* Search */}
                         <div className="relative group">
-                            <div className="absolute inset-0 bg-gradient-to-r from-[#00A3FF]/20 to-[#00FF94]/20 rounded-xl blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
-                            <div className="relative flex items-center bg-[#0A1A2F]/80 border border-white/[0.1] rounded-xl px-4 py-3 w-[300px] transition-all group-focus-within:border-[#00FF94]/50">
-                                <Search className="w-4 h-4 text-gray-500 group-focus-within:text-[#00FF94] mr-3" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#818CF8]/20 to-[#4F7EFF]/20 rounded-xl blur-md opacity-0 group-focus-within:opacity-100 transition-opacity duration-500" />
+                            <div className="relative flex items-center bg-[#0A1A2F]/80 border border-white/[0.1] rounded-xl px-4 py-3 w-[300px] transition-all group-focus-within:border-[#4F7EFF]/50">
+                                <Search className="w-4 h-4 text-gray-500 group-focus-within:text-[#4F7EFF] mr-3" />
                                 <input
                                     type="text"
                                     placeholder="Buscar cliente ou ID..."
@@ -124,7 +124,7 @@ export default function ClientsPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setIsCreateModalOpen(true)}
-                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#00A3FF] to-[#0066FF] text-white font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(0,163,255,0.4)] transition-all flex items-center gap-2"
+                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#818CF8] to-[#0066FF] text-white font-bold text-xs uppercase tracking-widest hover:shadow-[0_0_30px_rgba(129,140,248,0.4)] transition-all flex items-center gap-2"
                         >
                             <Plus className="w-4 h-4" />
                             Novo Cliente
@@ -136,14 +136,14 @@ export default function ClientsPage() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Total Clients */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><Users className="w-10 h-10 text-[#00A3FF]" /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><Users className="w-10 h-10 text-[#818CF8]" /></div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Total de Clientes</h3>
                         <div className="flex items-baseline gap-2">
                             <span className="text-4xl font-orbitron font-bold text-white">{totalClients}</span>
-                            <span className="text-xs text-[#00FF94] font-bold">+2 este mês</span>
+                            <span className="text-xs text-[#4F7EFF] font-bold">+2 este mês</span>
                         </div>
                         <div className="w-full h-1 bg-white/5 rounded-full mt-4 overflow-hidden">
-                            <div className="h-full bg-[#00A3FF] w-[70%]" />
+                            <div className="h-full bg-[#818CF8] w-[70%]" />
                         </div>
                     </div>
 
@@ -162,14 +162,14 @@ export default function ClientsPage() {
 
                     {/* Avg Health */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><Activity className="w-10 h-10 text-[#00FF94]" /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><Activity className="w-10 h-10 text-[#4F7EFF]" /></div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Saúde Média</h3>
                         <div className="flex items-baseline gap-2">
                             <span className="text-4xl font-orbitron font-bold text-white">{avgHealth}%</span>
-                            <span className="text-xs text-[#00FF94] font-bold">Otimizada</span>
+                            <span className="text-xs text-[#4F7EFF] font-bold">Otimizada</span>
                         </div>
                         <div className="w-full h-1 bg-white/5 rounded-full mt-4 overflow-hidden">
-                            <div className="h-full bg-[#00FF94] w-[92%]" />
+                            <div className="h-full bg-[#4F7EFF] w-[92%]" />
                         </div>
                     </div>
                 </div>
@@ -186,15 +186,15 @@ export default function ClientsPage() {
                                 <AreaChart data={growthData}>
                                     <defs>
                                         <linearGradient id="colorGrowth" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
                                     <XAxis dataKey="name" stroke="#475569" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
                                     <YAxis stroke="#475569" tick={{ fontSize: 10 }} tickLine={false} axisLine={false} />
-                                    <Tooltip contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
-                                    <Area type="monotone" dataKey="value" stroke="#00A3FF" strokeWidth={2} fillOpacity={1} fill="url(#colorGrowth)" />
+                                    <Tooltip contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
+                                    <Area type="monotone" dataKey="value" stroke="#818CF8" strokeWidth={2} fillOpacity={1} fill="url(#colorGrowth)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
@@ -216,7 +216,7 @@ export default function ClientsPage() {
                                             <Cell key={`cell-${index}`} fill={entry.color} stroke="rgba(0,0,0,0)" />
                                         ))}
                                     </Pie>
-                                    <Tooltip contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
+                                    <Tooltip contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#ffffff10', borderRadius: '12px' }} itemStyle={{ color: '#fff' }} />
                                 </RePieChart>
                             </ResponsiveContainer>
                         </div>
@@ -236,8 +236,8 @@ export default function ClientsPage() {
                     <div className="flex justify-between items-center mb-6">
                         <h3 className="text-xl font-orbitron font-bold text-white">Workspaces Ativos</h3>
                         <div className="flex gap-2">
-                            <button className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-[#00A3FF] text-white' : 'bg-white/5 text-gray-400'}`} onClick={() => setViewMode('grid')}><PieChart className="w-4 h-4" /></button>
-                            <button className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-[#00A3FF] text-white' : 'bg-white/5 text-gray-400'}`} onClick={() => setViewMode('list')}><MoreVertical className="w-4 h-4" /></button>
+                            <button className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-[#818CF8] text-white' : 'bg-white/5 text-gray-400'}`} onClick={() => setViewMode('grid')}><PieChart className="w-4 h-4" /></button>
+                            <button className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-[#818CF8] text-white' : 'bg-white/5 text-gray-400'}`} onClick={() => setViewMode('list')}><MoreVertical className="w-4 h-4" /></button>
                         </div>
                     </div>
 
@@ -247,24 +247,24 @@ export default function ClientsPage() {
                                 <motion.div
                                     key={org.id}
                                     variants={itemVariants}
-                                    className="group relative rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 hover:border-[#00FF94]/30 transition-all duration-500 overflow-hidden"
+                                    className="group relative rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 hover:border-[#4F7EFF]/30 transition-all duration-500 overflow-hidden"
                                 >
                                     {/* Hover Gradients */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-[#00FF94]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute inset-0 bg-gradient-to-br from-[#4F7EFF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                                     <div className="relative z-10">
                                         <div className="flex justify-between items-start mb-6">
-                                            <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[#00FF94]/30 transition-colors">
+                                            <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-[#4F7EFF]/30 transition-colors">
                                                 <span className="text-xl font-bold font-orbitron text-white">
                                                     {org.name.substring(0, 2).toUpperCase()}
                                                 </span>
                                             </div>
-                                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border ${org.role === 'owner' ? 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20' : 'bg-[#00A3FF]/10 text-[#00A3FF] border-[#00A3FF]/20'}`}>
+                                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border ${org.role === 'owner' ? 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20' : 'bg-[#818CF8]/10 text-[#818CF8] border-[#818CF8]/20'}`}>
                                                 {org.role === 'owner' ? 'Owner' : 'Member'}
                                             </span>
                                         </div>
 
-                                        <h3 className="text-lg font-bold font-orbitron text-white mb-1 truncate group-hover:text-[#00FF94] transition-colors">{org.name}</h3>
+                                        <h3 className="text-lg font-bold font-orbitron text-white mb-1 truncate group-hover:text-[#4F7EFF] transition-colors">{org.name}</h3>
                                         <p className="text-xs text-gray-500 mb-6 flex items-center gap-1"><Globe className="w-3 h-3" /> São Paulo, BR</p>
 
                                         {/* Mini Stats */}
@@ -272,7 +272,7 @@ export default function ClientsPage() {
                                             <div>
                                                 <span className="text-[10px] text-gray-500 uppercase font-bold block mb-1">Health Score</span>
                                                 <div className="flex items-center gap-2">
-                                                    <div className="w-2 h-2 rounded-full bg-[#00FF94]" />
+                                                    <div className="w-2 h-2 rounded-full bg-[#4F7EFF]" />
                                                     <span className="text-lg font-bold text-white">94%</span>
                                                 </div>
                                             </div>
@@ -285,7 +285,7 @@ export default function ClientsPage() {
                                         {/* Activity Sparkline (Mock) */}
                                         <div className="h-10 flex items-end gap-1 mb-6 opacity-40 group-hover:opacity-80 transition-opacity">
                                             {[30, 45, 25, 60, 40, 70, 50, 80].map((h, i) => (
-                                                <div key={i} className="flex-1 bg-[#00FF94] rounded-t-sm" style={{ height: `${h}%` }} />
+                                                <div key={i} className="flex-1 bg-[#4F7EFF] rounded-t-sm" style={{ height: `${h}%` }} />
                                             ))}
                                         </div>
 
@@ -293,7 +293,7 @@ export default function ClientsPage() {
                                             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">{org.plan_tier || 'FREE'}</span>
                                             <button
                                                 onClick={() => handleAccessWorkspace(org)}
-                                                className="flex items-center gap-2 text-xs font-bold text-white hover:text-[#00FF94] transition-colors uppercase tracking-wider"
+                                                className="flex items-center gap-2 text-xs font-bold text-white hover:text-[#4F7EFF] transition-colors uppercase tracking-wider"
                                             >
                                                 Acessar <ArrowRight className="w-3 h-3" />
                                             </button>
@@ -309,8 +309,8 @@ export default function ClientsPage() {
                                 whileTap={{ scale: 0.98 }}
                                 className="rounded-[24px] border border-white/5 border-dashed bg-white/[0.01] hover:bg-white/[0.03] p-6 flex flex-col items-center justify-center gap-4 transition-all group min-h-[300px]"
                             >
-                                <div className="w-16 h-16 rounded-full bg-white/5 group-hover:bg-[#00A3FF]/20 flex items-center justify-center transition-colors">
-                                    <Plus className="w-8 h-8 text-gray-500 group-hover:text-[#00A3FF]" />
+                                <div className="w-16 h-16 rounded-full bg-white/5 group-hover:bg-[#818CF8]/20 flex items-center justify-center transition-colors">
+                                    <Plus className="w-8 h-8 text-gray-500 group-hover:text-[#818CF8]" />
                                 </div>
                                 <span className="text-sm font-bold text-gray-500 group-hover:text-white uppercase tracking-widest">Adicionar Workspace</span>
                             </motion.button>
@@ -322,7 +322,7 @@ export default function ClientsPage() {
                             </div>
                             <h3 className="text-2xl font-orbitron font-bold text-white mb-2">Carteira Vazia</h3>
                             <p className="text-gray-400 mb-8 max-w-sm">Adicione seu primeiro cliente para ativar o Painel de Controle Multitenant.</p>
-                            <button onClick={() => setIsCreateModalOpen(true)} className="px-8 py-3 bg-[#00A3FF] text-white font-bold rounded-xl uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-blue-500/20 transition-all">
+                            <button onClick={() => setIsCreateModalOpen(true)} className="px-8 py-3 bg-[#818CF8] text-white font-bold rounded-xl uppercase tracking-widest text-xs hover:shadow-lg hover:shadow-blue-500/20 transition-all">
                                 Adicionar Cliente
                             </button>
                         </div>

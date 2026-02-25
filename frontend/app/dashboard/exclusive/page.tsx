@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { Lock, FileText, Download, ShieldCheck } from "lucide-react";
@@ -46,7 +46,7 @@ export default function ExclusiveContentPage() {
                                 </div>
                                 <span className="text-xs font-mono text-gray-500">{res.type}</span>
                             </div>
-                            <h3 className="text-lg font-medium text-white mb-2 leading-snug group-hover:text-[#00FF94] transition-colors">
+                            <h3 className="text-lg font-medium text-white mb-2 leading-snug group-hover:text-[#4F7EFF] transition-colors">
                                 {res.title}
                             </h3>
                             <div className="flex items-center gap-2 text-xs text-gray-400 mt-4">
@@ -60,10 +60,10 @@ export default function ExclusiveContentPage() {
                 {/* PAYWALL OVERLAY */}
                 {!isMember && (
                     <div className="absolute inset-0 z-20 flex items-center justify-center">
-                        <div className="max-w-md w-full p-1 bg-gradient-to-br from-[#00FF94] to-[#00A3FF] rounded-2xl shadow-[0_0_50px_rgba(0,255,148,0.2)]">
+                        <div className="max-w-md w-full p-1 bg-gradient-to-br from-[#4F7EFF] to-[#818CF8] rounded-2xl shadow-[0_0_50px_rgba(79,126,255,0.2)]">
                             <div className="bg-[#0A1A2F] rounded-xl p-8 text-center space-y-6">
                                 <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/10">
-                                    <Lock className="w-8 h-8 text-[#00FF94]" />
+                                    <Lock className="w-8 h-8 text-[#4F7EFF]" />
                                 </div>
 
                                 <div>
@@ -74,7 +74,7 @@ export default function ExclusiveContentPage() {
                                 </div>
 
                                 <div className="space-y-3">
-                                    <button className="w-full py-3 bg-[#00FF94] hover:bg-white hover:scale-[1.02] text-[#0A1A2F] font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
+                                    <button className="w-full py-3 bg-[#4F7EFF] hover:bg-white hover:scale-[1.02] text-[#0A1A2F] font-bold rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
                                         <ShieldCheck className="w-5 h-5" />
                                         TORNAR-SE MEMBRO
                                     </button>

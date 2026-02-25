@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from "react";
 import { CheckCircle2, Lock, ArrowRight, Play, Map, Zap, ShieldCheck, FileCheck, Trophy, Search, Users, Scale, Bot, Brain } from "lucide-react";
@@ -30,7 +30,7 @@ export default function RoadmapPage() {
             icon: <Search className="w-5 h-5" />,
             status: "completed",
             progress: 100,
-            color: "#00FF94" // Neon Green
+            color: "#4F7EFF" // Neon Green
         },
         {
             id: 2,
@@ -40,7 +40,7 @@ export default function RoadmapPage() {
             icon: <ShieldCheck className="w-5 h-5" />,
             status: "active",
             progress: 45,
-            color: "#00A3FF" // Electric Blue
+            color: "#818CF8" // Electric Blue
         },
         {
             id: 3,
@@ -78,12 +78,12 @@ export default function RoadmapPage() {
     const totalProgress = Math.round(phases.reduce((acc, curr) => acc + curr.progress, 0) / phases.length);
 
     return (
-        <div className="p-8 min-h-screen bg-[#0A0E1A] text-white font-sans relative overflow-hidden">
+        <div className="p-8 min-h-screen bg-[#0B0F1E] text-white font-sans relative overflow-hidden">
 
             {/* Ambient Lighting - Premium Effects */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-0 right-[-10%] w-[800px] h-[800px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-0 right-[-10%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[800px] h-[800px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
             </div>
 
             <motion.div
@@ -96,7 +96,7 @@ export default function RoadmapPage() {
                 <motion.div variants={itemVariants} className="flex flex-col md:flex-row justify-between items-end gap-8 border-b border-white/10 pb-8">
                     <div>
                         <div className="flex items-center gap-3 mb-4">
-                            <span className="text-[10px] font-mono text-[#00FF94] uppercase tracking-[0.2em] font-bold px-2 py-1 rounded bg-[#00FF94]/10 border border-[#00FF94]/20">
+                            <span className="text-[10px] font-mono text-[#4F7EFF] uppercase tracking-[0.2em] font-bold px-2 py-1 rounded bg-[#4F7EFF]/10 border border-[#4F7EFF]/20">
                                 Project S.A.F.E.
                             </span>
                             <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest px-2 py-1">
@@ -104,7 +104,7 @@ export default function RoadmapPage() {
                             </span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-orbitron font-bold text-white mb-4 tracking-tight leading-tight">
-                            Jornada de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00FF94] to-[#00A3FF]">Adoção</span>
+                            Jornada de <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]">Adoção</span>
                         </h1>
                         <p className="text-gray-400 font-light text-lg max-w-2xl leading-relaxed">
                             Seu plano de voo estratégico para atingir a maturidade em Inteligência Artificial com segurança, conformidade e escala.
@@ -113,10 +113,10 @@ export default function RoadmapPage() {
 
                     {/* Global Progress Widget - Premium Glass */}
                     <div className="flex gap-4">
-                        <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-[#0A0E1A]/60 backdrop-blur-xl p-6 min-w-[160px] text-center shadow-lg">
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#00FF94]/10 rounded-bl-full -mr-8 -mt-8" />
+                        <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-[#0B0F1E]/60 backdrop-blur-xl p-6 min-w-[160px] text-center shadow-lg">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#4F7EFF]/10 rounded-bl-full -mr-8 -mt-8" />
                             <span className="text-xs text-gray-500 font-bold uppercase tracking-widest mb-2 block">Progresso Geral</span>
-                            <span className="text-4xl font-orbitron font-bold text-white drop-shadow-[0_0_10px_rgba(0,255,148,0.5)]">
+                            <span className="text-4xl font-orbitron font-bold text-white drop-shadow-[0_0_10px_rgba(79,126,255,0.5)]">
                                 {totalProgress}%
                             </span>
                             <div className="w-full h-1 bg-white/10 rounded-full mt-4 overflow-hidden">
@@ -124,17 +124,17 @@ export default function RoadmapPage() {
                                     initial={{ width: 0 }}
                                     animate={{ width: `${totalProgress}%` }}
                                     transition={{ duration: 1.5, ease: "circOut" }}
-                                    className="h-full bg-[#00FF94] shadow-[0_0_10px_#00FF94]"
+                                    className="h-full bg-[#4F7EFF] shadow-[0_0_10px_#4F7EFF]"
                                 />
                             </div>
                         </div>
 
-                        <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-[#0A0E1A]/60 backdrop-blur-xl p-6 min-w-[160px] text-center shadow-lg">
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#00A3FF]/10 rounded-bl-full -mr-8 -mt-8" />
+                        <div className="relative group overflow-hidden rounded-2xl border border-white/10 bg-[#0B0F1E]/60 backdrop-blur-xl p-6 min-w-[160px] text-center shadow-lg">
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-[#818CF8]/10 rounded-bl-full -mr-8 -mt-8" />
                             <span className="text-xs text-gray-500 font-bold uppercase tracking-widest mb-2 block">Status Atual</span>
                             <div className="flex items-center justify-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#00A3FF] animate-pulse" />
-                                <span className="text-xl font-bold font-orbitron text-[#00A3FF]">Fase 02</span>
+                                <span className="w-2 h-2 rounded-full bg-[#818CF8] animate-pulse" />
+                                <span className="text-xl font-bold font-orbitron text-[#818CF8]">Fase 02</span>
                             </div>
                             <p className="text-[10px] text-gray-500 mt-2">Active Sprint</p>
                         </div>
@@ -144,7 +144,7 @@ export default function RoadmapPage() {
                 {/* Vertical Timeline */}
                 <div className="relative pl-8 md:pl-0">
                     {/* Central Gradient Line */}
-                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#00FF94] via-[#00A3FF] to-gray-800 -translate-x-1/2 hidden md:block opacity-30" />
+                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#4F7EFF] via-[#818CF8] to-gray-800 -translate-x-1/2 hidden md:block opacity-30" />
                     <div className="absolute left-[33px] top-0 bottom-0 w-[2px] bg-white/10 md:hidden" />
 
                     <div className="space-y-16">
@@ -181,15 +181,15 @@ function TimelineItem({ phase, index, isLast }: any) {
                     className={`
                         p-8 rounded-[24px] border transition-all duration-500 group relative overflow-hidden backdrop-blur-xl
                         ${isActive
-                            ? 'bg-[#0A0E1A]/80 border-[#00A3FF]/50 shadow-[0_0_50px_rgba(0,163,255,0.15)] ring-1 ring-[#00A3FF]/20'
+                            ? 'bg-[#0B0F1E]/80 border-[#818CF8]/50 shadow-[0_0_50px_rgba(129,140,248,0.15)] ring-1 ring-[#818CF8]/20'
                             : isCompleted
-                                ? 'bg-[#0A0E1A]/40 border-[#00FF94]/20 hover:border-[#00FF94]/40'
-                                : 'bg-[#0A0E1A]/20 border-white/5 opacity-60 grayscale hover:grayscale-0 hover:opacity-80'}
+                                ? 'bg-[#0B0F1E]/40 border-[#4F7EFF]/20 hover:border-[#4F7EFF]/40'
+                                : 'bg-[#0B0F1E]/20 border-white/5 opacity-60 grayscale hover:grayscale-0 hover:opacity-80'}
                     `}
                 >
                     {/* Active Glow Effect */}
                     {isActive && (
-                        <div className="absolute top-0 right-[-50%] w-[100%] h-[100%] bg-gradient-to-b from-[#00A3FF]/10 to-transparent blur-[60px] pointer-events-none" />
+                        <div className="absolute top-0 right-[-50%] w-[100%] h-[100%] bg-gradient-to-b from-[#818CF8]/10 to-transparent blur-[60px] pointer-events-none" />
                     )}
 
                     <div className="flex justify-between items-start mb-6">
@@ -226,15 +226,15 @@ function TimelineItem({ phase, index, isLast }: any) {
                     {isActive && (
                         <div className="mb-8">
                             <div className="flex justify-between text-xs mb-2 font-bold uppercase tracking-wider">
-                                <span className="text-[#00A3FF] animate-pulse">Em Execução</span>
+                                <span className="text-[#818CF8] animate-pulse">Em Execução</span>
                                 <span className="text-white">{phase.progress}%</span>
                             </div>
-                            <div className="h-2 w-full bg-[#00A3FF]/10 rounded-full overflow-hidden border border-[#00A3FF]/10">
+                            <div className="h-2 w-full bg-[#818CF8]/10 rounded-full overflow-hidden border border-[#818CF8]/10">
                                 <motion.div
                                     initial={{ width: 0 }}
                                     animate={{ width: `${phase.progress}%` }}
                                     transition={{ duration: 1.5, delay: 0.5, ease: "circOut" }}
-                                    className="h-full bg-[#00A3FF] shadow-[0_0_15px_#00A3FF]"
+                                    className="h-full bg-[#818CF8] shadow-[0_0_15px_#818CF8]"
                                 />
                             </div>
                         </div>
@@ -270,7 +270,7 @@ function TimelineItem({ phase, index, isLast }: any) {
                     {isActive && (
                         <div className="mt-8 pt-6 border-t border-white/5">
                             <Link href="/dashboard/assessments">
-                                <button className="w-full py-4 rounded-xl bg-[#00A3FF] text-[#0A1A2F] text-sm font-bold uppercase tracking-wider hover:bg-[#0082CC] transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(0,163,255,0.3)] hover:shadow-[0_0_30px_rgba(0,163,255,0.5)]">
+                                <button className="w-full py-4 rounded-xl bg-[#818CF8] text-[#0A1A2F] text-sm font-bold uppercase tracking-wider hover:bg-[#0082CC] transition-all flex items-center justify-center gap-3 shadow-[0_0_20px_rgba(129,140,248,0.3)] hover:shadow-[0_0_30px_rgba(129,140,248,0.5)]">
                                     Continuar Jornada <ArrowRight className="w-4 h-4" />
                                 </button>
                             </Link>
@@ -291,22 +291,22 @@ function TimelineItem({ phase, index, isLast }: any) {
                     className={`
                         w-12 h-12 rounded-full border-4 flex items-center justify-center backdrop-blur-md transition-all duration-500
                         ${isActive
-                            ? `border-[#00A3FF] bg-[#0A0E1A]/80 shadow-[0_0_30px_rgba(0,163,255,0.6)] scale-110`
+                            ? `border-[#818CF8] bg-[#0B0F1E]/80 shadow-[0_0_30px_rgba(129,140,248,0.6)] scale-110`
                             : isCompleted
-                                ? `border-[#00FF94] bg-[#0A0E1A] shadow-[0_0_15px_rgba(0,255,148,0.3)]`
-                                : 'border-gray-800 bg-[#0A0E1A] opacity-50'}
+                                ? `border-[#4F7EFF] bg-[#0B0F1E] shadow-[0_0_15px_rgba(79,126,255,0.3)]`
+                                : 'border-gray-800 bg-[#0B0F1E] opacity-50'}
                     `}
                 >
                     {isCompleted ? (
-                        <CheckCircle2 size={20} className="text-[#00FF94]" />
+                        <CheckCircle2 size={20} className="text-[#4F7EFF]" />
                     ) : isActive ? (
-                        <div className="w-3 h-3 bg-[#00A3FF] rounded-full animate-ping" />
+                        <div className="w-3 h-3 bg-[#818CF8] rounded-full animate-ping" />
                     ) : (
                         <div className="w-2 h-2 bg-gray-700 rounded-full" />
                     )}
                 </div>
                 {/* Connector Line overlay for clean cuts */}
-                <div className="absolute top-12 bottom-[-100px] w-[2px] bg-[#0A0E1A] -z-10" />
+                <div className="absolute top-12 bottom-[-100px] w-[2px] bg-[#0B0F1E] -z-10" />
             </div>
 
             {/* 3. Empty Space (Occupies 50% on Desktop) */}

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { PlayCircle, BookOpen, Star, Clock } from "lucide-react";
 import { useState, useEffect } from "react";
@@ -60,7 +60,7 @@ export default function CoursesPage() {
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2560&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay transition-transform duration-700 group-hover:scale-105" />
 
                 <div className="relative z-20 flex-1 space-y-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00A3FF]/10 text-[#00A3FF] border border-[#00A3FF]/20 text-[10px] font-bold uppercase tracking-widest">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#818CF8]/10 text-[#818CF8] border border-[#818CF8]/20 text-[10px] font-bold uppercase tracking-widest">
                         <Star className="w-3 h-3 fill-current" /> Certificação Oficial
                     </div>
                     <h2 className="text-4xl md:text-5xl font-display font-medium text-white leading-tight">
@@ -101,9 +101,9 @@ export default function CoursesPage() {
 
 function CourseCard({ title, type, students, duration, onClick }: any) {
     const isCert = type === 'certification';
-    const color = isCert ? 'text-[#00FF94]' : 'text-[#00A3FF]';
-    const bgColor = isCert ? 'bg-[#00FF94]/5' : 'bg-[#00A3FF]/5';
-    const borderColor = isCert ? 'border-[#00FF94]/20' : 'border-[#00A3FF]/20';
+    const color = isCert ? 'text-[#4F7EFF]' : 'text-[#818CF8]';
+    const bgColor = isCert ? 'bg-[#4F7EFF]/5' : 'bg-[#818CF8]/5';
+    const borderColor = isCert ? 'border-[#4F7EFF]/20' : 'border-[#818CF8]/20';
 
     return (
         <div className="glass-panel p-6 rounded-2xl flex flex-col justify-between h-[280px] group hover:border-white/20 transition-all cursor-pointer" onClick={onClick}>

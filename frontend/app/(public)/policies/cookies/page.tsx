@@ -1,4 +1,4 @@
-
+﻿
 export default function CookiePolicyPage() {
     return (
         <div className="animate-in fade-in duration-700">
@@ -6,7 +6,7 @@ export default function CookiePolicyPage() {
                 Política de Cookies
             </h1>
 
-            <div className="bg-[#0A0E1A] border border-slate-800 rounded-xl p-6 mb-12">
+            <div className="bg-[#0B0F1E] border border-slate-800 rounded-xl p-6 mb-12">
                 <p className="text-sm text-slate-400 mb-2"><strong>Última atualização:</strong> 24 de Dezembro de 2025</p>
                 <p className="text-sm text-slate-400"><strong>Vigência:</strong> Imediata</p>
             </div>
@@ -17,7 +17,7 @@ export default function CookiePolicyPage() {
 
             <h2>1. O que são Cookies?</h2>
             <p>
-                Cookies são pequenos arquivos de texto criptografados salvos no seu dispositivo quando você visita um site. Na ALGOR, eles funcionam como "memórias seguras" que nos permitem:
+                Cookies são pequenos arquivos de texto criptografados salvos no seu dispositivo quando você visita um site. Na ALGOR, eles funcionam como &quot;memórias seguras&quot; que nos permitem:
             </p>
             <ul className="list-disc pl-5 space-y-2 text-slate-400">
                 <li>Manter você logado com segurança (Sessão);</li>
@@ -90,7 +90,7 @@ export default function CookiePolicyPage() {
 
             <div className="overflow-x-auto not-prose mt-6 mb-12">
                 <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                    <thead className="bg-[#0A0E1A] text-slate-200">
+                    <thead className="bg-[#0B0F1E] text-slate-200">
                         <tr>
                             <th className="p-4 border-b border-slate-800">Fornecedor</th>
                             <th className="p-4 border-b border-slate-800">Categoria</th>
@@ -98,7 +98,7 @@ export default function CookiePolicyPage() {
                             <th className="p-4 border-b border-slate-800">Retenção</th>
                         </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                    <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                         <tr>
                             <td className="p-4 font-medium text-white">Google Analytics 4</td>
                             <td className="p-4"><span className="text-blue-400">Analítico</span></td>
@@ -137,12 +137,12 @@ export default function CookiePolicyPage() {
             <p>
                 Você tem o direito de decidir se aceita ou rejeita cookies (exceto os estritamente necessários).
             </p>
-            <div className="bg-[#0A0E1A] p-6 rounded-xl border border-dashed border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="bg-[#0B0F1E] p-6 rounded-xl border border-dashed border-slate-700 flex flex-col md:flex-row items-center justify-between gap-4">
                 <div>
                     <h4 className="text-white font-medium mb-1">Preferências de Privacidade</h4>
                     <p className="text-slate-400 text-sm">Acesse nosso painel para alterar seus consentimentos a qualquer momento.</p>
                 </div>
-                <button className="px-5 py-2.5 bg-[#00A3FF]/10 text-[#00A3FF] hover:bg-[#00A3FF]/20 border border-[#00A3FF]/20 rounded-lg text-sm font-medium transition-colors">
+                <button className="px-5 py-2.5 bg-[#818CF8]/10 text-[#818CF8] hover:bg-[#818CF8]/20 border border-[#818CF8]/20 rounded-lg text-sm font-medium transition-colors">
                     Gerenciar Cookies
                 </button>
             </div>
@@ -151,7 +151,7 @@ export default function CookiePolicyPage() {
 
             <p className="text-sm text-slate-500">
                 <strong>Encarregado (DPO):</strong> dpo@algorbrasil.com.br<br />
-                Para mais informações sobre como tratamos seus dados, consulte nossa <a href="/policies/privacy" className="text-[#00A3FF] hover:underline">Política de Privacidade</a>.
+                Para mais informações sobre como tratamos seus dados, consulte nossa <a href="/policies/privacy" className="text-[#818CF8] hover:underline">Política de Privacidade</a>.
             </p>
         </div>
     );

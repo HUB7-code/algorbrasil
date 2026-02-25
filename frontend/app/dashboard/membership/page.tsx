@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { motion } from "framer-motion";
 import { CheckCircle2, Crown, ShieldCheck, Zap, Star, UserCheck } from "lucide-react";
@@ -16,7 +16,7 @@ const itemVariants = {
 
 export default function MembershipPage() {
     return (
-        <div className="p-8 w-full min-h-screen relative text-white bg-[#050810] overflow-hidden flex flex-col items-center justify-center">
+        <div className="p-8 w-full min-h-screen relative text-white bg-[#0C1020] overflow-hidden flex flex-col items-center justify-center">
             {/* Ambient Background Effects */}
             <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-[#F59E0B]/10 rounded-full blur-[200px] pointer-events-none" />
             <div className="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] bg-[#8B5CF6]/10 rounded-full blur-[180px] pointer-events-none" />

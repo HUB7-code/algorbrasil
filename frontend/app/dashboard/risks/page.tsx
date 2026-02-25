@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from "react";
 import {
@@ -45,8 +45,8 @@ const radarData = [
 const barData = [
     { name: 'Crítico', value: 4, color: '#EF4444' },
     { name: 'Alto', value: 7, color: '#F59E0B' },
-    { name: 'Médio', value: 12, color: '#00A3FF' },
-    { name: 'Baixo', value: 25, color: '#00FF94' },
+    { name: 'Médio', value: 12, color: '#818CF8' },
+    { name: 'Baixo', value: 25, color: '#4F7EFF' },
 ];
 
 export default function RisksPage() {
@@ -79,12 +79,12 @@ export default function RisksPage() {
     }, []);
 
     return (
-        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#050A14]">
+        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#0B0F1E]">
 
             {/* Deep Ambient Background - "Space/Cyber" Theme */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[10%] w-[800px] h-[800px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[-20%] left-[10%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 <div className="absolute top-[40%] left-[40%] w-[500px] h-[500px] bg-[#8B5CF6]/5 rounded-full blur-[150px]" />
                 {/* Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
@@ -107,13 +107,13 @@ export default function RisksPage() {
                 <div className="flex flex-col xl:flex-row justify-between items-end gap-6 pb-6 border-b border-white/5">
                     <div>
                         <div className="flex items-center gap-2 mb-2">
-                            <span className="text-[10px] font-mono font-bold text-[#00FF94] flex items-center gap-2 px-2 py-1 bg-[#00FF94]/10 rounded border border-[#00FF94]/20 uppercase tracking-widest">
+                            <span className="text-[10px] font-mono font-bold text-[#4F7EFF] flex items-center gap-2 px-2 py-1 bg-[#4F7EFF]/10 rounded border border-[#4F7EFF]/20 uppercase tracking-widest">
                                 <Activity className="w-3 h-3 animate-pulse" />
                                 Saúde do Sistema: Otimizada
                             </span>
                         </div>
                         <h1 className="text-4xl md:text-5xl font-orbitron font-bold text-white mb-2 tracking-tight">
-                            Centro de Controle <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00A3FF] to-[#00FF94]">de Risco</span>
+                            Centro de Controle <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#818CF8] to-[#4F7EFF]">de Risco</span>
                         </h1>
                         <p className="text-gray-400 font-light text-sm max-w-xl">
                             Monitoramento de ameaças em tempo real, velocidade de conformidade e análise de integridade algorítmica.
@@ -126,7 +126,7 @@ export default function RisksPage() {
                                 <button
                                     key={tab}
                                     onClick={() => setActiveTab(tab.toLowerCase())}
-                                    className={`px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.toLowerCase() ? 'bg-[#00A3FF] text-[#050A14] shadow-lg shadow-blue-500/20' : 'text-gray-400 hover:text-white'}`}
+                                    className={`px-5 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${activeTab === tab.toLowerCase() ? 'bg-[#818CF8] text-[#0B0F1E] shadow-lg shadow-blue-500/20' : 'text-gray-400 hover:text-white'}`}
                                 >
                                     {tab}
                                 </button>
@@ -134,7 +134,7 @@ export default function RisksPage() {
                         </div>
                         <button
                             onClick={() => setShowModal(true)}
-                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#00FF94] to-[#00A3FF] text-[#050A14] font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(0,163,255,0.4)]"
+                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#4F7EFF] to-[#818CF8] text-[#0B0F1E] font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all flex items-center gap-2 shadow-[0_0_20px_rgba(129,140,248,0.4)]"
                         >
                             <Plus className="w-4 h-4" />
                             Novo Risco
@@ -146,17 +146,17 @@ export default function RisksPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                     {/* Card 1: Compliance Score */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute top-0 right-0 p-4 opacity-50"><ShieldAlert className="w-12 h-12 text-[#00FF94]" /></div>
+                        <div className="absolute top-0 right-0 p-4 opacity-50"><ShieldAlert className="w-12 h-12 text-[#4F7EFF]" /></div>
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Score de Conformidade</h3>
                         <div className="flex items-end gap-3">
                             <span className="text-5xl font-orbitron font-bold text-white">98<span className="text-2xl text-gray-500">%</span></span>
-                            <span className="text-[#00FF94] text-xs font-bold bg-[#00FF94]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
+                            <span className="text-[#4F7EFF] text-xs font-bold bg-[#4F7EFF]/10 px-2 py-1 rounded mb-2 flex items-center gap-1">
                                 <TrendingUp className="w-3 h-3" /> +2.4%
                             </span>
                         </div>
                         {/* Mini Progress Bar */}
                         <div className="w-full h-1.5 bg-white/5 rounded-full mt-6 overflow-hidden">
-                            <motion.div initial={{ width: 0 }} animate={{ width: '98%' }} className="h-full bg-gradient-to-r from-[#00FF94] to-[#00A3FF]" />
+                            <motion.div initial={{ width: 0 }} animate={{ width: '98%' }} className="h-full bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]" />
                         </div>
                     </div>
 
@@ -180,13 +180,13 @@ export default function RisksPage() {
 
                     {/* Card 3: Model Reliability */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute inset-0 bg-gradient-to-r from-[#00A3FF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#818CF8]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Confiabilidade do Modelo</h3>
                         <div className="flex justify-between items-center mt-2">
                             <div className="relative w-24 h-24">
                                 <svg className="w-full h-full transform -rotate-90">
                                     <circle cx="48" cy="48" r="40" stroke="#1e293b" strokeWidth="8" fill="none" />
-                                    <circle cx="48" cy="48" r="40" stroke="#00A3FF" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="25.12" strokeLinecap="round" />
+                                    <circle cx="48" cy="48" r="40" stroke="#818CF8" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="25.12" strokeLinecap="round" />
                                 </svg>
                                 <div className="absolute inset-0 flex items-center justify-center flex-col">
                                     <span className="text-xl font-orbitron font-bold text-white">99.9</span>
@@ -196,7 +196,7 @@ export default function RisksPage() {
                             <div className="flex flex-col gap-2 text-right">
                                 <div className="text-xs text-gray-400">Total de Requisições</div>
                                 <div className="text-xl font-bold text-white">2.4M</div>
-                                <div className="text-xs text-[#00FF94]">Sistemas Operacionais</div>
+                                <div className="text-xs text-[#4F7EFF]">Sistemas Operacionais</div>
                             </div>
                         </div>
                     </div>
@@ -246,23 +246,23 @@ export default function RisksPage() {
                                 <AreaChart data={trendData}>
                                     <defs>
                                         <linearGradient id="colorSec" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#00A3FF" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#00A3FF" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#818CF8" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#818CF8" stopOpacity={0} />
                                         </linearGradient>
                                         <linearGradient id="colorPriv" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#00FF94" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#00FF94" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#4F7EFF" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#4F7EFF" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" vertical={false} />
                                     <XAxis dataKey="name" stroke="#475569" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
                                     <YAxis stroke="#475569" tick={{ fontSize: 12 }} tickLine={false} axisLine={false} />
                                     <Tooltip
-                                        contentStyle={{ backgroundColor: '#050A14', borderColor: '#ffffff10', borderRadius: '12px' }}
+                                        contentStyle={{ backgroundColor: '#0B0F1E', borderColor: '#ffffff10', borderRadius: '12px' }}
                                         itemStyle={{ color: '#fff' }}
                                     />
-                                    <Area type="monotone" dataKey="security" stroke="#00A3FF" strokeWidth={3} fillOpacity={1} fill="url(#colorSec)" />
-                                    <Area type="monotone" dataKey="privacy" stroke="#00FF94" strokeWidth={3} fillOpacity={1} fill="url(#colorPriv)" />
+                                    <Area type="monotone" dataKey="security" stroke="#818CF8" strokeWidth={3} fillOpacity={1} fill="url(#colorSec)" />
+                                    <Area type="monotone" dataKey="privacy" stroke="#4F7EFF" strokeWidth={3} fillOpacity={1} fill="url(#colorPriv)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
@@ -309,7 +309,7 @@ export default function RisksPage() {
                                     <CartesianGrid strokeDasharray="3 3" stroke="#ffffff05" horizontal={false} />
                                     <XAxis type="number" hide />
                                     <YAxis dataKey="name" type="category" stroke="#94a3b8" tick={{ fontSize: 10 }} width={60} axisLine={false} tickLine={false} />
-                                    <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#050A14', borderRadius: '12px' }} />
+                                    <Tooltip cursor={{ fill: 'transparent' }} contentStyle={{ backgroundColor: '#0B0F1E', borderRadius: '12px' }} />
                                     <Bar dataKey="value" radius={[0, 4, 4, 0]}>
                                         {barData.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={entry.color} />
@@ -324,7 +324,7 @@ export default function RisksPage() {
                     <div className="xl:col-span-2 rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-8 backdrop-blur-sm">
                         <div className="flex justify-between items-center mb-6">
                             <h3 className="text-lg font-orbitron font-bold text-white">Últimos Incidentes</h3>
-                            <button className="text-xs font-bold text-[#00A3FF] uppercase tracking-wider">Ver Todos os Logs</button>
+                            <button className="text-xs font-bold text-[#818CF8] uppercase tracking-wider">Ver Todos os Logs</button>
                         </div>
 
                         <div className="space-y-4">
@@ -341,7 +341,7 @@ export default function RisksPage() {
                             {[
                                 { title: "API Rate Limit Exceeded", cat: "Segurança", sev: "Médio", status: "Ativo", color: "#F59E0B" },
                                 { title: "PII Detected in Logs", cat: "Privacidade", sev: "Crítico", status: "Investigando", color: "#EF4444" },
-                                { title: "Model Drift > 5%", cat: "Qualidade", sev: "Baixo", status: "Mitigado", color: "#00FF94" },
+                                { title: "Model Drift > 5%", cat: "Qualidade", sev: "Baixo", status: "Mitigado", color: "#4F7EFF" },
                             ].map((item, i) => (
                                 <div key={i} className="grid grid-cols-12 items-center px-4 py-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
                                     <div className="col-span-4 font-bold text-white">{item.title}</div>
@@ -353,7 +353,7 @@ export default function RisksPage() {
                                     </div>
                                     <div className="col-span-2 text-xs text-white">{item.status}</div>
                                     <div className="col-span-2 text-right">
-                                        <button className="text-[10px] font-bold text-white hover:text-[#00A3FF] uppercase">Detalhes</button>
+                                        <button className="text-[10px] font-bold text-white hover:text-[#818CF8] uppercase">Detalhes</button>
                                     </div>
                                 </div>
                             ))}
@@ -379,7 +379,7 @@ function RiskReportModal({ isOpen, onClose, onSuccess }: any) {
             {isOpen && (
                 <>
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="fixed inset-0 bg-[#000]/90 backdrop-blur-xl z-50 transition-all" />
-                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="fixed inset-0 m-auto z-50 w-full max-w-lg h-fit rounded-[24px] overflow-hidden shadow-2xl border border-white/10 bg-[#050A14] p-8">
+                    <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }} className="fixed inset-0 m-auto z-50 w-full max-w-lg h-fit rounded-[24px] overflow-hidden shadow-2xl border border-white/10 bg-[#0B0F1E] p-8">
                         <div className="flex justify-between items-center mb-8">
                             <h2 className="text-2xl font-orbitron font-bold text-white">Registrar Risco</h2>
                             <button onClick={onClose}><X className="w-5 h-5 text-gray-400" /></button>
@@ -388,7 +388,7 @@ function RiskReportModal({ isOpen, onClose, onSuccess }: any) {
                         <div className="space-y-4">
                             <div className="h-32 rounded-xl bg-white/5 animate-pulse" />
                             <div className="h-12 rounded-xl bg-white/5 animate-pulse" />
-                            <button onClick={onClose} className="w-full py-4 bg-[#00A3FF] text-[#050A14] font-bold rounded-xl uppercase">Submit Report (Demo)</button>
+                            <button onClick={onClose} className="w-full py-4 bg-[#818CF8] text-[#0B0F1E] font-bold rounded-xl uppercase">Submit Report (Demo)</button>
                         </div>
                     </motion.div>
                 </>

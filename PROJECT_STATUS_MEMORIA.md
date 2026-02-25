@@ -1,8 +1,37 @@
-**Versão Atual:** V21.3.0 "Clerk B2B Auth Integration"
+**Versão Atual:** V21.5.0 "Board Page Elite — Filtros Interativos"
 **Data da Última Atualização:** 24/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Audited)
 
-### 🎯 Últimas Conquistas (V21.3.0 - "Clerk B2B Auth Integration")
+### 🎯 Últimas Conquistas (V21.5.0 - "Board Page Elite")
+
+1.  **Página `/board` Completamente Refatorada:**
+    *   **Filtros interativos por especialidade:** Categorias `Todos`, `Estratégia`, `Risco`, `Compliance`, `Segurança`, `Gestão` — implementados com `useState` sem dependências externas.
+    *   **Labels coloridos e centralizados:** Cada consultor tem cor exclusiva sobreposta à base da foto (verde-neon, azul, âmbar, violeta, vermelho, ciano, rosa, etc.).
+    *   **Hover cromático:** O overlay de hover da foto usa a cor da especialidade do membro.
+    *   **Botão de agendamento:** CTA outline verde com ícone `Calendar` ao final da página, linkado ao Calendly.
+    *   **Convertido para Client Component** (`'use client'`) para suportar estado React interativo.
+
+2.  **Estabilização do Build (V21.4.1):**
+    *   **15+ módulos ausentes criados** como placeholders para eliminar erros de `404` e falhas de compilação Webpack.
+    *   **ESLint zerado:** Corrigidos `react/no-unescaped-entities` e `react/no-children-prop`.
+    *   **Build Next.js 14.2.1 aprovado com Exit Code 0.**
+
+---
+
+### 🚀 Conquistas Anteriores (V21.4.0 - "B2B Cinematic Pivot")
+
+1.  **Reestruturação para Modelo B2B Enterprise:**
+    *   **Foco em Consultoria:** Site redirecionado para vender a Metodologia de Governança de IA (Diagnóstico, Descoberta, Gestão, Cultura).
+    *   **Dashboard SaaS Oculto (ALGOR Lab):** ALGOR Lab mitigado para focar momentaneamente na atração de contratos corporativos.
+    *   **Esquadrão de Elite:** Seção de Membros Associados (Board) recriada para destacar 25 Consultores Seniores Dedicados e 250+ Especialistas Globais.
+
+2.  **Upgrades Estéticos "Cinematic Premium":**
+    *   **Interface Glassmorphism:** Implementados efeitos de *Spotlight*, *3D Hover Tilt*, e *Glows* radiais profundos focados no Dark Mode corporativo (Deep Navy, Neon Green, Cyan).
+    *   **Stitch MCP Integration:** Uso de prototipação avançada via Stitch para gerar layouts imersivos de alto padrão.
+
+
+
+### 🚀 Conquistas Anteriores (V21.3.0 - "Clerk B2B Auth Integration")
 
 1.  **Migração Completa para o Clerk (Identity Provider):**
     *   **Frontend B2B:** Substituída autenticação local legada (JWT) pelo Provider do Clerk no Next.js.
@@ -45,6 +74,7 @@
 
 ### 📜 Histórico de Versões
 
+- [x] **V21.4.0:** "B2B Cinematic Pivot" - Foco em Governança Corporativa B2B, UI Cinematic Enterprise, Novo Board MVP.
 - [x] **V21.3.0:** "Clerk B2B Auth Integration" - Identidade delegada ao Clerk, Webhooks com Svix, Backend Auth Guard.
 - [x] **V21.2.0:** "Code Audit" - Segurança hardened, URLs centralizadas, Certificados premium.
 - [x] **V21.1.0:** "Leadership Content" - Etapa 02, Hardcore Quiz 100%, Materiais de Apoio.
@@ -69,34 +99,20 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v21.3.0                        │
-│          ✅ CLERK B2B AUTH INTEGRATION                      │
+│                 ALGOR BRASIL v21.4.0                        │
+│          ✅ B2B CINEMATIC PIVOT                             │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  🔐 SECURITY HARDENING                                      │
-│  ├── Encryption Key Enforcement ............... ✅ (100%)  │
-│  ├── Fail-Fast Production ..................... ✅ (100%)  │
-│  ├── No Hardcoded Credentials ................. ✅ (100%)  │
+│  🏢 B2B ENTERPRISE FOCUS                                    │
+│  ├── Homepage Restructure (4 Pillars) ......... ✅ (100%)  │
+│  ├── Board/Members Premium UI ................. ✅ (100%)  │
+│  ├── ALGOR Lab De-emphasis .................... ✅ (100%)  │
 │                                                             │
-│  📜 CERTIFICADOS PDF                                        │
-│  ├── Dark Mode Design ......................... ✅ (100%)  │
-│  ├── QR Code Validation ....................... ✅ (100%)  │
-│  ├── Frontend Integration ..................... ✅ (100%)  │
-│                                                             │
-│  🧹 CODE QUALITY                                            │
-│  ├── Centralized API Config ................... ✅ (100%)  │
-│  ├── No Debug Statements ...................... ✅ (100%)  │
-│  ├── Professional Error Handling .............. ✅ (100%)  │
-│                                                             │
-│  🧠 QUIZ ENGINE 2.1                                         │
-│  ├── 100% Passing Grade ....................... ✅ (100%)  │
-│  ├── Backend Persistence (Score/Attempts) ..... ✅ (100%)  │
-│  ├── Etapa 02 Question Bank (8 Qs) ............ ✅ (100%)  │
-│                                                             │
-│  📚 ISO 42001 CONTENT                                       │
-│  ├── Etapa 01 + 02 ............................ ✅ (100%)  │
-│  ├── Materials Integration .................... ✅ (100%)  │
+│  ✨ CINEMATIC UI UPGRADES                                   │
+│  ├── 3D Hover Tilt & Spotlights ............... ✅ (100%)  │
+│  ├── Neon Connections & Glow Anchors .......... ✅ (100%)  │
+│  ├── Stitch MCP Prototyping ................... ✅ (100%)  │
 │                                                             │
 │  🔐 B2B AUTHENTICATION (CLERK)                              │
 │  ├── Identity Externalization ................. ✅ (100%)  │
@@ -104,8 +120,8 @@
 │  ├── Svix Webhooks Sync ....................... ✅ (100%)  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
-```
 
-*Documento atualizado automaticamente. Versão 21.3.0.*
+*Documento atualizado automaticamente. Versão 21.4.0.*
 > **Última Atualização:** 24/02/2026
-> **Status Geral:** **PRODUCTION LIVE + B2B AUTH MIGRATION** 🚀✅
+> **Status Geral:** **PRODUCTION LIVE + B2B PIVOT** 🚀✅
+```

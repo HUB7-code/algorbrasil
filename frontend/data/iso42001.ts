@@ -1,4 +1,4 @@
-
+﻿
 export interface CourseMaterial {
     id: string;
     title: string;
@@ -42,7 +42,7 @@ export const iso42001Content: CourseModule[] = [
                 duration: 120,
                 description: `
                     <div class="space-y-6 text-gray-300 font-manrope">
-                        <div class="flex items-center gap-4 text-sm font-mono text-[#00FF94] bg-[#00FF94]/5 p-3 rounded-lg border border-[#00FF94]/20 w-fit">
+                        <div class="flex items-center gap-4 text-sm font-mono text-[#4F7EFF] bg-[#4F7EFF]/5 p-3 rounded-lg border border-[#4F7EFF]/20 w-fit">
                             <span>📅 26 de Março, 2025</span>
                             <span>⏰ 19h às 21h</span>
                             <span>🎓 ALGOR ASSOCIATION</span>
@@ -75,7 +75,7 @@ export const iso42001Content: CourseModule[] = [
                 description: `
                     <div class="space-y-6 text-gray-300 font-manrope">
                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
-                            <strong class="text-[#00FF94] block mb-2 text-lg">Objetivos da Aula</strong>
+                            <strong class="text-[#4F7EFF] block mb-2 text-lg">Objetivos da Aula</strong>
                             <p>Nesta aula, abordaremos a Cláusula 4 da ISO/IEC 42001, fundamental para estabelecer as bases do Sistema de Gestão de IA, incluindo o entendimento do contexto organizacional e a definição do escopo.</p>
                         </div>
                         <div class="space-y-4">
@@ -141,7 +141,7 @@ export const iso42001Content: CourseModule[] = [
                 description: `
                     <div class="space-y-6 text-gray-300 font-manrope">
                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
-                            <strong class="text-[#00FF94] block mb-2 text-lg">Visão Geral</strong>
+                            <strong class="text-[#4F7EFF] block mb-2 text-lg">Visão Geral</strong>
                             <p>Esta aula explora as tendências tecnológicas que definirão a próxima década da Inteligência Artificial, fundamentada no relatório "2025 Tech Trends" e pesquisas de ponta.</p>
                         </div>
                         <div class="grid md:grid-cols-2 gap-8">
@@ -284,13 +284,13 @@ export const iso42001Content: CourseModule[] = [
                 duration: 90,
                 description: `
                     <div class="space-y-6 text-gray-300 font-manrope">
-                        <div class="flex items-center gap-4 text-sm font-mono text-[#00FF94] bg-[#00FF94]/5 p-3 rounded-lg border border-[#00FF94]/20 w-fit mb-4">
+                        <div class="flex items-center gap-4 text-sm font-mono text-[#4F7EFF] bg-[#4F7EFF]/5 p-3 rounded-lg border border-[#4F7EFF]/20 w-fit mb-4">
                             <span>📅 23 de Abril, 2025</span>
                             <span>📚 AULA 02</span>
                         </div>
                         
                         <div class="bg-[#0A1A2F]/50 p-4 rounded-xl border border-white/5 mb-6">
-                            <strong class="text-[#00FF94] block mb-2 text-lg">Objetivos da Aula</strong>
+                            <strong class="text-[#4F7EFF] block mb-2 text-lg">Objetivos da Aula</strong>
                             <p>Esta aula foca na Cláusula 5 da ISO/IEC 42001, detalhando o papel crucial da Alta Direção e a estrutura de governança necessária para o sucesso do SGIA.</p>
                         </div>
 
@@ -334,8 +334,8 @@ export const iso42001Content: CourseModule[] = [
                     <div class="space-y-8 text-gray-300 font-manrope">
                         
                         <div class="bg-[#0A1A2F]/50 p-6 rounded-xl border border-white/5">
-                            <h3 class="text-[#00FF94] font-orbitron font-bold text-lg mb-4 flex items-center gap-2">
-                                <span className="p-1 rounded bg-[#00FF94]/10">🔐</span> Pontos-Chave
+                            <h3 class="text-[#4F7EFF] font-orbitron font-bold text-lg mb-4 flex items-center gap-2">
+                                <span className="p-1 rounded bg-[#4F7EFF]/10">🔐</span> Pontos-Chave
                             </h3>
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
@@ -384,11 +384,11 @@ export const iso42001Content: CourseModule[] = [
                             <p>A segurança da IA exige governança, ética e responsabilidade. Profissionais precisam atuar de forma crítica diante desses desafios.</p>
                         </div>
 
-                        <div class="text-sm text-gray-500 italic border-l-2 border-[#00FF94] pl-4 py-1">
+                        <div class="text-sm text-gray-500 italic border-l-2 border-[#4F7EFF] pl-4 py-1">
                             📅 <strong>Próxima aula:</strong> Planejamento com base na ISO/IEC 42001 e aplicação da IA na área de energia até 2030.
                         </div>
 
-                        <div class="flex flex-wrap gap-2 text-xs font-mono text-[#00FF94]">
+                        <div class="flex flex-wrap gap-2 text-xs font-mono text-[#4F7EFF]">
                             <span>#AlgorDigital</span>
                             <span>#IA2030</span>
                             <span>#GovernançaIA</span>

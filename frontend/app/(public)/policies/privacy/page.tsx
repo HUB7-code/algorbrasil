@@ -1,4 +1,4 @@
-
+﻿
 import Link from 'next/link';
 
 export default function PrivacyPolicyPage() {
@@ -8,33 +8,33 @@ export default function PrivacyPolicyPage() {
                 Política de Privacidade
             </h1>
 
-            <div className="bg-[#0A0E1A] border border-slate-800 rounded-xl p-6 mb-12">
+            <div className="bg-[#0B0F1E] border border-slate-800 rounded-xl p-6 mb-12">
                 <p className="text-sm text-slate-400 mb-2"><strong>Última atualização:</strong> 24 de Dezembro de 2025</p>
                 <p className="text-sm text-slate-400 mb-2"><strong>Versão:</strong> 1.0.2 (Auditada)</p>
                 <p className="text-sm text-slate-400"><strong>Vigência:</strong> Imediata</p>
             </div>
 
             {/* Índice Clicável */}
-            <nav className="mb-16 bg-[#0A0E1A]/50 p-8 rounded-2xl border border-slate-800/50">
+            <nav className="mb-16 bg-[#0B0F1E]/50 p-8 rounded-2xl border border-slate-800/50">
                 <h4 className="text-white font-medium mb-4 flex items-center gap-2">
-                    <span className="material-symbols-rounded text-[#00A3FF]">list</span>
+                    <span className="material-symbols-rounded text-[#818CF8]">list</span>
                     Índice
                 </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                    <li><a href="#quem-somos" className="hover:text-[#00A3FF] transition-colors">1. Quem Somos</a></li>
-                    <li><a href="#definicoes" className="hover:text-[#00A3FF] transition-colors">2. Definições Importantes</a></li>
-                    <li><a href="#dados-coletados" className="hover:text-[#00A3FF] transition-colors">3. Dados que Coletamos</a></li>
-                    <li><a href="#como-coletamos" className="hover:text-[#00A3FF] transition-colors">4. Como Coletamos</a></li>
-                    <li><a href="#finalidades" className="hover:text-[#00A3FF] transition-colors">5. Finalidades (Uso)</a></li>
-                    <li><a href="#base-legal" className="hover:text-[#00A3FF] transition-colors">6. Base Legal</a></li>
-                    <li><a href="#compartilhamento" className="hover:text-[#00A3FF] transition-colors">7. Compartilhamento</a></li>
-                    <li><a href="#transferencia" className="hover:text-[#00A3FF] transition-colors">8. Transferência Int.</a></li>
-                    <li><a href="#retencao" className="hover:text-[#00A3FF] transition-colors">9. Retenção de Dados</a></li>
-                    <li><a href="#direitos" className="hover:text-[#00A3FF] transition-colors">10. Seus Direitos</a></li>
-                    <li><a href="#seguranca" className="hover:text-[#00A3FF] transition-colors">12. Segurança</a></li>
-                    <li><a href="#cookies" className="hover:text-[#00A3FF] transition-colors">13. Cookies</a></li>
-                    <li><a href="#menores" className="hover:text-[#00A3FF] transition-colors">14. Menores</a></li>
-                    <li><a href="#contato" className="hover:text-[#00A3FF] transition-colors">16. Contato (DPO)</a></li>
+                    <li><a href="#quem-somos" className="hover:text-[#818CF8] transition-colors">1. Quem Somos</a></li>
+                    <li><a href="#definicoes" className="hover:text-[#818CF8] transition-colors">2. Definições Importantes</a></li>
+                    <li><a href="#dados-coletados" className="hover:text-[#818CF8] transition-colors">3. Dados que Coletamos</a></li>
+                    <li><a href="#como-coletamos" className="hover:text-[#818CF8] transition-colors">4. Como Coletamos</a></li>
+                    <li><a href="#finalidades" className="hover:text-[#818CF8] transition-colors">5. Finalidades (Uso)</a></li>
+                    <li><a href="#base-legal" className="hover:text-[#818CF8] transition-colors">6. Base Legal</a></li>
+                    <li><a href="#compartilhamento" className="hover:text-[#818CF8] transition-colors">7. Compartilhamento</a></li>
+                    <li><a href="#transferencia" className="hover:text-[#818CF8] transition-colors">8. Transferência Int.</a></li>
+                    <li><a href="#retencao" className="hover:text-[#818CF8] transition-colors">9. Retenção de Dados</a></li>
+                    <li><a href="#direitos" className="hover:text-[#818CF8] transition-colors">10. Seus Direitos</a></li>
+                    <li><a href="#seguranca" className="hover:text-[#818CF8] transition-colors">12. Segurança</a></li>
+                    <li><a href="#cookies" className="hover:text-[#818CF8] transition-colors">13. Cookies</a></li>
+                    <li><a href="#menores" className="hover:text-[#818CF8] transition-colors">14. Menores</a></li>
+                    <li><a href="#contato" className="hover:text-[#818CF8] transition-colors">16. Contato (DPO)</a></li>
                 </ul>
             </nav>
 
@@ -54,13 +54,13 @@ export default function PrivacyPolicyPage() {
                     <p>Para facilitar o entendimento desta política, definimos:</p>
                     <div className="overflow-x-auto not-prose mt-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800 w-1/4">Termo</th>
                                     <th className="p-4 border-b border-slate-800">Significado (LGPD)</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr><td className="p-4 font-medium text-white">Dado Pessoal</td><td className="p-4">Informação relacionada a pessoa natural identificada ou identificável (Art. 5º, I)</td></tr>
                                 <tr><td className="p-4 font-medium text-white">Titular</td><td className="p-4">Pessoa natural a quem se referem os dados pessoais (Art. 5º, V)</td></tr>
                                 <tr><td className="p-4 font-medium text-white">Controlador</td><td className="p-4">Quem toma as decisões sobre o tratamento (ALGOR) (Art. 5º, VI)</td></tr>
@@ -77,7 +77,7 @@ export default function PrivacyPolicyPage() {
                     <h3>3.1 Dados Cadastrais</h3>
                     <div className="overflow-x-auto not-prose my-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800">Dado</th>
                                     <th className="p-4 border-b border-slate-800">Obrigatório?</th>
@@ -85,16 +85,16 @@ export default function PrivacyPolicyPage() {
                                     <th className="p-4 border-b border-slate-800">Finalidade</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr>
                                     <td className="p-4 font-medium text-white">Nome completo</td>
-                                    <td className="p-4 text-[#00FF94]">Sim</td>
+                                    <td className="p-4 text-[#4F7EFF]">Sim</td>
                                     <td className="p-4">Execução de contrato</td>
                                     <td className="p-4">Identificação e gestão da conta</td>
                                 </tr>
                                 <tr>
                                     <td className="p-4 font-medium text-white">Email corporativo</td>
-                                    <td className="p-4 text-[#00FF94]">Sim</td>
+                                    <td className="p-4 text-[#4F7EFF]">Sim</td>
                                     <td className="p-4">Execução de contrato</td>
                                     <td className="p-4">Login, comunicação, suporte</td>
                                 </tr>
@@ -122,7 +122,7 @@ export default function PrivacyPolicyPage() {
                     <h2>5. Para Que Usamos Seus Dados</h2>
                     <div className="overflow-x-auto not-prose mt-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800">Finalidade Específica</th>
                                     <th className="p-4 border-b border-slate-800">Dados Utilizados</th>
@@ -130,24 +130,24 @@ export default function PrivacyPolicyPage() {
                                     <th className="p-4 border-b border-slate-800 text-center">Pode Opor-se?</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr>
                                     <td className="p-4 font-medium text-white">Prestação dos Serviços (SaaS e API)</td>
                                     <td className="p-4">Cadastrais, Logs, Inputs de IA</td>
-                                    <td className="p-4 text-[#00FF94]">V. Execução de Contrato</td>
+                                    <td className="p-4 text-[#4F7EFF]">V. Execução de Contrato</td>
                                     <td className="p-4 text-center text-rose-500">Não</td>
                                 </tr>
                                 <tr>
                                     <td className="p-4 font-medium text-white">Segurança e Prevenção à Fraude</td>
                                     <td className="p-4">IP, Device ID, Comportamento</td>
-                                    <td className="p-4 text-[#00FF94]">IX. Legítimo Interesse</td>
+                                    <td className="p-4 text-[#4F7EFF]">IX. Legítimo Interesse</td>
                                     <td className="p-4 text-center text-rose-500">Não</td>
                                 </tr>
                                 <tr>
                                     <td className="p-4 font-medium text-white">Marketing e Newsletter</td>
                                     <td className="p-4">Email, Nome</td>
-                                    <td className="p-4 text-[#00A3FF]">I. Consentimento</td>
-                                    <td className="p-4 text-center text-[#00FF94]">Sim (Opt-out)</td>
+                                    <td className="p-4 text-[#818CF8]">I. Consentimento</td>
+                                    <td className="p-4 text-center text-[#4F7EFF]">Sim (Opt-out)</td>
                                 </tr>
                                 <tr>
                                     <td className="p-4 font-medium text-white">Cumprimento Legal (Marco Civil)</td>
@@ -166,9 +166,9 @@ export default function PrivacyPolicyPage() {
                         A LGPD exige que tenhamos uma base legal para cada tratamento. As principais que utilizamos são:
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
-                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#00FF94]/30 transition-colors group">
+                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#4F7EFF]/30 transition-colors group">
                             <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#00FF94]"></span> I. Consentimento
+                                <span className="w-2 h-2 rounded-full bg-[#4F7EFF]"></span> I. Consentimento
                             </h4>
                             <p className="text-sm text-slate-400">
                                 Quando você concorda livremente (ex: assinar newsletter). Pode ser revogado a qualquer momento.
@@ -182,9 +182,9 @@ export default function PrivacyPolicyPage() {
                                 Quando a lei nos obriga (ex: guardar logs por 6 meses conforme Marco Civil).
                             </p>
                         </div>
-                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#00A3FF]/30 transition-colors group">
+                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#818CF8]/30 transition-colors group">
                             <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#00A3FF]"></span> V. Execução de Contrato
+                                <span className="w-2 h-2 rounded-full bg-[#818CF8]"></span> V. Execução de Contrato
                             </h4>
                             <p className="text-sm text-slate-400">
                                 Necessário para entregar o serviço que você contratou (ex: processar seu pagamento, liberar acesso).
@@ -210,17 +210,17 @@ export default function PrivacyPolicyPage() {
                     <h3>7.1 Infraestrutura e Cloud</h3>
                     <div className="overflow-x-auto not-prose my-4">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-3 border-b border-slate-800">Parceiro</th>
                                     <th className="p-3 border-b border-slate-800">Finalidade</th>
                                     <th className="p-3 border-b border-slate-800">DPA Assinado?</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
-                                <tr><td className="p-3 text-white">AWS (Amazon)</td><td className="p-3">Hospedagem e Banco de Dados</td><td className="p-3 text-[#00FF94]">Sim / Termos Padrão</td></tr>
-                                <tr><td className="p-3 text-white">Vercel</td><td className="p-3">Frontend e Edge Network</td><td className="p-3 text-[#00FF94]">Sim</td></tr>
-                                <tr><td className="p-3 text-white">Supabase</td><td className="p-3">Autenticação e Database</td><td className="p-3 text-[#00FF94]">Sim</td></tr>
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
+                                <tr><td className="p-3 text-white">AWS (Amazon)</td><td className="p-3">Hospedagem e Banco de Dados</td><td className="p-3 text-[#4F7EFF]">Sim / Termos Padrão</td></tr>
+                                <tr><td className="p-3 text-white">Vercel</td><td className="p-3">Frontend e Edge Network</td><td className="p-3 text-[#4F7EFF]">Sim</td></tr>
+                                <tr><td className="p-3 text-white">Supabase</td><td className="p-3">Autenticação e Database</td><td className="p-3 text-[#4F7EFF]">Sim</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -228,21 +228,21 @@ export default function PrivacyPolicyPage() {
                     <h3>7.2 Provedores de IA (Subprocessadores)</h3>
                     <div className="overflow-x-auto not-prose my-4">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-3 border-b border-slate-800">Parceiro</th>
                                     <th className="p-3 border-b border-slate-800">Serviço</th>
                                     <th className="p-3 border-b border-slate-800">Localização</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr><td className="p-3 text-white">OpenAI</td><td className="p-3">LLM (GPT-4)</td><td className="p-3">EUA</td></tr>
                                 <tr><td className="p-3 text-white">Anthropic</td><td className="p-3">LLM (Claude 3.5)</td><td className="p-3">EUA</td></tr>
                                 <tr><td className="p-3 text-white">Microsoft Azure</td><td className="p-3">Azure OpenAI (Enterprise)</td><td className="p-3">EUA / UE</td></tr>
                             </tbody>
                         </table>
                     </div>
-                    <div className="bg-[#0A0E1A] border-l-4 border-amber-500 p-4 rounded-r-lg mt-4">
+                    <div className="bg-[#0B0F1E] border-l-4 border-amber-500 p-4 rounded-r-lg mt-4">
                         <p className="text-xs text-amber-500/90 leading-relaxed mb-0">
                             <strong>Atenção:</strong> Ao utilizar nossas ferramentas de Scanner e Chat, os dados inseridos (prompts) são processados por estes fornecedores. Recomendamos não inserir dados pessoais sensíveis ou segredos industriais nos prompts, a menos que configurado o ambiente Enterprise Privado.
                         </p>
@@ -271,14 +271,14 @@ export default function PrivacyPolicyPage() {
                     </p>
                     <div className="overflow-x-auto not-prose my-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800">Tipo de Dado</th>
                                     <th className="p-4 border-b border-slate-800">Prazo de Retenção</th>
                                     <th className="p-4 border-b border-slate-800">Justificativa</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr>
                                     <td className="p-4 text-white">Logs de Acesso (IP, Hora)</td>
                                     <td className="p-4">6 meses</td>
@@ -304,19 +304,19 @@ export default function PrivacyPolicyPage() {
                     <p>Você tem total controle sobre seus dados. A qualquer momento, você pode solicitar via <a href="/policies/dpo">Canal do DPO</a>:</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#00A3FF] shrink-0"><span className="material-symbols-rounded">visibility</span></div>
+                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">visibility</span></div>
                             <div><h4 className="text-white text-sm font-medium">Confirmação e Acesso</h4><p className="text-xs text-slate-400 mt-1">Saber se tratamos seus dados e ter uma cópia deles.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#00A3FF] shrink-0"><span className="material-symbols-rounded">edit</span></div>
+                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">edit</span></div>
                             <div><h4 className="text-white text-sm font-medium">Correção</h4><p className="text-xs text-slate-400 mt-1">Corrigir dados incompletos, inexatos ou desatualizados.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#00A3FF] shrink-0"><span className="material-symbols-rounded">delete</span></div>
+                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">delete</span></div>
                             <div><h4 className="text-white text-sm font-medium">Eliminação e Anonimização</h4><p className="text-xs text-slate-400 mt-1">Pedir a exclusão de dados desnecessários ou tratados com consentimento.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#00A3FF] shrink-0"><span className="material-symbols-rounded">move_up</span></div>
+                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">move_up</span></div>
                             <div><h4 className="text-white text-sm font-medium">Portabilidade</h4><p className="text-xs text-slate-400 mt-1">Levar seus dados para outro fornecedor (quando regulamentado).</p></div>
                         </div>
                     </div>
@@ -331,29 +331,29 @@ export default function PrivacyPolicyPage() {
                     <h3>12.1 Medidas Técnicas</h3>
                     <div className="overflow-x-auto not-prose my-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800">Camada</th>
                                     <th className="p-4 border-b border-slate-800">Tecnologia / Padrão</th>
                                     <th className="p-4 border-b border-slate-800">Aplicação</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
-                                <tr><td className="p-4 font-medium text-white">Criptografia em Trânsito</td><td className="p-4 text-[#00FF94]">TLS 1.3</td><td className="p-4">Todas as conexões (HTTPS)</td></tr>
-                                <tr><td className="p-4 font-medium text-white">Criptografia em Repouso</td><td className="p-4 text-[#00FF94]">AES-256</td><td className="p-4">Banco de dados e Backups</td></tr>
-                                <tr><td className="p-4 font-medium text-white">Hashing de Senhas</td><td className="p-4 text-[#00FF94]">Bcrypt (Cost 12)</td><td className="p-4">Credenciais de Usuário</td></tr>
-                                <tr><td className="p-4 font-medium text-white">Proteção de Borda</td><td className="p-4 text-[#00FF94]">WAF & DDoS Mitigation</td><td className="p-4">Cloudflare Enterprise</td></tr>
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
+                                <tr><td className="p-4 font-medium text-white">Criptografia em Trânsito</td><td className="p-4 text-[#4F7EFF]">TLS 1.3</td><td className="p-4">Todas as conexões (HTTPS)</td></tr>
+                                <tr><td className="p-4 font-medium text-white">Criptografia em Repouso</td><td className="p-4 text-[#4F7EFF]">AES-256</td><td className="p-4">Banco de dados e Backups</td></tr>
+                                <tr><td className="p-4 font-medium text-white">Hashing de Senhas</td><td className="p-4 text-[#4F7EFF]">Bcrypt (Cost 12)</td><td className="p-4">Credenciais de Usuário</td></tr>
+                                <tr><td className="p-4 font-medium text-white">Proteção de Borda</td><td className="p-4 text-[#4F7EFF]">WAF & DDoS Mitigation</td><td className="p-4">Cloudflare Enterprise</td></tr>
                             </tbody>
                         </table>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-6">
-                        <div className="bg-[#0A0E1A] p-4 rounded-lg border border-slate-800">
-                            <h4 className="text-white font-medium mb-2 flex gap-2"><span className="text-[#00FF94]">✓</span> Controles de Acesso</h4>
+                        <div className="bg-[#0B0F1E] p-4 rounded-lg border border-slate-800">
+                            <h4 className="text-white font-medium mb-2 flex gap-2"><span className="text-[#4F7EFF]">✓</span> Controles de Acesso</h4>
                             <p className="text-sm text-slate-400">MFA Obrigatório para admins, Princípio do Menor Privilégio e gestão de chaves via AWS KMS.</p>
                         </div>
-                        <div className="bg-[#0A0E1A] p-4 rounded-lg border border-slate-800">
-                            <h4 className="text-white font-medium mb-2 flex gap-2"><span className="text-[#00FF94]">✓</span> Desenvolvimento Seguro</h4>
+                        <div className="bg-[#0B0F1E] p-4 rounded-lg border border-slate-800">
+                            <h4 className="text-white font-medium mb-2 flex gap-2"><span className="text-[#4F7EFF]">✓</span> Desenvolvimento Seguro</h4>
                             <p className="text-sm text-slate-400">Análise estática (SAST), scan de dependências (Snyk) e code review obrigatório.</p>
                         </div>
                     </div>
@@ -386,7 +386,7 @@ export default function PrivacyPolicyPage() {
                             </li>
                         </ul>
                         <div className="mt-4 pt-4 border-t border-slate-800">
-                            <a href="/policies/cookies" className="text-[#00A3FF] text-sm font-medium hover:underline">Gerenciar Preferências →</a>
+                            <a href="/policies/cookies" className="text-[#818CF8] text-sm font-medium hover:underline">Gerenciar Preferências →</a>
                         </div>
                     </div>
                 </section>
@@ -417,7 +417,7 @@ export default function PrivacyPolicyPage() {
                 <section id="contato" className="pb-12 border-t border-slate-800 mt-16 pt-12">
                     <p className="text-center text-slate-400 mb-6">Em caso de dúvidas sobre esta Política:</p>
                     <div className="flex justify-center">
-                        <Link href="/policies/dpo" className="inline-flex items-center gap-2 bg-[#00A3FF] hover:bg-[#0088D4] text-white px-6 py-3 rounded-xl transition-all font-medium">
+                        <Link href="/policies/dpo" className="inline-flex items-center gap-2 bg-[#818CF8] hover:bg-[#0088D4] text-white px-6 py-3 rounded-xl transition-all font-medium">
                             <span className="material-symbols-rounded">support_agent</span>
                             Falar com o DPO
                         </Link>

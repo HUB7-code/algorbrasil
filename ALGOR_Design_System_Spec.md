@@ -1,9 +1,9 @@
 # TECHNICAL SPECIFICATION: ALGOR DESIGN SYSTEM
-> **Version:** 3.0 (Premium Glassmorphism + Power BI Dark)
-> **Last Updated:** 24/01/2026
-> **Target Agent:** Google Antigravity Agent (Gemini 3 Pro / Claude 4.5 Sonnet)
+> **Version:** 4.0 (Cinematic Enterprise Dark — 2025)
+> **Last Updated:** 24/02/2026
+> **Target Agent:** Google Antigravity Agent (Gemini 3 Pro)
 > **Context:** Frontend Architecture & UI Implementation
-> **Style Guide:** Apple Vision Pro UI + Power BI Premium Dark Mode
+> **Style Guide:** IBM Design Language + Vercel Dark + Linear App
 
 ---
 
@@ -19,22 +19,24 @@ The agent must enforce the following technology stack:
 | **Language** | TypeScript (Strict Mode) | Type safety |
 | **Styling** | Tailwind CSS + Custom CSS | Utility-first |
 | **Animation** | Framer Motion 11+ | Spring physics, gestures |
-| **Icons** | Lucide React + Material Symbols | Dual iconography |
+| **Icons** | Lucide React | Primary icon system |
 | **Charts** | Recharts 3.x | Data visualization |
 
 ### 1.2 Design Philosophy
 
-**Primary Aesthetic:** "Power BI Premium Dark Mode"
-- Deep navy backgrounds with ambient lighting
-- Glassmorphism panels with neon accent borders
-- Data-rich dashboards with animated KPIs
-- LED status indicators and real-time feedback
+**Primary Aesthetic:** "Cinematic Enterprise Dark — 2025"
+- Deep navy backgrounds com depth sutil (não preto puro)
+- Azul elétrico como acento único e coeso
+- Glassmorphism refinado (borders `slate-700/50`, blur moderado)
+- Tipografia premium: Orbitron para marca, Inter para body
 
-**Dashboard Pattern:** "Bloomberg Terminal meets Cyber-Security"
-- High information density
-- Monospace fonts for data
-- Color-coded status indicators
-- Animated transitions
+**Design Reference:** "IBM Carbon + Vercel Dark + Linear App"
+- Fundo escuro quente (não frio)
+- Um acento principal forte, não múltiplas cores neon
+- Hierarquia tipográfica clara e limpa
+- Micro-animações precisas via Framer Motion
+
+> ⚠️ **PROIBIDO:** Cores neon (`#00FF94`, `#00A3FF`), efeitos cyberpunk excessivos, múltiplos acentos vibrantes simultâneos.
 
 ---
 
@@ -44,34 +46,34 @@ The agent must enforce the following technology stack:
 
 | Token | Hex Code | Usage |
 |-------|----------|-------|
-| **Deep Navy (Background)** | `#050A10` | Primary background (Updated v3.0) |
-| **Navy Dark** | `#0A1A2F` | Alternative dark, ambient glows |
-| **Panel Background** | `rgba(255,255,255,0.02)` | Glass card surfaces (Translucent) |
-| **Electric Blue** | `#00A3FF` | Secondary accent, links, ISO badge |
-| **Neon Green** | `#00FF94` | Primary accent, success, CTAs, PL 2338 |
-| **Amber Warning** | `#FFB000` | Warnings, premium features |
-| **Purple Accent** | `#8B5CF6` | Tertiary, Academy/Education |
-| **Error Red** | `#EF4444` | Errors, critical alerts |
-| **Gold Premium** | `#FFD700` | Board members, elite badges |
+| **Background** | `#0B0F1E` | Fundo primário (homepage, dashboard) |
+| **Surface Dark** | `#080C18` | Footer gradient end |
+| **Panel** | `#0A1A2F` | Cards, painéis internos (com `/40` opacity) |
+| **Primary Accent** | `#4F7EFF` | Botões, CTAs, ícones, links |
+| **Secondary Accent** | `#818CF8` | Gradientes, destaques secundários |
+| **Light Blue** | `#60a5fa` | Detalhes terciários |
+| **Amber Premium** | `#F59E0B` | Features premium, upgrade CTAs |
+| **Error Red** | `#EF4444` | Erros, alertas críticos |
 
 ### 2.2 Text Colors
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| **Primary Text** | `text-white` | Headlines, important |
-| **Secondary Text** | `text-gray-400` | Body text |
-| **Muted Text** | `text-gray-500` | Labels, captions |
-| **Disabled Text** | `text-gray-600` | Inactive states |
-| **Accent Text** | `text-[#00FF94]` | Highlighted, links |
+| **Primary Text** | `text-white` / `#F8FAFC` | Headlines, conteúdo principal |
+| **Secondary Text** | `text-slate-400` | Body text, descrições |
+| **Muted Text** | `text-slate-500` | Labels, captions, metadados |
+| **Disabled Text** | `text-slate-600` | Estados inativos |
+| **Accent Text** | `text-[#4F7EFF]` | Links, destaques, taglines |
+| **Dark Pages Text** | `text-[#0F172A]` | Texto em páginas com fundo claro |
 
 ### 2.3 Border Colors
 
 | State | Value |
 |-------|-------|
-| **Default** | `border-white/[0.06]` or `border-white/10` |
-| **Hover** | `border-white/20` or `border-[#00FF94]/30` |
-| **Active** | `border-[#00FF94]/50` |
-| **Focused** | `focus:border-[#00FF94]/50 focus:ring-1 focus:ring-[#00FF94]/30` |
+| **Default** | `border-slate-700/50` |
+| **Hover** | `border-[#4F7EFF]/30` |
+| **Active** | `border-[#4F7EFF]/50` |
+| **Focused** | `focus:border-[#4F7EFF]/50 focus:ring-1 focus:ring-[#4F7EFF]/30` |
 
 ---
 

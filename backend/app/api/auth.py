@@ -25,7 +25,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 from backend.app.models.user import User
-from backend.app.services.email_service import send_welcome_email, send_verification_email
+from backend.app.services.email_service import send_welcome_email
 
 router = APIRouter()
 

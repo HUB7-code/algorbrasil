@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -58,7 +58,7 @@ const MetricCard = ({ title, value, unit, change, changeType, icon: Icon }: any)
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-5"
+        className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-5"
     >
         <div className="flex justify-between items-start mb-3">
             <div className="p-2 rounded-lg bg-blue-500/10">
@@ -90,7 +90,7 @@ export default function TechnicalDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white p-6">
+        <div className="min-h-screen bg-[#0B0F1E] text-white p-6">
             <div className="max-w-[1600px] mx-auto">
 
                 {/* Header */}
@@ -177,7 +177,7 @@ export default function TechnicalDashboard() {
                 {/* Charts Row */}
                 <div className="grid grid-cols-12 gap-6 mb-8">
                     {/* Latency Chart */}
-                    <div className="col-span-8 bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                    <div className="col-span-8 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                         <div className="flex justify-between items-center mb-6">
                             <div className="flex items-center gap-3">
                                 <Activity className="w-5 h-5 text-blue-400" />
@@ -209,7 +209,7 @@ export default function TechnicalDashboard() {
                     </div>
 
                     {/* Model Distribution Pie */}
-                    <div className="col-span-4 bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                    <div className="col-span-4 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <Database className="w-5 h-5 text-purple-400" />
                             <h3 className="text-white font-semibold">Uso por Modelo</h3>
@@ -252,7 +252,7 @@ export default function TechnicalDashboard() {
 
                 {/* Error Rate by Endpoint */}
                 <div className="grid grid-cols-12 gap-6 mb-8">
-                    <div className="col-span-6 bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                    <div className="col-span-6 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <AlertTriangle className="w-5 h-5 text-amber-400" />
                             <h3 className="text-white font-semibold">Taxa de Erro por Endpoint</h3>
@@ -274,7 +274,7 @@ export default function TechnicalDashboard() {
                     </div>
 
                     {/* Token Distribution */}
-                    <div className="col-span-6 bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+                    <div className="col-span-6 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                         <div className="flex items-center gap-3 mb-6">
                             <Cpu className="w-5 h-5 text-emerald-400" />
                             <h3 className="text-white font-semibold">Distribuição de Tokens</h3>
@@ -302,7 +302,7 @@ export default function TechnicalDashboard() {
                 </div>
 
                 {/* Real-time Logs */}
-                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-xl overflow-hidden">
+                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl overflow-hidden">
                     <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-black/20">
                         <div className="flex items-center gap-3">
                             <Terminal className="w-5 h-5 text-emerald-400" />

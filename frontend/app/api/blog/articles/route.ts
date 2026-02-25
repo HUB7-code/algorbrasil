@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
             category,
             author: author || {
                 name: 'ALGOR Brasil',
-                avatar: '/logo-algor.webp',
+                avatar: '/logo-algor.png',
                 role: 'Equipe Editorial'
             },
             publishedAt: new Date().toISOString().split('T')[0],

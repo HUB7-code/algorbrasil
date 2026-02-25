@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
 const WhatsAppButton: React.FC = () => {
@@ -18,7 +18,7 @@ const WhatsAppButton: React.FC = () => {
         >
             {/* Tooltip / Label */}
             <div className="mr-4 hidden md:block opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-x-4 group-hover:translate-x-0">
-                <div className="glass-panel px-4 py-2 rounded-lg border border-[#00FF94]/30 shadow-[0_0_15px_rgba(0,255,148,0.2)]">
+                <div className="glass-panel px-4 py-2 rounded-lg border border-[#4F7EFF]/30 shadow-[0_0_15px_rgba(79,126,255,0.2)]">
                     <span className="text-gray-200 text-sm font-medium whitespace-nowrap">
                         Fale conosco agora
                     </span>
@@ -28,12 +28,12 @@ const WhatsAppButton: React.FC = () => {
             {/* Button */}
             <div className="relative">
                 {/* Ping Animation */}
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#00FF94] opacity-20 animate-ping duration-1000 group-hover:duration-500"></span>
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4F7EFF] opacity-20 animate-ping duration-1000 group-hover:duration-500"></span>
 
                 {/* Main Circle */}
-                <div className="relative w-14 h-14 bg-[#0A1A2F]/80 backdrop-blur-md border border-[#00FF94]/50 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(0,255,148,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#00FF94] group-hover:border-[#00FF94]">
+                <div className="relative w-14 h-14 bg-[#0A1A2F]/80 backdrop-blur-md border border-[#4F7EFF]/50 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(79,126,255,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#4F7EFF] group-hover:border-[#4F7EFF]">
                     <MessageCircle
-                        className="w-7 h-7 text-[#00FF94] group-hover:text-[#0A1A2F] transition-colors duration-300"
+                        className="w-7 h-7 text-[#4F7EFF] group-hover:text-[#0A1A2F] transition-colors duration-300"
                         strokeWidth={2.5}
                     />
                 </div>

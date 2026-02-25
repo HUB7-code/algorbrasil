@@ -1,16 +1,16 @@
-"use client";
+﻿"use client";
 
 import { Folder, GitBranch, Users, Play, Plus, Lock, ShieldAlert, Cpu, Construction } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function ProjectsPage() {
     return (
-        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#050A14] flex flex-col items-center justify-center">
+        <div className="p-8 w-full min-h-screen relative text-white font-sans overflow-hidden bg-[#0B0F1E] flex flex-col items-center justify-center">
 
             {/* Deep Ambient Background */}
             <div className="fixed inset-0 pointer-events-none">
-                <div className="absolute top-[-20%] left-[20%] w-[800px] h-[800px] bg-[#00A3FF]/5 rounded-full blur-[150px]" />
-                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#00FF94]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[-20%] left-[20%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
+                <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
             </div>
 
@@ -57,20 +57,20 @@ export default function ProjectsPage() {
 
                     {/* Animated Scanning Line */}
                     <motion.div
-                        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#00A3FF] to-transparent opacity-50"
+                        className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#818CF8] to-transparent opacity-50"
                         animate={{ top: ["0%", "100%", "0%"] }}
                         transition={{ duration: 5, ease: "linear", repeat: Infinity }}
                     />
 
                     {/* Lock Icon with Pulse */}
                     <div className="relative w-24 h-24 mx-auto mb-8 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-[#00A3FF]/20 rounded-full blur-xl animate-pulse" />
-                        <div className="relative w-full h-full rounded-2xl bg-[#0A1A2F] border border-[#00A3FF]/30 flex items-center justify-center shadow-[0_0_30px_rgba(0,163,255,0.2)]">
-                            <Lock className="w-10 h-10 text-[#00A3FF]" />
+                        <div className="absolute inset-0 bg-[#818CF8]/20 rounded-full blur-xl animate-pulse" />
+                        <div className="relative w-full h-full rounded-2xl bg-[#0A1A2F] border border-[#818CF8]/30 flex items-center justify-center shadow-[0_0_30px_rgba(129,140,248,0.2)]">
+                            <Lock className="w-10 h-10 text-[#818CF8]" />
                         </div>
                         {/* Orbiting Elements */}
                         <motion.div
-                            className="absolute inset-[-10px] border border-[#00A3FF]/20 rounded-full border-t-transparent border-l-transparent"
+                            className="absolute inset-[-10px] border border-[#818CF8]/20 rounded-full border-t-transparent border-l-transparent"
                             animate={{ rotate: 360 }}
                             transition={{ duration: 4, ease: "linear", repeat: Infinity }}
                         />
@@ -82,7 +82,7 @@ export default function ProjectsPage() {
 
                     <div className="space-y-4 mb-8">
                         <p className="text-gray-300 font-light leading-relaxed">
-                            O módulo <span className="text-[#00A3FF] font-bold">Gerenciamento de Projetos</span> está atualmente em fase de desenvolvimento confidencial (Alpha) pela equipe de engenharia da ALGOR.
+                            O módulo <span className="text-[#818CF8] font-bold">Gerenciamento de Projetos</span> está atualmente em fase de desenvolvimento confidencial (Alpha) pela equipe de engenharia da ALGOR.
                         </p>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F59E0B]/10 border border-[#F59E0B]/20 text-[#F59E0B] text-xs font-mono font-bold uppercase tracking-wider">
                             <Construction className="w-3 h-3" />
@@ -92,7 +92,7 @@ export default function ProjectsPage() {
 
                     {/* Action Button */}
                     <button
-                        className="w-full py-4 bg-gradient-to-r from-[#00A3FF] to-[#0066FF] hover:from-[#0080CC] hover:to-[#0055DD] text-white font-bold rounded-xl uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(0,163,255,0.3)] transition-all flex items-center justify-center gap-2 group/btn"
+                        className="w-full py-4 bg-gradient-to-r from-[#818CF8] to-[#0066FF] hover:from-[#0080CC] hover:to-[#0055DD] text-white font-bold rounded-xl uppercase tracking-widest text-sm shadow-[0_0_20px_rgba(129,140,248,0.3)] transition-all flex items-center justify-center gap-2 group/btn"
                     >
                         <ShieldAlert className="w-4 h-4" />
                         Solicitar Acesso Antecipado

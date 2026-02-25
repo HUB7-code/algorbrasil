@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -79,7 +79,7 @@ const StatCard = ({ title, value, icon: Icon, change, changeType, color }: {
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-6"
+        className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-6"
     >
         <div className="flex justify-between items-start mb-4">
             <div className="p-3 rounded-xl" style={{ backgroundColor: `${color}15` }}>
@@ -187,7 +187,7 @@ export default function LeadsManagementPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white p-6">
+        <div className="min-h-screen bg-[#0B0F1E] text-white p-6">
             {/* Background effects */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -262,7 +262,7 @@ export default function LeadsManagementPage() {
                 )}
 
                 {/* Filters */}
-                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-4 mb-6">
+                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-2xl p-4 mb-6">
                     <div className="flex flex-wrap items-center gap-4">
                         {/* Search */}
                         <div className="flex-1 min-w-[200px] relative">
@@ -272,7 +272,7 @@ export default function LeadsManagementPage() {
                                 placeholder="Buscar por nome, email ou empresa..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-2.5 bg-[#0A0E1A] border border-gray-800 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50"
+                                className="w-full pl-10 pr-4 py-2.5 bg-[#0B0F1E] border border-gray-800 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-blue-500/50"
                             />
                         </div>
 
@@ -281,7 +281,7 @@ export default function LeadsManagementPage() {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => setStatusFilter(e.target.value)}
-                                className="appearance-none px-4 py-2.5 pr-10 bg-[#0A0E1A] border border-gray-800 rounded-xl text-white focus:outline-none focus:border-blue-500/50 cursor-pointer"
+                                className="appearance-none px-4 py-2.5 pr-10 bg-[#0B0F1E] border border-gray-800 rounded-xl text-white focus:outline-none focus:border-blue-500/50 cursor-pointer"
                             >
                                 <option value="">Todos os Status</option>
                                 {Object.entries(statusConfig).map(([key, { label }]) => (
@@ -296,7 +296,7 @@ export default function LeadsManagementPage() {
                             <select
                                 value={priorityFilter}
                                 onChange={(e) => setPriorityFilter(e.target.value)}
-                                className="appearance-none px-4 py-2.5 pr-10 bg-[#0A0E1A] border border-gray-800 rounded-xl text-white focus:outline-none focus:border-blue-500/50 cursor-pointer"
+                                className="appearance-none px-4 py-2.5 pr-10 bg-[#0B0F1E] border border-gray-800 rounded-xl text-white focus:outline-none focus:border-blue-500/50 cursor-pointer"
                             >
                                 <option value="">Todas as Prioridades</option>
                                 {Object.entries(priorityConfig).map(([key, { label }]) => (
@@ -309,7 +309,7 @@ export default function LeadsManagementPage() {
                 </div>
 
                 {/* Leads Table */}
-                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0A0E1A]/80 backdrop-blur-xl border border-gray-800 rounded-2xl overflow-hidden">
+                <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full">
                             <thead>
@@ -466,7 +466,7 @@ export default function LeadsManagementPage() {
                             initial={{ opacity: 0, x: 100 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: 100 }}
-                            className="fixed right-0 top-0 bottom-0 w-full max-w-lg bg-gradient-to-b from-[#131825] to-[#0A0E1A] border-l border-gray-800 z-50 overflow-y-auto"
+                            className="fixed right-0 top-0 bottom-0 w-full max-w-lg bg-gradient-to-b from-[#131825] to-[#0B0F1E] border-l border-gray-800 z-50 overflow-y-auto"
                         >
                             <div className="p-6">
                                 <div className="flex items-center justify-between mb-6">

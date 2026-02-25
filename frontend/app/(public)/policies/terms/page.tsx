@@ -1,4 +1,4 @@
-
+﻿
 
 export default function TermsPage() {
     return (
@@ -7,29 +7,29 @@ export default function TermsPage() {
                 Termos de Uso
             </h1>
 
-            <div className="bg-[#0A0E1A] border border-slate-800 rounded-xl p-6 mb-12">
+            <div className="bg-[#0B0F1E] border border-slate-800 rounded-xl p-6 mb-12">
                 <p className="text-sm text-slate-400 mb-2"><strong>Última atualização:</strong> 24 de Dezembro de 2025</p>
                 <p className="text-sm text-slate-400 mb-2"><strong>Versão:</strong> 2.2 (Enterprise SaaS)</p>
                 <p className="text-sm text-slate-400"><strong>Vigência:</strong> Imediata</p>
             </div>
 
             {/* Índice Clicável */}
-            <nav className="mb-16 bg-[#0A0E1A]/50 p-8 rounded-2xl border border-slate-800/50">
+            <nav className="mb-16 bg-[#0B0F1E]/50 p-8 rounded-2xl border border-slate-800/50">
                 <h4 className="text-white font-medium mb-4 flex items-center gap-2">
-                    <span className="material-symbols-rounded text-[#00A3FF]">list</span>
+                    <span className="material-symbols-rounded text-[#818CF8]">list</span>
                     Índice
                 </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                    <li><a href="#aceitacao" className="hover:text-[#00A3FF] transition-colors">1. Aceitação dos Termos</a></li>
-                    <li><a href="#servicos" className="hover:text-[#00A3FF] transition-colors">2. Descrição dos Serviços</a></li>
-                    <li><a href="#acesso" className="hover:text-[#00A3FF] transition-colors">3. Acesso e Responsabilidades</a></li>
-                    <li><a href="#propriedade" className="hover:text-[#00A3FF] transition-colors">4. Propriedade Intelectual</a></li>
-                    <li><a href="#ia-disclaimer" className="hover:text-[#00A3FF] transition-colors">5. Governança de IA (Disclaimer)</a></li>
-                    <li><a href="#pagamentos" className="hover:text-[#00A3FF] transition-colors">6. Planos e Faturamento</a></li>
-                    <li><a href="#slas" className="hover:text-[#00A3FF] transition-colors">7. SLAs e Suporte</a></li>
-                    <li><a href="#responsabilidade" className="hover:text-[#00A3FF] transition-colors">8. Limitação de Responsabilidade</a></li>
-                    <li><a href="#privacidade" className="hover:text-[#00A3FF] transition-colors">9. Privacidade e Dados</a></li>
-                    <li><a href="#foro" className="hover:text-[#00A3FF] transition-colors">10. Disposições Finais e Foro</a></li>
+                    <li><a href="#aceitacao" className="hover:text-[#818CF8] transition-colors">1. Aceitação dos Termos</a></li>
+                    <li><a href="#servicos" className="hover:text-[#818CF8] transition-colors">2. Descrição dos Serviços</a></li>
+                    <li><a href="#acesso" className="hover:text-[#818CF8] transition-colors">3. Acesso e Responsabilidades</a></li>
+                    <li><a href="#propriedade" className="hover:text-[#818CF8] transition-colors">4. Propriedade Intelectual</a></li>
+                    <li><a href="#ia-disclaimer" className="hover:text-[#818CF8] transition-colors">5. Governança de IA (Disclaimer)</a></li>
+                    <li><a href="#pagamentos" className="hover:text-[#818CF8] transition-colors">6. Planos e Faturamento</a></li>
+                    <li><a href="#slas" className="hover:text-[#818CF8] transition-colors">7. SLAs e Suporte</a></li>
+                    <li><a href="#responsabilidade" className="hover:text-[#818CF8] transition-colors">8. Limitação de Responsabilidade</a></li>
+                    <li><a href="#privacidade" className="hover:text-[#818CF8] transition-colors">9. Privacidade e Dados</a></li>
+                    <li><a href="#foro" className="hover:text-[#818CF8] transition-colors">10. Disposições Finais e Foro</a></li>
                 </ul>
             </nav>
 
@@ -39,7 +39,7 @@ export default function TermsPage() {
                     <h2>1. Aceitação dos Termos</h2>
                     <p>
                         Bem-vindo à <strong>ALGOR BRASIL</strong> (ALGOR TECNOLOGIA LTDA, CNPJ [A DEFINIR]).
-                        Ao criar uma conta, acessar ou utilizar nossa plataforma de Governança de IA ("Plataforma", "SaaS", "API"), você concorda expressamente com estes Termos de Uso ("Termos").
+                        Ao criar uma conta, acessar ou utilizar nossa plataforma de Governança de IA (&quot;Plataforma&quot;, &quot;SaaS&quot;, &quot;API&quot;), você concorda expressamente com estes Termos de Uso (&quot;Termos&quot;).
                     </p>
                     <p>
                         Se você estiver aceitando estes Termos em nome de uma pessoa jurídica (empresa), você declara e garante que possui plenos poderes para representá-la e obrigá-la a estes Termos.
@@ -49,7 +49,7 @@ export default function TermsPage() {
                 <section id="servicos">
                     <h2>2. Descrição dos Serviços</h2>
                     <p>
-                        A ALGOR fornece soluções de software B2B ("Software-as-a-Service") focadas em governança, risco e conformidade (GRC) para Inteligência Artificial. Nossos serviços incluem:
+                        A ALGOR fornece soluções de software B2B (&quot;Software-as-a-Service&quot;) focadas em governança, risco e conformidade (GRC) para Inteligência Artificial. Nossos serviços incluem:
                     </p>
                     <ul className="list-disc pl-5 space-y-2 text-slate-400">
                         <li><strong>Algor Scanner:</strong> Análise automatizada de vulnerabilidades em LLMs.</li>
@@ -90,7 +90,7 @@ export default function TermsPage() {
                             5. Natureza dos Relatórios de IA (Disclaimer)
                         </h4>
                         <p className="text-amber-200/80 text-sm leading-relaxed mb-4">
-                            A ALGOR fornece ferramentas técnicas de suporte à decisão. Nossos relatórios de risco ("Risk Scoring") e diagnósticos de conformidade são baseados em heurísticas e padrões de mercado, mas <strong>NÃO CONSTITUEM ACONSELHAMENTO JURÍDICO FORMAL</strong>.
+                            A ALGOR fornece ferramentas técnicas de suporte à decisão. Nossos relatórios de risco (&quot;Risk Scoring&quot;) e diagnósticos de conformidade são baseados em heurísticas e padrões de mercado, mas <strong>NÃO CONSTITUEM ACONSELHAMENTO JURÍDICO FORMAL</strong>.
                         </p>
                         <p className="text-amber-200/80 text-sm leading-relaxed">
                             A decisão final sobre o lançamento ou uso de um sistema de IA, bem como a conformidade legal do mesmo, é de responsabilidade exclusiva do Cliente. Recomendamos sempre a validação dos relatórios por seu departamento jurídico ou DPO.
@@ -110,14 +110,14 @@ export default function TermsPage() {
                     <h2>7. SLAs e Níveis de Serviço</h2>
                     <div className="overflow-x-auto not-prose mt-6">
                         <table className="w-full text-left text-sm text-slate-400 border border-slate-800 rounded-lg overflow-hidden">
-                            <thead className="bg-[#0A0E1A] text-slate-200">
+                            <thead className="bg-[#0B0F1E] text-slate-200">
                                 <tr>
                                     <th className="p-4 border-b border-slate-800">Plano</th>
                                     <th className="p-4 border-b border-slate-800">Disponibilidade (Uptime)</th>
                                     <th className="p-4 border-b border-slate-800">Tempo de Resposta (Suporte)</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-800 bg-[#050810]">
+                            <tbody className="divide-y divide-slate-800 bg-[#0C1020]">
                                 <tr><td className="p-4 font-medium text-white">Start / Gratuito</td><td className="p-4">99.0% (Best Effort)</td><td className="p-4">Até 48h úteis (Email)</td></tr>
                                 <tr><td className="p-4 font-medium text-white">Growth</td><td className="p-4">99.5%</td><td className="p-4">Até 8h úteis (Email/Chat)</td></tr>
                                 <tr><td className="p-4 font-medium text-white">Enterprise</td><td className="p-4">99.9% (SLA Garantido)</td><td className="p-4">Até 4h (Gerente Dedicado)</td></tr>
@@ -142,9 +142,9 @@ export default function TermsPage() {
                         O tratamento de dados pessoais é regido por nossa <a href="/policies/privacy">Política de Privacidade</a>, que é parte integrante destes Termos.
                         Ambas as partes se comprometem a cumprir integralmente a Lei Geral de Proteção de Dados (LGPD).
                     </p>
-                    <div className="bg-[#0A0E1A] p-4 rounded-lg border border-slate-800 mt-4 flex items-center justify-between">
+                    <div className="bg-[#0B0F1E] p-4 rounded-lg border border-slate-800 mt-4 flex items-center justify-between">
                         <span className="text-slate-400 text-sm">Dúvidas sobre dados?</span>
-                        <a href="/policies/dpo" className="text-[#00A3FF] text-sm hover:underline font-medium">Acessar Canal do DPO →</a>
+                        <a href="/policies/dpo" className="text-[#818CF8] text-sm hover:underline font-medium">Acessar Canal do DPO →</a>
                     </div>
                 </section>
 
@@ -161,7 +161,7 @@ export default function TermsPage() {
                 <div className="text-sm text-slate-500 font-mono">
                     <p className="mb-1"><strong>ALGOR TECNOLOGIA LTDA</strong></p>
                     <p className="mb-1">Av. Paulista, 1106 - Bela Vista, São Paulo - SP</p>
-                    <p>Contato Legal: <a href="mailto:legal@algor.com.br" className="text-[#00A3FF]">legal@algor.com.br</a></p>
+                    <p>Contato Legal: <a href="mailto:legal@algor.com.br" className="text-[#818CF8]">legal@algor.com.br</a></p>
                 </div>
 
             </div>

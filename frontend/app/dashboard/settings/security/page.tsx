@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/Button";
@@ -64,7 +64,7 @@ export default function SecuritySettingsPage() {
                     <div className="flex justify-end">
                         <button
                             onClick={startSetup}
-                            className="bg-[#00A3FF] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#0082CC] transition-colors shadow-[0_0_15px_rgba(0,163,255,0.3)]"
+                            className="bg-[#818CF8] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#0082CC] transition-colors shadow-[0_0_15px_rgba(129,140,248,0.3)]"
                         >
                             Configurar Agora
                         </button>

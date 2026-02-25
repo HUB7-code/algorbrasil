@@ -4,6 +4,103 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V21.5.0] - 2026-02-24 - "Board Page Elite — Client-Side Interactivity"
+
+### 🎨 UI/UX — Página de Especialistas Refatorada
+
+#### 🌟 Novo
+- **Homepage B2B Completa via Stitch MCP:**
+  - `HeroCinematic`: Institucional badge, headline gradiante "Liderando a Era da Governança", botões B2B (Diagnóstico/Ecossistema), barra de confiança (ISO 42001, LGPD). Layout mantido.
+  - `TrainingJourney`: Transformada em "Jornada de Maturidade". Nova "Timeline Row" acima dos cards usando Grid exata de 5 colunas para alinhamento pixel-perfect dos números (01-05).
+  - `CinematicSolutions`: Novo design com cards de **borda esquerda colorida** (verde, azul, violeta, âmbar), hover text "Saiba mais ->", ícone colorido lateral.
+  - `SaasPreview`: Refatorado para "Painel de Controle Unificado". Novo copy focado em conformidade ISO 42001. Adicionada barra lateral de "Live Logs".
+  - `GlobalTeam`: Título trocado para "Escala Global, Expertise Local.", copy focado em conformidade legal (LGPD, GDPR, CCPA).
+
+#### ✅ Adicionado
+- **Filtros interativos por especialidade** na página `/board`:
+  - Categorias: `Todos`, `Estratégia`, `Risco`, `Compliance`, `Segurança`, `Gestão`
+  - Filtro verde com glow ao ativo; inativo com estilo ghost
+  - Implementado com `useState` — zero dependências externas
+- **Labels de especialidade centralizados na base das fotos:**
+  - Cada consultor tem cor exclusiva (`#00FF94`, `#4F7EFF`, `#F59E0B`, `#818CF8`, `#EF4444`, `#06B6D4`, `#EC4899`, etc.)
+  - Overlay translúcido com `backdrop-blur` e borda na cor da especialidade
+  - Hover da foto ganha tonalidade na cor da especialidade do membro
+- **Botão de agendamento** no final da página:
+  - Estilo outline com borda `#00FF94`, ícone `Calendar` e glow ao hover
+  - Texto: "Schedule an Assessment with an Expert"
+  - Link: `https://calendly.com/contato-algor`
+- **Mapeamento de `filterTag`** por membro para filtro preciso sem duplicidade
+
+#### 🔄 Modificado
+- `app/board/page.tsx` — convertido de **Server Component** para **Client Component** (`'use client'`) para suportar estado React interativo
+- Tipo `Member` expandido com campos `specialtyColor` e `filterTag`
+- Hover das fotos agora usa a cor específica do membro (não mais cor global)
+- Tamanhos ajustados: foto `aspect-square`, cards com `rounded-2xl` e `p-5`
+
+#### 🔧 Correções (Build Stabilization — V21.4.1)
+- Criados 15+ placeholders para módulos ausentes que causavam `404` e falha no build:
+  - `growth-hub/modules/`: `ExplainabilityDashboard`, `HumanOversight`, `MonitoringDashboard`
+  - `dashboard/inventory/CreateAssetModal`, `components/ui/Button`
+  - `blog/ArticleViewer`, `blog/BlogClient`
+  - `lab/HeroSection`, `lab/ContentCarousel`
+  - `dashboard/OrganizationSwitcher`
+- Corrigidos erros ESLint (`react/no-unescaped-entities`) em `policies/cookies` e `policies/terms`
+- Corrigido `react/no-children-prop` em `app/dashboard/layout.tsx`
+- Corrigidos exports nomeados (`named export`) nos módulos do growth-hub
+- Build Next.js 14.2.1 passando com **Exit Code 0**
+
+---
+
+## [V21.4.0] - 2026-02-24 - "B2B Cinematic Pivot"
+
+
+
+### 🎨 Design & UI — Refundação Visual Completa
+
+#### ✅ Adicionado
+- **Tema Cinematográfico (Dark Enterprise 2025):**
+  - Substituição completa do tema cyberpunk/neon por paleta enterprise refinada
+  - Nova homepage com `HeroCinematic.tsx` e `CinematicSolutions.tsx`
+  - Logo animada `NeuralGlobe.tsx` — globo neural 3D via Canvas API
+  - Fonte `Orbitron` para títulos da marca (ALGOR BRASIL)
+
+- **Nova Paleta 2025 (IBM Design + Vercel Dark):**
+
+  | Token | Hex | Substituição |
+  |-------|-----|-------------|
+  | Background | `#0B0F1E` | `#050A14` (anterior) |
+  | Primary accent | `#4F7EFF` | `#3C67E7` / `#00A3FF` |
+  | Secondary | `#818CF8` | `#60a5fa` / `#8B5CF6` |
+  | Text dark | `#0F172A` | `#0A2540` |
+  | Text muted | `slate-400/500` | `gray-400/500` |
+  | Borders | `slate-700/50` | `white/10` |
+
+- **Navbar Inteligente:**
+  - Logo adaptativa: branco em homepage/scroll, navy em páginas claras
+  - SVG → NeuralGlobe animado como identidade visual
+  - Floating glass pod com blur e scroll progress indicator
+
+- **Footer Atualizado:**
+  - Paleta unificada com o tema cinematic
+  - Logo inline SVG (mesmo globo do Navbar)
+  - Remoção de neons `#00FF94` e `#00A3FF`
+
+#### 🗑️ Removido
+- **Componentes obsoletos (~60 arquivos):**
+  - `HeroDual.tsx`, `B2BPillars.tsx` — substituídos por versões cinematic
+  - Pastas inteiras: `compliance-scanner/`, `growth-hub/`, `leads/`, `onboarding/`, `scanner/`, `ui/`, `dashboard/`, `blog/`
+  - Componentes órfãos: `AboutSection`, `AnimatedWave`, `HeroScene`, `MethodologySection`, `OfferingsShowcase`, `PersonaGrid`, `SecurePDFViewer` e outros 9
+
+- **Cores cyberpunk purgadas globalmente:**
+  - `#00FF94` (neon verde), `#00A3FF` (ciano neon), `rgba(0,255,148,...)` e derivados
+
+#### 🔄 Modificado
+- `app/(public)/page.tsx` — background `#0B0F1E`, usa `HeroCinematic` + `CinematicSolutions`
+- `Navbar.tsx` — logo NeuralGlobe + texto adaptativo para contraste em qualquer página
+- `Footer.tsx` — reescrito completamente com nova paleta
+
+---
+
 ## [V18.3.0] - 2026-02-03 - "Authentication Audit"
 
 ### 🔒 Segurança e Autenticação

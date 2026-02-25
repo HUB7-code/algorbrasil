@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -36,7 +36,7 @@ export default function ComplianceScannerDashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0A0E1A] text-white">
+        <div className="min-h-screen bg-[#0B0F1E] text-white">
             {/* Background ambient effect */}
             <div className="fixed inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />

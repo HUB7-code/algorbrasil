@@ -1,0 +1,228 @@
+﻿
+> algor-frontend@0.1.0 lint
+> next lint
+
+node.exe : 
+No linha:1 caractere:1
++ & "C:\Program 
+Files\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
+~~
+    + CategoryInfo     
+         : NotSpecifi  
+  ed: (:String) [],    
+ RemoteException
+    + FullyQualifiedEr 
+   rorId : NativeComm  
+  andError
+ 
+./app/(public)/policies
+/cookies/page.tsx
+20:155  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+20:172  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+
+./app/(public)/policies
+/terms/page.tsx
+42:103  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:114  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:117  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:122  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:125  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:129  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:186  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+42:193  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+52:67  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+52:89  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+93:116  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+93:129  Error: `"` can 
+be escaped with 
+`&quot;`, `&ldquo;`, 
+`&#34;`, `&rdquo;`.  re
+act/no-unescaped-entiti
+es
+
+./app/dashboard/admin/p
+age.tsx
+115:8  Warning: React 
+Hook useEffect has a 
+missing dependency: 
+'fetchAllData'. Either 
+include it or remove 
+the dependency array.  
+react-hooks/exhaustive-
+deps
+
+./app/dashboard/assessm
+ents/[id]/page.tsx
+34:8  Warning: React 
+Hook useEffect has a 
+missing dependency: 
+'fetchAssessment'. 
+Either include it or 
+remove the dependency 
+array.  react-hooks/exh
+austive-deps
+
+./app/dashboard/layout.
+tsx
+22:37  Error: Do not 
+pass children as 
+props. Instead, nest 
+children between the 
+opening and closing 
+tags.  
+react/no-children-prop
+
+./app/dashboard/leads/p
+age.tsx
+170:8  Warning: React 
+Hook useEffect has a 
+missing dependency: 
+'fetchLeads'. Either 
+include it or remove 
+the dependency array.  
+react-hooks/exhaustive-
+deps
+177:8  Warning: React 
+Hook useEffect has a 
+missing dependency: 
+'fetchLeads'. Either 
+include it or remove 
+the dependency array.  
+react-hooks/exhaustive-
+deps
+
+./app/dashboard/setting
+s/page.tsx
+174:45  Warning: Using 
+`<img>` could result 
+in slower LCP and 
+higher bandwidth. 
+Consider using `<Image 
+/>` from `next/image` 
+to automatically 
+optimize images. This 
+may incur additional 
+usage or cost from 
+your provider. See: htt
+ps://nextjs.org/docs/me
+ssages/no-img-element  
+@next/next/no-img-eleme
+nt
+
+./app/dashboard/setting
+s/security/page.tsx
+77:29  Warning: Using 
+`<img>` could result 
+in slower LCP and 
+higher bandwidth. 
+Consider using `<Image 
+/>` from `next/image` 
+to automatically 
+optimize images. This 
+may incur additional 
+usage or cost from 
+your provider. See: htt
+ps://nextjs.org/docs/me
+ssages/no-img-element  
+@next/next/no-img-eleme
+nt
+
+./app/layout.tsx
+79:21  Warning: Custom 
+fonts not added in 
+`pages/_document.js` 
+will only load for a 
+single page. This is 
+discouraged. See: https
+://nextjs.org/docs/mess
+ages/no-page-custom-fon
+t  @next/next/no-page-c
+ustom-font
+80:21  Warning: Custom 
+fonts not added in 
+`pages/_document.js` 
+will only load for a 
+single page. This is 
+discouraged. See: https
+://nextjs.org/docs/mess
+ages/no-page-custom-fon
+t  @next/next/no-page-c
+ustom-font
+
+info  - Need to 
+disable some ESLint 
+rules? Learn more 
+here: https://nextjs.or
+g/docs/basic-features/e
+slint#disabling-rules

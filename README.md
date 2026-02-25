@@ -1,36 +1,33 @@
-# 🎯 ALGOR BRASIL - Plataforma de Governança de IA
+# 🎯 ALGOR BRASIL - Governança de IA B2B Enterprise
 
-**Versão:** V19.0.0 "Simplification & Focus"  
-**Status:** 🚀 PRODUCTION STABLE (Simplified & Optimized)  
-**Última Atualização:** 04/02/2026
+**Versão:** V21.4.0 "B2B Cinematic Pivot"  
+**Status:** 🚀 PRODUCTION STABLE (B2B Focus)  
+**Última Atualização:** 24/02/2026
 
 ---
 
 ## 🎯 Sobre o Projeto
 
-ALGOR BRASIL é a primeira associação brasileira de Governança de IA, oferecendo uma plataforma completa para gestão, auditoria e conformidade de sistemas de Inteligência Artificial.
+A ALGOR BRASIL é a consultoria B2B líder e a primeira associação brasileira dedicada à Governança de Inteligência Artificial. Nós formamos um **Esquadrão de Elite** para auditar, proteger e certificar ecossistemas de IA em grandes corporações.
 
 ### Missão
-Liderar a era da Governança de IA no Brasil através de:
-- 🔍 **Diagnóstico e Auditoria** de sistemas de IA
-- 📚 **Educação Executiva** (ISO 42001, LGPD, PL 2338)
-- 🏆 **Certificação e Selo** de confiança em IA
-- 🤝 **Networking de Elite** para C-Levels e decisores
+Liderar a adoção corporativa segura da IA no Brasil através da nossa metodologia de 4 Pilares:
+- 🔍 **Consultorias de Governança:** Diagnóstico de IA, Descoberta, Gestão e Cultura AI First.
+- 🎓 **Treinamentos Executivos:** Formação In-Company para lideranças C-Level.
+- 💻 **Sistemas SaaS (AI GOV):** Plataforma de ponta para acompanhamento de conformidade e riscos.
+- 🤝 **Esquadrão de Especialistas:** Uma equipe global de 250+ associados e 25 consultores dedicados ao sucesso do seu projeto.
 
 ---
 
-## ✨ Novidades V19.0.0
+## ✨ Novidades V21.4.0: B2B Cinematic Pivot
 
-### 🎯 Simplificação Radical
-- **44% menos páginas:** Foco no essencial (14 páginas vs 25)
-- **Navegação simplificada:** 3 links principais no navbar
-- **Sitemap otimizado:** 42% redução (11 rotas vs 19)
-- **LGPD mantido:** Todas as páginas obrigatórias preservadas
+### 🎯 Restruturação Estratégica
+- **Foco B2B Enterprise:** O site agora vende nossos pacotes de consultoria, metodologia de governança e apresenta nosso "Squad de Consultores".
+- **ALGOR Lab Rebaixado:** Foco temporário retirado do B2C (Cursos) para impulsionar a aquisição de clientes B2B.
 
-### 🏷️ Rebranding
-- **"Academy" → "Algor Lab":** Identidade de marca mais forte
-- **"Board" → "Membros Associados":** Clareza em português
-- **Interface 100% PT-BR:** Experiência localizada
+### 🎨 Design "Cinematic Enterprise"
+- **Interfaces Glassmorphism Premium:** Efeitos de neon glow, spotlight interativo, e tilt 3D focados no universo high-tech cibersegurança e governança.
+- **Identidade "Esquadrão de Elite":** Apresentação repaginada da nossa rede de membros especialistas e liderança.
 
 ### 🔧 Otimização de Infraestrutura
 - **Imagem Docker:** 62% menor (800MB → 300MB)
