@@ -329,7 +329,7 @@ export default function BoardPage() {
                         transition-all duration-400"
                     >
                         <Calendar className="w-5 h-5 text-[#00FF94] group-hover:scale-110 transition-transform" />
-                        Schedule an Assessment with an Expert
+                        Agendar Diagnóstico com Especialista
                     </a>
                 </div>
 
