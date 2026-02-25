@@ -1,10 +1,11 @@
 ﻿'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Lock, Building2, Briefcase, ArrowRight } from 'lucide-react';
+import { Menu, X, Lock, Building2, Briefcase, ArrowRight, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import UserLevelBadge from './lab/UserLevelBadge';
 import NeuralGlobe from './NeuralGlobe';
 
@@ -129,13 +130,28 @@ export default function Navbar() {
                             </>
                         )}
 
-                        {/* Member Area / Login */}
-                        <Link href="/sign-in" className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
-                            <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
-                                <Lock className="w-3.5 h-3.5" />
+                        {/* Member Area / Login — Dynamic based on auth state */}
+                        <SignedOut>
+                            <SignInButton mode="redirect">
+                                <button className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
+                                    <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
+                                        <Lock className="w-3.5 h-3.5" />
+                                    </div>
+                                    <span className="text-xs uppercase tracking-wider font-bold">Entrar</span>
+                                </button>
+                            </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <Link href="/dashboard" className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-3 group">
+                                <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
+                                    <LayoutDashboard className="w-3.5 h-3.5" />
+                                </div>
+                                <span className="text-xs uppercase tracking-wider font-bold">Minha Conta</span>
+                            </Link>
+                            <div className="mr-4">
+                                <UserButton afterSignOutUrl="/" />
                             </div>
-                            <span className="text-xs uppercase tracking-wider font-bold">Portal</span>
-                        </Link>
+                        </SignedIn>
 
                         {/* CTA Principal */}
                         <Link href="/contato">
@@ -190,12 +206,22 @@ export default function Navbar() {
                                     </button>
                                 </Link>
 
-                                <Link href="/sign-in" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
-                                    <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
-                                        <Lock className="w-4 h-4" />
-                                        Portal do Cliente
-                                    </button>
-                                </Link>
+                                <SignedOut>
+                                    <SignInButton mode="redirect">
+                                        <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                                            <Lock className="w-4 h-4" />
+                                            Entrar
+                                        </button>
+                                    </SignInButton>
+                                </SignedOut>
+                                <SignedIn>
+                                    <Link href="/dashboard" className="block w-full" onClick={() => setMobileMenuOpen(false)}>
+                                        <button className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                                            <LayoutDashboard className="w-4 h-4" />
+                                            Minha Conta
+                                        </button>
+                                    </Link>
+                                </SignedIn>
                             </div>
                         </div>
                     </motion.div>

@@ -3,8 +3,9 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Linkedin, Mail, ShieldCheck, Globe, ArrowRight, Award, Zap, Calendar } from 'lucide-react';
+import { Linkedin, Mail, ShieldCheck, Globe, ArrowRight, Award, Zap, Calendar, Lock } from 'lucide-react';
 import Image from 'next/image';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 
 // ─────────────────────────────────────────────
 // DATA
@@ -187,20 +188,30 @@ function MemberCard({ member }: { member: Member }) {
 
                 <div className="mt-auto flex items-center justify-between pt-3 border-t border-white/5">
                     <div className="flex gap-2">
-                        {member.linkedin !== '#' && (
-                            <a
-                                href={member.linkedin}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#4F7EFF]/20 transition-all"
-                                aria-label="LinkedIn"
-                            >
-                                <Linkedin className="w-3.5 h-3.5" />
+                        <SignedIn>
+                            {member.linkedin !== '#' && (
+                                <a
+                                    href={member.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#4F7EFF]/20 transition-all"
+                                    aria-label="LinkedIn"
+                                >
+                                    <Linkedin className="w-3.5 h-3.5" />
+                                </a>
+                            )}
+                            <a href="#" className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#00FF94]/20 transition-all" aria-label="Email">
+                                <Mail className="w-3.5 h-3.5" />
                             </a>
-                        )}
-                        <a href="#" className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center text-gray-500 hover:text-white hover:bg-[#00FF94]/20 transition-all" aria-label="Email">
-                            <Mail className="w-3.5 h-3.5" />
-                        </a>
+                        </SignedIn>
+                        <SignedOut>
+                            <SignInButton mode="modal">
+                                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 border border-white/10 hover:border-[#4F7EFF]/40 hover:text-[#4F7EFF] transition-all" aria-label="Login para ver contato">
+                                    <Lock className="w-3 h-3" />
+                                    Ver Contato
+                                </button>
+                            </SignInButton>
+                        </SignedOut>
                     </div>
 
                     <button className="text-[10px] font-bold text-gray-500 hover:text-white uppercase tracking-widest transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100 duration-300">

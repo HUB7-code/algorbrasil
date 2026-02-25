@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { AlertTriangle, TrendingUp, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, TrendingUp, ShieldCheck, Download } from 'lucide-react';
+import { SignedIn, SignedOut, SignUpButton } from '@clerk/nextjs';
 
 const pains = [
     {
@@ -94,6 +95,37 @@ export default function PainPointBanner() {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Lead Capture CTA - Framework de Governança */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                    className="mt-16 text-center"
+                >
+                    <SignedIn>
+                        <a
+                            href="/assets/Framework_Governanca_IA.pdf"
+                            download
+                            className="inline-flex items-center gap-3 px-8 py-4 bg-[#00FF94] text-black font-bold rounded-xl hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all"
+                        >
+                            <Download className="w-5 h-5" />
+                            Baixar Framework de Governança (PDF)
+                        </a>
+                    </SignedIn>
+                    <SignedOut>
+                        <SignUpButton mode="modal" fallbackRedirectUrl="/assets/Framework_Governanca_IA.pdf">
+                            <button className="inline-flex items-center gap-3 px-8 py-4 bg-[#00FF94] text-black font-bold rounded-xl hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all">
+                                <Download className="w-5 h-5" />
+                                Baixar Framework de Governança (PDF)
+                            </button>
+                        </SignUpButton>
+                    </SignedOut>
+                    <p className="mt-4 text-slate-500 text-sm">
+                        Material executivo exclusivo. O acesso requer um breve cadastro.
+                    </p>
+                </motion.div>
             </div>
         </section>
     );
