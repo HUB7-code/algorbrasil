@@ -160,17 +160,19 @@ export default function SaasPreview() {
                             transition={{ delay: 0.4 }}
                             className="flex flex-col sm:flex-row gap-4"
                         >
-                            <Link href="/register">
-                                <button className="group relative overflow-hidden px-7 py-3.5 bg-[#00FF94] text-black rounded-xl font-bold tracking-wide hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all duration-300 flex items-center gap-2">
-                                    <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
-                                    <span className="relative">Solicitar Acesso Beta</span>
-                                    <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                </button>
+                            <Link
+                                href="/register"
+                                className="group relative overflow-hidden px-7 py-3.5 bg-[#00FF94] text-black rounded-xl font-bold tracking-wide hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all duration-300 flex items-center gap-2 block"
+                            >
+                                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                                <span className="relative">Solicitar Acesso Beta</span>
+                                <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link href="/dashboard">
-                                <button className="px-7 py-3.5 border border-slate-700/50 text-slate-300 rounded-xl font-bold tracking-wide hover:border-[#4F7EFF]/30 hover:text-white transition-all duration-300">
-                                    Ver plataforma
-                                </button>
+                            <Link
+                                href="/dashboard"
+                                className="px-7 py-3.5 border border-slate-700/50 text-slate-300 rounded-xl font-bold tracking-wide hover:border-[#4F7EFF]/30 hover:text-white transition-all duration-300 block text-center"
+                            >
+                                Ver plataforma
                             </Link>
                         </motion.div>
                     </div>
