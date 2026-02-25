@@ -133,12 +133,12 @@ export default function Navbar() {
                         {/* Member Area / Login — Dynamic based on auth state */}
                         <SignedOut>
                             <SignInButton mode="redirect">
-                                <div className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group">
+                                <span className="transition-colors font-semibold text-white/80 hover:text-[#4F7EFF] flex items-center gap-2 mr-4 group cursor-pointer">
                                     <div className="p-1.5 rounded-lg bg-white/5 border border-slate-700/50 group-hover:border-[#4F7EFF]/30 group-hover:bg-[#4F7EFF]/10 transition-all">
                                         <Lock className="w-3.5 h-3.5" />
                                     </div>
                                     <span className="text-xs uppercase tracking-wider font-bold">Entrar</span>
-                                </div>
+                                </span>
                             </SignInButton>
                         </SignedOut>
                         <SignedIn>
@@ -211,10 +211,10 @@ export default function Navbar() {
 
                                 <SignedOut>
                                     <SignInButton mode="redirect">
-                                        <div className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2">
+                                        <span className="w-full py-4 rounded-xl bg-gray-50 border border-gray-200 text-[#0F172A] font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 cursor-pointer">
                                             <Lock className="w-4 h-4" />
                                             Entrar
-                                        </div>
+                                        </span>
                                     </SignInButton>
                                 </SignedOut>
                                 <SignedIn>

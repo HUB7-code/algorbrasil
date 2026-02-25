@@ -206,10 +206,10 @@ function MemberCard({ member }: { member: Member }) {
                         </SignedIn>
                         <SignedOut>
                             <SignInButton mode="modal">
-                                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 border border-white/10 hover:border-[#4F7EFF]/40 hover:text-[#4F7EFF] transition-all" aria-label="Login para ver contato">
+                                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-wider text-slate-400 bg-white/5 border border-white/10 hover:border-[#4F7EFF]/40 hover:text-[#4F7EFF] transition-all cursor-pointer" aria-label="Login para ver contato">
                                     <Lock className="w-3 h-3" />
                                     Ver Contato
-                                </button>
+                                </span>
                             </SignInButton>
                         </SignedOut>
                     </div>

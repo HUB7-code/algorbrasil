@@ -116,10 +116,10 @@ export default function PainPointBanner() {
                     </SignedIn>
                     <SignedOut>
                         <SignUpButton mode="modal" fallbackRedirectUrl="/assets/Framework_Governanca_IA.pdf">
-                            <button className="inline-flex items-center gap-3 px-8 py-4 bg-[#00FF94] text-black font-bold rounded-xl hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all">
+                            <span className="inline-flex items-center gap-3 px-8 py-4 bg-[#00FF94] text-black font-bold rounded-xl hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all cursor-pointer">
                                 <Download className="w-5 h-5" />
                                 Baixar Framework de Governança (PDF)
-                            </button>
+                            </span>
                         </SignUpButton>
                     </SignedOut>
                     <p className="mt-4 text-slate-500 text-sm">
