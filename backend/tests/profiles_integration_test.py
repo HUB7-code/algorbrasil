@@ -42,17 +42,13 @@ def override_get_db(db_session):
             
     async def _mock_get_current_user():
         # Retorna um usuário default validado para as rotas autenticadas
-        from sqlalchemy.orm import joinedload
-        user = db_session.query(User).options(
-            joinedload(User.professional_profile),
-            joinedload(User.corporate_profile)
-        ).first()
+        user = db_session.query(User).first()
         if not user:
             user = User(email="mock_clerk_auth@algor.com", hashed_password="pw", is_active=True, role="user")
             db_session.add(user)
             db_session.commit()
             db_session.refresh(user)
-        return user
+        yield user
         
     app.dependency_overrides[get_db] = _override_get_db
     app.dependency_overrides[get_current_user] = _mock_get_current_user
