@@ -155,7 +155,7 @@ export default function Navbar() {
 
                         {/* CTA Principal */}
                         <Link
-                            href="/contato"
+                            href="/#diagnostico"
                             className="px-6 py-2.5 bg-[#4F7EFF] text-white rounded-lg text-xs font-bold tracking-widest uppercase hover:bg-[#3D6AE8] hover:shadow-[0_0_20px_rgba(79,126,255,0.4)] transition-all flex items-center gap-2"
                         >
                             Diagnóstico
@@ -202,7 +202,7 @@ export default function Navbar() {
 
                             <div className="pt-6 mt-auto mb-10 space-y-4">
                                 <Link
-                                    href="/contato"
+                                    href="/#diagnostico"
                                     className="block w-full py-4 rounded-xl bg-[#0F172A] text-white font-bold text-center text-lg tracking-wide shadow-md"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
