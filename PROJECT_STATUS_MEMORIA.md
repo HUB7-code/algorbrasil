@@ -1,16 +1,25 @@
-**Versão Atual:** V21.6.1 "VPS & CI/CD Stabilization"
-**Data da Última Atualização:** 25/02/2026
-**Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Audited)
+**Versão Atual:** V21.7.0 "Production Hardening & Deploy Bulletproof"
+**Data da Última Atualização:** 26/02/2026
+**Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Hardened)
 
-### 🎯 Últimas Conquistas (V21.6.1 - "VPS & CI/CD Stabilization")
+### 🎯 Últimas Conquistas (V21.7.0 - "Production Hardening & Deploy Bulletproof")
 
-1.  **Estabilização Crítica de Infraestrutura (VPS & Docker):**
-    *   **Resolução do 502 Bad Gateway:** Identificado e corrigido OOM (Out Of Memory) silencioso do Next.js durante o build no Docker causado por injeção de fallbacks do Clerk (`pk_test_disabled`).
-    *   **Blindagem de Variáveis de Produção:** Criação do `.env.production` no frontend forçando o repasse correto das chaves do Clerk no build do Next.js pelo docker-compose.
-    *   **Backend Recovery:** Restauração preventiva do `requirements.txt` corrompido no git history e re-adição de pacotes vitais para testes e Clerk (`clerk-backend-api`, `pyotp`, `qrcode`, `reportlab`, `requests`).
-    *   **Limpeza de dependências:** Remoção definitiva de pacotes legados do NextAuth (`next-auth`, `@auth/prisma-adapter`), otimizando o bundle size.
+1. **Blindagem Definitiva do Deploy na VPS:**
+    - **`.env` Desregistrado do Git:** Executado `git rm --cached .env` para eliminar de vez o problema em que o `git reset --hard` durante o deploy sobrescrevia o arquivo de Produção com o do desenvolvimento.
+    - **`deploy.sh` Protegido:** Adicionada lógica de backup e restore automático do `.env` antes e depois do `git reset --hard`. O arquivo de credenciais de Produção agora sobrevive a qualquer deploy.
+    - **`docker-compose.yml` Corrigido:** Adicionada configuração `env_file: .env` nos serviços `backend` e `frontend`. Sem isso, as variáveis eram injetadas vazias nos containers, causando os `WARNING: variable is not set`.
+
+2. **Limpeza de Hardcodes no Frontend:**
+    - **URLs `localhost:8000` removidas** de `api-config.ts`, `leads/page.tsx` e `classroom/page.tsx`. Todas substituídas por `process.env.NEXT_PUBLIC_API_URL`.
+    - **Links mortos `/contato` eliminados:** 6 referências encontradas em 4 componentes (`Navbar`, `HeroCinematic`, `TrainingJourney`, `CinematicSolutions`). Todos apontam agora para o âncora `/#diagnostico` da homepage.
+
+3. **Testes — Arquitetura de Mocks Robusta:**
+    - Refatorados os fixtures de 3 arquivos de teste (`test_dashboard_integration.py`, `test_risks.py`, `profiles_integration_test.py`).
+    - Substituída a solução temporária `joinedload` pela abordagem canônica FastAPI: fixture com `yield` que mantém a sessão ativa durante o ciclo de vida inteiro da requisição, eliminando `DetachedInstanceError`.
 
 ---
+
+### 🚀 Conquistas Anteriores (V21.6.1 - "VPS & CI/CD Stabilization")
 
 ### 🚀 Conquistas Anteriores (V21.6.0 - "Cinematic UI/UX & B2B Conversion")
 

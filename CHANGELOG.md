@@ -4,6 +4,45 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V21.7.0] - 2026-02-26 - "Production Hardening & Deploy Bulletproof"
+
+### 🛠️ Infraestrutura e DevOps Crítico
+
+#### 🔒 Segurança
+- **`.env` removido do rastreamento Git:**
+  - Executado `git rm --cached .env` para proteger o arquivo `.env` de Produção.
+  - Problema raiz: o arquivo havia sido adicionado ao Git no passado (antes do `.gitignore`), fazendo o `git reset --hard` sobrescrever o arquivo de Produção a cada deploy.
+  - O `.gitignore` já tinha a regra correta; o cache do Git é que precisou ser limpo.
+
+#### 🔧 Corrigido
+- **`deploy.sh` — Proteção do `.env`:**
+  - Adicionado bloco de backup/restore ao redor do `git reset --hard origin/main`.
+  - O script agora salva o `.env` em `/tmp/` antes do reset e restaura após, garantindo que as credenciais de Produção nunca sejam perdidas por um deploy.
+- **`docker-compose.yml` — Injeção correta de variáveis:**
+  - Adicionada diretiva `env_file: .env` nos serviços `backend` e `frontend`.
+  - Sem essa configuração, o Docker Compose não lia o arquivo `.env` físico e as variáveis (`SECRET_KEY`, `CLERK_*`, etc.) ficavam vazias dentro dos containers.
+  - Adicionada variável `CLERK_WEBHOOK_SECRET` ao serviço backend.
+  - Removidos os fallbacks inseguros `:-pk_test_disabled` das chaves Clerk do frontend.
+- **Frontend — URLs `localhost:8000` removidas:**
+  - `frontend/lib/api-config.ts`: Fallback alterado de `http://localhost:8000` para `/api`.
+  - `frontend/app/dashboard/leads/page.tsx`: 3 ocorrências corrigidas.
+  - `frontend/app/dashboard/classroom/[courseId]/page.tsx`: 2 chamadas de fetch corrigidas.
+- **Frontend — Links mortos `/contato` removidos (6 ocorrências):**
+  - `frontend/components/Navbar.tsx`: 2 links (desktop e mobile).
+  - `frontend/components/HeroCinematic.tsx`: 1 botão CTA principal.
+  - `frontend/components/TrainingJourney.tsx`: 1 botão CTA.
+  - `frontend/components/CinematicSolutions.tsx`: 3 botões CTA.
+  - Todos substituídos por `/#diagnostico` (âncora na homepage).
+- **Testes — Refactoring de mocks SQLAlchemy:**
+  - `backend/tests/test_dashboard_integration.py`, `test_risks.py`, `profiles_integration_test.py`.
+  - Substituído `joinedload` temporário pela abordagem correta: generator com `yield` (padrão nativo do FastAPI/SQLAlchemy).
+  - A sessão agora permanece ativa durante todo o ciclo de vida da requisição, eliminando `DetachedInstanceError` de forma limpa.
+
+#### 🗑️ Removido
+- Arquivos temporários `test_out.txt` e `test_out_utf8.txt` removidos do repositório.
+
+---
+
 ## [V21.6.1] - 2026-02-25 - "VPS & CI/CD Stabilization"
 
 ### 🛠️ Infraestrutura e DevOps

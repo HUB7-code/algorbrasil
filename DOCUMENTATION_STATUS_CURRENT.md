@@ -1,7 +1,7 @@
 # 📊 Status da Documentação - ALGOR Brasil
 
-**Data de Verificação:** 25/02/2026  
-**Versão Atual:** V21.6.1 "VPS & CI/CD Stabilization"  
+**Data de Verificação:** 26/02/2026  
+**Versão Atual:** V21.7.0 "Production Hardening & Deploy Bulletproof"  
 **Status:** ✅ TODOS OS DOCUMENTOS ATUALIZADOS E SINCRONIZADOS
 
 ---
@@ -85,7 +85,8 @@
 
 | Versão | Data | Descrição | Status |
 |--------|------|-----------|--------|
-| V21.6.1 | 25/02/2026 | VPS & CI/CD Stabilization | ✅ ATUAL |
+| V21.7.0 | 26/02/2026 | Production Hardening & Deploy Bulletproof | ✅ ATUAL |
+| V21.6.1 | 25/02/2026 | VPS & CI/CD Stabilization | ✅ Documentado |
 | V21.6.0 | 25/02/2026 | Cinematic UI/UX & B2B Conversion | ✅ Documentado |
 | V21.2.0 | 04/02/2026 | Code Audit & Certificates | ✅ Documentado |
 | V21.1.0 | 04/02/2026 | Leadership Content | ✅ Documentado |
@@ -186,14 +187,12 @@
 ## 📝 Últimos Commits
 
 ```bash
-091b4e2 docs: add documentation update summary for V21.2.0
-b09dc92 docs: update all documentation to V21.2.0
-2208bbe docs: add comprehensive code audit report V21.2.0
-808f993 refactor(frontend): code quality improvements
-96b38f1 refactor: security hardening and code cleanup
-dbde787 feat(certificates): premium dark mode certificate generator with QR code
-097ee14 feat(frontend): add certificate download button after quiz approval
-9346ce7 feat(lms): add quiz score and attempts persistence to backend
+359b888 fix(components): replace all dead /contato links with /#diagnostico in all components
+1256c56 fix(navbar): replace dead /contato links with /#diagnostico anchor
+2a394dd fix(deploy): protect .env from git reset during deployment
+825fc83 chore(security): remove .env from git tracking to prevent production overwrites
+dce22da chore(config): remove localhost hardcodes from frontend api URLs
+b6dc4c4 fix(deps): add svix clerk package to requirements
 ```
 
 ---
@@ -221,6 +220,6 @@ A documentação do projeto ALGOR Brasil está **100% sincronizada** com o códi
 
 **Assinatura Digital:**  
 Antigravity AI - Documentation Manager  
-**Data:** 25/02/2026  
-**Versão:** V21.6.1  
+**Data:** 26/02/2026  
+**Versão:** V21.7.0  
 **Status:** ✅ DOCUMENTAÇÃO 100% ATUALIZADA
