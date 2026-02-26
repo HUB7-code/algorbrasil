@@ -47,7 +47,8 @@ export default function ClassroomPage() {
         async function fetchCourse() {
             try {
                 // Em produção, passar token JWT no header Authorization
-                const res = await fetch(`http://localhost:8000/api/v1/lms/courses/${courseId}`);
+                const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+                const res = await fetch(`${baseUrl}/v1/lms/courses/${courseId}`);
                 if (!res.ok) throw new Error("Failed to load course");
 
                 const data = await res.json();
@@ -73,7 +74,8 @@ export default function ClassroomPage() {
 
         // Call API
         try {
-            await fetch(`http://localhost:8000/api/v1/lms/enrollments/${courseId}/progress`, {
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '';
+            await fetch(`${baseUrl}/v1/lms/enrollments/${courseId}/progress`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

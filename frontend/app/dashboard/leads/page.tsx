@@ -111,7 +111,7 @@ export default function LeadsManagementPage() {
     const fetchLeads = async () => {
         setIsLoading(true);
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
             const apiUrl = baseUrl.endsWith('/api/v1') ? baseUrl : `${baseUrl}/api/v1`;
             const params = new URLSearchParams();
             if (statusFilter) params.append('status', statusFilter);
@@ -133,7 +133,7 @@ export default function LeadsManagementPage() {
     // Fetch stats
     const fetchStats = async () => {
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
             const apiUrl = baseUrl.endsWith('/api/v1') ? baseUrl : `${baseUrl}/api/v1`;
             const response = await fetch(`${apiUrl}/leads/stats`);
             if (response.ok) {
@@ -148,7 +148,7 @@ export default function LeadsManagementPage() {
     // Update lead status
     const updateLeadStatus = async (leadId: number, newStatus: string) => {
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+            const baseUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
             const apiUrl = baseUrl.endsWith('/api/v1') ? baseUrl : `${baseUrl}/api/v1`;
             const response = await fetch(`${apiUrl}/leads/${leadId}`, {
                 method: 'PATCH',
