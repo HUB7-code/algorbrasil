@@ -16,8 +16,25 @@ echo ""
 
 # 1. Sincronizar código com GitHub
 echo "📥 [1/5] Sincronizando código com GitHub..."
+
+# 🛡️ PROTEÇÃO DO .env: Salvar antes do reset e restaurar depois
+# O git reset --hard apagaria o .env caso ele tenha sido removido do tracking.
+ENV_BACKUP="/tmp/.env.deploy_backup"
+if [ -f ".env" ]; then
+    cp .env "$ENV_BACKUP"
+    echo "🔒 Backup do .env salvo com segurança."
+fi
+
 git fetch origin
 git reset --hard origin/main
+
+# Restaurar o .env de produção após o reset
+if [ -f "$ENV_BACKUP" ]; then
+    cp "$ENV_BACKUP" .env
+    rm "$ENV_BACKUP"
+    echo "✅ .env de produção restaurado com sucesso."
+fi
+
 echo "✅ Código atualizado para: $(git log -1 --format='%h - %s')"
 echo ""
 

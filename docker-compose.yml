@@ -12,6 +12,8 @@ services:
       # Persistir Uploads (LMS)
       - ./backend/app/static/uploads:/app/backend/app/static/uploads
       # Montar Assets Públicos (Logo para Emails) - CRÍTICO PARA VPS
+    env_file:
+      - .env
     environment:
       # - DATABASE_URL=sqlite:///./sql_app.db # Legacy SQLite
       - DATABASE_URL=sqlite:///./sql_app.db
@@ -23,6 +25,7 @@ services:
       - SMTP_PASSWORD=${SMTP_PASSWORD}
       - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL:-algorbrasil@gmail.com}
       - FRONTEND_URL=${FRONTEND_URL}
+      - CLERK_WEBHOOK_SECRET=${CLERK_WEBHOOK_SECRET}
       # depends_on removed since we are using SQLite for MVP stability
 
       # Serviço Frontend (Next.js)
@@ -36,10 +39,12 @@ services:
     ports:
       - "3000:3000"
     # Build para produção (Mais performático e estável)
+    env_file:
+      - .env
     environment:
       - NEXT_PUBLIC_API_URL=${FRONTEND_URL}/api/v1
-      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:-pk_test_disabled}
-      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY:-sk_test_disabled}
+      - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
     command: sh -c "npm install && npm run build && npm start"
 
   # Serviço Web (Nginx)
