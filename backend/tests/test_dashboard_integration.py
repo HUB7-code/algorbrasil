@@ -7,7 +7,7 @@ sys.path.append(os.getcwd())
 
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, joinedload
 from backend.app.db.session import Base, get_db
 from backend.app.main import app
 from backend.app.core.config import settings
@@ -32,7 +32,7 @@ def override_get_db():
 # Mock do Auth Guard (Clerk bypass para testes)
 async def mock_get_current_user():
     db = TestingSessionLocal()
-    user = db.query(User).filter(User.email == TEST_EMAIL).first()
+    user = db.query(User).options(joinedload(User.professional_profile)).filter(User.email == TEST_EMAIL).first()
     db.close()
     return user
 
