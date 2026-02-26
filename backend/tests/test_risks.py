@@ -32,8 +32,12 @@ client = TestClient(app)
 
 # Mock do Auth Guard (Clerk bypass)
 async def mock_get_current_user():
+    from sqlalchemy.orm import joinedload
     db = TestingSessionLocal()
-    user = db.query(User).filter(User.email == "risk_tester@algor.com").first()
+    user = db.query(User).options(
+        joinedload(User.professional_profile),
+        joinedload(User.corporate_profile)
+    ).filter(User.email == "risk_tester@algor.com").first()
     db.close()
     return user
 
