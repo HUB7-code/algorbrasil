@@ -31,8 +31,12 @@ def override_get_db():
 
 # Mock do Auth Guard (Clerk bypass para testes)
 async def mock_get_current_user():
+    from sqlalchemy.orm import joinedload
     db = TestingSessionLocal()
-    user = db.query(User).filter(User.email == TEST_EMAIL).first()
+    user = db.query(User).options(
+        joinedload(User.professional_profile),
+        joinedload(User.corporate_profile)
+    ).filter(User.email == TEST_EMAIL).first()
     db.close()
     return user
 
