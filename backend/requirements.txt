@@ -13,6 +13,7 @@ argon2-cffi>=23.1.0
 pytest
 SQLAlchemy>=2.0.0
 clerk-backend-api
+svix>=1.14.0
 pyotp
 reportlab>=4.1.0
 qrcode>=7.4.2
