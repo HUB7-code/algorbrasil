@@ -15,6 +15,7 @@ from backend.app.models.user import User
 from backend.app.api.auth import get_current_user
 from backend.app.core.security import get_password_hash
 from backend.app.models.ai_asset import AIAsset
+from sqlalchemy.orm import joinedload
 
 # Configuração de banco de teste
 SQLALCHEMY_DATABASE_URL = "sqlite:///./test_dashboard.db"
@@ -32,7 +33,7 @@ def override_get_db():
 # Mock do Auth Guard (Clerk bypass para testes)
 async def mock_get_current_user():
     db = TestingSessionLocal()
-    user = db.query(User).filter(User.email == TEST_EMAIL).first()
+    user = db.query(User).options(joinedload(User.professional_profile)).filter(User.email == TEST_EMAIL).first()
     db.close()
     return user
 
