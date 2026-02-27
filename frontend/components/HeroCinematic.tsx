@@ -107,7 +107,9 @@ export default function HeroCinematic() {
                             className="flex flex-col sm:flex-row gap-4 mb-14"
                         >
                             <Link
-                                href="/#diagnostico"
+                                href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa."
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="group relative overflow-hidden px-8 py-4 bg-[#00FF94] text-black rounded-xl font-bold tracking-wide hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
                             >
                                 <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
