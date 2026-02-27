@@ -127,13 +127,20 @@ def send_new_lead_confirmation(name: str, email: str, lead_type: str = "Diagnost
     import os
     from backend.app.core.config import settings
 
-    # Configurar caminho da logo
+    # Localizar a logo mais recente com múltiplos fallbacks (funciona em dev e Docker)
     current_dir = os.getcwd()
     if os.path.basename(current_dir) == "backend":
         base_dir = os.path.abspath(os.path.join(current_dir, ".."))
     else:
         base_dir = current_dir
-    logo_path = os.path.join(base_dir, "frontend", "public", "logo-algor.png")
+
+    # Prioridade: nova logo dourada > logo antiga > sem logo
+    logo_candidates = [
+        os.path.join(base_dir, "frontend", "public", "images", "algor_association_logo_light3.png"),
+        os.path.join(base_dir, "frontend", "public", "images", "algor_association_logo_light.png"),
+        os.path.join(base_dir, "frontend", "public", "logo-algor.png"),
+    ]
+    logo_path = next((p for p in logo_candidates if os.path.exists(p)), None)
 
     subject = f"Recebemos sua solicitação - ALGOR Brasil"
     
