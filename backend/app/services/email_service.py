@@ -135,8 +135,9 @@ def send_new_lead_confirmation(name: str, email: str, lead_type: str = "Diagnost
         base_dir = current_dir
 
     logo_candidates = [
-        os.path.join(base_dir, "frontend", "public", "logo-symbol.png"),  # identidade visual atual
-        os.path.join(base_dir, "frontend", "public", "logo-algor.png"),   # fallback
+        os.path.join(base_dir, "frontend", "public", "logo-email.png"),   # logo horizontal oficial para emails
+        os.path.join(base_dir, "frontend", "public", "logo-symbol.png"),  # fallback
+        os.path.join(base_dir, "frontend", "public", "logo-algor.png"),   # fallback final
     ]
     logo_path = next((p for p in logo_candidates if os.path.exists(p)), None)
 
