@@ -38,8 +38,20 @@ fi
 echo "✅ Código atualizado para: $(git log -1 --format='%h - %s')"
 echo ""
 
-# 2. Parar containers existentes (evita bug ContainerConfig)
-echo "🛑 [2/5] Parando containers..."
+# 2. Rodar migrações do banco de dados (ANTES de subir containers)
+echo "🗄️  [2/6] Executando migrações do banco de dados..."
+cd backend
+# Ativa o venv de produção se existir, senão usa o Python do sistema (Docker)
+if [ -d "venv" ]; then
+    source venv/bin/activate
+fi
+PYTHONPATH=.. alembic upgrade head
+cd ..
+echo "✅ Banco de dados atualizado com sucesso."
+echo ""
+
+# 3. Parar containers existentes (evita bug ContainerConfig)
+echo "🛑 [3/6] Parando containers..."
 docker-compose down --remove-orphans 2>/dev/null || true
 echo ""
 

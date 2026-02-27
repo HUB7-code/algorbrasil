@@ -46,10 +46,22 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, custom_rate_limit_handler)
 
-# Create Database Tables on Startup
+# Database Startup Check
+# NOTA: Em ambiente de produção, as migrações são geridas pelo Alembic (deploy.sh).
+# O `create_all` abaixo serve APENAS para desenvolvimento local sem Alembic configurado.
+# Em produção, execute: cd backend && alembic upgrade head
 @app.on_event("startup")
 def on_startup():
-    Base.metadata.create_all(bind=engine)
+    import logging
+    import os
+    env = os.environ.get("ENVIRONMENT", "development")
+    if env == "development":
+        # Em dev, garante que as tabelas existam para facilitar o onboarding
+        # Não altera tabelas existentes; o Alembic cuida das migrações
+        Base.metadata.create_all(bind=engine)
+        logging.getLogger("uvicorn").info("[DEV] Tabelas verificadas via create_all.")
+    else:
+        logging.getLogger("uvicorn").info("[PROD] Banco gerido pelo Alembic. Tabelas não recriadas no startup.")
 
 # Static Files
 os.makedirs("backend/app/static/uploads", exist_ok=True)

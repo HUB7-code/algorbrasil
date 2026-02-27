@@ -11,7 +11,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = '002_add_org_sec'
-down_revision = None  # Ajustaremos isso manualmente se necessário, ou deixamos o autogenerate lidar
+down_revision = '001_add_profile_image'
 branch_labels = None
 depends_on = None
 
