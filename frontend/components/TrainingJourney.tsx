@@ -226,11 +226,11 @@ export default function TrainingJourney() {
                     transition={{ delay: 0.5 }}
                     className="text-center mt-12"
                 >
-                    <Link href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa." target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 inline-flex items-center gap-2">
+                    <a href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa." target="_blank" rel="noopener noreferrer" className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 inline-flex items-center gap-2">
                         <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                         <span className="relative">Escolher minha trilha</span>
                         <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
+                    </a>
                 </motion.div>
             </div>
         </section>

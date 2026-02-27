@@ -154,15 +154,15 @@ export default function Navbar() {
                         </SignedIn>
 
                         {/* CTA Principal */}
-                        <Link
-                            href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa."
+                        <a
+                            href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-6 py-2.5 bg-[#4F7EFF] text-white rounded-lg text-xs font-bold tracking-widest uppercase hover:bg-[#3D6AE8] hover:shadow-[0_0_20px_rgba(79,126,255,0.4)] transition-all flex items-center gap-2"
                         >
                             Diagnóstico
                             <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        </a>
                     </div>
 
                     {/* Mobile Menu Toggle */}
@@ -203,15 +203,15 @@ export default function Navbar() {
                             </div>
 
                             <div className="pt-6 mt-auto mb-10 space-y-4">
-                                <Link
-                                    href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa."
+                                <a
+                                    href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa."
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="block w-full py-4 rounded-xl bg-[#0F172A] text-white font-bold text-center text-lg tracking-wide shadow-md"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     Solicitar Diagnóstico
-                                </Link>
+                                </a>
 
                                 <SignedOut>
                                     <SignInButton mode="redirect">

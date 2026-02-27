@@ -194,15 +194,15 @@ function SolutionCard({ c, i }: { c: typeof consultancies[0]; i: number }) {
                             animate={{ opacity: hovered ? 1 : 0, x: hovered ? 0 : 8 }}
                             transition={{ duration: 0.25 }}
                         >
-                            <Link
-                                href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa."
+                            <a
+                                href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa."
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs font-bold flex items-center gap-1 transition-colors duration-300"
                                 style={{ color: c.color }}
                             >
                                 {c.cta} <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
+                            </a>
                         </motion.div>
                     </div>
                 </div>
@@ -285,8 +285,8 @@ export default function CinematicSolutions() {
                     </div>
 
                     <div className="relative flex flex-col sm:flex-row gap-3 flex-shrink-0">
-                        <Link
-                            href="https://wa.me/558599851769?text=Olá! Gostaria de agendar um Diagnóstico de IA para minha empresa."
+                        <a
+                            href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa."
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group relative overflow-hidden px-7 py-3.5 bg-[#00FF94] text-black rounded-xl font-bold tracking-wide hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all duration-300 flex items-center gap-2 whitespace-nowrap block"
@@ -294,7 +294,7 @@ export default function CinematicSolutions() {
                             <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
                             <span className="relative">Falar com Especialista</span>
                             <ArrowRight className="relative w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </Link>
+                        </a>
                         <Link
                             href="/board"
                             className="px-7 py-3.5 border border-[#4F7EFF]/40 text-[#4F7EFF] rounded-xl font-bold hover:bg-[#4F7EFF]/10 hover:border-[#4F7EFF] transition-all duration-300 whitespace-nowrap flex items-center gap-2 block"
