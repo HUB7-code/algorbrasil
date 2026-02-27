@@ -23,29 +23,11 @@ interface LeadCaptureModalProps {
 
 // ─── Step Config ─────────────────────────────────────────────────────────────
 const ROLES = [
-    { value: 'ceo', label: 'CEO / Fundador', icon: '🏆' },
-    { value: 'cto', label: 'CTO / VP Tecnologia', icon: '⚙️' },
-    { value: 'cdo', label: 'CDO / Chief Data', icon: '📊' },
-    { value: 'dpo', label: 'DPO / Compliance', icon: '🔒' },
-    { value: 'manager', label: 'Gerente / Coordenador', icon: '📋' },
-    { value: 'consultant', label: 'Consultor / Analista', icon: '💡' },
+    { value: 'lideranca', label: 'Executivo / Liderança', icon: '🏆', subtitle: 'Diretores, C-Level, Sócios' },
+    { value: 'especialista', label: 'Analista / Especialista', icon: '⚙️', subtitle: 'Desenvolvedores, Dados, Operações' },
+    { value: 'estudante', label: 'Estudante / Entusiasta', icon: '📚', subtitle: 'Graduação, Pós, Curiosos' },
+    { value: 'empreendedor', label: 'Empresário / Consultor', icon: '💼', subtitle: 'Profissionais Liberais, Agências' },
 ];
-
-const COMPANY_SIZES = [
-    { value: '1-50', label: '1–50 colaboradores' },
-    { value: '51-200', label: '51–200 colaboradores' },
-    { value: '201-1000', label: '201–1.000 colaboradores' },
-    { value: '1001+', label: 'Mais de 1.000 colaboradores' },
-];
-
-const PAIN_LABELS: Record<string, string> = {
-    role: 'Qual seu cargo?',
-    company: 'Empresa',
-    company_size: 'Tamanho da equipe',
-    name: 'Nome',
-    email: 'Email corporativo',
-    phone: 'WhatsApp',
-};
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 function ProgressBar({ step, total }: { step: number; total: number }) {
@@ -141,8 +123,7 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
     // Keyboard navigation
     const canAdvance = useCallback(() => {
         if (step === 0) return !!form.role;
-        if (step === 1) return !!form.company && !!form.company_size;
-        if (step === 2) return !!form.name && !!form.email && !!form.phone;
+        if (step === 1) return !!form.name && !!form.email && !!form.phone;
         return false;
     }, [step, form]);
 
@@ -158,7 +139,7 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
     }, [isOpen, canAdvance, step, submitted]);
 
     const advance = () => {
-        if (step < 2) { setDir(1); setStep(s => s + 1); }
+        if (step < 1) { setDir(1); setStep(s => s + 1); }
         else handleSubmit();
     };
 
@@ -174,10 +155,10 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
                 name: form.name,
                 email: form.email,
                 phone: form.phone,
-                company: form.company,
+                company: form.company || 'N/A', // Fallback obrigatório API
                 role: form.role,
-                company_size: form.company_size,
-                comments: form.comments || `Interesse em trilha de formação - Cargo: ${form.role}`,
+                company_size: form.company_size || 'N/A', // Fallback obrigatório API
+                comments: form.comments || `Interesse em trilha de formação - Perfil: ${form.role}`,
                 source: 'training-journey-cta',
                 urgency: 'planning',
             };
@@ -200,66 +181,44 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
 
     const STEPS = [
         {
-            label: 'Passo 1 de 3', title: 'Qual é o seu cargo?',
-            subtitle: 'Vamos personalizar sua trilha de IA para o seu perfil.',
+            label: 'Passo 1 de 2', title: 'Qual é o seu perfil no universo de IA?',
+            subtitle: 'Nosso material atende desde quem está aprendendo até quem governa grandes projetos.',
             content: (
-                <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-4 pt-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {ROLES.map(r => (
                             <button
                                 key={r.value}
                                 type="button"
-                                onClick={() => set('role')(r.value)}
-                                className={`flex items-center gap-3 px-4 py-3.5 rounded-xl border text-left transition-all duration-200 cursor-pointer
+                                onClick={() => {
+                                    set('role')(r.value);
+                                    // Avanço automático com pequeno delay
+                                    setTimeout(() => advance(), 150);
+                                }}
+                                className={`flex flex-col gap-2 px-5 py-5 rounded-2xl border text-left transition-all duration-200 cursor-pointer group hover:scale-[1.02]
                                     ${form.role === r.value
-                                        ? 'border-[#4F7EFF] bg-[#4F7EFF]/15 text-white shadow-[0_0_20px_rgba(79,126,255,0.25)]'
-                                        : 'border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:text-white'
+                                        ? 'border-[#4F7EFF] bg-[#4F7EFF]/15 shadow-[0_0_25px_rgba(79,126,255,0.25)]'
+                                        : 'border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10'
                                     }`}
                             >
-                                <span className="text-xl">{r.icon}</span>
-                                <span className="text-sm font-semibold leading-tight">{r.label}</span>
+                                <div className="flex items-center gap-3">
+                                    <span className="text-2xl">{r.icon}</span>
+                                    <span className={`text-base font-bold ${form.role === r.value ? 'text-white' : 'text-slate-200'}`}>{r.label}</span>
+                                </div>
+                                <span className={`text-xs pl-9 ${form.role === r.value ? 'text-[#4F7EFF]' : 'text-slate-500'}`}>{r.subtitle}</span>
                             </button>
                         ))}
                     </div>
-                    <GlowInput
-                        label="Contexto adicional (opcional)"
-                        value={form.comments}
-                        onChange={set('comments')}
-                        placeholder="Ex: Minha empresa usa ChatGPT e preciso de compliance..."
-                    />
                 </div>
             ),
         },
         {
-            label: 'Passo 2 de 3', title: 'Sobre sua organização',
-            subtitle: 'Entender a escala nos ajuda a recomendar a solução certa.',
-            content: (
-                <div className="space-y-5">
-                    <GlowInput
-                        label="Nome da empresa"
-                        value={form.company}
-                        onChange={set('company')}
-                        placeholder="Ex: TechCorp Soluções S.A."
-                        autoFocus
-                    />
-                    <div className="space-y-2">
-                        <label className="text-xs text-slate-400 font-bold uppercase tracking-widest">Tamanho da equipe</label>
-                        <div className="flex flex-col gap-2">
-                            {COMPANY_SIZES.map(s => (
-                                <Chip key={s.value} label={s.label} selected={form.company_size === s.value} onClick={() => set('company_size')(s.value)} />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            label: 'Passo 3 de 3', title: 'Onde enviamos sua trilha?',
+            label: 'Passo 2 de 2', title: 'Onde enviamos sua trilha?',
             subtitle: 'Prometemos zero spam. Apenas conteúdo relevante para o seu crescimento em IA.',
             content: (
                 <div className="space-y-4">
                     <GlowInput label="Seu nome completo" value={form.name} onChange={set('name')} placeholder="Ex: Maria Silva" autoFocus />
-                    <GlowInput label="Email corporativo" type="email" value={form.email} onChange={set('email')} placeholder="maria@empresa.com.br" />
+                    <GlowInput label="Seu melhor Email corporativo (ou pessoal)" type="email" value={form.email} onChange={set('email')} placeholder="maria@email.com" />
                     <GlowInput label="WhatsApp" type="tel" value={form.phone} onChange={set('phone')} placeholder="(11) 99999-9999" />
                 </div>
             ),
@@ -327,7 +286,7 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
                                         <X className="w-4 h-4" />
                                     </button>
                                 </div>
-                                {!submitted && <ProgressBar step={step + 1} total={3} />}
+                                {!submitted && <ProgressBar step={step + 1} total={2} />}
                             </div>
 
                             {/* Body */}
@@ -428,7 +387,7 @@ export default function LeadCaptureModal({ isOpen, onClose }: LeadCaptureModalPr
                                                 </svg>
                                             ) : (
                                                 <>
-                                                    {step < 2 ? 'Continuar' : 'Receber Minha Trilha'}
+                                                    {step < 1 ? 'Continuar' : 'Receber Minha Trilha'}
                                                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                                 </>
                                             )}
