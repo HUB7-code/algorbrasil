@@ -82,7 +82,6 @@ from backend.app.api.endpoints import admin, lab, organizations, risks, dashboar
 from backend.app.api.endpoints.inventory import assets as inventory_assets
 
 # Autenticação e Perfis
-app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 app.include_router(profiles.router, prefix="/api/v1", tags=["User Profiles"])
 
 # Enterprise e Admin

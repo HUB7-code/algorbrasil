@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { ArrowLeft, Image as ImageIcon, Send, Eye, Save, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useDropzone } from 'react-dropzone';
+import { useUser } from '@clerk/nextjs';
 
 // ========================================
 // CREATE ARTICLE PAGE - LinkedIn-style Editor
@@ -21,6 +22,10 @@ export default function CreateArticlePage() {
     const [coverImage, setCoverImage] = useState<string | null>(null);
     const [isPreview, setIsPreview] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+
+    const { user } = useUser();
+    const authorName = user?.fullName || 'Membro ALGOR';
+    const authorAvatar = user?.imageUrl || '/images/default-avatar.webp';
 
     const categories = ['Governança', 'Compliance', 'Regulação', 'Tecnologia', 'Ética', 'Setorial'];
 
@@ -74,8 +79,8 @@ export default function CreateArticlePage() {
                     tags,
                     coverImage,
                     author: {
-                        name: 'Membro ALGOR', // TODO: Get from session
-                        avatar: '/images/default-avatar.webp',
+                        name: authorName,
+                        avatar: authorAvatar,
                         role: 'Associado'
                     }
                 }),
@@ -118,8 +123,8 @@ export default function CreateArticlePage() {
                     tags,
                     coverImage,
                     author: {
-                        name: 'Membro ALGOR', // TODO: Get from session
-                        avatar: '/images/default-avatar.webp',
+                        name: authorName,
+                        avatar: authorAvatar,
                         role: 'Associado'
                     }
                 }),

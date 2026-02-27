@@ -1,25 +1,26 @@
 ﻿'use client';
 
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { ChevronRight } from 'lucide-react';
-import HeroCinematic from '@/components/HeroCinematic'; // above-the-fold: import síncrono
+import HeroCinematic from '@/components/HeroCinematic';
 
-// ── Below-the-fold: carregados dinamicamente (split de bundle) ──
-const TrainingJourney = lazy(() => import('@/components/TrainingJourney'));
+// ── Below-the-fold: todos com ssr:false para evitar hydration mismatch ──
+const TrainingJourney = dynamic(() => import('@/components/TrainingJourney'), { ssr: false });
 const PainPointBanner = dynamic(() => import('@/components/PainPointBanner'), { ssr: false });
-const CinematicSolutions = lazy(() => import('@/components/CinematicSolutions'));
-const SaasPreview = lazy(() => import('@/components/SaasPreview'));
-const GlobalTeam = lazy(() => import('@/components/GlobalTeam'));
-const WhatsAppButton = lazy(() => import('@/components/WhatsAppButton'));
-const Footer = lazy(() => import('@/components/Footer'));
+const CinematicSolutions = dynamic(() => import('@/components/CinematicSolutions'), { ssr: false });
+const SaasPreview = dynamic(() => import('@/components/SaasPreview'), { ssr: false });
+const GlobalTeam = dynamic(() => import('@/components/GlobalTeam'), { ssr: false });
+const WhatsAppButton = dynamic(() => import('@/components/WhatsAppButton'), { ssr: false });
+const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
 // Skeleton minimal para o placeholder enquanto carrega
 function SectionSkeleton() {
     return <div className="w-full py-24 bg-[#0B0F1E]" aria-hidden="true" />;
 }
 
-export default function Home() {
+// ScrollToTop isolado como componente client-only para evitar SSR mismatch
+function ScrollToTop() {
     const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
@@ -27,8 +28,7 @@ export default function Home() {
         const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
-                    const currentScrollY = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
-                    setScrolled(currentScrollY > 50);
+                    setScrolled(window.scrollY > 50);
                     ticking = false;
                 });
                 ticking = true;
@@ -38,50 +38,38 @@ export default function Home() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    if (!scrolled) return null;
+
+    return (
+        <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Rolar para o topo"
+            className="fixed bottom-8 left-8 z-50 w-12 h-12 bg-white/10 border border-white/20 shadow-lg rounded-full flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all cursor-pointer backdrop-blur-md"
+        >
+            <ChevronRight className="w-5 h-5 -rotate-90 text-[#4F7EFF]" />
+        </button>
+    );
+}
+
+export default function Home() {
     return (
         <div className="min-h-screen bg-[#0B0F1E] text-white font-sans selection:bg-[#4F7EFF] selection:text-white">
 
-            {/* ── ABOVE THE FOLD: carregado imediatamente ── */}
+            {/* ── ABOVE THE FOLD: carregado imediatamente pelo SSR ── */}
             <HeroCinematic />
 
-            {/* ── BELOW THE FOLD: carregamento diferido ── */}
-            <Suspense fallback={<SectionSkeleton />}>
-                <TrainingJourney />
-            </Suspense>
+            {/* ── BELOW THE FOLD: client-only, sem mismatch de hydration ── */}
+            <TrainingJourney />
+            <PainPointBanner />
+            <CinematicSolutions />
+            <SaasPreview />
+            <GlobalTeam />
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <PainPointBanner />
-            </Suspense>
+            {/* Scroll to Top: isolado para não causar mismatch de state ── */}
+            <ScrollToTop />
 
-            <Suspense fallback={<SectionSkeleton />}>
-                <CinematicSolutions />
-            </Suspense>
-
-            <Suspense fallback={<SectionSkeleton />}>
-                <SaasPreview />
-            </Suspense>
-
-            <Suspense fallback={<SectionSkeleton />}>
-                <GlobalTeam />
-            </Suspense>
-
-            {/* Scroll to Top */}
-            {scrolled && (
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    aria-label="Scroll to top"
-                    className="fixed bottom-8 left-8 z-50 w-12 h-12 bg-white/10 border border-white/20 shadow-lg rounded-full flex items-center justify-center hover:bg-white/20 hover:scale-110 transition-all cursor-pointer backdrop-blur-md"
-                >
-                    <ChevronRight className="w-5 h-5 -rotate-90 text-[#4F7EFF]" />
-                </button>
-            )}
-
-            <Suspense fallback={null}>
-                <WhatsAppButton />
-            </Suspense>
-            <Suspense fallback={null}>
-                <Footer />
-            </Suspense>
+            <WhatsAppButton />
+            <Footer />
         </div>
     );
 }

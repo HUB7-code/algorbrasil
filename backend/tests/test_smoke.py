@@ -6,7 +6,7 @@ import os
 # Adiciona raiz ao path
 sys.path.append(os.getcwd())
 
-from backend.main import app
+from backend.app.main import app
 
 def test_root():
     client = TestClient(app)

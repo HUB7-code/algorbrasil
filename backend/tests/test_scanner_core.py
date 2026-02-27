@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 # Ajuste conforme solicitação do usuário: backend.main
 try:
-    from backend.main import app
+    from backend.app.main import app
 except ImportError:
     # Fallback caso a estrutura mude, mas priorizando a instrução
     try:
