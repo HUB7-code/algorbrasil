@@ -39,6 +39,9 @@ export const API_ENDPOINTS = {
         list: `${API_BASE_URL}/api/v1/leads`,
         stats: `${API_BASE_URL}/api/v1/leads/stats`,
         update: (leadId: string) => `${API_BASE_URL}/api/v1/leads/${leadId}`,
+        createDiagnostic: `${API_BASE_URL}/api/v1/leads/diagnostic`,
+        createSpecialist: `${API_BASE_URL}/api/v1/leads/specialist`,
+        createTraining: `${API_BASE_URL}/api/v1/leads/diagnostic`,
     },
 
     // Dashboard
