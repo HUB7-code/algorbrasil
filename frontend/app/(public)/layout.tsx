@@ -1,4 +1,9 @@
-import Navbar from "@/components/Navbar";
+import dynamic from 'next/dynamic';
+
+const Navbar = dynamic(() => import('@/components/Navbar'), {
+    ssr: false,
+    loading: () => <div className="h-[72px]" />,
+});
 
 export default function PublicLayout({
     children,
