@@ -6,18 +6,16 @@ def send_new_lead_confirmation(name: str, email: str, lead_type: str = "Diagnost
     import os
     from backend.app.core.config import settings
 
-    # Localizar a logo mais recente com múltiplos fallbacks (funciona em dev e Docker)
+    # Localizar a logo atual do site (logo-symbol.png = escudo+globo azul/verde)
     current_dir = os.getcwd()
     if os.path.basename(current_dir) == "backend":
         base_dir = os.path.abspath(os.path.join(current_dir, ".."))
     else:
         base_dir = current_dir
 
-    # Prioridade: nova logo dourada > logo antiga > sem logo
     logo_candidates = [
-        os.path.join(base_dir, "frontend", "public", "images", "algor_association_logo_light3.png"),
-        os.path.join(base_dir, "frontend", "public", "images", "algor_association_logo_light.png"),
-        os.path.join(base_dir, "frontend", "public", "logo-algor.png"),
+        os.path.join(base_dir, "frontend", "public", "logo-symbol.png"),  # identidade visual atual
+        os.path.join(base_dir, "frontend", "public", "logo-algor.png"),   # fallback
     ]
     logo_path = next((p for p in logo_candidates if os.path.exists(p)), None)
 
