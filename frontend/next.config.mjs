@@ -17,6 +17,7 @@ const withPWA = withPWAInit({
 const nextConfig = {
     reactStrictMode: true,
     transpilePackages: ['three'],
+    allowedDevOrigins: ['127.0.0.1', 'localhost'],
     optimizeFonts: true,       // ← habilitado: reduz Web Font FOIT/FOUT
     compiler: {
         removeConsole: process.env.NODE_ENV === "production",
