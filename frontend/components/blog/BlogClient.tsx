@@ -29,7 +29,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
 
                 <div className="relative flex flex-col h-full bg-white/[0.03] border border-white/[0.07] group-hover:border-blue-500/30 rounded-2xl overflow-hidden transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_24px_48px_-12px_rgba(79,126,255,0.25)]">
                     {/* Cover */}
-                    <div className="relative h-52 overflow-hidden bg-gradient-to-br from-blue-950/50 to-slate-900">
+                    <div className="relative h-56 overflow-hidden bg-gradient-to-br from-blue-950/50 to-slate-900 flex-shrink-0">
                         <img
                             src={post.coverImage}
                             alt={post.title}
@@ -48,15 +48,15 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6 flex flex-col flex-grow">
+                    <div className="p-6 flex flex-col flex-1">
                         <h3 className="text-base font-bold text-white mb-3 group-hover:text-blue-300 transition-colors leading-snug line-clamp-2">
                             {post.title}
                         </h3>
-                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 flex-grow mb-5">
+                        <p className="text-gray-500 text-sm leading-relaxed line-clamp-3 mb-5 flex-1">
                             {post.excerpt}
                         </p>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
+                        <div className="flex items-center justify-between pt-4 mt-auto border-t border-white/[0.06]">
                             <div className="flex items-center gap-1.5 text-[11px] text-gray-600">
                                 <Calendar className="w-3 h-3" />
                                 {new Date(post.publishedAt).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric' })}
@@ -212,8 +212,8 @@ export default function BlogClient({ featuredPost, posts, categories }: BlogClie
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
                                 className={`px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase transition-all duration-300 ${activeCategory === cat
-                                        ? 'bg-blue-600 text-white shadow-[0_0_24px_rgba(79,126,255,0.5)]'
-                                        : 'bg-white/[0.05] text-gray-500 border border-white/[0.07] hover:bg-white/[0.10] hover:text-white hover:border-white/20'
+                                    ? 'bg-blue-600 text-white shadow-[0_0_24px_rgba(79,126,255,0.5)]'
+                                    : 'bg-white/[0.05] text-gray-500 border border-white/[0.07] hover:bg-white/[0.10] hover:text-white hover:border-white/20'
                                     }`}
                             >
                                 {cat}
