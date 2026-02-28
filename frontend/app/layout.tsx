@@ -74,27 +74,12 @@ export default function RootLayout({
         <ClerkProvider localization={ptBR}>
             <html lang="pt-BR">
                 <head>
-                    {/* ── Fonts: prioritize connection + preload critical Orbitron ── */}
+                    {/* Fonts: preconnect + single request with display=swap (non-blocking) */}
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-
-                    {/* Load only the 2 most-used weights to reduce payload */}
                     <link
-                        rel="preload"
-                        as="style"
-                        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Manrope:wght@400;600;700&display=swap"
-                    />
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Manrope:wght@400;600;700&display=swap"
+                        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Manrope:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
                         rel="stylesheet"
-                    />
-                    {/* JetBrains Mono and Material Symbols: non-blocking deferred load */}
-                    <link
-                        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-                        rel="stylesheet"
-                        media="print"
-                        onLoad={(e) => { (e.currentTarget as HTMLLinkElement).media = 'all'; }}
                     />
                     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
                 </head>
