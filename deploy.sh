@@ -81,6 +81,11 @@ echo "  ✅ Deploy Concluído!"
 echo "=========================================="
 echo ""
 
+# 6. Limpeza de Imagens Antigas (Evita acúmulo de espaço no VPS)
+echo "🧹 [6/6] Limpando imagens antigas e cache do Docker para liberar espaço..."
+docker image prune -f
+echo ""
+
 # Mostrar status
 echo "📊 Status dos Containers:"
 docker-compose ps
