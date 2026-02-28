@@ -1,8 +1,27 @@
-**Versão Atual:** V21.7.0 "Production Hardening & Deploy Bulletproof"
-**Data da Última Atualização:** 26/02/2026
+**Versão Atual:** V21.8.0 "Blog MDX Engine & Server Actions"
+**Data da Última Atualização:** 28/02/2026
 **Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Hardened)
 
-### 🎯 Últimas Conquistas (V21.7.0 - "Production Hardening & Deploy Bulletproof")
+### 🎯 Últimas Conquistas (V21.8.0 - "Blog MDX Engine & Server Actions")
+
+1. **Arquitetura de Blog (SEO-First):**
+    - **Engine MDX:** Implementado sistema de leitura de arquivos Markdown/MDX (`/content/blog`) parser dinâmico SSR sem dependência de banco de dados, focado em velocidade extrema.
+    - **Cinematic Premium UI:** Componente `BlogClient` totalmente reescrito com design Glassmorphism, glows neon reativos, hero com parallax text e staggered animations via Framer Motion.
+    - **Correção de Assets:** Resolvemos 404s servindo imagens reais do `/public`.
+
+2. **Lead Capture - Next.js Server Actions:**
+    - **Formulário Híbrido (PF/PJ):** Refatorado de 3 para 2 passos ultra-rápidos com "Click & Go" para seleção de perfil.
+    - **Server Actions Diretas:** Removida a rota de API local complexa. O form envia dados direto pro Server Action Next.js que fala com a porta 8000 via backend isolado, ignorando erros CORS legados.
+    - **Schema Fix:** Tabela SQLite (`sql_app.db`) recriada com os campos faltantes (`role`, `company_size`), eliminando o Error 500 silencioso.
+
+3. **Maximização de Performance (Core Web Vitals):**
+    - **Font Preloading:** Refatoração de 4 requisições em série no `layout.tsx` para uma chamada single com `display=swap` e `<link rel="preload">` explícito do Orbitron.
+    - **Next Config Hardened:** Ativada compressão Brotli, `optimizePackageImports` (Framer/Lucide/Clerk), e `max-age=31536000` imutável em headers de imagens/vídeos.
+    - **IntersectionObserver:** Animação Canvas de 60 FPS (`NeuralGlobe` no Navbar) pausada dinamicamente via JS nativo quando sai do viewport para zerar custo de CPU.
+
+---
+
+### 🚀 Conquistas Anteriores (V21.7.0 - "Production Hardening & Deploy Bulletproof")
 
 1. **Blindagem Definitiva do Deploy na VPS:**
     - **`.env` Desregistrado do Git:** Executado `git rm --cached .env` para eliminar de vez o problema em que o `git reset --hard` durante o deploy sobrescrevia o arquivo de Produção com o do desenvolvimento.
@@ -94,15 +113,11 @@
 
 ### 📜 Histórico de Versões
 
-- [x] **V21.6.1:** "VPS & CI/CD Stabilization" - Precedência de .env ajustada, Build OOM fixado, requirements recuperado.
+- [x] **V21.8.0:** "Blog MDX Engine & Server Actions" - Blog Cinematic, Server Actions Leads, Performance IntersectionObserver/Preload.
+- [x] **V21.7.0:** "Production Hardening" - `.env` protegido de deploy reset, remoção auth local.
+- [x] **V21.6.1:** "VPS & CI/CD Stabilization" - Precedência de .env ajustada, Build OOM fixado.
 - [x] **V21.6.0:** "Cinematic UI/UX" - Vídeo no hero, componentes data-live (SaasPreview) e reestruturação de CTA.
 - [x] **V21.4.0:** "B2B Cinematic Pivot" - Foco em Governança Corporativa B2B, UI Cinematic Enterprise, Novo Board MVP.
-- [x] **V21.3.0:** "Clerk B2B Auth Integration" - Identidade delegada ao Clerk, Webhooks com Svix, Backend Auth Guard.
-- [x] **V21.2.0:** "Code Audit" - Segurança hardened, URLs centralizadas, Certificados premium.
-- [x] **V21.1.0:** "Leadership Content" - Etapa 02, Hardcore Quiz 100%, Materiais de Apoio.
-- [x] **V21.0.0:** "Hardcore Assessment" - Quiz One-Shot, Review Mode, Dashboard Premium.
-- [x] **V20.1.0:** "ISO 42001 Content" - Quiz Básico, Aula 1.1 e 1.2.
-- [x] **V20.0.0:** "Algor Lab Revolution" - Netflix UI, Gamification MVP.
 
 ---
 
@@ -110,40 +125,39 @@
 
 | Prioridade | Tarefa | Status |
 |------------|--------|--------|
-| 1 | 🔗 **Integração Frontend ↔ Backend** (Substituir localStorage por API) | **PRÓXIMO** |
-| 2 | 📊 **Dashboard de Progresso** (Gráficos e Analytics) | Roadmap Q1 |
-| 3 | 📚 **Etapa 03 - Planejamento** (Cláusula 6 ISO 42001) | Roadmap Q1 |
-| 4 | 👮 **Painel Admin** (Gestão de Alunos) | Roadmap Q2 |
+| 1 | 🔗 **Integração Frontend ↔ Backend Completa** (Dashboard Client/Membro) | Roadmap Q1 |
+| 2 | 📊 **Dashboard de Analytics Administrativo** | Roadmap Q1 |
+| 3 | 📚 **Expansão do Blog** (Aceleradores SEO) | Roadmap Q2 |
+| 4 | 👮 **Integração Payment/Stripe** (Assinaturas ALGOR Board) | Roadmap Q2 |
 
 ---
 
-## 6. Resumo Visual V21.3.0
+## 6. Resumo Visual V21.8.0
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                 ALGOR BRASIL v21.4.0                        │
-│          ✅ B2B CINEMATIC PIVOT                             │
+│                 ALGOR BRASIL v21.8.0                        │
+│          ✅ B2B CINEMATIC + BLOG ENGINE                     │
 │                                                             │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
 │  🏢 B2B ENTERPRISE FOCUS                                    │
 │  ├── Homepage Restructure (4 Pillars) ......... ✅ (100%)  │
 │  ├── Board/Members Premium UI ................. ✅ (100%)  │
-│  ├── ALGOR Lab De-emphasis .................... ✅ (100%)  │
+│  ├── Blog / Content SEO Pipeline .............. ✅ (100%)  │
 │                                                             │
 │  ✨ CINEMATIC UI UPGRADES                                   │
 │  ├── 3D Hover Tilt & Spotlights ............... ✅ (100%)  │
-│  ├── Neon Connections & Glow Anchors .......... ✅ (100%)  │
-│  ├── Stitch MCP Prototyping ................... ✅ (100%)  │
+│  ├── Glassmorphism Cards & SVG Glows .......... ✅ (100%)  │
 │                                                             │
-│  🔐 B2B AUTHENTICATION (CLERK)                              │
-│  ├── Identity Externalization ................. ✅ (100%)  │
-│  ├── Backend Guard & SDK Validation ........... ✅ (100%)  │
-│  ├── Svix Webhooks Sync ....................... ✅ (100%)  │
+│  ⚡ PERFORMANCE & ARCHITECTURE                              │
+│  ├── Next.js Server Actions (Leads) ........... ✅ (100%)  │
+│  ├── IntersectionObserver (Canvas Throttle) ... ✅ (100%)  │
+│  ├── Font Preloads & Brotli Compression ....... ✅ (100%)  │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 
-*Documento atualizado automaticamente. Versão 21.4.0.*
-> **Última Atualização:** 24/02/2026
-> **Status Geral:** **PRODUCTION LIVE + B2B PIVOT** 🚀✅
+*Documento atualizado automaticamente. Versão 21.8.0.*
+> **Última Atualização:** 28/02/2026
+> **Status Geral:** **PRODUCTION LIVE + BLOG ACTIVE** 🚀✅
 ```
