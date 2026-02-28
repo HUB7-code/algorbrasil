@@ -63,7 +63,7 @@ export default function BlogClient({ featuredPost, posts, categories }: BlogClie
                                         src={featuredPost.coverImage || '/blog/default-cover.webp'}
                                         alt={featuredPost.title}
                                         className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-500 mix-blend-screen"
-                                        onError={(e) => { e.currentTarget.src = '/hero-bg.jpg'; e.currentTarget.className = "absolute inset-0 w-full h-full object-cover opacity-30" }}
+                                        onError={(e) => { e.currentTarget.src = '/og-governance.jpg'; e.currentTarget.className = "absolute inset-0 w-full h-full object-cover opacity-30" }}
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F1E] via-transparent to-transparent md:bg-gradient-to-l" />
                                 </div>
@@ -92,7 +92,7 @@ export default function BlogClient({ featuredPost, posts, categories }: BlogClie
                                     src={post.coverImage || '/blog/default-cover.webp'}
                                     alt={post.title}
                                     className="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500 mix-blend-screen"
-                                    onError={(e) => { e.currentTarget.src = '/hero-bg.jpg'; e.currentTarget.className = "w-full h-full object-cover opacity-20" }}
+                                    onError={(e) => { e.currentTarget.src = '/og-governance.jpg'; e.currentTarget.className = "w-full h-full object-cover opacity-20" }}
                                 />
                                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-xs font-semibold text-blue-300">
                                     {post.category}

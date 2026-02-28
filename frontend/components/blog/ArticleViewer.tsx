@@ -19,7 +19,7 @@ export default function ArticleViewer({ post, relatedPosts }: { post: any, relat
                         src={post.coverImage || '/blog/default-cover.webp'}
                         alt={post.title}
                         className="w-full h-full object-cover opacity-40 mix-blend-screen"
-                        onError={(e) => { e.currentTarget.src = '/hero-bg.jpg'; }}
+                        onError={(e) => { e.currentTarget.src = '/og-governance.jpg'; }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F1E] via-[#0B0F1E]/80 to-transparent" />
                 </div>
