@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Lock, Building2, Briefcase, ArrowRight, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Lock, Building2, Briefcase, ArrowRight, LayoutDashboard, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -103,6 +103,7 @@ export default function Navbar() {
                     <div className="hidden md:flex gap-1 text-sm font-semibold text-gray-300 items-center">
 
                         {[
+                            { href: '/blog', label: 'Insights & Blog', color: '#4F7EFF' },
                             { href: '/#pillars', label: 'Consultoria B2B', color: '#4F7EFF' },
                             { href: '/board', label: 'Especialistas', color: '#4F7EFF' },
                         ].map((link) => (
@@ -192,6 +193,7 @@ export default function Navbar() {
                                 <p className="text-xs text-[#4F7EFF] uppercase tracking-widest px-2 font-semibold mb-4 border-b border-gray-100 pb-2">Menu Principal</p>
 
                                 {[
+                                    { href: '/blog', label: 'Insights & Blog', icon: BookOpen },
                                     { href: '/#pillars', label: 'Consultoria B2B', icon: Briefcase },
                                     { href: '/board', label: 'Especialistas Associados', icon: Building2 },
                                 ].map((link) => (

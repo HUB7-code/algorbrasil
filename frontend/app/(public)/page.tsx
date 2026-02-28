@@ -11,6 +11,7 @@ const PainPointBanner = dynamic(() => import('@/components/PainPointBanner'), { 
 const CinematicSolutions = dynamic(() => import('@/components/CinematicSolutions'), { ssr: false });
 const SaasPreview = dynamic(() => import('@/components/SaasPreview'), { ssr: false });
 const GlobalTeam = dynamic(() => import('@/components/GlobalTeam'), { ssr: false });
+const LatestPosts = dynamic(() => import('@/components/blog/LatestPosts'), { ssr: false });
 const WhatsAppButton = dynamic(() => import('@/components/WhatsAppButton'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
@@ -64,6 +65,7 @@ export default function Home() {
             <CinematicSolutions />
             <SaasPreview />
             <GlobalTeam />
+            <LatestPosts />
 
             {/* Scroll to Top: isolado para não causar mismatch de state ── */}
             <ScrollToTop />
