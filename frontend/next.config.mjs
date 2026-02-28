@@ -16,17 +16,26 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    compress: true,                  // Gzip/Brotli compression
+    poweredByHeader: false,          // Remove X-Powered-By (security + smaller header)
     transpilePackages: ['three'],
     allowedDevOrigins: ['127.0.0.1', 'localhost'],
-    optimizeFonts: true,       // ← habilitado: reduz Web Font FOIT/FOUT
+    optimizeFonts: true,
     compiler: {
-        removeConsole: process.env.NODE_ENV === "production",
+        removeConsole: process.env.NODE_ENV === 'production',
     },
     eslint: {
         ignoreDuringBuilds: true,
     },
+    experimental: {
+        optimizeCss: false,           // Only enable in prod (needs critters)
+        optimizePackageImports: ['framer-motion', 'lucide-react', '@clerk/nextjs'],
+    },
     images: {
-        formats: ['image/avif', 'image/webp'], // ← prioriza AVIF (menor)
+        formats: ['image/avif', 'image/webp'],
+        minimumCacheTTL: 31536000,    // 1 year cache for images
+        deviceSizes: [640, 828, 1080, 1280, 1920],
+        imageSizes: [32, 48, 64, 96, 128, 256],
         remotePatterns: [
             { protocol: 'https', hostname: 'api.dicebear.com' },
             { protocol: 'https', hostname: 'images.unsplash.com' },
@@ -38,23 +47,27 @@ const nextConfig = {
     async headers() {
         return [
             {
-                // Cache agressivo para o vídeo hero (imutável até ser renomeado)
+                // Cache máximo para vídeos (imutável)
                 source: '/videos/:path*',
-                headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'public, max-age=31536000, immutable',
-                    },
-                ],
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
             },
             {
-                // Cache de imagens estáticas geradas pelo Next.js
+                // Cache máximo para assets Next.js gerados
                 source: '/_next/static/:path*',
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+            },
+            {
+                // Cache de imagens públicas + fonts
+                source: '/:all*(png|jpg|jpeg|webp|avif|svg|ico|woff|woff2|ttf)',
+                headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, stale-while-revalidate=86400' }],
+            },
+            {
+                // Security headers para todas as páginas
+                source: '/(.*)',
                 headers: [
-                    {
-                        key: 'Cache-Control',
-                        value: 'public, max-age=31536000, immutable',
-                    },
+                    { key: 'X-Content-Type-Options', value: 'nosniff' },
+                    { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+                    { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
                 ],
             },
         ];

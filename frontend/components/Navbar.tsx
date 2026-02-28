@@ -86,7 +86,7 @@ export default function Navbar() {
                     {/* Logo Area */}
                     <Link href="/" className="flex items-center gap-3 group relative z-50">
                         <span className="flex-shrink-0 transition-transform group-hover:scale-105 duration-300 block">
-                            <NeuralGlobe size={52} intensity="medium" />
+                            <NeuralGlobe size={52} intensity="low" />
                         </span>
                         <span className="flex flex-col leading-none">
                             <span className="font-orbitron text-base md:text-lg font-bold tracking-widest uppercase text-white">

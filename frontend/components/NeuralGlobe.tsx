@@ -17,10 +17,18 @@ function seededRandom(seed: number) {
 export default function NeuralGlobe({ size = 320, className = '', intensity = 'high' }: NeuralGlobeProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const animRef = useRef<number>(0);
+    const isVisible = useRef<boolean>(true);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
+
+        // Pause animation loop when canvas is not visible (saves CPU/GPU)
+        const observer = new IntersectionObserver(
+            ([entry]) => { isVisible.current = entry.isIntersecting; },
+            { threshold: 0.01 }
+        );
+        observer.observe(canvas);
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
@@ -51,6 +59,11 @@ export default function NeuralGlobe({ size = 320, className = '', intensity = 'h
         let angle = 0;
 
         const draw = () => {
+            // Skip expensive draw calls when not visible
+            if (!isVisible.current) {
+                animRef.current = requestAnimationFrame(draw);
+                return;
+            }
             ctx.clearRect(0, 0, size, size);
 
             // Outer glow rings
@@ -163,7 +176,10 @@ export default function NeuralGlobe({ size = 320, className = '', intensity = 'h
         };
 
         draw();
-        return () => cancelAnimationFrame(animRef.current);
+        return () => {
+            cancelAnimationFrame(animRef.current);
+            observer.disconnect();
+        };
     }, [size, intensity]);
 
     return (
