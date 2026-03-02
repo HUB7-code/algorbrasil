@@ -5,9 +5,10 @@ import { ShieldAlert, ShieldCheck, Shield } from 'lucide-react';
 
 interface RiskScoreGaugeProps {
     score?: number;
+    previousScore?: number;
 }
 
-export default function RiskScoreGauge({ score = 68 }: RiskScoreGaugeProps) {
+export default function RiskScoreGauge({ score = 68, previousScore }: RiskScoreGaugeProps) {
     // Determine color based on score
     const getColor = (s: number) => {
         if (s > 80) return '#10b981'; // Green
@@ -65,6 +66,11 @@ export default function RiskScoreGauge({ score = 68 }: RiskScoreGaugeProps) {
                     </motion.div>
                     <span className="text-4xl font-black font-orbitron text-white">{score}</span>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1">Compliance Score</p>
+                    {previousScore !== undefined && (
+                        <p className={`text-[10px] font-bold mt-1 ${score >= previousScore ? 'text-emerald-400' : 'text-red-400'}`}>
+                            {score >= previousScore ? '▲' : '▼'} {Math.abs(score - previousScore)} vs semana anterior
+                        </p>
+                    )}
                 </div>
             </div>
 
