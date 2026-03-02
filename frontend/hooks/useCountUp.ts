@@ -11,11 +11,6 @@ export function useCountUp({ target, duration = 1200, startOnView = true }: UseC
     const [hasStarted, setHasStarted] = useState(!startOnView);
     const ref = useRef<HTMLElement | null>(null);
 
-    // Respect prefers-reduced-motion
-    const prefersReduced = typeof window !== 'undefined'
-        ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        : false;
-
     useEffect(() => {
         if (!startOnView) return;
 
@@ -36,6 +31,9 @@ export function useCountUp({ target, duration = 1200, startOnView = true }: UseC
     useEffect(() => {
         if (!hasStarted) return;
 
+        // Respect prefers-reduced-motion (checked inside effect — safe for SSR/Webpack)
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         if (prefersReduced) {
             setCount(target);
             return;
@@ -55,7 +53,7 @@ export function useCountUp({ target, duration = 1200, startOnView = true }: UseC
 
         const raf = requestAnimationFrame(step);
         return () => cancelAnimationFrame(raf);
-    }, [hasStarted, target, duration, prefersReduced]);
+    }, [hasStarted, target, duration]);
 
     return { count, ref };
 }
