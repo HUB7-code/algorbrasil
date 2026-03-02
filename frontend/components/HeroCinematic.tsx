@@ -4,9 +4,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Shield, Globe } from 'lucide-react';
 import { useRef, useEffect } from 'react';
-
-// Calendly placeholder — substituir pelo link real quando disponível
-const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
+import { SITE_CONFIG } from '@/config/site';
 
 export default function HeroCinematic() {
     const sectionRef = useRef<HTMLElement>(null);
@@ -133,11 +131,11 @@ export default function HeroCinematic() {
                             transition={{ duration: 0.6, delay: 0.4 }}
                             className="flex flex-wrap items-center gap-4 text-sm font-bold text-slate-300"
                         >
-                            <span className="text-[#4F7EFF]">+250</span> membros globais
+                            <span className="text-[#4F7EFF]">+{SITE_CONFIG.stats.globalMembers}</span> membros globais
                             <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
-                            <span className="text-[#4F7EFF]">+25</span> consultores no Brasil
+                            <span className="text-[#4F7EFF]">+{SITE_CONFIG.stats.brazilConsultants}</span> consultores no Brasil
                             <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
-                            <span className="text-[#818CF8]">6</span> regiões
+                            <span className="text-[#818CF8]">{SITE_CONFIG.stats.regions}</span> regiões
                         </motion.div>
                     </div>
 

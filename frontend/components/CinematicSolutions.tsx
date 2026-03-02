@@ -3,9 +3,7 @@
 import React, { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Search, Shield, ArrowRight, Clock, Users, CheckCircle, ExternalLink } from 'lucide-react';
-
-// Calendly placeholder — substituir pelo link real quando disponível
-const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
+import { SITE_CONFIG } from '@/config/site';
 
 const offers = [
     {
@@ -170,7 +168,7 @@ function OfferCard({ c, i }: { c: typeof offers[0]; i: number }) {
                             transition={{ duration: 0.25 }}
                         >
                             <a
-                                href={CALENDLY_URL}
+                                href={SITE_CONFIG.links.calendly.diagnostic}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs font-bold flex items-center gap-1 transition-colors duration-300"
@@ -260,7 +258,7 @@ export default function CinematicSolutions() {
 
                     <div className="relative flex flex-col sm:flex-row gap-3 flex-shrink-0">
                         <a
-                            href={CALENDLY_URL}
+                            href={SITE_CONFIG.links.calendly.diagnostic}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group relative overflow-hidden px-7 py-3.5 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 flex items-center gap-2 whitespace-nowrap"

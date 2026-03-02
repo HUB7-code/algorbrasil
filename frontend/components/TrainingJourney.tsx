@@ -3,9 +3,7 @@
 import { motion } from 'framer-motion';
 import { Search, Settings, Brain, Scale, Rocket, ArrowRight } from 'lucide-react';
 import GlowIcon from '@/components/GlowIcon';
-
-// Calendly placeholder — substituir pelo link real quando disponível
-const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
+import { SITE_CONFIG } from '@/config/site';
 
 const stages = [
     {
@@ -219,7 +217,7 @@ export default function TrainingJourney() {
                         Não sabe em qual estágio sua empresa está? Nossos auditores identificam em 15 minutos.
                     </p>
                     <a
-                        href={CALENDLY_URL}
+                        href={SITE_CONFIG.links.calendly.diagnostic}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 inline-flex items-center gap-2"

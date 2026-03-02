@@ -17,13 +17,13 @@ export function CookieBanner() {
         localStorage.setItem('algor_cookie_consent', 'accepted_all');
         setIsVisible(false);
         // Here you would trigger analytics load
-        console.log("Cookies accepted - Analytics can fire");
+        // Essential logic here
     };
 
     const rejectNonEssential = () => {
         localStorage.setItem('algor_cookie_consent', 'essential_only');
         setIsVisible(false);
-        console.log("Cookies rejected - Only essential fired");
+        // Essential logic here
     };
 
     if (!isVisible) return null;

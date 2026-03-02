@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { User, Lock, Bell, CreditCard, Save, Camera, CheckCircle, Shield, AlertTriangle, Eye, EyeOff } from "lucide-react";
+import { SITE_CONFIG } from "@/config/site";
 
 export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'billing' | 'notifications'>('profile');
@@ -10,7 +11,7 @@ export default function SettingsPage() {
         full_name: "",
         email: "",
         role: "",
-        company: "ALGOR BRASIL" // Placeholder
+        company: SITE_CONFIG.name
     });
 
     // Form States
