@@ -10,7 +10,7 @@ const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
 const offers = [
     {
         icon: Search,
-        title: 'Diagnóstico de Maturidade N7',
+        title: 'Diagnóstico de Maturidade ALGOR',
         tag: 'Mapeamento',
         color: '#4F7EFF',
         image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop',
