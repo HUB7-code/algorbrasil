@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Users, Globe, MapPin, ArrowRight } from 'lucide-react';
+import { Users, Globe, MapPin, ArrowRight, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
 import { useCountUp } from '@/hooks/useCountUp';
 
@@ -36,7 +36,7 @@ export default function GlobalTeam() {
 
             <div className="relative z-10 max-w-7xl mx-auto px-6">
                 {/* Header */}
-                <div className="text-center mb-20">
+                <div className="text-center mb-16">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -44,7 +44,7 @@ export default function GlobalTeam() {
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#4F7EFF]/30 bg-[#4F7EFF]/10 text-[#4F7EFF] text-xs font-bold tracking-widest uppercase mb-6"
                     >
                         <Globe className="w-3.5 h-3.5" />
-                        Nossa Equipe Global
+                        Nossa Autoridade
                     </motion.div>
 
                     <motion.h2
@@ -54,9 +54,9 @@ export default function GlobalTeam() {
                         transition={{ delay: 0.1 }}
                         className="font-inter text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight"
                     >
-                        Escala Global,{' '}
+                        250+ Especialistas.{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]">
-                            Expertise Local.
+                            Uma Missão.
                         </span>
                     </motion.h2>
                     <motion.p
@@ -66,9 +66,37 @@ export default function GlobalTeam() {
                         transition={{ delay: 0.2 }}
                         className="text-slate-400 text-lg max-w-2xl mx-auto"
                     >
-                        Nossos times estão distribuídos estrategicamente para oferecer suporte 24/7 em conformidade com as legislações locais (LGPD, GDPR, CCPA).
+                        Traduzimos o "techês" em risco de negócio. Enquanto a sua equipe já usa IA, o{' '}
+                        <span className="text-white font-semibold">PL 2338</span> prevê multas de até{' '}
+                        <span className="text-white font-semibold">R$ 50 milhões</span> e responsabilidade objetiva para quem não tiver Supervisão Humana Significativa documentada.
                     </motion.p>
                 </div>
+
+                {/* Pain Point Banner */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="rounded-2xl border border-red-500/20 bg-red-500/5 p-6 mb-16 flex flex-col md:flex-row items-center gap-4"
+                >
+                    <div className="flex-shrink-0 p-3 rounded-xl bg-red-500/10 border border-red-500/20">
+                        <AlertTriangle className="w-6 h-6 text-red-400" />
+                    </div>
+                    <div className="text-center md:text-left">
+                        <p className="text-white font-bold text-sm mb-1">
+                            Sua equipe já usa IA. Você sabe como e onde?
+                        </p>
+                        <p className="text-slate-400 text-sm">
+                            Shadow AI, LGPD e o PL 2338 criam passivos jurídicos invisíveis. A ALGOR Association mapeia e neutraliza esses riscos antes que eles virem multa.
+                        </p>
+                    </div>
+                    <Link
+                        href="#diagnostico"
+                        className="flex-shrink-0 px-5 py-2.5 bg-red-500/10 border border-red-500/30 text-red-400 rounded-xl text-sm font-bold hover:bg-red-500/20 transition-colors whitespace-nowrap"
+                    >
+                        Ver soluções →
+                    </Link>
+                </motion.div>
 
                 {/* Stats — Big Numbers */}
                 <motion.div
@@ -76,13 +104,11 @@ export default function GlobalTeam() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.1 }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16"
+                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
                 >
                     {/* 25 Consultores */}
                     <div className="relative rounded-2xl border border-slate-700/40 bg-white/[0.02] p-10 text-center group hover:border-[#4F7EFF]/30 transition-colors duration-300 overflow-hidden">
-                        {/* Inner glow anchor */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#4F7EFF]/10 blur-[50px] rounded-full pointer-events-none" />
-
                         <div className="relative flex justify-center mb-4 z-10">
                             <div className="p-3 rounded-xl bg-[#4F7EFF]/10 border border-[#4F7EFF]/20">
                                 <Users className="w-6 h-6 text-[#4F7EFF]" />
@@ -91,15 +117,13 @@ export default function GlobalTeam() {
                         <CounterNum target={25} suffix="+" />
                         <p className="font-orbitron text-[#4F7EFF] text-sm font-bold tracking-wider mt-2">CONSULTORES NO BRASIL</p>
                         <p className="text-slate-500 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
-                            Dedicados a atender as demandas do mercado nacional com conhecimento local e especialização em IA Governance.
+                            Dedicados a atender as demandas do mercado nacional com especialização em AI Governance e Compliance.
                         </p>
                     </div>
 
                     {/* 250 Membros */}
                     <div className="relative rounded-2xl border border-slate-700/40 bg-white/[0.02] p-10 text-center group hover:border-[#818CF8]/30 transition-colors duration-300 overflow-hidden">
-                        {/* Inner glow anchor */}
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#818CF8]/10 blur-[50px] rounded-full pointer-events-none" />
-
                         <div className="relative flex justify-center mb-4 z-10">
                             <div className="p-3 rounded-xl bg-[#818CF8]/10 border border-[#818CF8]/20">
                                 <Globe className="w-6 h-6 text-[#818CF8]" />
@@ -108,7 +132,23 @@ export default function GlobalTeam() {
                         <CounterNum target={250} suffix="+" />
                         <p className="font-orbitron text-[#818CF8] text-sm font-bold tracking-wider mt-2">MEMBROS GLOBAIS</p>
                         <p className="text-slate-500 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
-                            Uma ampla rede global de profissionais que colaboram e compartilham conhecimento em Governança de IA.
+                            Rede internacional de profissionais que aplicam metodologias inovadoras de Governança de IA.
+                        </p>
+                    </div>
+
+                    {/* ISO 42001 */}
+                    <div className="relative rounded-2xl border border-[#4F7EFF]/20 bg-[#4F7EFF]/5 p-10 text-center group hover:border-[#4F7EFF]/40 transition-colors duration-300 overflow-hidden">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#4F7EFF]/10 blur-[50px] rounded-full pointer-events-none" />
+                        <div className="relative flex justify-center mb-4 z-10">
+                            <div className="p-3 rounded-xl bg-[#4F7EFF]/10 border border-[#4F7EFF]/30">
+                                <span className="text-[#4F7EFF] text-lg font-black">AIMS</span>
+                            </div>
+                        </div>
+                        <span className="font-orbitron text-4xl md:text-5xl font-bold text-white">ISO</span>
+                        <span className="font-orbitron text-4xl md:text-5xl font-bold text-[#4F7EFF]"> 42001</span>
+                        <p className="font-orbitron text-[#4F7EFF] text-sm font-bold tracking-wider mt-2">FRAMEWORK OFICIAL</p>
+                        <p className="text-slate-500 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
+                            Nossa metodologia é 100% lastreada no padrão-ouro global de auditoria de IA (AIMS).
                         </p>
                     </div>
                 </motion.div>

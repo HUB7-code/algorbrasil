@@ -1,0 +1,196 @@
+---
+title: "Checklist do Fornecedor de IA"
+subtitle: "20 Perguntas Capitais para Proteger a Soberania dos Seus Dados"
+excerpt: "Antes de assinar qualquer contrato com um fornecedor de IA, aplique este interrogatório. Cada resposta insatisfatória é um passivo jurídico documentado para o PL 2338 e LGPD."
+category: "Kit de Sobrevivência"
+author:
+  name: "ALGOR Association"
+  avatar: "/images/algor-logo.png"
+  role: "Governança de IA"
+publishedAt: "2026-03-01"
+featured: false
+tags: ["PL 2338", "Fornecedor", "ISO 42001", "LGPD", "Due Diligence", "Kit"]
+kit: true
+---
+
+<p className="lead">
+Cada pergunta sem resposta satisfatória equivale a uma cláusula de risco no seu contrato. Use este checklist em toda contratação de ferramenta ou serviço de IA e documente as respostas — sua organização pode ser auditada por qualquer uma delas.
+</p>
+
+> **Como usar:** Aplique presencialmente ou por e-mail antes da assinatura. Exija respostas formais por escrito. A recusa em responder qualquer item é, por si só, um sinal de alerta.
+
+---
+
+## BLOCO 1 — Soberania e Localização de Dados (Perguntas 1–5)
+
+### 1. Onde os dados da minha organização são armazenados e processados?
+- [ ] No Brasil (datacenters em território nacional)
+- [ ] Em outro país (especificar): ___________
+- [ ] Híbrido (especificar): ___________
+
+**Por que importa:** A LGPD exige que transferências internacionais de dados pessoais tenham garantias adequadas (Art. 33). O PL 2338 está alinhado com essa exigência.
+
+---
+
+### 2. O fornecedor usa os dados da minha organização para treinar seus modelos de IA?
+- [ ] Sim → Qual é a base legal? Como posso optar por não participar?
+- [ ] Não → Há cláusula contratual expressa proibindo isso?
+- [ ] Parcialmente → Em quais situações?
+
+**Resposta aceitável:** Não, com cláusula contratual expressa + procedimento de opt-out documentado.
+
+---
+
+### 3. O fornecedor pode compartilhar os dados com terceiros ou subsidiárias?
+- [ ] Não
+- [ ] Sim → Quais? Com qual finalidade? Há acordo de processamento de dados (DPA)?
+
+---
+
+### 4. O que acontece com os dados da minha organização caso o contrato seja rescindido?
+- [ ] Devolvidos em formato portável em até ___ dias
+- [ ] Destruídos com certificado de exclusão
+- [ ] Sem processo definido ⚠️
+
+**Resposta aceitável:** Devolução + destruição certificada em prazo definido contratualmente.
+
+---
+
+### 5. O fornecedor possui certificações de segurança da informação?
+- [ ] ISO/IEC 27001 (gestão de segurança da informação)
+- [ ] SOC 2 Type II
+- [ ] Outra: ___________
+- [ ] Nenhuma ⚠️
+
+---
+
+## BLOCO 2 — Transparência e Explicabilidade (Perguntas 6–10)
+
+### 6. O sistema de IA é capaz de explicar suas decisões em linguagem não-técnica?
+- [ ] Sim → Demonstrar com exemplo real
+- [ ] Parcialmente
+- [ ] Não ⚠️
+
+**Por que importa:** O PL 2338 exige explicabilidade para sistemas de Risco Alto. Sem ela, qualquer decisão automatizada que afete um cidadão pode ser contestada judicialmente.
+
+---
+
+### 7. Quais dados são utilizados como input para o modelo de IA?
+Solicitar documentação técnica completa (ficha-técnica do modelo, data sheet ou model card).
+
+- [ ] Documentação fornecida
+- [ ] Recusa ou omissão ⚠️
+
+---
+
+### 8. O modelo foi treinado com dados históricos que podem conter viés discriminatório?
+- [ ] Sim → Quais medidas foram adotadas para mitigação?
+- [ ] Avaliação de viés não realizada ⚠️
+
+---
+
+### 9. Com que frequência o modelo é reavaliado e atualizado?
+- Frequência: ___________
+- Processo de notificação ao cliente: ___________
+
+**Alerta:** Modelos que mudam sem notificação podem alterar decisões silenciosamente, gerando risco legal retroativo.
+
+---
+
+### 10. O fornecedor publica relatórios de transparência ou impacto social?
+- [ ] Sim → Link/documento: ___________
+- [ ] Não ⚠️
+
+---
+
+## BLOCO 3 — Supervisão Humana e Controle (Perguntas 11–15)
+
+### 11. É possível configurar o sistema para que decisões de alto risco sempre passem por revisão humana antes de serem aplicadas?
+- [ ] Sim, é configurável
+- [ ] Sim, é o padrão
+- [ ] Não ⚠️
+
+**Por que importa:** O PL 2338 exige Supervisão Humana Significativa para sistemas de Risco Alto. Sem essa capacidade técnica, a organização descumpre a lei ao implantar o sistema.
+
+---
+
+### 12. O sistema mantém logs auditáveis de todas as decisões automatizadas?
+- [ ] Sim → Por quanto tempo? ___________
+- [ ] Parcialmente
+- [ ] Não ⚠️
+
+---
+
+### 13. É possível reverter ou contestar uma decisão gerada pelo sistema?
+- [ ] Sim → Qual o processo?
+- [ ] Não ⚠️
+
+---
+
+### 14. Quem é o responsável legal pelo sistema de IA do lado do fornecedor?
+Nome: ___________  
+Cargo: ___________  
+Contato: ___________
+
+**Alerta:** A ausência de responsável identificado é um indicador de risco contratual e de compliance.
+
+---
+
+### 15. O fornecedor oferece SLA (Acordo de Nível de Serviço) para incidentes de IA (decisões incorretas, viés identificado)?
+- [ ] Sim → Tempo de resposta: ___________ / Processo de escalonamento: ___________
+- [ ] Não ⚠️
+
+---
+
+## BLOCO 4 — Compliance Regulatório (Perguntas 16–20)
+
+### 16. O fornecedor já realizou uma avaliação de conformidade com o PL 2338?
+- [ ] Sim → Compartilhar relatório
+- [ ] Em andamento
+- [ ] Não ⚠️
+
+---
+
+### 17. O sistema é compatível com os requisitos da ISO/IEC 42001 (AIMS)?
+- [ ] Certificado ISO 42001
+- [ ] Em processo de certificação
+- [ ] Compatível (auto-declarado, sem certificação)
+- [ ] Desconhece a norma ⚠️
+
+---
+
+### 18. O contrato inclui cláusula de responsabilidade do fornecedor em caso de violação de dados causada pelo sistema de IA?
+- [ ] Sim → Limite de responsabilidade: ___________
+- [ ] Não ⚠️
+
+---
+
+### 19. O fornecedor pode emitir um Relatório de Impacto ao Titular de Dados (RIID/DPIA) relativo ao sistema?
+- [ ] Sim, já possuem
+- [ ] Podem produzir sob demanda
+- [ ] Não ⚠️
+
+---
+
+### 20. Em caso de decisão judicial ou auditoria regulatória envolvendo o sistema, o fornecedor está contratualmente obrigado a cooperar e fornecer informações técnicas?
+- [ ] Sim → Cláusula contratual expressa
+- [ ] Não ⚠️
+
+---
+
+## 🚦 RESULTADO DO CHECKLIST
+
+| Respostas ⚠️ | Nível de Risco | Recomendação |
+|------|---------|---------|
+| 0–2 | 🟢 Baixo | Prosseguir com contratação |
+| 3–5 | 🟡 Moderado | Negociar cláusulas contratuais antes de assinar |
+| 6–10 | 🔴 Alto | Suspender contratação até adequação do fornecedor |
+| 11+ | 🚨 Excessivo | Cancelar processo — exposição jurídica grave |
+
+---
+
+<div className="cta-box">
+  <h3>Seu fornecedor não passou no checklist?</h3>
+  <p>O Diagnóstico de Maturidade N7 mapeia todos os seus sistemas e fornecedores, classifica os riscos e entrega o Roadmap de conformidade com PL 2338 e ISO 42001.</p>
+  <a href="https://calendly.com/[SEU-LINK]" className="cta-button">Agendar Diagnóstico Gratuito →</a>
+</div>

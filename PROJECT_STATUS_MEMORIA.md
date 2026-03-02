@@ -1,6 +1,34 @@
-**Versão Atual:** V21.8.0 "Blog MDX Engine & Server Actions"
-**Data da Última Atualização:** 28/02/2026
-**Status:** 🚀 PRODUCTION LIVE (VPS Deployed + Hardened)
+**Versão Atual:** V21.8.0 "Blog MDX Engine & Server Actions" + **Pivot Estratégico N7**
+**Data da Última Atualização:** 01/03/2026
+**Status:** 🚀 PRODUCTION LIVE (algorbrasil.com.br) | 🟡 MVP N7 EM PLANEJAMENTO
+
+---
+
+## 🔄 PIVOT ESTRATÉGICO — N7 CONSULTORIA (01/03/2026)
+
+### Arquitetura de Marca (Decisão de Sócio)
+- **ALGOR Association** (`algorbrasil.com.br`) → Guarda-Chuva Institucional (frameworks, blog, educação, ISO 42001)
+- **N7 Consultoria** (`n7consultoria.com.br`) → Espada Comercial (vende Diagnóstico + Retentor, CNPJ/NF)
+
+### O que muda no ALGOR (este repositório)
+1. Adicionar banner/botão na homepage → N7 Consultoria (parceira acreditada)
+2. **Nenhuma outra alteração estrutural** — blog, dashboard e board permanecem
+
+### O que é o N7 MVP
+- Site One-Page separado (novo projeto) no domínio `n7consultoria.com.br`
+- **5 blocos:** Hero (Calendly) → Problema (Dor C-Level) → Metodologia N7 → Ofertas → Educação
+- Design: branco/cinza + azul institucional (McKinsey-style, sem neon)
+- Ver plano completo: [`N7_MVP_SITE_PLAN.md`](./N7_MVP_SITE_PLAN.md)
+
+### Metodologia N7 (7 Vetores)
+4 Dimensões (Estratégia, Estrutura, Processos, Cultura) + 3 Travas PL 2338 (Ajustes A, B, D)
+
+### Itens pendentes (bloqueiam o MVP N7)
+- [ ] Registrar domínio `n7consultoria.com.br`
+- [ ] Criar Calendly ("Sessão de Triagem de Risco de IA")
+- [ ] Criar link WhatsApp Business
+
+---
 
 ### 🎯 Últimas Conquistas (V21.8.0 - "Blog MDX Engine & Server Actions")
 

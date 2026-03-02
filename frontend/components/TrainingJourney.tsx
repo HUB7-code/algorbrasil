@@ -1,58 +1,61 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Mic, Users, GraduationCap, Award, ArrowRight } from 'lucide-react';
+import { Search, Settings, Brain, Scale, Rocket, ArrowRight } from 'lucide-react';
 import GlowIcon from '@/components/GlowIcon';
-import Link from 'next/link';
-import LeadCaptureModal from '@/components/LeadCaptureModal';
 
-const steps = [
+// Calendly placeholder — substituir pelo link real quando disponível
+const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
+
+const stages = [
     {
-        icon: BookOpen,
-        title: 'Whitepaper Executivo',
-        duration: 'Gratuito',
-        tag: 'Conteúdo',
+        icon: Search,
+        title: 'Descoberta',
+        stage: 'Estágio 1',
+        tag: 'Diagnóstico',
         color: '#4F7EFF',
-        description: 'Guia Estratégico de Governança de IA para Lideranças — análise de cenário regulatório, riscos, e o caminho para compliance em organizações brasileiras.',
+        description: 'Shadow AI não mapeada, sem inventário de sistemas. A organização usa IA sem governança ou controle centralizado.',
+        alert: 'Exposição crítica ao PL 2338',
     },
     {
-        icon: Mic,
-        title: 'Palestra',
-        duration: '1 hora',
-        tag: 'Sensibilização',
+        icon: Settings,
+        title: 'Gestão',
+        stage: 'Estágio 2',
+        tag: 'Controles',
         color: '#60a5fa',
-        description: 'IA como solução para legislação, avaliação de riscos, sanções e oportunidades de ROI para lideranças.',
+        description: 'Iniciativas isoladas de governança. Políticas parciais, sem estratégia integrada nem responsável (AI Officer) formal.',
+        alert: 'Risco Alto — sem accountability',
     },
     {
-        icon: Users,
-        title: 'Workshop',
-        duration: '8 horas',
-        tag: 'Imersão',
+        icon: Brain,
+        title: 'Cultura',
+        stage: 'Estágio 3',
+        tag: 'Pessoas',
         color: '#818CF8',
-        description: 'Treinamento prático e imersivo no Plano de Adoção de IA para empresas. Hands-on com ferramentas reais.',
+        description: 'Governança operacional parcial. Equipes treinadas, mas ausência de auditoria e supervisão humana documentada.',
+        alert: 'Risco Moderado',
     },
     {
-        icon: GraduationCap,
-        title: 'Curso',
-        duration: '12 horas',
-        tag: 'Formação',
+        icon: Scale,
+        title: 'Regulação',
+        stage: 'Estágio 4',
+        tag: 'Compliance',
         color: '#a78bfa',
-        description: 'Modelo de Governança de IA e ISO 42001. Para universidades e equipes executivas.',
+        description: 'Conformidade ativa com ISO 42001, LGPD e PL 2338. Supervisão Humana Significativa implementada e auditável.',
+        alert: 'Risco Baixo — conformidade operacional',
     },
     {
-        icon: Award,
-        title: 'Certificação',
-        duration: '48 horas',
+        icon: Rocket,
+        title: 'Autonomia',
+        stage: 'Estágio 5',
         tag: 'Elite',
         color: '#F59E0B',
-        description: 'Formação executiva completa de Advisor / Auditor / Gestor de Sistemas de Gestão de IA.',
+        description: 'Governança autossustentável. IA gerenciada de forma independente, com KPIs, auditorias periódicas e certificação ISO.',
+        alert: 'Risco Residual — padrão-ouro',
     },
 ];
 
 export default function TrainingJourney() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
     return (
         <section className="py-28 bg-[#0B0F1E] relative overflow-hidden">
             {/* Background */}
@@ -70,7 +73,7 @@ export default function TrainingJourney() {
                         viewport={{ once: true }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#4F7EFF]/30 bg-[#4F7EFF]/10 text-[#4F7EFF] text-xs font-bold tracking-widest uppercase mb-6"
                     >
-                        Trilha de Formação
+                        Mapa de Maturidade ALGOR
                     </motion.div>
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
@@ -79,9 +82,9 @@ export default function TrainingJourney() {
                         transition={{ delay: 0.1 }}
                         className="font-inter text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight"
                     >
-                        Do Básico à{' '}
+                        Em qual estágio sua{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#F59E0B]">
-                            Certificação Executiva
+                            organização está?
                         </span>
                     </motion.h2>
                     <motion.p
@@ -91,16 +94,13 @@ export default function TrainingJourney() {
                         transition={{ delay: 0.2 }}
                         className="text-slate-400 text-lg max-w-2xl mx-auto"
                     >
-                        Uma jornada estruturada para construir competência real em Governança de IA — do conteúdo acessível à formação de elite.
+                        A régua universal da ALGOR Association. Os 5 Estágios de Maturidade em Governança de IA — do risco crítico ao padrão-ouro auditável.
                     </motion.p>
                 </div>
 
-                {/* ── TIMELINE ROW (Desktop) — linha + labels acima dos cards ── */}
+                {/* ── TIMELINE ROW (Desktop) ── */}
                 <div className="hidden lg:block relative mb-6">
-                    {/* Track line */}
                     <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-slate-800/60" />
-
-                    {/* Animated glowing fill */}
                     <motion.div
                         className="absolute left-0 top-1/2 -translate-y-1/2 h-px"
                         initial={{ width: '0%' }}
@@ -112,23 +112,18 @@ export default function TrainingJourney() {
                             boxShadow: '0 0 8px rgba(245,158,11,0.35)',
                         }}
                     />
-
-                    {/* Labels Grid — Matches exactly the 5-col grid of the cards below */}
                     <div className="grid grid-cols-5 gap-6 relative z-10">
-                        {steps.map((step, i) => (
+                        {stages.map((s, i) => (
                             <div key={i} className="flex justify-center">
                                 <div className="flex flex-col items-center gap-1 bg-[#0B0F1E] px-4">
-                                    <span
-                                        className="font-orbitron text-[10px] font-bold"
-                                        style={{ color: step.color }}
-                                    >
+                                    <span className="font-orbitron text-[10px] font-bold" style={{ color: s.color }}>
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                     <span
                                         className="text-[9px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full"
-                                        style={{ color: step.color, backgroundColor: `${step.color}15` }}
+                                        style={{ color: s.color, backgroundColor: `${s.color}15` }}
                                     >
-                                        {step.tag}
+                                        {s.tag}
                                     </span>
                                 </div>
                             </div>
@@ -136,11 +131,10 @@ export default function TrainingJourney() {
                     </div>
                 </div>
 
-                {/* ── STEPS CARDS ── */}
+                {/* ── STAGE CARDS ── */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
-
-                    {steps.map((step, i) => {
-                        const isElite = step.tag === 'Elite';
+                    {stages.map((s, i) => {
+                        const isElite = s.tag === 'Elite';
                         return (
                             <motion.div
                                 key={i}
@@ -151,14 +145,13 @@ export default function TrainingJourney() {
                                 whileHover={{ y: -6, scale: 1.02 }}
                                 className="relative rounded-2xl border bg-[#0A1222] hover:bg-[#0d1630] transition-all duration-300 group overflow-visible z-10"
                                 style={{
-                                    borderColor: isElite ? '#F59E0B60' : `${step.color}30`,
+                                    borderColor: isElite ? '#F59E0B60' : `${s.color}30`,
                                     background: isElite
                                         ? `radial-gradient(120% 120% at 50% 0%, #F59E0B12 0%, rgba(10,18,34,0.95) 100%)`
-                                        : `radial-gradient(120% 120% at 50% 0%, ${step.color}08 0%, rgba(10,18,34,0.9) 100%)`,
+                                        : `radial-gradient(120% 120% at 50% 0%, ${s.color}08 0%, rgba(10,18,34,0.9) 100%)`,
                                     boxShadow: isElite ? '0 0 0 1px rgba(245,158,11,0.2)' : undefined,
                                 }}
                             >
-                                {/* Elite: pulsing outer aura */}
                                 {isElite && (
                                     <>
                                         <motion.div
@@ -172,54 +165,46 @@ export default function TrainingJourney() {
                                             }}
                                             transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
                                         />
-                                        {/* Gold shimmer top edge */}
                                         <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent opacity-70" />
-                                        {/* Elite badge */}
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[#F59E0B] text-black text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#F59E0B]/40 whitespace-nowrap z-20">
-                                            ★ Elite
+                                            ★ Padrão-Ouro
                                         </div>
                                     </>
                                 )}
 
-                                {/* Hover inner glow */}
-                                <div
-                                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                                    style={{ boxShadow: `inset 0 0 40px ${step.color}08` }}
-                                />
-
-                                {/* Top accent line (non-Elite) */}
                                 {!isElite && (
                                     <div
                                         className="absolute top-0 left-0 right-0 h-[2px]"
-                                        style={{ background: `linear-gradient(to right, transparent, ${step.color}, transparent)` }}
+                                        style={{ background: `linear-gradient(to right, transparent, ${s.color}, transparent)` }}
                                     />
                                 )}
 
                                 <div className="p-6">
-                                    {/* Icon */}
                                     <div className="mb-4">
-                                        <GlowIcon icon={step.icon} color={step.color} size="sm" pulse={isElite} />
+                                        <GlowIcon icon={s.icon} color={s.color} size="sm" pulse={isElite} />
                                     </div>
 
-                                    {/* Title + Duration */}
-                                    <h3 className="font-inter text-white font-bold text-lg mb-1">{step.title}</h3>
-                                    <p className="text-xs font-bold mb-3" style={{ color: step.color }}>
-                                        {step.duration}
+                                    <p className="text-[10px] font-bold tracking-widest uppercase mb-1" style={{ color: s.color }}>
+                                        {s.stage}
                                     </p>
+                                    <h3 className="font-inter text-white font-bold text-lg mb-3">{s.title}</h3>
+                                    <p className="text-slate-400 text-xs leading-relaxed mb-4">{s.description}</p>
 
-                                    {/* Description */}
-                                    <p className="text-slate-400 text-xs leading-relaxed">
-                                        {step.description}
-                                    </p>
+                                    {/* Alert badge */}
+                                    <div
+                                        className="text-[9px] font-bold px-2 py-1 rounded-lg"
+                                        style={{
+                                            color: s.color,
+                                            backgroundColor: `${s.color}15`,
+                                            border: `1px solid ${s.color}30`,
+                                        }}
+                                    >
+                                        {s.alert}
+                                    </div>
                                 </div>
                             </motion.div>
                         );
                     })}
-                </div>
-
-                {/* Mobile connector arrows */}
-                <div className="flex lg:hidden justify-center mt-3 mb-1">
-                    <p className="text-slate-600 text-xs">↕ Progresso crescente</p>
                 </div>
 
                 {/* CTA */}
@@ -230,18 +215,21 @@ export default function TrainingJourney() {
                     transition={{ delay: 0.5 }}
                     className="text-center mt-12"
                 >
-                    <button
-                        onClick={() => setIsModalOpen(true)}
+                    <p className="text-slate-500 text-sm mb-6">
+                        Não sabe em qual estágio sua empresa está? Nossos auditores identificam em 15 minutos.
+                    </p>
+                    <a
+                        href={CALENDLY_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 inline-flex items-center gap-2"
                     >
                         <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
-                        <span className="relative">Escolher minha trilha</span>
+                        <span className="relative">Descobrir meu Estágio de Maturidade</span>
                         <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    </a>
                 </motion.div>
             </div>
-
-            <LeadCaptureModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </section>
     );
 }

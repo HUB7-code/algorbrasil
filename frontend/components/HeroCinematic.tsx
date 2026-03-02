@@ -5,6 +5,9 @@ import Link from 'next/link';
 import { ArrowRight, Shield, Globe } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 
+// Calendly placeholder — substituir pelo link real quando disponível
+const CALENDLY_URL = 'https://calendly.com/algorbrasil/diagnostico-n7';
+
 export default function HeroCinematic() {
     const sectionRef = useRef<HTMLElement>(null);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -21,12 +24,8 @@ export default function HeroCinematic() {
         const video = videoRef.current;
         if (!video) return;
 
-        // Respeitar preferência de movimento reduzido do OS
         const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReduced) {
-            video.pause();
-            return;
-        }
+        if (prefersReduced) { video.pause(); return; }
 
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -36,7 +35,7 @@ export default function HeroCinematic() {
                     video.pause();
                 }
             },
-            { threshold: 0.15 } // inicia quando 15% da seção está visível
+            { threshold: 0.15 }
         );
 
         observer.observe(video);
@@ -64,7 +63,7 @@ export default function HeroCinematic() {
 
                     {/* LEFT: TEXT CONTENT */}
                     <div className="text-left max-w-2xl">
-                        {/* Institution tag */}
+                        {/* Institution badge */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -72,7 +71,7 @@ export default function HeroCinematic() {
                             className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#4F7EFF]/30 bg-[#4F7EFF]/10 text-[#4F7EFF] text-xs font-bold tracking-widest uppercase mb-8 backdrop-blur-md"
                         >
                             <Shield className="w-3.5 h-3.5" />
-                            Enterprise AI Governance
+                            ISO/IEC 42001 · AIMS · PL 2338
                         </motion.div>
 
                         {/* Headline */}
@@ -82,9 +81,9 @@ export default function HeroCinematic() {
                             transition={{ duration: 0.7, delay: 0.1 }}
                             className="font-inter text-5xl lg:text-7xl font-extrabold leading-[1.05] text-white mb-6 tracking-tight"
                         >
-                            Governança inteligente movida a{' '}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#00FF94]">
-                                Inteligência Artificial
+                            O Padrão-Ouro em{' '}
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]">
+                                Governança de Inteligência Artificial.
                             </span>
                         </motion.h1>
 
@@ -95,8 +94,10 @@ export default function HeroCinematic() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                             className="text-lg text-slate-400 mb-10 leading-relaxed pr-8"
                         >
-                            Soluções de compliance completas para conselhos e executivos:
-                            transforme dados em confiança, evite multas, e lidere a adoção segura de IA no Brasil.
+                            A ALGOR Association é a comunidade internacional que orienta empresas e governos na adoção ética, segura e regulamentada da IA — compatível com a{' '}
+                            <span className="text-white font-semibold">ISO 42001</span>,{' '}
+                            <span className="text-white font-semibold">EU AI Act</span> e{' '}
+                            <span className="text-white font-semibold">PL 2338</span>.
                         </motion.p>
 
                         {/* CTAs */}
@@ -106,34 +107,37 @@ export default function HeroCinematic() {
                             transition={{ duration: 0.6, delay: 0.3 }}
                             className="flex flex-col sm:flex-row gap-4 mb-14"
                         >
-                            <a
-                                href="https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa."
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative overflow-hidden px-8 py-4 bg-[#00FF94] text-black rounded-xl font-bold tracking-wide hover:bg-[#00CC76] hover:shadow-[0_0_30px_rgba(0,255,148,0.4)] transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
-                            >
-                                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12" />
-                                <span className="relative">Agendar Diagnóstico Gratuito</span>
-                                <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </a>
+                            {/* CTA Primário — Kit de Sobrevivência */}
                             <Link
-                                href="/#pillars"
+                                href="/dashboard"
+                                className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
+                            >
+                                <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+                                <span className="relative">Baixar Kit de Sobrevivência IA</span>
+                                <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+
+                            {/* CTA Secundário — Acessar Área de Membros */}
+                            <Link
+                                href="/dashboard"
                                 className="px-8 py-4 border border-white/20 text-white/80 rounded-xl font-semibold hover:bg-white/5 hover:border-white/40 transition-all duration-300 w-full sm:w-auto text-center block"
                             >
-                                Nossas Soluções
+                                Acessar Área de Membros
                             </Link>
                         </motion.div>
 
-                        {/* Statistics Trust */}
+                        {/* Trust bar */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
-                            className="flex items-center gap-4 text-sm font-bold text-slate-300"
+                            className="flex flex-wrap items-center gap-4 text-sm font-bold text-slate-300"
                         >
-                            <span className="text-[#00FF94]">+600</span> organizações
+                            <span className="text-[#4F7EFF]">+250</span> membros globais
                             <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
-                            <span className="text-[#00FF94]">+20.000</span> conselheiros
+                            <span className="text-[#4F7EFF]">+25</span> consultores no Brasil
+                            <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                            <span className="text-[#818CF8]">6</span> regiões
                         </motion.div>
                     </div>
 
@@ -146,7 +150,6 @@ export default function HeroCinematic() {
                     >
                         {/* Main Frame — slow-motion video background */}
                         <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl z-10 aspect-[4/3]">
-                            {/* Cinematic slow-motion tech video */}
                             <video
                                 ref={videoRef}
                                 muted
@@ -157,32 +160,26 @@ export default function HeroCinematic() {
                                 style={{ filter: 'saturate(0.85) brightness(0.92)' }}
                                 poster="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=75"
                             >
-                                {/* Local cinematic video asset */}
-                                <source
-                                    src="/videos/hero-bg.mp4"
-                                    type="video/mp4"
-                                />
-                                {/* Fallback corporate image */}
+                                <source src="/videos/hero-bg.mp4" type="video/mp4" />
                                 <img
                                     src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=75"
-                                    alt="Equipe discutindo Governança"
+                                    alt="Executivos discutindo Governança de IA"
                                     className="object-cover w-full h-full"
                                 />
                             </video>
 
-                            {/* Color-grading: azul premium para casar com paleta */}
+                            {/* Color-grading: azul institucional */}
                             <div className="absolute inset-0 bg-gradient-to-br from-[#4F7EFF]/25 via-transparent to-[#818CF8]/20 mix-blend-screen pointer-events-none" />
-                            {/* Overlay degradê para legibilidade */}
                             <div className="absolute inset-0 video-hero-overlay pointer-events-none" />
 
-                            {/* "Live" indicator — reforça SaaS em tempo real */}
+                            {/* ISO Badge */}
                             <div className="absolute top-4 right-4 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10">
-                                <span className="w-1.5 h-1.5 rounded-full bg-[#00FF94] animate-pulse" />
-                                <span className="text-[9px] font-bold text-white uppercase tracking-widest">Live</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-[#4F7EFF] animate-pulse" />
+                                <span className="text-[9px] font-bold text-white uppercase tracking-widest">ISO 42001</span>
                             </div>
                         </div>
 
-                        {/* Floating Glassmorphism Element 1 (Top Left) — premium glass */}
+                        {/* Floating Card 1 — Maturidade */}
                         <motion.div
                             initial={{ y: -20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -204,17 +201,17 @@ export default function HeroCinematic() {
                                 <p className="text-white text-xs font-bold leading-tight">Maturidade ISO 42001</p>
                                 <div className="w-full bg-slate-800 h-1.5 rounded-full mt-2 overflow-hidden">
                                     <motion.div
-                                        className="h-1.5 rounded-full bg-gradient-to-r from-[#00FF94] to-[#4F7EFF]"
+                                        className="h-1.5 rounded-full bg-gradient-to-r from-[#4F7EFF] to-[#818CF8]"
                                         initial={{ width: '0%' }}
                                         animate={{ width: '85%' }}
                                         transition={{ delay: 1, duration: 1.2, ease: 'easeOut' }}
                                     />
                                 </div>
-                                <p className="text-[#00FF94] text-[9px] font-bold mt-1">85% · Nível Avançado</p>
+                                <p className="text-[#4F7EFF] text-[9px] font-bold mt-1">85% · Nível Avançado</p>
                             </div>
                         </motion.div>
 
-                        {/* Floating Glassmorphism Element 2 (Bottom Right) */}
+                        {/* Floating Card 2 — Membros */}
                         <motion.div
                             initial={{ y: 20, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -233,12 +230,11 @@ export default function HeroCinematic() {
                                 <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#818CF8] to-[#4F7EFF] flex items-center justify-center border-2 border-[#0B0F1E] shadow-lg">
                                     <Globe className="w-4 h-4 text-white" />
                                 </div>
-                                {/* Online indicator */}
-                                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-[#00FF94] rounded-full border-2 border-[#0B0F1E] animate-pulse" />
+                                <span className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-[#4F7EFF] rounded-full border-2 border-[#0B0F1E] animate-pulse" />
                             </div>
                             <div>
-                                <p className="text-[#00FF94] text-sm font-black">+250 Membros</p>
-                                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Comitê Global</p>
+                                <p className="text-[#4F7EFF] text-sm font-black">+250 Membros</p>
+                                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wider">Rede Global</p>
                             </div>
                         </motion.div>
                     </motion.div>

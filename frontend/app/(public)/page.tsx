@@ -6,12 +6,9 @@ import { ChevronRight } from 'lucide-react';
 import HeroCinematic from '@/components/HeroCinematic';
 
 // ── Below-the-fold: todos com ssr:false para evitar hydration mismatch ──
-const TrainingJourney = dynamic(() => import('@/components/TrainingJourney'), { ssr: false });
-const PainPointBanner = dynamic(() => import('@/components/PainPointBanner'), { ssr: false });
-const CinematicSolutions = dynamic(() => import('@/components/CinematicSolutions'), { ssr: false });
-const SaasPreview = dynamic(() => import('@/components/SaasPreview'), { ssr: false });
 const GlobalTeam = dynamic(() => import('@/components/GlobalTeam'), { ssr: false });
-const LatestPosts = dynamic(() => import('@/components/blog/LatestPosts'), { ssr: false });
+const TrainingJourney = dynamic(() => import('@/components/TrainingJourney'), { ssr: false });
+const CinematicSolutions = dynamic(() => import('@/components/CinematicSolutions'), { ssr: false });
 const WhatsAppButton = dynamic(() => import('@/components/WhatsAppButton'), { ssr: false });
 const Footer = dynamic(() => import('@/components/Footer'), { ssr: false });
 
@@ -56,18 +53,19 @@ export default function Home() {
     return (
         <div className="min-h-screen bg-[#0B0F1E] text-white font-sans selection:bg-[#4F7EFF] selection:text-white">
 
-            {/* ── ABOVE THE FOLD: carregado imediatamente pelo SSR ── */}
+            {/* BLOCO 1 — Hero: A Promessa Institucional */}
             <HeroCinematic />
 
-            {/* ── BELOW THE FOLD: client-only, sem mismatch de hydration ── */}
-            <TrainingJourney />
-            <PainPointBanner />
-            <CinematicSolutions />
-            <SaasPreview />
+            {/* BLOCO 2 — Autoridade: Quem somos + Pain Points */}
             <GlobalTeam />
-            <LatestPosts />
 
-            {/* Scroll to Top: isolado para não causar mismatch de state ── */}
+            {/* BLOCO 3 — Metodologia: 5 Estágios de Maturidade ALGOR */}
+            <TrainingJourney />
+
+            {/* BLOCO 4 — Ponte Comercial: Ofertas MVP → Calendly */}
+            <CinematicSolutions />
+
+            {/* Scroll to Top */}
             <ScrollToTop />
 
             <WhatsAppButton />
