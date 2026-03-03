@@ -4,6 +4,27 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V22.1.0] - 2026-03-03 - "CI/CD Stabilization & B2B Conversion Hook"
+
+### 🎯 Conversão e Vendas (N7 Consultoria)
+
+#### ✅ Adicionado
+- **Link Direto de Diagnóstico:** Atualizado o link do Calendly em todo o site para o evento específico de Diagnóstico de Maturidade ISO 42001.
+  - Link: `https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor`
+  - Pontos afetados: Homepage (CTAs), Board de Consultores, Cinematic Solutions.
+
+### 🛠️ Infraestrutura e DevOps (Next.js 16 + React 19)
+
+#### 🔧 Corrigido
+- **GitHub Actions Build (Verde):** Resolvido o erro de build que travava o pipeline após o upgrade para Next 16.
+- **Saneamento de Workspace:** Removidos arquivos `package.json` e `package-lock.json` duplicados na raiz do projeto que causavam conflitos de resolução de dependências no ambiente Linux (CI).
+- **Tipagem de Componentes (Build Robustness):**
+  - Refatorados componentes do dashboard (`TimelineChart`, `ActionChecklist`, `DataBreakdownTable`, `ActivityFeed`) para remover `React.FC` em favor de funções padrão com props tipadas, eliminando erros de inferência no React 19.
+  - Adicionado cast de tipo explícito (`as any[]`) para arrays de mock vazios em `mockData.ts`, evitando a inferência `never[]` que quebrava o build.
+- **Workflow CI/CD:** Atualizado `.github/workflows/main.yml` para usar `npm install --legacy-peer-deps`, garantindo compatibilidade entre Next 16 e dependências legadas.
+
+---
+
 ## [V21.7.0] - 2026-02-26 - "Production Hardening & Deploy Bulletproof"
 
 ### 🛠️ Infraestrutura e DevOps Crítico
@@ -389,5 +410,5 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
-**Última atualização:** 03/02/2026  
-**Versão atual:** V18.3.0
+**Última atualização:** 03/03/2026  
+**Versão atual:** V22.1.0

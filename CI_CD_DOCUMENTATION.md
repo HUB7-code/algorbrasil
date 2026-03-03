@@ -29,11 +29,10 @@ Documento de Referência: `.github/workflows/main.yml`
 
 ### 2. Frontend (Node.js / Next.js)
 *   **SO:** `ubuntu-latest`
-*   **Node Version:** `20` (Necessário para compatibilidade com `pdfjs-dist` e Next.js 14+).
+*   **Node Version:** `20` (Compatível com Next.js 16 e React 19).
 *   **Instalação de Pacotes:**
-    *   ⚠️ **NÃO USAR `npm ci`**.
-    *   ✅ **USAR `npm install`**.
-    *   **Motivo:** Existe uma discrepância na resolução de dependências opcionais (como `linux-x64` vs `win32-x64`) entre o ambiente de desenvolvimento (Windows) e o CI (Linux). O `npm ci` falha se o lockfile não for *bit-perfect* para a plataforma atual. O `npm install` é mais resiliente e resolve isso dinamicamente.
+    *   ⚠️ **USAR `npm install --legacy-peer-deps`**.
+    *   **Motivo:** Com a migração para o **Next.js 16 / React 19**, algumas dependências (como `recharts` ou `lucide-react`) podem apresentar avisos de conflito de `peerDependencies`. O uso da flag `--legacy-peer-deps` é obrigatório para garantir que o pipeline não quebre por avisos de versão durante a fase de transição do ecossistema.
 *   **Build:** Executa `npm run build` (Next.js build).
 
 ### 3. GitHub Pages (Documentação)

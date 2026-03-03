@@ -1,6 +1,6 @@
-**Versão Atual:** V22.0.0 "Next.js 16 & Turbopack Stabilization"
+**Versão Atual:** V22.1.0 "CI/CD Stabilization & B2B Hook"
 **Data da Última Atualização:** 03/03/2026
-**Status:** 🚀 PRODUCTION LIVE (algorbrasil.com.br) | 🟢 AMBIENTE DEV ESTABILIZADO (Turbopack)
+**Status:** 🟢 AMBIENTE DEV & CI ESTABILIZADO (Next 16) | 🎯 LINKS DE CONVERSÃO ATUALIZADOS
 
 ---
 
@@ -28,7 +28,21 @@
 - [ ] Criar Calendly ("Sessão de Triagem de Risco de IA")
 - [ ] Criar link WhatsApp Business
 
-### 🎯 Últimas Conquistas (V22.0.0 - "Next.js 16 & Turbopack Stabilization")
+### 🎯 Últimas Conquistas (V22.1.0 - "CI/CD Stabilization & B2B Hook")
+
+1.  **Estabilização Global do CI/CD:**
+    - **Fix Pipeline:** Resolvido erro crítico de build no GitHub Actions (`Exit 1`).
+    - **Saneamento:** Deletados os arquivos `package.json/lock` da raiz que entravam em conflito com o diretório `/frontend`.
+    - **CI Flags:** Implementado `--legacy-peer-deps` no workflow para suportar a transição pacífica para React 19.
+
+2.  **Conversão B2B (Calendly Flow):**
+    - **Direct Booking:** Todos os botões de "Agendar Diagnóstico" agora apontam para o evento específico de Maturidade ISO 42001 do Calendly, eliminando fricção na escolha do evento pelo usuário.
+    - **Site Config:** Centralizado o novo link em `frontend/config/site.ts`.
+
+3.  **Refactoring de Dashboard (Typos):**
+    - **Build-Safe Components:** Componentes gráficos (`TimelineChart`, etc) refatorados para funções simples sem `React.FC` para evitar erros de tipagem no compilador restrito do Next 16.
+
+### 🎯 Conquistas Anteriores (V22.0.0 - "Next.js 16 & Turbopack Stabilization")
 
 1.  **Frontend Modernization (Next.js 16):**
     - **Upgrade Core:** Migração do Next.js 14.2.35 para o **Next.js 16.1.6**, habilitando o **Turbopack** por padrão para builds instantâneos (Ready in < 5s).
