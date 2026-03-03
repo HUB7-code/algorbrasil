@@ -2,17 +2,8 @@
 import { ClerkProvider } from '@clerk/nextjs';
 import { ptBR } from "@clerk/localizations";
 
-// import { Manrope, Playfair_Display, JetBrains_Mono, Orbitron } from "next/font/google"; // Disabled due to SSL Proxy Issues
 import "./globals.css";
-import Footer from "@/components/Footer";
 import { CookieBanner } from "@/components/CookieBanner";
-
-// Fontes Elite Design (Disabled next/font/google to fix "self-signed certificate" error)
-// All fonts are now loaded via <link> in <head> and mapped in global.css
-// const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-// const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
-// const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains-mono", display: "swap" });
-// const orbitron = Orbitron({ subsets: ["latin"], variable: "--font-orbitron", display: "swap" });
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://www.algorbrasil.com.br'),
@@ -74,7 +65,6 @@ export default function RootLayout({
         <ClerkProvider localization={ptBR}>
             <html lang="pt-BR">
                 <head>
-                    {/* Fonts: preconnect + single request with display=swap (non-blocking) */}
                     <link rel="preconnect" href="https://fonts.googleapis.com" />
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
                     <link
@@ -86,7 +76,6 @@ export default function RootLayout({
                 <body className={`font-sans bg-[#0A1A2F] text-white selection:bg-[#4F7EFF] selection:text-[#0A1A2F]`}>
                     {children}
                     <CookieBanner />
-                    {/* <Footer /> Footer is now included in page components for custom layout control */}
                 </body>
             </html>
         </ClerkProvider>

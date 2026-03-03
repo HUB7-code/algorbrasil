@@ -5,6 +5,8 @@ import { motion, useInView } from 'framer-motion';
 import { Search, Shield, ArrowRight, Clock, Users, CheckCircle, ExternalLink } from 'lucide-react';
 import { SITE_CONFIG } from '@/config/site';
 
+// Trigger rebuild for config update
+
 const offers = [
     {
         icon: Search,

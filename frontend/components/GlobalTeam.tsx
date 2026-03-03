@@ -1,10 +1,21 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Globe, MapPin, ArrowRight, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
-import { useCountUp } from '@/hooks/useCountUp';
 import { SITE_CONFIG } from '@/config/site';
+import { useCountUp } from '@/hooks/useCountUp';
+
+// Unified sub-component in the same file to avoid circular/module resolution issues in dynamic chunks
+function CounterNumInternal({ target, suffix }: { target: number; suffix: string }) {
+    const { count, ref } = useCountUp({ target });
+    return (
+        <span ref={ref as React.RefObject<HTMLSpanElement>} className="font-orbitron text-5xl md:text-6xl font-bold text-white">
+            {count}{suffix}
+        </span>
+    );
+}
 
 const regions = [
     { city: 'São Paulo', role: 'Gestor Regional', flag: '🇧🇷' },
@@ -16,15 +27,6 @@ const regions = [
     { city: 'London, UK', role: 'Sede Internacional', flag: '🇬🇧' },
     { city: 'Europa & EUA', role: 'Membros Globais', flag: '🌍' },
 ];
-
-function CounterNum({ target, suffix }: { target: number; suffix: string }) {
-    const { count, ref } = useCountUp({ target });
-    return (
-        <span ref={ref as React.RefObject<HTMLSpanElement>} className="font-orbitron text-5xl md:text-6xl font-bold text-white">
-            {count}{suffix}
-        </span>
-    );
-}
 
 export default function GlobalTeam() {
     return (
@@ -115,7 +117,7 @@ export default function GlobalTeam() {
                                 <Users className="w-6 h-6 text-[#4F7EFF]" />
                             </div>
                         </div>
-                        <CounterNum target={SITE_CONFIG.stats.brazilConsultants} suffix="+" />
+                        <CounterNumInternal target={SITE_CONFIG.stats.brazilConsultants} suffix="+" />
                         <p className="font-orbitron text-[#4F7EFF] text-sm font-bold tracking-wider mt-2">CONSULTORES NO BRASIL</p>
                         <p className="text-slate-500 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
                             Dedicados a atender as demandas do mercado nacional com especialização em AI Governance e Compliance.
@@ -130,7 +132,7 @@ export default function GlobalTeam() {
                                 <Globe className="w-6 h-6 text-[#818CF8]" />
                             </div>
                         </div>
-                        <CounterNum target={SITE_CONFIG.stats.globalMembers} suffix="+" />
+                        <CounterNumInternal target={SITE_CONFIG.stats.globalMembers} suffix="+" />
                         <p className="font-orbitron text-[#818CF8] text-sm font-bold tracking-wider mt-2">MEMBROS GLOBAIS</p>
                         <p className="text-slate-500 text-sm mt-3 max-w-xs mx-auto leading-relaxed">
                             Rede internacional de profissionais que aplicam metodologias inovadoras de Governança de IA.

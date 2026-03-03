@@ -20,16 +20,13 @@ const nextConfig = {
     poweredByHeader: false,          // Remove X-Powered-By (security + smaller header)
     transpilePackages: ['three'],
     allowedDevOrigins: ['127.0.0.1', 'localhost'],
-    optimizeFonts: true,
     compiler: {
         removeConsole: process.env.NODE_ENV === 'production',
     },
-    eslint: {
-        ignoreDuringBuilds: true,
-    },
+    turbopack: {},
     experimental: {
         optimizeCss: false,           // Only enable in prod (needs critters)
-        optimizePackageImports: ['framer-motion', 'lucide-react', '@clerk/nextjs'],
+        optimizePackageImports: ['@clerk/nextjs'],
     },
     images: {
         formats: ['image/avif', 'image/webp'],

@@ -1,13 +1,21 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldAlert, ShieldCheck, Shield } from 'lucide-react';
 
 interface RiskScoreGaugeProps {
     score?: number;
+    previousScore?: number;
 }
 
-export default function RiskScoreGauge({ score = 68 }: RiskScoreGaugeProps) {
+export default function RiskScoreGauge({ score = 68, previousScore }: RiskScoreGaugeProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // Determine color based on score
     const getColor = (s: number) => {
         if (s > 80) return '#10b981'; // Green
@@ -16,6 +24,8 @@ export default function RiskScoreGauge({ score = 68 }: RiskScoreGaugeProps) {
     };
 
     const color = getColor(score);
+
+    if (!mounted) return <div className="w-48 h-48 rounded-full bg-white/5 animate-pulse mx-auto" />;
 
     return (
         <div className="flex flex-col items-center justify-center py-6">
@@ -65,6 +75,11 @@ export default function RiskScoreGauge({ score = 68 }: RiskScoreGaugeProps) {
                     </motion.div>
                     <span className="text-4xl font-black font-orbitron text-white">{score}</span>
                     <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1">Compliance Score</p>
+                    {previousScore !== undefined && (
+                        <div className={`text-[10px] font-bold mt-1 ${score >= previousScore ? 'text-emerald-500' : 'text-red-500'}`}>
+                            {score >= previousScore ? '↑' : '↓'} {Math.abs(score - previousScore)} pts de diferença
+                        </div>
+                    )}
                 </div>
             </div>
 

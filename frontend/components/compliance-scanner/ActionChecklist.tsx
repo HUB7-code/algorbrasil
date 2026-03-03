@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { CheckCircle2, Circle, AlertCircle, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -18,7 +19,19 @@ const mockActions: ActionItem[] = [
     { id: '4', text: 'Treinamento de Alpha 1: Princípios Éticos', priority: 'low', status: 'completed', timeEstimate: '2h' },
 ];
 
-export default function ActionChecklist() {
+interface ActionChecklistProps {
+    items?: ActionItem[];
+}
+
+export default function ActionChecklist({ items = mockActions }: ActionChecklistProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return <div className="space-y-4 animate-pulse"><div className="h-20 bg-white/5 rounded-xl w-full" /><div className="h-20 bg-white/5 rounded-xl w-full" /></div>;
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between mb-2">
@@ -27,7 +40,7 @@ export default function ActionChecklist() {
             </div>
 
             <div className="space-y-3">
-                {mockActions.map((action, idx) => (
+                {items.map((action, idx) => (
                     <motion.div
                         key={action.id}
                         initial={{ opacity: 0, x: -10 }}
@@ -49,7 +62,7 @@ export default function ActionChecklist() {
                                 </p>
                                 <div className="flex items-center gap-3 mt-1">
                                     <span className={`text-[9px] font-bold uppercase tracking-tighter ${action.priority === 'high' ? 'text-red-400' :
-                                            action.priority === 'medium' ? 'text-amber-400' : 'text-slate-500'
+                                        action.priority === 'medium' ? 'text-amber-400' : 'text-slate-500'
                                         }`}>
                                         Prioridade {action.priority}
                                     </span>

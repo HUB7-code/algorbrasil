@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import { Linkedin, Mail, ShieldCheck, Globe, ArrowRight, Award, Zap, Calendar, Lock } from 'lucide-react';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { SITE_CONFIG } from '@/config/site';
 
 // ─────────────────────────────────────────────
 // DATA
@@ -318,7 +319,7 @@ export default function BoardPage() {
                 {/* ── SCHEDULING CTA ── */}
                 <div className="flex justify-center">
                     <a
-                        href="https://calendly.com/contato-algor"
+                        href={SITE_CONFIG.links.calendly.diagnostic}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group inline-flex items-center gap-3 px-10 py-5 rounded-2xl

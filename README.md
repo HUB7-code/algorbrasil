@@ -1,8 +1,8 @@
 # 🎯 ALGOR BRASIL - Governança de IA B2B Enterprise
 
-**Versão:** V21.4.0 "B2B Cinematic Pivot"  
-**Status:** 🚀 PRODUCTION STABLE (B2B Focus)  
-**Última Atualização:** 24/02/2026
+**Versão:** V22.0.0 "Next.js 16 & Turbopack Stabilization"  
+**Status:** 🚀 PRODUCTION STABLE (Next 16 & Turbopack)  
+**Última Atualização:** 03/03/2026
 
 ---
 
@@ -123,11 +123,11 @@ Acesse: http://localhost:3000
 - **Email:** SMTP (Gmail) com templates HTML premium
 
 ### Frontend
-- **Framework:** Next.js 15 (App Router)
+- **Framework:** Next.js 16 (App Router + Turbopack)
 - **UI Library:** React 19
 - **Language:** TypeScript (Strict Mode)
-- **Styling:** Tailwind CSS + Custom CSS
-- **Animations:** Framer Motion 11+
+- **Styling:** Tailwind CSS + Custom CSS (PostCSS order enforced)
+- **Animations:** Framer Motion 12+
 - **Icons:** Lucide React
 
 ### Design System

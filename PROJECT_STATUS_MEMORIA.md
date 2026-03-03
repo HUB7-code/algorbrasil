@@ -1,6 +1,6 @@
-**Versão Atual:** V21.8.0 "Blog MDX Engine & Server Actions" + **Pivot Estratégico N7**
-**Data da Última Atualização:** 01/03/2026
-**Status:** 🚀 PRODUCTION LIVE (algorbrasil.com.br) | 🟡 MVP N7 EM PLANEJAMENTO
+**Versão Atual:** V22.0.0 "Next.js 16 & Turbopack Stabilization"
+**Data da Última Atualização:** 03/03/2026
+**Status:** 🚀 PRODUCTION LIVE (algorbrasil.com.br) | 🟢 AMBIENTE DEV ESTABILIZADO (Turbopack)
 
 ---
 
@@ -28,9 +28,24 @@
 - [ ] Criar Calendly ("Sessão de Triagem de Risco de IA")
 - [ ] Criar link WhatsApp Business
 
+### 🎯 Últimas Conquistas (V22.0.0 - "Next.js 16 & Turbopack Stabilization")
+
+1.  **Frontend Modernization (Next.js 16):**
+    - **Upgrade Core:** Migração do Next.js 14.2.35 para o **Next.js 16.1.6**, habilitando o **Turbopack** por padrão para builds instantâneos (Ready in < 5s).
+    - **Migration Middleware → Proxy:** Implementada a nova convenção de interceptação de requisições do Next.js 16, migrando o arquivo `middleware.ts` para `proxy.ts` com export constante nomeada.
+    - **Saneamento de SSR:** Corrigidos componentes que utilizavam `ssr: false` em Server Components. Adicionada diretiva `'use client'` nos layouts públicos e páginas dinâmicas para compatibilidade com o rigor do Next 16.
+
+2.  **Fixes de Tipagem & Build:**
+    - **RiskScoreGauge Props:** Resolvido erro de compilação TypeScript no CI/CD que bloqueava o build. Adicionado suporte à prop `previousScore` e implementado indicador visual de tendência (Up/Down) reativo.
+    - **Prop Standardization:** Refatoração preventiva de componentes do Dashboard (`ActionChecklist`, `ActivityFeed`, `DataBreakdownTable`, `TimelineChart`) para aceitarem props tipadas em vez de depender apenas de mocks internos, garantindo integridade no build de produção.
+
+3.  **Resolução de Runtime Errors (Firefox):**
+    - **Eliminação do `originalFactory` error:** Identificada causa raiz em conflito de cache do Webpack com `dynamic imports`. Resolvido via limpeza profunda de cache (`.next`, `node_modules`) e remoção de otimizações experimentais instáveis em `next.config.mjs`.
+    - **CSS Order Enforcement:** Reorganizada a ordem de `@import` no `globals.css` para o topo do arquivo, atendendo aos novos requisitos estritos do Turbopack/PostCSS.
+
 ---
 
-### 🎯 Últimas Conquistas (V21.8.0 - "Blog MDX Engine & Server Actions")
+### 🚀 Conquistas Anteriores (V21.8.0 - "Blog MDX Engine & Server Actions")
 
 1. **Arquitetura de Blog (SEO-First):**
     - **Engine MDX:** Implementado sistema de leitura de arquivos Markdown/MDX (`/content/blog`) parser dinâmico SSR sem dependência de banco de dados, focado em velocidade extrema.
@@ -140,7 +155,7 @@
 ---
 
 ### 📜 Histórico de Versões
-
+- [x] **V22.0.0:** "Next.js 16 & Turbopack Stabilization" - Upgrade Next.js 16, Turbopack, Proxy Migration, Fixes de Tipagem e Build.
 - [x] **V21.8.0:** "Blog MDX Engine & Server Actions" - Blog Cinematic, Server Actions Leads, Performance IntersectionObserver/Preload.
 - [x] **V21.7.0:** "Production Hardening" - `.env` protegido de deploy reset, remoção auth local.
 - [x] **V21.6.1:** "VPS & CI/CD Stabilization" - Precedência de .env ajustada, Build OOM fixado.

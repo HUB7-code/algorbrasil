@@ -1,9 +1,10 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Search, Settings, Brain, Scale, Rocket, ArrowRight } from 'lucide-react';
-import GlowIcon from '@/components/GlowIcon';
-import { SITE_CONFIG } from '@/config/site';
+import GlowIcon from './GlowIcon';
+import { SITE_CONFIG } from '../config/site';
 
 const stages = [
     {

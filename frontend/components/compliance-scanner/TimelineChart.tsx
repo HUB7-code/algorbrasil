@@ -1,8 +1,9 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
-const data = [
+const mockTimelineData = [
     { name: 'Jan', compliance: 45, risks: 20 },
     { name: 'Fev', compliance: 52, risks: 18 },
     { name: 'Mar', compliance: 48, risks: 25 },
@@ -10,7 +11,19 @@ const data = [
     { name: 'Mai', compliance: 68, risks: 12 },
 ];
 
-export default function TimelineChart() {
+interface TimelineChartProps {
+    data?: any[];
+}
+
+export default function TimelineChart({ data = mockTimelineData }: TimelineChartProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return <div className="w-full h-full min-h-[300px] bg-white/5 animate-pulse rounded-xl" />;
+
     return (
         <div className="w-full h-full min-h-[300px] flex flex-col">
             <div className="flex items-center justify-between mb-6">

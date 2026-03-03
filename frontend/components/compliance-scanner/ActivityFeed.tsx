@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, AlertCircle, FileText, User, Search } from 'lucide-react';
 
@@ -19,7 +20,19 @@ const mockActivities: ActivityItem[] = [
     { id: '5', type: 'audit', text: 'Início da verificação anual ISO 42001', time: 'ontem' },
 ];
 
-export default function ActivityFeed() {
+interface ActivityFeedProps {
+    initialData?: ActivityItem[];
+}
+
+export default function ActivityFeed({ initialData = mockActivities }: ActivityFeedProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return <div className="space-y-6 animate-pulse"><div className="h-40 bg-white/5 rounded-xl w-full" /></div>;
+
     return (
         <div className="space-y-6">
             <div className="flex items-center justify-between mb-2">
@@ -31,7 +44,7 @@ export default function ActivityFeed() {
                 {/* Vertical Line */}
                 <div className="absolute left-[17px] top-2 bottom-2 w-0.5 bg-white/5" />
 
-                {mockActivities.map((item, idx) => (
+                {initialData.map((item, idx) => (
                     <motion.div
                         key={item.id}
                         initial={{ opacity: 0, y: 10 }}
@@ -40,8 +53,8 @@ export default function ActivityFeed() {
                         className="relative flex gap-4 pr-2 group"
                     >
                         <div className={`z-10 w-9 h-9 rounded-full flex items-center justify-center border-2 border-[#0A0F1E] shadow-xl ${item.type === 'audit' ? 'bg-emerald-500/20 text-emerald-500' :
-                                item.type === 'alert' ? 'bg-red-500/20 text-red-500' :
-                                    item.type === 'user' ? 'bg-blue-500/20 text-blue-500' : 'bg-slate-800 text-slate-400'
+                            item.type === 'alert' ? 'bg-red-500/20 text-red-500' :
+                                item.type === 'user' ? 'bg-blue-500/20 text-blue-500' : 'bg-slate-800 text-slate-400'
                             }`}>
                             {item.type === 'audit' && <ShieldCheck className="w-4 h-4" />}
                             {item.type === 'alert' && <AlertCircle className="w-4 h-4" />}

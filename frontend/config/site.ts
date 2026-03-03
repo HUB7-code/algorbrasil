@@ -8,8 +8,8 @@ export const SITE_CONFIG = {
     domain: 'algorbrasil.com.br',
     links: {
         calendly: {
-            diagnostic: 'https://calendly.com/algorbrasil/diagnostico-n7',
-            specialist: 'https://calendly.com/algorbrasil/diagnostico-n7', // Recomended same for MVP
+            diagnostic: 'https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor',
+            specialist: 'https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor',
         },
         members: '/dashboard',
         kitDownload: '/dashboard',

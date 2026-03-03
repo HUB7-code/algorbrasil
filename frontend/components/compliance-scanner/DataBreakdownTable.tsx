@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Database, Shield, Lock, FileText, Globe } from 'lucide-react';
 
@@ -19,7 +20,17 @@ const tableData: DataRow[] = [
     { id: '4', source: 'Shadow AI Tester', category: 'Desenvolvimento', risk: 'Excessive', compliance: 15, lastAudit: '15/05/2024' },
 ];
 
-export default function DataBreakdownTable() {
+interface DataBreakdownTableProps {
+    data?: DataRow[];
+}
+
+export default function DataBreakdownTable({ data = tableData }: DataBreakdownTableProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const getRiskStyles = (risk: DataRow['risk']) => {
         switch (risk) {
             case 'Low': return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
@@ -29,6 +40,8 @@ export default function DataBreakdownTable() {
             default: return 'bg-slate-500/10 text-slate-500 border-slate-500/20';
         }
     };
+
+    if (!mounted) return <div className="space-y-4 animate-pulse"><div className="h-48 bg-white/5 rounded-xl w-full" /></div>;
 
     return (
         <div className="w-full overflow-hidden">
@@ -48,7 +61,7 @@ export default function DataBreakdownTable() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-white/5">
-                        {tableData.map((row, idx) => (
+                        {data.map((row, idx) => (
                             <motion.tr
                                 key={row.id}
                                 initial={{ opacity: 0, y: 5 }}
