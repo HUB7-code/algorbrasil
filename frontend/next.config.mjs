@@ -5,11 +5,12 @@ const withPWA = withPWAInit({
     disable: process.env.NODE_ENV === "development", // Desativar em dev para não cachear tudo
     register: true,
     skipWaiting: true,
-    cacheOnFrontEndNav: true,
-    aggressiveFrontEndNavCaching: true,
+    cacheOnFrontEndNav: false,
+    aggressiveFrontEndNavCaching: false,
     reloadOnOnline: true,
     workboxOptions: {
         disableDevLogs: true,
+        cleanupOutdatedCaches: true,
     },
 });
 
