@@ -15,7 +15,7 @@ interface TimelineChartProps {
     data?: any[];
 }
 
-export const TimelineChart: React.FC<TimelineChartProps> = ({ data = mockTimelineData }) => {
+export default function TimelineChart({ data = mockTimelineData }: TimelineChartProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -86,6 +86,4 @@ export const TimelineChart: React.FC<TimelineChartProps> = ({ data = mockTimelin
             </div>
         </div>
     );
-};
-
-export default TimelineChart;
+}

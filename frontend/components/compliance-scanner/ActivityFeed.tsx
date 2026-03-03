@@ -24,7 +24,7 @@ interface ActivityFeedProps {
     initialData?: ActivityItem[];
 }
 
-export const ActivityFeed: React.FC<ActivityFeedProps> = ({ initialData = mockActivities }) => {
+export default function ActivityFeed({ initialData = mockActivities }: ActivityFeedProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -85,6 +85,4 @@ export const ActivityFeed: React.FC<ActivityFeedProps> = ({ initialData = mockAc
             </button>
         </div>
     );
-};
-
-export default ActivityFeed;
+}

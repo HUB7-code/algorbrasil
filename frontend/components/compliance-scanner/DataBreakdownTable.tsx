@@ -24,7 +24,7 @@ interface DataBreakdownTableProps {
     data?: DataRow[];
 }
 
-export const DataBreakdownTable: React.FC<DataBreakdownTableProps> = ({ data = tableData }) => {
+export default function DataBreakdownTable({ data = tableData }: DataBreakdownTableProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -106,6 +106,4 @@ export const DataBreakdownTable: React.FC<DataBreakdownTableProps> = ({ data = t
             </div>
         </div>
     );
-};
-
-export default DataBreakdownTable;
+}

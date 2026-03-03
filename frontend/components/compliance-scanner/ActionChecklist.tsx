@@ -23,7 +23,7 @@ interface ActionChecklistProps {
     items?: ActionItem[];
 }
 
-export const ActionChecklist: React.FC<ActionChecklistProps> = ({ items = mockActions }) => {
+export default function ActionChecklist({ items = mockActions }: ActionChecklistProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -86,6 +86,4 @@ export const ActionChecklist: React.FC<ActionChecklistProps> = ({ items = mockAc
             </button>
         </div>
     );
-};
-
-export default ActionChecklist;
+}
