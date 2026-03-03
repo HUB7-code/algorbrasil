@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle2, Circle, AlertCircle, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -23,7 +23,7 @@ interface ActionChecklistProps {
     items?: ActionItem[];
 }
 
-export default function ActionChecklist({ items = mockActions }: ActionChecklistProps) {
+export const ActionChecklist: React.FC<ActionChecklistProps> = ({ items = mockActions }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -86,4 +86,6 @@ export default function ActionChecklist({ items = mockActions }: ActionChecklist
             </button>
         </div>
     );
-}
+};
+
+export default ActionChecklist;

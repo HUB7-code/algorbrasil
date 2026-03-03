@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, AlertCircle, FileText, User, Search } from 'lucide-react';
 
@@ -24,7 +24,7 @@ interface ActivityFeedProps {
     initialData?: ActivityItem[];
 }
 
-export default function ActivityFeed({ initialData = mockActivities }: ActivityFeedProps) {
+export const ActivityFeed: React.FC<ActivityFeedProps> = ({ initialData = mockActivities }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -85,4 +85,6 @@ export default function ActivityFeed({ initialData = mockActivities }: ActivityF
             </button>
         </div>
     );
-}
+};
+
+export default ActivityFeed;

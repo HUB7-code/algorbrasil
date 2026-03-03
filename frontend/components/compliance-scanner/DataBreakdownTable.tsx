@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Database, Shield, Lock, FileText, Globe } from 'lucide-react';
 
@@ -24,7 +24,7 @@ interface DataBreakdownTableProps {
     data?: DataRow[];
 }
 
-export default function DataBreakdownTable({ data = tableData }: DataBreakdownTableProps) {
+export const DataBreakdownTable: React.FC<DataBreakdownTableProps> = ({ data = tableData }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -106,4 +106,6 @@ export default function DataBreakdownTable({ data = tableData }: DataBreakdownTa
             </div>
         </div>
     );
-}
+};
+
+export default DataBreakdownTable;

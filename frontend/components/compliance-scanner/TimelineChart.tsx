@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 
 const mockTimelineData = [
@@ -15,7 +15,7 @@ interface TimelineChartProps {
     data?: any[];
 }
 
-export default function TimelineChart({ data = mockTimelineData }: TimelineChartProps) {
+export const TimelineChart: React.FC<TimelineChartProps> = ({ data = mockTimelineData }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -86,4 +86,6 @@ export default function TimelineChart({ data = mockTimelineData }: TimelineChart
             </div>
         </div>
     );
-}
+};
+
+export default TimelineChart;
