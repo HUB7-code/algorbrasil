@@ -140,7 +140,6 @@ export default function ComplianceScannerDashboard() {
                     <div className="col-span-12 lg:col-span-4">
                         <RiskScoreGauge
                             score={overviewMetrics.riskScore}
-                            previousScore={overviewMetrics.previousWeekScore}
                         />
                     </div>
 
