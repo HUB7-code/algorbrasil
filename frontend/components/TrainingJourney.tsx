@@ -10,47 +10,47 @@ const stages = [
     {
         icon: Search,
         title: 'Descoberta',
-        stage: 'Estágio 1',
-        tag: 'Diagnóstico',
+        stage: 'EstÃ¡gio 1',
+        tag: 'DiagnÃ³stico',
         color: '#4F7EFF',
-        description: 'Shadow AI não mapeada, sem inventário de sistemas. A organização usa IA sem governança ou controle centralizado.',
-        alert: 'Exposição crítica ao PL 2338',
+        description: 'Shadow AI nÃ£o mapeada, sem inventÃ¡rio de sistemas. A organizaÃ§Ã£o usa IA sem governanÃ§a ou controle centralizado.',
+        alert: 'ExposiÃ§Ã£o crÃ­tica ao PL 2338',
     },
     {
         icon: Settings,
-        title: 'Gestão',
-        stage: 'Estágio 2',
+        title: 'GestÃ£o',
+        stage: 'EstÃ¡gio 2',
         tag: 'Controles',
         color: '#60a5fa',
-        description: 'Iniciativas isoladas de governança. Políticas parciais, sem estratégia integrada nem responsável (AI Officer) formal.',
-        alert: 'Risco Alto — sem accountability',
+        description: 'Iniciativas isoladas de governanÃ§a. PolÃ­ticas parciais, sem estratÃ©gia integrada nem responsÃ¡vel (AI Officer) formal.',
+        alert: 'Risco Alto â€” sem accountability',
     },
     {
         icon: Brain,
         title: 'Cultura',
-        stage: 'Estágio 3',
+        stage: 'EstÃ¡gio 3',
         tag: 'Pessoas',
         color: '#818CF8',
-        description: 'Governança operacional parcial. Equipes treinadas, mas ausência de auditoria e supervisão humana documentada.',
+        description: 'GovernanÃ§a operacional parcial. Equipes treinadas, mas ausÃªncia de auditoria e supervisÃ£o humana documentada.',
         alert: 'Risco Moderado',
     },
     {
         icon: Scale,
-        title: 'Regulação',
-        stage: 'Estágio 4',
+        title: 'RegulaÃ§Ã£o',
+        stage: 'EstÃ¡gio 4',
         tag: 'Compliance',
-        color: '#a78bfa',
-        description: 'Conformidade ativa com ISO 42001, LGPD e PL 2338. Supervisão Humana Significativa implementada e auditável.',
-        alert: 'Risco Baixo — conformidade operacional',
+        color: '#7DAEFF',
+        description: 'Conformidade ativa com ISO 42001, LGPD e PL 2338. SupervisÃ£o Humana Significativa implementada e auditÃ¡vel.',
+        alert: 'Risco Baixo â€” conformidade operacional',
     },
     {
         icon: Rocket,
         title: 'Autonomia',
-        stage: 'Estágio 5',
+        stage: 'EstÃ¡gio 5',
         tag: 'Elite',
         color: '#F59E0B',
-        description: 'Governança autossustentável. IA gerenciada de forma independente, com KPIs, auditorias periódicas e certificação ISO.',
-        alert: 'Risco Residual — padrão-ouro',
+        description: 'GovernanÃ§a autossustentÃ¡vel. IA gerenciada de forma independente, com KPIs, auditorias periÃ³dicas e certificaÃ§Ã£o ISO.',
+        alert: 'Risco Residual â€” padrÃ£o-ouro',
     },
 ];
 
@@ -81,9 +81,9 @@ export default function TrainingJourney() {
                         transition={{ delay: 0.1 }}
                         className="font-inter text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight"
                     >
-                        Em qual estágio sua{' '}
+                        Em qual estÃ¡gio sua{' '}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4F7EFF] to-[#F59E0B]">
-                            organização está?
+                            organizaÃ§Ã£o estÃ¡?
                         </span>
                     </motion.h2>
                     <motion.p
@@ -93,11 +93,11 @@ export default function TrainingJourney() {
                         transition={{ delay: 0.2 }}
                         className="text-slate-400 text-lg max-w-2xl mx-auto"
                     >
-                        A régua universal da ALGOR Association. Os 5 Estágios de Maturidade em Governança de IA — do risco crítico ao padrão-ouro auditável.
+                        A rÃ©gua universal da ALGOR Association. Os 5 EstÃ¡gios de Maturidade em GovernanÃ§a de IA â€” do risco crÃ­tico ao padrÃ£o-ouro auditÃ¡vel.
                     </motion.p>
                 </div>
 
-                {/* ── TIMELINE ROW (Desktop) ── */}
+                {/* â”€â”€ TIMELINE ROW (Desktop) â”€â”€ */}
                 <div className="hidden lg:block relative mb-6">
                     <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-px bg-slate-800/60" />
                     <motion.div
@@ -130,7 +130,7 @@ export default function TrainingJourney() {
                     </div>
                 </div>
 
-                {/* ── STAGE CARDS ── */}
+                {/* â”€â”€ STAGE CARDS â”€â”€ */}
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6">
                     {stages.map((s, i) => {
                         const isElite = s.tag === 'Elite';
@@ -166,7 +166,7 @@ export default function TrainingJourney() {
                                         />
                                         <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl bg-gradient-to-r from-transparent via-[#F59E0B] to-transparent opacity-70" />
                                         <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-[#F59E0B] text-black text-[9px] font-black uppercase tracking-widest shadow-lg shadow-[#F59E0B]/40 whitespace-nowrap z-20">
-                                            ★ Padrão-Ouro
+                                            â˜… PadrÃ£o-Ouro
                                         </div>
                                     </>
                                 )}
@@ -215,7 +215,7 @@ export default function TrainingJourney() {
                     className="text-center mt-12"
                 >
                     <p className="text-slate-500 text-sm mb-6">
-                        Não sabe em qual estágio sua empresa está? Nossos auditores identificam em 15 minutos.
+                        NÃ£o sabe em qual estÃ¡gio sua empresa estÃ¡? Nossos auditores identificam em 15 minutos.
                     </p>
                     <a
                         href={SITE_CONFIG.links.calendly.diagnostic}
@@ -224,7 +224,7 @@ export default function TrainingJourney() {
                         className="group relative overflow-hidden px-8 py-4 bg-[#4F7EFF] text-white rounded-xl font-bold tracking-wide hover:bg-[#3D6AE8] hover:shadow-[0_0_30px_rgba(79,126,255,0.4)] transition-all duration-300 inline-flex items-center gap-2"
                     >
                         <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
-                        <span className="relative">Descobrir meu Estágio de Maturidade</span>
+                        <span className="relative">Descobrir meu EstÃ¡gio de Maturidade</span>
                         <ArrowRight className="relative w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </a>
                 </motion.div>

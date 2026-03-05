@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from "react";
 import {
@@ -143,7 +143,7 @@ export default function Dashboard() {
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-[-20%] right-[-10%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
                 <div className="absolute bottom-[-10%] left-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
-                <div className="absolute top-[30%] left-[30%] w-[400px] h-[400px] bg-[#8B5CF6]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[30%] left-[30%] w-[400px] h-[400px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
 
                 {/* Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
@@ -277,7 +277,7 @@ export default function Dashboard() {
 
                     {/* KPI 4: Infrastructure */}
                     <div className="relative overflow-hidden rounded-[24px] bg-[#0A1A2F]/40 border border-white/5 p-6 group">
-                        <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#8B5CF6]/10 rounded-full blur-[40px]" />
+                        <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-[#4F7EFF]/10 rounded-full blur-[40px]" />
                         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Uso de Infra</h3>
                         <div className="h-[80px] w-full mt-2 relative">
                             {/* Mini circular or area chart visual */}
@@ -285,11 +285,11 @@ export default function Dashboard() {
                                 <AreaChart data={activityData}>
                                     <defs>
                                         <linearGradient id="colorInfra" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#8B5CF6" stopOpacity={0.3} />
-                                            <stop offset="95%" stopColor="#8B5CF6" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#4F7EFF" stopOpacity={0.3} />
+                                            <stop offset="95%" stopColor="#4F7EFF" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <Area type="monotone" dataKey="value" stroke="#8B5CF6" strokeWidth={2} fillOpacity={1} fill="url(#colorInfra)" />
+                                    <Area type="monotone" dataKey="value" stroke="#4F7EFF" strokeWidth={2} fillOpacity={1} fill="url(#colorInfra)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         </div>
@@ -373,9 +373,9 @@ export default function Dashboard() {
                                     <Radar
                                         name="Maturidade"
                                         dataKey="A"
-                                        stroke="#8B5CF6"
+                                        stroke="#4F7EFF"
                                         strokeWidth={2}
-                                        fill="#8B5CF6"
+                                        fill="#4F7EFF"
                                         fillOpacity={0.4}
                                     />
                                 </RadarChart>

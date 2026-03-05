@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -54,7 +54,7 @@ interface LeadStats {
 const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
     new: { label: 'Novo', color: '#3B82F6', bg: 'bg-blue-500/10' },
     contacted: { label: 'Contatado', color: '#F59E0B', bg: 'bg-amber-500/10' },
-    qualified: { label: 'Qualificado', color: '#8B5CF6', bg: 'bg-purple-500/10' },
+    qualified: { label: 'Qualificado', color: '#4F7EFF', bg: 'bg-[#4F7EFF]/10' },
     nurturing: { label: 'Nutrição', color: '#6B7280', bg: 'bg-gray-500/10' },
     converted: { label: 'Convertido', color: '#10B981', bg: 'bg-emerald-500/10' },
     lost: { label: 'Perdido', color: '#EF4444', bg: 'bg-red-500/10' },
@@ -199,7 +199,7 @@ export default function LeadsManagementPage() {
                 <div className="flex justify-between items-center mb-8">
                     <div>
                         <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-                            <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500">
+                            <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-[#4F7EFF]">
                                 <Users className="w-6 h-6" />
                             </div>
                             Gestão de Leads
@@ -256,7 +256,7 @@ export default function LeadsManagementPage() {
                             title="Taxa Conversão"
                             value={`${stats.conversion_rate}%`}
                             icon={TrendingUp}
-                            color="#8B5CF6"
+                            color="#4F7EFF"
                         />
                     </div>
                 )}
@@ -355,7 +355,7 @@ export default function LeadsManagementPage() {
                                             >
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">
-                                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-gray-700 flex items-center justify-center text-white font-bold">
+                                                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-[#4F7EFF]/20 border border-gray-700 flex items-center justify-center text-white font-bold">
                                                             {lead.name?.charAt(0) || '?'}
                                                         </div>
                                                         <div>
@@ -482,7 +482,7 @@ export default function LeadsManagementPage() {
                                 {/* Lead info */}
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-4">
-                                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-2xl font-bold text-white">
+                                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-[#4F7EFF] flex items-center justify-center text-2xl font-bold text-white">
                                             {selectedLead.name?.charAt(0) || '?'}
                                         </div>
                                         <div>

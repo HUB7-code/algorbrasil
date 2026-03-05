@@ -1,0 +1,424 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e4]:
+      - generic [ref=e7]:
+        - link "ALGOR BRASIL AI Governance" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e11]:
+            - generic [ref=e12]: ALGOR BRASIL
+            - generic [ref=e13]: AI Governance
+        - generic [ref=e14]:
+          - link "Insights & Blog" [ref=e15] [cursor=pointer]:
+            - /url: /blog
+            - text: Insights & Blog
+          - link "Consultoria B2B" [ref=e17] [cursor=pointer]:
+            - /url: /#pillars
+            - text: Consultoria B2B
+          - link "Especialistas" [ref=e19] [cursor=pointer]:
+            - /url: /board
+            - text: Especialistas
+          - generic [ref=e22] [cursor=pointer]:
+            - img [ref=e24]
+            - generic [ref=e27]: Entrar
+          - link "Diagnóstico" [ref=e28] [cursor=pointer]:
+            - /url: https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20um%20Diagn%C3%B3stico%20de%20IA%20para%20minha%20empresa.
+            - text: Diagnóstico
+            - img [ref=e29]
+    - generic [ref=e32]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - img [ref=e38]
+            - text: ISO/IEC 42001 · AIMS · PL 2338
+          - heading "O Padrão-Ouro em Governança de Inteligência Artificial." [level=1] [ref=e40]
+          - paragraph [ref=e41]: A ALGOR Association é a comunidade internacional que orienta empresas e governos na adoção ética, segura e regulamentada da IA — compatível com a ISO 42001, EU AI Act e PL 2338.
+          - generic [ref=e42]:
+            - link "Baixar Kit de Sobrevivência IA" [ref=e43] [cursor=pointer]:
+              - /url: /dashboard
+              - generic [ref=e45]: Baixar Kit de Sobrevivência IA
+              - img [ref=e46]
+            - link "Acessar Área de Membros" [ref=e48] [cursor=pointer]:
+              - /url: /dashboard
+          - generic [ref=e49]:
+            - generic [ref=e50]: "+250"
+            - text: membros globais
+            - generic [ref=e52]: "+25"
+            - text: consultores no Brasil
+            - generic [ref=e54]: "6"
+            - text: regiões
+        - generic [ref=e55]:
+          - generic [ref=e60]: ISO 42001
+          - generic [ref=e61]:
+            - img [ref=e63]
+            - generic [ref=e65]:
+              - paragraph [ref=e66]: Maturidade ISO 42001
+              - paragraph [ref=e69]: 85% · Nível Avançado
+          - generic [ref=e70]:
+            - img [ref=e73]
+            - generic [ref=e77]:
+              - paragraph [ref=e78]: +250 Membros
+              - paragraph [ref=e79]: Rede Global
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - img [ref=e84]
+            - text: Nossa Autoridade
+          - heading "250+ Especialistas. Uma Missão." [level=2] [ref=e87]
+          - paragraph [ref=e88]: Traduzimos o "techês" em risco de negócio. Enquanto a sua equipe já usa IA, o PL 2338 prevê multas de até R$ 50 milhões e responsabilidade objetiva para quem não tiver Supervisão Humana Significativa documentada.
+        - generic [ref=e89]:
+          - img [ref=e91]
+          - generic [ref=e93]:
+            - paragraph [ref=e94]: Sua equipe já usa IA. Você sabe como e onde?
+            - paragraph [ref=e95]: Shadow AI, LGPD e o PL 2338 criam passivos jurídicos invisíveis. A ALGOR Association mapeia e neutraliza esses riscos antes que eles virem multa.
+          - link "Ver soluções →" [ref=e96] [cursor=pointer]:
+            - /url: "#diagnostico"
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - img [ref=e101]
+            - generic [ref=e106]: 25+
+            - paragraph [ref=e107]: CONSULTORES NO BRASIL
+            - paragraph [ref=e108]: Dedicados a atender as demandas do mercado nacional com especialização em AI Governance e Compliance.
+          - generic [ref=e109]:
+            - img [ref=e112]
+            - generic [ref=e115]: 250+
+            - paragraph [ref=e116]: MEMBROS GLOBAIS
+            - paragraph [ref=e117]: Rede internacional de profissionais que aplicam metodologias inovadoras de Governança de IA.
+          - generic [ref=e118]:
+            - generic [ref=e120]: AIMS
+            - text: ISO 42001
+            - paragraph [ref=e121]: FRAMEWORK OFICIAL
+            - paragraph [ref=e122]: Nossa metodologia é 100% lastreada no padrão-ouro global de auditoria de IA (AIMS).
+        - generic [ref=e123]:
+          - paragraph [ref=e124]: Presença regional
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - generic [ref=e127]: 🇧🇷
+              - generic [ref=e128]:
+                - paragraph [ref=e129]: São Paulo
+                - paragraph [ref=e130]: Gestor Regional
+              - img [ref=e131]
+            - generic [ref=e134]:
+              - generic [ref=e135]: 🇧🇷
+              - generic [ref=e136]:
+                - paragraph [ref=e137]: Brasília
+                - paragraph [ref=e138]: Gestor Regional
+              - img [ref=e139]
+            - generic [ref=e142]:
+              - generic [ref=e143]: 🇧🇷
+              - generic [ref=e144]:
+                - paragraph [ref=e145]: Paraná
+                - paragraph [ref=e146]: Gestor Regional
+              - img [ref=e147]
+            - generic [ref=e150]:
+              - generic [ref=e151]: 🇧🇷
+              - generic [ref=e152]:
+                - paragraph [ref=e153]: Rio de Janeiro
+                - paragraph [ref=e154]: Gestor Regional
+              - img [ref=e155]
+            - generic [ref=e158]:
+              - generic [ref=e159]: 🇧🇷
+              - generic [ref=e160]:
+                - paragraph [ref=e161]: Ceará
+                - paragraph [ref=e162]: Gestor Regional
+              - img [ref=e163]
+            - generic [ref=e166]:
+              - generic [ref=e167]: 🇧🇷
+              - generic [ref=e168]:
+                - paragraph [ref=e169]: Paraíba
+                - paragraph [ref=e170]: Gestor Regional
+              - img [ref=e171]
+            - generic [ref=e174]:
+              - generic [ref=e175]: 🇬🇧
+              - generic [ref=e176]:
+                - paragraph [ref=e177]: London, UK
+                - paragraph [ref=e178]: Sede Internacional
+              - img [ref=e179]
+            - generic [ref=e182]:
+              - generic [ref=e183]: 🌍
+              - generic [ref=e184]:
+                - paragraph [ref=e185]: Europa & EUA
+                - paragraph [ref=e186]: Membros Globais
+              - img [ref=e187]
+        - link "Conheça o Conselho Diretor" [ref=e191] [cursor=pointer]:
+          - /url: /board
+          - generic [ref=e193]: Conheça o Conselho Diretor
+          - img [ref=e194]
+      - generic [ref=e197]:
+        - generic [ref=e198]:
+          - generic [ref=e199]: Mapa de Maturidade ALGOR
+          - heading "Em qual estÃ¡gio sua organizaÃ§Ã£o estÃ¡?" [level=2] [ref=e200]
+          - paragraph [ref=e201]: A rÃ©gua universal da ALGOR Association. Os 5 EstÃ¡gios de Maturidade em GovernanÃ§a de IA â€” do risco crÃtico ao padrÃ£o-ouro auditÃ¡vel.
+        - generic [ref=e205]:
+          - generic [ref=e207]:
+            - generic [ref=e208]: "01"
+            - generic [ref=e209]: DiagnÃ³stico
+          - generic [ref=e211]:
+            - generic [ref=e212]: "02"
+            - generic [ref=e213]: Controles
+          - generic [ref=e215]:
+            - generic [ref=e216]: "03"
+            - generic [ref=e217]: Pessoas
+          - generic [ref=e219]:
+            - generic [ref=e220]: "04"
+            - generic [ref=e221]: Compliance
+          - generic [ref=e223]:
+            - generic [ref=e224]: "05"
+            - generic [ref=e225]: Elite
+        - generic [ref=e226]:
+          - generic [ref=e229]:
+            - generic [ref=e234]:
+              - img
+              - img [ref=e235]
+            - paragraph [ref=e238]: EstÃ¡gio 1
+            - heading "Descoberta" [level=3] [ref=e239]
+            - paragraph [ref=e240]: Shadow AI nÃ£o mapeada, sem inventÃ¡rio de sistemas. A organizaÃ§Ã£o usa IA sem governanÃ§a ou controle centralizado.
+            - generic [ref=e241]: ExposiÃ§Ã£o crÃtica ao PL 2338
+          - generic [ref=e244]:
+            - generic [ref=e249]:
+              - img
+              - img [ref=e250]
+            - paragraph [ref=e253]: EstÃ¡gio 2
+            - heading "GestÃ£o" [level=3] [ref=e254]
+            - paragraph [ref=e255]: Iniciativas isoladas de governanÃ§a. PolÃticas parciais, sem estratÃ©gia integrada nem responsÃ¡vel (AI Officer) formal.
+            - generic [ref=e256]: Risco Alto â€” sem accountability
+          - generic [ref=e259]:
+            - generic [ref=e264]:
+              - img
+              - img [ref=e265]
+            - paragraph [ref=e275]: EstÃ¡gio 3
+            - heading "Cultura" [level=3] [ref=e276]
+            - paragraph [ref=e277]: GovernanÃ§a operacional parcial. Equipes treinadas, mas ausÃªncia de auditoria e supervisÃ£o humana documentada.
+            - generic [ref=e278]: Risco Moderado
+          - generic [ref=e281]:
+            - generic [ref=e286]:
+              - img
+              - img [ref=e287]
+            - paragraph [ref=e291]: EstÃ¡gio 4
+            - heading "RegulaÃ§Ã£o" [level=3] [ref=e292]
+            - paragraph [ref=e293]: Conformidade ativa com ISO 42001, LGPD e PL 2338. SupervisÃ£o Humana Significativa implementada e auditÃ¡vel.
+            - generic [ref=e294]: Risco Baixo â€” conformidade operacional
+          - generic [ref=e295]:
+            - generic [ref=e297]: â˜… PadrÃ£o-Ouro
+            - generic [ref=e298]:
+              - generic [ref=e303]:
+                - img
+                - img [ref=e304]
+              - paragraph [ref=e309]: EstÃ¡gio 5
+              - heading "Autonomia" [level=3] [ref=e310]
+              - paragraph [ref=e311]: GovernanÃ§a autossustentÃ¡vel. IA gerenciada de forma independente, com KPIs, auditorias periÃ³dicas e certificaÃ§Ã£o ISO.
+              - generic [ref=e312]: Risco Residual â€” padrÃ£o-ouro
+        - generic [ref=e313]:
+          - paragraph [ref=e314]: NÃ£o sabe em qual estÃ¡gio sua empresa estÃ¡? Nossos auditores identificam em 15 minutos.
+          - link "Descobrir meu EstÃ¡gio de Maturidade" [ref=e315] [cursor=pointer]:
+            - /url: https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor
+            - generic [ref=e317]: Descobrir meu EstÃ¡gio de Maturidade
+            - img [ref=e318]
+      - generic [ref=e321]:
+        - generic [ref=e322]:
+          - generic [ref=e323]: Consultores Acreditados pela ALGOR Association · AIMS ISO/IEC 42001
+          - heading "Implemente a Governança com um Auditor Acreditado" [level=2] [ref=e327]
+          - paragraph [ref=e328]: A teoria não protege seu CNPJ. Para mapear sua Shadow AI, classificar seus riscos e adequar sua empresa à ISO 42001, acione nossa rede de Auditores e Consultores Oficiais.
+        - generic [ref=e329]:
+          - generic [ref=e330]:
+            - img "Diagnóstico de Maturidade ALGOR" [ref=e332]
+            - generic [ref=e335]:
+              - img [ref=e337]
+              - generic [ref=e340]:
+                - generic [ref=e341]:
+                  - heading "Diagnóstico de Maturidade ALGOR" [level=3] [ref=e342]
+                  - generic [ref=e343]: Mapeamento
+                - paragraph [ref=e344]: Mapeamento completo da sua exposição a Shadow AI, classificação de risco conforme PL 2338 e Roadmap priorizado de conformidade.
+                - list [ref=e345]:
+                  - listitem [ref=e346]:
+                    - img [ref=e347]
+                    - text: Avaliação dos 5 Estágios de Maturidade
+                  - listitem [ref=e350]:
+                    - img [ref=e351]
+                    - text: Classificação de Risco PL 2338 (Baixo / Alto / Excessivo)
+                  - listitem [ref=e354]:
+                    - img [ref=e355]
+                    - text: Roadmap de conformidade ISO 42001
+                - generic [ref=e358]:
+                  - generic [ref=e359]:
+                    - img [ref=e360]
+                    - generic [ref=e363]: 3 semanas
+                  - generic [ref=e368]: Setor Financeiro & Público
+                  - link "Agendar Diagnóstico" [ref=e370] [cursor=pointer]:
+                    - /url: https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor
+                    - text: Agendar Diagnóstico
+                    - img [ref=e371]
+          - generic [ref=e373]:
+            - img "Governança de IA as a Service" [ref=e375]
+            - generic [ref=e378]:
+              - img [ref=e380]
+              - generic [ref=e382]:
+                - generic [ref=e383]:
+                  - heading "Governança de IA as a Service" [level=3] [ref=e384]
+                  - generic [ref=e385]: Retentor
+                - paragraph [ref=e386]: Retentor mensal de implementação e monitoramento contínuo. Para quem já fez o Diagnóstico e precisa avançar nos Estágios de Maturidade.
+                - list [ref=e387]:
+                  - listitem [ref=e388]:
+                    - img [ref=e389]
+                    - text: Implementação das 4 Dimensões N7
+                  - listitem [ref=e392]:
+                    - img [ref=e393]
+                    - text: Supervisão Humana Significativa (CPF identificado)
+                  - listitem [ref=e396]:
+                    - img [ref=e397]
+                    - text: Relatórios periódicos + acesso ao dashboard
+                - generic [ref=e400]:
+                  - generic [ref=e401]:
+                    - img [ref=e402]
+                    - generic [ref=e405]: Contrato mensal
+                  - generic [ref=e410]: Clientes com Diagnóstico concluído
+                  - link "Falar com Especialista" [ref=e412] [cursor=pointer]:
+                    - /url: https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor
+                    - text: Falar com Especialista
+                    - img [ref=e413]
+        - generic [ref=e415]:
+          - generic [ref=e416]:
+            - generic [ref=e421]: Sessão de triagem gratuita — 15 minutos
+            - heading "Pronto para estruturar sua Governança de IA?" [level=3] [ref=e422]
+            - paragraph [ref=e423]: Agende agora. Sem compromisso. Sem apresentação de preços nesta call.
+          - link "Agendar Diagnóstico de Maturidade" [ref=e425] [cursor=pointer]:
+            - /url: https://calendly.com/edisio-nascimentojr/diagnostico-de-maturidade-iso-42001-algor
+            - generic [ref=e427]: Agendar Diagnóstico de Maturidade
+            - img [ref=e428]
+      - button "Rolar para o topo" [ref=e432] [cursor=pointer]:
+        - img [ref=e433]
+      - link "Fale conosco no WhatsApp" [ref=e435] [cursor=pointer]:
+        - /url: https://wa.me/558599851769?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20a%20ALGOR%20e%20como%20me%20tornar%20um%20membro.
+        - generic [ref=e437]: Fale conosco agora
+        - img [ref=e441]
+      - contentinfo [ref=e444]:
+        - generic [ref=e445]:
+          - generic [ref=e446]:
+            - generic [ref=e447]:
+              - link "ALGOR BRASIL AI Governance" [ref=e448] [cursor=pointer]:
+                - /url: /
+                - img [ref=e449]
+                - generic [ref=e460]:
+                  - generic [ref=e461]: ALGOR BRASIL
+                  - generic [ref=e462]: AI Governance
+              - paragraph [ref=e463]: Consultoria de Elite em Governança de Inteligência Artificial. Transformando riscos tecnológicos em ativos estratégicos auditáveis.
+              - link "Uma divisão da ALGOR UK" [ref=e464] [cursor=pointer]:
+                - /url: https://www.algor.uk
+                - img [ref=e465]
+                - generic [ref=e468]: Uma divisão da ALGOR UK
+                - img [ref=e469]
+              - generic [ref=e472]:
+                - img [ref=e473]
+                - generic [ref=e475]: Verified ALGOR Infrastructure
+            - generic [ref=e476]:
+              - heading "Portal do Associado" [level=4] [ref=e477]:
+                - img [ref=e478]
+                - text: Portal do Associado
+              - list [ref=e480]:
+                - listitem [ref=e481]:
+                  - link "Acesso Exclusivo" [ref=e482] [cursor=pointer]:
+                    - /url: /login
+                - listitem [ref=e483]:
+                  - link "Ferramentas de Auditoria" [ref=e484] [cursor=pointer]:
+                    - /url: /register?tier=professional
+                - listitem [ref=e485]:
+                  - link "Relatórios de Impacto" [ref=e486] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e487]:
+                  - link "Rede de Membros Novo" [ref=e488] [cursor=pointer]:
+                    - /url: "#"
+                    - text: Rede de Membros
+                    - generic [ref=e489]: Novo
+            - generic [ref=e490]:
+              - heading "Programas" [level=4] [ref=e491]:
+                - img [ref=e492]
+                - text: Programas
+              - list [ref=e495]:
+                - listitem [ref=e496]:
+                  - link "Certificação ISO 42001" [ref=e497] [cursor=pointer]:
+                    - /url: /register
+                - listitem [ref=e498]:
+                  - link "Mentoria Executiva" [ref=e499] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e500]:
+                  - link "Grupos de Trabalho" [ref=e501] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e502]:
+                  - link "Selos de Conformidade" [ref=e503] [cursor=pointer]:
+                    - /url: /scanner
+            - generic [ref=e504]:
+              - heading "Governança & Legal" [level=4] [ref=e505]:
+                - img [ref=e506]
+                - text: Governança & Legal
+              - list [ref=e509]:
+                - listitem [ref=e510]:
+                  - link "Portal do Titular (DSR)" [ref=e511] [cursor=pointer]:
+                    - /url: /policies/dpo
+                    - img [ref=e512]
+                    - text: Portal do Titular (DSR)
+                - listitem [ref=e515]:
+                  - link "Política de Privacidade" [ref=e516] [cursor=pointer]:
+                    - /url: /policies/privacy
+                    - img [ref=e517]
+                    - text: Política de Privacidade
+                - listitem [ref=e520]:
+                  - link "Termos de Uso" [ref=e521] [cursor=pointer]:
+                    - /url: /policies/terms
+                    - img [ref=e522]
+                    - text: Termos de Uso
+                - listitem [ref=e525]:
+                  - link "Política de Cookies" [ref=e526] [cursor=pointer]:
+                    - /url: /policies/cookies
+                    - img [ref=e527]
+                    - text: Política de Cookies
+                - listitem [ref=e529]:
+                  - link "ISO 42001 Native" [ref=e530] [cursor=pointer]:
+                    - /url: "#"
+                    - img [ref=e531]
+                    - text: ISO 42001 Native
+          - generic [ref=e534]:
+            - generic [ref=e535]:
+              - paragraph [ref=e537]:
+                - text: © 2025 Algor Association. Representada juridicamente no Brasil pela
+                - strong [ref=e538]: XPER BRASIL GESTAO EM INOVAÇÃO TECNOLÓGICA LTDA
+                - text: .
+                - text: ALGOR é uma organização profissional associativa com registro no Reino Unido (London).
+                - link "global@algor.uk" [ref=e539] [cursor=pointer]:
+                  - /url: mailto:global@algor.uk
+                  - img [ref=e540]
+                  - text: global@algor.uk
+              - generic [ref=e543]:
+                - generic [ref=e544]:
+                  - generic [ref=e546]: ISO
+                  - generic [ref=e547]: "42001"
+                - generic [ref=e548]:
+                  - generic [ref=e550]: ISO
+                  - generic [ref=e551]: "27001"
+                - generic [ref=e552]:
+                  - generic [ref=e554]: LGPD
+                  - generic [ref=e555]: Ready
+            - generic [ref=e557]:
+              - img [ref=e558]
+              - generic [ref=e560]: Powered by ALGOR AI Governance Engine
+  - button "Open Next.js Dev Tools" [ref=e570] [cursor=pointer]:
+    - img [ref=e571]
+  - alert [ref=e574]
+  - generic [ref=e576]:
+    - generic [ref=e577]:
+      - heading "cookie Privacidade e Cookies" [level=4] [ref=e578]:
+        - generic [ref=e579]: cookie
+        - text: Privacidade e Cookies
+      - paragraph [ref=e580]:
+        - text: Utilizamos cookies para personalizar sua experiência e garantir a segurança do sistema. Ao navegar, você concorda com nossa
+        - link "Política de Privacidade" [ref=e581] [cursor=pointer]:
+          - /url: /policies/privacy
+        - text: e
+        - link "Política de Cookies" [ref=e582] [cursor=pointer]:
+          - /url: /policies/cookies
+        - text: .
+    - generic [ref=e583]:
+      - button "Rejeitar Opcionais" [ref=e584] [cursor=pointer]
+      - button "Aceitar Todos" [ref=e585] [cursor=pointer]
+```

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState } from "react";
 import { CheckCircle2, Lock, ArrowRight, Play, Map, Zap, ShieldCheck, FileCheck, Trophy, Search, Users, Scale, Bot, Brain } from "lucide-react";
@@ -50,7 +50,7 @@ export default function RoadmapPage() {
             icon: <Users className="w-5 h-5" />,
             status: "locked",
             progress: 0,
-            color: "#8B5CF6" // Violet
+            color: "#4F7EFF" // Violet
         },
         {
             id: 4,

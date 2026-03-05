@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from "react";
 import {
@@ -85,7 +85,7 @@ export default function RisksPage() {
             <div className="fixed inset-0 pointer-events-none">
                 <div className="absolute top-[-20%] left-[10%] w-[800px] h-[800px] bg-[#818CF8]/5 rounded-full blur-[150px]" />
                 <div className="absolute bottom-[-10%] right-[0%] w-[600px] h-[600px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
-                <div className="absolute top-[40%] left-[40%] w-[500px] h-[500px] bg-[#8B5CF6]/5 rounded-full blur-[150px]" />
+                <div className="absolute top-[40%] left-[40%] w-[500px] h-[500px] bg-[#4F7EFF]/5 rounded-full blur-[150px]" />
                 {/* Grid Overlay */}
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
             </div>
@@ -283,9 +283,9 @@ export default function RisksPage() {
                                     <Radar
                                         name="Atual"
                                         dataKey="A"
-                                        stroke="#8B5CF6"
+                                        stroke="#4F7EFF"
                                         strokeWidth={2}
-                                        fill="#8B5CF6"
+                                        fill="#4F7EFF"
                                         fillOpacity={0.3}
                                     />
                                 </RadarChart>
@@ -293,7 +293,7 @@ export default function RisksPage() {
                         </div>
                         <div className="text-center mt-[-20px]">
                             <p className="text-xs text-gray-400">Vetor Primário</p>
-                            <p className="text-lg font-bold text-[#8B5CF6]">Protocolos de Segurança</p>
+                            <p className="text-lg font-bold text-[#4F7EFF]">Protocolos de Segurança</p>
                         </div>
                     </div>
                 </div>

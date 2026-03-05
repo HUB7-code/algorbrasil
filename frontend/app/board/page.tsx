@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
@@ -95,7 +95,7 @@ const boardMembers: Member[] = [
         name: 'Edisio Nascimento',
         role: 'Consultor Sênior — PB',
         specialty: 'Integração de Sistemas',
-        specialtyColor: '#A78BFA',
+        specialtyColor: '#7DAEFF',
         filterTag: 'Segurança',
         image: '/images/membro_11_edisio_nascimento.webp',
         linkedin: 'https://www.linkedin.com/in/edisio-consultor/',

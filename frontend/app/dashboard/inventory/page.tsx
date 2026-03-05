@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useEffect } from "react";
 import { Search, Database, Server, Cpu, MoreVertical, Plus, Filter, LayoutGrid, List, ShieldAlert, Activity, Box } from "lucide-react";
@@ -225,7 +225,7 @@ export default function InventoryPage() {
 function getIconForType(type: string) {
     if (type === 'Model' || type === 'Generative AI') return <Cpu className="w-6 h-6 text-[#818CF8]" />;
     if (type === 'Dataset') return <Database className="w-6 h-6 text-[#4F7EFF]" />;
-    return <Server className="w-6 h-6 text-[#8B5CF6]" />;
+    return <Server className="w-6 h-6 text-[#4F7EFF]" />;
 }
 
 function AssetCard({ data }: any) {

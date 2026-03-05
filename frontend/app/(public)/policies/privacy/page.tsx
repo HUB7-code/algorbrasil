@@ -1,5 +1,16 @@
-﻿
+
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Política de Privacidade | Algor Brasil',
+    description: 'Saiba como a Algor Brasil coleta, usa e protege seus dados pessoais, em conformidade com a LGPD (Lei 13.709/2018).',
+    openGraph: {
+        title: 'Política de Privacidade | Algor Brasil',
+        description: 'Saiba como a Algor Brasil coleta, usa e protege seus dados pessoais, em conformidade com a LGPD.',
+        url: 'https://www.algorbrasil.com.br/policies/privacy',
+    },
+};
 
 export default function PrivacyPolicyPage() {
     return (
@@ -17,24 +28,24 @@ export default function PrivacyPolicyPage() {
             {/* Índice Clicável */}
             <nav className="mb-16 bg-[#0B0F1E]/50 p-8 rounded-2xl border border-slate-800/50">
                 <h4 className="text-white font-medium mb-4 flex items-center gap-2">
-                    <span className="material-symbols-rounded text-[#818CF8]">list</span>
+                    <span className="material-symbols-rounded text-[#4F7EFF]">list</span>
                     Índice
                 </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                    <li><a href="#quem-somos" className="hover:text-[#818CF8] transition-colors">1. Quem Somos</a></li>
-                    <li><a href="#definicoes" className="hover:text-[#818CF8] transition-colors">2. Definições Importantes</a></li>
-                    <li><a href="#dados-coletados" className="hover:text-[#818CF8] transition-colors">3. Dados que Coletamos</a></li>
-                    <li><a href="#como-coletamos" className="hover:text-[#818CF8] transition-colors">4. Como Coletamos</a></li>
-                    <li><a href="#finalidades" className="hover:text-[#818CF8] transition-colors">5. Finalidades (Uso)</a></li>
-                    <li><a href="#base-legal" className="hover:text-[#818CF8] transition-colors">6. Base Legal</a></li>
-                    <li><a href="#compartilhamento" className="hover:text-[#818CF8] transition-colors">7. Compartilhamento</a></li>
-                    <li><a href="#transferencia" className="hover:text-[#818CF8] transition-colors">8. Transferência Int.</a></li>
-                    <li><a href="#retencao" className="hover:text-[#818CF8] transition-colors">9. Retenção de Dados</a></li>
-                    <li><a href="#direitos" className="hover:text-[#818CF8] transition-colors">10. Seus Direitos</a></li>
-                    <li><a href="#seguranca" className="hover:text-[#818CF8] transition-colors">12. Segurança</a></li>
-                    <li><a href="#cookies" className="hover:text-[#818CF8] transition-colors">13. Cookies</a></li>
-                    <li><a href="#menores" className="hover:text-[#818CF8] transition-colors">14. Menores</a></li>
-                    <li><a href="#contato" className="hover:text-[#818CF8] transition-colors">16. Contato (DPO)</a></li>
+                    <li><a href="#quem-somos" className="hover:text-[#4F7EFF] transition-colors">1. Quem Somos</a></li>
+                    <li><a href="#definicoes" className="hover:text-[#4F7EFF] transition-colors">2. Definições Importantes</a></li>
+                    <li><a href="#dados-coletados" className="hover:text-[#4F7EFF] transition-colors">3. Dados que Coletamos</a></li>
+                    <li><a href="#como-coletamos" className="hover:text-[#4F7EFF] transition-colors">4. Como Coletamos</a></li>
+                    <li><a href="#finalidades" className="hover:text-[#4F7EFF] transition-colors">5. Finalidades (Uso)</a></li>
+                    <li><a href="#base-legal" className="hover:text-[#4F7EFF] transition-colors">6. Base Legal</a></li>
+                    <li><a href="#compartilhamento" className="hover:text-[#4F7EFF] transition-colors">7. Compartilhamento</a></li>
+                    <li><a href="#transferencia" className="hover:text-[#4F7EFF] transition-colors">8. Transferência Int.</a></li>
+                    <li><a href="#retencao" className="hover:text-[#4F7EFF] transition-colors">9. Retenção de Dados</a></li>
+                    <li><a href="#direitos" className="hover:text-[#4F7EFF] transition-colors">10. Seus Direitos</a></li>
+                    <li><a href="#seguranca" className="hover:text-[#4F7EFF] transition-colors">12. Segurança</a></li>
+                    <li><a href="#cookies" className="hover:text-[#4F7EFF] transition-colors">13. Cookies</a></li>
+                    <li><a href="#menores" className="hover:text-[#4F7EFF] transition-colors">14. Menores</a></li>
+                    <li><a href="#contato" className="hover:text-[#4F7EFF] transition-colors">16. Contato (DPO)</a></li>
                 </ul>
             </nav>
 
@@ -146,7 +157,7 @@ export default function PrivacyPolicyPage() {
                                 <tr>
                                     <td className="p-4 font-medium text-white">Marketing e Newsletter</td>
                                     <td className="p-4">Email, Nome</td>
-                                    <td className="p-4 text-[#818CF8]">I. Consentimento</td>
+                                    <td className="p-4 text-[#4F7EFF]">I. Consentimento</td>
                                     <td className="p-4 text-center text-[#4F7EFF]">Sim (Opt-out)</td>
                                 </tr>
                                 <tr>
@@ -182,17 +193,17 @@ export default function PrivacyPolicyPage() {
                                 Quando a lei nos obriga (ex: guardar logs por 6 meses conforme Marco Civil).
                             </p>
                         </div>
-                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#818CF8]/30 transition-colors group">
+                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#4F7EFF]/30 transition-colors group">
                             <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-[#818CF8]"></span> V. Execução de Contrato
+                                <span className="w-2 h-2 rounded-full bg-[#4F7EFF]"></span> V. Execução de Contrato
                             </h4>
                             <p className="text-sm text-slate-400">
                                 Necessário para entregar o serviço que você contratou (ex: processar seu pagamento, liberar acesso).
                             </p>
                         </div>
-                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-purple-500/30 transition-colors group">
+                        <div className="bg-[#0A0A15] p-6 rounded-xl border border-slate-800 hover:border-[#4F7EFF]/30 transition-colors group">
                             <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                                <span className="w-2 h-2 rounded-full bg-purple-500"></span> IX. Legítimo Interesse
+                                <span className="w-2 h-2 rounded-full bg-[#4F7EFF]"></span> IX. Legítimo Interesse
                             </h4>
                             <p className="text-sm text-slate-400">
                                 Para fins legítimos da empresa, como segurança do sistema e melhoria do produto, sempre respeitando seus direitos.
@@ -304,19 +315,19 @@ export default function PrivacyPolicyPage() {
                     <p>Você tem total controle sobre seus dados. A qualquer momento, você pode solicitar via <a href="/policies/dpo">Canal do DPO</a>:</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">visibility</span></div>
+                            <div className="mt-1 text-[#4F7EFF] shrink-0"><span className="material-symbols-rounded">visibility</span></div>
                             <div><h4 className="text-white text-sm font-medium">Confirmação e Acesso</h4><p className="text-xs text-slate-400 mt-1">Saber se tratamos seus dados e ter uma cópia deles.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">edit</span></div>
+                            <div className="mt-1 text-[#4F7EFF] shrink-0"><span className="material-symbols-rounded">edit</span></div>
                             <div><h4 className="text-white text-sm font-medium">Correção</h4><p className="text-xs text-slate-400 mt-1">Corrigir dados incompletos, inexatos ou desatualizados.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">delete</span></div>
+                            <div className="mt-1 text-[#4F7EFF] shrink-0"><span className="material-symbols-rounded">delete</span></div>
                             <div><h4 className="text-white text-sm font-medium">Eliminação e Anonimização</h4><p className="text-xs text-slate-400 mt-1">Pedir a exclusão de dados desnecessários ou tratados com consentimento.</p></div>
                         </div>
                         <div className="bg-[#0A0A15] p-4 rounded-lg border border-slate-800 flex items-start gap-3">
-                            <div className="mt-1 text-[#818CF8] shrink-0"><span className="material-symbols-rounded">move_up</span></div>
+                            <div className="mt-1 text-[#4F7EFF] shrink-0"><span className="material-symbols-rounded">move_up</span></div>
                             <div><h4 className="text-white text-sm font-medium">Portabilidade</h4><p className="text-xs text-slate-400 mt-1">Levar seus dados para outro fornecedor (quando regulamentado).</p></div>
                         </div>
                     </div>
@@ -386,7 +397,7 @@ export default function PrivacyPolicyPage() {
                             </li>
                         </ul>
                         <div className="mt-4 pt-4 border-t border-slate-800">
-                            <a href="/policies/cookies" className="text-[#818CF8] text-sm font-medium hover:underline">Gerenciar Preferências →</a>
+                            <a href="/policies/cookies" className="text-[#4F7EFF] text-sm font-medium hover:underline">Gerenciar Preferências →</a>
                         </div>
                     </div>
                 </section>
@@ -417,7 +428,7 @@ export default function PrivacyPolicyPage() {
                 <section id="contato" className="pb-12 border-t border-slate-800 mt-16 pt-12">
                     <p className="text-center text-slate-400 mb-6">Em caso de dúvidas sobre esta Política:</p>
                     <div className="flex justify-center">
-                        <Link href="/policies/dpo" className="inline-flex items-center gap-2 bg-[#818CF8] hover:bg-[#0088D4] text-white px-6 py-3 rounded-xl transition-all font-medium">
+                        <Link href="/policies/dpo" className="inline-flex items-center gap-2 bg-[#4F7EFF] hover:bg-[#0088D4] text-white px-6 py-3 rounded-xl transition-all font-medium">
                             <span className="material-symbols-rounded">support_agent</span>
                             Falar com o DPO
                         </Link>

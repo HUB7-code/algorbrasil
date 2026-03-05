@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -212,7 +212,7 @@ function OverviewDashboard() {
                     { label: "Modelos Auditados", val: "12", sub: "+2 essa semana", color: "#818CF8", icon: CheckCircle2 },
                     { label: "Riscos Mitigados", val: "847", sub: "99.9% Taxa de Sucesso", color: "#4F7EFF", icon: ShieldCheck },
                     { label: "Incidentes Críticos", val: "0", sub: "Sistema Seguro", color: "#F59E0B", icon: AlertTriangle },
-                    { label: "Tempo Médio (Review)", val: "4h", sub: "-20% vs média", color: "#8B5CF6", icon: Activity },
+                    { label: "Tempo Médio (Review)", val: "4h", sub: "-20% vs média", color: "#4F7EFF", icon: Activity },
                 ].map((kpi, i) => (
                     <div key={i} className="bg-[#0A111F]/60 backdrop-blur border border-white/5 p-6 rounded-2xl hover:border-white/10 transition-colors group">
                         <div className="flex justify-between items-start mb-4">

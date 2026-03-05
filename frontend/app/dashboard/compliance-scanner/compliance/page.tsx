@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -178,16 +178,16 @@ export default function ComplianceDashboard() {
                 <div className="flex justify-between items-center mb-8">
                     <div>
                         <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-                            <Scale className="w-6 h-6 text-purple-400" />
+                            <Scale className="w-6 h-6 text-[#4F7EFF]" />
                             Compliance Center
                         </h1>
                         <p className="text-gray-500 text-sm mt-1">Gestão de conformidade regulatória e evidências de auditoria</p>
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/10 border border-purple-500/30 hover:border-purple-500/50 transition-colors text-sm">
-                            <FileText className="w-4 h-4 text-purple-400" />
-                            <span className="text-purple-400">Gerar Relatório ANPD</span>
+                        <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#4F7EFF]/10 border border-[#4F7EFF]/30 hover:border-[#4F7EFF]/50 transition-colors text-sm">
+                            <FileText className="w-4 h-4 text-[#4F7EFF]" />
+                            <span className="text-[#4F7EFF]">Gerar Relatório ANPD</span>
                         </button>
                     </div>
                 </div>
@@ -337,7 +337,7 @@ export default function ComplianceDashboard() {
                         {/* Available Reports */}
                         <div className="bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                             <div className="flex items-center gap-3 mb-4">
-                                <FileText className="w-5 h-5 text-purple-400" />
+                                <FileText className="w-5 h-5 text-[#4F7EFF]" />
                                 <h3 className="text-white font-semibold">Relatórios Disponíveis</h3>
                             </div>
 

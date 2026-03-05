@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,7 +40,7 @@ const sectorData = [
     { name: 'Fintech', value: 45, color: '#818CF8' },
     { name: 'Healthtech', value: 30, color: '#4F7EFF' },
     { name: 'Retail', value: 15, color: '#F59E0B' },
-    { name: 'Outros', value: 10, color: '#8B5CF6' },
+    { name: 'Outros', value: 10, color: '#4F7EFF' },
 ];
 
 export default function ClientsPage() {
@@ -259,7 +259,7 @@ export default function ClientsPage() {
                                                     {org.name.substring(0, 2).toUpperCase()}
                                                 </span>
                                             </div>
-                                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border ${org.role === 'owner' ? 'bg-[#8B5CF6]/10 text-[#8B5CF6] border-[#8B5CF6]/20' : 'bg-[#818CF8]/10 text-[#818CF8] border-[#818CF8]/20'}`}>
+                                            <span className={`px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider border ${org.role === 'owner' ? 'bg-[#4F7EFF]/10 text-[#4F7EFF] border-[#4F7EFF]/20' : 'bg-[#818CF8]/10 text-[#818CF8] border-[#818CF8]/20'}`}>
                                                 {org.role === 'owner' ? 'Owner' : 'Member'}
                                             </span>
                                         </div>

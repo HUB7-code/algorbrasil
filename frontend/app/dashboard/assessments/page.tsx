@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import {
@@ -62,7 +62,7 @@ const protocols = [
         description: "Validação de ambiente seguro para dados sensíveis.",
         rationale: "Anonimização para Retail Media.",
         icon: Lock,
-        color: "#8B5CF6",
+        color: "#4F7EFF",
         cost: 5,
         duration: "2 horas",
         accuracy: 99,
@@ -88,7 +88,7 @@ const complianceData = [
     { name: 'Segurança', uv: 90, fill: '#4F7EFF' },
     { name: 'Privacidade', uv: 80, fill: '#818CF8' },
     { name: 'Ética', uv: 65, fill: '#F59E0B' },
-    { name: 'Robustez', uv: 50, fill: '#8B5CF6' },
+    { name: 'Robustez', uv: 50, fill: '#4F7EFF' },
 ];
 
 const historyTrace = [

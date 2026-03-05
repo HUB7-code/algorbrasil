@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell } from 'recharts';
@@ -273,7 +273,7 @@ export default function AdminDashboard() {
                             subValue="Sistemas Normais"
                             icon="dns"
                             chartData={userActivityData}
-                            color="#8B5CF6"
+                            color="#4F7EFF"
                         />
                     </div>
 
@@ -472,7 +472,7 @@ export default function AdminDashboard() {
                                 </button>
                                 {courses.map(course => (
                                     <div key={course.id} className="p-6 rounded-2xl bg-[#0D1117]/80 border border-white/5 hover:border-[#4F7EFF]/30 transition-all group relative overflow-hidden">
-                                        <div className="absolute top-0 left-0 w-1 h-full bg-[#8B5CF6]" />
+                                        <div className="absolute top-0 left-0 w-1 h-full bg-[#4F7EFF]" />
                                         <h3 className="text-lg font-bold text-white mb-2">{course.title}</h3>
                                         <p className="text-xs text-gray-500 mb-6 line-clamp-2">{course.description || "Sem descrição."}</p>
                                         <div className="flex justify-between items-center mt-auto">

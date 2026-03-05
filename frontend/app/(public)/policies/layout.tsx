@@ -10,11 +10,11 @@ export default function PoliciesLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="min-h-screen bg-[#0C1020] text-slate-300 font-sans selection:bg-[#818CF8]/20 selection:text-[#818CF8]">
+        <div className="min-h-screen bg-[#0C1020] text-slate-300 font-sans selection:bg-[#4F7EFF]/20 selection:text-[#4F7EFF]">
 
             {/* Decorative Ambient Background - Suavizado */}
             <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-0 w-[800px] h-[600px] bg-[#818CF8] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.02]"></div>
+                <div className="absolute top-0 left-0 w-[800px] h-[600px] bg-[#4F7EFF] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.02]"></div>
                 <div className="absolute bottom-0 right-0 w-[600px] h-[500px] bg-[#4F7EFF] rounded-full mix-blend-screen filter blur-[150px] opacity-[0.01]"></div>
             </div>
 
@@ -26,7 +26,7 @@ export default function PoliciesLayout({
 
                             <Link
                                 href="/"
-                                className="group flex items-center gap-2 text-sm text-slate-400 hover:text-[#818CF8] transition-colors mb-4"
+                                className="group flex items-center gap-2 text-sm text-slate-400 hover:text-[#4F7EFF] transition-colors mb-4"
                             >
                                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
                                 Voltar para Home
@@ -46,9 +46,9 @@ export default function PoliciesLayout({
                             </div>
 
                             <div className="p-5 rounded-2xl bg-[#0B0F1E] border border-white/5 mt-8 relative overflow-hidden group">
-                                <div className="absolute inset-0 bg-gradient-to-br from-[#818CF8]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute inset-0 bg-gradient-to-br from-[#4F7EFF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <h4 className="text-white font-medium mb-2 flex items-center gap-2 relative z-10">
-                                    <Key className="w-4 h-4 text-[#818CF8]" />
+                                    <Key className="w-4 h-4 text-[#4F7EFF]" />
                                     LGPD Status
                                 </h4>
                                 <p className="text-xs text-slate-400 mb-4 relative z-10 leading-relaxed">
@@ -68,7 +68,7 @@ export default function PoliciesLayout({
                         <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-50 no-print">
                             <button
                                 onClick={() => window.print()}
-                                className="bg-[#0B0F1E] hover:bg-[#818CF8] text-slate-400 hover:text-white p-3 rounded-full border border-slate-700 hover:border-[#818CF8] transition-all shadow-lg group"
+                                className="bg-[#0B0F1E] hover:bg-[#4F7EFF] text-slate-400 hover:text-white p-3 rounded-full border border-slate-700 hover:border-[#4F7EFF] transition-all shadow-lg group"
                                 aria-label="Imprimir esta página"
                                 title="Imprimir"
                             >
@@ -90,7 +90,7 @@ export default function PoliciesLayout({
                 prose-h1:text-5xl prose-h1:tracking-tight
                 prose-p:text-slate-400 prose-p:leading-8
                 prose-strong:text-white prose-strong:font-semibold
-                prose-a:text-[#818CF8] prose-a:no-underline hover:prose-a:underline
+                prose-a:text-[#4F7EFF] prose-a:no-underline hover:prose-a:underline
                 prose-li:text-slate-400
                 prose-blockquote:border-l-[#4F7EFF] prose-blockquote:bg-[#4F7EFF]/5 prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
              ">
@@ -127,11 +127,11 @@ function NavItem({ href, icon: Icon, label }: { href: string; icon: any; label: 
                 flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
                 text-sm font-medium border
                 ${isActive
-                    ? "bg-[#818CF8]/10 text-[#818CF8] border-[#818CF8]/20 shadow-[0_0_20px_rgba(129,140,248,0.05)]"
+                    ? "bg-[#4F7EFF]/10 text-[#4F7EFF] border-[#4F7EFF]/20 shadow-[0_0_20px_rgba(129,140,248,0.05)]"
                     : "text-slate-400 hover:text-white hover:bg-white/5 border-transparent hover:border-white/5"}
             `}
         >
-            <Icon className={`w-4 h-4 ${isActive ? "text-[#818CF8]" : "text-slate-500 group-hover:text-white"}`} />
+            <Icon className={`w-4 h-4 ${isActive ? "text-[#4F7EFF]" : "text-slate-500 group-hover:text-white"}`} />
             {label}
         </Link>
     )

@@ -79,10 +79,10 @@ export default function ISO42001ReportPage() {
 
             {/* TOOLBAR (Hidden on Print) */}
             <div className="w-full max-w-[210mm] flex justify-between items-center mb-8 print:hidden">
-                <h1 className="text-white text-xl font-bold flex items-center gap-2">
+                <h2 className="text-white text-xl font-bold flex items-center gap-2">
                     <ShieldCheck className="text-[#00FF94]" />
                     Relatório de Conformidade ISO 42001
-                </h1>
+                </h2>
                 <button
                     onClick={handlePrint}
                     className="flex items-center gap-2 px-6 py-3 bg-[#00A3FF] hover:bg-[#0088CC] text-white rounded-lg font-bold transition-colors"

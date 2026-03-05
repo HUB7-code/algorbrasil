@@ -1,4 +1,14 @@
-﻿
+﻿import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Termos de Uso | Algor Brasil',
+    description: 'Leia os Termos de Uso da plataforma Algor Brasil — regras de acesso, SLAs, propriedade intelectual e responsabilidades.',
+    openGraph: {
+        title: 'Termos de Uso | Algor Brasil',
+        description: 'Regras de acesso, SLAs e responsabilidades da plataforma de Governança de IA.',
+        url: 'https://www.algorbrasil.com.br/policies/terms',
+    },
+};
 
 export default function TermsPage() {
     return (
@@ -16,20 +26,20 @@ export default function TermsPage() {
             {/* Índice Clicável */}
             <nav className="mb-16 bg-[#0B0F1E]/50 p-8 rounded-2xl border border-slate-800/50">
                 <h4 className="text-white font-medium mb-4 flex items-center gap-2">
-                    <span className="material-symbols-rounded text-[#818CF8]">list</span>
+                    <span className="material-symbols-rounded text-[#4F7EFF]">list</span>
                     Índice
                 </h4>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-sm">
-                    <li><a href="#aceitacao" className="hover:text-[#818CF8] transition-colors">1. Aceitação dos Termos</a></li>
-                    <li><a href="#servicos" className="hover:text-[#818CF8] transition-colors">2. Descrição dos Serviços</a></li>
-                    <li><a href="#acesso" className="hover:text-[#818CF8] transition-colors">3. Acesso e Responsabilidades</a></li>
-                    <li><a href="#propriedade" className="hover:text-[#818CF8] transition-colors">4. Propriedade Intelectual</a></li>
-                    <li><a href="#ia-disclaimer" className="hover:text-[#818CF8] transition-colors">5. Governança de IA (Disclaimer)</a></li>
-                    <li><a href="#pagamentos" className="hover:text-[#818CF8] transition-colors">6. Planos e Faturamento</a></li>
-                    <li><a href="#slas" className="hover:text-[#818CF8] transition-colors">7. SLAs e Suporte</a></li>
-                    <li><a href="#responsabilidade" className="hover:text-[#818CF8] transition-colors">8. Limitação de Responsabilidade</a></li>
-                    <li><a href="#privacidade" className="hover:text-[#818CF8] transition-colors">9. Privacidade e Dados</a></li>
-                    <li><a href="#foro" className="hover:text-[#818CF8] transition-colors">10. Disposições Finais e Foro</a></li>
+                    <li><a href="#aceitacao" className="hover:text-[#4F7EFF] transition-colors">1. Aceitação dos Termos</a></li>
+                    <li><a href="#servicos" className="hover:text-[#4F7EFF] transition-colors">2. Descrição dos Serviços</a></li>
+                    <li><a href="#acesso" className="hover:text-[#4F7EFF] transition-colors">3. Acesso e Responsabilidades</a></li>
+                    <li><a href="#propriedade" className="hover:text-[#4F7EFF] transition-colors">4. Propriedade Intelectual</a></li>
+                    <li><a href="#ia-disclaimer" className="hover:text-[#4F7EFF] transition-colors">5. Governança de IA (Disclaimer)</a></li>
+                    <li><a href="#pagamentos" className="hover:text-[#4F7EFF] transition-colors">6. Planos e Faturamento</a></li>
+                    <li><a href="#slas" className="hover:text-[#4F7EFF] transition-colors">7. SLAs e Suporte</a></li>
+                    <li><a href="#responsabilidade" className="hover:text-[#4F7EFF] transition-colors">8. Limitação de Responsabilidade</a></li>
+                    <li><a href="#privacidade" className="hover:text-[#4F7EFF] transition-colors">9. Privacidade e Dados</a></li>
+                    <li><a href="#foro" className="hover:text-[#4F7EFF] transition-colors">10. Disposições Finais e Foro</a></li>
                 </ul>
             </nav>
 
@@ -144,7 +154,7 @@ export default function TermsPage() {
                     </p>
                     <div className="bg-[#0B0F1E] p-4 rounded-lg border border-slate-800 mt-4 flex items-center justify-between">
                         <span className="text-slate-400 text-sm">Dúvidas sobre dados?</span>
-                        <a href="/policies/dpo" className="text-[#818CF8] text-sm hover:underline font-medium">Acessar Canal do DPO →</a>
+                        <a href="/policies/dpo" className="text-[#4F7EFF] text-sm hover:underline font-medium">Acessar Canal do DPO →</a>
                     </div>
                 </section>
 
@@ -161,7 +171,7 @@ export default function TermsPage() {
                 <div className="text-sm text-slate-500 font-mono">
                     <p className="mb-1"><strong>ALGOR TECNOLOGIA LTDA</strong></p>
                     <p className="mb-1">Av. Paulista, 1106 - Bela Vista, São Paulo - SP</p>
-                    <p>Contato Legal: <a href="mailto:legal@algor.com.br" className="text-[#818CF8]">legal@algor.com.br</a></p>
+                    <p>Contato Legal: <a href="mailto:legal@algor.com.br" className="text-[#4F7EFF]">legal@algor.com.br</a></p>
                 </div>
 
             </div>

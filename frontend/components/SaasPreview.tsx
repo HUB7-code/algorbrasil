@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, useSpring, useInView } from 'framer-motion';
@@ -15,7 +15,7 @@ const mockModules = [
     { label: 'DiagnÃ³stico', value: 94, color: '#4F7EFF' },
     { label: 'Conformidade', value: 87, color: '#818CF8' },
     { label: 'Riscos', value: 72, color: '#60a5fa' },
-    { label: 'Maturidade', value: 91, color: '#a78bfa' },
+    { label: 'Maturidade', value: 91, color: '#7DAEFF' },
 ];
 
 const liveLogs = [

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
@@ -64,7 +64,7 @@ function DashboardLayoutContent({
             <div className="fixed inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] bg-[#818CF8]/10 rounded-full blur-[180px] mix-blend-screen" />
                 <div className="absolute bottom-[-20%] right-[-10%] w-[800px] h-[800px] bg-[#4F7EFF]/5 rounded-full blur-[180px] mix-blend-screen" />
-                <div className="absolute top-[30%] left-[40%] w-[500px] h-[500px] bg-[#8B5CF6]/5 rounded-full blur-[150px] animate-pulse-slow" />
+                <div className="absolute top-[30%] left-[40%] w-[500px] h-[500px] bg-[#4F7EFF]/5 rounded-full blur-[150px] animate-pulse-slow" />
             </div>
 
             {/* Sidebar - Ultra Modern Premium */}
@@ -144,7 +144,7 @@ function DashboardLayoutContent({
                     <NavItem href="/dashboard/inventory" icon="database" label="Inventário de IA" active={pathname.startsWith("/dashboard/inventory")} color="#818CF8" />
                     <NavItem href="/dashboard/assessments" icon="fact_check" label="Auditorias" active={pathname === "/dashboard/assessments"} color="#4F7EFF" badge="4" />
                     <NavItem href="/dashboard/risks" icon="health_and_safety" label="Gestão de Riscos" active={pathname.startsWith("/dashboard/risks")} color="#F59E0B" />
-                    <NavItem href="/dashboard/projects" icon="folder_managed" label="Projetos Gov" active={pathname.startsWith("/dashboard/projects")} color="#8B5CF6" />
+                    <NavItem href="/dashboard/projects" icon="folder_managed" label="Projetos Gov" active={pathname.startsWith("/dashboard/projects")} color="#4F7EFF" />
 
                     {/* Section: Knowledge */}
                     <div className="px-4 py-2 mt-6 flex items-center gap-2">
@@ -153,7 +153,7 @@ function DashboardLayoutContent({
                             Conhecimento
                         </span>
                     </div>
-                    <NavItem href="/dashboard/courses" icon="school" label="Academia" active={pathname.startsWith("/dashboard/courses")} color="#8B5CF6" />
+                    <NavItem href="/dashboard/courses" icon="school" label="Academia" active={pathname.startsWith("/dashboard/courses")} color="#4F7EFF" />
 
                     {/* Admin Section */}
                     {user.role === "admin" && (

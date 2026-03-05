@@ -1,4 +1,15 @@
-﻿
+﻿import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: 'Política de Cookies | Algor Brasil',
+    description: 'Entenda como a Algor Brasil usa cookies para segurança e analytics conforme a LGPD.',
+    openGraph: {
+        title: 'Política de Cookies | Algor Brasil',
+        description: 'Como a Algor Brasil usa cookies de forma transparente e em conformidade com a LGPD.',
+        url: 'https://www.algorbrasil.com.br/policies/cookies',
+    },
+};
+
 export default function CookiePolicyPage() {
     return (
         <div className="animate-in fade-in duration-700">
@@ -75,13 +86,13 @@ export default function CookiePolicyPage() {
                         <span className="material-symbols-rounded text-6xl">campaign</span>
                     </div>
                     <h4 className="text-white font-medium mb-2 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.5)]"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#4F7EFF] shadow-[0_0_8px_rgba(79,126,255,0.5)]"></span>
                         Marketing &amp; CRM
                     </h4>
                     <p className="text-slate-400 text-sm leading-relaxed mb-3">
                         Rastreiam sua navegação para exibir conteúdo relevante e integrar com nosso CRM (HubSpot) para suporte e vendas.
                     </p>
-                    <span className="text-xs font-mono text-purple-400 border border-purple-500/30 px-2 py-1 rounded bg-purple-500/10">Opcionais</span>
+                    <span className="text-xs font-mono text-[#4F7EFF] border border-[#4F7EFF]/30 px-2 py-1 rounded bg-[#4F7EFF]/10">Opcionais</span>
                 </div>
             </div>
 
@@ -113,7 +124,7 @@ export default function CookiePolicyPage() {
                         </tr>
                         <tr>
                             <td className="p-4 font-medium text-white">HubSpot</td>
-                            <td className="p-4"><span className="text-purple-400">Marketing / CRM</span></td>
+                            <td className="p-4"><span className="text-[#4F7EFF]">Marketing / CRM</span></td>
                             <td className="p-4">Identificação de leads, chat e histórico.</td>
                             <td className="p-4">6 meses</td>
                         </tr>
@@ -142,7 +153,7 @@ export default function CookiePolicyPage() {
                     <h4 className="text-white font-medium mb-1">Preferências de Privacidade</h4>
                     <p className="text-slate-400 text-sm">Acesse nosso painel para alterar seus consentimentos a qualquer momento.</p>
                 </div>
-                <button className="px-5 py-2.5 bg-[#818CF8]/10 text-[#818CF8] hover:bg-[#818CF8]/20 border border-[#818CF8]/20 rounded-lg text-sm font-medium transition-colors">
+                <button className="px-5 py-2.5 bg-[#4F7EFF]/10 text-[#4F7EFF] hover:bg-[#4F7EFF]/20 border border-[#4F7EFF]/20 rounded-lg text-sm font-medium transition-colors">
                     Gerenciar Cookies
                 </button>
             </div>
@@ -151,7 +162,7 @@ export default function CookiePolicyPage() {
 
             <p className="text-sm text-slate-500">
                 <strong>Encarregado (DPO):</strong> dpo@algorbrasil.com.br<br />
-                Para mais informações sobre como tratamos seus dados, consulte nossa <a href="/policies/privacy" className="text-[#818CF8] hover:underline">Política de Privacidade</a>.
+                Para mais informações sobre como tratamos seus dados, consulte nossa <a href="/policies/privacy" className="text-[#4F7EFF] hover:underline">Política de Privacidade</a>.
             </p>
         </div>
     );

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
@@ -31,7 +31,7 @@ const errorRateData = [
 const tokenDistribution = [
     { range: '0-500', count: 12500, color: '#10B981' },
     { range: '500-1k', count: 8900, color: '#3B82F6' },
-    { range: '1k-2k', count: 4200, color: '#8B5CF6' },
+    { range: '1k-2k', count: 4200, color: '#4F7EFF' },
     { range: '2k-4k', count: 2100, color: '#F59E0B' },
     { range: '4k+', count: 800, color: '#EF4444' }
 ];
@@ -39,7 +39,7 @@ const tokenDistribution = [
 const modelUsage = [
     { name: 'GPT-4o', value: 45, color: '#10B981' },
     { name: 'GPT-4 Turbo', value: 25, color: '#3B82F6' },
-    { name: 'Claude Sonnet', value: 20, color: '#8B5CF6' },
+    { name: 'Claude Sonnet', value: 20, color: '#4F7EFF' },
     { name: 'Claude Haiku', value: 10, color: '#F59E0B' }
 ];
 
@@ -211,7 +211,7 @@ export default function TechnicalDashboard() {
                     {/* Model Distribution Pie */}
                     <div className="col-span-4 bg-gradient-to-b from-[#131825]/80 to-[#0B0F1E]/80 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
                         <div className="flex items-center gap-3 mb-6">
-                            <Database className="w-5 h-5 text-purple-400" />
+                            <Database className="w-5 h-5 text-[#4F7EFF]" />
                             <h3 className="text-white font-semibold">Uso por Modelo</h3>
                         </div>
 
