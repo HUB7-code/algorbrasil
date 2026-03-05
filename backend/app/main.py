@@ -80,6 +80,10 @@ app.add_middleware(
 @app.middleware("http")
 async def set_secure_headers(request: Request, call_next):
     response = await call_next(request)
+    # Ignorar CSP e security headers em rotas de documentação para permitir Swagger UI
+    if request.url.path in [app.docs_url, app.redoc_url, app.openapi_url]:
+        return response
+        
     try:
         secure_headers.set_headers(response)
         if "server" in response.headers:
