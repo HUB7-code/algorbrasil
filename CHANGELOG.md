@@ -4,6 +4,40 @@ Histórico de versões e mudanças do projeto.
 
 ---
 
+## [V23.0.0] - 2026-03-05 - "Compliance Scanner & Evidence Vault Integration"
+
+### 🛡️ Governança e Compliance (Fase 2)
+
+#### 🌟 Novo
+- **Compliance Scanner Real-Time:** 
+  - Transição completa de dados estáticos para integração viva com o backend.
+  - Endpoint `/api/v1/scanner/stats` consolidado para métricas de risco, exposição financeira e scores LGPD/OWASP.
+- **Evidence Vault Connect:** 
+  - Activity Feed agora consome logs reais da tabela `governance_traces`, fornecendo trilha de auditoria imutável em tempo real.
+- **Risk Mapping Automático:** 
+  - Scans de arquivos agora persistem automaticamente achados de alta severidade no `RiskRegister` da organização.
+
+### 🎨 UI/UX — Premium Dashboard
+
+#### ✅ Adicionado
+- **Premium Risk Cards:** Novos componentes holográficos para visualização de riscos de LGPD, Alucinação e Segurança.
+- **`useComplianceScanner` Hook:** Centralização da lógica de fetching, loading e tratamento de erros no frontend.
+- **Risk Score Gauge Dinâmico:** Visualização de progresso e tendências baseada em dados reais de conformidade.
+
+### 🛠️ Estabilidade e Infraestrutura
+
+#### 🔧 Corrigido
+- **Backend Shadowing Fix:** Resolvida falha de inicialização onde o modelo `profiles` impedia o carregamento do router da API em `main.py`.
+- **Router Synchronization:** Registrados todos os roteadores pendentes (`leads`, `partners`, `downloads`, `forms`, `stats`) no core do sistema.
+- **Linux Deployment (UTF-8 BOM):** Corrigido erro de build 500 no Docker/Linux através da normalização de encoding do `requirements.txt`.
+- **Backend Consolidation:** Unificados endpoints de scanner em um único módulo estável (`scanner.py`), eliminando conflitos de diretório.
+
+#### 📊 Validação
+- **E2E Stability:** 100% de sucesso nos testes Playwright para os fluxos críticos de conformidade.
+- **Workspace Sync:** Totalmente limpo e sincronizado com o repositório GitHub.
+
+---
+
 ## [V22.1.0] - 2026-03-03 - "CI/CD Stabilization & B2B Conversion Hook"
 
 ### 🎯 Conversão e Vendas (N7 Consultoria)
