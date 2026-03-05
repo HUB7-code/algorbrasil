@@ -74,6 +74,7 @@ export default function HeroCinematic() {
 
                         {/* Headline */}
                         <motion.h1
+                            data-testid="hero-title"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.7, delay: 0.1 }}

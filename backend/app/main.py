@@ -89,8 +89,7 @@ async def set_secure_headers(request: Request, call_next):
     return response
 
 # Rotas - Imports baseados na estrutura real
-from backend.app.api import auth, profiles, leads
-from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard, lms
+from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard, lms, scanner, governance
 from backend.app.api.endpoints.inventory import assets as inventory_assets
 
 # Autenticação e Perfis
@@ -105,6 +104,8 @@ app.include_router(lab.router, prefix="/api/v1/lab", tags=["Health Lab"])
 app.include_router(risks.router, prefix="/api/v1/risks", tags=["Risk Register"])
 app.include_router(dashboard.router, prefix="/api/v1/dashboard", tags=["Dashboard"])
 app.include_router(inventory_assets.router, prefix="/api/v1/inventory", tags=["AI Inventory"])
+app.include_router(scanner.router, prefix="/api/v1/scanner", tags=["Compliance Scanner"])
+app.include_router(governance.router, prefix="/api/v1/governance", tags=["Governance Guardrail"])
 
 # LMS (Learning Management System)
 app.include_router(lms.router, prefix="/api/lms", tags=["LMS - Academy"])
