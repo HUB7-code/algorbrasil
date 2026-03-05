@@ -90,6 +90,7 @@ async def set_secure_headers(request: Request, call_next):
 
 # Rotas - Imports baseados na estrutura real
 from backend.app.api.endpoints import admin, lab, organizations, risks, dashboard, lms, scanner, governance
+from backend.app.api import profiles, leads, partners, downloads, forms, stats
 from backend.app.api.endpoints.inventory import assets as inventory_assets
 
 # Autenticação e Perfis
@@ -110,8 +111,12 @@ app.include_router(governance.router, prefix="/api/v1/governance", tags=["Govern
 # LMS (Learning Management System)
 app.include_router(lms.router, prefix="/api/lms", tags=["LMS - Academy"])
 
-# Leads e Formulários
+# Leads, Parceiros e Formulários
 app.include_router(leads.router, prefix="/api/v1", tags=["Leads"])
+app.include_router(partners.router, prefix="/api/v1/partners", tags=["Partners"])
+app.include_router(forms.router, prefix="/api/v1", tags=["Forms"])
+app.include_router(downloads.router, prefix="/api/v1", tags=["Downloads"])
+app.include_router(stats.router, prefix="/api/v1", tags=["Stats"])
 
 # Webhooks (Clerk, etc)
 from backend.app.api.webhooks import clerk as clerk_webhooks
