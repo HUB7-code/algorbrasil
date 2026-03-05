@@ -102,21 +102,29 @@ def check_page(file_path: Path) -> dict:
     except Exception as e:
         return {"file": str(file_path.name), "issues": [f"Error: {e}"]}
     
-    # Detect if this is a layout/template file (has Head component)
-    is_layout = 'Head>' in content or '<head' in content.lower()
+    # Skip 'use client' files - they cannot export Next.js Server Component metadata
+    is_client_component = "'use client'" in content[:200] or '"use client"' in content[:200]
+    if is_client_component:
+        return {"file": str(file_path.name), "issues": []}
+    
+    # Detect if this is a layout/template file (has Head component or Next.js layout)
+    is_layout = 'Head>' in content or '<head' in content.lower() or 'export default function RootLayout' in content
+    
+    # Next.js App router metadata support
+    has_app_metadata = 'export const metadata' in content or 'export function generateMetadata' in content
     
     # 1. Title tag
-    has_title = '<title' in content.lower() or 'title=' in content or 'Head>' in content
+    has_title = '<title' in content.lower() or 'title=' in content or 'Head>' in content or has_app_metadata
     if not has_title and is_layout:
         issues.append("Missing <title> tag")
     
     # 2. Meta description
-    has_description = 'name="description"' in content.lower() or 'name=\'description\'' in content.lower()
+    has_description = 'name="description"' in content.lower() or 'name=\'description\'' in content.lower() or 'description:' in content.lower()
     if not has_description and is_layout:
         issues.append("Missing meta description")
     
     # 3. Open Graph tags
-    has_og = 'og:' in content or 'property="og:' in content.lower()
+    has_og = 'og:' in content or 'property="og:' in content.lower() or 'openGraph:' in content or 'opengraph:' in content.lower()
     if not has_og and is_layout:
         issues.append("Missing Open Graph tags")
     
